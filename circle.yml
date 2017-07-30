@@ -5,13 +5,3 @@ machine:
 test:
   pre:
     - npm run lint
-
-deployment:
-  staging:
-    branch: dev
-    heroku:
-      appname: recontact-test
-  production:
-    branch: master
-    heroku:
-      appname: recontact
