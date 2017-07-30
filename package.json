@@ -1,0 +1,23 @@
+{
+  "name": "recontact_travel_blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "heroku-postbuild": "(cd client && npm run build)",
+    "start": "node server/bin/www",
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trollepierre/recontact_travel_blog.git"
+  },
+  "author": "Pierre Trollé",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trollepierre/recontact_travel_blog/issues"
+  },
+  "homepage": "https://github.com/trollepierre/recontact_travel_blog#readme"
+}
