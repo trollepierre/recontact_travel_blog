@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "clean": "rm -rf node_modules",
+    "test": "NODE_ENV=test nyc mocha --recursive"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
