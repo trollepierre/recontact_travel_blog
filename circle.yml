@@ -1,0 +1,19 @@
+machine:
+  node:
+   version: 7
+
+test:
+  pre:
+    - npm run lint
+  post:
+    - (cd server && npm run coverage)
+
+deployment:
+  staging:
+    branch: dev
+    heroku:
+      appname: recontact-test
+  production:
+    branch: master
+    heroku:
+      appname: recontact
