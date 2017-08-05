@@ -7,10 +7,8 @@ const DropboxClient = {
 
   getFile() {
     return dbx.filesListFolder({ path: '' })
-      .then((response) => {
-        return `https://www.dropbox.com/home/Applications/Recontact%20Travel%20Blog?preview=${response.entries[0].name}`;
-      })
-      .catch(error => error);
+      .then(response => Promise.resolve(`https://www.dropbox.com/home/Applications/Recontact%20Travel%20Blog?preview=${response.entries[0].name}`))
+      .catch(error => Promise.reject(error));
   },
 };
 
