@@ -19,12 +19,10 @@
     computed: {
       getImg() {
         const options = { headers: { 'Content-Type': 'application/json' } };
-
         axios.get(this.url, options)
           .then((response) => {
             this.imgLink = response.data[0].imgLink;
-          },
-          );
+          });
         return this.imgLink;
       },
     },
