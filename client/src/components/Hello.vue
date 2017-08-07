@@ -11,7 +11,6 @@
     name: 'hello',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App',
         url: 'http://localhost:3000/',
         imgLink: 'not defined',
       };
