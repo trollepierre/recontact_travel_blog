@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    {{ getImg }}
     <img :src="getImg"/>
   </div>
 </template>
@@ -11,7 +12,7 @@
     name: 'hello',
     data() {
       return {
-        url: 'http://localhost:3000/',
+        url: 'http://localhost:3000/articles',
         imgLink: 'not defined',
       };
     },
@@ -29,7 +30,6 @@
   ;
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   h1, h2 {
     font-weight: normal;
