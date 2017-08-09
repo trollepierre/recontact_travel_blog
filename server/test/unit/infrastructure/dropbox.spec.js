@@ -1,6 +1,7 @@
 const DropboxClient = require('../../../src/infrastructure/dropbox');
 const { expect, sinon } = require('../../test-helper');
 const Dropbox = require('dropbox');
+const dropboxFilesListFolder = require('../fixtures/dropboxFilesListFolder');
 
 describe('Unit | Utils | dropbox-client', () => {
   beforeEach(() => {
@@ -12,36 +13,36 @@ describe('Unit | Utils | dropbox-client', () => {
   });
 
   /**
-   * #getFile
+   * #getAllFileMetaDataInDropbox
    * ---------------
    */
 
-  describe('#getFile', () => {
+  describe('#getAllFileMetaDataInDropbox', () => {
     describe('with a successful answer', () => {
       beforeEach(() => {
         Dropbox.prototype.filesListFolder.callsFake(() => Promise.resolve({
-          entries: [{ name: 'fileName.jpg' }],
+          entries: dropboxFilesListFolder,
         }));
       });
 
       it('should call dropbox API "filesListFolder" with emptyPath', () => {
         // when
-        const promise = DropboxClient.getFile();
+        const promise = DropboxClient.getAllFileMetaDataInDropbox();
 
         // then
         return promise.then(() => {
-          const expectedPath = { path: '' };
+          const expectedPath = { path: '', recursive: true };
           expect(Dropbox.prototype.filesListFolder).to.have.been.calledWith(expectedPath);
         });
       });
 
       it('should return url to show', () => {
         // when
-        const promise = DropboxClient.getFile();
+        const promise = DropboxClient.getAllFileMetaDataInDropbox();
 
         // then
         return promise.then((response) => {
-          expect(response).to.equal('https://www.dropbox.com/home/Applications/Recontact%20Travel%20Blog?preview=fileName.jpg');
+          expect(response).to.equal(dropboxFilesListFolder);
         });
       });
     });
@@ -53,7 +54,7 @@ describe('Unit | Utils | dropbox-client', () => {
 
       it('should return a rejected promise', (done) => {
         // when
-        const promise = DropboxClient.getFile();
+        const promise = DropboxClient.getAllFileMetaDataInDropbox();
 
         // then
         promise
