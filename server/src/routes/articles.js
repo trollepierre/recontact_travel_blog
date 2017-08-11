@@ -6,16 +6,25 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   let metadatas;
+  let articles;
 
+  // DropboxClient.shareImg()
   DropboxClient.getAllFileMetaDataInDropbox()
     .then((receivedMetadatas) => {
       metadatas = receivedMetadatas;
-      console.log(metadatas);
-
       return metadatas;
     })
     .then(() => ArticlesSerializer.serialize(metadatas))
-    .then(articles => res.json(articles));
+    .then((serializedArticles) => {
+      articles = serializedArticles;
+      return articles;
+    })
+    .then(() => {
+      const perfectArticles = DropboxClient.shareImages(articles);
+      console.log('perfectArticles');
+      console.log(perfectArticles);
+      return res.json(perfectArticles);
+    });
   // const article = {
   //   imgLink: 'https://www.dropbox.com/s/fghmcj18maztdgv/img0.jpg?dl=1',
   // };
