@@ -14,8 +14,9 @@
         <img class="article__image" :src="article.imgLink"/>
       </div>
       <footer class="article__footer">
-        <button class="article__apply-button">
+        <button class="article__apply-button" :disabled="isClicked" @click.prevent.once="submitInterest">
           Voir les photos
+          <!--todo track event on google analytics-->
         </button>
       </footer>
     </article>
@@ -26,6 +27,21 @@
   export default {
     name: 'ArticleCard',
     props: ['article'],
+    data() {
+      return {
+        isClicked: false,
+      };
+    },
+    methods: {
+
+      submitInterest() {
+        this.disableButton();
+      },
+
+      disableButton() {
+        this.isClicked = true;
+      },
+    },
   };
 </script>
 
