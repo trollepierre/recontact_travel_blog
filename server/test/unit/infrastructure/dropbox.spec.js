@@ -72,7 +72,6 @@ describe('Unit | Utils | dropbox-client', () => {
    */
 
   describe.skip('#shareImages', () => {
-
     const articles = [{
       name: '58',
       imgLink: '/58/img0.jpg',

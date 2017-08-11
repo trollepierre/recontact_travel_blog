@@ -38,7 +38,7 @@
     },
     methods: {
       getArticles() {
-        const url = 'http://localhost:3000/articles';
+        const url = `${process.env.PORT}/articles`;
         const options = { headers: { 'Content-Type': 'application/json' } };
         axios.get(url, options)
           .then((response) => {
