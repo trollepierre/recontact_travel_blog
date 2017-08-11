@@ -12,8 +12,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import ArticleCard from '@/components/ArticleCard';
+  import articlesApi from '@/api/articles';
 
   export default {
     name: 'ArticleList',
@@ -38,11 +38,9 @@
     },
     methods: {
       getArticles() {
-        const url = `${process.env.PORT}/articles`;
-        const options = { headers: { 'Content-Type': 'application/json' } };
-        axios.get(url, options)
-          .then((response) => {
-            this.articles = response.data;
+        articlesApi.fetchAll()
+          .then((articles) => {
+            this.articles = articles;
           });
       },
     },
