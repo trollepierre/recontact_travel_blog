@@ -1,3 +1,4 @@
+// todo minor: fix eslint issues
 import Vue from 'vue';
 import articlesApi from '@/api/articles';
 import ArticleList from '@/components/ArticleList';

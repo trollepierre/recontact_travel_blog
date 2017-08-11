@@ -127,5 +127,4 @@ describe('Unit | Utils | dropbox-client', () => {
       });
     });
   });
-
 });
