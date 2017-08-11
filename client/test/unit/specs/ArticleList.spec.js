@@ -33,7 +33,7 @@ describe('ArticleList.vue', () => {
   describe('mounted', () => {
     it('should call axios get', () => {
       const options = { headers: { 'Content-Type': 'application/json' } };
-      const url = 'http://localhost:3000/articles';
+      const url = `${process.env.PORT}/articles`;
       expect(axios.get).to.have.been.calledWith(url, options);
     });
   });
