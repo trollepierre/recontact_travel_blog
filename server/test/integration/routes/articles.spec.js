@@ -17,12 +17,14 @@ describe('Integration | Routes | articles route', () => {
 
   beforeEach(() => {
     sinon.stub(DropboxClient, 'getAllFileMetaDataInDropbox').resolves();
-    sinon.stub(ArticlesSerializer, 'serialize').resolves(expectedArticles);
+    sinon.stub(ArticlesSerializer, 'serialize').resolves();
+    sinon.stub(DropboxClient, 'shareImages').returns(expectedArticles);
   });
 
   afterEach(() => {
     DropboxClient.getAllFileMetaDataInDropbox.restore();
     ArticlesSerializer.serialize.restore();
+    DropboxClient.shareImages.restore();
   });
 
   it('should have api informations on root', (done) => {

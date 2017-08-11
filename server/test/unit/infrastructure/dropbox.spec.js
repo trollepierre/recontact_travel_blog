@@ -20,9 +20,12 @@ describe('Unit | Utils | dropbox-client', () => {
   describe('#getAllFileMetaDataInDropbox', () => {
     describe('with a successful answer', () => {
       beforeEach(() => {
-        Dropbox.prototype.filesListFolder.callsFake(() => Promise.resolve({
-          entries: dropboxFilesListFolder,
-        }));
+        Dropbox.prototype.filesListFolder.callsFake((options, callback) => {
+          const httpResponse = {
+            entries: dropboxFilesListFolder,
+          };
+          callback(null, httpResponse);
+        });
       });
 
       it('should call dropbox API "filesListFolder" with emptyPath', () => {
@@ -49,7 +52,9 @@ describe('Unit | Utils | dropbox-client', () => {
 
     describe('with an error', () => {
       beforeEach(() => {
-        Dropbox.prototype.filesListFolder.callsFake(() => Promise.reject(new Error('Some error message')));
+        Dropbox.prototype.filesListFolder.callsFake((options, callback) => {
+          callback(new Error('Some error message'), null);
+        });
       });
 
       it('should return a rejected promise', (done) => {
@@ -72,25 +77,17 @@ describe('Unit | Utils | dropbox-client', () => {
    */
 
   describe.skip('#shareImages', () => {
-    const articles = [{
-      name: '58',
-      imgLink: '/58/img0.jpg',
-    }, {
-      name: '59',
-      imgLink: '/59/img0.jpg',
-    }];
-
     describe('with a successful answer', () => {
-      const responseFromDropbox = {};
-
       beforeEach(() => {
-        Dropbox.prototype.sharingCreateSharedLink
-          .callsFake(() => Promise.resolve(responseFromDropbox));
+        Dropbox.prototype.sharingCreateSharedLink.callsFake((options, callback) => {
+          const httpResponse = dropboxFilesListFolder;
+          callback(null, httpResponse);
+        });
       });
 
       it('should call dropbox API "sharingCreateSharedLink" with emptyPath', () => {
         // when
-        const promise = DropboxClient.shareImages(articles);
+        const promise = DropboxClient.shareImages();
 
         // then
         return promise.then(() => {
@@ -101,7 +98,7 @@ describe('Unit | Utils | dropbox-client', () => {
 
       it('should return url to show', () => {
         // when
-        const promise = DropboxClient.shareImages(articles);
+        const promise = DropboxClient.shareImages();
 
         // then
         return promise.then((response) => {
@@ -112,12 +109,14 @@ describe('Unit | Utils | dropbox-client', () => {
 
     describe('with an error', () => {
       beforeEach(() => {
-        Dropbox.prototype.sharingCreateSharedLink.callsFake(() => Promise.reject(new Error('Some error message')));
+        Dropbox.prototype.sharingCreateSharedLink.callsFake((options, callback) => {
+          callback(new Error('Some error message'), null);
+        });
       });
 
       it('should return a rejected promise', (done) => {
         // when
-        const promise = DropboxClient.shareImages(articles);
+        const promise = DropboxClient.shareImages();
 
         // then
         promise
@@ -128,4 +127,5 @@ describe('Unit | Utils | dropbox-client', () => {
       });
     });
   });
+
 });
