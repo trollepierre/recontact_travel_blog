@@ -1,0 +1,67 @@
+<template>
+  <div class="article-list">
+    <section class="article-results">
+      <h1 class="article-results__title">Les articles du voyage</h1>
+      <ul class="articles-results__list">
+        <li v-for="article in articles" class="articles-results__item">
+          <article-card :article="article"></article-card>
+        </li>
+      </ul>
+    </section>
+  </div>
+</template>
+
+<script>
+  import axios from 'axios';
+  import ArticleCard from '@/components/ArticleCard';
+
+  export default {
+    name: 'ArticleList',
+    components: {
+      'article-card': ArticleCard,
+    },
+    data() {
+      return {
+        articles: [
+          {
+            name: '58 : Pierre avec les webf',
+            imgLink: '../assets/webf.jpg',
+          }, {
+            name: '59 : Pierre au Koezio',
+            imgLink: '/assets/koezio.jpg',
+          },
+        ],
+      };
+    },
+    mounted() {
+      this.getArticles();
+    },
+    methods: {
+      getArticles() {
+        const url = 'http://localhost:3000/articles';
+        const options = { headers: { 'Content-Type': 'application/json' } };
+        axios.get(url, options)
+          .then((response) => {
+            this.articles = response.data;
+          });
+      },
+    },
+  }
+  ;
+</script>
+
+<style scoped>
+  h1 {
+    font-weight: normal;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+</style>
