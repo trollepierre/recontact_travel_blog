@@ -11,16 +11,22 @@
         <!-- todo ajouter le nombre de comments de l'article-->
       </header>
       <div class="article__content">
-        <img src="../assets/koezio.jpg" width="200" v-if="article.imgLink==='koezio'">
         <img src="../assets/webf.jpg" width="200" v-if="article.imgLink==='webf'">
+        <img src="../assets/koezio.jpg" width="200" v-if="article.imgLink==='koezio'">
 
         <!--<img class="article__image" :src="article.imgLink" width="200"/>-->
       </div>
       <footer class="article__footer">
-        <button class="article__apply-button" :disabled="isClicked" @click.prevent.once="submitInterest">
-          Voir les photos
+        <button class="article__view-button" :disabled="isClicked" @click.prevent.once="viewArticle">
+          Voir l'article
           <!--todo track event on google analytics-->
         </button>
+        <a href="http://dropbox.com" target="_blank" class="article__dropbox">
+          <button class="article__dropbox-button">
+            Voir les photos
+            <!--todo mettre un logo dropbox en ligne-->
+          </button>
+        </a>
       </footer>
     </article>
   </div>
@@ -37,7 +43,7 @@
     },
     methods: {
 
-      submitInterest() {
+      viewArticle() {
         this.disableButton();
       },
 
@@ -115,7 +121,7 @@
     border-top: 1px solid #e6e6e6;
   }
 
-  .article__apply-button {
+  .article__footer button {
     text-transform: uppercase;
     color: #d14800;
     background: #ffffff;
@@ -128,13 +134,13 @@
     font-weight: 700;
   }
 
-  .article__apply-button:hover {
+  .article__footer button:hover {
     background: #d14800;
     color: #ffffff;
   }
 
-  .article__apply-button:disabled,
-  .article__apply-button:active {
+  .article__footer button:disabled,
+  .article__footer button:active {
 
     background: #BDBDBD;
     border-color: #616161;
