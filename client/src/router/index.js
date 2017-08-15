@@ -11,5 +11,10 @@ export default new Router({
       name: 'ArticleList',
       component: ArticleList,
     },
+    {
+      path: '/article',
+      name: 'ArticleList',
+      component: ArticleList,
+    },
   ],
 });

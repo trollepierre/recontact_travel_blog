@@ -60,8 +60,21 @@ describe('ArticleCard.vue', () => {
       component.$el.querySelector('button.article__view-button').click();
 
       // then
-      Vue.nextTick().then(() => {
+      return Vue.nextTick().then(() => {
         expect(component.$el.querySelector('.article__view-button').disabled).to.be.true;
+      });
+    });
+
+    it.skip('should redirect to /article/id', () => {
+      // given
+      sinon.stub(component, '$router').resolves({});
+
+      // when
+      component.$el.querySelector('button.article__view-button').click();
+
+      // then
+      return Vue.nextTick().then(() => {
+        expect(component.$router).to.have.been.calledWith('/article/58');
       });
     });
   });
@@ -72,7 +85,7 @@ describe('ArticleCard.vue', () => {
       component.$el.querySelector('button.article__dropbox-button').click();
 
       // then
-      Vue.nextTick().then(() => {
+      return Vue.nextTick().then(() => {
         expect(component.$el.querySelector('.article__dropbox-button').disabled).to.be.true;
       });
     });
