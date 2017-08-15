@@ -2,7 +2,7 @@
   <div class="paragraph-card">
     <article class="paragraph">
       <header class="paragraph__header">
-        <h2 class="paragraph__title">{{ paragraph.name }}</h2>
+        <h2 class="paragraph__title">{{ paragraph.title }}</h2>
       </header>
       <div class="paragraph__content">
         <img src="../assets/webf.jpg" width="200" v-if="paragraph.imgLink==='webf'">
@@ -93,10 +93,6 @@
     display: block;
     color: #000;
     text-align: center;
-  }
-
-  .paragraph__content > img {
-    margin-top: 0;
   }
 
   .paragraph__footer {
