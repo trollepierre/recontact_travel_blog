@@ -36,10 +36,15 @@
 
       viewArticle() {
         this.disableButton();
+        this.goToArticle();
       },
 
       disableButton() {
         this.isClicked = true;
+      },
+
+      goToArticle() {
+// todo       this.$router.push('/article');
       },
     },
   };
