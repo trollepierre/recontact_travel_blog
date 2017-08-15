@@ -11,7 +11,10 @@
         <!-- todo ajouter le nombre de comments de l'article-->
       </header>
       <div class="article__content">
-        <img class="article__image" :src="article.imgLink"/>
+        <img src="../assets/koezio.jpg" width="200" v-if="article.imgLink==='koezio'">
+        <img src="../assets/webf.jpg" width="200" v-if="article.imgLink==='webf'">
+
+        <!--<img class="article__image" :src="article.imgLink" width="200"/>-->
       </div>
       <footer class="article__footer">
         <button class="article__apply-button" :disabled="isClicked" @click.prevent.once="submitInterest">

@@ -31,10 +31,17 @@
         articles: [
           {
             name: '58 : Pierre avec les webf',
-            imgLink: '../assets/webf.jpg',
+            imgLink: 'webf',
           }, {
             name: '59 : Pierre au Koezio',
-            imgLink: '/assets/koezio.jpg',
+            imgLink: 'koezio',
+          },
+          {
+            name: '58 : Pierre avec les webf',
+            imgLink: 'webf',
+          }, {
+            name: '59 : Pierre au Koezio',
+            imgLink: 'koezio',
           },
         ],
       };

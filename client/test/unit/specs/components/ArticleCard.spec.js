@@ -28,10 +28,8 @@ describe('ArticleCard.vue', () => {
   });
 
   describe('on click on button "voir les photos"', () => {
-
     it('should disable button');
 
     it('should open target blank to dropbox');
-
   });
 });
