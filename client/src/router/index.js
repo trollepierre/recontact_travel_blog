@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import ArticleList from '@/components/ArticleList';
+import ArticlePage from '@/components/ArticlePage';
 
 Vue.use(Router);
 
@@ -13,8 +14,8 @@ export default new Router({
     },
     {
       path: '/article',
-      name: 'ArticleList',
-      component: ArticleList,
+      name: 'ArticlePage',
+      component: ArticlePage,
     },
   ],
 });
