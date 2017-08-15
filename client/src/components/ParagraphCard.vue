@@ -2,9 +2,7 @@
   <div class="paragraph-card">
     <article class="paragraph">
       <header class="paragraph__header">
-        <a href="/">
-          <h2 class="paragraph__title">{{ paragraph.name }}</h2>
-        </a>
+        <h2 class="paragraph__title">{{ paragraph.name }}</h2>
       </header>
       <div class="paragraph__content">
         <img src="../assets/webf.jpg" width="200" v-if="paragraph.imgLink==='webf'">
@@ -17,12 +15,16 @@
           abandonnée. Le toit s’était écroulé depuis bien longtemps, et un énorme sycomore avait grandi à remplacement
           où se trouvait autrefois la sacristie. Il décida de passer la nuit dans cet endroit. Il fit entrer toutes ses
           brebis par la porte en ruine et disposa quelques planches de façon à les empêcher de s’échapper au cours de
+          la nuit
         </p>
         <p v-if="paragraph.imgLink==='koezio'">
-          la nuit. Il n’y avait pas de loups dans la région mais, une fois, une bête s’était enfuie, et il avait dû
+          Il n’y avait pas de loups dans la région mais, une fois, une bête s’était enfuie, et il avait dû
           perdre toute la journée du lendemain à chercher la brebis égarée. Il étendit sa cape sur le sol et
           s’allongea, en se servant comme oreiller du livre qu’il venait de terminer. Avant de s’endormir, il pensa
-          qu’il devrait » Extrait de: Paulo Coelho. « L'alchimiste. » iBooks.
+          qu’il devrait »
+        </p>
+        <p>
+          Extrait de: Paulo Coelho. « L'alchimiste. » iBooks.
         </p>
       </footer>
     </article>
@@ -90,10 +92,10 @@
     /*height: 150px;*/
     display: block;
     color: #000;
-    text-align: left;
+    text-align: center;
   }
 
-  .paragraph__content > p {
+  .paragraph__content > img {
     margin-top: 0;
   }
 
