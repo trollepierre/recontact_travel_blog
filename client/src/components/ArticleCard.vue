@@ -104,7 +104,7 @@
     height: 150px;
     display: block;
     color: #000;
-    text-align: left;
+    text-align: center;
   }
 
   .article__content > p {
