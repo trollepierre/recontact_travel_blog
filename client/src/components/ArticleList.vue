@@ -1,4 +1,5 @@
 <template>
+  <!--todo refaire l'arborescence (job ? + page ?)-->
   <div class="page">
     <main class="page__body">
       <div class="page__container">
