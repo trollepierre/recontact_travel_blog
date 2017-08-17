@@ -6,44 +6,34 @@ const dbx = new Dropbox({ accessToken: config.DROPBOX_CLIENT_ID });
 const DropboxClient = {
 
   getAllFileMetaDataInDropbox() {
-    return new Promise((resolve, reject) => {
-      const options = { path: '', recursive: true };
-      dbx.filesListFolder(options, (err, response) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(response.entries);
-      });
-    });
+    return dbx.filesListFolder({ path: '', recursive: true })
+      .then(response => response.entries)
+      .catch(error => Promise.reject(error));
+  },
+
+  _getImgLinkFrom(response) {
+    return response.url.replace(/.$/, '1');
   },
 
   _shareImg(article) {
-    return new Promise((resolve, reject) => {
-      const options = { path: article.path, short_url: true };
-      dbx.sharingCreateSharedLink(options, (err, response) => {
-        if (err) {
-          reject(err);
-        }
-        const articleWithAll = {
-          name: article.name,
-          imgLink: JSON.parse(response),
-        };
-        resolve(articleWithAll);
-      });
-    });
+    const options = { path: article.imgLink, short_url: false };
+    return dbx.sharingCreateSharedLink(options)
+      .then(response => ({
+        name: article.name,
+        imgLink: this._getImgLinkFrom(response),
+      }))
+      .catch(error => Promise.reject(error));
   },
 
   shareImages(articles) {
-    console.log('1. shareImage');
     const articlesWithAll = articles.reduce((promises, article) => {
-      console.log('2. ', article.imgLink);
       const articleWithAll = this._shareImg(article);
-      console.log(articleWithAll);
       promises.push(articleWithAll);
       return promises;
     }, []);
     return Promise.all(articlesWithAll)
-      .then(article => Promise.resolve(article));
+      .then(article => Promise.resolve(article))
+      .catch(error => Promise.reject(error));
   },
 };
 
