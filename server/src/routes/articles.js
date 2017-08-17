@@ -8,8 +8,7 @@ router.get('/', (req, res) => {
   let metadatas;
   let articles;
 
-  // DropboxClient.shareImg()
-  DropboxClient.getAllFileMetaDataInDropbox()
+  return DropboxClient.getAllFileMetaDataInDropbox()
     .then((receivedMetadatas) => {
       metadatas = receivedMetadatas;
       return metadatas;
@@ -19,21 +18,11 @@ router.get('/', (req, res) => {
       articles = serializedArticles;
       return articles;
     })
-    .then(() => {
-      const perfectArticles = DropboxClient.shareImages(articles);
-      console.log('perfectArticles');
-      console.log(perfectArticles);
-      return res.json(perfectArticles);
-    });
-  // const article = {
-  //   imgLink: 'https://www.dropbox.com/s/fghmcj18maztdgv/img0.jpg?dl=1',
-  // };
-  // const article2 = {
-  //   imgLink: metadatas,
-  // };
-  // const articles = [article, article2];
-  // return res.json(articles);
-// });
+    .then(() => DropboxClient.shareImages(articles)
+      .then((articlesDropbox) => {
+        console.log(articlesDropbox);
+        return res.json(articlesDropbox);
+      }));
 });
 
 
