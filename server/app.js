@@ -7,7 +7,6 @@ const cors = require('cors');
 
 const articles = require('./src/routes/articles');
 const index = require('./src/routes/index');
-const users = require('./src/routes/users');
 
 const app = express();
 
@@ -25,7 +24,6 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use('/', index);
 app.use('/articles', articles);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

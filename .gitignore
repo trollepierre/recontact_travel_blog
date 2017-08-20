@@ -62,4 +62,3 @@ typings/
 .env
 
 client/src/assets
-/client/test/unit/coverage/
