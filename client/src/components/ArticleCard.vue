@@ -3,28 +3,23 @@
     <article class="article">
       <header class="article__header">
         <a href="/">
-          <!--todo ajouter href-->
           <h2 class="article__title">{{ article.name }}</h2>
         </a>
-        <!-- todo ajouter le nombre de vues de l'article-->
-        <!-- todo ajouter le nombre de likes de l'article-->
-        <!-- todo ajouter le nombre de comments de l'article-->
       </header>
       <div class="article__content">
+        <!-- fix for server side rendering + offline-->
         <img src="../assets/webf.jpg" width="200" v-if="article.imgLink==='webf'">
         <img src="../assets/koezio.jpg" width="200" v-if="article.imgLink==='koezio'">
 
-        <!--<img class="article__image" :src="article.imgLink" width="200"/>-->
+        <img class="article__image" :src="article.imgLink" width="200" v-if="!(article.imgLink==='koezio' && article.imgLink==='webf')"/>
       </div>
       <footer class="article__footer">
         <button class="article__view-button" :disabled="isClicked" @click.prevent.once="viewArticle">
           Voir l'article
-          <!--todo track event on google analytics-->
         </button>
         <a href="http://dropbox.com" target="_blank" class="article__dropbox">
           <button class="article__dropbox-button">
             Voir les photos
-            <!--todo mettre un logo dropbox en ligne-->
           </button>
         </a>
       </footer>

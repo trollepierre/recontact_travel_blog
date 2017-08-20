@@ -32,7 +32,6 @@ const DropboxClient = {
       return promises;
     }, []);
     return Promise.all(articlesWithAll)
-      .then(article => Promise.resolve(article))
       .catch(error => Promise.reject(error));
   },
 };

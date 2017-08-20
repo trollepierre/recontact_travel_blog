@@ -17,10 +17,8 @@ describe('Unit | API | articles api', () => {
       axios.get.restore();
     });
 
-    // todo need to install dotenv
     it('should fetch API with the good params', () => {
       // given
-      // const expectedUrl = 'http://localhost:3001/api/articles';
       const expectedUrl = `${process.env.API_URL}articles`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
