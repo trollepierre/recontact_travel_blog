@@ -22,8 +22,6 @@ const DropboxClient = {
   },
 
   _getImgLinkFrom(response) {
-    console.log(response);
-
     return response.url.replace(/.$/, '1');
   },
 

@@ -7,10 +7,6 @@ const router = express.Router();
 router.get('/', (req, res) => DropboxClient.getAllFileMetaDataInDropbox()
   .then(ArticlesSerializer.serialize)
   .then(articles => DropboxClient.shareImages(articles))
-  .then((articlesDropbox) => {
-    console.log(articlesDropbox);
-    return res.json(articlesDropbox);
-  }));
-
+  .then(articlesDropbox => res.json(articlesDropbox)));
 
 module.exports = router;
