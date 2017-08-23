@@ -11,7 +11,19 @@ const DropboxClient = {
       .catch(error => Promise.reject(error));
   },
 
+  shareImages(articles) {
+    const articlesWithAll = articles.reduce((promises, article) => {
+      const articleWithAll = this._shareImg(article);
+      promises.push(articleWithAll);
+      return promises;
+    }, []);
+    return Promise.all(articlesWithAll)
+      .catch(error => Promise.reject(error));
+  },
+
   _getImgLinkFrom(response) {
+    console.log(response);
+
     return response.url.replace(/.$/, '1');
   },
 
@@ -22,16 +34,6 @@ const DropboxClient = {
         name: article.name,
         imgLink: this._getImgLinkFrom(response),
       }))
-      .catch(error => Promise.reject(error));
-  },
-
-  shareImages(articles) {
-    const articlesWithAll = articles.reduce((promises, article) => {
-      const articleWithAll = this._shareImg(article);
-      promises.push(articleWithAll);
-      return promises;
-    }, []);
-    return Promise.all(articlesWithAll)
       .catch(error => Promise.reject(error));
   },
 };
