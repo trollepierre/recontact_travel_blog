@@ -25,6 +25,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
+// static resources
+// FIXME manage better environment variables
+if (process.env.NODE_ENV !== 'test') {
+  app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+}
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
