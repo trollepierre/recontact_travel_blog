@@ -15,16 +15,22 @@
         </p>
         <p v-if="paragraph.imgLink==='koezio'">
           C'est sûrement la première chose que vous allez rencontrer dans le pays, il y en a 1,3 milliards seulement !
-          ##
+        </p>
+        <p v-if="paragraph.imgLink==='koezio'">
           Et ces Chinois vous témoigneront un vif intérêt. Couleur de peau aidant, votre présence sur les selfies chinois est inévitable. Habituez-vous car votre accord ne sera pas souvent demandé. Aussi les habitants viendront souvent à votre aide pour trouver une direction ou vous faciliter la vie - surtout s'ils connaissent un peu d'anglais.
-          ##
+        </p>
+        <p v-if="paragraph.imgLink==='koezio'">
           Leur éducation reste très pratique, basée à plus de 70% sur l'apprentissage de leur langue et les mathématiques. Ils ne semblent pas bien connaître l'histoire de leur propre pays (la Révolution Culturelle a porté ses fruits) ni connaître le monde extérieur à leur nation. Un exemple du filtre exercé par l'Etat qui limite les influences extérieures est la "grande muraille" (firewall) informatique de Chine, bloquant toute technologie de communication sociale : Google/YouTube, Facebook, Twitter ou Dropbox.
           #
           Information pratique : Les VPN permettent de se connecter en tant qu'utilisateur d'un autre pays. Ainsi vous passez outre le firewall. Je vous propose Psych et GreenVPN, testés et approuvés pour Android.
-          ##
-          Enfin la Chine est hyper peuplée, les Chinois sont partout ! Certaines de ses villes millionnaires sont qualifiées de petites villes et sont peu connues. Et vous traverserez quotidiennement des rues bondées sans vous méfier des pickpockets, car la Chine est l'un des pays les plus sûrs au monde. La raison est simple : le crime, les délits (et surtout envers les touristes) y sont sévèrement réprimés.
         </p>
-        <p>
+        <p v-if="paragraph.imgLink==='koezio'">
+          Enfin la Chine est hyper peuplée, les Chinois sont partout ! Certaines de ses villes millionnaires sont
+          qualifiées de petites villes et sont peu connues. Et vous traverserez quotidiennement des rues bondées sans
+          vous méfier des pickpockets, car la Chine est l
+          'un des pays les plus sûrs au monde. La raison est simple : le crime, les délits (et surtout envers les touristes) y sont sévèrement réprimés.
+        </p>
+        <p v-if="paragraph.imgLink==='koezio'">
           Extrait de: Paulo Coelho. « L'alchimiste. » iBooks.
         </p>
       </footer>
@@ -49,21 +55,9 @@
     max-height: 100%;
   }
 
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-    display: block;
-  }
-
   .paragraph {
     min-width: 260px;
-    max-width: 260px;
+    /*max-width: 260px;*/
     background: #ffffff;
     border-radius: 4px !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
