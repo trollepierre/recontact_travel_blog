@@ -5,23 +5,24 @@
         <h2 class="paragraph__title">{{ paragraph.title }}</h2>
       </header>
       <div class="paragraph__content">
-        <img src="../assets/webf.jpg" width="200" v-if="paragraph.imgLink==='webf'">
-        <img src="../assets/koezio.jpg" width="200" v-if="paragraph.imgLink==='koezio'">
-        <!--<img class="paragraph__image" :src="paragraph.imgLink" width="200"/>-->
+        <img src="../assets/webf.jpg" v-if="paragraph.imgLink==='webf'">
+        <img src="../assets/koezio.jpg" v-if="paragraph.imgLink==='koezio'">
+        <!--<img class="paragraph__image" :src="paragraph.imgLink"/>-->
       </div>
       <footer class="paragraph__footer">
         <p>
-          « Il se nommait Santiago. Le jour déclinait lorsqu’il arriva, avec son troupeau, devant une vieille église
-          abandonnée. Le toit s’était écroulé depuis bien longtemps, et un énorme sycomore avait grandi à remplacement
-          où se trouvait autrefois la sacristie. Il décida de passer la nuit dans cet endroit. Il fit entrer toutes ses
-          brebis par la porte en ruine et disposa quelques planches de façon à les empêcher de s’échapper au cours de
-          la nuit
+          Un voyage en Chine n'est pas une chose facile. Même pour un grand voyageur, la Chine nécessite une adaptation. Ce guide a pour objet de vous préparer à votre éventuel prochain voyage dans le plus vieux pays du monde !
         </p>
         <p v-if="paragraph.imgLink==='koezio'">
-          Il n’y avait pas de loups dans la région mais, une fois, une bête s’était enfuie, et il avait dû
-          perdre toute la journée du lendemain à chercher la brebis égarée. Il étendit sa cape sur le sol et
-          s’allongea, en se servant comme oreiller du livre qu’il venait de terminer. Avant de s’endormir, il pensa
-          qu’il devrait »
+          C'est sûrement la première chose que vous allez rencontrer dans le pays, il y en a 1,3 milliards seulement !
+          ##
+          Et ces Chinois vous témoigneront un vif intérêt. Couleur de peau aidant, votre présence sur les selfies chinois est inévitable. Habituez-vous car votre accord ne sera pas souvent demandé. Aussi les habitants viendront souvent à votre aide pour trouver une direction ou vous faciliter la vie - surtout s'ils connaissent un peu d'anglais.
+          ##
+          Leur éducation reste très pratique, basée à plus de 70% sur l'apprentissage de leur langue et les mathématiques. Ils ne semblent pas bien connaître l'histoire de leur propre pays (la Révolution Culturelle a porté ses fruits) ni connaître le monde extérieur à leur nation. Un exemple du filtre exercé par l'Etat qui limite les influences extérieures est la "grande muraille" (firewall) informatique de Chine, bloquant toute technologie de communication sociale : Google/YouTube, Facebook, Twitter ou Dropbox.
+          #
+          Information pratique : Les VPN permettent de se connecter en tant qu'utilisateur d'un autre pays. Ainsi vous passez outre le firewall. Je vous propose Psych et GreenVPN, testés et approuvés pour Android.
+          ##
+          Enfin la Chine est hyper peuplée, les Chinois sont partout ! Certaines de ses villes millionnaires sont qualifiées de petites villes et sont peu connues. Et vous traverserez quotidiennement des rues bondées sans vous méfier des pickpockets, car la Chine est l'un des pays les plus sûrs au monde. La raison est simple : le crime, les délits (et surtout envers les touristes) y sont sévèrement réprimés.
         </p>
         <p>
           Extrait de: Paulo Coelho. « L'alchimiste. » iBooks.
@@ -41,6 +42,11 @@
 <style scoped>
   h2 {
     font-weight: normal;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
   }
 
   .sr-only {
@@ -70,8 +76,10 @@
   .paragraph__header {
     border-bottom: 1px solid #e6e6e6;
     padding: 15px;
+    height: 34px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
   }
 
   .paragraph__title {
@@ -80,16 +88,12 @@
     line-height: 17px;
     color: #07c;
     margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
+    overflow-wrap: break-word;
   }
 
   .paragraph__content {
     font-size: 15px;
     padding: 15px;
-    /*height: 150px;*/
     display: block;
     color: #000;
     text-align: center;
@@ -121,7 +125,6 @@
 
   .paragraph__footer button:disabled,
   .paragraph__footer button:active {
-
     background: #BDBDBD;
     border-color: #616161;
     color: #FAFAFA;

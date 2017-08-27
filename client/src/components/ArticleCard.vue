@@ -55,6 +55,11 @@
     font-weight: normal;
   }
 
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
   .sr-only {
     position: absolute;
     width: 1px;
@@ -102,9 +107,11 @@
     font-size: 15px;
     padding: 15px;
     height: 150px;
-    display: block;
     color: #000;
     text-align: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
   }
 
   .article__content > p {

@@ -31,11 +31,12 @@
       return {
         paragraphs: [
           {
-            title: '1 er paragraph',
+            title: 'Le guide du voyageur en Chine Par Pierre avec Franzi',
             imgLink: 'webf',
             text: 'some text',
-          }, {
-            title: '2e paragraph',
+          },
+          {
+            title: 'Les Chinois',
             imgLink: 'koezio',
             text: 'some text',
           },
@@ -43,17 +44,14 @@
             title: '3e paragraph',
             imgLink: 'webf',
             text: 'some text',
-          }, {
+          },
+          {
             title: '4e paragraph',
             imgLink: 'koezio',
             text: 'some text',
           },
           {
             title: '5e paragraph',
-            imgLink: 'koezio',
-            text: 'some text',
-          }, {
-            title: '6e paragraph',
             imgLink: 'webf',
             text: 'some text',
           },
@@ -86,12 +84,16 @@
 
   .article-page {
     margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .article-page__title {
     font-weight: 300;
     font-size: 24px;
     margin: 0 0 15px;
+    max-width: 80%;
   }
 
   .paragraph__list {
