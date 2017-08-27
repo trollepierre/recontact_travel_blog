@@ -7,7 +7,7 @@ const ArticlesApi = {
     const options = { headers: { 'Content-Type': 'application/json' } };
 
     return axios.get(url, options)
-      .then(response => Promise.resolve(response.data))
+      .then(response => response.data)
       .catch(error => Promise.reject(error));
   },
 };
