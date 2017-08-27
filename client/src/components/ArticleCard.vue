@@ -40,6 +40,8 @@
       },
 
       disableButton() {
+        console.log('toto');
+
         this.isClicked = true;
       },
 

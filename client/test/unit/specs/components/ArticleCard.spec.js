@@ -78,16 +78,4 @@ describe('ArticleCard.vue', () => {
       });
     });
   });
-
-  describe('clicking on button "Voir les photos"', () => {
-    it('should disable button', () => {
-      // when
-      component.$el.querySelector('button.article__dropbox-button').click();
-
-      // then
-      return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('.article__dropbox-button').disabled).to.be.true;
-      });
-    });
-  });
 });
