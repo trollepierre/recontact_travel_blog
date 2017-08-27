@@ -40,13 +40,11 @@
       },
 
       disableButton() {
-        console.log('toto');
-
         this.isClicked = true;
       },
 
       goToArticle() {
-// todo       this.$router.push('/article');
+        this.$router.push('/article');
       },
     },
   };
