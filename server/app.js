@@ -3,9 +3,10 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const index = require('./routes/index');
-const users = require('./routes/users');
+const articles = require('./src/routes/articles');
+const index = require('./src/routes/index');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 
 // static resources
 // FIXME manage better environment variables
@@ -21,7 +23,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/articles', articles);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -20,9 +20,12 @@
     "test:server": "(cd server && npm test)",
     "test": "npm run test:client && npm run test:server",
     "lint:client": "(cd client && npm run lint)",
+    "lintfix:client": "(cd client && npm run lint:fix)",
     "lint:server": "(cd server && npm run lint)",
+    "lintfix:server": "(cd server && npm run lint:fix)",
     "lint": "npm run lint:client && npm run lint:server",
-    "release": "exit 0",
+    "lint:fix": "npm run lintfix:client && npm run lintfix:server",
+    "release": "./tools/release/release.sh",
     "heroku-postbuild": "npm run build"
   },
   "repository": {

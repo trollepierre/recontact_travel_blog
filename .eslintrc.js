@@ -9,7 +9,7 @@ module.exports = {
             'classes': 'always',
             'switches': 'never'
         }],
-        'no-console': 2,
+        'no-console': 0,
         'max-len': 0,
     }
 };
