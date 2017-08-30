@@ -30,7 +30,7 @@ describe('Integration | Routes | articles route', () => {
   it('should have api informations on root', (done) => {
     // When
     request(app)
-      .get('/articles')
+      .get('/api/articles')
       .expect('Content-Type', /json/)
       .end((err, response) => {
         // Then
