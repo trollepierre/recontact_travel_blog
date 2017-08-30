@@ -7,9 +7,9 @@
         </a>
       </header>
       <div class="article__content">
-        <!-- fix for server side rendering + offline-->
-        <img src="../assets/webf.jpg" width="200" v-if="article.imgLink==='webf'">
-        <img src="../assets/koezio.jpg" width="200" v-if="article.imgLink==='koezio'">
+        <!--&lt;!&ndash; fix for server side rendering + offline&ndash;&gt;-->
+        <!--<img src="../assets/webf.jpg" width="200" v-if="article.imgLink==='webf'">-->
+        <!--<img src="../assets/koezio.jpg" width="200" v-if="article.imgLink==='koezio'">-->
 
         <img class="article__image" :src="article.imgLink" width="200" v-if="!(article.imgLink==='koezio' && article.imgLink==='webf')"/>
       </div>
