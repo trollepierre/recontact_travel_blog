@@ -25,7 +25,7 @@
     "lintfix:server": "(cd server && npm run lint:fix)",
     "lint": "npm run lint:client && npm run lint:server",
     "lint:fix": "npm run lintfix:client && npm run lintfix:server",
-    "release": "exit 0",
+    "release": "./tools/release/release.sh",
     "heroku-postbuild": "npm run build"
   },
   "repository": {
