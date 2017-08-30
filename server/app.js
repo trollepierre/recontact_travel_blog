@@ -23,7 +23,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.use('/', index);
-app.use('/articles', articles);
+app.use('/api/articles', articles);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
