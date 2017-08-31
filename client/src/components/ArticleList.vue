@@ -28,22 +28,7 @@
     },
     data() {
       return {
-        articles: [
-          {
-            name: '58 : Pierre avec les webf',
-            imgLink: 'webf',
-          }, {
-            name: '59 : Pierre au Koezio',
-            imgLink: 'koezio',
-          },
-          {
-            name: '60 : Pierre avec les webf',
-            imgLink: 'webf',
-          }, {
-            name: '61 : Pierre au Koezio',
-            imgLink: 'koezio',
-          },
-        ],
+        articles: [],
       };
     },
     mounted() {

@@ -7,11 +7,7 @@
         </a>
       </header>
       <div class="article__content">
-        <!--&lt;!&ndash; fix for server side rendering + offline&ndash;&gt;-->
-        <!--<img src="../assets/webf.jpg" width="200" v-if="article.imgLink==='webf'">-->
-        <!--<img src="../assets/koezio.jpg" width="200" v-if="article.imgLink==='koezio'">-->
-
-        <img class="article__image" :src="article.imgLink" width="200" v-if="!(article.imgLink==='koezio' && article.imgLink==='webf')"/>
+        <img class="article__image" :src="article.imgLink" width="200"/>
       </div>
       <footer class="article__footer">
         <button class="article__view-button" :disabled="isClicked" @click.prevent.once="viewArticle">
