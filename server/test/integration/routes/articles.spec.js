@@ -3,7 +3,7 @@ const app = require('../../../app');
 const DropboxClient = require('../../../src/infrastructure/dropbox');
 const ArticlesSerializer = require('../../../src/serializers/articles');
 
-describe.skip('Integration | Routes | articles route', () => {
+describe('Integration | Routes | articles route', () => {
   const expectedArticles = [
     {
       name: '58',
