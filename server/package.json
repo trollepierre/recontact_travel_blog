@@ -19,6 +19,7 @@
     "dotenv": "^4.0.0",
     "dropbox": "^2.5.7",
     "express": "~4.15.2",
+    "fs": "0.0.1-security",
     "morgan": "~1.8.1",
     "pug": "~2.0.0-beta11",
     "request": "^2.81.0",

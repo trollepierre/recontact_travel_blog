@@ -63,7 +63,9 @@
     },
     methods: {
       getParagraphs() {
-        paragraphsApi.fetchAll()
+        console.log('ici');
+
+        paragraphsApi.fetchAll(59)
           .then((paragraphs) => {
             this.paragraphs = paragraphs;
           });
