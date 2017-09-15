@@ -8,14 +8,14 @@ const router = express.Router();
 
 router.get('/', (req, res) => DropboxClient.getAllFileMetaDataInDropbox()
   .then(ArticlesSerializer.serialize)
-  .then(DropboxClient.shareImages)
-  .then(res.json));
+  .then(articles => DropboxClient.shareImages(articles))
+  .then(articlesDropbox => res.json(articlesDropbox)));
 
 router.get('/:some_id', (req, res) => {
   return DropboxClient.getFileContentStream(req.params.some_id)
-    .then(DropboxFile.read)
-    .then(ParagraphsSerializer.serialize)
-    .then(res.json);
+    .then(stream => DropboxFile.read(stream))
+    .then(paragraphContent => ParagraphsSerializer.serialize(paragraphContent))
+    .then(paragraphs => res.json(paragraphs));
 });
 
 module.exports = router;
