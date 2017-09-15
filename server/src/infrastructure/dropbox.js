@@ -6,6 +6,8 @@ const dbx = new Dropbox({ accessToken: config.DROPBOX_CLIENT_ID });
 const DropboxClient = {
 
   getAllFileMetaDataInDropbox() {
+    console.log('ici');
+
     return dbx.filesListFolder({ path: '', recursive: true })
       .then(response => response.entries)
       .catch(error => Promise.reject(error));
@@ -59,7 +61,7 @@ const DropboxClient = {
       //   return Promise.all(actions).catch(console.log);
       // })
       .then(result => result.link)
-      .then(console.log)
+      // .then(resultLink => console.log('resultLink :', resultLink))
       .catch(console.log)
       .catch(error => Promise.reject(error));
   },
