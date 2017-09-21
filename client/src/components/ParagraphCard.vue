@@ -7,7 +7,7 @@
       <div class="paragraph__content">
         <img src="../assets/webf.jpg" v-if="paragraph.imgLink==='webf'">
         <img src="../assets/koezio.jpg" v-if="paragraph.imgLink==='koezio'">
-        <!--<img class="paragraph__image" :src="paragraph.imgLink"/>-->
+        <img class="paragraph__image" :src="paragraph.imgLink"/>
       </div>
       <footer class="paragraph__footer">
         <p>

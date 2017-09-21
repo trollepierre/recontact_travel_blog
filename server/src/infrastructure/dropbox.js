@@ -55,11 +55,11 @@ const DropboxClient = {
     console.log(pathDb);
 
     return dbx.filesGetTemporaryLink({ path: pathDb })
-      // .then((actions) => {
-      //   console.log('3. actions');
-      //   console.log(actions);
-      //   return Promise.all(actions).catch(console.log);
-      // })
+    // .then((actions) => {
+    //   console.log('3. actions');
+    //   console.log(actions);
+    //   return Promise.all(actions).catch(console.log);
+    // })
       .then(result => result.link)
       // .then(resultLink => console.log('resultLink :', resultLink))
       .catch(console.log)
@@ -71,12 +71,29 @@ const DropboxClient = {
   },
 
   _shareImg(article) {
+    console.log('article.imgLink');
+    console.log(article.imgLink);
+
     const options = { path: article.imgLink, short_url: false };
     return dbx.sharingCreateSharedLink(options)
       .then(response => ({
         name: article.name,
         imgLink: this._getImgLinkFrom(response),
       }))
+      .catch(error => Promise.reject(error));
+  },
+
+  shareOneImg(imgLink) {
+    console.log('inside share one img', imgLink);
+
+    const options = { path: `/59/${imgLink}`, short_url: false };
+    return dbx.sharingCreateSharedLink(options)
+      .then(response => {
+        const sharedImgLink = this._getImgLinkFrom(response);
+        console.log('shared link', sharedImgLink);
+
+        return sharedImgLink;
+      })
       .catch(error => Promise.reject(error));
   },
 };

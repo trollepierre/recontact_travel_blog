@@ -1,5 +1,4 @@
 const request = require('request');
-const articleFr = require('../../test/unit/fixtures/articleFr');
 
 const FileSystem = {
 
@@ -13,14 +12,6 @@ const FileSystem = {
         if (err) {
           reject(err);
         }
-        // const projects = JSON.parse(response);
-        console.log('response');
-        console.log(response);
-
-        // TODO fix that
-        // resolve(articleFr);
-        // console.log('resolve called');
-
         resolve(response.body);
       });
     });
