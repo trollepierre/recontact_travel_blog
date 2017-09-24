@@ -5,7 +5,7 @@ const ArticlesSerializer = {
       .filter(metadata => metadata['.tag'] === 'folder')
       .map(metadata => ({
         name: metadata.name,
-        imgLink: `/${metadata.name}/img0.jpg`,
+        imgPath: `/${metadata.name}/img0.jpg`,
       }));
   },
 };
