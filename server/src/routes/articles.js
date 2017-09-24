@@ -2,7 +2,7 @@ const express = require('express');
 const File = require('../infrastructure/file');
 const DropboxClient = require('../infrastructure/dropbox');
 const ArticlesSerializer = require('../serializers/articles');
-const ParagraphsSerializer = require('../serializers/paragraphs');
+const ChaptersSerializer = require('../serializers/chapters');
 
 const router = express.Router();
 
@@ -13,23 +13,23 @@ router.get('/', (req, res) => DropboxClient.getAllFileMetaDataInDropbox()
 
 router.get('/:some_id', (req, res) => DropboxClient.getFileContentStream(req.params.some_id)
   .then(stream => File.read(stream))
-  .then(paragraphContent => ParagraphsSerializer.serialize(paragraphContent))
-  .then((paragraphs) => {
-    const paragraphsWithSharableLink = paragraphs.paragraphs.reduce((promises, paragraph) => {
-      const promise = DropboxClient.shareOneImg(paragraph.imgLink, req.params.some_id);
+  .then(chapterContent => ChaptersSerializer.serialize(chapterContent))
+  .then((chapters) => {
+    const chaptersWithSharableLink = chapters.chapters.reduce((promises, chapter) => {
+      const promise = DropboxClient.shareOneImg(chapter.imgLink, req.params.some_id);
       promises.push(promise);
       return promises;
     }, []);
-    return Promise.all(paragraphsWithSharableLink)
+    return Promise.all(chaptersWithSharableLink)
       .then((imgLinks) => {
-        const newParagraphs = paragraphs;
+        const newChapters = chapters;
         for (let i = 0; i < imgLinks.length; i += 1) {
-          newParagraphs.paragraphs[i].imgLink = imgLinks[i];
+          newChapters.chapters[i].imgLink = imgLinks[i];
         }
-        return newParagraphs;
+        return newChapters;
       })
       .catch(error => Promise.reject(error));
   })
-  .then(paragraphs => res.json(paragraphs)));
+  .then(chapters => res.json(chapters)));
 
 module.exports = router;

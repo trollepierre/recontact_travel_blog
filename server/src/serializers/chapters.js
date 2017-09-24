@@ -1,29 +1,29 @@
-const ParagraphsSerializer = {
+const ChaptersSerializer = {
 
   serialize(rawArticle) {
     const cuttedArticle = rawArticle
       .split('*')
       .map(row => row.trim());
 
-    const paragraphs = this._generateParagraphs(cuttedArticle);
+    const chapters = this._generateChapters(cuttedArticle);
 
     return {
       title: cuttedArticle[0],
-      paragraphs,
+      chapters,
     };
   },
 
-  _generateParagraphs(cuttedArticle) {
-    const paragraphs = [];
+  _generateChapters(cuttedArticle) {
+    const chapters = [];
     for (let i = 1; i < cuttedArticle.length / 3; i += 1) {
       const imgLink = `img${i}.jpg`;
-      paragraphs[i - 1] = {
-        title: [cuttedArticle[(3 * i) - 2], cuttedArticle[(3 * i) - 1]].join(' '),
+      chapters[i - 1] = {
+        title: [cuttedArticle[(3 * i) - 2], cuttedArticle[(3 * i) - 1]].join(' ').trim(),
         imgLink,
         text: this._addParagraphs(cuttedArticle[3 * i]),
       };
     }
-    return paragraphs;
+    return chapters;
   },
 
   _addParagraphs(text) {
@@ -31,4 +31,4 @@ const ParagraphsSerializer = {
   },
 };
 
-module.exports = ParagraphsSerializer;
+module.exports = ChaptersSerializer;

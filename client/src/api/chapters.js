@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-const ParagraphsApi = {
+const ChaptersApi = {
 
   fetchAll(id) {
     const url = `${process.env.API_URL}api/articles/${id}`;
     const options = { headers: { 'Content-Type': 'application/json' } };
 
     return axios.get(url, options)
-      .then(response => Promise.resolve(response.data.paragraphs))
+      .then(response => Promise.resolve(response.data.chapters))
       .catch(error => Promise.reject(error));
   },
 };
 
-export default ParagraphsApi;
+export default ChaptersApi;
