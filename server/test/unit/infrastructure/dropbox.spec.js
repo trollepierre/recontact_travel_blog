@@ -2,11 +2,14 @@ const DropboxClient = require('../../../src/infrastructure/dropbox');
 const { expect, sinon } = require('../../test-helper');
 const Dropbox = require('dropbox');
 const dropboxFilesListFolder = require('../fixtures/dropboxFilesListFolder');
-const articles = require('../fixtures/foldersInformation');
+const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTemporaryLink');
+const foldersInformation = require('../fixtures/foldersInformation');
 const articlesWithSharedLink = require('../fixtures/articlesWithSharedLink');
-const sharedLinkCreate = require('../fixtures/dropboxSharedLinkCreate');
+const chaptersWithSharedLink = require('../fixtures/chaptersWithSharedLink');
+const serializedChapters = require('../fixtures/serializedChaptersForInfraDb');
+const dropboxSharedLinkCreate = require('../fixtures/dropboxSharedLinkCreate');
 
-describe('Unit | Utils | dropbox-client', () => {
+describe('Unit | Infrastructure | dropbox-client', () => {
   describe('#getAllFileMetaDataInDropbox', () => {
     beforeEach(() => {
       sinon.stub(Dropbox.prototype, 'filesListFolder');
@@ -71,12 +74,12 @@ describe('Unit | Utils | dropbox-client', () => {
 
     describe('with a successful answer', () => {
       beforeEach(() => {
-        Dropbox.prototype.sharingCreateSharedLink.resolves(sharedLinkCreate);
+        Dropbox.prototype.sharingCreateSharedLink.resolves(dropboxSharedLinkCreate);
       });
 
       it('should call dropbox API "sharingCreateSharedLink" with emptyPath', () => {
         // when
-        const promise = DropboxClient.shareImages(articles);
+        const promise = DropboxClient.shareImages(foldersInformation);
 
         // then
         return promise.then(() => {
@@ -87,7 +90,7 @@ describe('Unit | Utils | dropbox-client', () => {
 
       it('should return url to show', () => {
         // when
-        const promise = DropboxClient.shareImages(articles);
+        const promise = DropboxClient.shareImages(foldersInformation);
 
         // then
         return promise.then((response) => {
@@ -103,7 +106,124 @@ describe('Unit | Utils | dropbox-client', () => {
 
       it('should return a rejected promise', () => {
         // when
-        const promise = DropboxClient.shareImages(articles);
+        const promise = DropboxClient.shareImages(foldersInformation);
+
+        // then
+        return promise.then(() => {
+          throw new Error();
+        }, (err) => {
+          expect(err.message).to.equal('Expected error');
+        });
+      });
+    });
+  });
+
+  describe('#getFileContentStream', () => {
+    let idArticle;
+
+    beforeEach(() => {
+      sinon.stub(Dropbox.prototype, 'filesGetTemporaryLink');
+      idArticle = 59;
+    });
+
+    afterEach(() => {
+      Dropbox.prototype.filesGetTemporaryLink.restore();
+    });
+
+    describe('with a successful answer', () => {
+      it('should return all file metadata in dropbox', () => {
+        // given
+        Dropbox.prototype.filesGetTemporaryLink.resolves(dropboxFilesGetTemporaryLink);
+
+        // when
+        const promise = DropboxClient.getFileContentStream(idArticle);
+
+        // then
+        return promise.then((link) => {
+          expect(link).to.deep.equal(dropboxFilesGetTemporaryLink.link);
+        });
+      });
+
+      it('should call dropbox API "dropboxFilesGetTemporaryLink" with emptyPath', () => {
+        // given
+        Dropbox.prototype.filesGetTemporaryLink.resolves(dropboxFilesGetTemporaryLink);
+
+        // when
+        DropboxClient.getFileContentStream(idArticle);
+
+        // then
+        expect(Dropbox.prototype.filesGetTemporaryLink).to.have.been.calledWith({ path: `/${idArticle}/fr.php` });
+      });
+    });
+
+    describe('with an error', () => {
+      it('should return a rejected promise', () => {
+        // given
+        Dropbox.prototype.filesGetTemporaryLink.rejects(new Error('Expected error'));
+
+        // when
+        const promise = DropboxClient.getFileContentStream(idArticle);
+
+        // then
+        return promise.then(() => {
+          throw new Error();
+        }, (err) => {
+          expect(err.message).to.equal('Expected error');
+        });
+      });
+    });
+  });
+
+  describe('#shareChapterImages', () => {
+    let idArticle;
+
+    beforeEach(() => {
+      sinon.stub(Dropbox.prototype, 'sharingCreateSharedLink');
+      idArticle = 59;
+    });
+
+    afterEach(() => {
+      Dropbox.prototype.sharingCreateSharedLink.restore();
+    });
+
+    describe('with a successful answer', () => {
+      beforeEach(() => {
+        Dropbox.prototype.sharingCreateSharedLink.resolves(dropboxSharedLinkCreate);
+      });
+
+      it('should call dropbox API "sharingCreateSharedLink" with one path per chapter', () => {
+        // when
+        const promise = DropboxClient.shareChapterImages(serializedChapters, idArticle);
+
+        // then
+        return promise.then(() => {
+          const expectedOptions = { path: `/${idArticle}/img1.jpg`, short_url: false };
+          const expectedOptions2 = { path: `/${idArticle}/img2.jpg`, short_url: false };
+          expect(Dropbox.prototype.sharingCreateSharedLink).to.have.been.calledTwice;
+          expect(Dropbox.prototype.sharingCreateSharedLink).to.have.been.calledWith(expectedOptions);
+          expect(Dropbox.prototype.sharingCreateSharedLink).to.have.been.calledWith(expectedOptions2);
+        });
+      });
+
+      it('should return url to show', () => {
+        // when
+        const promise = DropboxClient.shareChapterImages(serializedChapters, idArticle);
+
+        // then
+        return promise.then((response) => {
+          expect(response).to.deep.equal(chaptersWithSharedLink);
+        });
+      });
+    });
+
+    describe('with an error', () => {
+      beforeEach(() => {
+        Dropbox.prototype.sharingCreateSharedLink.rejects(new Error('Expected error'));
+      });
+
+      it('should return a rejected promise', () => {
+        // when
+        const promise = DropboxClient.shareChapterImages(serializedChapters, idArticle);
 
         // then
         return promise.then(() => {

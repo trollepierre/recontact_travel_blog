@@ -20,14 +20,13 @@ const DropboxClient = {
   },
 
   getFileContentStream(id) {
-    const pathDb = `/${id}/fr.php`;
-    return DropboxApi.filesGetTemporaryLink({ path: pathDb })
+    return DropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.php` })
       .then(result => result.link);
   },
 
-  shareChapterImages(chapters, idArticles) {
+  shareChapterImages(chapters, idArticle) {
     const chaptersWithSharableLink = chapters.chapters.reduce((promises, chapter) => {
-      const promise = DropboxClient._shareOneImg(chapter.imgLink, idArticles);
+      const promise = DropboxClient._shareOneImg(chapter.imgLink, idArticle);
       promises.push(promise);
       return promises;
     }, []);

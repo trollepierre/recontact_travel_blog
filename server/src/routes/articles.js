@@ -13,7 +13,7 @@ router.get('/', (req, res) => DropboxClient.getAllFileMetaDataInDropbox()
 
 router.get('/:some_id', (req, res) => DropboxClient.getFileContentStream(req.params.some_id)
   .then(File.read)
-  .then(chapterContent => ChaptersSerializer.serialize(chapterContent))
+  .then(chaptersContent => ChaptersSerializer.serialize(chaptersContent))
   .then(chapters => DropboxClient.shareChapterImages(chapters, req.params.some_id))
   .then(chapters => res.json(chapters)));
 
