@@ -2,9 +2,9 @@ const DropboxClient = require('../../../src/infrastructure/dropbox');
 const { expect, sinon } = require('../../test-helper');
 const Dropbox = require('dropbox');
 const dropboxFilesListFolder = require('../fixtures/dropboxFilesListFolder');
-const articles = require('../fixtures/articles');
+const articles = require('../fixtures/foldersInformation');
 const articlesWithSharedLink = require('../fixtures/articlesWithSharedLink');
-const sharedLinkCreate = require('../fixtures/sharedLinkCreate');
+const sharedLinkCreate = require('../fixtures/dropboxSharedLinkCreate');
 
 describe('Unit | Utils | dropbox-client', () => {
   describe('#getAllFileMetaDataInDropbox', () => {

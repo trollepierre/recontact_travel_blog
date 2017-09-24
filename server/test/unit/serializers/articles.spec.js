@@ -11,11 +11,11 @@ describe('Unit | Serializer | articles', () => {
     const expectedArticles = [
       {
         name: '58',
-        imgLink: '/58/img0.jpg',
+        imgPath: '/58/img0.jpg',
       },
       {
         name: '59',
-        imgLink: '/59/img0.jpg',
+        imgPath: '/59/img0.jpg',
       }];
     expect(articles).to.deep.equal(expectedArticles);
   });
