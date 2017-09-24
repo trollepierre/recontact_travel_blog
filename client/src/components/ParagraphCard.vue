@@ -10,9 +10,9 @@
         <img class="paragraph__image" :src="paragraph.imgLink"/>
       </div>
       <footer class="paragraph__footer">
-        <p>
-          Un voyage en Chine n'est pas une chose facile. Même pour un grand voyageur, la Chine nécessite une adaptation. Ce guide a pour objet de vous préparer à votre éventuel prochain voyage dans le plus vieux pays du monde !
-        </p>
+        <p>{{ paragraph.text }}</p>
+
+
         <p v-if="paragraph.imgLink==='koezio'">
           C'est sûrement la première chose que vous allez rencontrer dans le pays, il y en a 1,3 milliards seulement !
         </p>
