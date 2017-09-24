@@ -4,12 +4,12 @@
       <div class="page__container">
         <section class="article-page">
           <h1 class="article-page__title">Pierre dans un pays trop stylé, n'est-ce pas ?</h1>
-          <ul class="paragraph__list">
+          <ul class="chapter__list">
             <!--todo pour égaliser :-->
             <!--https://masonry.desandro.com/-->
             <!--https://stackoverflow.com/questions/22929755/how-to-accomplish-something-like-google-keep-layout-->
-            <li v-for="paragraph in paragraphs" class="paragraph__item">
-              <paragraph-card :paragraph="paragraph"></paragraph-card>
+            <li v-for="chapter in chapters" class="chapter__item">
+              <chapter-card :chapter="chapter"></chapter-card>
             </li>
           </ul>
         </section>
@@ -19,17 +19,17 @@
 </template>
 
 <script>
-  import ParagraphCard from '@/components/ParagraphCard';
-  import paragraphsApi from '@/api/paragraphs';
+  import ChapterCard from '@/components/ChapterCard';
+  import chaptersApi from '@/api/chapters';
 
   export default {
     name: 'ArticlePage',
     components: {
-      'paragraph-card': ParagraphCard,
+      'chapter-card': ChapterCard,
     },
     data() {
       return {
-        paragraphs: [
+        chapters: [
           {
             title: 'Le guide du voyageur en Chine Par Pierre avec Franzi',
             imgLink: 'webf',
@@ -59,15 +59,13 @@
       };
     },
     mounted() {
-      this.getParagraphs();
+      this.getChapters();
     },
     methods: {
-      getParagraphs() {
-        console.log('ici');
-
-        paragraphsApi.fetchAll(59)
-          .then((paragraphs) => {
-            this.paragraphs = paragraphs;
+      getChapters() {
+        chaptersApi.fetchAll(59)
+          .then((chapters) => {
+            (this.chapters = chapters);
           });
       },
     },
@@ -98,20 +96,20 @@
     max-width: 80%;
   }
 
-  .paragraph__list {
+  .chapter__list {
     padding: 0;
     display: flex;
     flex-direction: column;
   }
 
-  .paragraph__item {
+  .chapter__item {
     list-style-type: none;
     padding: 0;
     margin: 5px;
   }
 
   @media only screen and (min-width: 640px) {
-    .paragraph__list {
+    .chapter__list {
       flex-direction: row;
       flex-wrap: wrap;
     }

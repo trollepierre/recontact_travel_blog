@@ -1,13 +1,13 @@
 import Vue from 'vue';
-import paragraphsApi from '@/api/paragraphs';
+import chaptersApi from '@/api/chapters';
 import ArticlePage from '@/components/ArticlePage';
 
 describe('ArticlePage.vue', () => {
   let component;
-  let paragraphs;
+  let chapters;
 
   beforeEach(() => {
-    paragraphs = [
+    chapters = [
       {
         title: '60 : Pierre avec les webf',
         imgLink: '../assets/toto.jpg',
@@ -22,13 +22,13 @@ describe('ArticlePage.vue', () => {
         text: 'some text',
       },
     ];
-    sinon.stub(paragraphsApi, 'fetchAll').resolves(paragraphs);
+    sinon.stub(chaptersApi, 'fetchAll').resolves(chapters);
     const Constructor = Vue.extend(ArticlePage);
     component = new Constructor().$mount();
   });
 
   afterEach(() => {
-    paragraphsApi.fetchAll.restore();
+    chaptersApi.fetchAll.restore();
   });
 
   it('should be named "ArticlePage"', () => {
@@ -36,19 +36,19 @@ describe('ArticlePage.vue', () => {
   });
 
   describe('mounted', () => {
-    it('should call paragraphs api to fetch paragraphs', () => {
-      expect(paragraphsApi.fetchAll).to.have.been.calledWith();
+    it('should call chapters api to fetch chapters', () => {
+      expect(chaptersApi.fetchAll).to.have.been.calledWith();
     });
 
-    it('should saved paragraphs from api in data paragraphs', () => Vue.nextTick().then(() => {
-      expect(component.$data.paragraphs).to.equal(paragraphs);
+    it('should saved chapters from api in data chapters', () => Vue.nextTick().then(() => {
+      expect(component.$data.chapters).to.equal(chapters);
     }));
   });
 
   describe('render', () => {
-    it('should render as many paragraphs as received from the API', () => Vue.nextTick().then(() => {
-      const paragraphCards = component.$el.querySelectorAll('.paragraph-card');
-      expect(paragraphCards.length).to.equal(3);
+    it('should render as many chapters as received from the API', () => Vue.nextTick().then(() => {
+      const chaptersCards = component.$el.querySelectorAll('.chapter-card');
+      expect(chaptersCards.length).to.equal(3);
     }));
   });
 });

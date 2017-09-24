@@ -1,19 +1,19 @@
 <template>
-  <div class="paragraph-card">
-    <article class="paragraph">
-      <header class="paragraph__header">
-        <h2 class="paragraph__title">{{ paragraph.title }}</h2>
+  <div class="chapter-card">
+    <article class="chapter">
+      <header class="chapter__header">
+        <h2 class="chapter__title">{{ chapter.title }}</h2>
       </header>
-      <div class="paragraph__content">
-        <img src="../assets/webf.jpg" v-if="paragraph.imgLink==='webf'">
-        <img src="../assets/koezio.jpg" v-if="paragraph.imgLink==='koezio'">
-        <img class="paragraph__image" :src="paragraph.imgLink"/>
+      <div class="chapter__content">
+        <img src="../assets/webf.jpg" v-if="chapter.imgLink==='webf'">
+        <img src="../assets/koezio.jpg" v-if="chapter.imgLink==='koezio'">
+        <img class="chapter__image" :src="chapter.imgLink"/>
       </div>
-      <footer class="paragraph__footer">
-        <div v-for="text in paragraph.text">
+      <footer class="chapter__footer">
+        <div v-for="text in chapter.text">
           <p>{{ text }}</p>
         </div>
-        <p v-if="paragraph.imgLink==='koezio'">
+        <p v-if="chapter.imgLink==='koezio'">
           Loading...
         </p>
       </footer>
@@ -23,8 +23,8 @@
 
 <script>
   export default {
-    name: 'ParagraphCard',
-    props: ['paragraph'],
+    name: 'ChapterCard',
+    props: ['chapter'],
   };
 </script>
 
@@ -38,7 +38,7 @@
     max-height: 100%;
   }
 
-  .paragraph {
+  .chapter {
     min-width: 260px;
     /*max-width: 260px;*/
     background: #ffffff;
@@ -50,7 +50,7 @@
     color: #535a60;
   }
 
-  .paragraph__header {
+  .chapter__header {
     border-bottom: 1px solid #e6e6e6;
     padding: 15px;
     height: 34px;
@@ -59,7 +59,7 @@
     align-items: center;
   }
 
-  .paragraph__title {
+  .chapter__title {
     font-size: 16px;
     font-weight: 700;
     line-height: 17px;
@@ -68,7 +68,7 @@
     overflow-wrap: break-word;
   }
 
-  .paragraph__content {
+  .chapter__content {
     font-size: 15px;
     padding: 15px;
     display: block;
@@ -76,13 +76,13 @@
     text-align: center;
   }
 
-  .paragraph__footer {
+  .chapter__footer {
     text-align: center;
     padding: 15px;
     border-top: 1px solid #e6e6e6;
   }
 
-  .paragraph__footer button {
+  .chapter__footer button {
     text-transform: uppercase;
     color: #d14800;
     background: #ffffff;
@@ -95,13 +95,13 @@
     font-weight: 700;
   }
 
-  .paragraph__footer button:hover {
+  .chapter__footer button:hover {
     background: #d14800;
     color: #ffffff;
   }
 
-  .paragraph__footer button:disabled,
-  .paragraph__footer button:active {
+  .chapter__footer button:disabled,
+  .chapter__footer button:active {
     background: #BDBDBD;
     border-color: #616161;
     color: #FAFAFA;
