@@ -27,8 +27,7 @@ const ParagraphsSerializer = {
   },
 
   _addParagraphs(text) {
-    const formattedText = text.split('#').map(row => row.trim()).join('</p><p>');
-    return `<p>${formattedText}</p>`;
+    return text.split('#').map(row => row.trim());
   },
 };
 
