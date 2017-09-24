@@ -40,6 +40,23 @@ const DropboxClient = {
       .catch(error => Promise.reject(error));
   },
 
+  shareChapterImages(chapters, idArticles) {
+    const chaptersWithSharableLink = chapters.chapters.reduce((promises, chapter) => {
+      const promise = DropboxClient._shareOneImg(chapter.imgLink, idArticles);
+      promises.push(promise);
+      return promises;
+    }, []);
+    return Promise.all(chaptersWithSharableLink)
+      .then((imgLinks) => {
+        const newChapters = chapters;
+        for (let i = 0; i < imgLinks.length; i += 1) {
+          newChapters.chapters[i].imgLink = imgLinks[i];
+        }
+        return newChapters;
+      })
+      .catch(error => Promise.reject(error));
+  },
+
   _getImgLinkFrom(response) {
     return response.url.replace(/.$/, '1');
   },
@@ -54,7 +71,7 @@ const DropboxClient = {
       .catch(error => Promise.reject(error));
   },
 
-  shareOneImg(imgLink, articleId) {
+  _shareOneImg(imgLink, articleId) {
     const options = { path: `/${articleId}/${imgLink}`, short_url: false };
     return dbx.sharingCreateSharedLink(options)
       .then(this._getImgLinkFrom)
