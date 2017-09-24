@@ -6,8 +6,6 @@ const dbx = new Dropbox({ accessToken: config.DROPBOX_CLIENT_ID });
 const DropboxClient = {
 
   getAllFileMetaDataInDropbox() {
-    console.log('ici');
-
     return dbx.filesListFolder({ path: '', recursive: true })
       .then(response => response.entries)
       .catch(error => Promise.reject(error));
@@ -25,44 +23,20 @@ const DropboxClient = {
 
   getFromWeb(id) {
     return dbx.filesListFolder({ path: `/${id}` })
-      .then((res) => {
-        console.log('1. res.entries');
-        console.log(res.entries);
-        return res.entries;
-      })
-      .then(entries => entries.map((entry) => {
-        console.log('2. entry');
-        console.log(entry);
-
-        return dbx.filesGetTemporaryLink({ path: entry.path_lower });
-      }))
-      .then((actions) => {
-        console.log('3. actions');
-        console.log(actions);
-        return Promise.all(actions).catch(console.log);
-      })
+      .then(res => res.entries
+        .map(entry => dbx.filesGetTemporaryLink({ path: entry.path_lower })))
+      .then(actions => Promise.all(actions).catch(console.log))
       .then(results => results.map(result => ({
         name: result.metadata.name,
-        link: result.link
+        link: result.link,
       })))
       .catch(console.log);
   },
 
   getFileContentStream(id) {
-    console.log('in get');
-
     const pathDb = `/${id}/fr.php`;
-    console.log(pathDb);
-
     return dbx.filesGetTemporaryLink({ path: pathDb })
-    // .then((actions) => {
-    //   console.log('3. actions');
-    //   console.log(actions);
-    //   return Promise.all(actions).catch(console.log);
-    // })
       .then(result => result.link)
-      // .then(resultLink => console.log('resultLink :', resultLink))
-      .catch(console.log)
       .catch(error => Promise.reject(error));
   },
 
@@ -71,9 +45,6 @@ const DropboxClient = {
   },
 
   _shareImg(article) {
-    console.log('article.imgLink');
-    console.log(article.imgLink);
-
     const options = { path: article.imgLink, short_url: false };
     return dbx.sharingCreateSharedLink(options)
       .then(response => ({
@@ -83,17 +54,10 @@ const DropboxClient = {
       .catch(error => Promise.reject(error));
   },
 
-  shareOneImg(imgLink) {
-    console.log('inside share one img', imgLink);
-
-    const options = { path: `/59/${imgLink}`, short_url: false };
+  shareOneImg(imgLink, articleId) {
+    const options = { path: `/${articleId}/${imgLink}`, short_url: false };
     return dbx.sharingCreateSharedLink(options)
-      .then(response => {
-        const sharedImgLink = this._getImgLinkFrom(response);
-        console.log('shared link', sharedImgLink);
-
-        return sharedImgLink;
-      })
+      .then(this._getImgLinkFrom)
       .catch(error => Promise.reject(error));
   },
 };

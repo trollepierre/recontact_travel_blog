@@ -16,7 +16,7 @@ router.get('/:some_id', (req, res) => DropboxClient.getFileContentStream(req.par
   .then(paragraphContent => ParagraphsSerializer.serialize(paragraphContent))
   .then((paragraphs) => {
     const paragraphsWithSharableLink = paragraphs.paragraphs.reduce((promises, paragraph) => {
-      const promise = DropboxClient.shareOneImg(paragraph.imgLink);
+      const promise = DropboxClient.shareOneImg(paragraph.imgLink, req.params.some_id);
       promises.push(promise);
       return promises;
     }, []);
@@ -30,11 +30,6 @@ router.get('/:some_id', (req, res) => DropboxClient.getFileContentStream(req.par
       })
       .catch(error => Promise.reject(error));
   })
-  .then((paragraphs) => {
-    console.log('last promise');
-    console.log(paragraphs);
-
-    return res.json(paragraphs);
-  }));
+  .then(paragraphs => res.json(paragraphs)));
 
 module.exports = router;
