@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const articles = require('./src/routes/articles');
+const quickArticles = require('./src/routes/quickArticles');
 const index = require('./src/routes/index');
 
 const app = express();
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use('/', index);
 app.use('/api/articles', articles);
+app.use('/api/quickArticles', quickArticles);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
