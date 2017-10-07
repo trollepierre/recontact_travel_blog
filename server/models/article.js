@@ -5,10 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     imgLink: DataTypes.STRING,
   }, {
     classMethods: {
-      associate(models) {
+      associate(/* models */) {
         // associations can be defined here
       },
     },
   });
+
+  Article.associate = models => Article.hasMany(models.Chapter);
+
   return Article;
 };
