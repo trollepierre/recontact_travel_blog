@@ -1,15 +1,15 @@
-'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  var Chapter = sequelize.define('Chapter', {
+  const Chapter = sequelize.define('Chapter', {
     title: DataTypes.STRING,
     imgLink: DataTypes.STRING,
-    text: DataTypes.STRING
+    text: DataTypes.STRING,
   }, {
     classMethods: {
-      associate: function(models) {
+      associate(models) {
         // associations can be defined here
-      }
-    }
+      },
+    },
   });
   return Chapter;
 };
