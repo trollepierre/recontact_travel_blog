@@ -5,9 +5,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const articles = require('./src/routes/articles');
-const index = require('./src/routes/index');
-const subscriptions = require('./src/routes/subscriptions');
+const articles = require('./src/feature/api/articles');
+const index = require('./src/feature/api/index');
+const subscriptions = require('./src/feature/api/subscriptions');
 
 const app = express();
 
