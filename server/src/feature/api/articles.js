@@ -1,8 +1,8 @@
 const express = require('express');
-const File = require('../infrastructure/file');
-const DropboxClient = require('../infrastructure/dropbox');
-const ArticlesSerializer = require('../serializers/articles');
-const ChaptersSerializer = require('../serializers/chapters');
+const File = require('../../infrastructure/file');
+const DropboxClient = require('../../infrastructure/dropbox');
+const ArticlesSerializer = require('../../serializers/articles');
+const ChaptersSerializer = require('../../serializers/chapters');
 
 const router = express.Router();
 
