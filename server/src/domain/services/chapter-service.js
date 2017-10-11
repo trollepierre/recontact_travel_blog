@@ -1,16 +1,13 @@
 const { Chapter } = require('../models');
 
-function addChapter(title, imgLink, text) {
-  return Chapter
-    .findOrCreate({ where: { title, imgLink, text } })
-    .spread((chapter, created) => ({ chapter, created }));
-}
+function createChapters(chapters) {
+  console.log('E. chapters');
+  console.log(chapters);
 
-function removeChapter(chapterId) {
-  return Chapter.destroy({ where: { id: chapterId } });
+  return Chapter
+    .bulkCreate(chapters.chapters);
 }
 
 module.exports = {
-  addChapter,
-  removeChapter,
+  createChapters,
 };
