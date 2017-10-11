@@ -4,7 +4,7 @@ const ArticlesSerializer = {
     return metadatas
       .filter(metadata => metadata['.tag'] === 'folder')
       .map(metadata => ({
-        name: metadata.name,
+        dropboxId: metadata.name,
         imgPath: `/${metadata.name}/img0.jpg`,
       }));
   },
