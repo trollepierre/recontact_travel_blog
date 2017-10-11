@@ -1,25 +1,18 @@
-// const express = require('express');
 const File = require('../../infrastructure/file');
 const DropboxClient = require('../../infrastructure/dropbox');
 const ArticlesSerializer = require('../../serializers/articles');
 const ChaptersSerializer = require('../../serializers/chapters');
-const { Article } = require('../models');
 const { isEmpty } = require('lodash');
 // const mailService = require('./mail-service');
 const articleService = require('./article-service');
 const chapterService = require('./chapter-service');
 
-// TODO: mettre un id sur les articles
-
-function _getArticleId(article) {
-  return article.name.slice(0, 2);
-}
 
 function _compareDropboxAndDatabaseArticles(freshArticles) {
   return articleService.getAll()
     .then((oldArticles) => {
       const addedArticles = freshArticles.reduce((accumulatedArticles, freshArticle) => {
-        const matchedArticles = oldArticles.filter(({ name }) => name === freshArticle.name);
+        const matchedArticles = oldArticles.filter(({ dropboxId }) => dropboxId === freshArticle.dropboxId);
         if (matchedArticles.length === 0) {
           accumulatedArticles.push(freshArticle);
         }
@@ -40,12 +33,12 @@ function _updateArticleInDatabase(report) {
 
 function _updateChapterInDatabase({ addedArticles }) {
   return addedArticles.map((article) => {
-    const articleId = _getArticleId(article);
+    const articleId = article.dropboxId;
     return DropboxClient.getFileContentStream(articleId)
       .then(File.read)
       .then(chaptersContent => ChaptersSerializer.serialize(chaptersContent))
       .then(chapters => DropboxClient.shareChapterImages(chapters, articleId))
-      .then(chapters => chapterService.createChapters(chapters));
+      .then(chapters => chapterService.createChaptersAffectedToArticle(chapters, article));
   });
 }
 

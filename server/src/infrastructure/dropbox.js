@@ -43,7 +43,7 @@ const DropboxClient = {
   _shareImg(article) {
     return this._createSharedLink(article.imgPath)
       .then(imgLink => ({
-        name: article.name,
+        dropboxId: article.dropboxId,
         imgLink: this._transformToDownloadableLink(imgLink),
       }));
   },
