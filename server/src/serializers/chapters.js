@@ -17,10 +17,13 @@ const ChaptersSerializer = {
     const chapters = [];
     for (let i = 1; i < cuttedArticle.length / 3; i += 1) {
       const imgLink = `img${i}.jpg`;
+      const title = cuttedArticle[(3 * i) - 2];
+      const subtitle = cuttedArticle[(3 * i) - 1];
       chapters[i - 1] = {
-        title: [cuttedArticle[(3 * i) - 2], cuttedArticle[(3 * i) - 1]].join(' ').trim(),
+        title: [title, subtitle].join(' ').trim(),
         imgLink,
-        text: this._addParagraphs(cuttedArticle[3 * i]),
+        // TODO : add Paragraph from data in db -  text: this._addParagraphs(cuttedArticle[3 * i]),
+        text: cuttedArticle[3 * i],
       };
     }
     return chapters;

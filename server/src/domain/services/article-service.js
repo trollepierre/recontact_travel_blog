@@ -1,16 +1,10 @@
 const { Article } = require('../models');
 
-function addArticle(name, imgLink) {
+function createArticles(articles) {
   return Article
-    .findOrCreate({ where: { name, imgLink } })
-    .spread((article, created) => ({ article, created }));
-}
-
-function removeArticle(articleId) {
-  return Article.destroy({ where: { id: articleId } });
+    .bulkCreate(articles);
 }
 
 module.exports = {
-  addArticle,
-  removeArticle,
+  createArticles,
 };
