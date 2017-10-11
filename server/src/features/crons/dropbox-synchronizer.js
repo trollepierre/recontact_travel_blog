@@ -5,7 +5,7 @@ const dropboxToArticlesService = require('../../domain/services/dropbox-to-artic
 const EVERY_15_MINUTES = '*/15 * * * *';
 
 scheduler.scheduleJob(EVERY_15_MINUTES, () => {
-  console.log('Synchronize dropboxToArticless from Octopod...');
+  console.log('Synchronize Articles from Dropbox...');
 
   return dropboxToArticlesService.synchronizeArticles()
     .then(() => {

@@ -5,7 +5,7 @@ const ChapterService = require('../../domain/services/chapter-service');
 
 const router = express.Router();
 
-// TODO what if database is not synchronize?
+// TODO what if database is not synchronized?
 router.get('/', (req, res) => ArticleService.getAll()
   .then(articles => res.json(articles)));
 
