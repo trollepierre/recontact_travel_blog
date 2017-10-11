@@ -32,6 +32,10 @@ const ChaptersSerializer = {
   _addParagraphs(text) {
     return text.split('#').map(row => row.trim());
   },
+
+  addParagraphs(chapters) {
+    return chapters.map(chapter => Object.assign(chapter, { text: this._addParagraphs(chapter.text) }));
+  },
 };
 
 module.exports = ChaptersSerializer;
