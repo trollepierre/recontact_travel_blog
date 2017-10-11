@@ -91,3 +91,8 @@ function onListening() {
     : `port ${addr.port}`;
   debug(`Listening on ${bind}`);
 }
+
+/**
+ * Start cron task that synchronizes automatically the articles from Dropbox
+ */
+require('../src/features/crons/dropbox-synchronizer');
