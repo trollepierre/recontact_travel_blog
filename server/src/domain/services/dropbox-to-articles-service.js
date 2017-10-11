@@ -16,7 +16,7 @@ function _getArticleId(article) {
 }
 
 function _compareDropboxAndDatabaseArticles(freshArticles) {
-  return Article.all()
+  return articleService.getAll()
     .then((oldArticles) => {
       const addedArticles = freshArticles.reduce((accumulatedArticles, freshArticle) => {
         const matchedArticles = oldArticles.filter(({ name }) => name === freshArticle.name);

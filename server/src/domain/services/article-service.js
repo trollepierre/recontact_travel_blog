@@ -5,6 +5,12 @@ function createArticles(articles) {
     .bulkCreate(articles);
 }
 
+function getAll() {
+  return Article
+    .all();
+}
+
 module.exports = {
   createArticles,
+  getAll,
 };
