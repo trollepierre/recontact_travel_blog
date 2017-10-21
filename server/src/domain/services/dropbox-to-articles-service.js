@@ -25,7 +25,7 @@ function _compareDropboxAndDatabaseArticles(freshArticles) {
 
 function _updateArticleInDatabase(report) {
   const { addedArticles } = report;
-  return DropboxClient.shareImages(addedArticles)
+  return DropboxClient.shareImages(addedArticles) // todo prepare une validation d'image si manquante
     .then(articles => articleService.createArticles(articles))
     .then(() => Promise.resolve(report));
 }
