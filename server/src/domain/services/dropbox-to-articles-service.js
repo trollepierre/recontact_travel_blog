@@ -30,20 +30,27 @@ function _updateArticleInDatabase(report) {
     .then(() => Promise.resolve(report));
 }
 
+function _getCompleteChaptersToShare(article) {
+  const articleId = article.dropboxId;
+  return DropboxClient.getFileContentStream(articleId) // todo understand why some articles (like 57) cannot be found by Dropbox
+    .then(File.read)
+    .then(chaptersContent => ChaptersSerializer.serialize(chaptersContent))
+    .then(chapters => DropboxClient.shareChapterImages(chapters, articleId))
+    .then(chapters => chapters.chapters.map(chapter => Object.assign(chapter, { dropboxId: article.dropboxId }))); // todo : add to former method
+}
 
 function _updateChapterInDatabase({ addedArticles }) {
-  return addedArticles.map((article) => {
-    const articleId = article.dropboxId;
-    return DropboxClient.getFileContentStream(articleId)
-      .then(File.read)
-      .then(chaptersContent => ChaptersSerializer.serialize(chaptersContent))
-      .then(chapters => DropboxClient.shareChapterImages(chapters, articleId))
-      .then(chapters => chapterService.createChaptersAffectedToArticle(chapters, article));
-  });
+  const allChaptersToSave = addedArticles.reduce((promises, article) => {
+    const chaptersOfThisArticleToSave = _getCompleteChaptersToShare(article);
+    promises.push(chaptersOfThisArticleToSave);
+    return promises;
+  }, []);
+  return Promise.all(allChaptersToSave)
+    .then(chapters => chapterService.createArticleChapters(chapters)); // todo : delete former rows of this article
 }
 
 function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
-  const result = report;
+  const result = report; // todo : remove one var here
   if (result.hasChanges) {
     return _updateArticleInDatabase(report);
   }
@@ -57,7 +64,6 @@ function _ifArticlesChangesThenUpdateChaptersInDatabase(report) {
   }
   return Promise.resolve(result);
 }
-
 
 // function _ifArticlesChangedThenSendEmailToRecipients(report) {
 //   const result = report;
@@ -76,6 +82,8 @@ function synchronizeArticles() {
   // 2.B.4 j'envoie un mail aux abonnés
   // .then(_ifArticlesChangedThenSendEmailToRecipients);
 }
+
+// todo test all and extract methods
 
 module.exports = {
   synchronizeArticles,
