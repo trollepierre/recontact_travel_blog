@@ -4,15 +4,17 @@ import chaptersApi from '@/api/chapters';
 describe('Unit | API | chapters api', () => {
   describe('#fetchAll', () => {
     let idArticle;
+    let data;
 
     beforeEach(() => {
       idArticle = 59;
+      data = {
+        foo: 'bar',
+        chapters: 'some chapters',
+      };
       const stubbedResponse = {
         status: 200,
-        data: {
-          foo: 'bar',
-          chapters: 'some chapters',
-        },
+        data,
       };
       sinon.stub(axios, 'get').resolves(stubbedResponse);
     });
@@ -35,13 +37,13 @@ describe('Unit | API | chapters api', () => {
       });
     });
 
-    it('should return the chapters of the response', () => {
+    it('should return the response', () => {
       // when
       const promise = chaptersApi.fetchAll(idArticle);
 
       // then
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).to.equal('some chapters');
+        expect(returnedChapters).to.equal(data);
       });
     });
 

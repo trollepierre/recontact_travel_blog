@@ -7,7 +7,7 @@ describe('ArticleCard.vue', () => {
 
   beforeEach(() => {
     article = {
-      name: '58 : Pierre avec les webf',
+      dropboxId: '58 : Pierre avec les webf',
       imgLink: 'webf',
     };
     const Constructor = Vue.extend(ArticleCard);

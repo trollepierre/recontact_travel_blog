@@ -10,11 +10,11 @@ describe('Unit | Serializer | articles', () => {
     // then
     const expectedArticles = [
       {
-        name: '58',
+        dropboxId: '58',
         imgPath: '/58/img0.jpg',
       },
       {
-        name: '59',
+        dropboxId: '59',
         imgPath: '/59/img0.jpg',
       }];
     expect(articles).to.deep.equal(expectedArticles);

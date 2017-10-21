@@ -3,7 +3,7 @@
     <article class="article">
       <header class="article__header">
         <a href="/">
-          <h2 class="article__title">{{ article.dropboxId }}</h2>
+          <h2 class="article__title">{{ article.dropboxId }}</h2> <!--todo title should come from article-->
         </a>
       </header>
       <div class="article__content">

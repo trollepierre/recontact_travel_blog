@@ -1,10 +1,12 @@
 import Vue from 'vue';
+import router from '@/router';
 import chaptersApi from '@/api/chapters';
 import ArticlePage from '@/components/ArticlePage';
 
 describe('ArticlePage.vue', () => {
   let component;
   let chapters;
+  const idArticle = 8;
 
   beforeEach(() => {
     chapters = [
@@ -24,7 +26,8 @@ describe('ArticlePage.vue', () => {
     ];
     sinon.stub(chaptersApi, 'fetchAll').resolves(chapters);
     const Constructor = Vue.extend(ArticlePage);
-    component = new Constructor().$mount();
+    component = new Constructor({ router }).$mount();
+    component.$route.params.id = idArticle;
   });
 
   afterEach(() => {
@@ -37,7 +40,7 @@ describe('ArticlePage.vue', () => {
 
   describe('mounted', () => {
     it('should call chapters api to fetch chapters', () => {
-      expect(chaptersApi.fetchAll).to.have.been.calledWith();
+      expect(chaptersApi.fetchAll).to.have.been.calledWith(idArticle);
     });
 
     it('should saved chapters from api in data chapters', () => Vue.nextTick().then(() => {
