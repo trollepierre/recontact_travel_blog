@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', (req, res) => ArticleService.getAll()
   .then(articles => res.json(articles)));
 
-router.get('/:some_id', (req, res) => ChapterService.getChaptersOfArticle(req.params.some_id)
+router.get('/:id', (req, res) => ChapterService.getChaptersOfArticle(req.params.id)
   .then(chapters => ChaptersSerializer.addParagraphs(chapters))
   .then(chapters => res.json(chapters)));
 

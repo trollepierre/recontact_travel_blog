@@ -1,9 +1,8 @@
 const { request, expect, sinon } = require('../../test-helper');
 const app = require('../../../app');
-const DropboxClient = require('../../../src/infrastructure/dropbox');
-const File = require('../../../src/infrastructure/file');
-const ArticlesSerializer = require('../../../src/serializers/articles');
 const ChaptersSerializer = require('../../../src/serializers/chapters');
+const ArticleService = require('../../../src/domain/services/article-service');
+const ChapterService = require('../../../src/domain/services/chapter-service');
 
 describe('Integration | Routes | articles route', () => {
   const expectedArticles = [
@@ -19,27 +18,21 @@ describe('Integration | Routes | articles route', () => {
 
   describe('/articles', () => {
     beforeEach(() => {
-      sinon.stub(DropboxClient, 'getAllFileMetaDataInDropbox').resolves();
-      sinon.stub(ArticlesSerializer, 'serialize').returns(expectedArticles);
-      sinon.stub(DropboxClient, 'shareImages').returns(expectedArticles);
+      sinon.stub(ArticleService, 'getAll').resolves(expectedArticles);
     });
 
     afterEach(() => {
-      DropboxClient.getAllFileMetaDataInDropbox.restore();
-      ArticlesSerializer.serialize.restore();
-      DropboxClient.shareImages.restore();
+      ArticleService.getAll.restore();
     });
 
-    it('should call DropboxClient to getAllFileMetaData and serialize and shareImages from Dropbox before sending json', (done) => {
+    it('should call ArticleService to getAll before sending json', (done) => {
       // When
       request(app)
         .get('/api/articles')
         .expect('Content-Type', /json/)
         .end((err, response) => {
           // Then
-          expect(DropboxClient.getAllFileMetaDataInDropbox).to.have.been.called;
-          expect(ArticlesSerializer.serialize).to.have.been.called;
-          expect(DropboxClient.shareImages).to.have.been.calledWith(expectedArticles);
+          expect(ArticleService.getAll).to.have.been.called;
           expect(response.body).to.deep.equal(expectedArticles);
           if (err) {
             done(err);
@@ -51,20 +44,16 @@ describe('Integration | Routes | articles route', () => {
 
   describe('/articles/:id', () => {
     beforeEach(() => {
-      sinon.stub(DropboxClient, 'getFileContentStream').resolves();
-      sinon.stub(File, 'read').returns('rawFile');
-      sinon.stub(ChaptersSerializer, 'serialize').returns('chapters');
-      sinon.stub(DropboxClient, 'shareChapterImages').returns('chaptersReadyToShare');
+      sinon.stub(ChapterService, 'getChaptersOfArticle').resolves('chapters');
+      sinon.stub(ChaptersSerializer, 'addParagraphs').resolves('serializedChapters');
     });
 
     afterEach(() => {
-      DropboxClient.getFileContentStream.restore();
-      File.read.restore();
-      ChaptersSerializer.serialize.restore();
-      DropboxClient.shareChapterImages.restore();
+      ChapterService.getChaptersOfArticle.restore();
+      ChaptersSerializer.addParagraphs.restore();
     });
 
-    it('should call DropboxClient to getFileContentStream, read and serialize it and shareChapterImages from Dropbox before sending json', (done) => {
+    it('should call ChapterService to getChaptersOfArticle, serialize it before sending json', (done) => {
       // Given
       const idArticle = 59;
       const stringIdArticle = '59';
@@ -75,11 +64,9 @@ describe('Integration | Routes | articles route', () => {
         .expect('Content-Type', /json/)
         .end((err, response) => {
           // Then
-          expect(DropboxClient.getFileContentStream).to.have.been.calledWith(stringIdArticle);
-          expect(File.read).to.have.been.called;
-          expect(ChaptersSerializer.serialize).to.have.been.calledWith('rawFile');
-          expect(DropboxClient.shareChapterImages).to.have.been.calledWith('chapters', stringIdArticle);
-          expect(response.body).to.deep.equal('chaptersReadyToShare');
+          expect(ChapterService.getChaptersOfArticle).to.have.been.calledWith(stringIdArticle);
+          expect(ChaptersSerializer.addParagraphs).to.have.been.calledWith('chapters');
+          expect(response.body).to.deep.equal('serializedChapters');
           if (err) {
             done(err);
           }
