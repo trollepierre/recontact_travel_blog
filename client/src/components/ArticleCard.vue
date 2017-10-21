@@ -3,14 +3,14 @@
     <article class="article">
       <header class="article__header">
         <a href="/">
-          <h2 class="article__title">{{ article.name }}</h2>
+          <h2 class="article__title">{{ article.dropboxId }}</h2>
         </a>
       </header>
       <div class="article__content">
         <img class="article__image" :src="article.imgLink" width="200"/>
       </div>
       <footer class="article__footer">
-        <button class="article__view-button" :disabled="isClicked" @click.prevent.once="viewArticle">
+        <button class="article__view-button" :disabled="isClicked" @click.prevent.once="viewArticle(article.dropboxId)">
           Voir l'article
         </button>
         <a href="http://dropbox.com" target="_blank" class="article__dropbox">
@@ -34,17 +34,17 @@
     },
     methods: {
 
-      viewArticle() {
+      viewArticle(articleId) {
         this.disableButton();
-        this.goToArticle();
+        this.goToArticle(articleId);
       },
 
       disableButton() {
         this.isClicked = true;
       },
 
-      goToArticle() {
-        this.$router.push('/article');
+      goToArticle(articleId) {
+        this.$router.push(`/articles/${articleId}`);
       },
     },
   };
