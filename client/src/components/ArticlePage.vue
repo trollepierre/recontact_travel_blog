@@ -63,7 +63,7 @@
     },
     methods: {
       getChapters() {
-        chaptersApi.fetchAll(59)
+        chaptersApi.fetchAll(this.$route.params.id)
           .then((chapters) => {
             (this.chapters = chapters);
           });
