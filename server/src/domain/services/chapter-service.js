@@ -1,9 +1,8 @@
 const { Chapter } = require('../models');
 
-function createArticleChapters(chapters, article) {
-  chapters.chapters.map(chapter => Object.assign(chapter, { dropboxId: article.dropboxId }));
+function createArticleChapters(chapters) {
   return Chapter
-    .bulkCreate(chapters.chapters);
+    .bulkCreate(chapters[0]);
 }
 
 function getChaptersOfArticle(dropboxId) {
