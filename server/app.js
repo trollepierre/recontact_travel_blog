@@ -23,7 +23,7 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 }
 
-app.use('/', index);
+app.use('/api/sync', index);
 app.use('/api/articles', articles);
 app.use('/api/subscriptions', subscriptions);
 
