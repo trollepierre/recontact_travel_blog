@@ -10,7 +10,7 @@ const serializedChapters = require('../fixtures/serializedChaptersForInfraDb');
 const dropboxSharedLinkCreate = require('../fixtures/dropboxSharedLinkCreate');
 
 describe('Unit | Infrastructure | dropbox-client', () => {
-  describe('#getAllFileMetaDataInDropbox', () => {
+  describe('#getAllDropboxFoldersMetadatas', () => {
     beforeEach(() => {
       sinon.stub(Dropbox.prototype, 'filesListFolder');
     });
@@ -25,7 +25,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder });
 
         // when
-        const promise = DropboxClient.getAllFileMetaDataInDropbox();
+        const promise = DropboxClient.getAllDropboxFoldersMetadatas();
 
         // then
         return promise.then((entries) => {
@@ -38,7 +38,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder });
 
         // when
-        DropboxClient.getAllFileMetaDataInDropbox();
+        DropboxClient.getAllDropboxFoldersMetadatas();
 
         // then
         expect(Dropbox.prototype.filesListFolder).to.have.been.calledWith({ path: '', recursive: true });
@@ -51,7 +51,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.rejects(new Error('Expected error'));
 
         // when
-        const promise = DropboxClient.getAllFileMetaDataInDropbox();
+        const promise = DropboxClient.getAllDropboxFoldersMetadatas();
 
         // then
         return promise.then(() => {
@@ -118,7 +118,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     });
   });
 
-  describe('#getFileContentStream', () => {
+  describe('#getTextFileStream', () => {
     let idArticle;
 
     beforeEach(() => {
@@ -136,7 +136,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesGetTemporaryLink.resolves(dropboxFilesGetTemporaryLink);
 
         // when
-        const promise = DropboxClient.getFileContentStream(idArticle);
+        const promise = DropboxClient.getTextFileStream(idArticle);
 
         // then
         return promise.then((link) => {
@@ -149,7 +149,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesGetTemporaryLink.resolves(dropboxFilesGetTemporaryLink);
 
         // when
-        DropboxClient.getFileContentStream(idArticle);
+        DropboxClient.getTextFileStream(idArticle);
 
         // then
         expect(Dropbox.prototype.filesGetTemporaryLink).to.have.been.calledWith({ path: `/${idArticle}/fr.php` });
@@ -162,7 +162,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesGetTemporaryLink.rejects(new Error('Expected error'));
 
         // when
-        const promise = DropboxClient.getFileContentStream(idArticle);
+        const promise = DropboxClient.getTextFileStream(idArticle);
 
         // then
         return promise.then(() => {
