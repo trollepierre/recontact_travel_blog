@@ -1,4 +1,4 @@
-const DropboxClient = require('../../../src/infrastructure/dropbox');
+const DropboxClient = require('../../../src/domain/external_services/dropbox-client');
 const { expect, sinon } = require('../../test-helper');
 const Dropbox = require('dropbox');
 const dropboxFilesListFolder = require('../fixtures/dropboxFilesListFolder');

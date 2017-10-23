@@ -1,6 +1,6 @@
 const request = require('request');
 
-const FileSystem = {
+const FileReader = {
 
   read(filePath) {
     return new Promise((resolve, reject) => {
@@ -18,4 +18,4 @@ const FileSystem = {
   },
 };
 
-module.exports = FileSystem;
+module.exports = FileReader;

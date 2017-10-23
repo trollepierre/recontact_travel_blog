@@ -1,6 +1,6 @@
 const { request, sinon } = require('../../test-helper');
 const app = require('../../../app');
-const dropboxToArticlesService = require('../../../src/domain/services/dropbox-to-articles-service');
+const dropboxToArticlesService = require('../../../src/use_cases/synchronize-articles');
 
 describe('Integration | Routes | index route', () => {
   beforeEach(() => {

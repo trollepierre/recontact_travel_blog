@@ -29,10 +29,12 @@ const ChaptersSerializer = {
     return chapters;
   },
 
+  // TODO remove it
   _addParagraphs(text) {
     return text.split('#').map(row => row.trim());
   },
 
+  // TODO remove it
   addParagraphs(chapters) {
     return chapters.map(chapter => Object.assign(chapter, { text: this._addParagraphs(chapter.text) }));
   },

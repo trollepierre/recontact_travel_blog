@@ -1,4 +1,4 @@
-const File = require('../../../src/infrastructure/file');
+const File = require('../../../src/domain/external_services/file-reader');
 const { expect, sinon } = require('../../test-helper');
 const request = require('request');
 const articleFr = require('../fixtures/articleFr');
