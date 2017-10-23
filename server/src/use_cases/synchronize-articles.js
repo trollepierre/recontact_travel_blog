@@ -33,7 +33,7 @@ function _transformToDownloadableLink(response) {
 }
 
 function _shareImg(article) {
-  return DropboxClient._createSharedLink(article.imgPath)
+  return DropboxClient.createSharedLink(article.imgPath)
     .then(imgLink => ({
       dropboxId: article.dropboxId,
       imgLink: _transformToDownloadableLink(imgLink),
@@ -69,7 +69,7 @@ function serializeChapters(rawArticle) {
     .split('*')
     .map(row => row.trim());
 
-  const chapters = this._generateChapters(cuttedArticle);
+  const chapters = _generateChapters(cuttedArticle);
 
   return {
     title: cuttedArticle[0],
@@ -95,7 +95,7 @@ function _generateChapters(cuttedArticle) {
 
 
 function _shareOneImg(imgLink, articleId) {
-  return DropboxClient._createSharedLink(`/${articleId}/${imgLink}`)
+  return DropboxClient.createSharedLink(`/${articleId}/${imgLink}`)
     .then(_transformToDownloadableLink);
 }
 
@@ -117,7 +117,7 @@ function shareChapterImages(chapters, idArticle) {
 
 function _getCompleteChaptersToShare(article) {
   const articleId = article.dropboxId;
-  return DropboxClient.getFileContentStream(articleId) // todo understand why some articles (like 57) cannot be found by Dropbox
+  return DropboxClient.getTextFileStream(articleId) // todo understand why some articles (like 57) cannot be found by Dropbox
     .then(FileReader.read)
     .then(chaptersContent => serializeChapters(chaptersContent))
     .then(chapters => shareChapterImages(chapters, articleId))
@@ -151,7 +151,7 @@ function _ifArticlesChangesThenUpdateChaptersInDatabase(report) {
 // }
 
 function synchronizeArticles() {
-  return DropboxClient.getAllFileMetaDataInDropbox()
+  return DropboxClient.getAllDropboxFoldersMetadatas()
     .then(serializeArticles)
     .then(fetchedArticles => _compareDropboxAndDatabaseArticles(fetchedArticles))
     .then(_ifArticlesChangesThenUpdateArticlesInDatabase)
