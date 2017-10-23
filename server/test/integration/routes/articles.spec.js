@@ -1,8 +1,8 @@
 const { request, expect, sinon } = require('../../test-helper');
 const app = require('../../../app');
 const ChaptersSerializer = require('../../../src/serializers/chapters');
-const ArticleService = require('../../../src/domain/services/article-service');
-const ChapterService = require('../../../src/domain/services/chapter-service');
+const ArticleService = require('../../../src/domain/database_services/article-service');
+const ChapterService = require('../../../src/domain/database_services/chapter-service');
 
 describe('Integration | Routes | articles route', () => {
   const expectedArticles = [

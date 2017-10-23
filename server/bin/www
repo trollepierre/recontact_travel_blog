@@ -7,7 +7,7 @@
 const app = require('../app');
 const debug = require('debug')('server:server');
 const http = require('http');
-const models = require('../src/domain/models');
+const models = require('../src/domain/models/index');
 
 /**
  * Get port from environment and store in Express.
@@ -95,4 +95,4 @@ function onListening() {
 /**
  * Start cron task that synchronizes automatically the articles from Dropbox
  */
-require('../src/features/crons/dropbox-synchronizer');
+require('../src/infrastructure/features/crons/dropbox-synchronizer');

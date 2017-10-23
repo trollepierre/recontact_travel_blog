@@ -1,6 +1,6 @@
-const { Article } = require('../models');
+const { Article } = require('../models/index');
 
-function createArticles(articles) {
+function create(articles) {
   return Article
     .bulkCreate(articles);
 }
@@ -11,6 +11,6 @@ function getAll() {
 }
 
 module.exports = {
-  createArticles,
+  create,
   getAll,
 };

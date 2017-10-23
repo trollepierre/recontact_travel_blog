@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 const scheduler = require('node-schedule');
-const dropboxToArticlesService = require('../../domain/services/dropbox-to-articles-service');
+const SynchronizeArticles = require('../../../use_cases/synchronize-articles');
 
 const EVERY_15_MINUTES = '*/15 * * * *';
 
 scheduler.scheduleJob(EVERY_15_MINUTES, () => {
   console.log('Synchronize Articles from Dropbox...');
 
-  return dropboxToArticlesService.synchronizeArticles()
+  return SynchronizeArticles.synchronizeArticles()
     .then(() => {
       console.log('Synchronization successful.');
     })
