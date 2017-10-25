@@ -1,7 +1,7 @@
-const File = require('../../../src/domain/external_services/file-reader');
-const { expect, sinon } = require('../../test-helper');
+const File = require('../../src/domain/external_services/file-reader');
+const { expect, sinon } = require('../test-helper');
 const request = require('request');
-const articleFr = require('../fixtures/articleFr');
+const articleFr = require('../unit/fixtures/articleFr');
 
 describe('Unit | Infrastructure | file', () => {
   describe('#read', () => {
