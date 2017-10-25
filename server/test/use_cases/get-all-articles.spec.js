@@ -1,23 +1,25 @@
 const { expect, sinon } = require('../test-helper');
 const GetAllArticles = require('../../src/use_cases/get-all-articles');
-const ArticleService = require('../../src/domain/database_services/article-service');
+const ArticleRepository = require('../../src/domain/repositories/article-repository');
 
 describe('Unit | GetAllArticles | getAllArticles', () => {
   beforeEach(() => {
-    sinon.stub(ArticleService, 'getAll').returns('articles');
+    sinon.stub(ArticleRepository, 'getAll').resolves('articles');
   });
 
   afterEach(() => {
-    ArticleService.getAll.restore();
+    ArticleRepository.getAll.restore();
   });
 
-  it('should call ArticleService to getAll articles to return', () => {
+  it('should call ArticleRepository to getAll articles to return', () => {
     // when
-    const articles = GetAllArticles.getAllArticles();
+    const promise = GetAllArticles.getAllArticles();
 
     // then
-    expect(ArticleService.getAll).to.have.been.calledWith();
-    expect(articles).to.deep.equal('articles');
+    expect(ArticleRepository.getAll).to.have.been.calledWith();
+    promise.then((articles) => {
+      expect(articles).to.deep.equal('articles');
+    });
   });
 });
 
