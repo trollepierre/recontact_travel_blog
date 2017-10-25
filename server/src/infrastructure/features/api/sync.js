@@ -11,7 +11,7 @@ router.get('/', (req, res) => SynchronizeArticles.synchronizeArticles()
   .catch((err) => {
     console.error('Synchronization failed.');
     console.error(err);
-    res.json('Synchronization failed :', err);
+    res.status(500).json('Synchronization failed :', err);
   }));
 
 module.exports = router;
