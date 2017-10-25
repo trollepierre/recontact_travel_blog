@@ -1,8 +1,8 @@
 const { expect, sinon } = require('../test-helper');
 const GetArticle = require('../../src/use_cases/get-article');
 const ChapterRepository = require('../../src/domain/repositories/chapter-repository');
-const chaptersOfArticle = require('../unit/fixtures/chaptersOfArticle');
-const chaptersWithParagraphs = require('../unit/fixtures/chaptersWithParagraphs');
+const chaptersOfArticle = require('../fixtures/chaptersOfArticle');
+const chaptersWithParagraphs = require('../fixtures/chaptersWithParagraphs');
 
 describe('Unit | GetArticle | getAllChapters', () => {
   const dropboxId = 8;

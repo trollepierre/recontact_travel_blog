@@ -1,20 +1,13 @@
-const { request, sinon } = require('../../test-helper');
+const { request, expect } = require('../../test-helper');
 const app = require('../../../app');
-const dropboxToArticlesService = require('../../../src/use_cases/synchronize-articles');
 
 describe('Integration | Routes | index route', () => {
-  beforeEach(() => {
-    sinon.stub(dropboxToArticlesService, 'synchronizeArticles').resolves();
-  });
 
-  afterEach(() => {
-    dropboxToArticlesService.synchronizeArticles.restore();
-  });
-
-  it('should have api informations on root', (done) => {
+  it('should be 404', (done) => {
     request(app)
       .get('/')
-      .end((err) => {
+      .end((err, response) => {
+        expect(response.status).to.equal(404);
         if (err) {
           done(err);
         }
