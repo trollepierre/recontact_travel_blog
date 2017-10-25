@@ -2,13 +2,16 @@ const { request, expect, sinon } = require('../../test-helper');
 const app = require('../../../app');
 const GetAllArticles = require('../../../src/use_cases/get-all-articles');
 const GetArticle = require('../../../src/use_cases/get-article');
-const articles = require('../../fixtures/articlesWithSharedLink');
-const chapters = require('../../fixtures/chaptersWithParagraphs');
+const article = require('../../fixtures/articleSaved');
+const chapter = require('../../fixtures/chapterWithParagraphs');
 
 describe('Integration | Routes | articles route', () => {
   describe('/articles', () => {
+    let articles;
+
     beforeEach(() => {
-      sinon.stub(GetAllArticles, 'getAllArticles').resolves(articles());
+      articles = [article(), article()];
+      sinon.stub(GetAllArticles, 'getAllArticles').resolves(articles);
     });
 
     afterEach(() => {
@@ -23,7 +26,7 @@ describe('Integration | Routes | articles route', () => {
         .end((err, response) => {
           // Then
           expect(GetAllArticles.getAllArticles).to.have.been.called;
-          expect(response.body).to.deep.equal(articles());
+          expect(response.body).to.deep.equal(articles);
           if (err) {
             done(err);
           }
@@ -33,8 +36,9 @@ describe('Integration | Routes | articles route', () => {
   });
 
   describe('/articles/:id', () => {
+    const chapters = [chapter(), chapter()];
     beforeEach(() => {
-      sinon.stub(GetArticle, 'getAllChapters').resolves(chapters());
+      sinon.stub(GetArticle, 'getAllChapters').resolves(chapters);
     });
 
     afterEach(() => {
@@ -52,7 +56,7 @@ describe('Integration | Routes | articles route', () => {
         .end((err, response) => {
           // Then
           expect(GetArticle.getAllChapters).to.have.been.calledWith(stringIdArticle);
-          expect(response.body).to.deep.equal(chapters());
+          expect(response.body).to.deep.equal(chapters);
           if (err) {
             done(err);
           }

@@ -1,14 +1,14 @@
 const { expect, sinon } = require('../test-helper');
 const GetArticle = require('../../src/use_cases/get-article');
 const ChapterRepository = require('../../src/domain/repositories/chapter-repository');
-const chaptersOfArticle = require('../fixtures/chaptersOfArticle');
-const chaptersWithParagraphs = require('../fixtures/chaptersWithParagraphs');
+const chapterOfArticle = require('../fixtures/chapterOfArticleSaved');
+const chapterWithParagraphs = require('../fixtures/chapterWithParagraphs');
 
 describe('Unit | GetArticle | getAllChapters', () => {
   const dropboxId = 8;
 
   beforeEach(() => {
-    sinon.stub(ChapterRepository, 'getChaptersOfArticle').resolves(chaptersOfArticle());
+    sinon.stub(ChapterRepository, 'getChaptersOfArticle').resolves([chapterOfArticle()]);
   });
 
   afterEach(() => {
@@ -29,7 +29,7 @@ describe('Unit | GetArticle | getAllChapters', () => {
 
     // then
     promise.then((chapters) => {
-      return expect(chapters).to.deep.equal(chaptersWithParagraphs());
+      return expect(chapters).to.deep.equal([chapterWithParagraphs()]);
     });
   });
 });

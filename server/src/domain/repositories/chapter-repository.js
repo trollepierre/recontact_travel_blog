@@ -2,7 +2,7 @@ const { Chapter } = require('../models/index');
 
 function createArticleChapters(chapters) {
   return Chapter
-    .bulkCreate(chapters[0]);
+    .bulkCreate(chapters);
 }
 
 function getChaptersOfArticle(dropboxId) {

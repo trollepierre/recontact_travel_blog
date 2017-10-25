@@ -131,7 +131,7 @@ function _updateChapterInDatabase({ addedArticles }) {
     return promises;
   }, []);
   return Promise.all(allChaptersToSave)
-    .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
+    .then(chapters => chapterRepository.createArticleChapters(chapters[0])); // todo : delete former rows of this article
 }
 
 function _ifArticlesChangesThenUpdateChaptersInDatabase(report) {
