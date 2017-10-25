@@ -1,12 +1,12 @@
 const express = require('express');
-const subscriptionService = require('../../../domain/database_services/subscription-service');
+const subscriptionRepository = require('../../../domain/repositories/subscription-repository');
 
 const router = express.Router();
 
 router.post('/', (req, res) => {
   const userEmail = req.userEmail;
 
-  subscriptionService
+  subscriptionRepository
     .addSubscription(userEmail)
     .then(({ subscription, created }) => {
       if (created) {
@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   const subscriptionId = parseInt(req.params.id, 10);
-  subscriptionService
+  subscriptionRepository
     .removeSubscription(subscriptionId)
     .then(() => res.status(204).send());
 });

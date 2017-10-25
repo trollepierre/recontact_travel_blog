@@ -1,8 +1,8 @@
-const articleService = require('../domain/database_services/article-service');
+const articleRepository = require('../domain/repositories/article-repository');
 
 // TODO what if database is not synchronized?
 function getAllArticles() {
-  return articleService.getAll();
+  return articleRepository.getAll();
 }
 
 module.exports = {

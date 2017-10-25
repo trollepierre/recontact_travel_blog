@@ -2,8 +2,8 @@ const FileReader = require('../domain/external_services/file-reader');
 const DropboxClient = require('../domain/external_services/dropbox-client');
 const { isEmpty } = require('lodash');
 // const mailService = require('./mail-service');
-const articleService = require('../domain/database_services/article-service');
-const chapterService = require('../domain/database_services/chapter-service');
+const articleRepository = require('../domain/repositories/article-repository');
+const chapterRepository = require('../domain/repositories/chapter-repository');
 
 function serializeArticles(metadatas) {
   return metadatas
@@ -14,7 +14,7 @@ function serializeArticles(metadatas) {
 }
 
 function _compareDropboxAndDatabaseArticles(freshArticles) {
-  return articleService.getAll()
+  return articleRepository.getAll()
     .then((oldArticles) => {
       const addedArticles = freshArticles.reduce((accumulatedArticles, freshArticle) => {
         const matchedArticles = oldArticles.filter(({ dropboxId }) => dropboxId === freshArticle.dropboxId);
@@ -52,7 +52,7 @@ function shareImages(articles) {
 function _updateArticleInDatabase(report) {
   const { addedArticles } = report;
   return shareImages(addedArticles) // todo prepare une validation d'image si manquante
-    .then(articles => articleService.create(articles))
+    .then(articles => articleRepository.create(articles))
     .then(() => Promise.resolve(report)); // todo use a do()
 }
 
@@ -131,7 +131,7 @@ function _updateChapterInDatabase({ addedArticles }) {
     return promises;
   }, []);
   return Promise.all(allChaptersToSave)
-    .then(chapters => chapterService.createArticleChapters(chapters)); // todo : delete former rows of this article
+    .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
 }
 
 function _ifArticlesChangesThenUpdateChaptersInDatabase(report) {

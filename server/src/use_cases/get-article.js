@@ -1,7 +1,7 @@
-const chapterService = require('../domain/database_services/chapter-service');
+const chapterRepository = require('../domain/repositories/chapter-repository');
 
 function _getChaptersOfArticle(dropboxId) {
-  return chapterService.getChaptersOfArticle(dropboxId);
+  return chapterRepository.getChaptersOfArticle(dropboxId);
 }
 
 function _addParagraphsInOneText(text) {
