@@ -1,13 +1,13 @@
-const DropboxClient = require('../../../src/domain/external_services/dropbox-client');
-const { expect, sinon } = require('../../test-helper');
+const DropboxClient = require('../../src/domain/external_services/dropbox-client');
+const { expect, sinon } = require('../test-helper');
 const Dropbox = require('dropbox');
-const dropboxFilesListFolder = require('../fixtures/dropboxFilesListFolder');
-const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTemporaryLink');
-const foldersInformation = require('../fixtures/foldersInformation');
-const articlesWithSharedLink = require('../fixtures/articlesWithSharedLink');
-const chaptersWithSharedLink = require('../fixtures/chaptersWithSharedLink');
-const serializedChapters = require('../fixtures/serializedChaptersForInfraDb');
-const dropboxSharedLinkCreate = require('../fixtures/dropboxSharedLinkCreate');
+const dropboxFilesListFolder = require('../unit/fixtures/dropboxFilesListFolder');
+const dropboxFilesGetTemporaryLink = require('../unit/fixtures/dropboxFilesGetTemporaryLink');
+const foldersInformation = require('../unit/fixtures/foldersInformation');
+const articlesWithSharedLink = require('../unit/fixtures/articlesWithSharedLink');
+const chaptersWithSharedLink = require('../unit/fixtures/chaptersWithSharedLink');
+const serializedChapters = require('../unit/fixtures/serializedChaptersForInfraDb');
+const dropboxSharedLinkCreate = require('../unit/fixtures/dropboxSharedLinkCreate');
 
 describe('Unit | Infrastructure | dropbox-client', () => {
   describe('#getAllDropboxFoldersMetadatas', () => {

@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const articles = require('./src/infrastructure/features/api/articles');
-const index = require('./src/infrastructure/features/api/index');
+const index = require('./src/infrastructure/features/api/sync');
 const subscriptions = require('./src/infrastructure/features/api/subscriptions');
 
 const app = express();
