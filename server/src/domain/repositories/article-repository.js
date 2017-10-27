@@ -1,4 +1,4 @@
-const { Article } = require('../../infrastructure/db/index');
+const { Article } = require('../models/index');
 
 function create(articles) {
   return Article

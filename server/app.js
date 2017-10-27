@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const articles = require('./src/infrastructure/features/api/articles');
-const index = require('./src/infrastructure/features/api/sync');
+const sync = require('./src/infrastructure/features/api/sync');
 const subscriptions = require('./src/infrastructure/features/api/subscriptions');
 
 const app = express();
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 }
 
-app.use('/api/sync', index);
+app.use('/api/sync', sync);
 app.use('/api/articles', articles);
 app.use('/api/subscriptions', subscriptions);
 
