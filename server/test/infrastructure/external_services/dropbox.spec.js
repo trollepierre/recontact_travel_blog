@@ -1,9 +1,9 @@
 const DropboxClient = require('../../../src/infrastructure/external_services/dropbox-client');
 const { expect, sinon } = require('../../test-helper');
 const Dropbox = require('dropbox');
-const dropboxFilesListFolder = require('./fixtures/dropboxFilesListFolder');
-const filteredDropboxFilesListFolder = require('./fixtures/filteredDropboxFilesListFolder');
-const dropboxFilesGetTemporaryLink = require('./fixtures/dropboxFilesGetTemporaryLink');
+const dropboxFilesListFolder = require('../../fixtures/dropboxFilesListFolder');
+const filteredDropboxFilesListFolder = require('../../fixtures/filteredDropboxFilesListFolder');
+const dropboxFilesGetTemporaryLink = require('../../fixtures/dropboxFilesGetTemporaryLink');
 
 describe('Unit | Infrastructure | dropbox-client', () => {
   describe('#getAllDropboxFoldersMetadatas', () => {
@@ -25,7 +25,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
         // then
         return promise.then((entries) => {
-          expect(entries).to.deep.equal(filteredDropboxFilesListFolder());
+          expect(entries).to.deep.equal([filteredDropboxFilesListFolder('58'), filteredDropboxFilesListFolder('59')]);
         });
       });
 
@@ -120,7 +120,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
     beforeEach(() => {
       sinon.stub(Dropbox.prototype, 'sharingCreateSharedLink');
-      path = `/60/fr.php`;
+      path = '/60/fr.php';
     });
 
     afterEach(() => {

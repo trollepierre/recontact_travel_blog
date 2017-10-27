@@ -2,7 +2,6 @@ const { request, expect } = require('../../test-helper');
 const app = require('../../../app');
 
 describe('Integration | Routes | index route', () => {
-
   it('should be 404', (done) => {
     request(app)
       .get('/')
