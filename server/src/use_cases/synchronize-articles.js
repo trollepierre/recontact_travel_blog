@@ -5,6 +5,9 @@ const { isEmpty } = require('lodash');
 const articleRepository = require('../domain/repositories/article-repository');
 const chapterRepository = require('../domain/repositories/chapter-repository');
 
+// todo : what if I want to update one article that already exists
+// todo : what if images are missing
+
 function serializeArticles(metadatas) {
   return metadatas
     .map(metadata => ({
@@ -64,19 +67,6 @@ function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
   return Promise.resolve(result);
 }
 
-function serializeChapters(rawArticle) {
-  const cuttedArticle = rawArticle
-    .split('*')
-    .map(row => row.trim());
-
-  const chapters = _generateChapters(cuttedArticle);
-
-  return {
-    title: cuttedArticle[0],
-    chapters,
-  };
-}
-
 function _generateChapters(cuttedArticle) {
   const chapters = [];
   for (let i = 1; i < cuttedArticle.length / 3; i += 1) {
@@ -93,6 +83,18 @@ function _generateChapters(cuttedArticle) {
   return chapters;
 }
 
+function serializeChapters(rawArticle) {
+  const cuttedArticle = rawArticle
+    .split('*')
+    .map(row => row.trim());
+
+  const chapters = _generateChapters(cuttedArticle);
+
+  return {
+    title: cuttedArticle[0],
+    chapters,
+  };
+}
 
 function _shareOneImg(imgLink, articleId) {
   return DropboxClient.createSharedLink(`/${articleId}/${imgLink}`)

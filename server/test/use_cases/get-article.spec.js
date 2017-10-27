@@ -28,8 +28,8 @@ describe('Unit | GetArticle | getAllChapters', () => {
     const promise = GetArticle.getAllChapters(dropboxId);
 
     // then
-    promise.then((chapters) => {
-      return expect(chapters).to.deep.equal([chapterWithParagraphs()]);
+    return promise.then((chapters) => {
+      expect(chapters).to.deep.equal([chapterWithParagraphs()]);
     });
   });
 });
