@@ -1,4 +1,4 @@
-const config = require('../../infrastructure/config/index');
+const config = require('../config/index');
 const Dropbox = require('dropbox');
 
 const DropboxApi = new Dropbox({ accessToken: config.DROPBOX_CLIENT_ID });
