@@ -1,5 +1,5 @@
-const FileReader = require('../domain/external_services/file-reader');
-const DropboxClient = require('../domain/external_services/dropbox-client');
+const FileReader = require('../infrastructure/external_services/file-reader');
+const DropboxClient = require('../infrastructure/external_services/dropbox-client');
 const { isEmpty } = require('lodash');
 // const mailService = require('./mail-service');
 const articleRepository = require('../domain/repositories/article-repository');
