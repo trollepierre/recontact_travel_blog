@@ -1,4 +1,4 @@
-module.exports = [{
+module.exports = () => [{
   '.tag': 'folder',
   name: '58',
   path_lower: '/58',
