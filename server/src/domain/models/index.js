@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require('./config.json')[env];
+const config = require('../../infrastructure/db/config.json')[env];
 
 const db = {};
 
@@ -34,3 +34,5 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
+
+// todo : à déplacer dans infra
