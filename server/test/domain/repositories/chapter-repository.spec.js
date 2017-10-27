@@ -1,6 +1,6 @@
 const { sinon, expect } = require('../../test-helper');
 const chapterRepository = require('../../../src/domain/repositories/chapter-repository');
-const { Chapter } = require('../../../src/domain/models');
+const { Chapter } = require('../../../src/infrastructure/db/index');
 const chapterOfArticleSaved = require('../../fixtures/chapterOfArticleSaved');
 const chapterOfArticleToSave = require('../../fixtures/chapterOfArticleToSave');
 

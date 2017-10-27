@@ -1,6 +1,6 @@
 const { sinon, expect } = require('../../test-helper');
 const subscriptionRepository = require('../../../src/domain/repositories/subscription-repository');
-const { Subscription } = require('../../../src/domain/models');
+const { Subscription } = require('../../../src/infrastructure/db/index');
 
 describe('Unit | Repository | subscription-repository', () => {
   describe('#addSubscription', () => {
