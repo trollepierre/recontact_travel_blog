@@ -1,4 +1,4 @@
-const { Chapter } = require('../models/index');
+const { Chapter } = require('../../infrastructure/db/index');
 
 function createArticleChapters(chapters) {
   return Chapter

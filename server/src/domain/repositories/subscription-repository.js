@@ -1,4 +1,4 @@
-const { Subscription } = require('../models/index');
+const { Subscription } = require('../../infrastructure/db/index');
 
 function addSubscription(subscriberEmail) {
   return Subscription
