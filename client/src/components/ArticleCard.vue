@@ -33,7 +33,6 @@
       };
     },
     methods: {
-
       viewArticle(articleId) {
         this.disableButton();
         this.goToArticle(articleId);
