@@ -32,6 +32,7 @@
     "morgan": "~1.8.1",
     "node-mailjet": "^3.2.1",
     "node-schedule": "^1.2.5",
+    "pg": "^7.3.0",
     "pug": "~2.0.0-beta11",
     "request": "^2.81.0",
     "sequelize": "^4.13.5",
