@@ -17,7 +17,7 @@ describe('Unit | API | articles api', () => {
       axios.get.restore();
     });
 
-    it.skip('should fetch API with the good params', () => {
+    it('should fetch API with the good params', () => {
       // given
       const expectedUrl = `${process.env.API_URL}api/articles`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
