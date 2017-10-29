@@ -2,6 +2,7 @@ import Vue from 'vue';
 import ArticleCard from '@/components/ArticleCard';
 import VueRouter from 'vue-router';
 import router from '@/router';
+
 Vue.use(VueRouter);
 
 describe('ArticleCard.vue', () => {
