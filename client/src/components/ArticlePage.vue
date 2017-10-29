@@ -29,33 +29,7 @@
     },
     data() {
       return {
-        chapters: [
-          {
-            title: 'Le guide du voyageur en Chine Par Pierre avec Franzi',
-            imgLink: 'webf',
-            text: 'some text',
-          },
-          {
-            title: 'Les Chinois',
-            imgLink: 'koezio',
-            text: 'some text',
-          },
-          {
-            title: '3e paragraph',
-            imgLink: 'webf',
-            text: 'some text',
-          },
-          {
-            title: '4e paragraph',
-            imgLink: 'koezio',
-            text: 'some text',
-          },
-          {
-            title: '5e paragraph',
-            imgLink: 'webf',
-            text: 'some text',
-          },
-        ],
+        chapters: [],
       };
     },
     mounted() {
