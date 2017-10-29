@@ -23,6 +23,8 @@ client/test/e2e/reports/
 # nyc test coverage
 .nyc_output
 
+# DB data files
+*.sqlite
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt

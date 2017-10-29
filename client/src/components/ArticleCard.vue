@@ -3,18 +3,14 @@
     <article class="article">
       <header class="article__header">
         <a href="/">
-          <h2 class="article__title">{{ article.name }}</h2>
+          <h2 class="article__title">{{ article.dropboxId }}</h2> <!--todo title should come from article-->
         </a>
       </header>
       <div class="article__content">
-        <!-- fix for server side rendering + offline-->
-        <img src="../assets/webf.jpg" width="200" v-if="article.imgLink==='webf'">
-        <img src="../assets/koezio.jpg" width="200" v-if="article.imgLink==='koezio'">
-
-        <img class="article__image" :src="article.imgLink" width="200" v-if="!(article.imgLink==='koezio' && article.imgLink==='webf')"/>
+        <img class="article__image" :src="article.imgLink" width="200"/>
       </div>
       <footer class="article__footer">
-        <button class="article__view-button" :disabled="isClicked" @click.prevent.once="viewArticle">
+        <button class="article__view-button" :disabled="isClicked" @click.prevent.once="viewArticle(article.dropboxId)">
           Voir l'article
         </button>
         <a href="http://dropbox.com" target="_blank" class="article__dropbox">
@@ -37,13 +33,17 @@
       };
     },
     methods: {
-
-      viewArticle() {
+      viewArticle(articleId) {
         this.disableButton();
+        this.goToArticle(articleId);
       },
 
       disableButton() {
         this.isClicked = true;
+      },
+
+      goToArticle(articleId) {
+        this.$router.push(`/articles/${articleId}`);
       },
     },
   };
@@ -52,6 +52,11 @@
 <style scoped>
   h2 {
     font-weight: normal;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
   }
 
   .sr-only {
@@ -101,9 +106,11 @@
     font-size: 15px;
     padding: 15px;
     height: 150px;
-    display: block;
     color: #000;
-    text-align: left;
+    text-align: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
   }
 
   .article__content > p {

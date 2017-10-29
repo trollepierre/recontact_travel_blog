@@ -1,4 +1,5 @@
 <template>
+  <!--todo refaire l'arborescence (job ? + page ?)-->
   <div class="page">
     <main class="page__body">
       <div class="page__container">
@@ -28,22 +29,7 @@
     },
     data() {
       return {
-        articles: [
-          {
-            name: '58 : Pierre avec les webf',
-            imgLink: 'webf',
-          }, {
-            name: '59 : Pierre au Koezio',
-            imgLink: 'koezio',
-          },
-          {
-            name: '60 : Pierre avec les webf',
-            imgLink: 'webf',
-          }, {
-            name: '61 : Pierre au Koezio',
-            imgLink: 'koezio',
-          },
-        ],
+        articles: [],
       };
     },
     mounted() {
@@ -96,24 +82,6 @@
     .article-results__list {
       flex-direction: row;
       flex-wrap: wrap;
-    }
-  }
-
-  @media only screen and (min-width: 640px) {
-    .page__container {
-      max-width: 544px;
-    }
-  }
-
-  @media only screen and (min-width: 992px) {
-    .page__container {
-      max-width: 816px;
-    }
-  }
-
-  @media only screen and (min-width: 1200px) {
-    .page__container {
-      max-width: 1088px;
     }
   }
 

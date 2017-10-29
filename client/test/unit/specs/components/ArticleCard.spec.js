@@ -1,5 +1,9 @@
 import Vue from 'vue';
 import ArticleCard from '@/components/ArticleCard';
+import VueRouter from 'vue-router';
+import router from '@/router';
+
+Vue.use(VueRouter);
 
 describe('ArticleCard.vue', () => {
   let component;
@@ -7,11 +11,12 @@ describe('ArticleCard.vue', () => {
 
   beforeEach(() => {
     article = {
-      name: '58 : Pierre avec les webf',
+      dropboxId: '58',
       imgLink: 'webf',
     };
     const Constructor = Vue.extend(ArticleCard);
     component = new Constructor({
+      router,
       propsData: {
         article,
       },
@@ -31,7 +36,7 @@ describe('ArticleCard.vue', () => {
   describe('render', () => {
     it('should render article title', () => {
       const articleTitle = component.$el.querySelector('.article__title');
-      expect(articleTitle.textContent).to.equal('58 : Pierre avec les webf');
+      expect(articleTitle.textContent).to.equal('58');
     });
 
     it('should render article image', () => {
@@ -54,26 +59,77 @@ describe('ArticleCard.vue', () => {
     });
   });
 
+  describe('disableButton', () => {
+    it('should set isClicked to true', () => {
+      // when
+      component.disableButton();
+
+      // then
+      expect(component.$data.isClicked).to.be.true;
+    });
+  });
+
+  describe('viewArticle', () => {
+    it('should set isClicked to true', () => {
+      // when
+      component.viewArticle('58');
+
+      // then
+      expect(component.$data.isClicked).to.be.true;
+    });
+
+    it('should redirect to /articles/:articleId', () => {
+      // given
+      sinon.stub(component.$router, 'push').resolves({});
+
+      // when
+      component.viewArticle('58');
+
+      // then
+      expect(component.$router.push).to.have.been.calledWith('/articles/58');
+
+      // after
+      component.$router.push.restore();
+    });
+  });
+
+  describe('goToArticle', () => {
+    it('should redirect to /articles/:articleId', () => {
+      // given
+      sinon.stub(component.$router, 'push').resolves({});
+
+      // when
+      component.goToArticle('58');
+
+      // then
+      expect(component.$router.push).to.have.been.calledWith('/articles/58');
+
+      // after
+      component.$router.push.restore();
+    });
+  });
+
   describe('clicking on button "Voir l\'article"', () => {
     it('should disable button', () => {
       // when
       component.$el.querySelector('button.article__view-button').click();
 
       // then
-      Vue.nextTick().then(() => {
+      return Vue.nextTick().then(() => {
         expect(component.$el.querySelector('.article__view-button').disabled).to.be.true;
       });
     });
-  });
 
-  describe('clicking on button "Voir les photos"', () => {
-    it('should disable button', () => {
+    it('should redirect to /article/id', () => {
+      // given
+      sinon.stub(component.$router, 'push').resolves({});
+
       // when
-      component.$el.querySelector('button.article__dropbox-button').click();
+      component.$el.querySelector('button.article__view-button').click();
 
       // then
-      Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('.article__dropbox-button').disabled).to.be.true;
+      return Vue.nextTick().then(() => {
+        expect(component.$router.push).to.have.been.calledWith('/articles/58');
       });
     });
   });
