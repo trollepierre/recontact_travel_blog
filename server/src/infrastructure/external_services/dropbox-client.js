@@ -11,6 +11,7 @@ const DropboxClient = {
       .catch((err) => {
         console.log('Erreur lors de la récupération de tous les fichiers Dropbox : ');
         console.log(err);
+        throw err;
       });
   },
 
@@ -20,6 +21,7 @@ const DropboxClient = {
       .catch((err) => {
         console.log('Erreur lors de la récupération du fichier texte de : ', `/${id}/fr.php`);
         console.log(err);
+        throw err;
       });
   },
 
@@ -29,6 +31,7 @@ const DropboxClient = {
       .catch((err) => {
         console.log('Erreur lors de la création du lien de : ', path);
         console.log(err);
+        throw err;
       });
   },
 
