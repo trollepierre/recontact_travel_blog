@@ -24,14 +24,14 @@ describe('ArticlePage.vue', () => {
         text: 'some text',
       },
     ];
-    sinon.stub(chaptersApi, 'fetchAll').resolves(chapters);
+    sinon.stub(chaptersApi, 'fetch').resolves(chapters);
     const Constructor = Vue.extend(ArticlePage);
     component = new Constructor({ router }).$mount();
     component.$route.params.id = idArticle;
   });
 
   afterEach(() => {
-    chaptersApi.fetchAll.restore();
+    chaptersApi.fetch.restore();
   });
 
   it('should be named "ArticlePage"', () => {
@@ -40,7 +40,7 @@ describe('ArticlePage.vue', () => {
 
   describe('mounted', () => {
     it('should call chapters api to fetch chapters', () => {
-      expect(chaptersApi.fetchAll).to.have.been.calledWith(idArticle);
+      expect(chaptersApi.fetch).to.have.been.calledWith(idArticle);
     });
 
     it('should saved chapters from api in data chapters', () => Vue.nextTick().then(() => {
