@@ -2,7 +2,7 @@ import axios from 'axios';
 import chaptersApi from '@/api/chapters';
 
 describe('Unit | API | chapters api', () => {
-  describe('#fetchAll', () => {
+  describe('#fetch', () => {
     let idArticle;
     let data;
 
@@ -29,7 +29,7 @@ describe('Unit | API | chapters api', () => {
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when
-      const promise = chaptersApi.fetchAll(idArticle);
+      const promise = chaptersApi.fetch(idArticle);
 
       // then
       return promise.then(() => {
@@ -39,7 +39,7 @@ describe('Unit | API | chapters api', () => {
 
     it('should return the response', () => {
       // when
-      const promise = chaptersApi.fetchAll(idArticle);
+      const promise = chaptersApi.fetch(idArticle);
 
       // then
       return promise.then((returnedChapters) => {
@@ -53,7 +53,7 @@ describe('Unit | API | chapters api', () => {
       axios.get.rejects(new Error('some error'));
 
       // when
-      const promise = chaptersApi.fetchAll(accessToken);
+      const promise = chaptersApi.fetch(accessToken);
 
       // then
       promise.catch((error) => {
