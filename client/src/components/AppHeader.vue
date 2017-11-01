@@ -19,6 +19,7 @@
 </template>
 <script>
   import syncApi from '@/api/sync';
+  import notificationService from '@/services/notification';
 
   export default {
     name: 'AppHeader',
@@ -36,9 +37,13 @@
         this.disableButton();
         syncApi.launch()
           .then((response) => {
+            const message = 'La synchronisation s\'est effectuée sans problème !';
+            notificationService.success(this, message);
             console.log(response);
           })
           .catch((err) => {
+            const message = `Erreur : Problème durant la synchronisation : ${err.message}`;
+            notificationService.error(this, message);
             console.log(err);
           });
       },

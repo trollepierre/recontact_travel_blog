@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import syncApi from '@/api/sync';
 import AppHeader from '@/components/AppHeader';
+import notificationService from '@/services/notification';
 
 describe('Unit | Component | AppHeader.vue', () => {
   let component;
@@ -28,9 +29,22 @@ describe('Unit | Component | AppHeader.vue', () => {
   });
 
   describe('synchronise', () => {
+    beforeEach(() => {
+      // given
+      sinon.stub(syncApi, 'launch');
+      sinon.stub(notificationService, 'success').resolves({});
+      sinon.stub(notificationService, 'error').resolves({});
+    });
+
+    afterEach(() => {
+      syncApi.launch.restore();
+      notificationService.success.restore();
+      notificationService.error.restore();
+    });
+
     it('should call syncApi', () => {
       // given
-      sinon.stub(syncApi, 'launch').resolves({});
+      syncApi.launch.resolves({});
 
       // when
       component.synchronise();
@@ -38,6 +52,34 @@ describe('Unit | Component | AppHeader.vue', () => {
       // then
       return Vue.nextTick().then(() => {
         expect(syncApi.launch).to.have.been.calledWith();
+      });
+    });
+
+    it('should display success toast notification when subscription succeeds', () => {
+      // given
+      syncApi.launch.resolves({});
+
+      // when
+      component.synchronise();
+
+      // then
+      return Vue.nextTick().then(() => {
+        const message = 'La synchronisation s\'est effectuée sans problème !';
+        expect(notificationService.success).to.have.been.calledWithExactly(component, message);
+      });
+    });
+
+    it('should display error toast notification when subscription fails', () => {
+      // given
+      syncApi.launch.rejects(new Error('Expected error'));
+
+      // when
+      component.synchronise();
+
+      // then
+      return Vue.nextTick().then(() => {
+        const message = 'Erreur : Problème durant la synchronisation : Expected error';
+        expect(notificationService.error).to.have.been.calledWithExactly(component, message);
       });
     });
   });
