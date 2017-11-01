@@ -6,13 +6,43 @@
           <span class="logo-link__job">Recontact</span>
           <span class="logo-link__board">Me</span>
         </a>
+        <nav class="app-header__navigation navigation" role="navigation" aria-label="site navigation">
+          <ol class="navigation__links">
+            <li class="navigation__link">
+              <button class="navbar-action navbar-action__sync" type="button" :disabled="isClicked" @click.prevent.once="synchronise">Synchroniser</button>
+            </li>
+          </ol>
+        </nav>
       </div>
     </header>
   </div>
 </template>
 <script>
+  import syncApi from '@/api/sync';
+
   export default {
     name: 'AppHeader',
+    data() {
+      return {
+        isClicked: false,
+      };
+    },
+    methods: {
+      disableButton() {
+        this.isClicked = true;
+      },
+
+      synchronise() {
+        this.disableButton();
+        syncApi.launch()
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+    },
   };
 </script>
 
@@ -121,10 +151,6 @@
 
   .page__container {
     margin: 0 auto;
-  }
-
-  .navigation__link {
-    margin-left: 25px;
   }
 
   @media only screen and (min-width: 640px) {
