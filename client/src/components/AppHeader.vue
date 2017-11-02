@@ -36,15 +36,13 @@
       synchronise() {
         this.disableButton();
         syncApi.launch()
-          .then((response) => {
+          .then(() => {
             const message = 'La synchronisation s\'est effectuée sans problème !';
             notificationService.success(this, message);
-            console.log(response);
           })
           .catch((err) => {
             const message = `Erreur : Problème durant la synchronisation : ${err.message}`;
             notificationService.error(this, message);
-            console.log(err);
           });
       },
     },
