@@ -50,5 +50,27 @@ describe('Unit | Repository | article-repository', () => {
       });
     });
   });
+
+  describe('#deleteArticle', () => {
+    const dropboxId = 47;
+
+    beforeEach(() => {
+      sinon.stub(Article, 'destroy').resolves();
+    });
+
+    afterEach(() => {
+      Article.destroy.restore();
+    });
+
+    it('should call Sequelize Model#destroy', () => {
+      // when
+      const promise = articleRepository.deleteArticle(dropboxId);
+
+      // then
+      return promise.then(() => {
+        expect(Article.destroy).to.have.been.calledWith({ where: { dropboxId } });
+      });
+    });
+  });
 });
 
