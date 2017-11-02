@@ -2,7 +2,7 @@
   <div class="article-card">
     <article class="article">
       <header class="article__header">
-        <a href="/">
+        <a :href="articleUrl" @click.prevent.once="viewArticle">
           <h2 class="article__title">{{ article.dropboxId }}</h2> <!--todo title should come from article-->
         </a>
       </header>
@@ -18,7 +18,7 @@
         </template>
         <template v-else>
           <button class="article__view-button"
-                  @click.prevent.once="viewArticle(article.dropboxId)">
+                  @click.prevent.once="viewArticle">
             Voir l'article
           </button>
           <a href="http://dropbox.com" target="_blank" class="article__dropbox">
@@ -44,9 +44,14 @@
         isDeleteClicked: false,
       };
     },
+    computed: {
+      articleUrl() {
+        return `/articles/${this.article.dropboxId}`;
+      },
+    },
     methods: {
-      viewArticle(articleId) {
-        this.goToArticle(articleId);
+      viewArticle() {
+        this.goToArticle();
       },
 
       deleteArticle(articleId) {
@@ -66,8 +71,8 @@
         this.isDeleteClicked = true;
       },
 
-      goToArticle(articleId) {
-        this.$router.push(`/articles/${articleId}`);
+      goToArticle() {
+        this.$router.push(this.articleUrl);
       },
     },
   };
