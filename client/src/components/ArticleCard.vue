@@ -15,10 +15,6 @@
                   @click.prevent.once="deleteArticle(article.dropboxId)">
             Supprimer l'article
           </button>
-          <button class="article__sync-button" :disabled="isSyncClicked"
-                  @click.prevent.once="syncArticle(article.dropboxId)">
-            Synchroniser l'article
-          </button>
         </template>
         <template v-else>
           <button class="article__view-button"
@@ -38,7 +34,6 @@
 
 <script>
   import deleteArticleApi from '@/api/deleteArticle';
-  import syncArticleApi from '@/api/syncArticle';
   import notificationService from '@/services/notification';
 
   export default {
@@ -47,7 +42,6 @@
     data() {
       return {
         isDeleteClicked: false,
-        isSyncClicked: false,
       };
     },
     methods: {
@@ -68,25 +62,8 @@
           });
       },
 
-      syncArticle(articleId) {
-        this.disableSyncButton();
-        syncArticleApi.syncArticle(articleId)
-          .then(() => {
-            const message = 'La synchronisation s\'est effectuée sans problème !';
-            notificationService.success(this, message);
-          })
-          .catch((err) => {
-            const message = `Erreur : Problème durant la synchronisation : ${err.message}`;
-            notificationService.error(this, message);
-          });
-      },
-
       disableDeleteButton() {
         this.isDeleteClicked = true;
-      },
-
-      disableSyncButton() {
-        this.isSyncClicked = true;
       },
 
       goToArticle(articleId) {

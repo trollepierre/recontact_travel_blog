@@ -4,7 +4,6 @@ import VueRouter from 'vue-router';
 import router from '@/router';
 import notificationService from '@/services/notification';
 import deleteArticleApi from '@/api/deleteArticle';
-import syncArticleApi from '@/api/syncArticle';
 
 Vue.use(VueRouter);
 
@@ -35,9 +34,6 @@ describe('ArticleCard.vue', () => {
     describe('$data', () => {
       it('should have isDeleteClicked property set to false', () => {
         expect(component.$data.isDeleteClicked).to.be.false;
-      });
-      it('should have isSyncClicked property set to false', () => {
-        expect(component.$data.isSyncClicked).to.be.false;
       });
     });
 
@@ -74,16 +70,6 @@ describe('ArticleCard.vue', () => {
 
         // then
         expect(component.$data.isDeleteClicked).to.be.true;
-      });
-    });
-
-    describe('disableSyncButton', () => {
-      it('should set isSyncClicked to true', () => {
-        // when
-        component.disableSyncButton();
-
-        // then
-        expect(component.$data.isSyncClicked).to.be.true;
       });
     });
 
@@ -202,73 +188,6 @@ describe('ArticleCard.vue', () => {
         });
       });
     });
-
-    describe('syncArticle', () => {
-      beforeEach(() => {
-        // given
-        sinon.stub(syncArticleApi, 'syncArticle');
-        sinon.stub(notificationService, 'success').resolves({});
-        sinon.stub(notificationService, 'error').resolves({});
-      });
-
-      afterEach(() => {
-        syncArticleApi.syncArticle.restore();
-        notificationService.success.restore();
-        notificationService.error.restore();
-      });
-
-      it('should set isSyncClicked to true', () => {
-        // given
-        syncArticleApi.syncArticle.resolves({});
-
-        // when
-        component.syncArticle('58');
-
-        // then
-        expect(component.$data.isSyncClicked).to.be.true;
-      });
-
-      it('should call sync article api', () => {
-        // given
-        syncArticleApi.syncArticle.resolves({});
-
-        // when
-        component.syncArticle('58');
-
-        // then
-        return Vue.nextTick().then(() => {
-          expect(syncArticleApi.syncArticle).to.have.been.calledWith();
-        });
-      });
-
-      it('should display success toast notification when sync succeeds', () => {
-        // given
-        syncArticleApi.syncArticle.resolves({});
-
-        // when
-        component.syncArticle('58');
-
-        // then
-        return Vue.nextTick().then(() => {
-          const message = 'La synchronisation s\'est effectuée sans problème !';
-          expect(notificationService.success).to.have.been.calledWithExactly(component, message);
-        });
-      });
-
-      it('should display error toast notification when sync fails', () => {
-        // given
-        syncArticleApi.syncArticle.rejects(new Error('Expected error'));
-
-        // when
-        component.syncArticle('58');
-
-        // then
-        return Vue.nextTick().then(() => {
-          const message = 'Erreur : Problème durant la synchronisation : Expected error';
-          expect(notificationService.error).to.have.been.calledWithExactly(component, message);
-        });
-      });
-    });
   });
 
   describe('when adminMode is true', () => {
@@ -321,41 +240,6 @@ describe('ArticleCard.vue', () => {
         // then
         return Vue.nextTick().then(() => {
           expect(deleteArticleApi.deleteArticle).to.have.been.calledWith('58');
-        });
-      });
-    });
-
-    describe('clicking on button "synchroniser l\'article"', () => {
-      beforeEach(() => {
-        // given
-        sinon.stub(syncArticleApi, 'syncArticle').resolves({});
-        sinon.stub(notificationService, 'success').resolves({});
-        sinon.stub(notificationService, 'error').resolves({});
-      });
-
-      afterEach(() => {
-        syncArticleApi.syncArticle.restore();
-        notificationService.success.restore();
-        notificationService.error.restore();
-      });
-
-      it('should disable button', () => {
-        // when
-        component.$el.querySelector('button.article__sync-button').click();
-
-        // then
-        return Vue.nextTick().then(() => {
-          expect(component.$el.querySelector('.article__sync-button').disabled).to.be.true;
-        });
-      });
-
-      it('should call syncArticleApi', () => {
-        // when
-        component.$el.querySelector('button.article__sync-button').click();
-
-        // then
-        return Vue.nextTick().then(() => {
-          expect(syncArticleApi.syncArticle).to.have.been.calledWith('58');
         });
       });
     });
