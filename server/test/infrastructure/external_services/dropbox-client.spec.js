@@ -162,10 +162,8 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         const promise = DropboxClient.createSharedLink(path);
 
         // then
-        return promise.then(() => {
-          throw new Error();
-        }, (err) => {
-          expect(err.message).to.equal('Expected error');
+        return promise.then((link) => {
+          expect(link).to.deep.equal('');
         });
       });
     });
