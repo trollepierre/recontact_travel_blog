@@ -59,5 +59,27 @@ describe('Unit | Repository | chapter-repository', () => {
       });
     });
   });
+
+  describe('#deleteChaptersOfArticle', () => {
+    const dropboxId = 47;
+
+    beforeEach(() => {
+      sinon.stub(Chapter, 'destroy').resolves();
+    });
+
+    afterEach(() => {
+      Chapter.destroy.restore();
+    });
+
+    it('should call Sequelize Model#all', () => {
+      // when
+      const promise = chapterRepository.deleteChaptersOfArticle(dropboxId);
+
+      // then
+      return promise.then(() => {
+        expect(Chapter.destroy).to.have.been.calledWith({ where: { dropboxId } });
+      });
+    });
+  });
 });
 
