@@ -17,5 +17,11 @@ export default new Router({
       name: 'ArticlePage',
       component: ArticlePage,
     },
+    {
+      path: '/admin',
+      name: 'ArticleList',
+      component: ArticleList,
+      props: { adminMode: true },
+    },
   ],
 });
