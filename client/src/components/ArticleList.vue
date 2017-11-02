@@ -5,7 +5,7 @@
       <div class="page__container">
         <div class="job-results-panel">
           <section class="article-results">
-            <h1 class="article-results__title">Les articles du voyage</h1>
+            <h1 class="article-results__title">{{ title }}</h1>
             <ul class="article-results__list">
               <li v-for="article in articles" class="article-results__item">
                 <article-card :article="article"></article-card>
@@ -27,6 +27,7 @@
     components: {
       'article-card': ArticleCard,
     },
+    props: ['adminMode'],
     data() {
       return {
         articles: [],
@@ -34,6 +35,11 @@
     },
     mounted() {
       this.getArticles();
+    },
+    computed: {
+      title() {
+        return (this.adminMode) ? 'Administrer le site' : 'Les articles du voyage';
+      },
     },
     methods: {
       getArticles() {
