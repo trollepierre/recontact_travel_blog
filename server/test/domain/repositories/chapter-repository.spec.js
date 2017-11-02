@@ -71,7 +71,7 @@ describe('Unit | Repository | chapter-repository', () => {
       Chapter.destroy.restore();
     });
 
-    it('should call Sequelize Model#all', () => {
+    it('should call Sequelize Model#destroy', () => {
       // when
       const promise = chapterRepository.deleteChaptersOfArticle(dropboxId);
 
