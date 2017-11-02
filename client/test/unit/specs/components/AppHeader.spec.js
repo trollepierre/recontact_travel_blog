@@ -55,7 +55,7 @@ describe('Unit | Component | AppHeader.vue', () => {
       });
     });
 
-    it('should display success toast notification when subscription succeeds', () => {
+    it('should display success toast notification when synchronisation succeeds', () => {
       // given
       syncApi.launch.resolves({});
 
@@ -69,7 +69,7 @@ describe('Unit | Component | AppHeader.vue', () => {
       });
     });
 
-    it('should display error toast notification when subscription fails', () => {
+    it('should display error toast notification when synchronisation fails', () => {
       // given
       syncApi.launch.rejects(new Error('Expected error'));
 
