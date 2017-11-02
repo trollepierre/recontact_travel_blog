@@ -31,8 +31,7 @@ const DropboxClient = {
       .catch((err) => {
         console.log('Erreur lors de la création du lien de : ', path);
         console.log(err);
-        return Promise.resolve('')
-        throw err;
+        return Promise.resolve('');
       });
   },
 
