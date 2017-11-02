@@ -8,7 +8,7 @@
             <h1 class="article-results__title">{{ title }}</h1>
             <ul class="article-results__list">
               <li v-for="article in articles" class="article-results__item">
-                <article-card :article="article"></article-card>
+                <article-card :article="article" :adminMode="adminMode"></article-card>
               </li>
             </ul>
           </section>
