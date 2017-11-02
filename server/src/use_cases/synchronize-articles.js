@@ -126,6 +126,22 @@ function _getCompleteChaptersToShare(article) {
     .then(chapters => chapters.chapters.map(chapter => Object.assign(chapter, { dropboxId: article.dropboxId }))); // todo : add to former method
 }
 
+// concat :: ([a],[a]) -> [a]
+const concat = (xs, ys) =>
+  xs.concat(ys);
+
+// concatMap :: (a -> [b]) -> [a] -> [b]
+const concatMap = f => xs =>
+  xs.map(f).reduce(concat, []);
+
+// id :: a -> a
+const id = x =>
+  x;
+
+// flatten :: [[a]] -> [a]
+const flatten =
+  concatMap(id);
+
 function _updateChapterInDatabase({ addedArticles }) {
   const allChaptersToSave = addedArticles.reduce((promises, article) => {
     const chaptersOfThisArticleToSave = _getCompleteChaptersToShare(article);
@@ -133,7 +149,8 @@ function _updateChapterInDatabase({ addedArticles }) {
     return promises;
   }, []);
   return Promise.all(allChaptersToSave)
-    .then(chapters => chapterRepository.createArticleChapters(chapters[0])); // todo : delete former rows of this article
+    .then(allChapters => flatten(allChapters))
+    .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
 }
 
 function _ifArticlesChangesThenUpdateChaptersInDatabase(report) {

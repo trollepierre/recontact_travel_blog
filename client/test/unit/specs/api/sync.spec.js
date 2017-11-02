@@ -1,20 +1,13 @@
 import axios from 'axios';
-import chaptersApi from '@/api/chapters';
+import syncApi from '@/api/sync';
 
-describe('Unit | API | chapters api', () => {
-  describe('#fetch', () => {
-    let idArticle;
-    let data;
+describe('Unit | API | sync api', () => {
+  describe('#launch', () => {
+    let stubbedResponse;
 
     beforeEach(() => {
-      idArticle = 59;
-      data = {
-        foo: 'bar',
-        chapters: 'some chapters',
-      };
-      const stubbedResponse = {
+      stubbedResponse = {
         status: 200,
-        data,
       };
       sinon.stub(axios, 'get').resolves(stubbedResponse);
     });
@@ -23,13 +16,13 @@ describe('Unit | API | chapters api', () => {
       axios.get.restore();
     });
 
-    it('should fetch API with the good params', () => {
+    it('should launch API with the good params', () => {
       // given
-      const expectedUrl = `${process.env.API_URL}api/articles/${idArticle}`;
+      const expectedUrl = `${process.env.API_URL}api/sync/`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when
-      const promise = chaptersApi.fetch(idArticle);
+      const promise = syncApi.launch();
 
       // then
       return promise.then(() => {
@@ -39,11 +32,11 @@ describe('Unit | API | chapters api', () => {
 
     it('should return the response', () => {
       // when
-      const promise = chaptersApi.fetch(idArticle);
+      const promise = syncApi.launch();
 
       // then
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).to.equal(data);
+        expect(returnedChapters).to.equal(stubbedResponse);
       });
     });
 
@@ -53,7 +46,7 @@ describe('Unit | API | chapters api', () => {
       axios.get.rejects(new Error('some error'));
 
       // when
-      const promise = chaptersApi.fetch(accessToken);
+      const promise = syncApi.launch(accessToken);
 
       // then
       promise.catch((error) => {

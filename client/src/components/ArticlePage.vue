@@ -37,7 +37,7 @@
     },
     methods: {
       getChapters() {
-        chaptersApi.fetchAll(this.$route.params.id)
+        chaptersApi.fetch(this.$route.params.id)
           .then((chapters) => {
             (this.chapters = chapters);
           });
@@ -79,6 +79,7 @@
   .chapter__item {
     list-style-type: none;
     padding: 0;
+    width: 100%;
     margin: 5px;
   }
 
