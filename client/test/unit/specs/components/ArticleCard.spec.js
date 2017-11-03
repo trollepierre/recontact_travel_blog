@@ -36,6 +36,32 @@ describe('ArticleCard.vue', () => {
       });
     });
 
+    describe('computed property #articleUrl', () => {
+      it('should return /articles/:id', () => {
+        // When
+        const articleUrl = component.articleUrl;
+
+        // Then
+        expect(articleUrl).to.equal('/articles/58');
+      });
+    });
+
+    describe('clicking on title', () => {
+      it('should redirect to /article/id', () => {
+        // given
+        sinon.stub(component.$router, 'push').resolves({});
+
+        // when
+        component.$el.querySelector('.article__header a').click();
+
+        // then
+        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+
+        // after
+        component.$router.push.restore();
+      });
+    });
+
     describe('render', () => {
       it('should render article title', () => {
         const articleTitle = component.$el.querySelector('.article__title');
@@ -78,7 +104,7 @@ describe('ArticleCard.vue', () => {
         sinon.stub(component.$router, 'push').resolves({});
 
         // when
-        component.viewArticle('58');
+        component.viewArticle();
 
         // then
         expect(component.$router.push).to.have.been.calledWith('/articles/58');
@@ -94,7 +120,7 @@ describe('ArticleCard.vue', () => {
         sinon.stub(component.$router, 'push').resolves({});
 
         // when
-        component.goToArticle('58');
+        component.goToArticle();
 
         // then
         expect(component.$router.push).to.have.been.calledWith('/articles/58');
