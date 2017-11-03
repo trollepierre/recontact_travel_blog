@@ -6,7 +6,7 @@
       </header>
       <div class="chapter__content">
         <img v-if="imgLink" class="chapter__image" :src="imgLink"/>
-        <span v-if="!imgLink">Image manquante</span>
+        <span v-else>Image manquante</span>
       </div>
       <footer class="chapter__footer">
         <div v-for="text in chapter.text">
