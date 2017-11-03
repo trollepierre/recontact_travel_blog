@@ -32,7 +32,7 @@ function _compareDropboxAndDatabaseArticles(freshArticles) {
 }
 
 function _transformToDownloadableLink(response) {
-  if (response === '') {
+  if (isEmpty(response)) {
     return '';
   }
   return response.url.replace(/.$/, '1');

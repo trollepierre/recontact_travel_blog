@@ -163,7 +163,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
         // then
         return promise.then((link) => {
-          expect(link).to.deep.equal('');
+          expect(link).to.deep.equal({});
         });
       });
     });
