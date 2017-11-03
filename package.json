@@ -16,6 +16,7 @@
     "clean": "npm run clean:client && npm run clean:server",
     "start:client": "(cd client && npm run dev)",
     "start": "(cd server && node ./bin/www)",
+    "start:dev": "(cd server && npm run start:dev)",
     "test:client": "(cd client && npm test)",
     "test:server": "(cd server && npm test)",
     "test": "npm run test:client && npm run test:server",

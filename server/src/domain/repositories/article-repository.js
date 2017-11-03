@@ -10,7 +10,14 @@ function getAll() {
     .all();
 }
 
+function deleteArticle(dropboxId) {
+  return Article.destroy({
+    where: { dropboxId },
+  });
+}
+
 module.exports = {
   create,
   getAll,
+  deleteArticle,
 };

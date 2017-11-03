@@ -5,17 +5,13 @@
         <h2 class="chapter__title">{{ chapter.title }}</h2>
       </header>
       <div class="chapter__content">
-        <img src="../assets/webf.jpg" v-if="chapter.imgLink==='webf'">
-        <img src="../assets/koezio.jpg" v-if="chapter.imgLink==='koezio'">
-        <img class="chapter__image" :src="chapter.imgLink"/>
+        <img v-if="imgLink" class="chapter__image" :src="imgLink"/>
+        <span v-else>Image manquante</span>
       </div>
       <footer class="chapter__footer">
         <div v-for="text in chapter.text">
           <p>{{ text }}</p>
         </div>
-        <p v-if="chapter.imgLink==='koezio'">
-          Loading...
-        </p>
       </footer>
     </article>
   </div>
@@ -25,6 +21,15 @@
   export default {
     name: 'ChapterCard',
     props: ['chapter'],
+    computed: {
+      imgLink() {
+        const imgLink = this.chapter.imgLink;
+        if (!imgLink) {
+          return false;
+        }
+        return imgLink;
+      },
+    },
   };
 </script>
 

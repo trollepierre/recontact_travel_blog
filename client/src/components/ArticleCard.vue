@@ -10,36 +10,60 @@
         <img class="article__image" :src="article.imgLink" width="200"/>
       </div>
       <footer class="article__footer">
-        <button class="article__view-button" :disabled="isClicked" @click.prevent.once="viewArticle(article.dropboxId)">
-          Voir l'article
-        </button>
-        <a href="http://dropbox.com" target="_blank" class="article__dropbox">
-          <button class="article__dropbox-button">
-            Voir les photos
+        <template v-if="adminMode">
+          <button class="article__delete-button" :disabled="isDeleteClicked"
+                  @click.prevent.once="deleteArticle(article.dropboxId)">
+            Supprimer l'article
           </button>
-        </a>
+        </template>
+        <template v-else>
+          <button class="article__view-button"
+                  @click.prevent.once="viewArticle(article.dropboxId)">
+            Voir l'article
+          </button>
+          <a href="http://dropbox.com" target="_blank" class="article__dropbox">
+            <button class="article__dropbox-button">
+              Voir les photos
+            </button>
+          </a>
+        </template>
       </footer>
     </article>
   </div>
 </template>
 
 <script>
+  import deleteArticleApi from '@/api/deleteArticle';
+  import notificationService from '@/services/notification';
+
   export default {
     name: 'ArticleCard',
-    props: ['article'],
+    props: ['article', 'adminMode'],
     data() {
       return {
-        isClicked: false,
+        isDeleteClicked: false,
       };
     },
     methods: {
       viewArticle(articleId) {
-        this.disableButton();
         this.goToArticle(articleId);
       },
 
-      disableButton() {
-        this.isClicked = true;
+      deleteArticle(articleId) {
+        this.disableDeleteButton();
+        deleteArticleApi.deleteArticle(articleId)
+          .then(() => {
+            const message = 'La suppression s\'est effectuée sans problème !';
+            notificationService.success(this, message);
+          })
+          .catch((err) => {
+            const message = `Erreur : Problème durant la suppression : ${err.message}`;
+            notificationService.error(this, message);
+          });
+      },
+
+      disableDeleteButton() {
+        this.isDeleteClicked = true;
       },
 
       goToArticle(articleId) {

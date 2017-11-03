@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const articles = require('./src/infrastructure/features/api/articles');
+const admin = require('./src/infrastructure/features/api/admin');
 const sync = require('./src/infrastructure/features/api/sync');
 const subscriptions = require('./src/infrastructure/features/api/subscriptions');
 
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use('/api/sync', sync);
 app.use('/api/articles', articles);
+app.use('/api/admin', admin);
 app.use('/api/subscriptions', subscriptions);
 
 // catch 404 and forward to error handler
