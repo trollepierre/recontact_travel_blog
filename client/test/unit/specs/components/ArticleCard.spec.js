@@ -8,7 +8,7 @@ import deleteArticleApi from '@/api/deleteArticle';
 Vue.use(VueRouter);
 
 describe('ArticleCard.vue', () => {
-  describe('when adminMode is false', () => {
+  describe('when adminMode is not defined', () => {
     let component;
     let article;
 
@@ -22,7 +22,6 @@ describe('ArticleCard.vue', () => {
         router,
         propsData: {
           article,
-          adminMode: false,
         },
       }).$mount();
     });
@@ -114,11 +113,9 @@ describe('ArticleCard.vue', () => {
         component.$el.querySelector('button.article__view-button').click();
 
         // then
-        return Vue.nextTick().then(() => {
-          expect(component.$router.push).to.have.been.calledWith('/articles/58');
-          // after
-          component.$router.push.restore();
-        });
+        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+        // after
+        component.$router.push.restore();
       });
     });
 
@@ -155,9 +152,7 @@ describe('ArticleCard.vue', () => {
         component.deleteArticle('58');
 
         // then
-        return Vue.nextTick().then(() => {
-          expect(deleteArticleApi.deleteArticle).to.have.been.calledWith();
-        });
+        expect(deleteArticleApi.deleteArticle).to.have.been.calledWith();
       });
 
       it('should display success toast notification when delete succeeds', () => {
@@ -238,9 +233,7 @@ describe('ArticleCard.vue', () => {
         component.$el.querySelector('button.article__delete-button').click();
 
         // then
-        return Vue.nextTick().then(() => {
-          expect(deleteArticleApi.deleteArticle).to.have.been.calledWith('58');
-        });
+        expect(deleteArticleApi.deleteArticle).to.have.been.calledWith('58');
       });
     });
   });
