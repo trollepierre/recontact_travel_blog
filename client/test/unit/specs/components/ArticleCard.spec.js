@@ -55,11 +55,10 @@ describe('ArticleCard.vue', () => {
         component.$el.querySelector('.article__header a').click();
 
         // then
-        return Vue.nextTick().then(() => {
-          expect(component.$router.push).to.have.been.calledWith('/articles/58');
-          // after
-          component.$router.push.restore();
-        });
+        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+
+        // after
+        component.$router.push.restore();
       });
     });
 
