@@ -32,7 +32,6 @@
 <script>
   import syncApi from '@/api/sync';
   import notificationService from '@/services/notification';
-  import subscriptions from '@/api/subscriptions';
 
   export default {
     name: 'AppHeader',
