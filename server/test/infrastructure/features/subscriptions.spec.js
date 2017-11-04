@@ -4,7 +4,7 @@ const subscriptionService = require('../../../src/domain/repositories/subscripti
 
 describe('Integration | Routes | subscriptions route', () => {
   describe('POST /api/subscriptions', () => {
-    const email = 'mail@recontact.me' ;
+    const email = 'mail@recontact.me';
 
     beforeEach(() => {
       sinon.stub(subscriptionService, 'addSubscription');

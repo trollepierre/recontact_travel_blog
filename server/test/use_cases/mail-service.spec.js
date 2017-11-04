@@ -26,7 +26,7 @@ describe('Unit | Service | MailService', () => {
       // then
       return promise.then(() => {
         expect(mailJet.sendEmail).to.have.been.calledWithExactly({
-          from: 'mail@recontact.me',
+          from: 'contact@recontact.me',
           to: 'contact@recontact.me',
           fromName: 'RecontactMe - Ne pas répondre',
           subject: '[RecontactMe] [Support] mail@recontact.me a émis un message',
