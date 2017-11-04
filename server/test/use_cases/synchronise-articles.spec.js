@@ -2,6 +2,8 @@ const { expect, sinon } = require('../test-helper');
 const SynchroniseArticles = require('../../src/use_cases/synchronize-articles');
 const ArticleRepository = require('../../src/domain/repositories/article-repository');
 const ChapterRepository = require('../../src/domain/repositories/chapter-repository');
+const SubscriptionRepository = require('../../src/domain/repositories/subscription-repository');
+const mailJet = require('../../src/infrastructure/mailing/mailjet');
 const DropboxClient = require('../../src/infrastructure/external_services/dropbox-client');
 const FileReader = require('../../src/infrastructure/external_services/file-reader');
 const savedArticle = require('../fixtures/articleToSave');
@@ -71,7 +73,9 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
   describe('when a new article has been added', () => {
     beforeEach(() => {
+      const subscriptions = [{ email: 'abonne@recontact.me' }];
       const oldArticles = [savedArticle('46')];
+      sinon.stub(SubscriptionRepository, 'getAll').resolves(subscriptions);
       sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
       sinon.stub(ArticleRepository, 'create')
         .resolves(savedArticle('47'))
@@ -81,15 +85,18 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       sinon.stub(DropboxClient, 'createSharedLink');
       sinon.stub(DropboxClient, 'getTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
       sinon.stub(FileReader, 'read').resolves(dropboxArticleFr);
+      sinon.stub(mailJet, 'sendEmail').resolves({});
     });
 
     afterEach(() => {
+      SubscriptionRepository.getAll.restore();
       ArticleRepository.getAll.restore();
       ArticleRepository.create.restore();
       ChapterRepository.createArticleChapters.restore();
       DropboxClient.createSharedLink.restore();
       DropboxClient.getTextFileStream.restore();
       FileReader.read.restore();
+      mailJet.sendEmail.restore();
     });
 
     describe('when dropbbox can create shared link', () => {
@@ -212,6 +219,50 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // then
         return promise.then(() => {
           expect(ChapterRepository.createArticleChapters).to.have.been.calledWith(chaptersToSave);
+        });
+      });
+
+      it('should send email with correct options', () => {
+        // when
+        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+
+        // then
+        return promise.then(() => {
+          expect(mailJet.sendEmail).to.have.been.calledWith({
+            from: 'contact@recontact.me',
+            fromName: 'RecontactMe',
+            to: ['abonne@recontact.me'],
+            subject: '[RecontactMe] Il y a du nouveau sur le site !',
+            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://centralamerica.recontact.me/#">Recontact Me</a>.</p>' +
+            '<p>2 nouveaux articles :<ul>' +
+            '<li><a href="http://centralamerica.recontact.me/#/articles/47">47</a></li>' +
+            '<li><a href="http://centralamerica.recontact.me/#/articles/48">48</a></li>' +
+            '</ul></p>',
+          });
+        });
+      });
+
+      it('should send email with correct options when there is one added article', () => {
+        // given
+        ArticleRepository.getAll.restore();
+        const oldArticles = [savedArticle('46'), savedArticle('48')];
+        sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
+
+        // when
+        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+
+        // then
+        return promise.then(() => {
+          expect(mailJet.sendEmail).to.have.been.calledWith({
+            from: 'contact@recontact.me',
+            fromName: 'RecontactMe',
+            to: ['abonne@recontact.me'],
+            subject: '[RecontactMe] Il y a du nouveau sur le site !',
+            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://centralamerica.recontact.me/#">Recontact Me</a>.</p>' +
+            '<p>Un nouvel article :<ul>' +
+            '<li><a href="http://centralamerica.recontact.me/#/articles/47">47</a></li>' +
+            '</ul></p>',
+          });
         });
       });
     });

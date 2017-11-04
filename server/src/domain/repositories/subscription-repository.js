@@ -10,7 +10,13 @@ function removeSubscription(subscriptionId) {
   return Subscription.destroy({ where: { id: subscriptionId } });
 }
 
+function getAll() {
+  return Subscription
+    .all();
+}
+
 module.exports = {
   addSubscription,
   removeSubscription,
+  getAll,
 };
