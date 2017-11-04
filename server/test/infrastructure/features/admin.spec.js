@@ -18,7 +18,7 @@ describe('Integration | Routes | admin route', () => {
 
       // When
       request(app)
-        .get(`/api/admin/articles/${stringIdArticle}/delete`)
+        .delete(`/api/admin/articles/${stringIdArticle}`)
         .end((err, response) => {
           // Then
           expect(DeleteArticle.deleteArticle).to.have.been.calledWith(stringIdArticle);
