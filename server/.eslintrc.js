@@ -12,4 +12,7 @@ module.exports = {
             'node' : true
         }
     },
+  'rules': {
+    'no-use-before-define': 0
+  }
 };

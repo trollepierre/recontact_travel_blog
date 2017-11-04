@@ -1,12 +1,12 @@
 const FileReader = require('../infrastructure/external_services/file-reader');
 const DropboxClient = require('../infrastructure/external_services/dropbox-client');
+const mailJet = require('../infrastructure/mailing/mailjet');
+const config = require('../infrastructure/config');
 const { isEmpty } = require('lodash');
-// const mailService = require('./mail-service');
 const articleRepository = require('../domain/repositories/article-repository');
 const chapterRepository = require('../domain/repositories/chapter-repository');
-
-// todo : what if I want to update one article that already exists
-// todo : what if images are missing
+const subscriptionRepository = require('../domain/repositories/subscription-repository');
+const articlesChangedEmailTemplate = require('../infrastructure/mailing/articles-changed-email-template');
 
 function serializeArticles(metadatas) {
   return metadatas
@@ -159,30 +159,49 @@ function _updateChapterInDatabase({ addedArticles }) {
 function _ifArticlesChangesThenUpdateChaptersInDatabase(report) {
   const result = report;
   if (result.hasChanges) {
-    return _updateChapterInDatabase(report);
+    return _updateChapterInDatabase(result)
+      .then(() => Promise.resolve(result));
   }
   return Promise.resolve(result);
 }
 
-// function _ifArticlesChangedThenSendEmailToRecipients(report) {
-//   const result = report;
-//   if (result.hasChanges) {
-//     return mailService.sendJobsChangedEmail(result);
-//   }
-//   return Promise.resolve(result);
-// }
+function sendArticlesChangedEmail(form) {
+  const { receivers } = form;
+  const template = articlesChangedEmailTemplate.compile(form);
+
+  const options = {
+    from: config.MAIL_FROM,
+    fromName: 'RecontactMe',
+    to: receivers,
+    subject: '[RecontactMe] Il y a du nouveau sur le site !',
+    template,
+  };
+  return mailJet.sendEmail(options);
+}
+
+function _ifArticlesChangedThenSendEmailToRecipients(report) {
+  const result = report;
+  if (result.hasChanges) {
+    return subscriptionRepository.getAll()
+      .then((subscriptions) => {
+        result.receivers = subscriptions.map(({ email }) => email);
+        return result;
+      })
+      .then(form => sendArticlesChangedEmail(form));
+  }
+  return Promise.resolve(result);
+}
 
 function synchronizeArticles() {
   return DropboxClient.getAllDropboxFoldersMetadatas()
     .then(serializeArticles)
     .then(fetchedArticles => _compareDropboxAndDatabaseArticles(fetchedArticles))
     .then(_ifArticlesChangesThenUpdateArticlesInDatabase)
-    .then(_ifArticlesChangesThenUpdateChaptersInDatabase);
-  // 2.B.4 j'envoie un mail aux abonnés
-  // .then(_ifArticlesChangedThenSendEmailToRecipients);
+    .then(_ifArticlesChangesThenUpdateChaptersInDatabase)
+    .then(_ifArticlesChangedThenSendEmailToRecipients);
 }
 
-// todo test all and extract methods
+// todo extract methods
 
 module.exports = {
   synchronizeArticles,
