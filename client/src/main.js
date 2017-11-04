@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Toastr from 'vue-toastr';
+import VueModal from 'vue-js-modal';
 import App from './App';
 import router from './router/index';
 
@@ -10,11 +11,17 @@ require('vue-toastr/dist/vue-toastr.css');
 
 Vue.config.productionTip = false;
 
+Vue.use(VueModal);
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  template: '<div><App/><vue-toastr ref="toastr"></vue-toastr></div>',
+  template: '' +
+  '<div>' +
+  '<App/>' +
+  '<vue-toastr ref="toastr"/>' +
+  '</div>',
   components: { App },
   mounted() {
     this.$refs.toastr.defaultPosition = 'toast-bottom-right';
