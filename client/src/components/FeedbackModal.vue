@@ -16,7 +16,8 @@
           <input class="feedback-modal__email" id="subscribe-content" v-model="email"/>
 
           <label class="feedback-modal__label" for="feedback-content">Contenu du message :</label>
-          <textarea class="feedback-modal__text" id="feedback-content" v-model="feedback"></textarea>
+          <textarea class="feedback-modal__text" id="feedback-content" v-model="feedback"
+                    :style="{height: heightMessage}"></textarea>
         </form>
       </div>
 
@@ -42,31 +43,34 @@
         email: null,
         feedback: null,
         error: null,
+        heightMessage: '152px',
       };
     },
     methods: {
       beforeOpen() {
         this._resetFeedback();
+        this._resetHeight();
         this._removeError();
       },
 
       sendFeedback() {
         this._removeError();
+        if (!this.email || this.email.trim().length === 0) {
+          this.error = 'Vous devez saisir un email.';
+          this._setErrorHeight();
+          return;
+        }
         if (!this.feedback || this.feedback.trim().length === 0) {
+          this._setErrorHeight();
           this.error = 'Vous devez saisir un message.';
           return;
         }
-        if (!this.email || this.email.trim().length === 0) {
-          this.error = 'Vous devez saisir un email.';
-          return;
-        }
-
         feedbacksApi.sendFeedback(this.feedback, this.email)
-          .then(() => {
-            this._closeModal();
-          }).catch(() => {
-          this.error = 'Une erreur est survenue durant l\'envoi du message.';
-        });
+          .then(() => this._closeModal())
+          .catch(() => {
+            this._setErrorHeight();
+            this.error = 'Une erreur est survenue durant l\'envoi du message.';
+          });
       },
 
       cancelFeedback() {
@@ -75,6 +79,14 @@
 
       _resetFeedback() {
         this.feedback = null;
+      },
+
+      _resetHeight() {
+        this.heightMessage = '152px';
+      },
+
+      _setErrorHeight() {
+        this.heightMessage = '90px';
       },
 
       _removeError() {
@@ -124,6 +136,12 @@
     margin: 0 0 20px;
   }
 
+  .feedback-modal__email {
+    width: 250px;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
   .feedback-modal__label {
     display: block;
     margin-bottom: 10px;
@@ -134,7 +152,6 @@
     border: 1px solid #d8dde6;
     resize: none;
     overflow: auto;
-    height: 152px;
     font-size: 16px;
     box-sizing: border-box;
     padding: 5px;

@@ -1,6 +1,6 @@
 <template>
   <div class="subscribe-modal-wrapper">
-    <modal class="subscribe-modal" name="subscribe-modal" @before-open="beforeOpen" :height="415">
+    <modal class="subscribe-modal" name="subscribe-modal" @before-open="beforeOpen" :height="315">
 
       <!-- modal header-->
       <div class="subscribe-modal__header">
@@ -13,6 +13,10 @@
 
           <p class="subscribe-modal__error" v-if="error" aria-live="polite">{{error}}</p>
 
+          <p class="subscribe-modal__text">
+            Je souhaite recevoir un email à chaque nouvel article du voyage.
+          </p>
+
           <label class="subscribe-modal__label" for="subscribe-content">Email :</label>
           <input class="subscribe-modal__email" id="subscribe-content" v-model="email"/>
         </form>
@@ -21,7 +25,7 @@
       <!-- modal footer -->
       <div class="subscribe-modal__footer">
         <div class="subscribe-modal__actions">
-          <button class="subscribe-modal__action subscribe-modal__action--send" @click="sendSubscription">Envoyer</button>
+          <button class="subscribe-modal__action subscribe-modal__action--send" @click="sendSubscription">Confirmer</button>
           <button class="subscribe-modal__action subscribe-modal__action--cancel" @click="cancelSubscription">Annuler</button>
         </div>
       </div>
@@ -99,7 +103,7 @@
   .subscribe-modal__body {
     padding: 25px 20px;
     background: #fff;
-    height: 216px;
+    height: 125px;
   }
 
   .subscribe-modal__form {
@@ -128,12 +132,16 @@
     margin-bottom: 10px;
   }
 
+  .subscribe-modal__email {
+    width: 250px;
+    font-size: 16px;
+  }
+
   .subscribe-modal__text {
     width: 100%;
-    border: 1px solid #d8dde6;
     resize: none;
     overflow: auto;
-    height: 152px;
+    height: 30px;
     font-size: 16px;
     box-sizing: border-box;
     padding: 5px;
