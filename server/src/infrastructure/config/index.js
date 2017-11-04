@@ -18,7 +18,7 @@ function config() {
       apiKey: 'test-api-key',
       apiSecret: 'test-api-secret',
     };
-    APP_ENV.MAIL_FROM = 'pierre@recontact.me';
+    APP_ENV.MAIL_FROM = 'contact@recontact.me';
     APP_ENV.MAIL_TO = 'contact@recontact.me';
   }
 

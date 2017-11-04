@@ -7,7 +7,7 @@ function sendFeedbackEmail({ feedback, email }) {
   const template = `${feedback}`;
 
   const options = {
-    from: email,
+    from: config.MAIL_FROM,
     fromName: 'RecontactMe - Ne pas répondre',
     to: config.MAIL_TO,
     subject,
