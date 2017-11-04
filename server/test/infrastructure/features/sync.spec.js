@@ -12,7 +12,7 @@ describe('Integration | Routes | index route', () => {
     sinon.stub(SynchronizeArticles, 'synchronizeArticles').resolves();
     // When
     request(app)
-      .get('/api/sync')
+      .patch('/api/sync')
       .end((err, response) => {
         // Then
         expect(response.body).to.equal('Synchronization successful.');
@@ -29,7 +29,7 @@ describe('Integration | Routes | index route', () => {
     sinon.stub(SynchronizeArticles, 'synchronizeArticles').rejects(new Error('Some error'));
     // When
     request(app)
-      .get('/api/sync')
+      .patch('/api/sync')
       .end((err, response) => {
         // Then
         if (err) {
