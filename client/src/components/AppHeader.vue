@@ -10,12 +10,12 @@
           <ol class="navigation__links">
             <li class="navigation__link">
               <button class="navbar-action navbar-action__subscribe" type="button"
-                      @click.prevent.once="displaySubscribeModal">S'abonner
+                      @click.prevent="displaySubscribeModal">S'abonner
               </button>
             </li>
             <li class="navigation__link">
               <button class="navbar-action navbar-action__suggestion" type="button"
-                      @click.prevent.once="displayFeedbackModal">Laisser un message
+                      @click.prevent="displayFeedbackModal">Laisser un message
               </button>
             </li>
             <li class="navigation__link">
