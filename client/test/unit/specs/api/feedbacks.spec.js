@@ -22,7 +22,7 @@ describe('Unit | API | feedbacks api', () => {
       const email = 'pierre@recontact.me';
       const feedback = 'Vive le Tour de France !';
 
-      const expectedUrl = 'http://localhost:3001/api/feedbacks';
+      const expectedUrl = `${process.env.API_URL}api/feedbacks`;
       const expectedBody = { feedback, email };
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
@@ -38,7 +38,7 @@ describe('Unit | API | feedbacks api', () => {
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
       axios.post.rejects(new Error('some error'));
-      const feedback = 'cuocuocuo';
+      const feedback = 'coucou';
       const email = 'pierre@recontact.me';
 
       // when
