@@ -21,7 +21,7 @@ describe('Unit | API | subscriptions api', () => {
       // given
       const email = 'pierre@recontact.me';
 
-      const expectedUrl = 'http://localhost:3001/api/subscriptions';
+      const expectedUrl = `${process.env.API_URL}api/subscriptions`;
       const expectedBody = { email };
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
