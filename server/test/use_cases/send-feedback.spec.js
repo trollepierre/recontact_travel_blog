@@ -5,7 +5,7 @@ const mailService = require('../../src/use_cases/send-feedback');
 
 describe('Unit | Service | MailService', () => {
   beforeEach(() => {
-    sinon.stub(mailJet, 'sendEmail').resolves();
+    sinon.stub(mailJet, 'sendEmail');
   });
 
   afterEach(() => {
@@ -15,6 +15,7 @@ describe('Unit | Service | MailService', () => {
   describe('#sendFeedbackEmail', () => {
     it('should send an email with correct options', () => {
       // given
+      mailJet.sendEmail.resolves();
       const form = {
         email: 'mail@recontact.me',
         feedback: 'Long ago in a distant land...',
@@ -32,6 +33,23 @@ describe('Unit | Service | MailService', () => {
           subject: '[RecontactMe] [Support] mail@recontact.me a émis un message',
           template: 'Long ago in a distant land...',
         });
+      });
+    });
+
+    it('should throw error when mailJet rejects', () => {
+      // given
+      mailJet.sendEmail.rejects(new Error('error'));
+      const form = {
+        email: 'mail@recontact.me',
+        feedback: 'Long ago in a distant land...',
+      };
+
+      // when
+      const promise = mailService.sendFeedbackEmail(form);
+
+      // then
+      return promise.catch((err) => {
+        expect(err.message).to.equal('error');
       });
     });
   });
