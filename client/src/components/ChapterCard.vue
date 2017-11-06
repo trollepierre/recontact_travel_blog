@@ -2,15 +2,27 @@
   <div class="chapter-card">
     <article class="chapter">
       <header class="chapter__header">
-        <h2 class="chapter__title">{{ chapter.title }}</h2>
+        <h2 class="chapter__title">{{ chapterTitle }}</h2>
       </header>
       <div class="chapter__content">
-        <img v-if="imgLink" class="chapter__image" :src="imgLink"/>
-        <span v-else>Image manquante</span>
+        <img
+          v-if="imgLink"
+          :src="imgLink"
+          class="chapter__image">
+        <span v-else>{{ $t("missingImage") }}</span>
       </div>
       <footer class="chapter__footer">
-        <div v-for="text in chapter.text">
-          <p>{{ text }}</p>
+        <div
+          v-for="paragraph in chapterText"
+          :key="paragraph.text"
+          class="chapter__footer_text">
+          <template v-if="paragraph">
+            <a
+              v-if="paragraph.isLink"
+              :href="paragraph.text"
+              target="_blank">{{ paragraph.text }}</a>
+            <p v-else>{{ paragraph.text }}</p>
+          </template>
         </div>
       </footer>
     </article>
@@ -18,19 +30,43 @@
 </template>
 
 <script>
-  export default {
+  import translationsService from '../services/translations'
+
+export default {
     name: 'ChapterCard',
     props: ['chapter'],
     computed: {
       imgLink() {
-        const imgLink = this.chapter.imgLink;
-        if (!imgLink) {
-          return false;
-        }
-        return imgLink;
+        const { imgLink } = this.chapter
+        return !imgLink ? false : imgLink
+      },
+      chapterTitle() {
+        return translationsService.getChapterTitle(this.chapter)
+      },
+      chapterText() {
+        const chapterText = translationsService.getChapterText(this.chapter)
+        return chapterText.map(paragraph => {
+          let isLink = false
+          /* eslint-disable no-useless-escape */
+          const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?')
+          if (urlRegExp.test(paragraph)) {
+            isLink = true
+          }
+          return { isLink, text: paragraph }
+        })
       },
     },
-  };
+    i18n: {
+      messages: {
+        fr: {
+          missingImage: 'Image manquante',
+        },
+        en: {
+          missingImage: 'Missing image',
+        },
+      },
+    },
+  }
 </script>
 
 <style scoped>

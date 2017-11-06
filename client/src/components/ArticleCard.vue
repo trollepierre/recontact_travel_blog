@@ -2,28 +2,47 @@
   <div class="article-card">
     <article class="article">
       <header class="article__header">
-        <a :href="articleUrl" @click.prevent.once="viewArticle">
-          <h2 class="article__title">{{ article.dropboxId }}</h2> <!--todo title should come from article-->
+        <a
+          :href="articleUrl"
+          @click.prevent.once="viewArticle">
+          <h2 class="article__title">{{ articleTitle }}</h2>
         </a>
       </header>
-      <div class="article__content">
-        <img class="article__image" :src="article.imgLink" width="200"/>
+      <div
+        class="article__content"
+        @click.prevent.once="viewArticle">
+        <img
+          :src="article.imgLink"
+          class="article__image"
+          width="200">
       </div>
       <footer class="article__footer">
         <template v-if="adminMode">
-          <button class="article__delete-button" :disabled="isDeleteClicked"
-                  @click.prevent.once="deleteArticle(article.dropboxId)">
-            Supprimer l'article
+          <button
+            :disabled="isUpdateClicked"
+            class="article__update-button"
+            @click.prevent.once="updateArticle">
+            {{ $t("repairArticle") }}
+          </button>
+          <button
+            :disabled="isDeleteClicked"
+            class="article__delete-button article__footer_hidden"
+            @click.prevent.once="deleteArticle">
+            {{ $t("deleteArticle") }}
           </button>
         </template>
         <template v-else>
-          <button class="article__view-button"
-                  @click.prevent.once="viewArticle">
-            Voir l'article
+          <button
+            class="article__view-button"
+            @click.prevent.once="viewArticle">
+            {{ $t("goToArticle") }}
           </button>
-          <a href="http://dropbox.com" target="_blank" class="article__dropbox">
+          <a
+            :href="article.galleryLink"
+            target="_blank"
+            class="article__dropbox">
             <button class="article__dropbox-button">
-              Voir les photos
+              {{ $t("viewGallery") }}
             </button>
           </a>
         </template>
@@ -33,49 +52,112 @@
 </template>
 
 <script>
-  import deleteArticleApi from '@/api/deleteArticle';
-  import notificationService from '@/services/notification';
+  import articlesApi from '../api/articles'
+import notificationsService from '../services/notifications'
+import translationsService from '../services/translations'
 
-  export default {
+export default {
     name: 'ArticleCard',
     props: ['article', 'adminMode'],
     data() {
       return {
+        isUpdateClicked: false,
         isDeleteClicked: false,
-      };
-    },
+      }
+  },
     computed: {
       articleUrl() {
-        return `/articles/${this.article.dropboxId}`;
+        return `/articles/${this.article.dropboxId}`
+      },
+      articleTitle() {
+        return translationsService.getTitle(this.article)
       },
     },
     methods: {
       viewArticle() {
-        this.goToArticle();
+        this.goToArticle()
       },
 
-      deleteArticle(articleId) {
-        this.disableDeleteButton();
-        deleteArticleApi.deleteArticle(articleId)
+      updateArticle() {
+        this.trackEvent()
+        this.disableUpdateButton()
+        notificationsService.information(this, this.$t('syncLaunched'))
+        articlesApi.update(this.article.dropboxId)
           .then(() => {
-            const message = 'La suppression s\'est effectuée sans problème !';
-            notificationService.success(this, message);
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('syncDone'))
           })
-          .catch((err) => {
-            const message = `Erreur : Problème durant la suppression : ${err.message}`;
-            notificationService.error(this, message);
-          });
+          .then(() => this.goToArticle())
+          .catch(err => {
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+          })
+      },
+
+      disableUpdateButton() {
+        this.isUpdateClicked = true
+      },
+
+      trackEvent() {
+        this.$ga.event({
+          eventCategory: 'Article Card',
+          eventAction: 'update',
+          eventLabel: `article ${this.article.dropboxId} is updated`,
+        })
+      },
+
+      deleteArticle() {
+        this.disableDeleteButton()
+        notificationsService.information(this, this.$t('deleteLaunched'))
+        articlesApi.delete(this.article.dropboxId)
+          .then(() => {
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('deleteDone'))
+          })
+          .catch(err => {
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('deleteError')} ${err}`)
+          })
       },
 
       disableDeleteButton() {
-        this.isDeleteClicked = true;
+        this.isDeleteClicked = true
       },
 
       goToArticle() {
-        this.$router.push(this.articleUrl);
+        this.$router.push(this.articleUrl)
       },
     },
-  };
+
+    i18n: {
+      messages: {
+        fr: {
+          repairArticle: 'Réparer l’article',
+          deleteArticle: 'Supprimer l’article',
+          goToArticle: 'Voir l’article',
+          viewGallery: 'Voir les photos',
+          syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
+          syncDone: 'La synchronisation s’est effectuée sans problème !',
+          syncError: 'Erreur : Problème durant la synchronisation :',
+          deleteLaunched: 'La suppression est lancée ! Patientez quelques secondes...',
+          deleteDone: 'La suppression s’est effectuée sans problème !',
+          deleteError: 'Erreur : Problème durant la suppression :',
+        },
+        en: {
+          repairArticle: 'Repair the article',
+          deleteArticle: 'Delete the article',
+          goToArticle: 'Read the article',
+          viewGallery: 'Discover the pictures',
+          syncLaunched: 'The synchronisation is launched! Please wait...',
+          syncDone: 'The synchronisation succeeds!',
+          syncError: 'Error during the synchronisation:',
+          deleteLaunched: 'The deletion is launched! Please wait...',
+          deleteDone: 'The deletion succeeds!',
+          deleteError: 'Error during the deletion:',
+        },
+      },
+    },
+  }
 </script>
 
 <style scoped>
@@ -114,9 +196,14 @@
 
   .article__header {
     border-bottom: 1px solid #e6e6e6;
+    height: 34px;
     padding: 15px;
     display: flex;
     justify-content: space-between;
+  }
+
+  .article__header a {
+    margin: auto;
   }
 
   .article__title {
@@ -124,8 +211,7 @@
     font-weight: 700;
     line-height: 17px;
     color: #07c;
-    margin: 0;
-    white-space: nowrap;
+    margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
@@ -165,6 +251,10 @@
     font-weight: 700;
   }
 
+  .article__footer button.article__footer_hidden {
+    color: #f7b5a9;
+  }
+
   .article__footer button:hover {
     background: #d14800;
     color: #ffffff;
@@ -172,11 +262,15 @@
 
   .article__footer button:disabled,
   .article__footer button:active {
-
     background: #BDBDBD;
     border-color: #616161;
     color: #FAFAFA;
     cursor: auto;
   }
 
+  @media only screen and (max-width: 640px) {
+    .article {
+      max-width: inherit;
+    }
+  }
 </style>

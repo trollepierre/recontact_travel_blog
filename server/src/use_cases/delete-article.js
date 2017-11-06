@@ -1,11 +1,7 @@
-const chapterRepository = require('../domain/repositories/chapter-repository');
 const articleRepository = require('../domain/repositories/article-repository');
 
-function deleteArticle(dropboxId) {
-  return Promise.all([
-    articleRepository.deleteArticle(dropboxId),
-    chapterRepository.deleteChaptersOfArticle(dropboxId),
-  ]);
+function deleteArticle(id) {
+  return articleRepository.deleteArticle(id);
 }
 
 module.exports = {

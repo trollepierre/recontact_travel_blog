@@ -51,6 +51,51 @@ describe('Unit | Repository | article-repository', () => {
     });
   });
 
+  describe('#get', () => {
+    const dropboxId = 47;
+
+    beforeEach(() => {
+      sinon.stub(Article, 'findOne').resolves(articleSaved());
+    });
+
+    afterEach(() => {
+      Article.findOne.restore();
+    });
+
+    it('should call Sequelize Model#findOne', () => {
+      // when
+      const promise = articleRepository.get(dropboxId);
+
+      // then
+      return promise.then((res) => {
+        expect(Article.findOne).to.have.been.calledWith({ where: { dropboxId } });
+        expect(res).to.deep.equal(articleSaved());
+      });
+    });
+  });
+
+  describe('#update', () => {
+    const dropboxId = 47;
+
+    beforeEach(() => {
+      sinon.stub(Article, 'update').resolves();
+    });
+
+    afterEach(() => {
+      Article.update.restore();
+    });
+
+    it('should call Sequelize Model#update', () => {
+      // when
+      const promise = articleRepository.update({ title: 'title' }, dropboxId);
+
+      // then
+      return promise.then(() => {
+        expect(Article.update).to.have.been.calledWith({ title: 'title' }, { where: { dropboxId } });
+      });
+    });
+  });
+
   describe('#deleteArticle', () => {
     const dropboxId = 47;
 
@@ -73,4 +118,3 @@ describe('Unit | Repository | article-repository', () => {
     });
   });
 });
-

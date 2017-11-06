@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
+<div
+  class="page"
+>
+  <main
+    class="page__body"
+  >
+    <div
+      class="page__container"
+    >
+      <section
+        class="article-page"
+      >
+        <h1
+          class="article-page__title"
+        >
+          
+        </h1>
+         
+        <ul
+          class="chapter__list"
+        >
+          <li
+            class="chapter__item"
+          >
+            <chaptercard-stub />
+          </li>
+          <li
+            class="chapter__item"
+          >
+            <chaptercard-stub />
+          </li>
+          <li
+            class="chapter__item"
+          >
+            <chaptercard-stub />
+          </li>
+        </ul>
+      </section>
+       
+      <aside
+        class="article-page__photo-gallery photo-gallery"
+      >
+        <h2
+          class="photo-gallery__title"
+        >
+          hereTheGallery
+        </h2>
+         
+        <ul
+          class="photo-gallery__list"
+        >
+          <li
+            class="photo__item"
+          >
+            <photocard-stub />
+          </li>
+          <li
+            class="photo__item"
+          >
+            <photocard-stub />
+          </li>
+        </ul>
+      </aside>
+       
+      <footer
+        class="article-page__footer footer-article"
+      >
+        <button
+          class="footer-article__home"
+        >
+          
+          goToHomePage
+        
+        </button>
+         
+        <button
+          class="footer-article__previous"
+        >
+          
+          goToPreviousArticle
+        
+        </button>
+         
+        <button
+          class="footer-article__next"
+        >
+          
+          goToNextArticle
+        
+        </button>
+      </footer>
+    </div>
+  </main>
+</div>
+`;

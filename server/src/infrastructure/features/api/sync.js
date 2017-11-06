@@ -3,10 +3,10 @@ const SynchronizeArticles = require('../../../use_cases/synchronize-articles');
 
 const router = express.Router();
 
-router.get('/', (req, res) => SynchronizeArticles.synchronizeArticles()
+router.patch('/', (req, res) => SynchronizeArticles.synchronizeArticles()
   .then(() => {
-    console.log('Synchronization successful.');
-    res.json('Synchronization successful.');
+    console.info('Synchronization successful.');
+    res.status(200).json('Synchronization successful.');
   })
   .catch((err) => {
     console.error('Synchronization failed.');

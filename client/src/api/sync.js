@@ -1,12 +1,13 @@
-import axios from 'axios';
+import axios from 'axios'
+import env from '../env/env'
 
 const SyncApi = {
 
   launch() {
-    const url = `${process.env.API_URL}api/sync/`;
-    const options = { headers: { 'Content-Type': 'application/json' } };
-    return axios.get(url, options);
+    const url = `${env('API_URL')}api/sync/`
+    const options = { headers: { 'Content-Type': 'application/json' } }
+    return axios.patch(url, options)
   },
-};
+}
 
-export default SyncApi;
+export default SyncApi

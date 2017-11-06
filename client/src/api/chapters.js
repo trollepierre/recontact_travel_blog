@@ -1,15 +1,15 @@
-import axios from 'axios';
+import axios from 'axios'
+import env from '../env/env'
 
 const ChaptersApi = {
 
   fetch(id) {
-    const url = `${process.env.API_URL}api/articles/${id}`;
-    const options = { headers: { 'Content-Type': 'application/json' } };
+    const url = `${env('API_URL')}api/articles/${id}`
+    const options = { headers: { 'Content-Type': 'application/json' } }
 
     return axios.get(url, options)
-      .then(response => Promise.resolve(response.data))
-      .catch(error => Promise.reject(error));
+      .then(response => response.data)
   },
-};
+}
 
-export default ChaptersApi;
+export default ChaptersApi

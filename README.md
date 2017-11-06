@@ -43,3 +43,8 @@ The release to production process is as simple as running the command (from any 
 ```bash
 npm run release
 ```
+
+## PostgreSQL
+
+Il est nécessaire d'installer une base PostGreSQL pour être isoProd (sinon prenez MySQLite).
+https://www.postgresql.org/download/

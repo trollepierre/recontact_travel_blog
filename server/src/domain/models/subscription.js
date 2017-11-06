@@ -7,4 +7,5 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Subscription', {
       isEmail: true,
     },
   },
+  lang: DataTypes.STRING,
 });

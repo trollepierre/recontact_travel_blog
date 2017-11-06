@@ -1,20 +1,26 @@
 <template>
   <div id="app">
-    <app-header></app-header>
-    <router-view></router-view>
+    <app-header/>
+    <subscribe-modal/>
+    <feedback-modal/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-  import AppHeader from '@/components/AppHeader';
+  import AppHeader from '@/components/AppHeader'
+  import FeedbackModal from '@/components/FeedbackModal'
+  import SubscribeModal from '@/components/SubscribeModal'
 
   export default {
-    name: 'app',
+    name: 'App',
 
     components: {
       'app-header': AppHeader,
+      'feedback-modal': FeedbackModal,
+      'subscribe-modal': SubscribeModal,
     },
-  };
+  }
 </script>
 
 <style>
@@ -30,6 +36,10 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+  }
+
+  .v--modal {
+    border-radius: 5px;
   }
 
   @media only screen and (min-width: 640px) {

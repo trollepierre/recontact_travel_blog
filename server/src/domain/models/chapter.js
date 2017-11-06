@@ -1,9 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
   const Chapter = sequelize.define('Chapter', {
     dropboxId: DataTypes.STRING,
-    title: DataTypes.STRING,
+    enTitle: DataTypes.STRING,
+    frTitle: DataTypes.STRING,
     imgLink: DataTypes.STRING,
-    text: DataTypes.TEXT,
+    enText: DataTypes.TEXT,
+    frText: DataTypes.TEXT,
   });
 
   return Chapter;

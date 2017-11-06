@@ -3,54 +3,67 @@ const subscriptionRepository = require('../../../src/domain/repositories/subscri
 const { Subscription } = require('../../../src/domain/models/index');
 
 describe('Unit | Repository | subscription-repository', () => {
-  describe('#addSubscription', () => {
+  describe('#create', () => {
     beforeEach(() => {
-      sinon.stub(Subscription, 'findOrCreate');
+      sinon.stub(Subscription, 'create');
     });
 
     afterEach(() => {
-      Subscription.findOrCreate.restore();
+      Subscription.create.restore();
     });
 
-    it('should call Sequelize Model#findOrCreate (public static) and Bluebird Promise#spread methods', () => {
+    it('should call Sequelize Model#create', () => {
       // given
       const subscription = {
-        username: 'sdepold',
-        job: 'Technical Lead JavaScript',
+        email: 'email@mail.com',
+        lang: 'en',
         id: 1,
       };
-      const created = true;
-      Subscription.findOrCreate.returns({
-
-        // public static method Model#findOrCreate returns a Bluebird promise resolving <model:Model, created:Boolean>
-        // this is why we must to make such a "manual stub" here
-        // see:
-        //   - http://bluebirdjs.com/docs/api/spread.html
-        //   - http://docs.sequelizejs.com/class/lib/model.js~Model.html#static-method-findOrCreate
-        spread(cb) {
-          return Promise.resolve(cb(subscription, created));
-        },
-      });
+      Subscription.create.resolves(subscription);
 
       // when
-      const promise = subscriptionRepository.addSubscription('email@mail.com');
+      const subscriptionToCreate = { email: 'email@mail.com', lang: 'fr' };
+      const promise = subscriptionRepository.create(subscriptionToCreate);
 
       // then
+
       return promise.then((res) => {
-        expect(Subscription.findOrCreate).to.have.been.called;
-        expect(res).to.deep.equal({
-          subscription: {
-            username: 'sdepold',
-            job: 'Technical Lead JavaScript',
-            id: 1,
-          },
-          created: true,
-        });
+        expect(Subscription.create).to.have.been.calledWith(subscriptionToCreate);
+        expect(res).to.deep.equal(subscription);
       });
     });
   });
 
-  describe('#removeSubscription', () => {
+  describe('#findOne', () => {
+    beforeEach(() => {
+      sinon.stub(Subscription, 'findOne');
+    });
+
+    afterEach(() => {
+      Subscription.findOne.restore();
+    });
+
+    it('should call Sequelize Model#findOne', () => {
+      // given
+      const subscription = {
+        email: 'email@mail.com',
+        lang: 'en',
+        id: 1,
+      };
+      Subscription.findOne.resolves(subscription);
+
+      // when
+      const promise = subscriptionRepository.getByEmail('email@mail.com');
+
+      // then
+      return promise.then((res) => {
+        expect(Subscription.findOne).to.have.been.calledWith({ where: { email: 'email@mail.com' } });
+        expect(res).to.deep.equal(subscription);
+      });
+    });
+  });
+
+  describe('#deleteById', () => {
     beforeEach(() => {
       sinon.stub(Subscription, 'destroy').resolves();
     });
@@ -59,13 +72,33 @@ describe('Unit | Repository | subscription-repository', () => {
       Subscription.destroy.restore();
     });
 
-    it('should call Sequelize Model#destroy (public static) method', () => {
+    it('should call Sequelize Model#destroy', () => {
       // when
-      const promise = subscriptionRepository.removeSubscription(123);
+      const promise = subscriptionRepository.deleteById(123);
 
       // then
       return promise.then(() => {
         expect(Subscription.destroy).to.have.been.called;
+      });
+    });
+  });
+
+  describe('#getAll', () => {
+    beforeEach(() => {
+      sinon.stub(Subscription, 'all').resolves();
+    });
+
+    afterEach(() => {
+      Subscription.all.restore();
+    });
+
+    it('should call Sequelize Model#all', () => {
+      // when
+      const promise = subscriptionRepository.getAll();
+
+      // then
+      return promise.then(() => {
+        expect(Subscription.all).to.have.been.called;
       });
     });
   });

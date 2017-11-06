@@ -1,16 +1,24 @@
 const { Subscription } = require('../models/index');
 
-function addSubscription(subscriberEmail) {
-  return Subscription
-    .findOrCreate({ where: { email: subscriberEmail } })
-    .spread((subscription, created) => ({ subscription, created }));
+function getByEmail(subscriberEmail) {
+  return Subscription.findOne({ where: { email: subscriberEmail } });
 }
 
-function removeSubscription(subscriptionId) {
+function create(subscription) {
+  return Subscription.create(subscription);
+}
+
+function deleteById(subscriptionId) {
   return Subscription.destroy({ where: { id: subscriptionId } });
 }
 
+function getAll() {
+  return Subscription.all();
+}
+
 module.exports = {
-  addSubscription,
-  removeSubscription,
+  deleteById,
+  getAll,
+  getByEmail,
+  create,
 };
