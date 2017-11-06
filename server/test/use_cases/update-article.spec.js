@@ -1,9 +1,9 @@
 const { expect, sinon } = require('../test-helper');
-const DeleteArticle = require('../../src/use_cases/delete-article');
+const UpdateArticle = require('../../src/use_cases/update-article');
 const ChapterRepository = require('../../src/domain/repositories/chapter-repository');
 const ArticleRepository = require('../../src/domain/repositories/article-repository');
 
-describe('Unit | DeleteArticle | deleteArticle', () => {
+describe('Unit | UpdateArticle | sync', () => {
   const dropboxId = 8;
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('Unit | DeleteArticle | deleteArticle', () => {
 
   it('should call ChapterRepository to delete the Chapters Of the Article', () => {
     // when
-    DeleteArticle.deleteArticle(dropboxId);
+    UpdateArticle.sync(dropboxId);
 
     // then
     expect(ChapterRepository.deleteChaptersOfArticle).to.have.been.calledWith(dropboxId);
@@ -26,7 +26,7 @@ describe('Unit | DeleteArticle | deleteArticle', () => {
 
   it('should call ArticleRepository to delete the article', () => {
     // when
-    DeleteArticle.deleteArticle(dropboxId);
+    UpdateArticle.sync(dropboxId);
 
     // then
     expect(ArticleRepository.deleteArticle).to.have.been.calledWith(dropboxId);
