@@ -10,8 +10,7 @@ const FeedbacksApi = {
     };
     const options = { headers: { 'Content-Type': 'application/json' } };
 
-    return axios.post(url, body, options)
-      .then(response => Promise.resolve(response.data));
+    return axios.post(url, body, options);
   },
 };
 

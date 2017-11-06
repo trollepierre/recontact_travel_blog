@@ -4,14 +4,14 @@
 
       <!-- modal header-->
       <div class="feedback-modal__header">
-        <h2 class="feedback-modal__title">Contacte le support</h2>
+        <h2 class="feedback-modal__title">Laisser un message</h2>
       </div>
 
       <!-- modal body -->
       <div class="feedback-modal__body">
         <form class="feedback-modal__form">
-
           <p class="feedback-modal__error" v-if="error" aria-live="polite">{{error}}</p>
+
           <label class="feedback-modal__label" for="subscribe-content">Email :</label>
           <input class="feedback-modal__email" id="subscribe-content" v-model="email"/>
 
