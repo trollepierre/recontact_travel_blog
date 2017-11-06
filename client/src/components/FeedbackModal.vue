@@ -38,7 +38,7 @@
 
 <script>
   import feedbacksApi from '@/api/feedbacks';
-  import notificationService from '@/services/notification';
+  import notificationService from '@/services/notifications';
 
   export default {
     name: 'FeedbackModal',

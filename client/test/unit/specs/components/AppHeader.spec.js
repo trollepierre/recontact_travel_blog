@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueModal from 'vue-js-modal';
 import syncApi from '@/api/sync';
 import AppHeader from '@/components/AppHeader';
-import notificationService from '@/services/notification';
+import notificationService from '@/services/notifications';
 
 Vue.use(VueModal);
 

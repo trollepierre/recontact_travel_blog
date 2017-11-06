@@ -11,9 +11,9 @@
       </div>
       <footer class="article__footer">
         <template v-if="adminMode">
-          <button class="article__delete-button" :disabled="isDeleteClicked"
-                  @click.prevent.once="deleteArticle(article.dropboxId)">
-            Supprimer l'article
+          <button class="article__update-button" :disabled="isUpdateClicked"
+                  @click.prevent.once="updateArticle(article.dropboxId)">
+            Réparer l'article
           </button>
         </template>
         <template v-else>
@@ -33,15 +33,15 @@
 </template>
 
 <script>
-  import deleteArticleApi from '@/api/deleteArticle';
-  import notificationService from '@/services/notification';
+  import articlesApi from '@/api/articles';
+  import notificationsService from '@/services/notifications';
 
   export default {
     name: 'ArticleCard',
     props: ['article', 'adminMode'],
     data() {
       return {
-        isDeleteClicked: false,
+        isUpdateClicked: false,
       };
     },
     computed: {
@@ -54,21 +54,21 @@
         this.goToArticle();
       },
 
-      deleteArticle(articleId) {
+      updateArticle(articleId) {
         this.disableDeleteButton();
-        deleteArticleApi.deleteArticle(articleId)
+        articlesApi.update(articleId)
           .then(() => {
             const message = 'La suppression s\'est effectuée sans problème !';
-            notificationService.success(this, message);
+            notificationsService.success(this, message);
           })
           .catch((err) => {
             const message = `Erreur : Problème durant la suppression : ${err.message}`;
-            notificationService.error(this, message);
+            notificationsService.error(this, message);
           });
       },
 
       disableDeleteButton() {
-        this.isDeleteClicked = true;
+        this.isUpdateClicked = true;
       },
 
       goToArticle() {

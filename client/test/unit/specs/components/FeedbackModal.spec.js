@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueModal from 'vue-js-modal';
 import FeedbackModal from '@/components/FeedbackModal';
 import feedbacksApi from '@/api/feedbacks';
-import notificationService from '@/services/notification';
+import notificationService from '@/services/notifications';
 
 Vue.use(VueModal);
 
