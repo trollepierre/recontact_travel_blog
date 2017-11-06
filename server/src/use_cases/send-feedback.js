@@ -2,7 +2,6 @@ const mailJet = require('../infrastructure/mailing/mailjet');
 const config = require('../infrastructure/config');
 
 function sendFeedbackEmail({ feedback, email }) {
-  // todo verify email
   const subject = `[RecontactMe] [Support] ${email} a émis un message`;
   const template = `${feedback}`;
 

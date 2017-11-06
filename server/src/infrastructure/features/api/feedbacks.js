@@ -1,5 +1,5 @@
 const express = require('express');
-const mailService = require('../../../use_cases/mail-service');
+const mailService = require('../../../use_cases/send-feedback');
 
 const router = express.Router();
 

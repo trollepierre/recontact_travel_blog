@@ -1,7 +1,7 @@
 const { sinon, expect } = require('../test-helper');
 
 const mailJet = require('../../src/infrastructure/mailing/mailjet');
-const mailService = require('../../src/use_cases/mail-service');
+const mailService = require('../../src/use_cases/send-feedback');
 
 describe('Unit | Service | MailService', () => {
   beforeEach(() => {
