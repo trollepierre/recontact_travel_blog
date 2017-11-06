@@ -62,6 +62,17 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       expect(component.$data.feedback).to.equal(null);
     });
 
+    it('should reset email', () => {
+      // given
+      component.$data.email = 'Coucou@contact.me';
+
+      // when
+      component.beforeOpen();
+
+      // then
+      expect(component.$data.email).to.equal(null);
+    });
+
     it('should reset height', () => {
       // given
       component.$data.heightMessage = '34px';
@@ -273,6 +284,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.$modal.show('feedback-modal');
         sinon.stub(feedbacksApi, 'sendFeedback').rejects(new Error('e'));
         component.$data.feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?';
+        component.$data.email = 'contact@recontact.me';
         component.$data.heightMessage = '12px';
       });
 
@@ -308,7 +320,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
     });
   });
 
-  describe('#cancelFeeback', () => {
+  describe('#cancelFeedback', () => {
     it('should close modal', () => {
       // given
       component.$modal.show('feedback-modal');

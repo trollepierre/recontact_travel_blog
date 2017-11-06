@@ -24,8 +24,11 @@
       <!-- modal footer -->
       <div class="feedback-modal__footer">
         <div class="feedback-modal__actions">
-          <button class="feedback-modal__action feedback-modal__action--send" @click.prevent="sendFeedback">Envoyer</button>
-          <button class="feedback-modal__action feedback-modal__action--cancel" @click.prevent="cancelFeedback">Annuler</button>
+          <button class="feedback-modal__action feedback-modal__action--send" @click.prevent="sendFeedback">Envoyer
+          </button>
+          <button class="feedback-modal__action feedback-modal__action--cancel" @click.prevent="cancelFeedback">
+            Annuler
+          </button>
         </div>
       </div>
 
@@ -49,6 +52,7 @@
     methods: {
       beforeOpen() {
         this._resetFeedback();
+        this._resetEmail();
         this._resetHeight();
         this._removeError();
       },
@@ -79,6 +83,10 @@
 
       _resetFeedback() {
         this.feedback = null;
+      },
+
+      _resetEmail() {
+        this.email = null;
       },
 
       _resetHeight() {

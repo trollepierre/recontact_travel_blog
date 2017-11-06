@@ -48,7 +48,7 @@
     },
     methods: {
       beforeOpen() {
-        this._resetFeedback();
+        this._resetEmail();
         this._removeError();
       },
 
@@ -77,8 +77,8 @@
         this._closeModal();
       },
 
-      _resetFeedback() {
-        this.subscribe = null;
+      _resetEmail() {
+        this.email = null;
       },
 
       _removeError() {
