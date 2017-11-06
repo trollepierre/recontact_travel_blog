@@ -36,7 +36,7 @@
 
 <script>
   import subscriptionsApi from '@/api/subscriptions';
-  import notificationService from '@/services/notification';
+  import notificationService from '@/services/notifications';
 
   export default {
     name: 'SubscribeModal',

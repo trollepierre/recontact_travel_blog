@@ -31,7 +31,7 @@
 </template>
 <script>
   import syncApi from '@/api/sync';
-  import notificationService from '@/services/notification';
+  import notificationService from '@/services/notifications';
 
   export default {
     name: 'AppHeader',
