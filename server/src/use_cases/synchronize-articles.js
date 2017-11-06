@@ -171,7 +171,8 @@ function _ifArticlesChangedThenSendEmailToRecipients(report) {
         result.receivers = subscriptions.map(({ email }) => email);
         return result;
       })
-      .then(form => sendArticlesChangedEmail(form));
+      .then(form => sendArticlesChangedEmail(form))
+      .then(() => Promise.resolve(result));
   }
   return Promise.resolve(result);
 }
