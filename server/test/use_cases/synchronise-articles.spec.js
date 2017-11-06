@@ -265,6 +265,34 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           });
         });
       });
+
+      it('should return result', () => {
+        // given
+        const expectedResult = {
+          addedArticles: [
+            {
+              dropboxId: '47',
+              imgPath: '/47/img0.jpg',
+            },
+            {
+              dropboxId: '48',
+              imgPath: '/48/img0.jpg',
+            },
+          ],
+          hasChanges: true,
+          receivers: [
+            'abonne@recontact.me',
+          ],
+        };
+
+        // when
+        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+
+        // then
+        return promise.then((result) => {
+          expect(result).to.deep.equal(expectedResult);
+        });
+      });
     });
 
     describe('when dropbbox cannot create shared link', () => {
