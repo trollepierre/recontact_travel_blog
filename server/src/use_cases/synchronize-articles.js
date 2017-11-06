@@ -21,6 +21,7 @@ function _serializeArticles(metadatas) {
     .map(metadata => ({
       dropboxId: metadata.name,
       imgPath: `/${metadata.name}/img0.jpg`,
+      galleryPath: `/${metadata.name}`,
     }));
 }
 
@@ -112,11 +113,20 @@ function _shareImagesZeros(articles) {
   return Promise.all(articlesWithAll);
 }
 
-function _shareImageZero(article) {
-  return DropboxClient.createSharedLink(article.imgPath)
-    .then(imgLink => ({
+function _shareImageZero(rawArticle) {
+  let article;
+  return DropboxClient.createSharedLink(rawArticle.imgPath)
+    .then((imgLink) => {
+      article = {
+        dropboxId: rawArticle.dropboxId,
+        imgLink: _transformToDownloadableLink(imgLink),
+      };
+    })
+    .then(() => DropboxClient.createSharedLink(rawArticle.galleryPath))
+    .then(response => ({
       dropboxId: article.dropboxId,
-      imgLink: _transformToDownloadableLink(imgLink),
+      imgLink: article.imgLink,
+      galleryLink: isEmpty(response) ? '' : response.url,
     }));
 }
 
@@ -171,10 +181,7 @@ function _shareChapterImage(imgLink, articleId) {
 }
 
 function _transformToDownloadableLink(response) {
-  if (isEmpty(response)) {
-    return '';
-  }
-  return response.url.replace(/.$/, '1');
+  return isEmpty(response) ? '' : response.url.replace(/.$/, '1');
 }
 
 module.exports = {
