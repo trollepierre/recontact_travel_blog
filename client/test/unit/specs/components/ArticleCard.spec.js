@@ -2,8 +2,8 @@ import Vue from 'vue';
 import ArticleCard from '@/components/ArticleCard';
 import VueRouter from 'vue-router';
 import router from '@/router';
-import notificationService from '@/services/notification';
-import deleteArticleApi from '@/api/deleteArticle';
+import notificationsService from '@/services/notifications';
+import articlesApi from '@/api/articles';
 
 Vue.use(VueRouter);
 
@@ -33,8 +33,8 @@ describe('ArticleCard.vue', () => {
     });
 
     describe('$data', () => {
-      it('should have isDeleteClicked property set to false', () => {
-        expect(component.$data.isDeleteClicked).to.be.false;
+      it('should have isUpdateClicked property set to false', () => {
+        expect(component.$data.isUpdateClicked).to.be.false;
       });
     });
 
@@ -91,12 +91,12 @@ describe('ArticleCard.vue', () => {
     });
 
     describe('disableDeleteButton', () => {
-      it('should set isDeleteClicked to true', () => {
+      it('should set isUpdateClicked to true', () => {
         // when
         component.disableDeleteButton();
 
         // then
-        expect(component.$data.isDeleteClicked).to.be.true;
+        expect(component.$data.isUpdateClicked).to.be.true;
       });
     });
 
@@ -147,67 +147,67 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('deleteArticle', () => {
+    describe('update', () => {
       beforeEach(() => {
         // given
-        sinon.stub(deleteArticleApi, 'deleteArticle');
-        sinon.stub(notificationService, 'success').resolves({});
-        sinon.stub(notificationService, 'error').resolves({});
+        sinon.stub(articlesApi, 'update');
+        sinon.stub(notificationsService, 'success').resolves({});
+        sinon.stub(notificationsService, 'error').resolves({});
       });
 
       afterEach(() => {
-        deleteArticleApi.deleteArticle.restore();
-        notificationService.success.restore();
-        notificationService.error.restore();
+        articlesApi.update.restore();
+        notificationsService.success.restore();
+        notificationsService.error.restore();
       });
 
-      it('should set isDeleteClicked to true', () => {
+      it('should set isUpdateClicked to true', () => {
         // given
-        deleteArticleApi.deleteArticle.resolves({});
+        articlesApi.update.resolves({});
 
         // when
-        component.deleteArticle('58');
+        component.updateArticle('58');
 
         // then
-        expect(component.$data.isDeleteClicked).to.be.true;
+        expect(component.$data.isUpdateClicked).to.be.true;
       });
 
       it('should call delete article api', () => {
         // given
-        deleteArticleApi.deleteArticle.resolves({});
+        articlesApi.update.resolves({});
 
         // when
-        component.deleteArticle('58');
+        component.updateArticle('58');
 
         // then
-        expect(deleteArticleApi.deleteArticle).to.have.been.calledWith();
+        expect(articlesApi.update).to.have.been.calledWith();
       });
 
       it('should display success toast notification when delete succeeds', () => {
         // given
-        deleteArticleApi.deleteArticle.resolves({});
+        articlesApi.update.resolves({});
 
         // when
-        component.deleteArticle('58');
+        component.updateArticle('58');
 
         // then
         return Vue.nextTick().then(() => {
           const message = 'La suppression s\'est effectuée sans problème !';
-          expect(notificationService.success).to.have.been.calledWithExactly(component, message);
+          expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
         });
       });
 
       it('should display error toast notification when delete fails', () => {
         // given
-        deleteArticleApi.deleteArticle.rejects(new Error('Expected error'));
+        articlesApi.update.rejects(new Error('Expected error'));
 
         // when
-        component.deleteArticle('58');
+        component.updateArticle('58');
 
         // then
         return Vue.nextTick().then(() => {
           const message = 'Erreur : Problème durant la suppression : Expected error';
-          expect(notificationService.error).to.have.been.calledWithExactly(component, message);
+          expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
         });
       });
     });
@@ -235,33 +235,33 @@ describe('ArticleCard.vue', () => {
     describe('clicking on button "supprimer l\'article"', () => {
       beforeEach(() => {
         // given
-        sinon.stub(deleteArticleApi, 'deleteArticle').resolves({});
-        sinon.stub(notificationService, 'success').resolves({});
-        sinon.stub(notificationService, 'error').resolves({});
+        sinon.stub(articlesApi, 'update').resolves({});
+        sinon.stub(notificationsService, 'success').resolves({});
+        sinon.stub(notificationsService, 'error').resolves({});
       });
 
       afterEach(() => {
-        deleteArticleApi.deleteArticle.restore();
-        notificationService.success.restore();
-        notificationService.error.restore();
+        articlesApi.update.restore();
+        notificationsService.success.restore();
+        notificationsService.error.restore();
       });
 
       it('should disable button', () => {
         // when
-        component.$el.querySelector('button.article__delete-button').click();
+        component.$el.querySelector('button.article__update-button').click();
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$el.querySelector('.article__delete-button').disabled).to.be.true;
+          expect(component.$el.querySelector('.article__update-button').disabled).to.be.true;
         });
       });
 
-      it('should call deleteArticleApi', () => {
+      it('should call articlesApi', () => {
         // when
-        component.$el.querySelector('button.article__delete-button').click();
+        component.$el.querySelector('button.article__update-button').click();
 
         // then
-        expect(deleteArticleApi.deleteArticle).to.have.been.calledWith('58');
+        expect(articlesApi.update).to.have.been.calledWith('58');
       });
     });
   });
