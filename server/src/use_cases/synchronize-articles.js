@@ -2,7 +2,7 @@ const FileReader = require('../infrastructure/external_services/file-reader');
 const DropboxClient = require('../infrastructure/external_services/dropbox-client');
 const mailJet = require('../infrastructure/mailing/mailjet');
 const config = require('../infrastructure/config');
-const { isEmpty } = require('lodash');
+const { isEmpty, flatten } = require('lodash');
 const articleRepository = require('../domain/repositories/article-repository');
 const chapterRepository = require('../domain/repositories/chapter-repository');
 const subscriptionRepository = require('../domain/repositories/subscription-repository');
@@ -128,22 +128,6 @@ function _getCompleteChaptersToShare(article) {
     .then(chapters => shareChapterImages(chapters, articleId))
     .then(chapters => chapters.chapters.map(chapter => Object.assign(chapter, { dropboxId: article.dropboxId }))); // todo : add to former method
 }
-
-// concat :: ([a],[a]) -> [a]
-const concat = (xs, ys) =>
-  xs.concat(ys);
-
-// concatMap :: (a -> [b]) -> [a] -> [b]
-const concatMap = f => xs =>
-  xs.map(f).reduce(concat, []);
-
-// id :: a -> a
-const id = x =>
-  x;
-
-// flatten :: [[a]] -> [a]
-const flatten =
-  concatMap(id);
 
 function _updateChapterInDatabase({ addedArticles }) {
   const allChaptersToSave = addedArticles.reduce((promises, article) => {
