@@ -19,11 +19,11 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
 
     beforeEach(() => {
       options = {
-        from: 'jobboard@octo.com',
-        fromName: 'Ne Pas Repondre',
-        subject: 'PTR intéressé par une activité du Dashboard',
+        from: 'contact@recontact.me',
+        fromName: 'Ne pas répondre',
+        subject: 'mon sujet',
         template: 'Corps du mail',
-        to: 'jobboard@octo.com',
+        to: 'contact@recontact.me',
       };
     });
 
@@ -69,11 +69,11 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
       // Then
       return result.then(() => {
         sinon.assert.calledWith(requestStub, {
-          FromEmail: 'jobboard@octo.com',
-          FromName: 'Ne Pas Repondre',
-          Subject: 'PTR intéressé par une activité du Dashboard',
+          FromEmail: 'contact@recontact.me',
+          FromName: 'Ne pas répondre',
+          Subject: 'mon sujet',
           'Html-part': 'Corps du mail',
-          Recipients: [{ Email: 'jobboard@octo.com' }],
+          Recipients: [{ Email: 'contact@recontact.me' }],
         });
       });
     });
