@@ -24,8 +24,8 @@
       <!-- modal footer -->
       <div class="feedback-modal__footer">
         <div class="feedback-modal__actions">
-          <button class="feedback-modal__action feedback-modal__action--send" @click="sendFeedback">Envoyer</button>
-          <button class="feedback-modal__action feedback-modal__action--cancel" @click="cancelFeedback">Annuler</button>
+          <button class="feedback-modal__action feedback-modal__action--send" @click.prevent="sendFeedback">Envoyer</button>
+          <button class="feedback-modal__action feedback-modal__action--cancel" @click.prevent="cancelFeedback">Annuler</button>
         </div>
       </div>
 
@@ -61,15 +61,15 @@
           return;
         }
         if (!this.feedback || this.feedback.trim().length === 0) {
-          this._setErrorHeight();
           this.error = 'Vous devez saisir un message.';
+          this._setErrorHeight();
           return;
         }
         feedbacksApi.sendFeedback(this.feedback, this.email)
           .then(() => this._closeModal())
           .catch(() => {
-            this._setErrorHeight();
             this.error = 'Une erreur est survenue durant l\'envoi du message.';
+            this._setErrorHeight();
           });
       },
 
