@@ -119,9 +119,11 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // given
         const articlesToSave = [{
           dropboxId: '47',
+          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
           imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
         }, {
           dropboxId: '48',
+          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
           imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
         }];
 
@@ -155,13 +157,14 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         });
       });
 
-      it('should create shared link 2 times par articles (so 4 times) + 2 initial calls', () => {
+      it('should create shared link 2 times par articles (so 4 times) ' +
+        '+ 2 initial calls per imgLink + 2 calls per galleryLink', () => {
         // when
         const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
 
         // then
         return promise.then(() => {
-          expect(DropboxClient.createSharedLink).to.have.been.callCount(6);
+          expect(DropboxClient.createSharedLink).to.have.been.callCount(8);
         });
       });
 
@@ -272,10 +275,12 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           addedArticles: [
             {
               dropboxId: '47',
+              galleryPath: '/47',
               imgPath: '/47/img0.jpg',
             },
             {
               dropboxId: '48',
+              galleryPath: '/48',
               imgPath: '/48/img0.jpg',
             },
           ],
@@ -304,9 +309,11 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // given
         const articlesToSave = [{
           dropboxId: '47',
+          galleryLink: '',
           imgLink: '',
         }, {
           dropboxId: '48',
+          galleryLink: '',
           imgLink: '',
         }];
 
