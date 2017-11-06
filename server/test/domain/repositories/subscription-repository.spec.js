@@ -69,5 +69,25 @@ describe('Unit | Repository | subscription-repository', () => {
       });
     });
   });
+
+  describe('#getAll', () => {
+    beforeEach(() => {
+      sinon.stub(Subscription, 'all').resolves();
+    });
+
+    afterEach(() => {
+      Subscription.all.restore();
+    });
+
+    it('should call Sequelize Model#all', () => {
+      // when
+      const promise = subscriptionRepository.getAll();
+
+      // then
+      return promise.then(() => {
+        expect(Subscription.all).to.have.been.called;
+      });
+    });
+  });
 });
 

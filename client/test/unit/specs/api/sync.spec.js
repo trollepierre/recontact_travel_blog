@@ -9,11 +9,11 @@ describe('Unit | API | sync api', () => {
       stubbedResponse = {
         status: 200,
       };
-      sinon.stub(axios, 'get').resolves(stubbedResponse);
+      sinon.stub(axios, 'patch').resolves(stubbedResponse);
     });
 
     afterEach(() => {
-      axios.get.restore();
+      axios.patch.restore();
     });
 
     it('should launch API with the good params', () => {
@@ -26,7 +26,7 @@ describe('Unit | API | sync api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.get).to.have.been.calledWith(expectedUrl, expectedOptions);
+        expect(axios.patch).to.have.been.calledWith(expectedUrl, expectedOptions);
       });
     });
 
@@ -43,7 +43,7 @@ describe('Unit | API | sync api', () => {
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
       const accessToken = 'invalid-access_token';
-      axios.get.rejects(new Error('some error'));
+      axios.patch.rejects(new Error('some error'));
 
       // when
       const promise = syncApi.launch(accessToken);

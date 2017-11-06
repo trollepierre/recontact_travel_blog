@@ -9,7 +9,19 @@
         <nav class="app-header__navigation navigation" role="navigation" aria-label="site navigation">
           <ol class="navigation__links">
             <li class="navigation__link">
-              <button class="navbar-action navbar-action__sync" type="button" :disabled="isClicked" @click.prevent.once="synchronise">Synchroniser</button>
+              <button class="navbar-action navbar-action__subscribe" type="button"
+                      @click.prevent="displaySubscribeModal">S'abonner
+              </button>
+            </li>
+            <li class="navigation__link">
+              <button class="navbar-action navbar-action__suggestion" type="button"
+                      @click.prevent="displayFeedbackModal">Laisser un message
+              </button>
+            </li>
+            <li class="navigation__link">
+              <button class="navbar-action navbar-action__sync" type="button" :disabled="isClicked"
+                      @click.prevent.once="synchronise">Synchroniser
+              </button>
             </li>
           </ol>
         </nav>
@@ -44,6 +56,14 @@
             const message = `Erreur : Problème durant la synchronisation : ${err.message}`;
             notificationService.error(this, message);
           });
+      },
+
+      displaySubscribeModal() {
+        this.$modal.show('subscribe-modal');
+      },
+
+      displayFeedbackModal() {
+        this.$modal.show('feedback-modal');
       },
     },
   };

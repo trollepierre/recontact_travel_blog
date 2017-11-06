@@ -1,14 +1,22 @@
 const FileReader = require('../infrastructure/external_services/file-reader');
 const DropboxClient = require('../infrastructure/external_services/dropbox-client');
-const { isEmpty } = require('lodash');
-// const mailService = require('./mail-service');
+const mailJet = require('../infrastructure/mailing/mailjet');
+const config = require('../infrastructure/config');
+const { isEmpty, flatten } = require('lodash');
 const articleRepository = require('../domain/repositories/article-repository');
 const chapterRepository = require('../domain/repositories/chapter-repository');
+const subscriptionRepository = require('../domain/repositories/subscription-repository');
+const articlesChangedEmailTemplate = require('../infrastructure/mailing/articles-changed-email-template');
 
-// todo : what if I want to update one article that already exists
-// todo : what if images are missing
+function synchronizeArticles() {
+  return DropboxClient.getAllDropboxFoldersMetadatas()
+    .then(_serializeArticles)
+    .then(_compareDropboxAndDatabaseArticles)
+    .then(_ifArticlesChangesThenUpdateArticlesInDatabase)
+    .then(_ifArticlesChangedThenSendEmailToRecipients);
+}
 
-function serializeArticles(metadatas) {
+function _serializeArticles(metadatas) {
   return metadatas
     .map(metadata => ({
       dropboxId: metadata.name,
@@ -31,14 +39,80 @@ function _compareDropboxAndDatabaseArticles(freshArticles) {
     });
 }
 
-function _transformToDownloadableLink(response) {
-  if (isEmpty(response)) {
-    return '';
+function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
+  const result = report; // todo : remove one var here
+  if (result.hasChanges) {
+    return _updateArticleInDatabase(result)
+      .then(() => _updateChaptersInDatabase(result))
+      .then(() => Promise.resolve(result));
   }
-  return response.url.replace(/.$/, '1');
+  return Promise.resolve(result);
 }
 
-function _shareImg(article) {
+function _ifArticlesChangedThenSendEmailToRecipients(report) {
+  const result = report;
+  if (result.hasChanges) {
+    return subscriptionRepository.getAll()
+      .then((subscriptions) => {
+        result.receivers = subscriptions.map(({ email }) => email);
+        return result;
+      })
+      .then(form => _sendArticlesChangedEmail(form))
+      .then(() => Promise.resolve(result));
+  }
+  return Promise.resolve(result);
+}
+
+function _updateArticleInDatabase(report) {
+  const { addedArticles } = report;
+  return _shareImagesZeros(addedArticles) // todo prepare une validation d'image si manquante
+    .then(articles => articleRepository.create(articles));
+}
+
+function _updateChaptersInDatabase({ addedArticles }) {
+  const allChaptersToSave = addedArticles.reduce((promises, article) => {
+    const chaptersOfThisArticleToSave = _getCompleteChaptersToShare(article);
+    promises.push(chaptersOfThisArticleToSave);
+    return promises;
+  }, []);
+  return Promise.all(allChaptersToSave)
+    .then(allChapters => flatten(allChapters))
+    .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
+}
+
+function _sendArticlesChangedEmail(form) {
+  const { receivers } = form;
+  const template = articlesChangedEmailTemplate.compile(form);
+
+  const options = {
+    from: config.MAIL_FROM,
+    fromName: 'RecontactMe',
+    to: receivers,
+    subject: '[RecontactMe] Il y a du nouveau sur le site !',
+    template,
+  };
+  return mailJet.sendEmail(options);
+}
+
+function _getCompleteChaptersToShare(article) {
+  const articleId = article.dropboxId;
+  return DropboxClient.getTextFileStream(articleId) // todo understand why some articles (like 57) cannot be found by Dropbox
+    .then(FileReader.read)
+    .then(chaptersContent => _serializeChapters(chaptersContent))
+    .then(chapters => _shareChapterImages(chapters, articleId))
+    .then(chapters => chapters.chapters.map(chapter => Object.assign(chapter, { dropboxId: article.dropboxId }))); // todo : add to former method
+}
+
+function _shareImagesZeros(articles) {
+  const articlesWithAll = articles.reduce((promises, article) => {
+    const articleWithAll = _shareImageZero(article);
+    promises.push(articleWithAll);
+    return promises;
+  }, []);
+  return Promise.all(articlesWithAll);
+}
+
+function _shareImageZero(article) {
   return DropboxClient.createSharedLink(article.imgPath)
     .then(imgLink => ({
       dropboxId: article.dropboxId,
@@ -46,28 +120,17 @@ function _shareImg(article) {
     }));
 }
 
-function shareImages(articles) {
-  const articlesWithAll = articles.reduce((promises, article) => {
-    const articleWithAll = _shareImg(article);
-    promises.push(articleWithAll);
-    return promises;
-  }, []);
-  return Promise.all(articlesWithAll);
-}
+function _serializeChapters(rawArticle) {
+  const cuttedArticle = rawArticle
+    .split('*')
+    .map(row => row.trim());
 
-function _updateArticleInDatabase(report) {
-  const { addedArticles } = report;
-  return shareImages(addedArticles) // todo prepare une validation d'image si manquante
-    .then(articles => articleRepository.create(articles))
-    .then(() => Promise.resolve(report)); // todo use a do()
-}
+  const chapters = _generateChapters(cuttedArticle);
 
-function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
-  const result = report; // todo : remove one var here
-  if (result.hasChanges) {
-    return _updateArticleInDatabase(report);
-  }
-  return Promise.resolve(result);
+  return {
+    title: cuttedArticle[0],
+    chapters,
+  };
 }
 
 function _generateChapters(cuttedArticle) {
@@ -86,27 +149,9 @@ function _generateChapters(cuttedArticle) {
   return chapters;
 }
 
-function serializeChapters(rawArticle) {
-  const cuttedArticle = rawArticle
-    .split('*')
-    .map(row => row.trim());
-
-  const chapters = _generateChapters(cuttedArticle);
-
-  return {
-    title: cuttedArticle[0],
-    chapters,
-  };
-}
-
-function _shareOneImg(imgLink, articleId) {
-  return DropboxClient.createSharedLink(`/${articleId}/${imgLink}`)
-    .then(_transformToDownloadableLink);
-}
-
-function shareChapterImages(chapters, idArticle) {
+function _shareChapterImages(chapters, idArticle) {
   const chaptersWithSharableLink = chapters.chapters.reduce((promises, chapter) => {
-    const promise = _shareOneImg(chapter.imgLink, idArticle);
+    const promise = _shareChapterImage(chapter.imgLink, idArticle);
     promises.push(promise);
     return promises;
   }, []);
@@ -120,69 +165,17 @@ function shareChapterImages(chapters, idArticle) {
     });
 }
 
-function _getCompleteChaptersToShare(article) {
-  const articleId = article.dropboxId;
-  return DropboxClient.getTextFileStream(articleId) // todo understand why some articles (like 57) cannot be found by Dropbox
-    .then(FileReader.read)
-    .then(chaptersContent => serializeChapters(chaptersContent))
-    .then(chapters => shareChapterImages(chapters, articleId))
-    .then(chapters => chapters.chapters.map(chapter => Object.assign(chapter, { dropboxId: article.dropboxId }))); // todo : add to former method
+function _shareChapterImage(imgLink, articleId) {
+  return DropboxClient.createSharedLink(`/${articleId}/${imgLink}`)
+    .then(_transformToDownloadableLink);
 }
 
-// concat :: ([a],[a]) -> [a]
-const concat = (xs, ys) =>
-  xs.concat(ys);
-
-// concatMap :: (a -> [b]) -> [a] -> [b]
-const concatMap = f => xs =>
-  xs.map(f).reduce(concat, []);
-
-// id :: a -> a
-const id = x =>
-  x;
-
-// flatten :: [[a]] -> [a]
-const flatten =
-  concatMap(id);
-
-function _updateChapterInDatabase({ addedArticles }) {
-  const allChaptersToSave = addedArticles.reduce((promises, article) => {
-    const chaptersOfThisArticleToSave = _getCompleteChaptersToShare(article);
-    promises.push(chaptersOfThisArticleToSave);
-    return promises;
-  }, []);
-  return Promise.all(allChaptersToSave)
-    .then(allChapters => flatten(allChapters))
-    .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
-}
-
-function _ifArticlesChangesThenUpdateChaptersInDatabase(report) {
-  const result = report;
-  if (result.hasChanges) {
-    return _updateChapterInDatabase(report);
+function _transformToDownloadableLink(response) {
+  if (isEmpty(response)) {
+    return '';
   }
-  return Promise.resolve(result);
+  return response.url.replace(/.$/, '1');
 }
-
-// function _ifArticlesChangedThenSendEmailToRecipients(report) {
-//   const result = report;
-//   if (result.hasChanges) {
-//     return mailService.sendJobsChangedEmail(result);
-//   }
-//   return Promise.resolve(result);
-// }
-
-function synchronizeArticles() {
-  return DropboxClient.getAllDropboxFoldersMetadatas()
-    .then(serializeArticles)
-    .then(fetchedArticles => _compareDropboxAndDatabaseArticles(fetchedArticles))
-    .then(_ifArticlesChangesThenUpdateArticlesInDatabase)
-    .then(_ifArticlesChangesThenUpdateChaptersInDatabase);
-  // 2.B.4 j'envoie un mail aux abonnés
-  // .then(_ifArticlesChangedThenSendEmailToRecipients);
-}
-
-// todo test all and extract methods
 
 module.exports = {
   synchronizeArticles,

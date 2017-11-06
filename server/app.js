@@ -9,6 +9,7 @@ const articles = require('./src/infrastructure/features/api/articles');
 const admin = require('./src/infrastructure/features/api/admin');
 const sync = require('./src/infrastructure/features/api/sync');
 const subscriptions = require('./src/infrastructure/features/api/subscriptions');
+const feedbacks = require('./src/infrastructure/features/api/feedbacks');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/api/sync', sync);
 app.use('/api/articles', articles);
 app.use('/api/admin', admin);
 app.use('/api/subscriptions', subscriptions);
+app.use('/api/feedbacks', feedbacks);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

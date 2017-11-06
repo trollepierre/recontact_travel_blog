@@ -4,7 +4,7 @@ const subscriptionRepository = require('../../../domain/repositories/subscriptio
 const router = express.Router();
 
 router.post('/', (req, res) => {
-  const userEmail = req.userEmail;
+  const userEmail = req.body.email;
 
   subscriptionRepository
     .addSubscription(userEmail)
