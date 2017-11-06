@@ -128,7 +128,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un email.');
+        expect(component.$data.error).to.equal('Vous devez saisir un email valide. (ex. : nom@exemple.fr)');
       });
 
       it('should set error height', () => {
@@ -154,21 +154,21 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       });
     });
 
-    describe('when trimmed email is empty', () => {
+    describe('when email does not follow the good pattern', () => {
       it('should set error', () => {
         // given
-        component.$data.email = ' ';
+        component.$data.email = '@recontact.me';
 
         // when
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un email.');
+        expect(component.$data.error).to.equal('Vous devez saisir un email valide. (ex. : nom@exemple.fr)');
       });
 
       it('should set error height', () => {
         // given
-        component.$data.email = ' \n';
+        component.$data.email = 'pierre@recontact.m';
 
         // when
         component.sendFeedback();
@@ -179,7 +179,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
 
       it('should not call sendFeedback', () => {
         // given
-        component.$data.email = '';
+        component.$data.email = 'pierre@recontact.m';
 
         // when
         component.sendFeedback();

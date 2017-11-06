@@ -60,8 +60,10 @@
 
       sendFeedback() {
         this._removeError();
-        if (!this.email || this.email.trim().length === 0) {
-          this.error = 'Vous devez saisir un email.';
+        /* eslint-disable no-useless-escape */
+        const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$');
+        if (!regex.exec(this.email)) {
+          this.error = 'Vous devez saisir un email valide. (ex. : nom@exemple.fr)';
           this._setErrorHeight();
           return;
         }

@@ -94,7 +94,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         component.sendSubscription();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un email.');
+        expect(component.$data.error).to.equal('Vous devez saisir un email valide. (ex. : nom@exemple.fr)');
       });
 
       it('should not call sendSubscription', () => {
@@ -109,21 +109,21 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       });
     });
 
-    describe('when trimmed email is empty', () => {
+    describe('when email does not follow good pattern', () => {
       it('should set error', () => {
         // given
-        component.$data.email = ' ';
+        component.$data.email = 'pierrerecontact';
 
         // when
         component.sendSubscription();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un email.');
+        expect(component.$data.error).to.equal('Vous devez saisir un email valide. (ex. : nom@exemple.fr)');
       });
 
       it('should not call sendSubscription', () => {
         // given
-        component.$data.email = '';
+        component.$data.email = 'pierre@recontact.m';
 
         // when
         component.sendSubscription();
@@ -143,7 +143,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
 
     it('should display success notification', () => {
       // given
-      notificationService.success.resolves({})
+      notificationService.success.resolves({});
 
       // when
       component.sendSubscription();
@@ -245,5 +245,4 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       expect(component.cancelSubscription).to.have.been.called;
     });
   });
-
 });
