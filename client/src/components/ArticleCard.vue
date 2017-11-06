@@ -21,7 +21,7 @@
                   @click.prevent.once="viewArticle">
             Voir l'article
           </button>
-          <a href="http://dropbox.com" target="_blank" class="article__dropbox">
+          <a :href="article.galleryLink" target="_blank" class="article__dropbox">
             <button class="article__dropbox-button">
               Voir les photos
             </button>

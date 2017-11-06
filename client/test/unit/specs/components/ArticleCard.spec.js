@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 
 describe('ArticleCard.vue', () => {
   describe('when adminMode is not defined', () => {
+    const galleryLink = 'https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0';
     let component;
     let article;
 
@@ -16,6 +17,7 @@ describe('ArticleCard.vue', () => {
       article = {
         dropboxId: '58',
         imgLink: 'webf',
+        galleryLink,
       };
       const Constructor = Vue.extend(ArticleCard);
       component = new Constructor({
@@ -75,7 +77,7 @@ describe('ArticleCard.vue', () => {
 
       it('should render dropbox gallery link', () => {
         const dropboxLink = component.$el.querySelector('a.article__dropbox');
-        expect(dropboxLink.getAttribute('href')).to.equal('http://dropbox.com');
+        expect(dropboxLink.getAttribute('href')).to.equal(galleryLink);
         expect(dropboxLink.getAttribute('target')).to.equal('_blank');
       });
 
