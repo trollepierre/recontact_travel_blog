@@ -38,6 +38,7 @@
 
 <script>
   import feedbacksApi from '@/api/feedbacks';
+  import notificationService from '@/services/notification';
 
   export default {
     name: 'FeedbackModal',
@@ -70,6 +71,7 @@
           return;
         }
         feedbacksApi.sendFeedback(this.feedback, this.email)
+          .then(this.displaySuccessNotification)
           .then(() => this._closeModal())
           .catch(() => {
             this.error = 'Une erreur est survenue durant l\'envoi du message.';
@@ -79,6 +81,11 @@
 
       cancelFeedback() {
         this._closeModal();
+      },
+
+      displaySuccessNotification() {
+        const message = 'Ton message a été envoyé.';
+        notificationService.success(this, message);
       },
 
       _resetFeedback() {
