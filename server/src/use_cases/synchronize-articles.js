@@ -113,20 +113,15 @@ function _shareImagesZeros(articles) {
   return Promise.all(articlesWithAll);
 }
 
-function _shareImageZero(rawArticle) {
-  let article;
-  return DropboxClient.createSharedLink(rawArticle.imgPath)
-    .then((imgLink) => {
-      article = {
-        dropboxId: rawArticle.dropboxId,
-        imgLink: _transformToDownloadableLink(imgLink),
-      };
-    })
-    .then(() => DropboxClient.createSharedLink(rawArticle.galleryPath))
-    .then(response => ({
+function _shareImageZero(article) {
+  return Promise.all([
+    DropboxClient.createSharedLink(article.imgPath),
+    DropboxClient.createSharedLink(article.galleryPath),
+  ])
+    .then(responses => ({
       dropboxId: article.dropboxId,
-      imgLink: article.imgLink,
-      galleryLink: isEmpty(response) ? '' : response.url,
+      imgLink: _transformToImgLink(responses[0]),
+      galleryLink: _getGalleryUrl(responses[1]),
     }));
 }
 
@@ -177,13 +172,16 @@ function _shareChapterImages(chapters, idArticle) {
 
 function _shareChapterImage(imgLink, articleId) {
   return DropboxClient.createSharedLink(`/${articleId}/${imgLink}`)
-    .then(_transformToDownloadableLink);
+    .then(_transformToImgLink);
 }
 
-function _transformToDownloadableLink(response) {
+function _transformToImgLink(response) {
   return isEmpty(response) ? '' : response.url.replace(/.$/, '1');
 }
 
+function _getGalleryUrl(response) {
+  return isEmpty(response) ? '' : response.url;
+}
 module.exports = {
   synchronizeArticles,
 };
