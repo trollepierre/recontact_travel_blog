@@ -12,7 +12,7 @@
       <footer class="article__footer">
         <template v-if="adminMode">
           <button class="article__update-button" :disabled="isUpdateClicked"
-                  @click.prevent.once="updateArticle(article.dropboxId)">
+                  @click.prevent.once="updateArticle">
             Réparer l'article
           </button>
         </template>
@@ -54,15 +54,18 @@
         this.goToArticle();
       },
 
-      updateArticle(articleId) {
+      updateArticle() {
         this.disableDeleteButton();
-        articlesApi.update(articleId)
+        let message = 'La synchronisation est lancée ! Patientez quelques secondes...';
+        notificationsService.success(this, message);
+        articlesApi.update(this.article.dropboxId)
           .then(() => {
-            const message = 'La suppression s\'est effectuée sans problème !';
+            message = 'La synchronisation s\'est effectuée sans problème !';
             notificationsService.success(this, message);
           })
+          .then(() => this.goToArticle())
           .catch((err) => {
-            const message = `Erreur : Problème durant la suppression : ${err.message}`;
+            message = `Erreur : Problème durant la synchronisation : ${err.message}`;
             notificationsService.error(this, message);
           });
       },
