@@ -93,5 +93,4 @@ describe('Unit | API | articles api', () => {
       });
     });
   });
-
 });
