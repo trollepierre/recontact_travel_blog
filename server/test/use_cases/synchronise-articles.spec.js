@@ -13,8 +13,6 @@ const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTempora
 const dropboxArticleFr = require('../fixtures/dropboxArticleFr');
 
 describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
-  const dropboxId = 25;
-
   beforeEach(() => {
     const dropboxFolders = [
       filteredDropboxFilesListFolder('46'),
@@ -59,7 +57,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
     it('should return chapters with paragraphs', () => {
       // when
-      const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+      const promise = SynchroniseArticles.synchronizeArticles();
 
       // then
       return promise.then((chapters) => {
@@ -106,7 +104,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should create shared link for each image path of the new articles ', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -128,7 +126,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         }];
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -138,7 +136,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should call DropboxClient to get TextFileStream', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -149,7 +147,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should call FileReader to read twice', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -160,7 +158,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       it('should create shared link 2 times par articles (so 4 times) ' +
         '+ 2 initial calls per imgLink + 2 calls per galleryLink', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -217,7 +215,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           }];
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -227,7 +225,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should send email with correct options', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -252,7 +250,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -291,7 +289,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         };
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then((result) => {
@@ -318,7 +316,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         }];
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {

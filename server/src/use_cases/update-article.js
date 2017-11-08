@@ -48,10 +48,14 @@ function sync(dropboxId) {
   }
 
   function _shareImageZero(article) {
-    return DropboxClient.createSharedLink(article.imgPath)
-      .then(imgLink => ({
+    return Promise.all([
+      DropboxClient.createSharedLink(article.imgPath),
+      DropboxClient.createSharedLink(article.galleryPath),
+    ])
+      .then(responses => ({
         dropboxId: article.dropboxId,
-        imgLink: _transformToDownloadableLink(imgLink),
+        imgLink: _transformToImgLink(responses[0]),
+        galleryLink: _getGalleryUrl(responses[1]),
       }));
   }
 
@@ -102,22 +106,24 @@ function sync(dropboxId) {
 
   function _shareChapterImage(imgLink, articleId) {
     return DropboxClient.createSharedLink(`/${articleId}/${imgLink}`)
-      .then(_transformToDownloadableLink);
+      .then(_transformToImgLink);
   }
 
-  function _transformToDownloadableLink(response) {
-    if (isEmpty(response)) {
-      return '';
-    }
-    return response.url.replace(/.$/, '1');
+  function _transformToImgLink(response) {
+    return isEmpty(response) ? '' : response.url.replace(/.$/, '1');
   }
+
+  function _getGalleryUrl(response) {
+    return isEmpty(response) ? '' : response.url;
+  }
+
 
   const report = {
     addedArticles: [
       {
         dropboxId,
         imgPath: `/${dropboxId}/img0.jpg`,
-        filePath: `/${dropboxId}`,
+        galleryPath: `/${dropboxId}`,
       },
     ],
   };
