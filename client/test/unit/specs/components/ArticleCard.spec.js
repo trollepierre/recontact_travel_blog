@@ -90,7 +90,7 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('disableDeleteButton', () => {
+    describe('#disableDeleteButton', () => {
       it('should set isUpdateClicked to true', () => {
         // when
         component.disableDeleteButton();
@@ -100,7 +100,7 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('viewArticle', () => {
+    describe('#viewArticle', () => {
       it('should redirect to /articles/:articleId', () => {
         // given
         sinon.stub(component.$router, 'push').resolves({});
@@ -116,7 +116,7 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('goToArticle', () => {
+    describe('#goToArticle', () => {
       it('should redirect to /articles/:articleId', () => {
         // given
         sinon.stub(component.$router, 'push').resolves({});
@@ -147,7 +147,7 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('update', () => {
+    describe('#update', () => {
       beforeEach(() => {
         // given
         sinon.stub(articlesApi, 'update');
@@ -166,7 +166,7 @@ describe('ArticleCard.vue', () => {
         articlesApi.update.resolves({});
 
         // when
-        component.updateArticle('58');
+        component.updateArticle();
 
         // then
         expect(component.$data.isUpdateClicked).to.be.true;
@@ -177,36 +177,50 @@ describe('ArticleCard.vue', () => {
         articlesApi.update.resolves({});
 
         // when
-        component.updateArticle('58');
+        component.updateArticle();
 
         // then
         expect(articlesApi.update).to.have.been.calledWith();
       });
 
-      it('should display success toast notification when delete succeeds', () => {
+      it('should display success toast notification before synchronisation calls', () => {
         // given
         articlesApi.update.resolves({});
 
         // when
-        component.updateArticle('58');
+        component.updateArticle();
+
+        // then
+        const message = 'La synchronisation est lancée ! Patientez quelques secondes...';
+        expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+      });
+
+      it('should redirect to /article/id', () => {
+        // given
+        sinon.stub(component.$router, 'push').resolves({});
+        articlesApi.update.resolves({});
+
+        // when
+        component.updateArticle();
 
         // then
         return Vue.nextTick().then(() => {
-          const message = 'La suppression s\'est effectuée sans problème !';
-          expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+          expect(component.$router.push).to.have.been.calledWith('/articles/58');
+          // after
+          component.$router.push.restore();
         });
       });
 
-      it('should display error toast notification when delete fails', () => {
+      it('should display error toast notification when synchronisation fails', () => {
         // given
         articlesApi.update.rejects(new Error('Expected error'));
 
         // when
-        component.updateArticle('58');
+        component.updateArticle();
 
         // then
         return Vue.nextTick().then(() => {
-          const message = 'Erreur : Problème durant la suppression : Expected error';
+          const message = 'Erreur : Problème durant la synchronisation : Expected error';
           expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
         });
       });
