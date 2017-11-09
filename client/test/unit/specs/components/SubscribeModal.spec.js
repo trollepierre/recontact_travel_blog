@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueModal from 'vue-js-modal';
 import SubscribeModal from '@/components/SubscribeModal';
 import subscriptionsApi from '@/api/subscriptions';
-import notificationService from '@/services/notifications';
+import notificationsService from '@/services/notifications';
 
 Vue.use(VueModal);
 
@@ -65,12 +65,12 @@ describe('Unit | Component | SubscribeModal.vue', () => {
   describe('#sendSubscription', () => {
     beforeEach(() => {
       sinon.stub(subscriptionsApi, 'subscribe').resolves();
-      sinon.stub(notificationService, 'success');
+      sinon.stub(notificationsService, 'success');
     });
 
     afterEach(() => {
       subscriptionsApi.subscribe.restore();
-      notificationService.success.restore();
+      notificationsService.success.restore();
     });
 
 
@@ -143,7 +143,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
 
     it('should display success notification', () => {
       // given
-      notificationService.success.resolves({});
+      notificationsService.success.resolves({});
 
       // when
       component.sendSubscription();
@@ -151,7 +151,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       // then
       return Vue.nextTick().then(() => {
         const message = 'Ton abonnement aux alertes de Recontact Me a été pris en compte.';
-        expect(notificationService.success).to.have.been.calledWith(component, message);
+        expect(notificationsService.success).to.have.been.calledWith(component, message);
       });
     });
 

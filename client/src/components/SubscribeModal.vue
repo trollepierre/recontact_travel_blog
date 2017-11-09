@@ -36,7 +36,7 @@
 
 <script>
   import subscriptionsApi from '@/api/subscriptions';
-  import notificationService from '@/services/notifications';
+  import notificationsService from '@/services/notifications';
 
   export default {
     name: 'SubscribeModal',
@@ -71,7 +71,7 @@
 
       displaySuccessNotification() {
         const message = 'Ton abonnement aux alertes de Recontact Me a été pris en compte.';
-        notificationService.success(this, message);
+        notificationsService.success(this, message);
       },
 
       cancelSubscription() {
