@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueModal from 'vue-js-modal';
 import syncApi from '@/api/sync';
 import AppHeader from '@/components/AppHeader';
-import notificationService from '@/services/notifications';
+import notificationsService from '@/services/notifications';
 
 Vue.use(VueModal);
 
@@ -79,14 +79,14 @@ describe('Unit | Component | AppHeader.vue', () => {
     beforeEach(() => {
       // given
       sinon.stub(syncApi, 'launch');
-      sinon.stub(notificationService, 'success').resolves({});
-      sinon.stub(notificationService, 'error').resolves({});
+      sinon.stub(notificationsService, 'success').resolves({});
+      sinon.stub(notificationsService, 'error').resolves({});
     });
 
     afterEach(() => {
       syncApi.launch.restore();
-      notificationService.success.restore();
-      notificationService.error.restore();
+      notificationsService.success.restore();
+      notificationsService.error.restore();
     });
 
     it('should call syncApi', () => {
@@ -112,7 +112,7 @@ describe('Unit | Component | AppHeader.vue', () => {
       // then
       return Vue.nextTick().then(() => {
         const message = 'La synchronisation s\'est effectuée sans problème !';
-        expect(notificationService.success).to.have.been.calledWithExactly(component, message);
+        expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
       });
     });
 
@@ -126,7 +126,7 @@ describe('Unit | Component | AppHeader.vue', () => {
       // then
       return Vue.nextTick().then(() => {
         const message = 'Erreur : Problème durant la synchronisation : Expected error';
-        expect(notificationService.error).to.have.been.calledWithExactly(component, message);
+        expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
       });
     });
   });

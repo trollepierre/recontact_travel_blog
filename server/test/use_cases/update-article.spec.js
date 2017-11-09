@@ -1,8 +1,5 @@
-// const { expect, sinon } = require('../test-helper');
-const UpdateArticle = require('../../src/use_cases/update-article');
-// const ChapterRepository = require('../../src/domain/repositories/chapter-repository');
-// const ArticleRepository = require('../../src/domain/repositories/article-repository');
 const { expect, sinon } = require('../test-helper');
+const UpdateArticle = require('../../src/use_cases/update-article');
 const ArticleRepository = require('../../src/domain/repositories/article-repository');
 const ChapterRepository = require('../../src/domain/repositories/chapter-repository');
 const SubscriptionRepository = require('../../src/domain/repositories/subscription-repository');

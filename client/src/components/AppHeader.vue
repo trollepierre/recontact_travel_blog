@@ -31,7 +31,7 @@
 </template>
 <script>
   import syncApi from '@/api/sync';
-  import notificationService from '@/services/notifications';
+  import notificationsService from '@/services/notifications';
 
   export default {
     name: 'AppHeader',
@@ -50,11 +50,11 @@
         syncApi.launch()
           .then(() => {
             const message = 'La synchronisation s\'est effectuée sans problème !';
-            notificationService.success(this, message);
+            notificationsService.success(this, message);
           })
           .catch((err) => {
             const message = `Erreur : Problème durant la synchronisation : ${err.message}`;
-            notificationService.error(this, message);
+            notificationsService.error(this, message);
           });
       },
 
