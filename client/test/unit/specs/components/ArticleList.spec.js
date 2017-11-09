@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import articlesApi from '@/api/articles';
 import ArticleList from '@/components/ArticleList';
+import syncApi from '@/api/sync';
+import notificationsService from '@/services/notifications';
 
 describe('ArticleList.vue', () => {
   let component;
@@ -21,7 +23,10 @@ describe('ArticleList.vue', () => {
     ];
     sinon.stub(articlesApi, 'fetchAll').resolves(articles);
     const Constructor = Vue.extend(ArticleList);
-    component = new Constructor().$mount();
+    component = new Constructor(({
+      propsData: {
+        adminMode: true,
+      }})).$mount();
   });
 
   afterEach(() => {
@@ -50,7 +55,11 @@ describe('ArticleList.vue', () => {
 
     it('should render correct title', () => {
       const articleCards = component.$el.querySelector('.article-results__title');
-      expect(articleCards.innerText).to.equal('Les articles du voyage');
+      expect(articleCards.innerText).to.equal('Administrer le site');
+    });
+
+    it('should display a button to synchronise', () => {
+      expect(component.$el.querySelector('button.article-results__sync')).to.exist;
     });
   });
 
@@ -77,4 +86,89 @@ describe('ArticleList.vue', () => {
       expect(title).to.equal('Les articles du voyage');
     });
   });
+
+  describe('#synchronise', () => {
+    beforeEach(() => {
+      // given
+      sinon.stub(syncApi, 'launch');
+      sinon.stub(notificationsService, 'success').resolves({});
+      sinon.stub(notificationsService, 'error').resolves({});
+    });
+
+    afterEach(() => {
+      syncApi.launch.restore();
+      notificationsService.success.restore();
+      notificationsService.error.restore();
+    });
+
+    it('should call syncApi', () => {
+      // given
+      syncApi.launch.resolves({});
+
+      // when
+      component.synchronise();
+
+      // then
+      return Vue.nextTick().then(() => {
+        expect(syncApi.launch).to.have.been.calledWith();
+      });
+    });
+
+    it('should display success toast notification when synchronisation succeeds', () => {
+      // given
+      syncApi.launch.resolves({});
+
+      // when
+      component.synchronise();
+
+      // then
+      return Vue.nextTick().then(() => {
+        const message = 'La synchronisation s\'est effectuée sans problème !';
+        expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+      });
+    });
+
+    it('should display error toast notification when synchronisation fails', () => {
+      // given
+      syncApi.launch.rejects(new Error('Expected error'));
+
+      // when
+      component.synchronise();
+
+      // then
+      return Vue.nextTick().then(() => {
+        const message = 'Erreur : Problème durant la synchronisation : Expected error';
+        expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
+      });
+    });
+  });
+
+  describe('clicking on button "Synchronise"', () => {
+    it('should disable button', () => {
+      // when
+      component.$el.querySelector('button.article-results__sync').click();
+
+      // then
+      return Vue.nextTick().then(() => {
+        expect(component.$el.querySelector('button.article-results__sync').disabled).to.be.true;
+      });
+    });
+
+    it('should call synchronise api', () => {
+      // given
+      sinon.stub(component, 'synchronise').resolves({});
+
+      // when
+      component.$el.querySelector('button.article-results__sync').click();
+
+      // then
+      return Vue.nextTick().then(() => {
+        expect(component.synchronise).to.have.been.called;
+
+        // after
+        component.synchronise.restore();
+      });
+    });
+  });
+
 });

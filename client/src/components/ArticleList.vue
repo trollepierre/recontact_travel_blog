@@ -6,6 +6,9 @@
         <div class="job-results-panel">
           <section class="article-results">
             <h1 class="article-results__title">{{ title }}</h1>
+            <button v-if="adminMode" class="article-results__sync" type="button" :disabled="isClicked"
+                    @click.prevent.once="synchronise">Réparer tous les articles
+            </button>
             <ul class="article-results__list">
               <li v-for="article in articles" class="article-results__item">
                 <article-card :article="article" :adminMode="adminMode"></article-card>
@@ -21,6 +24,8 @@
 <script>
   import ArticleCard from '@/components/ArticleCard';
   import articlesApi from '@/api/articles';
+  import syncApi from '@/api/sync';
+  import notificationsService from '@/services/notifications';
 
   export default {
     name: 'ArticleList',
@@ -31,6 +36,7 @@
     data() {
       return {
         articles: [],
+        isClicked: false,
       };
     },
     mounted() {
@@ -48,6 +54,24 @@
             this.articles = articles;
           });
       },
+
+      disableButton() {
+        this.isClicked = true;
+      },
+
+      synchronise() {
+        this.disableButton();
+        syncApi.launch()
+          .then(() => {
+            const message = 'La synchronisation s\'est effectuée sans problème !';
+            notificationsService.success(this, message);
+          })
+          .catch((err) => {
+            const message = `Erreur : Problème durant la synchronisation : ${err.message}`;
+            notificationsService.error(this, message);
+          });
+      },
+
     },
   }
   ;
@@ -90,5 +114,33 @@
       flex-wrap: wrap;
     }
   }
+
+  .article-results__sync {
+    text-transform: uppercase;
+    color: #d14800;
+    background: #ffffff;
+    border: 1px solid #d14800;
+    cursor: pointer;
+    padding: 15px 30px;
+    border-radius: 4px;
+    width: 230px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .article-results__sync:hover {
+    background: #d14800;
+    color: #ffffff;
+  }
+
+  .article-results__sync:disabled,
+  .article__footer button:active {
+
+    background: #BDBDBD;
+    border-color: #616161;
+    color: #FAFAFA;
+    cursor: auto;
+  }
+
 
 </style>
