@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import VueModal from 'vue-js-modal';
-import syncApi from '@/api/sync';
 import AppHeader from '@/components/AppHeader';
-import notificationsService from '@/services/notifications';
 
 Vue.use(VueModal);
 
@@ -24,10 +22,6 @@ describe('Unit | Component | AppHeader.vue', () => {
   describe('rendering', () => {
     it('should display a link to home', () => {
       expect(component.$el.querySelector('.logo-link')).to.exist;
-    });
-
-    it('should display a button to synchronise', () => {
-      expect(component.$el.querySelector('button.navbar-action.navbar-action__sync')).to.exist;
     });
 
     it('should display a button to subscribe', () => {
@@ -72,90 +66,6 @@ describe('Unit | Component | AppHeader.vue', () => {
 
       // then
       expect(component.$modal.show).to.have.been.calledWith('feedback-modal');
-    });
-  });
-
-  describe('#synchronise', () => {
-    beforeEach(() => {
-      // given
-      sinon.stub(syncApi, 'launch');
-      sinon.stub(notificationsService, 'success').resolves({});
-      sinon.stub(notificationsService, 'error').resolves({});
-    });
-
-    afterEach(() => {
-      syncApi.launch.restore();
-      notificationsService.success.restore();
-      notificationsService.error.restore();
-    });
-
-    it('should call syncApi', () => {
-      // given
-      syncApi.launch.resolves({});
-
-      // when
-      component.synchronise();
-
-      // then
-      return Vue.nextTick().then(() => {
-        expect(syncApi.launch).to.have.been.calledWith();
-      });
-    });
-
-    it('should display success toast notification when synchronisation succeeds', () => {
-      // given
-      syncApi.launch.resolves({});
-
-      // when
-      component.synchronise();
-
-      // then
-      return Vue.nextTick().then(() => {
-        const message = 'La synchronisation s\'est effectuée sans problème !';
-        expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
-      });
-    });
-
-    it('should display error toast notification when synchronisation fails', () => {
-      // given
-      syncApi.launch.rejects(new Error('Expected error'));
-
-      // when
-      component.synchronise();
-
-      // then
-      return Vue.nextTick().then(() => {
-        const message = 'Erreur : Problème durant la synchronisation : Expected error';
-        expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
-      });
-    });
-  });
-
-  describe('clicking on button "Synchronise"', () => {
-    it('should disable button', () => {
-      // when
-      component.$el.querySelector('button.navbar-action.navbar-action__sync').click();
-
-      // then
-      return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('button.navbar-action.navbar-action__sync').disabled).to.be.true;
-      });
-    });
-
-    it('should call synchronise api', () => {
-      // given
-      sinon.stub(component, 'synchronise').resolves({});
-
-      // when
-      component.$el.querySelector('button.navbar-action.navbar-action__sync').click();
-
-      // then
-      return Vue.nextTick().then(() => {
-        expect(component.synchronise).to.have.been.called;
-
-        // after
-        component.synchronise.restore();
-      });
     });
   });
 
