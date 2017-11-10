@@ -1,8 +1,12 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+import router from '@/router';
 import articlesApi from '@/api/articles';
 import ArticleList from '@/components/ArticleList';
 import syncApi from '@/api/sync';
 import notificationsService from '@/services/notifications';
+
+Vue.use(VueRouter);
 
 describe('ArticleList.vue', () => {
   let component;
@@ -24,9 +28,11 @@ describe('ArticleList.vue', () => {
     sinon.stub(articlesApi, 'fetchAll').resolves(articles);
     const Constructor = Vue.extend(ArticleList);
     component = new Constructor(({
+      router,
       propsData: {
         adminMode: true,
-      }})).$mount();
+      },
+    })).$mount();
   });
 
   afterEach(() => {
@@ -101,6 +107,18 @@ describe('ArticleList.vue', () => {
       notificationsService.error.restore();
     });
 
+    it('should display success toast notification before synchronisation calls', () => {
+      // given
+      syncApi.launch.resolves({});
+
+      // when
+      component.synchronise();
+
+      // then
+      const message = 'La synchronisation est lancée ! Patientez quelques secondes...';
+      expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+    });
+
     it('should call syncApi', () => {
       // given
       syncApi.launch.resolves({});
@@ -128,6 +146,22 @@ describe('ArticleList.vue', () => {
       });
     });
 
+    it('should redirect to /', () => {
+      // given
+      sinon.stub(component.$router, 'push').resolves({});
+      syncApi.launch.resolves({});
+
+      // when
+      component.synchronise();
+
+      // then
+      return Vue.nextTick().then(() => {
+        expect(component.$router.push).to.have.been.calledWith('/');
+        // after
+        component.$router.push.restore();
+      });
+    });
+
     it('should display error toast notification when synchronisation fails', () => {
       // given
       syncApi.launch.rejects(new Error('Expected error'));
@@ -144,6 +178,14 @@ describe('ArticleList.vue', () => {
   });
 
   describe('clicking on button "Synchronise"', () => {
+    beforeEach(() => {
+      sinon.stub(notificationsService, 'success').resolves({});
+    });
+
+    afterEach(() => {
+      notificationsService.success.restore();
+    });
+
     it('should disable button', () => {
       // when
       component.$el.querySelector('button.article-results__sync').click();
@@ -170,5 +212,4 @@ describe('ArticleList.vue', () => {
       });
     });
   });
-
 });
