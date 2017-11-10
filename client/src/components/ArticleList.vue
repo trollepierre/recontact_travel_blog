@@ -61,17 +61,23 @@
 
       synchronise() {
         this.disableButton();
+        let message = 'La synchronisation est lancée ! Patientez quelques secondes...';
+        notificationsService.success(this, message);
         syncApi.launch()
           .then(() => {
-            const message = 'La synchronisation s\'est effectuée sans problème !';
+            message = 'La synchronisation s\'est effectuée sans problème !';
             notificationsService.success(this, message);
           })
+          .then(() => this.goToHome())
           .catch((err) => {
-            const message = `Erreur : Problème durant la synchronisation : ${err.message}`;
+            message = `Erreur : Problème durant la synchronisation : ${err.message}`;
             notificationsService.error(this, message);
           });
       },
 
+      goToHome() {
+        this.$router.push('/');
+      },
     },
   }
   ;
