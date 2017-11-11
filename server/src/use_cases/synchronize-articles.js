@@ -102,7 +102,7 @@ function filterOnlyGalleryPhotos(paths) {
     return extension === 'jpg' || extension === 'jpeg' || extension === 'png';
   });
   const galleryPaths = photosPaths.filter((path) => {
-    const shortName = path.split('/').pop().substring(0,3).toLowerCase();
+    const shortName = path.split('/').pop().substring(0, 3).toLowerCase();
     return shortName !== 'img';
   });
   return galleryPaths;
