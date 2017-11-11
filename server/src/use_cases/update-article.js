@@ -6,10 +6,9 @@ const FileReader = require('../infrastructure/external_services/file-reader');
 
 function sync(dropboxId) {
   function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
-    const result = report; // todo : remove one var here
-    return _createArticlesInDatabase(result)
-      .then(() => _insertArticlesContentsInDatabase(result))
-      .then(() => Promise.resolve(result));
+    return _createArticlesInDatabase(report)
+      .then(() => _insertArticlesContentsInDatabase(report))
+      .then(() => Promise.resolve(report));
   }
 
   function _createArticlesInDatabase(report) {
@@ -47,11 +46,11 @@ function sync(dropboxId) {
     }, []);
     return Promise.all(allChaptersToSave)
       .then(allChapters => flatten(allChapters))
-      .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
+      .then(chapters => chapterRepository.createArticleChapters(chapters));
   }
 
   function _updateTitleAndExtractChaptersFromArticleContent() {
-    return DropboxClient.getTextFileStream(dropboxId) // todo understand why some articles (like 57) cannot be found by Dropbox
+    return DropboxClient.getTextFileStream(dropboxId)
       .then(FileReader.read)
       .then(articleContent => _serializeArticleContent(articleContent))
       .then(articleInfos => _updateArticleTitle(articleInfos))
@@ -110,7 +109,6 @@ function sync(dropboxId) {
       });
   }
 
-  // todo destructuring
   function _shareChapterImage(imgLink) {
     return DropboxClient.createSharedLink(`/${dropboxId}/${imgLink}`)
       .then(_transformToImgLink);
@@ -123,7 +121,6 @@ function sync(dropboxId) {
   function _getGalleryUrl(response) {
     return isEmpty(response) ? '' : response.url;
   }
-
 
   const report = {
     addedArticles: [
