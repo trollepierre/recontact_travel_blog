@@ -36,7 +36,7 @@ function sync(dropboxId) {
       return extension === 'jpg' || extension === 'jpeg' || extension === 'png';
     });
     const galleryPaths = photosPaths.filter((path) => {
-      const shortName = path.split('/').pop().substring(0,3).toLowerCase();
+      const shortName = path.split('/').pop().substring(0, 3).toLowerCase();
       return shortName !== 'img';
     });
     return galleryPaths;
@@ -59,7 +59,7 @@ function sync(dropboxId) {
       }));
   }
 
-  function _createArticlesInDatabase({ addedArticles } ) {
+  function _createArticlesInDatabase({ addedArticles }) {
     return _shareImagesZeros(addedArticles)
       .then(articles => articleRepository.create(articles));
   }
