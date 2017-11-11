@@ -3,7 +3,7 @@
     <article class="article">
       <header class="article__header">
         <a :href="articleUrl" @click.prevent.once="viewArticle">
-          <h2 class="article__title">{{ article.dropboxId }}</h2> <!--todo title should come from article-->
+          <h2 class="article__title">{{ articleTitle }}</h2>
         </a>
       </header>
       <div class="article__content">
@@ -47,6 +47,10 @@
     computed: {
       articleUrl() {
         return `/articles/${this.article.dropboxId}`;
+      },
+      articleTitle() {
+        if (!this.article.name) return this.article.dropboxId;
+        return `${this.article.dropboxId} : ${this.article.name}`;
       },
     },
     methods: {

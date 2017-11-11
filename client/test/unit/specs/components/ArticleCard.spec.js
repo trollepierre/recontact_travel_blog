@@ -16,6 +16,7 @@ describe('ArticleCard.vue', () => {
     beforeEach(() => {
       article = {
         dropboxId: '58',
+        name: 'Pierre au Costa Rica',
         imgLink: 'webf',
         galleryLink,
       };
@@ -41,7 +42,7 @@ describe('ArticleCard.vue', () => {
     describe('render', () => {
       it('should render article title', () => {
         const articleTitle = component.$el.querySelector('.article__title');
-        expect(articleTitle.textContent).to.equal('58');
+        expect(articleTitle.textContent).to.equal('58 : Pierre au Costa Rica');
       });
 
       it('should render article image', () => {
@@ -71,6 +72,27 @@ describe('ArticleCard.vue', () => {
 
         // Then
         expect(articleUrl).to.equal('/articles/58');
+      });
+    });
+
+    describe('computed property #articleTitle', () => {
+      it('should return dropboxId and articleName', () => {
+        // When
+        const articleTile = component.articleTitle;
+
+        // Then
+        expect(articleTile).to.equal('58 : Pierre au Costa Rica');
+      });
+
+      it('should return dropboxId when articleName not defined', () => {
+        // Given
+        article.name = '';
+
+        // When
+        const articleTile = component.articleTitle;
+
+        // Then
+        expect(articleTile).to.equal('58');
       });
     });
 
