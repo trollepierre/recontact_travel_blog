@@ -40,16 +40,6 @@ function _compareDropboxAndDatabaseArticles(freshArticles) {
     });
 }
 
-function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
-  const result = report; // todo : remove one var here
-  if (result.hasChanges) {
-    return _updateArticleInDatabase(result)
-      .then(() => _updateChaptersInDatabase(result))
-      .then(() => Promise.resolve(result));
-  }
-  return Promise.resolve(result);
-}
-
 function _ifArticlesChangedThenSendEmailToRecipients(report) {
   const result = report;
   if (result.hasChanges) {
@@ -62,23 +52,6 @@ function _ifArticlesChangedThenSendEmailToRecipients(report) {
       .then(() => Promise.resolve(result));
   }
   return Promise.resolve(result);
-}
-
-function _updateArticleInDatabase(report) {
-  const { addedArticles } = report;
-  return _shareImagesZeros(addedArticles) // todo prepare une validation d'image si manquante
-    .then(articles => articleRepository.create(articles));
-}
-
-function _updateChaptersInDatabase({ addedArticles }) {
-  const allChaptersToSave = addedArticles.reduce((promises, article) => {
-    const chaptersOfThisArticleToSave = _getCompleteChaptersToShare(article);
-    promises.push(chaptersOfThisArticleToSave);
-    return promises;
-  }, []);
-  return Promise.all(allChaptersToSave)
-    .then(allChapters => flatten(allChapters))
-    .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
 }
 
 function _sendArticlesChangedEmail(form) {
@@ -95,13 +68,20 @@ function _sendArticlesChangedEmail(form) {
   return mailJet.sendEmail(options);
 }
 
-function _getCompleteChaptersToShare(article) {
-  const articleId = article.dropboxId;
-  return DropboxClient.getTextFileStream(articleId) // todo understand why some articles (like 57) cannot be found by Dropbox
-    .then(FileReader.read)
-    .then(chaptersContent => _serializeChapters(chaptersContent))
-    .then(chapters => _shareChapterImages(chapters, articleId))
-    .then(chapters => chapters.chapters.map(chapter => Object.assign(chapter, { dropboxId: article.dropboxId }))); // todo : add to former method
+function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
+  const result = report; // todo : remove one var here
+  if (result.hasChanges) {
+    return _createArticlesInDatabase(result)
+      .then(() => _insertArticlesContentsInDatabase(result))
+      .then(() => Promise.resolve(result));
+  }
+  return Promise.resolve(result);
+}
+
+function _createArticlesInDatabase(report) {
+  const { addedArticles } = report;
+  return _shareImagesZeros(addedArticles)
+    .then(articles => articleRepository.create(articles));
 }
 
 function _shareImagesZeros(articles) {
@@ -125,12 +105,38 @@ function _shareImageZero(article) {
     }));
 }
 
-function _serializeChapters(rawArticle) {
+function _insertArticlesContentsInDatabase({ addedArticles }) {
+  const allChaptersToSave = addedArticles.reduce((promises, article) => {
+    const chaptersToSave = _updateTitleAndExtractChaptersFromArticleContent(article);
+    promises.push(chaptersToSave);
+    return promises;
+  }, []);
+  return Promise.all(allChaptersToSave)
+    .then(allChapters => flatten(allChapters))
+    .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
+}
+
+function _updateTitleAndExtractChaptersFromArticleContent(article) {
+  const dropboxId = article.dropboxId;
+  return DropboxClient.getTextFileStream(dropboxId)
+    .then(FileReader.read)
+    .then(articleContent => _serializeArticleContent(articleContent, dropboxId))
+    .then(articleInfos => _updateArticleTitle(articleInfos, dropboxId))
+    .then(articleInfos => _shareChapterImages(articleInfos, dropboxId))
+    .then(articleInfos => articleInfos.chapters);
+}
+
+function _updateArticleTitle(articleInfos, dropboxId) {
+  articleRepository.updateName(articleInfos.title, dropboxId);
+  return articleInfos;
+}
+
+function _serializeArticleContent(rawArticle, dropboxId) {
   const cuttedArticle = rawArticle
     .split('*')
     .map(row => row.trim());
 
-  const chapters = _generateChapters(cuttedArticle);
+  const chapters = _generateChapters(cuttedArticle, dropboxId);
 
   return {
     title: cuttedArticle[0],
@@ -138,13 +144,14 @@ function _serializeChapters(rawArticle) {
   };
 }
 
-function _generateChapters(cuttedArticle) {
+function _generateChapters(cuttedArticle, dropboxId) {
   const chapters = [];
   for (let i = 1; i < cuttedArticle.length / 3; i += 1) {
     const imgLink = `img${i}.jpg`;
     const title = cuttedArticle[(3 * i) - 2];
     const subtitle = cuttedArticle[(3 * i) - 1];
     chapters[i - 1] = {
+      dropboxId,
       title: [title, subtitle].join(' ').trim(),
       imgLink,
       // TODO : add Paragraph from data in db -  text: this._addParagraphs(cuttedArticle[3 * i]),
@@ -154,24 +161,25 @@ function _generateChapters(cuttedArticle) {
   return chapters;
 }
 
-function _shareChapterImages(chapters, idArticle) {
-  const chaptersWithSharableLink = chapters.chapters.reduce((promises, chapter) => {
-    const promise = _shareChapterImage(chapter.imgLink, idArticle);
+function _shareChapterImages(articleInfos, dropboxId) {
+  const chaptersWithSharableLink = articleInfos.chapters.reduce((promises, chapter) => {
+    const promise = _shareChapterImage(chapter.imgLink, dropboxId);
     promises.push(promise);
     return promises;
   }, []);
   return Promise.all(chaptersWithSharableLink)
     .then((imgLinks) => {
-      const newChapters = chapters;
+      const newArticleInfos = articleInfos;
       for (let i = 0; i < imgLinks.length; i += 1) {
-        newChapters.chapters[i].imgLink = imgLinks[i];
+        newArticleInfos.chapters[i].imgLink = imgLinks[i];
       }
-      return newChapters;
+      return newArticleInfos;
     });
 }
 
-function _shareChapterImage(imgLink, articleId) {
-  return DropboxClient.createSharedLink(`/${articleId}/${imgLink}`)
+// todo destructuring
+function _shareChapterImage(imgLink, dropboxId) {
+  return DropboxClient.createSharedLink(`/${dropboxId}/${imgLink}`)
     .then(_transformToImgLink);
 }
 

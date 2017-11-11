@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     dropboxId: DataTypes.STRING,
     imgLink: DataTypes.STRING,
     galleryLink: DataTypes.STRING,
+    name: DataTypes.STRING,
   });
 
   return Article;
