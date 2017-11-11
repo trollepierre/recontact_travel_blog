@@ -1,8 +1,11 @@
 import Vue from 'vue';
 import VueModal from 'vue-js-modal';
+import VueRouter from 'vue-router';
+import router from '@/router';
 import AppHeader from '@/components/AppHeader';
 
 Vue.use(VueModal);
+Vue.use(VueRouter);
 
 describe('Unit | Component | AppHeader.vue', () => {
   let component;
@@ -12,7 +15,9 @@ describe('Unit | Component | AppHeader.vue', () => {
     const Constructor = Vue.extend(AppHeader);
 
     // when
-    component = new Constructor().$mount();
+    component = new Constructor({
+      router,
+    }).$mount();
   });
 
   it('should be named "AppHeader"', () => {
@@ -30,6 +35,28 @@ describe('Unit | Component | AppHeader.vue', () => {
 
     it('should display a button to suggest', () => {
       expect(component.$el.querySelector('button.navbar-action.navbar-action__suggestion')).to.exist;
+    });
+
+    it('should display a button to alert a problem', () => {
+      expect(component.$el.querySelector('button.navbar-action.navbar-action__problem')).to.exist;
+    });
+  });
+
+  describe('#displayFeedbackModal', () => {
+    beforeEach(() => {
+      sinon.stub(component.$modal, 'show');
+    });
+
+    afterEach(() => {
+      component.$modal.show.restore();
+    });
+
+    it('should display the feedback-modal', () => {
+      // when
+      component.displayFeedbackModal();
+
+      // then
+      expect(component.$modal.show).to.have.been.calledWith('feedback-modal');
     });
   });
 
@@ -51,21 +78,23 @@ describe('Unit | Component | AppHeader.vue', () => {
     });
   });
 
-  describe('#displayFeedbackModal', () => {
+  describe('#goToAdmin', () => {
     beforeEach(() => {
-      sinon.stub(component.$modal, 'show');
+      sinon.stub(component.$router, 'push').resolves({});
     });
 
     afterEach(() => {
-      component.$modal.show.restore();
+      component.$router.push.restore();
     });
 
-    it('should display the feedback-modal', () => {
+    it('should redirect to admin page', () => {
       // when
-      component.displayFeedbackModal();
+      component.goToAdmin();
 
       // then
-      expect(component.$modal.show).to.have.been.calledWith('feedback-modal');
+      return Vue.nextTick().then(() => {
+        expect(component.$router.push).to.have.been.calledWith('/admin');
+      });
     });
   });
 
@@ -101,6 +130,24 @@ describe('Unit | Component | AppHeader.vue', () => {
 
         // after
         component.displaySubscribeModal.restore();
+      });
+    });
+  });
+
+  describe('clicking on button "Signaler un problème"', () => {
+    it('should call goToAdmin', () => {
+      // given
+      sinon.stub(component, 'goToAdmin').resolves({});
+
+      // when
+      component.$el.querySelector('button.navbar-action.navbar-action__problem').click();
+
+      // then
+      return Vue.nextTick().then(() => {
+        expect(component.goToAdmin).to.have.been.called;
+
+        // after
+        component.goToAdmin.restore();
       });
     });
   });

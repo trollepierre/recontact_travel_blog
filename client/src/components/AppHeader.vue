@@ -18,6 +18,11 @@
                       @click.prevent="displayFeedbackModal">Laisser un message
               </button>
             </li>
+            <li class="navigation__link">
+              <button class="navbar-action navbar-action__problem" type="button"
+                      @click.prevent="goToAdmin">Signaler un problème
+              </button>
+            </li>
           </ol>
         </nav>
       </div>
@@ -34,6 +39,10 @@
 
       displayFeedbackModal() {
         this.$modal.show('feedback-modal');
+      },
+
+      goToAdmin() {
+        this.$router.push('/admin');
       },
     },
   };
