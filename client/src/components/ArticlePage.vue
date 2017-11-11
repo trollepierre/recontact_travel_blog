@@ -3,7 +3,7 @@
     <main class="page__body">
       <div class="page__container">
         <section class="article-page">
-          <h1 class="article-page__title">Pierre dans un pays trop stylé, n'est-ce pas ?</h1>
+          <h1 class="article-page__title">{{ title }}</h1>
           <ul class="chapter__list">
             <li v-for="chapter in chapters" class="chapter__item">
               <chapter-card :chapter="chapter"></chapter-card>
@@ -39,6 +39,7 @@
       return {
         chapters: [],
         photos: [],
+        title: '',
       };
     },
     mounted() {
@@ -48,8 +49,9 @@
     methods: {
       getChapters() {
         chaptersApi.fetch(this.$route.params.id)
-          .then((chapters) => {
+          .then(({ chapters, title }) => {
             (this.chapters = chapters);
+            (this.title = title);
           });
       },
       getPhotos() {
