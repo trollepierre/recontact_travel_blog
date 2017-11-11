@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import router from '@/router';
+import photosApi from '@/api/photos';
 import chaptersApi from '@/api/chapters';
 import ArticlePage from '@/components/ArticlePage';
 
 describe('ArticlePage.vue', () => {
   let component;
   let chapters;
+  let photos;
   const idArticle = 8;
 
   beforeEach(() => {
@@ -24,6 +26,11 @@ describe('ArticlePage.vue', () => {
         text: 'some text',
       },
     ];
+    photos = [
+      { imgLink: 'url/photo1' },
+      { imgLink: 'url/photo2' },
+    ];
+    sinon.stub(photosApi, 'fetch').resolves(photos);
     sinon.stub(chaptersApi, 'fetch').resolves(chapters);
     const Constructor = Vue.extend(ArticlePage);
     component = new Constructor({ router }).$mount();
@@ -32,6 +39,7 @@ describe('ArticlePage.vue', () => {
 
   afterEach(() => {
     chaptersApi.fetch.restore();
+    photosApi.fetch.restore();
   });
 
   it('should be named "ArticlePage"', () => {
@@ -43,8 +51,16 @@ describe('ArticlePage.vue', () => {
       expect(chaptersApi.fetch).to.have.been.calledWith(idArticle);
     });
 
+    it('should call photos api to fetch photos after 5s', () => {
+      expect(photosApi.fetch).to.have.been.calledWith(idArticle);
+    });
+
     it('should saved chapters from api in data chapters', () => Vue.nextTick().then(() => {
       expect(component.$data.chapters).to.equal(chapters);
+    }));
+
+    it('should saved photos from api in data photos', () => Vue.nextTick().then(() => {
+      expect(component.$data.photos).to.equal(photos);
     }));
   });
 

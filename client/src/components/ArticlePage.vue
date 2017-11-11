@@ -13,6 +13,17 @@
             </li>
           </ul>
         </section>
+        <aside v-if="shouldDisplayPhotoGallery">
+          <h2 class="article-page__photo-title">Voici la galerie photo de cet article !</h2>
+          <ul class="photo__list">
+            <!--todo pour égaliser :-->
+            <!--https://masonry.desandro.com/-->
+            <!--https://stackoverflow.com/questions/22929755/how-to-accomplish-something-like-google-keep-layout-->
+            <li v-for="photo in photos" class="photo__item">
+              <photo-card :photo="photo"></photo-card>
+            </li>
+          </ul>
+        </aside>
       </div>
     </main>
   </div>
@@ -20,26 +31,39 @@
 
 <script>
   import ChapterCard from '@/components/ChapterCard';
+  import PhotoCard from '@/components/PhotoCard';
   import chaptersApi from '@/api/chapters';
+  import photosApi from '@/api/photos';
 
   export default {
     name: 'ArticlePage',
     components: {
       'chapter-card': ChapterCard,
+      'photo-card': PhotoCard,
     },
     data() {
       return {
         chapters: [],
+        photos: [],
+        shouldDisplayPhotoGallery: false,
       };
     },
     mounted() {
       this.getChapters();
+      this.getPhotos();
     },
     methods: {
       getChapters() {
         chaptersApi.fetch(this.$route.params.id)
           .then((chapters) => {
             (this.chapters = chapters);
+          });
+      },
+      getPhotos() {
+        photosApi.fetch(this.$route.params.id)
+          .then((photos) => {
+            (this.shouldDisplayPhotoGallery = true);
+            (this.photos = photos);
           });
       },
     },
