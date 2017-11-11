@@ -91,13 +91,13 @@
     max-width: 80%;
   }
 
-  .chapter__list {
+  .chapter__list, .photo__list  {
     padding: 0;
     display: flex;
     flex-direction: column;
   }
 
-  .chapter__item {
+  .chapter__item, .photo__item  {
     list-style-type: none;
     padding: 0;
     width: 100%;
@@ -105,7 +105,7 @@
   }
 
   @media only screen and (min-width: 640px) {
-    .chapter__list {
+    .chapter__list, .photo__list  {
       flex-direction: row;
       flex-wrap: wrap;
     }
