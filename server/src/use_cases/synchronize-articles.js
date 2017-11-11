@@ -42,7 +42,7 @@ function _compareDropboxAndDatabaseArticles(freshArticles) {
 
 function _ifArticlesChangedThenSendEmailToRecipients(report) {
   const result = report;
-  if (result.hasChanges) {
+  if (report.hasChanges) {
     return subscriptionRepository.getAll()
       .then((subscriptions) => {
         result.receivers = subscriptions.map(({ email }) => email);
@@ -51,7 +51,7 @@ function _ifArticlesChangedThenSendEmailToRecipients(report) {
       .then(form => _sendArticlesChangedEmail(form))
       .then(() => Promise.resolve(result));
   }
-  return Promise.resolve(result);
+  return Promise.resolve(report);
 }
 
 function _sendArticlesChangedEmail(form) {
@@ -69,17 +69,15 @@ function _sendArticlesChangedEmail(form) {
 }
 
 function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
-  const result = report; // todo : remove one var here
-  if (result.hasChanges) {
-    return _createArticlesInDatabase(result)
-      .then(() => _insertArticlesContentsInDatabase(result))
-      .then(() => Promise.resolve(result));
+  if (report.hasChanges) {
+    return _createArticlesInDatabase(report)
+      .then(() => _insertArticlesContentsInDatabase(report))
+      .then(() => Promise.resolve(report));
   }
-  return Promise.resolve(result);
+  return Promise.resolve(report);
 }
 
-function _createArticlesInDatabase(report) {
-  const { addedArticles } = report;
+function _createArticlesInDatabase({ addedArticles }) {
   return _shareImagesZeros(addedArticles)
     .then(articles => articleRepository.create(articles));
 }
@@ -113,7 +111,7 @@ function _insertArticlesContentsInDatabase({ addedArticles }) {
   }, []);
   return Promise.all(allChaptersToSave)
     .then(allChapters => flatten(allChapters))
-    .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
+    .then(chapters => chapterRepository.createArticleChapters(chapters));
 }
 
 function _updateTitleAndExtractChaptersFromArticleContent(article) {
@@ -177,7 +175,6 @@ function _shareChapterImages(articleInfos, dropboxId) {
     });
 }
 
-// todo destructuring
 function _shareChapterImage(imgLink, dropboxId) {
   return DropboxClient.createSharedLink(`/${dropboxId}/${imgLink}`)
     .then(_transformToImgLink);
