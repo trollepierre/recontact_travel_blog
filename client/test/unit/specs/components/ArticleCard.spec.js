@@ -16,7 +16,7 @@ describe('ArticleCard.vue', () => {
     beforeEach(() => {
       article = {
         dropboxId: '58',
-        name: 'Pierre au Costa Rica',
+        title: 'Pierre au Costa Rica',
         imgLink: 'webf',
         galleryLink,
       };
@@ -86,7 +86,7 @@ describe('ArticleCard.vue', () => {
 
       it('should return dropboxId when articleName not defined', () => {
         // Given
-        article.name = '';
+        article.title = '';
 
         // When
         const articleTile = component.articleTitle;

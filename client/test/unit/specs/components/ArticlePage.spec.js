@@ -6,6 +6,7 @@ import ArticlePage from '@/components/ArticlePage';
 describe('ArticlePage.vue', () => {
   let component;
   let chapters;
+  const title = 'Pierre au pays des';
   const idArticle = 8;
 
   beforeEach(() => {
@@ -24,7 +25,7 @@ describe('ArticlePage.vue', () => {
         text: 'some text',
       },
     ];
-    sinon.stub(chaptersApi, 'fetch').resolves(chapters);
+    sinon.stub(chaptersApi, 'fetch').resolves({ title, chapters });
     const Constructor = Vue.extend(ArticlePage);
     component = new Constructor({ router }).$mount();
     component.$route.params.id = idArticle;
