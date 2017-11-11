@@ -2,8 +2,7 @@
   <div class="photo-card">
     <article class="photo">
       <div class="photo__content">
-        <img v-if="imgLink" class="photo__image" :src="imgLink"/>
-        <span v-else>Image manquante</span>
+        <img class="lazy-load" src="/static/favicon-16x16.png" alt="" :data-src="imgLink" />
       </div>
     </article>
   </div>
