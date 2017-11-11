@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const ChaptersApi = {
+const PhotosApi = {
 
   fetch(id) {
-    const url = `${process.env.API_URL}api/articles/${id}`;
+    const url = `${process.env.API_URL}api/articles/${id}/photos`;
     const options = { headers: { 'Content-Type': 'application/json' } };
 
     return axios.get(url, options)
@@ -11,4 +11,4 @@ const ChaptersApi = {
   },
 };
 
-export default ChaptersApi;
+export default PhotosApi;
