@@ -9,6 +9,7 @@ function config() {
     },
     MAIL_FROM: process.env.MAIL_FROM,
     MAIL_TO: process.env.MAIL_TO,
+    HEROKU_APPNAME: process.env.HEROKU_APPNAME,
 
   };
 
@@ -20,6 +21,7 @@ function config() {
     };
     APP_ENV.MAIL_FROM = 'contact@recontact.me';
     APP_ENV.MAIL_TO = 'contact@recontact.me';
+    APP_ENV.HEROKU_APPNAME = 'recontact';
   }
 
   return APP_ENV;
