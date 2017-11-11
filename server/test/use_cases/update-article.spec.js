@@ -22,7 +22,7 @@ describe('Unit | UpdateArticle | sync', () => {
     const oldArticles = [savedArticle('46')];
     sinon.stub(SubscriptionRepository, 'getAll').resolves(subscriptions);
     sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
-    sinon.stub(ArticleRepository, 'updateName').resolves(oldArticles);
+    sinon.stub(ArticleRepository, 'updateTitle').resolves(oldArticles);
     sinon.stub(ArticleRepository, 'create')
       .resolves(savedArticle('47'))
       .resolves(savedArticle('48'));
@@ -37,7 +37,7 @@ describe('Unit | UpdateArticle | sync', () => {
   afterEach(() => {
     SubscriptionRepository.getAll.restore();
     ArticleRepository.getAll.restore();
-    ArticleRepository.updateName.restore();
+    ArticleRepository.updateTitle.restore();
     ArticleRepository.create.restore();
     ChapterRepository.createArticleChapters.restore();
     DropboxClient.createSharedLink.restore();
@@ -122,7 +122,7 @@ describe('Unit | UpdateArticle | sync', () => {
 
       // then
       return promise.then(() => {
-        expect(ArticleRepository.updateName).to.have.been.calledWith('59. Perdus autour du mont Gongga', dropboxId);
+        expect(ArticleRepository.updateTitle).to.have.been.calledWith('59. Perdus autour du mont Gongga', dropboxId);
       });
     });
 

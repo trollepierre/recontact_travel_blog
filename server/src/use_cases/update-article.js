@@ -59,7 +59,7 @@ function sync(dropboxId) {
   }
 
   function _updateArticleTitle(articleInfos) {
-    articleRepository.updateName(articleInfos.title, dropboxId);
+    articleRepository.updateTitle(articleInfos.title, dropboxId);
     return articleInfos;
   }
 

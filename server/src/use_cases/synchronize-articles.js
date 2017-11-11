@@ -125,7 +125,7 @@ function _updateTitleAndExtractChaptersFromArticleContent(article) {
 }
 
 function _updateArticleTitle(articleInfos, dropboxId) {
-  articleRepository.updateName(articleInfos.title, dropboxId);
+  articleRepository.updateTitle(articleInfos.title, dropboxId);
   return articleInfos;
 }
 

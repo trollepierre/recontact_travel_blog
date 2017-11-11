@@ -49,8 +49,8 @@
         return `/articles/${this.article.dropboxId}`;
       },
       articleTitle() {
-        if (!this.article.name) return this.article.dropboxId;
-        return this.article.name;
+        if (!this.article.title) return this.article.dropboxId;
+        return this.article.title;
       },
     },
     methods: {
