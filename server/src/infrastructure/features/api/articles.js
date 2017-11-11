@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', (req, res) => GetAllArticles.getAllArticles()
   .then(articles => res.json(articles)));
 
-router.get('/:id', (req, res) => GetArticle.getAllChapters(req.params.id)
+router.get('/:id', (req, res) => GetArticle.getArticle(req.params.id)
   .then(chapters => res.json(chapters)));
 
 router.get('/:id/photos', (req, res) => GetPhotosOfArticle.getAllPhotos(req.params.id)

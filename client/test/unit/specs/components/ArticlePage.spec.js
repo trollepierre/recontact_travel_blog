@@ -8,6 +8,7 @@ describe('ArticlePage.vue', () => {
   let component;
   let chapters;
   let photos;
+  const title = 'Pierre au pays des';
   const idArticle = 8;
 
   beforeEach(() => {
@@ -31,7 +32,7 @@ describe('ArticlePage.vue', () => {
       { imgLink: 'url/photo2' },
     ];
     sinon.stub(photosApi, 'fetch').resolves(photos);
-    sinon.stub(chaptersApi, 'fetch').resolves(chapters);
+    sinon.stub(chaptersApi, 'fetch').resolves({ title, chapters });
     const Constructor = Vue.extend(ArticlePage);
     component = new Constructor({ router }).$mount();
     component.$route.params.id = idArticle;
