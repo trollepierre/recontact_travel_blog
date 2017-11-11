@@ -50,7 +50,7 @@
       },
       articleTitle() {
         if (!this.article.name) return this.article.dropboxId;
-        return `${this.article.dropboxId} : ${this.article.name}`;
+        return this.article.name;
       },
     },
     methods: {
