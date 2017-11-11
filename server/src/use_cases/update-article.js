@@ -7,35 +7,15 @@ const FileReader = require('../infrastructure/external_services/file-reader');
 function sync(dropboxId) {
   function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
     const result = report; // todo : remove one var here
-    return _updateArticleInDatabase(result)
-      .then(() => _updateChaptersInDatabase(result))
+    return _createArticlesInDatabase(result)
+      .then(() => _insertArticlesContentsInDatabase(result))
       .then(() => Promise.resolve(result));
   }
 
-  function _updateArticleInDatabase(report) {
+  function _createArticlesInDatabase(report) {
     const { addedArticles } = report;
-    return _shareImagesZeros(addedArticles) // todo prepare une validation d'image si manquante
+    return _shareImagesZeros(addedArticles)
       .then(articles => articleRepository.create(articles));
-  }
-
-  function _updateChaptersInDatabase({ addedArticles }) {
-    const allChaptersToSave = addedArticles.reduce((promises, article) => {
-      const chaptersOfThisArticleToSave = _getCompleteChaptersToShare(article);
-      promises.push(chaptersOfThisArticleToSave);
-      return promises;
-    }, []);
-    return Promise.all(allChaptersToSave)
-      .then(allChapters => flatten(allChapters))
-      .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
-  }
-
-  function _getCompleteChaptersToShare(article) {
-    const articleId = article.dropboxId;
-    return DropboxClient.getTextFileStream(articleId) // todo understand why some articles (like 57) cannot be found by Dropbox
-      .then(FileReader.read)
-      .then(chaptersContent => _serializeChapters(chaptersContent))
-      .then(chapters => _shareChapterImages(chapters, articleId))
-      .then(chapters => chapters.chapters.map(chapter => Object.assign(chapter, { dropboxId: article.dropboxId }))); // todo : add to former method
   }
 
   function _shareImagesZeros(articles) {
@@ -59,7 +39,32 @@ function sync(dropboxId) {
       }));
   }
 
-  function _serializeChapters(rawArticle) {
+  function _insertArticlesContentsInDatabase({ addedArticles }) {
+    const allChaptersToSave = addedArticles.reduce((promises, article) => {
+      const chaptersOfThisArticleToSave = _updateTitleAndExtractChaptersFromArticleContent(article);
+      promises.push(chaptersOfThisArticleToSave);
+      return promises;
+    }, []);
+    return Promise.all(allChaptersToSave)
+      .then(allChapters => flatten(allChapters))
+      .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
+  }
+
+  function _updateTitleAndExtractChaptersFromArticleContent(article) {
+    return DropboxClient.getTextFileStream(dropboxId) // todo understand why some articles (like 57) cannot be found by Dropbox
+      .then(FileReader.read)
+      .then(articleContent => _serializeArticleContent(articleContent))
+      .then(articleInfos => _updateArticleTitle(articleInfos))
+      .then(articleInfos => _shareChapterImages(articleInfos, dropboxId))
+      .then(articleInfos => articleInfos.chapters);
+  }
+
+  function _updateArticleTitle(articleInfos) {
+    articleRepository.updateName(articleInfos.title, dropboxId);
+    return articleInfos;
+  }
+
+  function _serializeArticleContent(rawArticle) {
     const cuttedArticle = rawArticle
       .split('*')
       .map(row => row.trim());
@@ -79,6 +84,7 @@ function sync(dropboxId) {
       const title = cuttedArticle[(3 * i) - 2];
       const subtitle = cuttedArticle[(3 * i) - 1];
       chapters[i - 1] = {
+        dropboxId,
         title: [title, subtitle].join(' ').trim(),
         imgLink,
         // TODO : add Paragraph from data in db -  text: this._addParagraphs(cuttedArticle[3 * i]),
@@ -88,24 +94,25 @@ function sync(dropboxId) {
     return chapters;
   }
 
-  function _shareChapterImages(chapters, idArticle) {
-    const chaptersWithSharableLink = chapters.chapters.reduce((promises, chapter) => {
-      const promise = _shareChapterImage(chapter.imgLink, idArticle);
+  function _shareChapterImages(articleInfos) {
+    const chaptersWithSharableLink = articleInfos.chapters.reduce((promises, chapter) => {
+      const promise = _shareChapterImage(chapter.imgLink);
       promises.push(promise);
       return promises;
     }, []);
     return Promise.all(chaptersWithSharableLink)
       .then((imgLinks) => {
-        const newChapters = chapters;
+        const newArticleInfos = articleInfos;
         for (let i = 0; i < imgLinks.length; i += 1) {
-          newChapters.chapters[i].imgLink = imgLinks[i];
+          newArticleInfos.chapters[i].imgLink = imgLinks[i];
         }
-        return newChapters;
+        return newArticleInfos;
       });
   }
 
-  function _shareChapterImage(imgLink, articleId) {
-    return DropboxClient.createSharedLink(`/${articleId}/${imgLink}`)
+  // todo destructuring
+  function _shareChapterImage(imgLink) {
+    return DropboxClient.createSharedLink(`/${dropboxId}/${imgLink}`)
       .then(_transformToImgLink);
   }
 
