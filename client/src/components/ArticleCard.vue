@@ -121,9 +121,14 @@
 
   .article__header {
     border-bottom: 1px solid #e6e6e6;
+    height: 34px;
     padding: 15px;
     display: flex;
     justify-content: space-between;
+  }
+
+  .article__header a {
+    margin: auto;
   }
 
   .article__title {
@@ -131,8 +136,7 @@
     font-weight: 700;
     line-height: 17px;
     color: #07c;
-    margin: 0;
-    white-space: nowrap;
+    margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
