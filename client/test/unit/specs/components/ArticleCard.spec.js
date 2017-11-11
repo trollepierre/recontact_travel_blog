@@ -38,32 +38,6 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('computed property #articleUrl', () => {
-      it('should return /articles/:id', () => {
-        // When
-        const articleUrl = component.articleUrl;
-
-        // Then
-        expect(articleUrl).to.equal('/articles/58');
-      });
-    });
-
-    describe('clicking on title', () => {
-      it('should redirect to /article/id', () => {
-        // given
-        sinon.stub(component.$router, 'push').resolves({});
-
-        // when
-        component.$el.querySelector('.article__header a').click();
-
-        // then
-        expect(component.$router.push).to.have.been.calledWith('/articles/58');
-
-        // after
-        component.$router.push.restore();
-      });
-    });
-
     describe('render', () => {
       it('should render article title', () => {
         const articleTitle = component.$el.querySelector('.article__title');
@@ -87,6 +61,16 @@ describe('ArticleCard.vue', () => {
 
       it('should have enabled dropbox button', () => {
         expect(component.$el.querySelector('.article__dropbox-button').disabled).to.be.false;
+      });
+    });
+
+    describe('computed property #articleUrl', () => {
+      it('should return /articles/:id', () => {
+        // When
+        const articleUrl = component.articleUrl;
+
+        // Then
+        expect(articleUrl).to.equal('/articles/58');
       });
     });
 
@@ -127,21 +111,6 @@ describe('ArticleCard.vue', () => {
         // then
         expect(component.$router.push).to.have.been.calledWith('/articles/58');
 
-        // after
-        component.$router.push.restore();
-      });
-    });
-
-    describe('clicking on button "Voir l\'article"', () => {
-      it('should redirect to /article/id', () => {
-        // given
-        sinon.stub(component.$router, 'push').resolves({});
-
-        // when
-        component.$el.querySelector('button.article__view-button').click();
-
-        // then
-        expect(component.$router.push).to.have.been.calledWith('/articles/58');
         // after
         component.$router.push.restore();
       });
@@ -223,6 +192,37 @@ describe('ArticleCard.vue', () => {
           const message = 'Erreur : Problème durant la synchronisation : Expected error';
           expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
         });
+      });
+    });
+
+    describe('clicking on button "Voir l\'article"', () => {
+      it('should redirect to /article/id', () => {
+        // given
+        sinon.stub(component.$router, 'push').resolves({});
+
+        // when
+        component.$el.querySelector('button.article__view-button').click();
+
+        // then
+        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+        // after
+        component.$router.push.restore();
+      });
+    });
+
+    describe('clicking on title', () => {
+      it('should redirect to /article/id', () => {
+        // given
+        sinon.stub(component.$router, 'push').resolves({});
+
+        // when
+        component.$el.querySelector('.article__header a').click();
+
+        // then
+        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+
+        // after
+        component.$router.push.restore();
       });
     });
   });
