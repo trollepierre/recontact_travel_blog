@@ -1,20 +1,20 @@
 const { sinon, expect } = require('../../test-helper');
 const photoRepository = require('../../../src/domain/repositories/photo-repository');
 const { Photo } = require('../../../src/domain/models/index');
-// const photoOfArticleSaved = require('../../fixtures/photoOfArticleSaved');
-// const photoOfArticleToSave = require('../../fixtures/photoOfArticleToSave');
+const photoOfArticleSaved = require('../../fixtures/photoOfArticleSaved');
+const photoOfArticleToSave = require('../../fixtures/photo');
 const photo = require('../../fixtures/photo');
 
 describe('Unit | Repository | photo-repository', () => {
-  // let photosOfArticleToSave;
-  const savedPhotosOfArticle = [photo()];
+  let photosOfArticleToSave;
+  let savedPhotosOfArticle = [photo()];
 
   beforeEach(() => {
-    // photosOfArticleToSave = [photoOfArticleToSave(), photoOfArticleToSave()];
-    // savedPhotosOfArticle = [photoOfArticleSaved(), photoOfArticleSaved()];
+    photosOfArticleToSave = [photoOfArticleToSave(), photoOfArticleToSave()];
+    savedPhotosOfArticle = [photoOfArticleSaved(), photoOfArticleSaved()];
   });
 
-  /* describe('#createArticlePhotos', () => {
+  describe('#createPhotos()', () => {
     beforeEach(() => {
       sinon.stub(Photo, 'bulkCreate');
     });
@@ -28,7 +28,7 @@ describe('Unit | Repository | photo-repository', () => {
       Photo.bulkCreate.resolves(savedPhotosOfArticle);
 
       // when
-      const promise = photoRepository.createArticlePhotos(photosOfArticleToSave);
+      const promise = photoRepository.createPhotos(photosOfArticleToSave);
 
       // then
       return promise.then((res) => {
@@ -36,7 +36,7 @@ describe('Unit | Repository | photo-repository', () => {
         expect(res).to.deep.equal(savedPhotosOfArticle);
       });
     });
-  }); */
+  });
 
   describe('#getPhotosOfArticle', () => {
     const dropboxId = 47;
@@ -61,7 +61,7 @@ describe('Unit | Repository | photo-repository', () => {
     });
   });
 
-  /* describe('#deletePhotosOfArticle', () => {
+  describe('#deletePhotosOfArticle', () => {
     const dropboxId = 47;
 
     beforeEach(() => {
@@ -81,6 +81,6 @@ describe('Unit | Repository | photo-repository', () => {
         expect(Photo.destroy).to.have.been.calledWith({ where: { dropboxId } });
       });
     });
-  }); */
+  });
 });
 

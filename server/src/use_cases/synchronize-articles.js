@@ -5,6 +5,7 @@ const config = require('../infrastructure/config');
 const { isEmpty, flatten } = require('lodash');
 const articleRepository = require('../domain/repositories/article-repository');
 const chapterRepository = require('../domain/repositories/chapter-repository');
+const photoRepository = require('../domain/repositories/photo-repository');
 const subscriptionRepository = require('../domain/repositories/subscription-repository');
 const articlesChangedEmailTemplate = require('../infrastructure/mailing/articles-changed-email-template');
 
@@ -72,9 +73,56 @@ function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
   if (report.hasChanges) {
     return _createArticlesInDatabase(report)
       .then(() => _insertArticlesContentsInDatabase(report))
+      .then(() => _createPhotosOfArticlesInDatabase(report))
       .then(() => Promise.resolve(report));
   }
   return Promise.resolve(report);
+}
+
+function _createPhotosOfArticlesInDatabase({ addedArticles }) {
+  const allPhotosOfAllArticles = addedArticles.reduce((promises, article) => {
+    const photosOfArticle = getPhotosOfArticle(article);
+    promises.push(photosOfArticle);
+    return promises;
+  }, []);
+  return Promise.all(allPhotosOfAllArticles)
+    .then(photos => flatten(photos))
+    .then(photos => photoRepository.createPhotos(photos));
+}
+
+function getPhotosOfArticle({ dropboxId }) {
+  return DropboxClient.getPathOfPhotosOfArticle(dropboxId)
+    .then(paths => filterOnlyGalleryPhotos(paths))
+    .then(paths => createPhotoOfArticle(paths, dropboxId));
+}
+
+function filterOnlyGalleryPhotos(paths) {
+  const photosPaths = paths.filter((path) => {
+    const extension = path.split('.').pop();
+    return extension === 'jpg' || extension === 'jpeg' || extension === 'png';
+  });
+  const galleryPaths = photosPaths.filter((path) => {
+    const shortName = path.split('/').pop().substring(0,3).toLowerCase();
+    return shortName !== 'img';
+  });
+  return galleryPaths;
+}
+
+function createPhotoOfArticle(paths, dropboxId) {
+  const allImgLinks = paths.reduce((promises, path) => {
+    const imgLink = serializePhoto(path, dropboxId);
+    promises.push(imgLink);
+    return promises;
+  }, []);
+  return Promise.all(allImgLinks);
+}
+
+function serializePhoto(path, dropboxId) {
+  return DropboxClient.createSharedLink(path)
+    .then(response => ({
+      imgLink: _transformToImgLink(response),
+      dropboxId,
+    }));
 }
 
 function _createArticlesInDatabase({ addedArticles }) {

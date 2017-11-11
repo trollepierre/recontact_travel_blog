@@ -2,6 +2,7 @@ const { expect, sinon } = require('../test-helper');
 const SynchroniseArticles = require('../../src/use_cases/synchronize-articles');
 const ArticleRepository = require('../../src/domain/repositories/article-repository');
 const ChapterRepository = require('../../src/domain/repositories/chapter-repository');
+const PhotoRepository = require('../../src/domain/repositories/photo-repository');
 const SubscriptionRepository = require('../../src/domain/repositories/subscription-repository');
 const mailJet = require('../../src/infrastructure/mailing/mailjet');
 const DropboxClient = require('../../src/infrastructure/external_services/dropbox-client');
@@ -9,6 +10,7 @@ const FileReader = require('../../src/infrastructure/external_services/file-read
 const savedArticle = require('../fixtures/articleToSave');
 const chapterOfArticle = require('../fixtures/chapterOfArticleSaved');
 const filteredDropboxFilesListFolder = require('../fixtures/filteredDropboxFilesListFolder');
+const dropboxPhotosPaths = require('../fixtures/filteredDropboxPaths');
 const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTemporaryLink');
 const dropboxArticleFr = require('../fixtures/dropboxArticleFr');
 
@@ -81,6 +83,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         .resolves(savedArticle('48'));
       sinon.stub(ChapterRepository, 'createArticleChapters')
         .resolves(chapterOfArticle());
+      sinon.stub(PhotoRepository, 'createPhotos');
+      sinon.stub(DropboxClient, 'getPathOfPhotosOfArticle').resolves(dropboxPhotosPaths);
       sinon.stub(DropboxClient, 'createSharedLink');
       sinon.stub(DropboxClient, 'getTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
       sinon.stub(FileReader, 'read').resolves(dropboxArticleFr);
@@ -93,6 +97,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       ArticleRepository.updateName.restore();
       ArticleRepository.create.restore();
       ChapterRepository.createArticleChapters.restore();
+      PhotoRepository.createPhotos.restore();
+      DropboxClient.getPathOfPhotosOfArticle.restore();
       DropboxClient.createSharedLink.restore();
       DropboxClient.getTextFileStream.restore();
       FileReader.read.restore();
@@ -168,14 +174,36 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         });
       });
 
-      it('should create shared link 2 times par articles (so 4 times) ' +
-        '+ 2 initial calls per imgLink + 2 calls per galleryLink', () => {
+      it('should save photos', () => {
         // when
         const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
-          expect(DropboxClient.createSharedLink).to.have.been.callCount(8);
+          expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
+            dropboxId: '47',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+          }, {
+            dropboxId: '47',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+          }, {
+            dropboxId: '48',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+          }, {
+            dropboxId: '48',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+          }]);
+        });
+      });
+
+      it('should create shared link 2 times (/47 + /47/img0) par articles (so 4 times) ' +
+        '+ 2x2 initial calls (img1&img2 x2) per imgLink + 2x2 calls per galleryPhotosLink ', () => {
+        // when
+        const promise = SynchroniseArticles.synchronizeArticles();
+
+        // then
+        return promise.then(() => {
+          expect(DropboxClient.createSharedLink).to.have.been.callCount(12);
         });
       });
 
