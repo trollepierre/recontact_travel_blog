@@ -2,6 +2,7 @@ const { expect, sinon } = require('../test-helper');
 const UpdateArticle = require('../../src/use_cases/update-article');
 const ArticleRepository = require('../../src/domain/repositories/article-repository');
 const ChapterRepository = require('../../src/domain/repositories/chapter-repository');
+const PhotoRepository = require('../../src/domain/repositories/photo-repository');
 const SubscriptionRepository = require('../../src/domain/repositories/subscription-repository');
 const mailJet = require('../../src/infrastructure/mailing/mailjet');
 const DropboxClient = require('../../src/infrastructure/external_services/dropbox-client');
@@ -10,12 +11,13 @@ const savedArticle = require('../fixtures/articleToSave');
 const chapterOfArticle = require('../fixtures/chapterOfArticleSaved');
 const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTemporaryLink');
 const dropboxArticleFr = require('../fixtures/dropboxArticleFr');
-
+const dropboxPhotosPaths = require('../fixtures/filteredDropboxPaths');
 
 describe('Unit | UpdateArticle | sync', () => {
   const dropboxId = 8;
 
   beforeEach(() => {
+    sinon.stub(PhotoRepository, 'deletePhotosOfArticle').resolves();
     sinon.stub(ChapterRepository, 'deleteChaptersOfArticle').resolves();
     sinon.stub(ArticleRepository, 'deleteArticle').resolves();
     const subscriptions = [{ email: 'abonne@recontact.me' }];
@@ -28,6 +30,8 @@ describe('Unit | UpdateArticle | sync', () => {
       .resolves(savedArticle('48'));
     sinon.stub(ChapterRepository, 'createArticleChapters')
       .resolves(chapterOfArticle());
+    sinon.stub(PhotoRepository, 'createPhotos');
+    sinon.stub(DropboxClient, 'getPathOfPhotosOfArticle').resolves(dropboxPhotosPaths);
     sinon.stub(DropboxClient, 'createSharedLink');
     sinon.stub(DropboxClient, 'getTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
     sinon.stub(FileReader, 'read').resolves(dropboxArticleFr);
@@ -40,10 +44,13 @@ describe('Unit | UpdateArticle | sync', () => {
     ArticleRepository.updateName.restore();
     ArticleRepository.create.restore();
     ChapterRepository.createArticleChapters.restore();
+    PhotoRepository.createPhotos.restore();
+    DropboxClient.getPathOfPhotosOfArticle.restore();
     DropboxClient.createSharedLink.restore();
     DropboxClient.getTextFileStream.restore();
     FileReader.read.restore();
     mailJet.sendEmail.restore();
+    PhotoRepository.deletePhotosOfArticle.restore();
     ChapterRepository.deleteChaptersOfArticle.restore();
     ArticleRepository.deleteArticle.restore();
   });
@@ -54,6 +61,14 @@ describe('Unit | UpdateArticle | sync', () => {
 
     // then
     expect(ChapterRepository.deleteChaptersOfArticle).to.have.been.calledWith(dropboxId);
+  });
+
+  it('should call PhotoRepository to delete the Photos Of the Article', () => {
+    // when
+    UpdateArticle.sync(dropboxId);
+
+    // then
+    expect(PhotoRepository.deletePhotosOfArticle).to.have.been.calledWith(dropboxId);
   });
 
   it('should call ArticleRepository to delete the article', () => {
@@ -126,14 +141,31 @@ describe('Unit | UpdateArticle | sync', () => {
       });
     });
 
-    it('should create shared link 2 times par articles ' +
-      '+ 1 initial calls per imgLink + 1 calls per galleryLink', () => {
+    it('should save photos', () => {
       // when
       const promise = UpdateArticle.sync(dropboxId);
 
       // then
       return promise.then(() => {
-        expect(DropboxClient.createSharedLink).to.have.been.callCount(4);
+        expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
+          dropboxId: 8,
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+        }, {
+          dropboxId: 8,
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+        }]);
+      });
+    });
+
+
+    it('should create shared link (img1+img2) times par articles ' +
+      '+ 1 initial calls per img0 + 1 calls per / + 2 calls per gallery photos', () => {
+      // when
+      const promise = UpdateArticle.sync(dropboxId);
+
+      // then
+      return promise.then(() => {
+        expect(DropboxClient.createSharedLink).to.have.been.callCount(6);
       });
     });
 

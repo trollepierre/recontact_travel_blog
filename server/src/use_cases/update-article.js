@@ -1,5 +1,6 @@
 const chapterRepository = require('../domain/repositories/chapter-repository');
 const articleRepository = require('../domain/repositories/article-repository');
+const photoRepository = require('../domain/repositories/photo-repository');
 const { isEmpty, flatten } = require('lodash');
 const DropboxClient = require('../infrastructure/external_services/dropbox-client');
 const FileReader = require('../infrastructure/external_services/file-reader');
@@ -8,11 +9,57 @@ function sync(dropboxId) {
   function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
     return _createArticlesInDatabase(report)
       .then(() => _insertArticlesContentsInDatabase(report))
+      .then(() => _createPhotosOfArticlesInDatabase(report))
       .then(() => Promise.resolve(report));
   }
 
-  function _createArticlesInDatabase(report) {
-    const { addedArticles } = report;
+  function _createPhotosOfArticlesInDatabase({ addedArticles }) {
+    const allPhotosOfAllArticles = addedArticles.reduce((promises, article) => {
+      const photosOfArticle = getPhotosOfArticle(article);
+      promises.push(photosOfArticle);
+      return promises;
+    }, []);
+    return Promise.all(allPhotosOfAllArticles)
+      .then(photos => flatten(photos))
+      .then(photos => photoRepository.createPhotos(photos));
+  }
+
+  function getPhotosOfArticle() {
+    return DropboxClient.getPathOfPhotosOfArticle(dropboxId)
+      .then(paths => filterOnlyGalleryPhotos(paths))
+      .then(paths => createPhotoOfArticle(paths, dropboxId));
+  }
+
+  function filterOnlyGalleryPhotos(paths) {
+    const photosPaths = paths.filter((path) => {
+      const extension = path.split('.').pop();
+      return extension === 'jpg' || extension === 'jpeg' || extension === 'png';
+    });
+    const galleryPaths = photosPaths.filter((path) => {
+      const shortName = path.split('/').pop().substring(0,3).toLowerCase();
+      return shortName !== 'img';
+    });
+    return galleryPaths;
+  }
+
+  function createPhotoOfArticle(paths) {
+    const allImgLinks = paths.reduce((promises, path) => {
+      const imgLink = serializePhoto(path);
+      promises.push(imgLink);
+      return promises;
+    }, []);
+    return Promise.all(allImgLinks);
+  }
+
+  function serializePhoto(path) {
+    return DropboxClient.createSharedLink(path)
+      .then(response => ({
+        imgLink: _transformToImgLink(response),
+        dropboxId,
+      }));
+  }
+
+  function _createArticlesInDatabase({ addedArticles } ) {
     return _shareImagesZeros(addedArticles)
       .then(articles => articleRepository.create(articles));
   }
@@ -134,6 +181,7 @@ function sync(dropboxId) {
   return Promise.all([
     articleRepository.deleteArticle(dropboxId),
     chapterRepository.deleteChaptersOfArticle(dropboxId),
+    photoRepository.deletePhotosOfArticle(dropboxId),
   ])
     .then(() => _ifArticlesChangesThenUpdateArticlesInDatabase(report));
 }
