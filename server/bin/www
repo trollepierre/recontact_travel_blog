@@ -96,3 +96,4 @@ function onListening() {
  * Start cron task that synchronizes automatically the articles from Dropbox
  */
 require('../src/infrastructure/features/crons/dropbox-synchronizer');
+require('../src/infrastructure/features/crons/prevent-sleep');
