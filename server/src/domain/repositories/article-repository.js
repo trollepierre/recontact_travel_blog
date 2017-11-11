@@ -10,6 +10,11 @@ function getAll() {
     .all();
 }
 
+function updateName(name, dropboxId) {
+  return Article
+    .update({ name }, { where: { dropboxId } });
+}
+
 function deleteArticle(dropboxId) {
   return Article.destroy({
     where: { dropboxId },
@@ -20,4 +25,5 @@ module.exports = {
   create,
   getAll,
   deleteArticle,
+  updateName,
 };
