@@ -38,7 +38,7 @@
 
 <script>
   import feedbacksApi from '@/api/feedbacks';
-  import notificationService from '@/services/notification';
+  import notificationsService from '@/services/notifications';
 
   export default {
     name: 'FeedbackModal',
@@ -87,7 +87,7 @@
 
       displaySuccessNotification() {
         const message = 'Ton message a été envoyé.';
-        notificationService.success(this, message);
+        notificationsService.success(this, message);
       },
 
       _resetFeedback() {

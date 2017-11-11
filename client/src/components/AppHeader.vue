@@ -19,8 +19,8 @@
               </button>
             </li>
             <li class="navigation__link">
-              <button class="navbar-action navbar-action__sync" type="button" :disabled="isClicked"
-                      @click.prevent.once="synchronise">Synchroniser
+              <button class="navbar-action navbar-action__problem" type="button"
+                      @click.prevent="goToAdmin">Signaler un problème
               </button>
             </li>
           </ol>
@@ -30,40 +30,19 @@
   </div>
 </template>
 <script>
-  import syncApi from '@/api/sync';
-  import notificationService from '@/services/notification';
-
   export default {
     name: 'AppHeader',
-    data() {
-      return {
-        isClicked: false,
-      };
-    },
     methods: {
-      disableButton() {
-        this.isClicked = true;
-      },
-
-      synchronise() {
-        this.disableButton();
-        syncApi.launch()
-          .then(() => {
-            const message = 'La synchronisation s\'est effectuée sans problème !';
-            notificationService.success(this, message);
-          })
-          .catch((err) => {
-            const message = `Erreur : Problème durant la synchronisation : ${err.message}`;
-            notificationService.error(this, message);
-          });
-      },
-
       displaySubscribeModal() {
         this.$modal.show('subscribe-modal');
       },
 
       displayFeedbackModal() {
         this.$modal.show('feedback-modal');
+      },
+
+      goToAdmin() {
+        this.$router.push('/admin');
       },
     },
   };

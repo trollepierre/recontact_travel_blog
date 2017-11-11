@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueModal from 'vue-js-modal';
 import FeedbackModal from '@/components/FeedbackModal';
 import feedbacksApi from '@/api/feedbacks';
-import notificationService from '@/services/notification';
+import notificationsService from '@/services/notifications';
 
 Vue.use(VueModal);
 
@@ -100,12 +100,12 @@ describe('Unit | Component | FeedbackModal.vue', () => {
   describe('#sendFeedback', () => {
     beforeEach(() => {
       sinon.stub(feedbacksApi, 'sendFeedback').resolves();
-      sinon.stub(notificationService, 'success');
+      sinon.stub(notificationsService, 'success');
     });
 
     afterEach(() => {
       feedbacksApi.sendFeedback.restore();
-      notificationService.success.restore();
+      notificationsService.success.restore();
     });
 
     it('should remove error', () => {
@@ -269,7 +269,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
 
     it('should display success notification', () => {
       // given
-      notificationService.success.resolves({});
+      notificationsService.success.resolves({});
 
       // when
       component.sendFeedback();
@@ -277,13 +277,13 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       // then
       return Vue.nextTick().then(() => {
         const message = 'Ton message a été envoyé.';
-        expect(notificationService.success).to.have.been.calledWith(component, message);
+        expect(notificationsService.success).to.have.been.calledWith(component, message);
       });
     });
 
     it('should close modal', () => {
       // given
-      notificationService.success.resolves({});
+      notificationsService.success.resolves({});
       component.$modal.show('feedback-modal');
       component.$data.email = 'email@recontact.me';
       component.$data.feedback = 'Coucou';

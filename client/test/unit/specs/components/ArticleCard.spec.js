@@ -2,20 +2,23 @@ import Vue from 'vue';
 import ArticleCard from '@/components/ArticleCard';
 import VueRouter from 'vue-router';
 import router from '@/router';
-import notificationService from '@/services/notification';
-import deleteArticleApi from '@/api/deleteArticle';
+import notificationsService from '@/services/notifications';
+import articlesApi from '@/api/articles';
 
 Vue.use(VueRouter);
 
 describe('ArticleCard.vue', () => {
   describe('when adminMode is not defined', () => {
+    const galleryLink = 'https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0';
     let component;
     let article;
 
     beforeEach(() => {
       article = {
         dropboxId: '58',
+        name: 'Pierre au Costa Rica',
         imgLink: 'webf',
+        galleryLink,
       };
       const Constructor = Vue.extend(ArticleCard);
       component = new Constructor({
@@ -31,8 +34,34 @@ describe('ArticleCard.vue', () => {
     });
 
     describe('$data', () => {
-      it('should have isDeleteClicked property set to false', () => {
-        expect(component.$data.isDeleteClicked).to.be.false;
+      it('should have isUpdateClicked property set to false', () => {
+        expect(component.$data.isUpdateClicked).to.be.false;
+      });
+    });
+
+    describe('render', () => {
+      it('should render article title', () => {
+        const articleTitle = component.$el.querySelector('.article__title');
+        expect(articleTitle.textContent).to.equal('Pierre au Costa Rica');
+      });
+
+      it('should render article image', () => {
+        const articleLink = component.$el.querySelector('img');
+        expect(articleLink.getAttribute('src')).to.contain('webf');
+      });
+
+      it('should render dropbox gallery link', () => {
+        const dropboxLink = component.$el.querySelector('a.article__dropbox');
+        expect(dropboxLink.getAttribute('href')).to.equal(galleryLink);
+        expect(dropboxLink.getAttribute('target')).to.equal('_blank');
+      });
+
+      it('should have enabled article button', () => {
+        expect(component.$el.querySelector('.article__view-button').disabled).to.be.false;
+      });
+
+      it('should have enabled dropbox button', () => {
+        expect(component.$el.querySelector('.article__dropbox-button').disabled).to.be.false;
       });
     });
 
@@ -46,59 +75,38 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('clicking on title', () => {
-      it('should redirect to /article/id', () => {
-        // given
-        sinon.stub(component.$router, 'push').resolves({});
+    describe('computed property #articleTitle', () => {
+      it('should return articleName', () => {
+        // When
+        const articleTile = component.articleTitle;
 
-        // when
-        component.$el.querySelector('.article__header a').click();
+        // Then
+        expect(articleTile).to.equal('Pierre au Costa Rica');
+      });
 
-        // then
-        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+      it('should return dropboxId when articleName not defined', () => {
+        // Given
+        article.name = '';
 
-        // after
-        component.$router.push.restore();
+        // When
+        const articleTile = component.articleTitle;
+
+        // Then
+        expect(articleTile).to.equal('58');
       });
     });
 
-    describe('render', () => {
-      it('should render article title', () => {
-        const articleTitle = component.$el.querySelector('.article__title');
-        expect(articleTitle.textContent).to.equal('58');
-      });
-
-      it('should render article image', () => {
-        const articleLink = component.$el.querySelector('img');
-        expect(articleLink.getAttribute('src')).to.contain('webf');
-      });
-
-      it('should render dropbox gallery link', () => {
-        const dropboxLink = component.$el.querySelector('a.article__dropbox');
-        expect(dropboxLink.getAttribute('href')).to.equal('http://dropbox.com');
-        expect(dropboxLink.getAttribute('target')).to.equal('_blank');
-      });
-
-      it('should have enabled article button', () => {
-        expect(component.$el.querySelector('.article__view-button').disabled).to.be.false;
-      });
-
-      it('should have enabled dropbox button', () => {
-        expect(component.$el.querySelector('.article__dropbox-button').disabled).to.be.false;
-      });
-    });
-
-    describe('disableDeleteButton', () => {
-      it('should set isDeleteClicked to true', () => {
+    describe('#disableDeleteButton', () => {
+      it('should set isUpdateClicked to true', () => {
         // when
         component.disableDeleteButton();
 
         // then
-        expect(component.$data.isDeleteClicked).to.be.true;
+        expect(component.$data.isUpdateClicked).to.be.true;
       });
     });
 
-    describe('viewArticle', () => {
+    describe('#viewArticle', () => {
       it('should redirect to /articles/:articleId', () => {
         // given
         sinon.stub(component.$router, 'push').resolves({});
@@ -114,7 +122,7 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('goToArticle', () => {
+    describe('#goToArticle', () => {
       it('should redirect to /articles/:articleId', () => {
         // given
         sinon.stub(component.$router, 'push').resolves({});
@@ -127,6 +135,85 @@ describe('ArticleCard.vue', () => {
 
         // after
         component.$router.push.restore();
+      });
+    });
+
+    describe('#update', () => {
+      beforeEach(() => {
+        // given
+        sinon.stub(articlesApi, 'update');
+        sinon.stub(notificationsService, 'success').resolves({});
+        sinon.stub(notificationsService, 'error').resolves({});
+      });
+
+      afterEach(() => {
+        articlesApi.update.restore();
+        notificationsService.success.restore();
+        notificationsService.error.restore();
+      });
+
+      it('should set isUpdateClicked to true', () => {
+        // given
+        articlesApi.update.resolves({});
+
+        // when
+        component.updateArticle();
+
+        // then
+        expect(component.$data.isUpdateClicked).to.be.true;
+      });
+
+      it('should call delete article api', () => {
+        // given
+        articlesApi.update.resolves({});
+
+        // when
+        component.updateArticle();
+
+        // then
+        expect(articlesApi.update).to.have.been.calledWith();
+      });
+
+      it('should display success toast notification before synchronisation calls', () => {
+        // given
+        articlesApi.update.resolves({});
+
+        // when
+        component.updateArticle();
+
+        // then
+        const message = 'La synchronisation est lancée ! Patientez quelques secondes...';
+        expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+      });
+
+      it('should redirect to /article/id', () => {
+        // given
+        sinon.stub(component.$router, 'push').resolves({});
+        articlesApi.update.resolves({});
+
+        // when
+        component.updateArticle();
+
+        // then
+        return Vue.nextTick().then(() => {
+          expect(component.$router.push).to.have.been.calledWith('/articles/58');
+          // after
+          component.$router.push.restore();
+        });
+      });
+
+      it('should display error toast notification when synchronisation fails', () => {
+        // given
+        articlesApi.update.rejects(new Error('Expected error'));
+
+        // when
+        component.updateArticle();
+
+        // then
+        return Vue.nextTick().then(() => {
+          const message = 'Erreur : Problème durant la synchronisation : Expected error';
+          expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
+        });
       });
     });
 
@@ -145,68 +232,19 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('deleteArticle', () => {
-      beforeEach(() => {
+    describe('clicking on title', () => {
+      it('should redirect to /article/id', () => {
         // given
-        sinon.stub(deleteArticleApi, 'deleteArticle');
-        sinon.stub(notificationService, 'success').resolves({});
-        sinon.stub(notificationService, 'error').resolves({});
-      });
-
-      afterEach(() => {
-        deleteArticleApi.deleteArticle.restore();
-        notificationService.success.restore();
-        notificationService.error.restore();
-      });
-
-      it('should set isDeleteClicked to true', () => {
-        // given
-        deleteArticleApi.deleteArticle.resolves({});
+        sinon.stub(component.$router, 'push').resolves({});
 
         // when
-        component.deleteArticle('58');
+        component.$el.querySelector('.article__header a').click();
 
         // then
-        expect(component.$data.isDeleteClicked).to.be.true;
-      });
+        expect(component.$router.push).to.have.been.calledWith('/articles/58');
 
-      it('should call delete article api', () => {
-        // given
-        deleteArticleApi.deleteArticle.resolves({});
-
-        // when
-        component.deleteArticle('58');
-
-        // then
-        expect(deleteArticleApi.deleteArticle).to.have.been.calledWith();
-      });
-
-      it('should display success toast notification when delete succeeds', () => {
-        // given
-        deleteArticleApi.deleteArticle.resolves({});
-
-        // when
-        component.deleteArticle('58');
-
-        // then
-        return Vue.nextTick().then(() => {
-          const message = 'La suppression s\'est effectuée sans problème !';
-          expect(notificationService.success).to.have.been.calledWithExactly(component, message);
-        });
-      });
-
-      it('should display error toast notification when delete fails', () => {
-        // given
-        deleteArticleApi.deleteArticle.rejects(new Error('Expected error'));
-
-        // when
-        component.deleteArticle('58');
-
-        // then
-        return Vue.nextTick().then(() => {
-          const message = 'Erreur : Problème durant la suppression : Expected error';
-          expect(notificationService.error).to.have.been.calledWithExactly(component, message);
-        });
+        // after
+        component.$router.push.restore();
       });
     });
   });
@@ -233,33 +271,33 @@ describe('ArticleCard.vue', () => {
     describe('clicking on button "supprimer l\'article"', () => {
       beforeEach(() => {
         // given
-        sinon.stub(deleteArticleApi, 'deleteArticle').resolves({});
-        sinon.stub(notificationService, 'success').resolves({});
-        sinon.stub(notificationService, 'error').resolves({});
+        sinon.stub(articlesApi, 'update').resolves({});
+        sinon.stub(notificationsService, 'success').resolves({});
+        sinon.stub(notificationsService, 'error').resolves({});
       });
 
       afterEach(() => {
-        deleteArticleApi.deleteArticle.restore();
-        notificationService.success.restore();
-        notificationService.error.restore();
+        articlesApi.update.restore();
+        notificationsService.success.restore();
+        notificationsService.error.restore();
       });
 
       it('should disable button', () => {
         // when
-        component.$el.querySelector('button.article__delete-button').click();
+        component.$el.querySelector('button.article__update-button').click();
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$el.querySelector('.article__delete-button').disabled).to.be.true;
+          expect(component.$el.querySelector('.article__update-button').disabled).to.be.true;
         });
       });
 
-      it('should call deleteArticleApi', () => {
+      it('should call articlesApi', () => {
         // when
-        component.$el.querySelector('button.article__delete-button').click();
+        component.$el.querySelector('button.article__update-button').click();
 
         // then
-        expect(deleteArticleApi.deleteArticle).to.have.been.calledWith('58');
+        expect(articlesApi.update).to.have.been.calledWith('58');
       });
     });
   });

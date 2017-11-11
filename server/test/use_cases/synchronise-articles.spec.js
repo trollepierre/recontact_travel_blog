@@ -13,8 +13,6 @@ const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTempora
 const dropboxArticleFr = require('../fixtures/dropboxArticleFr');
 
 describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
-  const dropboxId = 25;
-
   beforeEach(() => {
     const dropboxFolders = [
       filteredDropboxFilesListFolder('46'),
@@ -59,7 +57,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
     it('should return chapters with paragraphs', () => {
       // when
-      const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+      const promise = SynchroniseArticles.synchronizeArticles();
 
       // then
       return promise.then((chapters) => {
@@ -77,6 +75,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       const oldArticles = [savedArticle('46')];
       sinon.stub(SubscriptionRepository, 'getAll').resolves(subscriptions);
       sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
+      sinon.stub(ArticleRepository, 'updateName').resolves(oldArticles);
       sinon.stub(ArticleRepository, 'create')
         .resolves(savedArticle('47'))
         .resolves(savedArticle('48'));
@@ -91,6 +90,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
     afterEach(() => {
       SubscriptionRepository.getAll.restore();
       ArticleRepository.getAll.restore();
+      ArticleRepository.updateName.restore();
       ArticleRepository.create.restore();
       ChapterRepository.createArticleChapters.restore();
       DropboxClient.createSharedLink.restore();
@@ -106,7 +106,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should create shared link for each image path of the new articles ', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -119,14 +119,16 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // given
         const articlesToSave = [{
           dropboxId: '47',
+          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
           imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
         }, {
           dropboxId: '48',
+          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
           imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
         }];
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -136,7 +138,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should call DropboxClient to get TextFileStream', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -147,7 +149,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should call FileReader to read twice', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -155,13 +157,25 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         });
       });
 
-      it('should create shared link 2 times par articles (so 4 times) + 2 initial calls', () => {
+      it('should save new title', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
-          expect(DropboxClient.createSharedLink).to.have.been.callCount(6);
+          expect(ArticleRepository.updateName).to.have.been.calledWith('59. Perdus autour du mont Gongga', '47');
+          expect(ArticleRepository.updateName).to.have.been.calledWith('59. Perdus autour du mont Gongga', '48');
+        });
+      });
+
+      it('should create shared link 2 times par articles (so 4 times) ' +
+        '+ 2 initial calls per imgLink + 2 calls per galleryLink', () => {
+        // when
+        const promise = SynchroniseArticles.synchronizeArticles();
+
+        // then
+        return promise.then(() => {
+          expect(DropboxClient.createSharedLink).to.have.been.callCount(8);
         });
       });
 
@@ -214,7 +228,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           }];
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -224,7 +238,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should send email with correct options', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -249,7 +263,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
@@ -272,10 +286,12 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           addedArticles: [
             {
               dropboxId: '47',
+              galleryPath: '/47',
               imgPath: '/47/img0.jpg',
             },
             {
               dropboxId: '48',
+              galleryPath: '/48',
               imgPath: '/48/img0.jpg',
             },
           ],
@@ -286,7 +302,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         };
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then((result) => {
@@ -304,14 +320,16 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // given
         const articlesToSave = [{
           dropboxId: '47',
+          galleryLink: '',
           imgLink: '',
         }, {
           dropboxId: '48',
+          galleryLink: '',
           imgLink: '',
         }];
 
         // when
-        const promise = SynchroniseArticles.synchronizeArticles(dropboxId);
+        const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {

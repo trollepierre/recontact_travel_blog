@@ -1,15 +1,15 @@
 const { request, expect, sinon } = require('../../test-helper');
 const app = require('../../../app');
-const DeleteArticle = require('../../../src/use_cases/delete-article');
+const UpdateArticle = require('../../../src/use_cases/update-article');
 
 describe('Integration | Routes | admin route', () => {
   describe('/admin/articles/:id', () => {
     beforeEach(() => {
-      sinon.stub(DeleteArticle, 'deleteArticle').resolves();
+      sinon.stub(UpdateArticle, 'sync').resolves();
     });
 
     afterEach(() => {
-      DeleteArticle.deleteArticle.restore();
+      UpdateArticle.sync.restore();
     });
 
     it('should call delete article and send 204', (done) => {
@@ -18,10 +18,10 @@ describe('Integration | Routes | admin route', () => {
 
       // When
       request(app)
-        .delete(`/api/admin/articles/${stringIdArticle}`)
+        .patch(`/api/admin/articles/${stringIdArticle}`)
         .end((err, response) => {
           // Then
-          expect(DeleteArticle.deleteArticle).to.have.been.calledWith(stringIdArticle);
+          expect(UpdateArticle.sync).to.have.been.calledWith(stringIdArticle);
           expect(response.status).to.deep.equal(204);
           if (err) {
             done(err);

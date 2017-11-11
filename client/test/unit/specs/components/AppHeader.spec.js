@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import VueModal from 'vue-js-modal';
-import syncApi from '@/api/sync';
+import VueRouter from 'vue-router';
+import router from '@/router';
 import AppHeader from '@/components/AppHeader';
-import notificationService from '@/services/notification';
 
 Vue.use(VueModal);
+Vue.use(VueRouter);
 
 describe('Unit | Component | AppHeader.vue', () => {
   let component;
@@ -14,7 +15,9 @@ describe('Unit | Component | AppHeader.vue', () => {
     const Constructor = Vue.extend(AppHeader);
 
     // when
-    component = new Constructor().$mount();
+    component = new Constructor({
+      router,
+    }).$mount();
   });
 
   it('should be named "AppHeader"', () => {
@@ -26,10 +29,6 @@ describe('Unit | Component | AppHeader.vue', () => {
       expect(component.$el.querySelector('.logo-link')).to.exist;
     });
 
-    it('should display a button to synchronise', () => {
-      expect(component.$el.querySelector('button.navbar-action.navbar-action__sync')).to.exist;
-    });
-
     it('should display a button to subscribe', () => {
       expect(component.$el.querySelector('button.navbar-action.navbar-action__subscribe')).to.exist;
     });
@@ -37,23 +36,9 @@ describe('Unit | Component | AppHeader.vue', () => {
     it('should display a button to suggest', () => {
       expect(component.$el.querySelector('button.navbar-action.navbar-action__suggestion')).to.exist;
     });
-  });
 
-  describe('#displaySubscribeModal', () => {
-    beforeEach(() => {
-      sinon.stub(component.$modal, 'show');
-    });
-
-    afterEach(() => {
-      component.$modal.show.restore();
-    });
-
-    it('should display the subscribe-modal', () => {
-      // when
-      component.displaySubscribeModal();
-
-      // then
-      expect(component.$modal.show).to.have.been.calledWith('subscribe-modal');
+    it('should display a button to alert a problem', () => {
+      expect(component.$el.querySelector('button.navbar-action.navbar-action__problem')).to.exist;
     });
   });
 
@@ -75,86 +60,40 @@ describe('Unit | Component | AppHeader.vue', () => {
     });
   });
 
-  describe('#synchronise', () => {
+  describe('#displaySubscribeModal', () => {
     beforeEach(() => {
-      // given
-      sinon.stub(syncApi, 'launch');
-      sinon.stub(notificationService, 'success').resolves({});
-      sinon.stub(notificationService, 'error').resolves({});
+      sinon.stub(component.$modal, 'show');
     });
 
     afterEach(() => {
-      syncApi.launch.restore();
-      notificationService.success.restore();
-      notificationService.error.restore();
+      component.$modal.show.restore();
     });
 
-    it('should call syncApi', () => {
-      // given
-      syncApi.launch.resolves({});
-
+    it('should display the subscribe-modal', () => {
       // when
-      component.synchronise();
+      component.displaySubscribeModal();
 
       // then
-      return Vue.nextTick().then(() => {
-        expect(syncApi.launch).to.have.been.calledWith();
-      });
-    });
-
-    it('should display success toast notification when synchronisation succeeds', () => {
-      // given
-      syncApi.launch.resolves({});
-
-      // when
-      component.synchronise();
-
-      // then
-      return Vue.nextTick().then(() => {
-        const message = 'La synchronisation s\'est effectuée sans problème !';
-        expect(notificationService.success).to.have.been.calledWithExactly(component, message);
-      });
-    });
-
-    it('should display error toast notification when synchronisation fails', () => {
-      // given
-      syncApi.launch.rejects(new Error('Expected error'));
-
-      // when
-      component.synchronise();
-
-      // then
-      return Vue.nextTick().then(() => {
-        const message = 'Erreur : Problème durant la synchronisation : Expected error';
-        expect(notificationService.error).to.have.been.calledWithExactly(component, message);
-      });
+      expect(component.$modal.show).to.have.been.calledWith('subscribe-modal');
     });
   });
 
-  describe('clicking on button "Synchronise"', () => {
-    it('should disable button', () => {
-      // when
-      component.$el.querySelector('button.navbar-action.navbar-action__sync').click();
-
-      // then
-      return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('button.navbar-action.navbar-action__sync').disabled).to.be.true;
-      });
+  describe('#goToAdmin', () => {
+    beforeEach(() => {
+      sinon.stub(component.$router, 'push').resolves({});
     });
 
-    it('should call synchronise api', () => {
-      // given
-      sinon.stub(component, 'synchronise').resolves({});
+    afterEach(() => {
+      component.$router.push.restore();
+    });
 
+    it('should redirect to admin page', () => {
       // when
-      component.$el.querySelector('button.navbar-action.navbar-action__sync').click();
+      component.goToAdmin();
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.synchronise).to.have.been.called;
-
-        // after
-        component.synchronise.restore();
+        expect(component.$router.push).to.have.been.calledWith('/admin');
       });
     });
   });
@@ -191,6 +130,24 @@ describe('Unit | Component | AppHeader.vue', () => {
 
         // after
         component.displaySubscribeModal.restore();
+      });
+    });
+  });
+
+  describe('clicking on button "Signaler un problème"', () => {
+    it('should call goToAdmin', () => {
+      // given
+      sinon.stub(component, 'goToAdmin').resolves({});
+
+      // when
+      component.$el.querySelector('button.navbar-action.navbar-action__problem').click();
+
+      // then
+      return Vue.nextTick().then(() => {
+        expect(component.goToAdmin).to.have.been.called;
+
+        // after
+        component.goToAdmin.restore();
       });
     });
   });

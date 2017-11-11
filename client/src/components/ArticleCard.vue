@@ -3,7 +3,7 @@
     <article class="article">
       <header class="article__header">
         <a :href="articleUrl" @click.prevent.once="viewArticle">
-          <h2 class="article__title">{{ article.dropboxId }}</h2> <!--todo title should come from article-->
+          <h2 class="article__title">{{ articleTitle }}</h2>
         </a>
       </header>
       <div class="article__content">
@@ -11,9 +11,9 @@
       </div>
       <footer class="article__footer">
         <template v-if="adminMode">
-          <button class="article__delete-button" :disabled="isDeleteClicked"
-                  @click.prevent.once="deleteArticle(article.dropboxId)">
-            Supprimer l'article
+          <button class="article__update-button" :disabled="isUpdateClicked"
+                  @click.prevent.once="updateArticle">
+            Réparer l'article
           </button>
         </template>
         <template v-else>
@@ -21,7 +21,7 @@
                   @click.prevent.once="viewArticle">
             Voir l'article
           </button>
-          <a href="http://dropbox.com" target="_blank" class="article__dropbox">
+          <a :href="article.galleryLink" target="_blank" class="article__dropbox">
             <button class="article__dropbox-button">
               Voir les photos
             </button>
@@ -33,20 +33,24 @@
 </template>
 
 <script>
-  import deleteArticleApi from '@/api/deleteArticle';
-  import notificationService from '@/services/notification';
+  import articlesApi from '@/api/articles';
+  import notificationsService from '@/services/notifications';
 
   export default {
     name: 'ArticleCard',
     props: ['article', 'adminMode'],
     data() {
       return {
-        isDeleteClicked: false,
+        isUpdateClicked: false,
       };
     },
     computed: {
       articleUrl() {
         return `/articles/${this.article.dropboxId}`;
+      },
+      articleTitle() {
+        if (!this.article.name) return this.article.dropboxId;
+        return this.article.name;
       },
     },
     methods: {
@@ -54,21 +58,24 @@
         this.goToArticle();
       },
 
-      deleteArticle(articleId) {
+      updateArticle() {
         this.disableDeleteButton();
-        deleteArticleApi.deleteArticle(articleId)
+        let message = 'La synchronisation est lancée ! Patientez quelques secondes...';
+        notificationsService.success(this, message);
+        articlesApi.update(this.article.dropboxId)
           .then(() => {
-            const message = 'La suppression s\'est effectuée sans problème !';
-            notificationService.success(this, message);
+            message = 'La synchronisation s\'est effectuée sans problème !';
+            notificationsService.success(this, message);
           })
+          .then(() => this.goToArticle())
           .catch((err) => {
-            const message = `Erreur : Problème durant la suppression : ${err.message}`;
-            notificationService.error(this, message);
+            message = `Erreur : Problème durant la synchronisation : ${err.message}`;
+            notificationsService.error(this, message);
           });
       },
 
       disableDeleteButton() {
-        this.isDeleteClicked = true;
+        this.isUpdateClicked = true;
       },
 
       goToArticle() {
@@ -114,9 +121,14 @@
 
   .article__header {
     border-bottom: 1px solid #e6e6e6;
+    height: 34px;
     padding: 15px;
     display: flex;
     justify-content: space-between;
+  }
+
+  .article__header a {
+    margin: auto;
   }
 
   .article__title {
@@ -124,8 +136,7 @@
     font-weight: 700;
     line-height: 17px;
     color: #07c;
-    margin: 0;
-    white-space: nowrap;
+    margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
