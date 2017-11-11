@@ -15,6 +15,16 @@ const DropboxClient = {
       });
   },
 
+  getPathOfPhotosOfArticle(id) {
+    return DropboxApi.filesListFolder({ path: `/${id}/`, recursive: true })
+      .then(response => response.entries.map(entry => entry.path_display))
+      .catch((err) => {
+        console.log(`Erreur lors de la récupération de toutes les photos de l‘article Dropbox : ${id}`);
+        console.log(err);
+        throw err;
+      });
+  },
+
   getTextFileStream(id) {
     return DropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.php` })
       .then(result => result.link)
