@@ -50,7 +50,7 @@ function sync(dropboxId) {
       .then(chapters => chapterRepository.createArticleChapters(chapters)); // todo : delete former rows of this article
   }
 
-  function _updateTitleAndExtractChaptersFromArticleContent(article) {
+  function _updateTitleAndExtractChaptersFromArticleContent() {
     return DropboxClient.getTextFileStream(dropboxId) // todo understand why some articles (like 57) cannot be found by Dropbox
       .then(FileReader.read)
       .then(articleContent => _serializeArticleContent(articleContent))
