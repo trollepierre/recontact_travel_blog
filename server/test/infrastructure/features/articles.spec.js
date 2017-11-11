@@ -38,11 +38,11 @@ describe('Integration | Routes | articles route', () => {
   describe('/articles/:id', () => {
     const chapters = [chapter(), chapter()];
     beforeEach(() => {
-      sinon.stub(GetArticle, 'getAllChapters').resolves(chapters);
+      sinon.stub(GetArticle, 'getArticle').resolves(chapters);
     });
 
     afterEach(() => {
-      GetArticle.getAllChapters.restore();
+      GetArticle.getArticle.restore();
     });
 
     it('should call ChapterRepository to getChaptersOfArticle, serialize it before sending json', (done) => {
@@ -55,7 +55,7 @@ describe('Integration | Routes | articles route', () => {
         .expect('Content-Type', /json/)
         .end((err, response) => {
           // Then
-          expect(GetArticle.getAllChapters).to.have.been.calledWith(stringIdArticle);
+          expect(GetArticle.getArticle).to.have.been.calledWith(stringIdArticle);
           expect(response.body).to.deep.equal(chapters);
           if (err) {
             done(err);
