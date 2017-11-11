@@ -7,8 +7,7 @@
           <section class="article-results">
             <h1 class="article-results__title">{{ title }}</h1>
             <button v-if="adminMode" class="article-results__sync" type="button" :disabled="isClicked"
-                    @click.prevent.once="synchronise">Réparer tous les articles
-            </button>
+                    @click.prevent.once="synchronise">Récupérer les nouveaux articles</button>
             <ul class="article-results__list">
               <li v-for="article in articles" class="article-results__item">
                 <article-card :article="article" :adminMode="adminMode"></article-card>

@@ -65,7 +65,9 @@ describe('ArticleList.vue', () => {
     });
 
     it('should display a button to synchronise', () => {
-      expect(component.$el.querySelector('button.article-results__sync')).to.exist;
+      const buttonToSync = component.$el.querySelector('button.article-results__sync');
+      expect(buttonToSync).to.exist;
+      expect(buttonToSync.innerText).to.equal('Récupérer les nouveaux articles');
     });
   });
 
