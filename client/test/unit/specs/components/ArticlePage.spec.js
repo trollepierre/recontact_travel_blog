@@ -51,15 +51,15 @@ describe('ArticlePage.vue', () => {
       expect(chaptersApi.fetch).to.have.been.calledWith(idArticle);
     });
 
-    it('should call photos api to fetch photos after 5s', () => {
+    it('should call photos api to fetch photos', () => {
       expect(photosApi.fetch).to.have.been.calledWith(idArticle);
     });
 
-    it('should saved chapters from api in data chapters', () => Vue.nextTick().then(() => {
+    it('should save chapters from api in data chapters', () => Vue.nextTick().then(() => {
       expect(component.$data.chapters).to.equal(chapters);
     }));
 
-    it('should saved photos from api in data photos', () => Vue.nextTick().then(() => {
+    it('should save photos from api in data photos', () => Vue.nextTick().then(() => {
       expect(component.$data.photos).to.equal(photos);
     }));
   });
@@ -69,5 +69,13 @@ describe('ArticlePage.vue', () => {
       const chaptersCards = component.$el.querySelectorAll('.chapter-card');
       expect(chaptersCards.length).to.equal(3);
     }));
+
+    it('should have empty chapters in data chapters', () => {
+      expect(component.$data.chapters).to.deep.equal([]);
+    });
+
+    it('should have empty photos in data photos', () => {
+      expect(component.$data.photos).to.deep.equal([]);
+    });
   });
 });

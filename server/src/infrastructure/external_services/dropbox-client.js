@@ -15,7 +15,7 @@ const DropboxClient = {
       });
   },
 
-  getPathOfPhotosOfArticle(id) {
+  getArticlePhotosPaths(id) {
     return DropboxApi.filesListFolder({ path: `/${id}/`, recursive: true })
       .then(response => response.entries.map(entry => entry.path_display))
       .catch((err) => {

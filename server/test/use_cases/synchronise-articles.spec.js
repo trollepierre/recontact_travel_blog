@@ -84,7 +84,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       sinon.stub(ChapterRepository, 'createArticleChapters')
         .resolves(chapterOfArticle());
       sinon.stub(PhotoRepository, 'createPhotos');
-      sinon.stub(DropboxClient, 'getPathOfPhotosOfArticle').resolves(dropboxPhotosPaths);
+      sinon.stub(DropboxClient, 'getArticlePhotosPaths').resolves(dropboxPhotosPaths);
       sinon.stub(DropboxClient, 'createSharedLink');
       sinon.stub(DropboxClient, 'getTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
       sinon.stub(FileReader, 'read').resolves(dropboxArticleFr);
@@ -98,7 +98,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       ArticleRepository.create.restore();
       ChapterRepository.createArticleChapters.restore();
       PhotoRepository.createPhotos.restore();
-      DropboxClient.getPathOfPhotosOfArticle.restore();
+      DropboxClient.getArticlePhotosPaths.restore();
       DropboxClient.createSharedLink.restore();
       DropboxClient.getTextFileStream.restore();
       FileReader.read.restore();

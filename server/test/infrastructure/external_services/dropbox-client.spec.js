@@ -60,7 +60,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     });
   });
 
-  describe('#getPathOfPhotosOfArticle()', () => {
+  describe('#getArticlePhotosPaths()', () => {
     const idArticle = 59;
 
     beforeEach(() => {
@@ -77,7 +77,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() });
 
         // when
-        const promise = DropboxClient.getPathOfPhotosOfArticle(idArticle);
+        const promise = DropboxClient.getArticlePhotosPaths(idArticle);
 
         // then
         return promise.then((entries) => {
@@ -90,7 +90,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() });
 
         // when
-        DropboxClient.getPathOfPhotosOfArticle(idArticle);
+        DropboxClient.getArticlePhotosPaths(idArticle);
 
         // then
         expect(Dropbox.prototype.filesListFolder).to.have.been.calledWith({ path: '/59/', recursive: true });
@@ -103,7 +103,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.rejects(new Error('Expected error'));
 
         // when
-        const promise = DropboxClient.getPathOfPhotosOfArticle(idArticle);
+        const promise = DropboxClient.getArticlePhotosPaths(idArticle);
 
         // then
         return promise.then(() => {
