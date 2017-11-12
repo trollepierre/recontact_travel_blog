@@ -25,7 +25,7 @@ function sync(dropboxId) {
   }
 
   function getPhotosOfArticle() {
-    return DropboxClient.getPathOfPhotosOfArticle(dropboxId)
+    return DropboxClient.getArticlePhotosPaths(dropboxId)
       .then(paths => filterOnlyGalleryPhotos(paths))
       .then(paths => createPhotoOfArticle(paths, dropboxId));
   }

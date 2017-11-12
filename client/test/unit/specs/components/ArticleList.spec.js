@@ -48,7 +48,7 @@ describe('ArticleList.vue', () => {
       expect(articlesApi.fetchAll).to.have.been.calledWith();
     });
 
-    it('should saved articles from api in data articles', () => Vue.nextTick().then(() => {
+    it('should save articles from api in data articles', () => Vue.nextTick().then(() => {
       expect(component.$data.articles).to.equal(articles);
     }));
   });

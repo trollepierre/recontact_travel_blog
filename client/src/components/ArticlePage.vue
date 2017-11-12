@@ -5,9 +5,6 @@
         <section class="article-page">
           <h1 class="article-page__title">Pierre dans un pays trop stylé, n'est-ce pas ?</h1>
           <ul class="chapter__list">
-            <!--todo pour égaliser :-->
-            <!--https://masonry.desandro.com/-->
-            <!--https://stackoverflow.com/questions/22929755/how-to-accomplish-something-like-google-keep-layout-->
             <li v-for="chapter in chapters" class="chapter__item">
               <chapter-card :chapter="chapter"></chapter-card>
             </li>
@@ -16,9 +13,6 @@
         <aside>
           <h2 class="article-page__photo-title">Voici la galerie photo de cet article !</h2>
           <ul class="photo__list">
-            <!--todo pour égaliser :-->
-            <!--https://masonry.desandro.com/-->
-            <!--https://stackoverflow.com/questions/22929755/how-to-accomplish-something-like-google-keep-layout-->
             <li v-for="photo in photos" class="photo__item">
               <photo-card :photo="photo"></photo-card>
             </li>
@@ -44,7 +38,7 @@
     data() {
       return {
         chapters: [],
-        photos: [{ imgLink: 'https://www.dropbox.com/s/tk2qzdf6u1brv6o/img0.jpg?dl=1' }],
+        photos: [],
       };
     },
     mounted() {
