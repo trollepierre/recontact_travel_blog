@@ -91,7 +91,7 @@ function _createPhotosOfArticlesInDatabase({ addedArticles }) {
 }
 
 function getPhotosOfArticle({ dropboxId }) {
-  return DropboxClient.getPathOfPhotosOfArticle(dropboxId)
+  return DropboxClient.getArticlePhotosPaths(dropboxId)
     .then(paths => filterOnlyGalleryPhotos(paths))
     .then(paths => createPhotoOfArticle(paths, dropboxId));
 }

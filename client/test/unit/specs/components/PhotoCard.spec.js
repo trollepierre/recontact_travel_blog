@@ -7,9 +7,8 @@ describe('PhotoCard.vue', () => {
 
   beforeEach(() => {
     photo = {
-      title: 'Titre du premier paragraphe',
       imgLink: 'webf',
-      text: 'some blabla',
+      dropboxId: '45',
     };
     const Constructor = Vue.extend(PhotoCard);
     component = new Constructor({
