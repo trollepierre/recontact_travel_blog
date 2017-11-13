@@ -3,8 +3,8 @@
     <header class="page__header">
       <div class="page__container page__header--container">
         <a class="logo-link" href="/">
-          <span class="logo-link__job">Recontact</span>
-          <span class="logo-link__board">Me</span>
+          <span class="logo-link__recontact">Recontact</span>
+          <span class="logo-link__me">Me</span>
         </a>
         <nav class="app-header__navigation navigation" role="navigation" aria-label="site navigation">
           <ol class="navigation__links">
@@ -55,8 +55,7 @@
     border-bottom: 1px solid #e6e6e6;
     width: 100%;
     padding-left: 0;
-    position: fixed;
-    top: 0;
+    border-bottom: 1px solid #e6e6e6;
   }
 
   .page__header--container {
@@ -72,54 +71,12 @@
     padding: 15px 0;
   }
 
-  .logo-link__job {
+  .logo-link__recontact {
     color: #07c;
   }
 
-  .logo-link__board {
+  .logo-link__me {
     color: #F48024;
-  }
-
-  .logout-link {
-    color: #9199a1;
-    display: inline-block;
-    padding: 17px 0;
-    line-height: 28px;
-    text-decoration: none;
-  }
-
-  .logout-link:hover {
-    text-decoration: underline;
-  }
-
-  .page__header {
-    height: 60px;
-    background: #ffffff;
-    border-bottom: 1px solid #e6e6e6;
-    width: 100%;
-    position: fixed;
-    top: 0;
-  }
-
-  .page__header--container {
-    display: flex;
-    justify-content: center;
-  }
-
-  .logo-link {
-    text-decoration: none;
-    font-size: 26px;
-    display: inline-block;
-    padding: 15px 0;
-  }
-
-  .logo-link__job {
-    color: #07c;
-  }
-
-  .logo-link__board {
-    color: #d14800;
-    font-weight: 900;
   }
 
   .navbar-action {
