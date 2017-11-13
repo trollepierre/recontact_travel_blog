@@ -35,6 +35,7 @@
 <script>
   import articlesApi from '@/api/articles';
   import notificationsService from '@/services/notifications';
+  import translationsService from '@/services/translations';
 
   export default {
     name: 'ArticleCard',
@@ -49,8 +50,7 @@
         return `/articles/${this.article.dropboxId}`;
       },
       articleTitle() {
-        if (!this.article.title) return this.article.dropboxId;
-        return this.article.title;
+        return translationsService.getTitle(this.article);
       },
     },
     methods: {
@@ -92,8 +92,8 @@
         },
         en: {
           repairArticle: 'Repair the article',
-          goToArticle: 'See the article',
-          viewGallery: 'See the pictures',
+          goToArticle: 'Read the article',
+          viewGallery: 'Discover the pictures',
           syncLaunched: 'The synchronisation is launched! Please wait...',
           syncDone: 'The synchronisation succeeds!',
           syncError: 'Error during the synchronisation:',
