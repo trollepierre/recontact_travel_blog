@@ -179,7 +179,7 @@ describe('ArticleCard.vue', () => {
         component.updateArticle();
 
         // then
-        const message = 'La synchronisation est lancée ! Patientez quelques secondes...';
+        const message = 'syncLaunched';
         expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
       });
 
@@ -199,6 +199,20 @@ describe('ArticleCard.vue', () => {
         });
       });
 
+      it('should display success toast notification when synchronisation succeeds', () => {
+        // given
+        articlesApi.update.resolves({});
+
+        // when
+        component.updateArticle();
+
+        // then
+        return Vue.nextTick().then(() => {
+          const message = 'syncDone';
+          expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+        });
+      });
+
       it('should display error toast notification when synchronisation fails', () => {
         // given
         articlesApi.update.rejects(new Error('Expected error'));
@@ -208,7 +222,7 @@ describe('ArticleCard.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          const message = 'Erreur : Problème durant la synchronisation : Expected error';
+          const message = 'syncError Error: Expected error';
           expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
         });
       });
@@ -295,6 +309,49 @@ describe('ArticleCard.vue', () => {
 
         // then
         expect(articlesApi.update).to.have.been.calledWith('58');
+      });
+    });
+  });
+
+  describe('locales', () => {
+    const langages = Object.keys(ArticleCard.i18n.messages);
+
+    it('contains 2 langages', () => {
+      expect(langages.length).to.equal(2);
+      expect(langages).to.deep.equal(['fr', 'en']);
+    });
+
+    context('each langage', () => {
+      describe('fr', () => {
+        const locales = Object.keys(ArticleCard.i18n.messages.fr);
+
+        it('contains 6 locales', () => {
+          expect(locales.length).to.equal(6);
+          expect(locales).to.deep.equal([
+            'repairArticle',
+            'goToArticle',
+            'viewGallery',
+            'syncLaunched',
+            'syncDone',
+            'syncError',
+          ]);
+        });
+      });
+
+      describe('en', () => {
+        const locales = Object.keys(ArticleCard.i18n.messages.en);
+
+        it('contains 6 locales', () => {
+          expect(locales.length).to.equal(6);
+          expect(locales).to.deep.equal([
+            'repairArticle',
+            'goToArticle',
+            'viewGallery',
+            'syncLaunched',
+            'syncDone',
+            'syncError',
+          ]);
+        });
       });
     });
   });
