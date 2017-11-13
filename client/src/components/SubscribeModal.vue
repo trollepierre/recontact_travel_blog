@@ -93,7 +93,7 @@
       messages: {
         fr: {
           subscribe: 'S‘abonner',
-          modalText: 'Je souhaite recevoir un email à chaque nouvel article du voyage.',
+          modalText: 'Recevoir un email à chaque nouvel article du voyage !',
           email: 'Email :',
           confirm: 'Confirmer',
           cancel: 'Annuler',
@@ -103,7 +103,7 @@
         },
         en: {
           subscribe: 'Subscribe',
-          modalText: 'I want to receive email for each new article.',
+          modalText: 'Receive one email for each new article.',
           email: 'Email:',
           confirm: 'Confirm',
           cancel: 'Cancel',
