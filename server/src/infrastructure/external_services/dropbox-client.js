@@ -25,11 +25,23 @@ const DropboxClient = {
       });
   },
 
-  getTextFileStream(id) {
-    return DropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.php` })
+  getFrTextFileStream(id) {
+    const extension = (id < 64) ? 'php' : 'txt';
+    return DropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.${extension}` })
       .then(result => result.link)
       .catch((err) => {
-        console.log('Erreur lors de la récupération du fichier texte de : ', `/${id}/fr.php`);
+        console.log('Erreur lors de la récupération du fichier texte de : ', `/${id}/fr.${extension}`);
+        console.log(err);
+        throw err;
+      });
+  },
+
+  getEnTextFileStream(id) {
+    const extension = (id < 64) ? 'php' : 'txt';
+    return DropboxApi.filesGetTemporaryLink({ path: `/${id}/en.${extension}` })
+      .then(result => result.link)
+      .catch((err) => {
+        console.log('Erreur lors de la récupération du fichier texte de : ', `/${id}/en.${extension}`);
         console.log(err);
         throw err;
       });

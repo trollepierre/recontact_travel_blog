@@ -9,8 +9,10 @@ const chapterWithParagraphs = require('../fixtures/chapterWithParagraphs');
 describe('Unit | GetArticle | getrticle()', () => {
   const dropboxId = 8;
   const article = articleSaved();
-  const title = 'Pierre au pays des';
-  article.title = title;
+  const frTitle = 'Pierre au pays des';
+  const enTitle = 'Peter in the country of';
+  article.enTitle = enTitle;
+  article.frTitle = frTitle;
 
   beforeEach(() => {
     sinon.stub(ChapterRepository, 'getChaptersOfArticle').resolves([chapterOfArticle()]);
@@ -47,7 +49,7 @@ describe('Unit | GetArticle | getrticle()', () => {
     // then
     return promise.then((returnedArticle) => {
       const chapters = [chapterWithParagraphs()];
-      expect(returnedArticle).to.deep.equal({ chapters, title });
+      expect(returnedArticle).to.deep.equal({ chapters, frTitle, enTitle });
     });
   });
 });

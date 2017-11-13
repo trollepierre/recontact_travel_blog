@@ -74,7 +74,7 @@ describe('Unit | Repository | article-repository', () => {
     });
   });
 
-  describe('#updateTitle', () => {
+  describe('#update', () => {
     const dropboxId = 47;
 
     beforeEach(() => {
@@ -87,7 +87,7 @@ describe('Unit | Repository | article-repository', () => {
 
     it('should call Sequelize Model#update', () => {
       // when
-      const promise = articleRepository.updateTitle('title', dropboxId);
+      const promise = articleRepository.update({ title: 'title' }, dropboxId);
 
       // then
       return promise.then(() => {
