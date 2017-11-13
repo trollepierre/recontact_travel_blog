@@ -91,7 +91,41 @@ describe('ChapterCard.vue when imgLink not set', () => {
 
     it('should render a span text with Image manquante', () => {
       const missingImage = component.$el.querySelector('span');
-      expect(missingImage.innerText).to.contain('Image manquante');
+      expect(missingImage.innerText).to.contain('missingImage');
     });
   });
+
+  describe('locales', () => {
+    const languages = Object.keys(ChapterCard.i18n.messages);
+
+    it('contains 2 languages', () => {
+      expect(languages.length).to.equal(2);
+      expect(languages).to.deep.equal(['fr', 'en']);
+    });
+
+    context('each language', () => {
+      describe('fr', () => {
+        const locales = Object.keys(ChapterCard.i18n.messages.fr);
+
+        it('contains 1 locale', () => {
+          expect(locales.length).to.equal(1);
+          expect(locales).to.deep.equal([
+            'missingImage',
+          ]);
+        });
+      });
+
+      describe('en', () => {
+        const locales = Object.keys(ChapterCard.i18n.messages.en);
+
+        it('contains 1 locale', () => {
+          expect(locales.length).to.equal(1);
+          expect(locales).to.deep.equal([
+            'missingImage',
+          ]);
+        });
+      });
+    });
+  })
 });
+

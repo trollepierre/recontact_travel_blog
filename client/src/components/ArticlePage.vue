@@ -11,7 +11,7 @@
           </ul>
         </section>
         <aside>
-          <h2 class="article-page__photo-title">Voici la galerie photo de cet article !</h2>
+          <h2 class="article-page__photo-title">{{ $t("hereTheGallery") }}</h2>
           <ul class="photo__list">
             <li v-for="photo in photos" class="photo__item">
               <photo-card :photo="photo"></photo-card>
@@ -59,6 +59,16 @@
           .then((photos) => {
             (this.photos = photos);
           });
+      },
+    },
+    i18n: {
+      messages: {
+        fr: {
+          hereTheGallery: 'Voici la galerie photo de cet article !',
+        },
+        en: {
+          hereTheGallery: 'Here the photo gallery of this article',
+        },
       },
     },
   };

@@ -314,14 +314,14 @@ describe('ArticleCard.vue', () => {
   });
 
   describe('locales', () => {
-    const langages = Object.keys(ArticleCard.i18n.messages);
+    const languages = Object.keys(ArticleCard.i18n.messages);
 
-    it('contains 2 langages', () => {
-      expect(langages.length).to.equal(2);
-      expect(langages).to.deep.equal(['fr', 'en']);
+    it('contains 2 languages', () => {
+      expect(languages.length).to.equal(2);
+      expect(languages).to.deep.equal(['fr', 'en']);
     });
 
-    context('each langage', () => {
+    context('each language', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticleCard.i18n.messages.fr);
 
