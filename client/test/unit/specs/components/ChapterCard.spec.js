@@ -126,6 +126,6 @@ describe('ChapterCard.vue when imgLink not set', () => {
         });
       });
     });
-  })
+  });
 });
 
