@@ -79,4 +79,37 @@ describe('ArticlePage.vue', () => {
       expect(component.$data.photos).to.deep.equal([]);
     });
   });
+
+  describe('locales', () => {
+    const languages = Object.keys(ArticlePage.i18n.messages);
+
+    it('contains 2 languages', () => {
+      expect(languages.length).to.equal(2);
+      expect(languages).to.deep.equal(['fr', 'en']);
+    });
+
+    context('each language', () => {
+      describe('fr', () => {
+        const locales = Object.keys(ArticlePage.i18n.messages.fr);
+
+        it('contains 1 locale', () => {
+          expect(locales.length).to.equal(1);
+          expect(locales).to.deep.equal([
+            'hereTheGallery',
+          ]);
+        });
+      });
+
+      describe('en', () => {
+        const locales = Object.keys(ArticlePage.i18n.messages.en);
+
+        it('contains 1 locale', () => {
+          expect(locales.length).to.equal(1);
+          expect(locales).to.deep.equal([
+            'hereTheGallery',
+          ]);
+        });
+      });
+    });
+  });
 });
