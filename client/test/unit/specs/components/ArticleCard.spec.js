@@ -2,6 +2,7 @@ import Vue from 'vue';
 import ArticleCard from '@/components/ArticleCard';
 import router from '@/router';
 import notificationsService from '@/services/notifications';
+import translationsService from '@/services/translations';
 import articlesApi from '@/api/articles';
 
 describe('ArticleCard.vue', () => {
@@ -11,9 +12,11 @@ describe('ArticleCard.vue', () => {
     let article;
 
     beforeEach(() => {
+      sinon.stub(translationsService, 'getTitle').returns('Pierre somewhere');
       article = {
         dropboxId: '58',
-        title: 'Pierre au Costa Rica',
+        enTitle: 'Pierre in Costa Rica',
+        frTitle: 'Pierre au Costa Rica',
         imgLink: 'webf',
         galleryLink,
       };
@@ -24,6 +27,10 @@ describe('ArticleCard.vue', () => {
           article,
         },
       }).$mount();
+    });
+
+    afterEach(() => {
+      translationsService.getTitle.restore();
     });
 
     it('should be named "ArticleCard"', () => {
@@ -39,7 +46,7 @@ describe('ArticleCard.vue', () => {
     describe('render', () => {
       it('should render article title', () => {
         const articleTitle = component.$el.querySelector('.article__title');
-        expect(articleTitle.textContent).to.equal('Pierre au Costa Rica');
+        expect(articleTitle.textContent).to.equal('Pierre somewhere');
       });
 
       it('should render article image', () => {
@@ -78,18 +85,7 @@ describe('ArticleCard.vue', () => {
         const articleTile = component.articleTitle;
 
         // Then
-        expect(articleTile).to.equal('Pierre au Costa Rica');
-      });
-
-      it('should return dropboxId when articleName not defined', () => {
-        // Given
-        article.title = '';
-
-        // When
-        const articleTile = component.articleTitle;
-
-        // Then
-        expect(articleTile).to.equal('58');
+        expect(articleTile).to.equal('Pierre somewhere');
       });
     });
 

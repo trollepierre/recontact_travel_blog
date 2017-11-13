@@ -28,6 +28,7 @@
   import PhotoCard from '@/components/PhotoCard';
   import chaptersApi from '@/api/chapters';
   import photosApi from '@/api/photos';
+  import translationsService from '@/services/translations';
 
   export default {
     name: 'ArticlePage',
@@ -49,9 +50,9 @@
     methods: {
       getChapters() {
         chaptersApi.fetch(this.$route.params.id)
-          .then(({ chapters, title }) => {
-            (this.chapters = chapters);
-            (this.title = title);
+          .then((article) => {
+            (this.chapters = article.chapters);
+            (this.title = translationsService.getTitle(article));
           });
       },
       getPhotos() {
@@ -67,7 +68,7 @@
           hereTheGallery: 'Voici la galerie photo de cet article !',
         },
         en: {
-          hereTheGallery: 'Here the photo gallery of this article',
+          hereTheGallery: 'Here is the photo gallery of this article',
         },
       },
     },

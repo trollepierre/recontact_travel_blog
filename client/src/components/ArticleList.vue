@@ -85,9 +85,9 @@
           syncError: 'Erreur : Problème durant la synchronisation :',
         },
         en: {
-          getNewArticles: 'Subscribe',
-          fixWebsite: 'Leave a message',
-          theArticlesOfTheTrip: 'A problem?',
+          getNewArticles: 'Synchronise the new articles',
+          fixWebsite: 'Fix the website',
+          theArticlesOfTheTrip: 'The articles of the trip',
           syncLaunched: 'The synchronisation is launched! Please wait...',
           syncDone: 'The synchronisation succeeds!',
           syncError: 'Error during the synchronisation:',

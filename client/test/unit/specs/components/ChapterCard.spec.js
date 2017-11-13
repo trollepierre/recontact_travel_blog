@@ -1,15 +1,20 @@
 import Vue from 'vue';
 import ChapterCard from '@/components/ChapterCard';
+import translationsService from '@/services/translations';
 
 describe('ChapterCard.vue', () => {
   let component;
   let chapter;
 
   beforeEach(() => {
+    sinon.stub(translationsService, 'getChapterTitle').returns('My title');
+    sinon.stub(translationsService, 'getChapterText').returns(['one text']);
     chapter = {
-      title: 'Titre du premier paragraphe',
+      frTitle: 'Titre du premier paragraphe',
+      enTitle: 'Title of the first paragraph',
       imgLink: 'webf',
-      text: 'some blabla',
+      frText: 'du blabla',
+      enText: 'some blabla',
     };
     const Constructor = Vue.extend(ChapterCard);
     component = new Constructor({
@@ -19,6 +24,11 @@ describe('ChapterCard.vue', () => {
     }).$mount();
   });
 
+  afterEach(() => {
+    translationsService.getChapterTitle.restore();
+    translationsService.getChapterText.restore();
+  });
+
   it('should be named "ChapterCard"', () => {
     expect(component.$options.name).to.equal('ChapterCard');
   });
@@ -26,12 +36,18 @@ describe('ChapterCard.vue', () => {
   describe('render', () => {
     it('should render chapter title', () => {
       const chapterTitle = component.$el.querySelector('h2');
-      expect(chapterTitle.textContent).to.equal('Titre du premier paragraphe');
+      expect(chapterTitle.textContent).to.equal('My title');
     });
 
     it('should render chapter image', () => {
       const chapterLink = component.$el.querySelector('img');
       expect(chapterLink.getAttribute('src')).to.contain('webf');
+    });
+
+    it('should render chapter text', () => {
+      const chapterTitle = component.$el.querySelectorAll('.chapter__footer_text p');
+      expect(chapterTitle.length).to.equal(1);
+      expect(chapterTitle[0].textContent).to.equal('one text');
     });
 
     it('should not render a span text with Image manquante', () => {
