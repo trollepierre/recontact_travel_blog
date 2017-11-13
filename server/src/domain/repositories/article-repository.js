@@ -12,8 +12,8 @@ function get(dropboxId) {
   return Article.findOne({ where: { dropboxId } });
 }
 
-function updateTitle(title, dropboxId) {
-  return Article.update({ title }, { where: { dropboxId } });
+function update(titleToUpdate, dropboxId) {
+  return Article.update(titleToUpdate, { where: { dropboxId } });
 }
 
 function deleteArticle(dropboxId) {
@@ -25,5 +25,5 @@ module.exports = {
   getAll,
   get,
   deleteArticle,
-  updateTitle,
+  update,
 };

@@ -10,12 +10,16 @@ function _addParagraphsInOneText(text) {
 }
 
 function _addParagraphsInAllChapters(chapters) {
-  return chapters.map(chapter => Object.assign(chapter, { text: _addParagraphsInOneText(chapter.text) }));
+  return chapters.map(chapter => Object.assign(chapter,
+    {
+      frText: _addParagraphsInOneText(chapter.frText),
+      enText: _addParagraphsInOneText(chapter.enText),
+    }));
 }
 
 function _addTitle(chapters, dropboxId) {
   return articleRepository.get(dropboxId)
-    .then(({ title }) => ({ chapters, title }));
+    .then(({ frTitle, enTitle }) => ({ chapters, frTitle, enTitle }));
 }
 
 function getArticle(dropboxId) {
