@@ -1,11 +1,8 @@
 import Vue from 'vue';
 import ArticleCard from '@/components/ArticleCard';
-import VueRouter from 'vue-router';
 import router from '@/router';
 import notificationsService from '@/services/notifications';
 import articlesApi from '@/api/articles';
-
-Vue.use(VueRouter);
 
 describe('ArticleCard.vue', () => {
   describe('when adminMode is not defined', () => {

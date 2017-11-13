@@ -1,10 +1,7 @@
 import Vue from 'vue';
-import VueModal from 'vue-js-modal';
 import SubscribeModal from '@/components/SubscribeModal';
 import subscriptionsApi from '@/api/subscriptions';
 import notificationsService from '@/services/notifications';
-
-Vue.use(VueModal);
 
 describe('Unit | Component | SubscribeModal.vue', () => {
   let component;

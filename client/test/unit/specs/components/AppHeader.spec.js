@@ -1,13 +1,6 @@
 import Vue from 'vue';
-import VueModal from 'vue-js-modal';
-import VueRouter from 'vue-router';
-import VueI18n from 'vue-i18n';
 import router from '@/router';
 import AppHeader from '@/components/AppHeader';
-
-Vue.use(VueModal);
-Vue.use(VueRouter);
-Vue.use(VueI18n);
 
 describe('Unit | Component | AppHeader.vue', () => {
   let component;
