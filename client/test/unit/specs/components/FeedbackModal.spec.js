@@ -1,10 +1,7 @@
 import Vue from 'vue';
-import VueModal from 'vue-js-modal';
 import FeedbackModal from '@/components/FeedbackModal';
 import feedbacksApi from '@/api/feedbacks';
 import notificationsService from '@/services/notifications';
-
-Vue.use(VueModal);
 
 describe('Unit | Component | FeedbackModal.vue', () => {
   let component;
