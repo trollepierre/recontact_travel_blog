@@ -1,12 +1,9 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import router from '@/router';
 import articlesApi from '@/api/articles';
 import ArticleList from '@/components/ArticleList';
 import syncApi from '@/api/sync';
 import notificationsService from '@/services/notifications';
-
-Vue.use(VueRouter);
 
 describe('ArticleList.vue', () => {
   let component;
