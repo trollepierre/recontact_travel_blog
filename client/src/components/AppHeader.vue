@@ -10,17 +10,17 @@
           <ol class="navigation__links">
             <li class="navigation__link">
               <button class="navbar-action navbar-action__subscribe" type="button"
-                      @click.prevent="displaySubscribeModal">S'abonner
+                      @click.prevent="displaySubscribeModal">{{ $t("subscribe") }}
               </button>
             </li>
             <li class="navigation__link">
               <button class="navbar-action navbar-action__suggestion" type="button"
-                      @click.prevent="displayFeedbackModal">Laisser un message
+                      @click.prevent="displayFeedbackModal">{{ $t("suggestion") }}
               </button>
             </li>
             <li class="navigation__link">
               <button class="navbar-action navbar-action__problem" type="button"
-                      @click.prevent="goToAdmin">Signaler un problème
+                      @click.prevent="goToAdmin">{{ $t("problem") }}
               </button>
             </li>
           </ol>
@@ -43,6 +43,20 @@
 
       goToAdmin() {
         this.$router.push('/admin');
+      },
+    },
+    i18n: {
+      messages: {
+        fr: {
+          subscribe: 'S‘abonner',
+          suggestion: 'Laisser un message',
+          problem: 'Un problème ?',
+        },
+        en: {
+          subscribe: 'Subscribe',
+          suggestion: 'Leave a message',
+          problem: 'A problem?',
+        },
       },
     },
   };
