@@ -4,7 +4,7 @@
 
       <!-- modal header-->
       <div class="feedback-modal__header">
-        <h2 class="feedback-modal__title">Laisser un message</h2>
+        <h2 class="feedback-modal__title">{{ $t("suggest") }}</h2>
       </div>
 
       <!-- modal body -->
@@ -12,10 +12,10 @@
         <form class="feedback-modal__form">
           <p class="feedback-modal__error" v-if="error" aria-live="polite">{{error}}</p>
 
-          <label class="feedback-modal__label" for="subscribe-content">Email :</label>
+          <label class="feedback-modal__label" for="subscribe-content">{{ $t("email") }}</label>
           <input class="feedback-modal__email" id="subscribe-content" v-model="email"/>
 
-          <label class="feedback-modal__label" for="feedback-content">Contenu du message :</label>
+          <label class="feedback-modal__label" for="feedback-content">{{ $t("content") }}</label>
           <textarea class="feedback-modal__text" id="feedback-content" v-model="feedback"
                     :style="{height: heightMessage}"></textarea>
         </form>
@@ -24,10 +24,10 @@
       <!-- modal footer -->
       <div class="feedback-modal__footer">
         <div class="feedback-modal__actions">
-          <button class="feedback-modal__action feedback-modal__action--send" @click.prevent="sendFeedback">Envoyer
+          <button class="feedback-modal__action feedback-modal__action--send" @click.prevent="sendFeedback">{{ $t("send") }}
           </button>
           <button class="feedback-modal__action feedback-modal__action--cancel" @click.prevent="cancelFeedback">
-            Annuler
+            {{ $t("cancel") }}
           </button>
         </div>
       </div>
@@ -63,12 +63,12 @@
         /* eslint-disable no-useless-escape */
         const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$');
         if (!regex.exec(this.email)) {
-          this.error = 'Vous devez saisir un email valide. (ex. : nom@exemple.fr)';
+          this.error = this.$t('emailError');
           this._setErrorHeight();
           return;
         }
         if (!this.feedback || this.feedback.trim().length === 0) {
-          this.error = 'Vous devez saisir un message.';
+          this.error = this.$t('feedbackError');
           this._setErrorHeight();
           return;
         }
@@ -76,7 +76,7 @@
           .then(this.displaySuccessNotification)
           .then(() => this._closeModal())
           .catch(() => {
-            this.error = 'Une erreur est survenue durant l\'envoi du message.';
+            this.error = this.$t('sendingError');
             this._setErrorHeight();
           });
       },
@@ -86,8 +86,7 @@
       },
 
       displaySuccessNotification() {
-        const message = 'Ton message a été envoyé.';
-        notificationsService.success(this, message);
+        notificationsService.success(this, this.$t('sendingSuccess'));
       },
 
       _resetFeedback() {
@@ -112,6 +111,33 @@
 
       _closeModal() {
         this.$modal.hide('feedback-modal');
+      },
+    },
+
+    i18n: {
+      messages: {
+        fr: {
+          suggest: 'Laisser un message',
+          content: 'Contenu du message :',
+          email: 'Email :',
+          send: 'Envoyer',
+          cancel: 'Annuler',
+          emailError: 'Vous devez saisir un email valide. (ex. : nom@exemple.fr)',
+          feedbackError: 'Vous devez saisir un message.',
+          sendingError: 'Une erreur est survenue durant l\'envoi du message.',
+          sendingSuccess: 'Ton message a été envoyé.',
+        },
+        en: {
+          suggest: 'Leave a message',
+          content: 'Message:',
+          email: 'Email:',
+          send: 'Send',
+          cancel: 'Cancel',
+          emailError: 'Please insert a valid email (ex. : name@example.com)',
+          feedbackError: 'Please insert a message',
+          sendingError: 'Error when sending the message.',
+          sendingSuccess: 'Your message has been sent.',
+        },
       },
     },
   };

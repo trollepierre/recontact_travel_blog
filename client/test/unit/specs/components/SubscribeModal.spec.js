@@ -255,7 +255,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(SubscribeModal.i18n.messages.fr);
 
-        it('contains 8 locale', () => {
+        it('contains 8 locales', () => {
           expect(locales.length).to.equal(8);
           expect(locales).to.deep.equal([
             'subscribe',
@@ -273,7 +273,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       describe('en', () => {
         const locales = Object.keys(SubscribeModal.i18n.messages.en);
 
-        it('contains 8 locale', () => {
+        it('contains 8 locales', () => {
           expect(locales.length).to.equal(8);
           expect(locales).to.deep.equal([
             'subscribe',
@@ -288,5 +288,5 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         });
       });
     });
-  })
+  });
 });

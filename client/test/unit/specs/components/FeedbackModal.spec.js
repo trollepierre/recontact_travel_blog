@@ -125,7 +125,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un email valide. (ex. : nom@exemple.fr)');
+        expect(component.$data.error).to.equal('emailError');
       });
 
       it('should set error height', () => {
@@ -160,7 +160,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un email valide. (ex. : nom@exemple.fr)');
+        expect(component.$data.error).to.equal('emailError');
       });
 
       it('should set error height', () => {
@@ -195,7 +195,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un message.');
+        expect(component.$data.error).to.equal('feedbackError');
       });
 
       it('should set error height', () => {
@@ -230,7 +230,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un message.');
+        expect(component.$data.error).to.equal('feedbackError');
       });
 
       it('should set error height', () => {
@@ -273,7 +273,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        const message = 'Ton message a été envoyé.';
+        const message = 'sendingSuccess';
         expect(notificationsService.success).to.have.been.calledWith(component, message);
       });
     });
@@ -320,7 +320,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$data.error).to.equal('Une erreur est survenue durant l\'envoi du message.');
+          expect(component.$data.error).to.equal('sendingError');
         });
       });
 
@@ -380,6 +380,55 @@ describe('Unit | Component | FeedbackModal.vue', () => {
 
       // Then
       expect(component.cancelFeedback).to.have.been.called;
+    });
+  });
+
+  describe('locales', () => {
+    const languages = Object.keys(FeedbackModal.i18n.messages);
+
+    it('contains 2 languages', () => {
+      expect(languages.length).to.equal(2);
+      expect(languages).to.deep.equal(['fr', 'en']);
+    });
+
+    context('each language', () => {
+      describe('fr', () => {
+        const locales = Object.keys(FeedbackModal.i18n.messages.fr);
+
+        it('contains 9 locales', () => {
+          expect(locales.length).to.equal(9);
+          expect(locales).to.deep.equal([
+            'suggest',
+            'content',
+            'email',
+            'send',
+            'cancel',
+            'emailError',
+            'feedbackError',
+            'sendingError',
+            'sendingSuccess',
+          ]);
+        });
+      });
+
+      describe('en', () => {
+        const locales = Object.keys(FeedbackModal.i18n.messages.en);
+
+        it('contains 9 locales', () => {
+          expect(locales.length).to.equal(9);
+          expect(locales).to.deep.equal([
+            'suggest',
+            'content',
+            'email',
+            'send',
+            'cancel',
+            'emailError',
+            'feedbackError',
+            'sendingError',
+            'sendingSuccess',
+          ]);
+        });
+      });
     });
   });
 });
