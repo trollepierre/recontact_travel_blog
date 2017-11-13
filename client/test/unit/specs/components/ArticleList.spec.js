@@ -58,18 +58,18 @@ describe('ArticleList.vue', () => {
 
     it('should render correct title', () => {
       const articleCards = component.$el.querySelector('.article-results__title');
-      expect(articleCards.innerText).to.equal('Administrer le site');
+      expect(articleCards.innerText).to.equal('fixWebsite');
     });
 
     it('should display a button to synchronise', () => {
       const buttonToSync = component.$el.querySelector('button.article-results__sync');
       expect(buttonToSync).to.exist;
-      expect(buttonToSync.innerText).to.equal('Récupérer les nouveaux articles');
+      expect(buttonToSync.innerText).to.equal('getNewArticles');
     });
   });
 
   describe('computed property #title', () => {
-    it('should return "Administrer le site" when site is in adminMode', () => {
+    it('should return "Réparer le site" when site is in adminMode', () => {
       // Given
       component.$props.adminMode = true;
 
@@ -77,7 +77,7 @@ describe('ArticleList.vue', () => {
       const title = component.title;
 
       // Then
-      expect(title).to.equal('Administrer le site');
+      expect(title).to.equal('fixWebsite');
     });
 
     it('should return "Les articles du voyage" when site is in adminMode', () => {
@@ -88,7 +88,7 @@ describe('ArticleList.vue', () => {
       const title = component.title;
 
       // Then
-      expect(title).to.equal('Les articles du voyage');
+      expect(title).to.equal('theArticlesOfTheTrip');
     });
   });
 
@@ -114,7 +114,7 @@ describe('ArticleList.vue', () => {
       component.synchronise();
 
       // then
-      const message = 'La synchronisation est lancée ! Patientez quelques secondes...';
+      const message = 'syncLaunched';
       expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
     });
 
@@ -140,7 +140,7 @@ describe('ArticleList.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        const message = 'La synchronisation s\'est effectuée sans problème !';
+        const message = 'syncDone';
         expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
       });
     });
@@ -170,7 +170,7 @@ describe('ArticleList.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        const message = 'Erreur : Problème durant la synchronisation : Expected error';
+        const message = 'syncError Error: Expected error';
         expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
       });
     });
@@ -208,6 +208,49 @@ describe('ArticleList.vue', () => {
 
         // after
         component.synchronise.restore();
+      });
+    });
+  });
+
+  describe('locales', () => {
+    const langages = Object.keys(ArticleList.i18n.messages);
+
+    it('contains 2 langages', () => {
+      expect(langages.length).to.equal(2);
+      expect(langages).to.deep.equal(['fr', 'en']);
+    });
+
+    context('each langage', () => {
+      describe('fr', () => {
+        const locales = Object.keys(ArticleList.i18n.messages.fr);
+
+        it('contains 6 locales', () => {
+          expect(locales.length).to.equal(6);
+          expect(locales).to.deep.equal([
+            'getNewArticles',
+            'fixWebsite',
+            'theArticlesOfTheTrip',
+            'syncLaunched',
+            'syncDone',
+            'syncError',
+          ]);
+        });
+      });
+
+      describe('en', () => {
+        const locales = Object.keys(ArticleList.i18n.messages.en);
+
+        it('contains 6 locales', () => {
+          expect(locales.length).to.equal(6);
+          expect(locales).to.deep.equal([
+            'getNewArticles',
+            'fixWebsite',
+            'theArticlesOfTheTrip',
+            'syncLaunched',
+            'syncDone',
+            'syncError',
+          ]);
+        });
       });
     });
   });
