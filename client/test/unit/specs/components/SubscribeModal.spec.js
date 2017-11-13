@@ -91,7 +91,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         component.sendSubscription();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un email valide. (ex. : nom@exemple.fr)');
+        expect(component.$data.error).to.equal('emailError');
       });
 
       it('should not call sendSubscription', () => {
@@ -115,7 +115,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         component.sendSubscription();
 
         // then
-        expect(component.$data.error).to.equal('Vous devez saisir un email valide. (ex. : nom@exemple.fr)');
+        expect(component.$data.error).to.equal('emailError');
       });
 
       it('should not call sendSubscription', () => {
@@ -147,7 +147,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        const message = 'Ton abonnement aux alertes de Recontact Me a été pris en compte.';
+        const message = 'subscriptionEmail';
         expect(notificationsService.success).to.have.been.calledWith(component, message);
       });
     });
@@ -190,7 +190,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$data.error).to.equal('Erreur lors de la prise en compte de ton abonnement.');
+          expect(component.$data.error).to.equal('subscriptionError');
         });
       });
     });
@@ -242,4 +242,51 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       expect(component.cancelSubscription).to.have.been.called;
     });
   });
+
+  describe('locales', () => {
+    const languages = Object.keys(SubscribeModal.i18n.messages);
+
+    it('contains 2 languages', () => {
+      expect(languages.length).to.equal(2);
+      expect(languages).to.deep.equal(['fr', 'en']);
+    });
+
+    context('each language', () => {
+      describe('fr', () => {
+        const locales = Object.keys(SubscribeModal.i18n.messages.fr);
+
+        it('contains 8 locale', () => {
+          expect(locales.length).to.equal(8);
+          expect(locales).to.deep.equal([
+            'subscribe',
+            'modalText',
+            'email',
+            'confirm',
+            'cancel',
+            'emailError',
+            'subscriptionError',
+            'subscriptionSuccess',
+          ]);
+        });
+      });
+
+      describe('en', () => {
+        const locales = Object.keys(SubscribeModal.i18n.messages.en);
+
+        it('contains 8 locale', () => {
+          expect(locales.length).to.equal(8);
+          expect(locales).to.deep.equal([
+            'subscribe',
+            'modalText',
+            'email',
+            'confirm',
+            'cancel',
+            'emailError',
+            'subscriptionError',
+            'subscriptionSuccess',
+          ]);
+        });
+      });
+    });
+  })
 });
