@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import Toastr from 'vue-toastr';
 import VueModal from 'vue-js-modal';
+import VueLazyload from 'vue-lazyload';
 import VueI18n from 'vue-i18n';
 import App from './App';
 import router from './router/index';
@@ -17,6 +18,11 @@ Vue.use(VueModal);
 const i18n = new VueI18n({
   locale: navigator.language,
   fallbackLocale: 'en',
+});
+
+Vue.use(VueLazyload, {
+  error: '',
+  loading: '/static/loader.gif',
 });
 
 /* eslint-disable no-new */

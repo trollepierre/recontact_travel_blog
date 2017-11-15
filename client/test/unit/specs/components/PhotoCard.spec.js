@@ -23,15 +23,21 @@ describe('PhotoCard.vue', () => {
   });
 
   describe('render', () => {
-    it('should render photo image', () => {
+    it.only('should render photo image', () => Vue.nextTick().then(() => {
       const photoLink = component.$el.querySelector('img');
-      expect(photoLink.getAttribute('src')).to.contain('/static/favicon-16x16.png');
-    });
+      expect(photoLink.getAttribute('src')).to.equal('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+      expect(photoLink.getAttribute('lazy')).to.equal('loading');
+    }));
 
-    // Impossible de tester le lazy load
+    // Comment tester le lazy load ?
     it.skip('should render photo image', () => Vue.nextTick().then(() => {
       const photoLink = component.$el.querySelector('img');
+
+      // return Vue.nextTick().then(() => {
+      console.log(photoLink);
+      expect(photoLink.getAttribute('lazy')).to.equal('loaded');
       expect(photoLink.getAttribute('src')).to.contain('webf');
+      // });
     }));
   });
 
