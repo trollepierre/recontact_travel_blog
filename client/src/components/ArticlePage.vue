@@ -80,7 +80,6 @@
     display: flex;
     width: 100%;
     padding: 20px 0;
-    margin-top: 60px;
     justify-content: center;
   }
 
