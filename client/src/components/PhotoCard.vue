@@ -1,8 +1,11 @@
-<template>
+<template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <div class="photo-card">
     <article class="photo">
       <div class="photo__content">
-        <img class="lazy-load" src="/static/favicon-16x16.png" alt="" :data-src="imgLink" />
+        <div ref="container">
+          <img v-lazy="imgLink"/>
+          <div v-lazy:background-image="imgUrl"></div>
+        </div>
       </div>
     </article>
   </div>
@@ -12,6 +15,9 @@
   export default {
     name: 'PhotoCard',
     props: ['photo'],
+    mounted() {
+      this.$Lazyload.lazyLoadHandler();
+    },
     computed: {
       imgLink() {
         const imgLink = this.photo.imgLink;
