@@ -70,7 +70,7 @@
       },
 
       displaySuccessNotification() {
-        notificationsService.success(this, this.$t('subscriptionEmail'));
+        notificationsService.success(this, this.$t('subscriptionSuccess'));
       },
 
       cancelSubscription() {
