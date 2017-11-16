@@ -1,23 +1,25 @@
 const { request, expect, sinon } = require('../../test-helper');
 const app = require('../../../app');
-const subscriptionService = require('../../../src/domain/repositories/subscription-repository');
+const Subscribe = require('../../../src/use_cases/subscribe');
+const DeleteSubscription = require('../../../src/use_cases/delete-subscription');
+const GetAllSubscriptions = require('../../../src/use_cases/get-all-subscriptions');
 
 describe('Integration | Routes | subscriptions route', () => {
   describe('POST /api/subscriptions', () => {
     const email = 'mail@recontact.me';
 
     beforeEach(() => {
-      sinon.stub(subscriptionService, 'addSubscription');
+      sinon.stub(Subscribe, 'subscribe');
     });
 
     afterEach(() => {
-      subscriptionService.addSubscription.restore();
+      Subscribe.subscribe.restore();
     });
 
-    it('should call subscriptionService#addSubscription', (done) => {
+    it('should call Subscribe#subscribe', (done) => {
       // given
       const persistedSubscription = { id: 1, email: 'mail@recontact.me' };
-      subscriptionService.addSubscription.resolves({ subscription: persistedSubscription, created: false });
+      Subscribe.subscribe.resolves({ subscription: persistedSubscription, created: false });
 
       // when
       request(app)
@@ -27,7 +29,7 @@ describe('Integration | Routes | subscriptions route', () => {
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
           // then
-          expect(subscriptionService.addSubscription).to.have.been.calledWith('mail@recontact.me');
+          expect(Subscribe.subscribe).to.have.been.calledWith('mail@recontact.me');
           expect(res.body).to.deep.equal(persistedSubscription);
           done();
         });
@@ -35,7 +37,7 @@ describe('Integration | Routes | subscriptions route', () => {
 
     it('should return 200 when a subscription already exists', () => {
       // given
-      subscriptionService.addSubscription.resolves({ subscription: {}, created: false });
+      Subscribe.subscribe.resolves({ subscription: {}, created: false });
 
       // when
       return request(app)
@@ -47,7 +49,7 @@ describe('Integration | Routes | subscriptions route', () => {
 
     it('should return 201 when the subscription did not exist for the given email', () => {
       // given
-      subscriptionService.addSubscription.resolves({ subscription: {}, created: true });
+      Subscribe.subscribe.resolves({ subscription: {}, created: true });
 
       // when
       return request(app)
@@ -59,7 +61,7 @@ describe('Integration | Routes | subscriptions route', () => {
 
     it('should return 403 when subscription service throws an error', () => {
       // given
-      subscriptionService.addSubscription.rejects(new Error('Some error'));
+      Subscribe.subscribe.rejects(new Error('Some error'));
 
       // when
       return request(app)
@@ -72,14 +74,14 @@ describe('Integration | Routes | subscriptions route', () => {
 
   describe('DELETE /api/subscriptions/:subscription_id', () => {
     beforeEach(() => {
-      sinon.stub(subscriptionService, 'removeSubscription').resolves();
+      sinon.stub(DeleteSubscription, 'deleteSubscription').resolves();
     });
 
     afterEach(() => {
-      subscriptionService.removeSubscription.restore();
+      DeleteSubscription.deleteSubscription.restore();
     });
 
-    it('should call subscriptionService#removeSubscription', (done) => {
+    it('should call subscriptionService#deleteById', (done) => {
       // when
       request(app)
         .delete('/api/subscriptions/1234')
@@ -87,7 +89,34 @@ describe('Integration | Routes | subscriptions route', () => {
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(204, () => {
           // then
-          expect(subscriptionService.removeSubscription).to.have.been.calledWith(1234);
+          expect(DeleteSubscription.deleteSubscription).to.have.been.calledWith(1234);
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/subscriptions/', () => {
+    let persistedSubscriptions;
+    beforeEach(() => {
+      sinon.stub(GetAllSubscriptions, 'getAllSubscriptions');
+      persistedSubscriptions = [{ id: 1, email: 'mail@recontact.me' }];
+      GetAllSubscriptions.getAllSubscriptions.resolves(persistedSubscriptions);
+    });
+
+    afterEach(() => {
+      GetAllSubscriptions.getAllSubscriptions.restore();
+    });
+
+    it('should call subscriptionService#getAll', (done) => {
+      // when
+      request(app)
+        .get('/api/subscriptions/')
+        .send()
+        .expect('Content-Type', 'application/json; charset=utf-8')
+        .expect(200, (err, res) => {
+          // then
+          expect(GetAllSubscriptions.getAllSubscriptions).to.have.been.calledWith();
+          expect(res.body).to.deep.equal(persistedSubscriptions);
           done();
         });
     });
