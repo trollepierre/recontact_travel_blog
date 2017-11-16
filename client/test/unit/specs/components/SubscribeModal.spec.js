@@ -147,7 +147,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        const message = 'subscriptionEmail';
+        const message = 'subscriptionSuccess';
         expect(notificationsService.success).to.have.been.calledWith(component, message);
       });
     });
