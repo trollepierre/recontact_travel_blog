@@ -2,18 +2,18 @@ const subscriptionRepository = require('../domain/repositories/subscription-repo
 const { isEmpty } = require('lodash');
 
 function subscribe(userEmail) {
-  return findSubscription(userEmail)
+  return _findSubscription(userEmail)
     .then(subscription => (!isEmpty(subscription) ?
       { subscription, created: false } :
-      createSubscription(userEmail)
+      _createSubscription(userEmail)
         .then(createdSubscription => ({ subscription: createdSubscription, created: true }))));
 }
 
-function findSubscription(userEmail) {
+function _findSubscription(userEmail) {
   return subscriptionRepository.getByEmail(userEmail);
 }
 
-function createSubscription(userEmail) {
+function _createSubscription(userEmail) {
   return subscriptionRepository.create(userEmail);
 }
 
