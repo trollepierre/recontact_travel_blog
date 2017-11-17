@@ -23,7 +23,7 @@ describe('PhotoCard.vue', () => {
   });
 
   describe('render', () => {
-    it.only('should render photo image', () => Vue.nextTick().then(() => {
+    it('should render photo image', () => Vue.nextTick().then(() => {
       const photoLink = component.$el.querySelector('img');
       expect(photoLink.getAttribute('src')).to.equal('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
       expect(photoLink.getAttribute('lazy')).to.equal('loading');
