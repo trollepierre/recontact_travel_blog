@@ -12,7 +12,7 @@ describe('Unit | Repository | subscription-repository', () => {
       Subscription.create.restore();
     });
 
-    it('should call Sequelize Model#create (public static)', () => {
+    it('should call Sequelize Model#create', () => {
       // given
       const subscription = {
         email: 'email@mail.com',
@@ -41,7 +41,7 @@ describe('Unit | Repository | subscription-repository', () => {
       Subscription.findOne.restore();
     });
 
-    it('should call Sequelize Model#findOne (public static)', () => {
+    it('should call Sequelize Model#findOne', () => {
       // given
       const subscription = {
         email: 'email@mail.com',
@@ -53,7 +53,6 @@ describe('Unit | Repository | subscription-repository', () => {
       const promise = subscriptionRepository.getByEmail('email@mail.com');
 
       // then
-
       return promise.then((res) => {
         expect(Subscription.findOne).to.have.been.calledWith({ where: { email: 'email@mail.com' } });
         expect(res).to.deep.equal(subscription);
@@ -70,7 +69,7 @@ describe('Unit | Repository | subscription-repository', () => {
       Subscription.destroy.restore();
     });
 
-    it('should call Sequelize Model#destroy (public static) method', () => {
+    it('should call Sequelize Model#destroy', () => {
       // when
       const promise = subscriptionRepository.deleteById(123);
 
