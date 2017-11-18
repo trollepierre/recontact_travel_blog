@@ -23,6 +23,7 @@
   import articlesApi from '@/api/articles';
   import syncApi from '@/api/sync';
   import notificationsService from '@/services/notifications';
+  import articlesSorter from '@/services/articlesSorter';
 
   export default {
     name: 'ArticleList',
@@ -48,7 +49,7 @@
       getArticles() {
         articlesApi.fetchAll()
           .then((articles) => {
-            this.articles = articles;
+            this.articles = articlesSorter.sortByDropboxId(articles);
           });
       },
 
