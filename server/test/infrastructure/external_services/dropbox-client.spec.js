@@ -2,7 +2,6 @@ const DropboxClient = require('../../../src/infrastructure/external_services/dro
 const { expect, sinon } = require('../../test-helper');
 const Dropbox = require('dropbox');
 const dropboxFilesListFolder = require('../../fixtures/dropboxFilesListFolder');
-const filteredDropboxFilesListFolder = require('../../fixtures/filteredDropboxFilesListFolder');
 const filteredDropboxPaths = require('../../fixtures/filteredDropboxPaths');
 const dropboxFilesGetTemporaryLink = require('../../fixtures/dropboxFilesGetTemporaryLink');
 
@@ -26,7 +25,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
         // then
         return promise.then((entries) => {
-          expect(entries).to.deep.equal([filteredDropboxFilesListFolder('58'), filteredDropboxFilesListFolder('59')]);
+          expect(entries).to.deep.equal(dropboxFilesListFolder());
         });
       });
 
@@ -60,7 +59,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     });
   });
 
-  describe('#getArticlePhotosPaths()', () => {
+  describe('#getFilesFolderPaths()', () => {
     const idArticle = 59;
 
     beforeEach(() => {
@@ -77,7 +76,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() });
 
         // when
-        const promise = DropboxClient.getArticlePhotosPaths(idArticle);
+        const promise = DropboxClient.getFilesFolderPaths(idArticle);
 
         // then
         return promise.then((entries) => {
@@ -90,7 +89,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() });
 
         // when
-        DropboxClient.getArticlePhotosPaths(idArticle);
+        DropboxClient.getFilesFolderPaths(idArticle);
 
         // then
         expect(Dropbox.prototype.filesListFolder).to.have.been.calledWith({ path: '/59/', recursive: true });
@@ -103,7 +102,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.rejects(new Error('Expected error'));
 
         // when
-        const promise = DropboxClient.getArticlePhotosPaths(idArticle);
+        const promise = DropboxClient.getFilesFolderPaths(idArticle);
 
         // then
         return promise.then(() => {

@@ -34,7 +34,7 @@ describe('PhotoCard.vue', () => {
       const photoLink = component.$el.querySelector('img');
 
       // return Vue.nextTick().then(() => {
-      console.log(photoLink);
+      // console.log(photoLink);
       expect(photoLink.getAttribute('lazy')).to.equal('loaded');
       expect(photoLink.getAttribute('src')).to.contain('webf');
       // });
