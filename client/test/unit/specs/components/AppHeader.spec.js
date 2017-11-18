@@ -35,6 +35,13 @@ describe('Unit | Component | AppHeader.vue', () => {
     it('should display a button to alert a problem', () => {
       expect(component.$el.querySelector('button.navbar-action.navbar-action__problem')).to.exist;
     });
+
+    it('should display a img to go to tdm', () => {
+      const link = component.$el.querySelector('a.tdm__link');
+      expect(link.getAttribute('href')).to.equal('http://worldtour.recontact.me');
+      const image = component.$el.querySelector('a.tdm__link img.tdm__image');
+      expect(image.getAttribute('src')).to.equal('/static/tdm.jpg');
+    });
   });
 
   describe('#displayFeedbackModal', () => {
@@ -159,18 +166,18 @@ describe('Unit | Component | AppHeader.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(AppHeader.i18n.messages.fr);
 
-        it('contains 3 locales', () => {
-          expect(locales.length).to.equal(3);
-          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem']);
+        it('contains 4 locales', () => {
+          expect(locales.length).to.equal(4);
+          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm']);
         });
       });
 
       describe('en', () => {
         const locales = Object.keys(AppHeader.i18n.messages.en);
 
-        it('contains 3 locales', () => {
-          expect(locales.length).to.equal(3);
-          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem']);
+        it('contains 4 locales', () => {
+          expect(locales.length).to.equal(4);
+          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm']);
         });
       });
     });
