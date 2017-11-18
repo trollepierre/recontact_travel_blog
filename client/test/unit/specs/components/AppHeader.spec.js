@@ -166,18 +166,18 @@ describe('Unit | Component | AppHeader.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(AppHeader.i18n.messages.fr);
 
-        it('contains 4 locales', () => {
-          expect(locales.length).to.equal(4);
-          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm']);
+        it('contains 5 locales', () => {
+          expect(locales.length).to.equal(5);
+          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
         });
       });
 
       describe('en', () => {
         const locales = Object.keys(AppHeader.i18n.messages.en);
 
-        it('contains 4 locales', () => {
-          expect(locales.length).to.equal(4);
-          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm']);
+        it('contains 5 locales', () => {
+          expect(locales.length).to.equal(5);
+          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
         });
       });
     });
