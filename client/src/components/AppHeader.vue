@@ -23,6 +23,11 @@
                       @click.prevent="goToAdmin">{{ $t("problem") }}
               </button>
             </li>
+            <li class="navigation__link tdm">
+              <a class="tdm__link" href="http://worldtour.recontact.me" :title="tdm">
+                <img class="tdm__image" src="/static/tdm.jpg"/>
+              </a>
+            </li>
           </ol>
         </nav>
       </div>
@@ -32,6 +37,11 @@
 <script>
   export default {
     name: 'AppHeader',
+    computed: {
+      tdm() {
+        return this.$t('tdm');
+      },
+    },
     methods: {
       displaySubscribeModal() {
         this.$modal.show('subscribe-modal');
@@ -51,11 +61,13 @@
           subscribe: 'S‘abonner',
           suggestion: 'Laisser un message',
           problem: 'Un problème ?',
+          tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
         },
         en: {
           subscribe: 'Subscribe',
           suggestion: 'Leave a message',
           problem: 'A problem?',
+          tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
         },
       },
     },
@@ -124,6 +136,14 @@
 
   .page__container {
     margin: 0 auto;
+  }
+
+  .tdm {
+    display: inline-flex;
+  }
+
+  .tdm__image {
+    margin: 10px;
   }
 
   @media only screen and (min-width: 640px) {
