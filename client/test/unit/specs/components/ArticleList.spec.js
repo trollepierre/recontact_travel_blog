@@ -4,25 +4,23 @@ import articlesApi from '@/api/articles';
 import ArticleList from '@/components/ArticleList';
 import syncApi from '@/api/sync';
 import notificationsService from '@/services/notifications';
+import articlesSorter from '@/services/articlesSorter';
 
 describe('ArticleList.vue', () => {
   let component;
-  let articles;
+
+  const article = (dropboxId = 59) => ({
+    dropboxId,
+    frTitle: 'Le titre',
+    enTitle: 'The title',
+  });
+
+  const fetchArticles = [article('62'), article('12')];
+  const sortedArticles = [article('12'), article('62')];
 
   beforeEach(() => {
-    articles = [
-      {
-        name: '60 : Pierre avec les webf',
-        imgLink: '../assets/toto.jpg',
-      }, {
-        name: '61 : Pierre au Koezio',
-        imgLink: '/assets/tata.jpg',
-      }, {
-        name: '62 : Pierre au Koezio',
-        imgLink: '/assets/tata.jpg',
-      },
-    ];
-    sinon.stub(articlesApi, 'fetchAll').resolves(articles);
+    sinon.stub(articlesSorter, 'sortByDropboxId').returns(sortedArticles);
+    sinon.stub(articlesApi, 'fetchAll').resolves(fetchArticles);
     const Constructor = Vue.extend(ArticleList);
     component = new Constructor(({
       router,
@@ -33,6 +31,7 @@ describe('ArticleList.vue', () => {
   });
 
   afterEach(() => {
+    articlesSorter.sortByDropboxId.restore();
     articlesApi.fetchAll.restore();
   });
 
@@ -45,15 +44,19 @@ describe('ArticleList.vue', () => {
       expect(articlesApi.fetchAll).to.have.been.calledWith();
     });
 
+    it('should call articles api to fetch articles', () => {
+      expect(articlesApi.fetchAll).to.have.been.calledWith();
+    });
+
     it('should save articles from api in data articles', () => Vue.nextTick().then(() => {
-      expect(component.$data.articles).to.equal(articles);
+      expect(component.$data.articles).to.equal(sortedArticles);
     }));
   });
 
   describe('render', () => {
     it('should render as many articles as received from the API', () => Vue.nextTick().then(() => {
       const articleCards = component.$el.querySelectorAll('.article-card');
-      expect(articleCards.length).to.equal(3);
+      expect(articleCards.length).to.equal(2);
     }));
 
     it('should render correct title', () => {
