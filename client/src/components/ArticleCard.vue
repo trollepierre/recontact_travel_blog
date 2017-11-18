@@ -13,17 +13,17 @@
         <template v-if="adminMode">
           <button class="article__update-button" :disabled="isUpdateClicked"
                   @click.prevent.once="updateArticle">
-            Réparer l'article
+            {{ $t("repairArticle") }}
           </button>
         </template>
         <template v-else>
           <button class="article__view-button"
                   @click.prevent.once="viewArticle">
-            Voir l'article
+            {{ $t("goToArticle") }}
           </button>
           <a :href="article.galleryLink" target="_blank" class="article__dropbox">
             <button class="article__dropbox-button">
-              Voir les photos
+              {{ $t("viewGallery") }}
             </button>
           </a>
         </template>
@@ -35,6 +35,7 @@
 <script>
   import articlesApi from '@/api/articles';
   import notificationsService from '@/services/notifications';
+  import translationsService from '@/services/translations';
 
   export default {
     name: 'ArticleCard',
@@ -49,8 +50,7 @@
         return `/articles/${this.article.dropboxId}`;
       },
       articleTitle() {
-        if (!this.article.name) return this.article.dropboxId;
-        return this.article.name;
+        return translationsService.getTitle(this.article);
       },
     },
     methods: {
@@ -60,17 +60,14 @@
 
       updateArticle() {
         this.disableDeleteButton();
-        let message = 'La synchronisation est lancée ! Patientez quelques secondes...';
-        notificationsService.success(this, message);
+        notificationsService.success(this, this.$t('syncLaunched'));
         articlesApi.update(this.article.dropboxId)
           .then(() => {
-            message = 'La synchronisation s\'est effectuée sans problème !';
-            notificationsService.success(this, message);
+            notificationsService.success(this, this.$t('syncDone'));
           })
           .then(() => this.goToArticle())
           .catch((err) => {
-            message = `Erreur : Problème durant la synchronisation : ${err.message}`;
-            notificationsService.error(this, message);
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
           });
       },
 
@@ -80,6 +77,27 @@
 
       goToArticle() {
         this.$router.push(this.articleUrl);
+      },
+    },
+
+    i18n: {
+      messages: {
+        fr: {
+          repairArticle: 'Réparer l‘article',
+          goToArticle: 'Voir l‘article',
+          viewGallery: 'Voir les photos',
+          syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
+          syncDone: 'La synchronisation s‘est effectuée sans problème !',
+          syncError: 'Erreur : Problème durant la synchronisation :',
+        },
+        en: {
+          repairArticle: 'Repair the article',
+          goToArticle: 'Read the article',
+          viewGallery: 'Discover the pictures',
+          syncLaunched: 'The synchronisation is launched! Please wait...',
+          syncDone: 'The synchronisation succeeds!',
+          syncError: 'Error during the synchronisation:',
+        },
       },
     },
   };

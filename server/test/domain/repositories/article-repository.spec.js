@@ -51,7 +51,30 @@ describe('Unit | Repository | article-repository', () => {
     });
   });
 
-  describe('#updateName', () => {
+  describe('#get', () => {
+    const dropboxId = 47;
+
+    beforeEach(() => {
+      sinon.stub(Article, 'findOne').resolves(articleSaved());
+    });
+
+    afterEach(() => {
+      Article.findOne.restore();
+    });
+
+    it('should call Sequelize Model#findOne', () => {
+      // when
+      const promise = articleRepository.get(dropboxId);
+
+      // then
+      return promise.then((res) => {
+        expect(Article.findOne).to.have.been.calledWith({ where: { dropboxId } });
+        expect(res).to.deep.equal(articleSaved());
+      });
+    });
+  });
+
+  describe('#update', () => {
     const dropboxId = 47;
 
     beforeEach(() => {
@@ -64,11 +87,11 @@ describe('Unit | Repository | article-repository', () => {
 
     it('should call Sequelize Model#update', () => {
       // when
-      const promise = articleRepository.updateName('title', dropboxId);
+      const promise = articleRepository.update({ title: 'title' }, dropboxId);
 
       // then
       return promise.then(() => {
-        expect(Article.update).to.have.been.calledWith({ name: 'title' }, { where: { dropboxId } });
+        expect(Article.update).to.have.been.calledWith({ title: 'title' }, { where: { dropboxId } });
       });
     });
   });

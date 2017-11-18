@@ -1,11 +1,6 @@
 import Vue from 'vue';
-import VueModal from 'vue-js-modal';
-import VueRouter from 'vue-router';
 import router from '@/router';
 import AppHeader from '@/components/AppHeader';
-
-Vue.use(VueModal);
-Vue.use(VueRouter);
 
 describe('Unit | Component | AppHeader.vue', () => {
   let component;
@@ -148,6 +143,35 @@ describe('Unit | Component | AppHeader.vue', () => {
 
         // after
         component.goToAdmin.restore();
+      });
+    });
+  });
+
+  describe('locales', () => {
+    const languages = Object.keys(AppHeader.i18n.messages);
+
+    it('contains 2 languages', () => {
+      expect(languages.length).to.equal(2);
+      expect(languages).to.deep.equal(['fr', 'en']);
+    });
+
+    context('each language', () => {
+      describe('fr', () => {
+        const locales = Object.keys(AppHeader.i18n.messages.fr);
+
+        it('contains 3 locales', () => {
+          expect(locales.length).to.equal(3);
+          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem']);
+        });
+      });
+
+      describe('en', () => {
+        const locales = Object.keys(AppHeader.i18n.messages.en);
+
+        it('contains 3 locales', () => {
+          expect(locales.length).to.equal(3);
+          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem']);
+        });
       });
     });
   });

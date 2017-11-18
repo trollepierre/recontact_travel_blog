@@ -18,7 +18,7 @@ describe('Unit | GetAllArticles | getAllArticles', () => {
 
     // then
     expect(ArticleRepository.getAll).to.have.been.calledWith();
-    promise.then((returnedArticles) => {
+    return promise.then((returnedArticles) => {
       expect(returnedArticles).to.deep.equal(articles());
     });
   });

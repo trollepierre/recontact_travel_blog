@@ -2,14 +2,14 @@
   <div class="chapter-card">
     <article class="chapter">
       <header class="chapter__header">
-        <h2 class="chapter__title">{{ chapter.title }}</h2>
+        <h2 class="chapter__title">{{ chapterTitle }}</h2>
       </header>
       <div class="chapter__content">
         <img v-if="imgLink" class="chapter__image" :src="imgLink"/>
-        <span v-else>Image manquante</span>
+        <span v-else>{{ $t("missingImage") }}</span>
       </div>
       <footer class="chapter__footer">
-        <div v-for="text in chapter.text">
+        <div class="chapter__footer_text" v-for="text in chapterText">
           <p>{{ text }}</p>
         </div>
       </footer>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  import translationsService from '@/services/translations';
+
   export default {
     name: 'ChapterCard',
     props: ['chapter'],
@@ -28,6 +30,22 @@
           return false;
         }
         return imgLink;
+      },
+      chapterTitle() {
+        return translationsService.getChapterTitle(this.chapter);
+      },
+      chapterText() {
+        return translationsService.getChapterText(this.chapter);
+      },
+    },
+    i18n: {
+      messages: {
+        fr: {
+          missingImage: 'Image manquante',
+        },
+        en: {
+          missingImage: 'Missing image',
+        },
       },
     },
   };

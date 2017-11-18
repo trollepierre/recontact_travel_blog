@@ -1,13 +1,17 @@
 const express = require('express');
-const subscriptionRepository = require('../../../domain/repositories/subscription-repository');
+const GetAllSubscriptions = require('../../../use_cases/get-all-subscriptions');
+const Subscribe = require('../../../use_cases/subscribe');
+const DeleteSubscription = require('../../../use_cases/delete-subscription');
 
 const router = express.Router();
+
+router.get('/', (req, res) => GetAllSubscriptions.getAllSubscriptions()
+  .then(subscriptions => res.json(subscriptions)));
 
 router.post('/', (req, res) => {
   const userEmail = req.body.email;
 
-  subscriptionRepository
-    .addSubscription(userEmail)
+  Subscribe.subscribe(userEmail)
     .then(({ subscription, created }) => {
       if (created) {
         res.status(201);
@@ -21,8 +25,7 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   const subscriptionId = parseInt(req.params.id, 10);
-  subscriptionRepository
-    .removeSubscription(subscriptionId)
+  DeleteSubscription.deleteSubscription(subscriptionId)
     .then(() => res.status(204).send());
 });
 

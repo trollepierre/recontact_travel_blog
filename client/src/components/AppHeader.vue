@@ -3,24 +3,24 @@
     <header class="page__header">
       <div class="page__container page__header--container">
         <a class="logo-link" href="/">
-          <span class="logo-link__job">Recontact</span>
-          <span class="logo-link__board">Me</span>
+          <span class="logo-link__recontact">Recontact</span>
+          <span class="logo-link__me">Me</span>
         </a>
         <nav class="app-header__navigation navigation" role="navigation" aria-label="site navigation">
           <ol class="navigation__links">
             <li class="navigation__link">
               <button class="navbar-action navbar-action__subscribe" type="button"
-                      @click.prevent="displaySubscribeModal">S'abonner
+                      @click.prevent="displaySubscribeModal">{{ $t("subscribe") }}
               </button>
             </li>
             <li class="navigation__link">
               <button class="navbar-action navbar-action__suggestion" type="button"
-                      @click.prevent="displayFeedbackModal">Laisser un message
+                      @click.prevent="displayFeedbackModal">{{ $t("suggestion") }}
               </button>
             </li>
             <li class="navigation__link">
               <button class="navbar-action navbar-action__problem" type="button"
-                      @click.prevent="goToAdmin">Signaler un problème
+                      @click.prevent="goToAdmin">{{ $t("problem") }}
               </button>
             </li>
           </ol>
@@ -45,6 +45,20 @@
         this.$router.push('/admin');
       },
     },
+    i18n: {
+      messages: {
+        fr: {
+          subscribe: 'S‘abonner',
+          suggestion: 'Laisser un message',
+          problem: 'Un problème ?',
+        },
+        en: {
+          subscribe: 'Subscribe',
+          suggestion: 'Leave a message',
+          problem: 'A problem?',
+        },
+      },
+    },
   };
 </script>
 
@@ -55,8 +69,7 @@
     border-bottom: 1px solid #e6e6e6;
     width: 100%;
     padding-left: 0;
-    position: fixed;
-    top: 0;
+    border-bottom: 1px solid #e6e6e6;
   }
 
   .page__header--container {
@@ -72,54 +85,12 @@
     padding: 15px 0;
   }
 
-  .logo-link__job {
+  .logo-link__recontact {
     color: #07c;
   }
 
-  .logo-link__board {
+  .logo-link__me {
     color: #F48024;
-  }
-
-  .logout-link {
-    color: #9199a1;
-    display: inline-block;
-    padding: 17px 0;
-    line-height: 28px;
-    text-decoration: none;
-  }
-
-  .logout-link:hover {
-    text-decoration: underline;
-  }
-
-  .page__header {
-    height: 60px;
-    background: #ffffff;
-    border-bottom: 1px solid #e6e6e6;
-    width: 100%;
-    position: fixed;
-    top: 0;
-  }
-
-  .page__header--container {
-    display: flex;
-    justify-content: center;
-  }
-
-  .logo-link {
-    text-decoration: none;
-    font-size: 26px;
-    display: inline-block;
-    padding: 15px 0;
-  }
-
-  .logo-link__job {
-    color: #07c;
-  }
-
-  .logo-link__board {
-    color: #d14800;
-    font-weight: 900;
   }
 
   .navbar-action {

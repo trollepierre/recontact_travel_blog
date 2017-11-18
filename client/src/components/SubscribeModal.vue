@@ -4,7 +4,7 @@
 
       <!-- modal header-->
       <div class="subscribe-modal__header">
-        <h2 class="subscribe-modal__title">S'abonner</h2>
+        <h2 class="subscribe-modal__title">{{ $t("subscribe") }}</h2>
       </div>
 
       <!-- modal body -->
@@ -14,10 +14,10 @@
           <p class="subscribe-modal__error" v-if="error" aria-live="polite">{{error}}</p>
 
           <p class="subscribe-modal__text">
-            Je souhaite recevoir un email à chaque nouvel article du voyage.
+            {{ $t("modalText") }}
           </p>
 
-          <label class="subscribe-modal__label" for="subscribe-content">Email :</label>
+          <label class="subscribe-modal__label" for="subscribe-content">{{ $t("email") }}</label>
           <input class="subscribe-modal__email" id="subscribe-content" v-model="email"/>
         </form>
       </div>
@@ -25,8 +25,8 @@
       <!-- modal footer -->
       <div class="subscribe-modal__footer">
         <div class="subscribe-modal__actions">
-          <button class="subscribe-modal__action subscribe-modal__action--send" @click="sendSubscription">Confirmer</button>
-          <button class="subscribe-modal__action subscribe-modal__action--cancel" @click="cancelSubscription">Annuler</button>
+          <button class="subscribe-modal__action subscribe-modal__action--send" @click="sendSubscription">{{ $t("confirm") }}</button>
+          <button class="subscribe-modal__action subscribe-modal__action--cancel" @click="cancelSubscription">{{ $t("cancel") }}</button>
         </div>
       </div>
 
@@ -57,7 +57,7 @@
         /* eslint-disable no-useless-escape */
         const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$');
         if (!regex.exec(this.email)) {
-          this.error = 'Vous devez saisir un email valide. (ex. : nom@exemple.fr)';
+          this.error = this.$t('emailError');
           return;
         }
 
@@ -65,13 +65,12 @@
           .then(this.displaySuccessNotification)
           .then(this._closeModal)
           .catch(() => {
-            this.error = 'Erreur lors de la prise en compte de ton abonnement.';
+            this.error = this.$t('subscriptionError');
           });
       },
 
       displaySuccessNotification() {
-        const message = 'Ton abonnement aux alertes de Recontact Me a été pris en compte.';
-        notificationsService.success(this, message);
+        notificationsService.success(this, this.$t('subscriptionSuccess'));
       },
 
       cancelSubscription() {
@@ -88,6 +87,30 @@
 
       _closeModal() {
         this.$modal.hide('subscribe-modal');
+      },
+    },
+    i18n: {
+      messages: {
+        fr: {
+          subscribe: 'S‘abonner',
+          modalText: 'Recevoir un email à chaque nouvel article du voyage !',
+          email: 'Email :',
+          confirm: 'Confirmer',
+          cancel: 'Annuler',
+          emailError: 'Vous devez saisir un email valide. (ex. : nom@exemple.fr)',
+          subscriptionError: 'Erreur lors de la prise en compte de ton abonnement.',
+          subscriptionSuccess: 'Ton abonnement aux alertes de Recontact Me a été pris en compte.',
+        },
+        en: {
+          subscribe: 'Subscribe',
+          modalText: 'Receive one email for each new article.',
+          email: 'Email:',
+          confirm: 'Confirm',
+          cancel: 'Cancel',
+          emailError: 'Please insert a valid email (ex. : name@example.com)',
+          subscriptionError: 'Error during the subscription.',
+          subscriptionSuccess: 'Your subscription to Recontact Me alerts has been taken into consideration.',
+        },
       },
     },
   };

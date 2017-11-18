@@ -3,19 +3,16 @@
   <div class="page">
     <main class="page__body">
       <div class="page__container">
-        <div class="job-results-panel">
           <section class="article-results">
             <h1 class="article-results__title">{{ title }}</h1>
             <button v-if="adminMode" class="article-results__sync" type="button" :disabled="isClicked"
-                    @click.prevent.once="synchronise">Réparer tous les articles
-            </button>
+                    @click.prevent.once="synchronise">{{ $t("getNewArticles") }}</button>
             <ul class="article-results__list">
               <li v-for="article in articles" class="article-results__item">
                 <article-card :article="article" :adminMode="adminMode"></article-card>
               </li>
             </ul>
           </section>
-        </div>
       </div>
     </main>
   </div>
@@ -44,7 +41,7 @@
     },
     computed: {
       title() {
-        return (this.adminMode) ? 'Administrer le site' : 'Les articles du voyage';
+        return (this.adminMode) ? this.$t('fixWebsite') : this.$t('theArticlesOfTheTrip');
       },
     },
     methods: {
@@ -61,22 +58,40 @@
 
       synchronise() {
         this.disableButton();
-        let message = 'La synchronisation est lancée ! Patientez quelques secondes...';
-        notificationsService.success(this, message);
+        notificationsService.success(this, this.$t('syncLaunched'));
         syncApi.launch()
           .then(() => {
-            message = 'La synchronisation s\'est effectuée sans problème !';
-            notificationsService.success(this, message);
+            notificationsService.success(this, this.$t('syncDone'));
           })
           .then(() => this.goToHome())
           .catch((err) => {
-            message = `Erreur : Problème durant la synchronisation : ${err.message}`;
-            notificationsService.error(this, message);
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
           });
       },
 
       goToHome() {
         this.$router.push('/');
+      },
+    },
+
+    i18n: {
+      messages: {
+        fr: {
+          getNewArticles: 'Récupérer les nouveaux articles',
+          fixWebsite: 'Réparer le site',
+          theArticlesOfTheTrip: 'Les articles du voyage',
+          syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
+          syncDone: 'La synchronisation s‘est effectuée sans problème !',
+          syncError: 'Erreur : Problème durant la synchronisation :',
+        },
+        en: {
+          getNewArticles: 'Synchronise the new articles',
+          fixWebsite: 'Fix the website',
+          theArticlesOfTheTrip: 'The articles of the trip',
+          syncLaunched: 'The synchronisation is launched! Please wait...',
+          syncDone: 'The synchronisation succeeds!',
+          syncError: 'Error during the synchronisation:',
+        },
       },
     },
   }
@@ -88,7 +103,6 @@
     display: flex;
     width: 100%;
     padding: 20px 0;
-    margin-top: 60px;
     justify-content: center;
   }
 

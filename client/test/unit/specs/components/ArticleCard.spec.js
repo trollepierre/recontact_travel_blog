@@ -1,11 +1,9 @@
 import Vue from 'vue';
 import ArticleCard from '@/components/ArticleCard';
-import VueRouter from 'vue-router';
 import router from '@/router';
 import notificationsService from '@/services/notifications';
+import translationsService from '@/services/translations';
 import articlesApi from '@/api/articles';
-
-Vue.use(VueRouter);
 
 describe('ArticleCard.vue', () => {
   describe('when adminMode is not defined', () => {
@@ -14,9 +12,11 @@ describe('ArticleCard.vue', () => {
     let article;
 
     beforeEach(() => {
+      sinon.stub(translationsService, 'getTitle').returns('Pierre somewhere');
       article = {
         dropboxId: '58',
-        name: 'Pierre au Costa Rica',
+        enTitle: 'Pierre in Costa Rica',
+        frTitle: 'Pierre au Costa Rica',
         imgLink: 'webf',
         galleryLink,
       };
@@ -27,6 +27,10 @@ describe('ArticleCard.vue', () => {
           article,
         },
       }).$mount();
+    });
+
+    afterEach(() => {
+      translationsService.getTitle.restore();
     });
 
     it('should be named "ArticleCard"', () => {
@@ -42,7 +46,7 @@ describe('ArticleCard.vue', () => {
     describe('render', () => {
       it('should render article title', () => {
         const articleTitle = component.$el.querySelector('.article__title');
-        expect(articleTitle.textContent).to.equal('Pierre au Costa Rica');
+        expect(articleTitle.textContent).to.equal('Pierre somewhere');
       });
 
       it('should render article image', () => {
@@ -81,18 +85,7 @@ describe('ArticleCard.vue', () => {
         const articleTile = component.articleTitle;
 
         // Then
-        expect(articleTile).to.equal('Pierre au Costa Rica');
-      });
-
-      it('should return dropboxId when articleName not defined', () => {
-        // Given
-        article.name = '';
-
-        // When
-        const articleTile = component.articleTitle;
-
-        // Then
-        expect(articleTile).to.equal('58');
+        expect(articleTile).to.equal('Pierre somewhere');
       });
     });
 
@@ -182,7 +175,7 @@ describe('ArticleCard.vue', () => {
         component.updateArticle();
 
         // then
-        const message = 'La synchronisation est lancée ! Patientez quelques secondes...';
+        const message = 'syncLaunched';
         expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
       });
 
@@ -202,6 +195,20 @@ describe('ArticleCard.vue', () => {
         });
       });
 
+      it('should display success toast notification when synchronisation succeeds', () => {
+        // given
+        articlesApi.update.resolves({});
+
+        // when
+        component.updateArticle();
+
+        // then
+        return Vue.nextTick().then(() => {
+          const message = 'syncDone';
+          expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+        });
+      });
+
       it('should display error toast notification when synchronisation fails', () => {
         // given
         articlesApi.update.rejects(new Error('Expected error'));
@@ -211,7 +218,7 @@ describe('ArticleCard.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          const message = 'Erreur : Problème durant la synchronisation : Expected error';
+          const message = 'syncError Error: Expected error';
           expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
         });
       });
@@ -298,6 +305,49 @@ describe('ArticleCard.vue', () => {
 
         // then
         expect(articlesApi.update).to.have.been.calledWith('58');
+      });
+    });
+  });
+
+  describe('locales', () => {
+    const languages = Object.keys(ArticleCard.i18n.messages);
+
+    it('contains 2 languages', () => {
+      expect(languages.length).to.equal(2);
+      expect(languages).to.deep.equal(['fr', 'en']);
+    });
+
+    context('each language', () => {
+      describe('fr', () => {
+        const locales = Object.keys(ArticleCard.i18n.messages.fr);
+
+        it('contains 6 locales', () => {
+          expect(locales.length).to.equal(6);
+          expect(locales).to.deep.equal([
+            'repairArticle',
+            'goToArticle',
+            'viewGallery',
+            'syncLaunched',
+            'syncDone',
+            'syncError',
+          ]);
+        });
+      });
+
+      describe('en', () => {
+        const locales = Object.keys(ArticleCard.i18n.messages.en);
+
+        it('contains 6 locales', () => {
+          expect(locales.length).to.equal(6);
+          expect(locales).to.deep.equal([
+            'repairArticle',
+            'goToArticle',
+            'viewGallery',
+            'syncLaunched',
+            'syncDone',
+            'syncError',
+          ]);
+        });
       });
     });
   });
