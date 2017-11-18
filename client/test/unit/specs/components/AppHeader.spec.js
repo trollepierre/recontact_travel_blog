@@ -37,9 +37,9 @@ describe('Unit | Component | AppHeader.vue', () => {
     });
 
     it('should display a img to go to tdm', () => {
-      const link = component.$el.querySelector('a.tdm__link');
+      const link = component.$el.querySelector('a.navbar-action__tdm');
       expect(link.getAttribute('href')).to.equal('http://worldtour.recontact.me');
-      const image = component.$el.querySelector('a.tdm__link img.tdm__image');
+      const image = component.$el.querySelector('img.tdm__image');
       expect(image.getAttribute('src')).to.equal('/static/tdm.jpg');
     });
   });
