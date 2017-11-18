@@ -12,7 +12,7 @@ const chapterOfArticle = require('../fixtures/chapterOfArticleSaved');
 const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTemporaryLink');
 const dropboxArticleFr = require('../fixtures/dropboxArticleFr');
 const dropboxArticleEn = require('../fixtures/dropboxArticleEn');
-const dropboxPhotosPaths = require('../fixtures/filteredDropboxPaths');
+const dropboxPhotosPaths = require('../fixtures/filteredDropboxPathsOfArticle');
 
 describe('Unit | UpdateArticle | sync', () => {
   const dropboxId = 8;
@@ -32,7 +32,7 @@ describe('Unit | UpdateArticle | sync', () => {
     sinon.stub(ChapterRepository, 'createArticleChapters')
       .resolves(chapterOfArticle());
     sinon.stub(PhotoRepository, 'createPhotos');
-    sinon.stub(DropboxClient, 'getArticlePhotosPaths').resolves(dropboxPhotosPaths);
+    sinon.stub(DropboxClient, 'getFilesFolderPaths').resolves(dropboxPhotosPaths);
     sinon.stub(DropboxClient, 'createSharedLink');
     sinon.stub(DropboxClient, 'getFrTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
     sinon.stub(DropboxClient, 'getEnTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
@@ -49,7 +49,7 @@ describe('Unit | UpdateArticle | sync', () => {
     ArticleRepository.create.restore();
     ChapterRepository.createArticleChapters.restore();
     PhotoRepository.createPhotos.restore();
-    DropboxClient.getArticlePhotosPaths.restore();
+    DropboxClient.getFilesFolderPaths.restore();
     DropboxClient.createSharedLink.restore();
     DropboxClient.getFrTextFileStream.restore();
     DropboxClient.getEnTextFileStream.restore();
