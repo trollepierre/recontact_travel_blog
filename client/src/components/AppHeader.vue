@@ -2,7 +2,7 @@
   <div class="app-header">
     <header class="page__header">
       <div class="page__container page__header--container">
-        <a class="logo-link" href="/">
+        <a class="logo-link" href="/" :title="home">
           <span class="logo-link__recontact">Recontact</span>
           <span class="logo-link__me">Me</span>
         </a>
@@ -41,6 +41,9 @@
       tdm() {
         return this.$t('tdm');
       },
+      home() {
+        return this.$t('home');
+      },
     },
     methods: {
       displaySubscribeModal() {
@@ -62,12 +65,14 @@
           suggestion: 'Laisser un message',
           problem: 'Un problème ?',
           tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
+          home: 'Page d’accueil',
         },
         en: {
           subscribe: 'Subscribe',
           suggestion: 'Leave a message',
           problem: 'A problem?',
           tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
+          home: 'Home page',
         },
       },
     },
@@ -95,6 +100,10 @@
     font-weight: 900;
     display: inline-block;
     padding: 15px 0;
+  }
+
+  .logo-link:hover {
+    outline: -webkit-focus-ring-color auto 5px;
   }
 
   .logo-link__recontact {
