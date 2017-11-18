@@ -1,7 +1,7 @@
 {
   "development": {
-    "dialect": "postgres",
-    "host": "localhost"
+    "dialect": "sqlite",
+    "storage": "./src/infrastructure/db/data.test.sqlite"
   },
   "test": {
     "dialect": "sqlite",
