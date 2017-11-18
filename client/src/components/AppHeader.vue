@@ -24,7 +24,7 @@
               </button>
             </li>
             <li class="navigation__link tdm">
-              <a class="tdm__link" href="http://worldtour.recontact.me" :title="tdm">
+              <a class="navbar-action navbar-action__tdm" href="http://worldtour.recontact.me" :title="tdm">
                 <img class="tdm__image" src="/static/tdm.jpg"/>
               </a>
             </li>
@@ -127,6 +127,7 @@
 
   .navbar-action:hover {
     text-decoration: underline;
+    outline: -webkit-focus-ring-color auto 5px;
   }
 
   .navigation {
@@ -151,8 +152,8 @@
     display: inline-flex;
   }
 
-  .tdm__image {
-    margin: 10px;
+  .navbar-action__tdm {
+    padding: 10px;
   }
 
   @media only screen and (min-width: 640px) {
