@@ -1,6 +1,7 @@
 <template>
   <div class="subscribe-modal-wrapper">
-    <modal class="subscribe-modal" name="subscribe-modal" @before-open="beforeOpen" :height="315">
+    <modal class="subscribe-modal" name="subscribe-modal"
+           @before-open="beforeOpen" @opened="opened" :height="315">
 
       <!-- modal header-->
       <div class="subscribe-modal__header">
@@ -50,6 +51,23 @@
       beforeOpen() {
         this._resetEmail();
         this._removeError();
+        this._closeOnEscapeKey();
+      },
+
+      opened() {
+        this._focusOnInput();
+      },
+
+      _closeOnEscapeKey() {
+        document.addEventListener('keydown', (e) => {
+          if (e.keyCode === 27) {
+            this._closeModal();
+          }
+        });
+      },
+
+      _focusOnInput() {
+        this.$el.querySelector('input#subscribe-content').focus();
       },
 
       sendSubscription() {
