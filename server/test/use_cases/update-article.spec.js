@@ -86,7 +86,7 @@ describe('Unit | UpdateArticle | sync', () => {
 
   describe('when dropbbox can create shared link', () => {
     beforeEach(() => {
-      DropboxClient.createSharedLink.resolves({ url: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1' });
+      DropboxClient.createSharedLink.resolves({ url: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1' });
     });
 
     it('should create shared link for each image path of the new articles ', () => {
@@ -103,8 +103,8 @@ describe('Unit | UpdateArticle | sync', () => {
       // given
       const articlesToSave = [{
         dropboxId,
-        galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
-        imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+        galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+        imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
       }];
 
       // when
@@ -167,23 +167,27 @@ describe('Unit | UpdateArticle | sync', () => {
       return promise.then(() => {
         expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
         }, {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
-        }]);
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+        },
+        {
+          dropboxId: 8,
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+        },
+        ]);
       });
     });
 
 
-    it('should create shared link (img1+img2) times par articles ' +
-      '+ 1 initial calls per img0 + 1 calls per / + 2 calls per gallery photos', () => {
+    it('should create shared link each times par articles + one for folder', () => {
       // when
       const promise = UpdateArticle.sync(dropboxId);
 
       // then
       return promise.then(() => {
-        expect(DropboxClient.createSharedLink).to.have.been.callCount(6);
+        expect(DropboxClient.createSharedLink).to.have.been.callCount(7);
       });
     });
 
@@ -192,7 +196,7 @@ describe('Unit | UpdateArticle | sync', () => {
       const chaptersToSave = [
         {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
           frText: 'Gathering trois valeureux compagnons :' +
           '\r\n# - Pierre, l\'expérimenté' +
           '\r\n# - Franzi, la photographe' +
@@ -210,7 +214,7 @@ describe('Unit | UpdateArticle | sync', () => {
 
         }, {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
           frText: 'La région de Kangding' +
           '\r\n#' +
           "\r\nSituée sur l'autoroute menant au Tibet à l'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du \"Tibet\"." +
@@ -240,7 +244,7 @@ describe('Unit | UpdateArticle | sync', () => {
     });
 
     it('should return result', () => {
-    // given
+      // given
       const expectedResult = {
         addedArticles: [
           {
@@ -267,7 +271,7 @@ describe('Unit | UpdateArticle | sync', () => {
     });
 
     it('should call ArticleRepository to create articlesToSave with empty imgLink', () => {
-    // given
+      // given
       const articlesToSave = [{
         dropboxId,
         galleryLink: '',
