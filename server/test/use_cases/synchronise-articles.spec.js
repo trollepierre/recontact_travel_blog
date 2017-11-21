@@ -113,7 +113,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
     describe('when dropbox can create shared link', () => {
       beforeEach(() => {
-        DropboxClient.createSharedLink.resolves({ url: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1' });
+        DropboxClient.createSharedLink.resolves({ url: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1' });
       });
 
       it('should create shared link for each image path of the new articles ', () => {
@@ -131,12 +131,12 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // given
         const articlesToSave = [{
           dropboxId: '47',
-          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
         }, {
           dropboxId: '48',
-          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
         }];
 
         // when
@@ -203,28 +203,33 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         return promise.then(() => {
           expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
             dropboxId: '47',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
           }, {
             dropboxId: '47',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+          }, {
+            dropboxId: '47',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
           }, {
             dropboxId: '48',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
           }, {
             dropboxId: '48',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+          }, {
+            dropboxId: '48',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
           }]);
         });
       });
 
-      it('should create shared link 2 times (/47 + /47/Img-0) par articles (so 4 times) ' +
-        '+ 2x2 initial calls (img1&img2 x2) per imgLink + 2x2 calls per galleryPhotosLink ', () => {
+      it('should create shared link 2 times per photos + one for folder = 7 times two articles', () => {
         // when
         const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
-          expect(DropboxClient.createSharedLink).to.have.been.callCount(12);
+          expect(DropboxClient.createSharedLink).to.have.been.callCount(14);
         });
       });
 
@@ -233,7 +238,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         const chaptersToSave = [
           {
             dropboxId: '47',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
             frText: 'Gathering trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
             '\r\n# - Franzi, la photographe' +
@@ -251,7 +256,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
           }, {
             dropboxId: '47',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
             frText: 'La région de Kangding' +
             '\r\n#' +
             "\r\nSituée sur l'autoroute menant au Tibet à l'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du \"Tibet\"." +
@@ -271,7 +276,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           },
           {
             dropboxId: '48',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
             frText: 'Gathering trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
             '\r\n# - Franzi, la photographe' +
@@ -288,7 +293,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             enTitle: 'Le trek incroyable autour du mont Gongga Par Pierre avec Vincent et Franzi',
           }, {
             dropboxId: '48',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/Img-0.jpg?dl=1',
+            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
             frText: 'La région de Kangding' +
             '\r\n#' +
             "\r\nSituée sur l'autoroute menant au Tibet à l'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du \"Tibet\"." +

@@ -23,8 +23,8 @@ async function sync(dropboxId) {
       return extension === 'jpg' || extension === 'jpeg' || extension === 'png';
     });
     return photosPaths.filter((path) => {
-      const shortName = path.split('/').pop().substring(0, 3).toLowerCase();
-      return shortName !== 'img';
+      const shortName = path.split('/').pop().substring(0, 3);
+      return !shortName.match('[iI]mg');
     });
   }
 

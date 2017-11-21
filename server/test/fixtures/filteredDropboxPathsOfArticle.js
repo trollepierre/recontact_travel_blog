@@ -7,6 +7,5 @@ module.exports =
     '/8/img0.jpg',
     '/8/img1.jpg',
     '/8/img2.jpg',
-    '/8/img3.jpg',
     '/8/IMG_2mggh.jpg',
   ];
