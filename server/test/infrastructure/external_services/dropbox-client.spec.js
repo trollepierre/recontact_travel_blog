@@ -9,10 +9,12 @@ describe('Unit | Infrastructure | dropbox-client', () => {
   describe('#getAllDropboxFoldersMetadatas', () => {
     beforeEach(() => {
       sinon.stub(Dropbox.prototype, 'filesListFolder');
+      sinon.stub(Dropbox.prototype, 'filesListFolderContinue');
     });
 
     afterEach(() => {
       Dropbox.prototype.filesListFolder.restore();
+      Dropbox.prototype.filesListFolderContinue.restore();
     });
 
     describe('with a successful answer', () => {
@@ -38,6 +40,94 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
         // then
         expect(Dropbox.prototype.filesListFolder).to.have.been.calledWith({ path: '', recursive: true });
+      });
+
+      describe('when FilesListFolder.has_more is false', () => {
+        it('should not call dropbox API "filesListFolderContinue" ', () => {
+          // given
+          Dropbox.prototype.filesListFolder.resolves({
+            has_more: false,
+            cursor: 'cursor',
+            entries: dropboxFilesListFolder(),
+          });
+          Dropbox.prototype.filesListFolderContinue.resolves({ entries: dropboxFilesListFolder() });
+
+          // when
+          const promise = DropboxClient.getAllDropboxFoldersMetadatas();
+
+          // then
+          return promise.then(() => {
+            expect(Dropbox.prototype.filesListFolderContinue).not.to.have.been.called;
+          });
+        });
+      });
+
+      describe('when FilesListFolder.has_more is true', () => {
+        it('should call dropbox API "filesListFolderContinue" with former cursor', () => {
+          // given
+          Dropbox.prototype.filesListFolder.resolves({
+            has_more: true,
+            cursor: 'cursor',
+            entries: dropboxFilesListFolder(),
+          });
+          Dropbox.prototype.filesListFolderContinue.resolves({ entries: dropboxFilesListFolder() });
+
+          // when
+          const promise = DropboxClient.getAllDropboxFoldersMetadatas();
+
+          // then
+          return promise.then(() => {
+            expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor' });
+          });
+        });
+
+        describe('when FilesListFolderContinue.has_more is true twice', () => {
+          beforeEach(() => {
+            // given
+            Dropbox.prototype.filesListFolder.resolves({
+              has_more: true,
+              cursor: 'cursor',
+              entries: dropboxFilesListFolder(),
+            });
+            const stub = Dropbox.prototype.filesListFolderContinue;
+            stub.onFirstCall()
+              .resolves({
+                has_more: true,
+                cursor: 'cursor2',
+                entries: dropboxFilesListFolder(),
+              });
+            stub.onSecondCall()
+              .resolves({
+                has_more: true,
+                cursor: 'cursor3',
+                entries: dropboxFilesListFolder(),
+              });
+            stub.onThirdCall().resolves({ entries: dropboxFilesListFolder() });
+          });
+
+          it('should call again  2 more times dropbox API "filesListFolderContinue" with former cursors', () => {
+            // when
+            const promise = DropboxClient.getAllDropboxFoldersMetadatas();
+
+            // then
+            return promise.then(() => {
+              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledThrice;
+              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor' });
+              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor2' });
+              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor3' });
+            });
+          });
+
+          it('should return the response of the four dropbox answer as entries', () => {
+            // when
+            const promise = DropboxClient.getAllDropboxFoldersMetadatas();
+
+            // then
+            return promise.then((entries) => {
+              expect(entries.length).to.equal(dropboxFilesListFolder().length * 4);
+            });
+          });
+        });
       });
     });
 
