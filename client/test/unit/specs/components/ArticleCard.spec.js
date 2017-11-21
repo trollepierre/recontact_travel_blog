@@ -136,12 +136,16 @@ describe('ArticleCard.vue', () => {
         // given
         sinon.stub(articlesApi, 'update');
         sinon.stub(notificationsService, 'success').resolves({});
+        sinon.stub(notificationsService, 'information').resolves({});
+        sinon.stub(notificationsService, 'removeInformation').resolves({});
         sinon.stub(notificationsService, 'error').resolves({});
       });
 
       afterEach(() => {
         articlesApi.update.restore();
         notificationsService.success.restore();
+        notificationsService.information.restore();
+        notificationsService.removeInformation.restore();
         notificationsService.error.restore();
       });
 
@@ -176,7 +180,7 @@ describe('ArticleCard.vue', () => {
 
         // then
         const message = 'syncLaunched';
-        expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+        expect(notificationsService.information).to.have.been.calledWithExactly(component, message);
       });
 
       it('should redirect to /article/id', () => {
@@ -204,6 +208,7 @@ describe('ArticleCard.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
+          expect(notificationsService.removeInformation).to.have.been.calledWithExactly(component);
           const message = 'syncDone';
           expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
         });
@@ -218,6 +223,7 @@ describe('ArticleCard.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
+          expect(notificationsService.removeInformation).to.have.been.calledWithExactly(component);
           const message = 'syncError Error: Expected error';
           expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
         });
@@ -275,17 +281,21 @@ describe('ArticleCard.vue', () => {
       }).$mount();
     });
 
-    describe('clicking on button "supprimer l\'article"', () => {
+    describe('clicking on button "reparer l\'article"', () => {
       beforeEach(() => {
         // given
         sinon.stub(articlesApi, 'update').resolves({});
         sinon.stub(notificationsService, 'success').resolves({});
+        sinon.stub(notificationsService, 'information').resolves({});
+        sinon.stub(notificationsService, 'removeInformation').resolves({});
         sinon.stub(notificationsService, 'error').resolves({});
       });
 
       afterEach(() => {
         articlesApi.update.restore();
         notificationsService.success.restore();
+        notificationsService.information.restore();
+        notificationsService.removeInformation.restore();
         notificationsService.error.restore();
       });
 

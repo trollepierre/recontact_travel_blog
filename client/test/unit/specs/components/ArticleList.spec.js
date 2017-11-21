@@ -100,12 +100,16 @@ describe('ArticleList.vue', () => {
       // given
       sinon.stub(syncApi, 'launch');
       sinon.stub(notificationsService, 'success').resolves({});
+      sinon.stub(notificationsService, 'information').resolves({});
+      sinon.stub(notificationsService, 'removeInformation').resolves({});
       sinon.stub(notificationsService, 'error').resolves({});
     });
 
     afterEach(() => {
       syncApi.launch.restore();
       notificationsService.success.restore();
+      notificationsService.information.restore();
+      notificationsService.removeInformation.restore();
       notificationsService.error.restore();
     });
 
@@ -118,7 +122,7 @@ describe('ArticleList.vue', () => {
 
       // then
       const message = 'syncLaunched';
-      expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+      expect(notificationsService.information).to.have.been.calledWithExactly(component, message);
     });
 
     it('should call syncApi', () => {
@@ -143,6 +147,7 @@ describe('ArticleList.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
+        expect(notificationsService.removeInformation).to.have.been.calledWithExactly(component);
         const message = 'syncDone';
         expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
       });
@@ -173,6 +178,7 @@ describe('ArticleList.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
+        expect(notificationsService.removeInformation).to.have.been.calledWithExactly(component);
         const message = 'syncError Error: Expected error';
         expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
       });
@@ -181,11 +187,11 @@ describe('ArticleList.vue', () => {
 
   describe('clicking on button "Synchronise"', () => {
     beforeEach(() => {
-      sinon.stub(notificationsService, 'success').resolves({});
+      sinon.stub(notificationsService, 'information').resolves({});
     });
 
     afterEach(() => {
-      notificationsService.success.restore();
+      notificationsService.information.restore();
     });
 
     it('should disable button', () => {

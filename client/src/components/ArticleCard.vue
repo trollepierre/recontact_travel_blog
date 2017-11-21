@@ -60,13 +60,15 @@
 
       updateArticle() {
         this.disableDeleteButton();
-        notificationsService.success(this, this.$t('syncLaunched'));
+        notificationsService.information(this, this.$t('syncLaunched'));
         articlesApi.update(this.article.dropboxId)
           .then(() => {
+            notificationsService.removeInformation(this);
             notificationsService.success(this, this.$t('syncDone'));
           })
           .then(() => this.goToArticle())
           .catch((err) => {
+            notificationsService.removeInformation(this);
             notificationsService.error(this, `${this.$t('syncError')} ${err}`);
           });
       },
