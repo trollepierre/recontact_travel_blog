@@ -113,7 +113,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
     describe('when dropbox can create shared link', () => {
       beforeEach(() => {
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 20; i += 1) {
           DropboxClient.createSharedLink.onCall(i).resolves({ url: `db.com/call${i}.jpg?dl=1` });
         }
       });
