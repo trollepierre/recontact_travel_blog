@@ -19,7 +19,7 @@
           </p>
 
           <label class="subscribe-modal__label" for="subscribe-content">{{ $t("email") }}</label>
-          <input class="subscribe-modal__email" id="subscribe-content" v-model="email"/>
+          <input class="subscribe-modal__email" id="subscribe-content" v-model="email" @keyup.enter="sendSubscription"/>
         </form>
       </div>
 
