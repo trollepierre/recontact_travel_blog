@@ -66,6 +66,24 @@ const DropboxClient = {
     const options = { path, short_url: false };
     return DropboxApi.sharingCreateSharedLink(options)
       .catch((err) => {
+        console.log('err.error.code');
+        console.log(err.error.code === 'ECONNRESET');
+
+        if (err.error.code === 'ECONNRESET') {
+          console.log('je tente une nouvelle fois');
+
+          setTimeout(() => DropboxApi.sharingCreateSharedLink(options)
+            .catch((err2) => {
+              if (err2.error.code === 'ECONNRESET') {
+                console.log('Erreur ECONNRESET lors de la création du lien de : ', path);
+                console.log('Dropbox TCP error ECNNRESET', err2);
+                return Promise.resolve({});
+              }
+              console.log('Erreur étrange (ECONNRESET puis autre) lors de la création du lien de : ', path);
+              console.log(err2);
+              return Promise.resolve({});
+            }), 1000);
+        }
         console.log('Erreur lors de la création du lien de : ', path);
         console.log(err);
         return Promise.resolve({});
