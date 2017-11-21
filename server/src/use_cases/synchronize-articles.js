@@ -209,7 +209,7 @@ function _generateChapters(cuttedArticles, dropboxId, dropboxFiles) {
   const englishArticle = cuttedArticles[1];
   const chapters = [];
   for (let i = 1; i < frenchArticle.length / 3; i += 1) {
-    const imgLink = chapterImagesPath.filter(imgPath => imgPath.match(`[iI]mg-?${i}.jpg$`))[0];
+    const imgLink = chapterImagesPath.filter(imgPath => imgPath.match(`/${dropboxId}/[iI]mg-?${i}.jpg$`))[0];
     const frenchTitle = frenchArticle[(3 * i) - 2];
     const frenchSubtitle = frenchArticle[(3 * i) - 1];
     const englishTitle = englishArticle[(3 * i) - 2];
