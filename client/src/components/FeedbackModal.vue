@@ -14,11 +14,11 @@
           <p class="feedback-modal__error" v-if="error" aria-live="polite">{{error}}</p>
 
           <label class="feedback-modal__label" for="feedback-email">{{ $t("email") }}</label>
-          <input class="feedback-modal__email" id="feedback-email" v-model="email"/>
+          <input class="feedback-modal__email" id="feedback-email" v-model="email" @keyup.enter="sendFeedback"/>
 
           <label class="feedback-modal__label" for="feedback-content">{{ $t("content") }}</label>
           <textarea class="feedback-modal__text" id="feedback-content" v-model="feedback"
-                    :style="{height: heightMessage}"></textarea>
+                    :style="{height: heightMessage}" @keyup.shift.enter="sendFeedback"></textarea>
         </form>
       </div>
 
