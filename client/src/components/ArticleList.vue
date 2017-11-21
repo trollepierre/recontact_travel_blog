@@ -59,13 +59,15 @@
 
       synchronise() {
         this.disableButton();
-        notificationsService.success(this, this.$t('syncLaunched'));
+        notificationsService.information(this, this.$t('syncLaunched'));
         syncApi.launch()
           .then(() => {
+            notificationsService.removeInformation(this);
             notificationsService.success(this, this.$t('syncDone'));
           })
           .then(() => this.goToHome())
           .catch((err) => {
+            notificationsService.removeInformation(this);
             notificationsService.error(this, `${this.$t('syncError')} ${err}`);
           });
       },
