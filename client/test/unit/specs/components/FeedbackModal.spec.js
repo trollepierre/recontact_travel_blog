@@ -92,6 +92,73 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       // then
       expect(component.$data.error).to.equal(null);
     });
+
+    it('should close on escape key', () => {
+      // given
+      sinon.stub(component, '_closeModal');
+
+      // when
+      component.beforeOpen();
+
+      // then
+      const e = document.createEvent('Events');
+      e.initEvent('keydown', true, true);
+      e.keyCode = 27;
+      document.dispatchEvent(e);
+
+      return Vue.nextTick().then(() => {
+        expect(component._closeModal).to.have.been.calledWith();
+      });
+    });
+
+    it('should not close on any other key than space', () => {
+      // given
+      sinon.stub(component, '_closeModal');
+
+      // when
+      component.beforeOpen();
+
+      // then
+      const e = document.createEvent('Events');
+      e.initEvent('keydown', true, true);
+      e.keyCode = 13;
+      document.dispatchEvent(e);
+
+      return Vue.nextTick().then(() => {
+        expect(component._closeModal).not.to.have.been.calledWith();
+      });
+    });
+  });
+
+  describe('#opened', () => {
+    it('should focusOnInput', () => {
+      // given
+      sinon.stub(component, '_focusOnInput');
+
+      // when
+      component.opened();
+
+      // then
+      expect(component._focusOnInput).to.have.been.calledWith();
+
+      // after
+      component._focusOnInput.restore();
+    });
+  });
+
+  describe('#_focusOnInput', () => {
+    it.skip('should focus on input feedback content', (done) => {
+      // given
+      component.$modal.show('feedback-modal');
+
+      // when
+      setTimeout(() => {
+        // then
+        const inputSubscribe = component.$el.querySelector('input#feedback-email');
+        expect(inputSubscribe).to.have.focus();
+        done();
+      }, 100);
+    });
   });
 
   describe('#sendFeedback', () => {
