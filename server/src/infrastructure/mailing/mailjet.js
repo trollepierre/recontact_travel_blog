@@ -1,5 +1,6 @@
 const mailjetConfig = require('../config/index').MAILJET;
 const nodeMailjet = require('node-mailjet');
+const { isEmpty } = require('lodash');
 
 function _formatRecipients(recipients) {
   if (!recipients) {
@@ -22,10 +23,13 @@ function _formatPayload(options) {
 }
 
 function sendEmail(options) {
-  const mailjet = nodeMailjet.connect(mailjetConfig.apiKey, mailjetConfig.apiSecret);
-  return mailjet
-    .post('send')
-    .request(_formatPayload(options));
+  if (!isEmpty(options.to)) {
+    const mailjet = nodeMailjet.connect(mailjetConfig.apiKey, mailjetConfig.apiSecret);
+    return mailjet
+      .post('send')
+      .request(_formatPayload(options));
+  }
+  return Promise.resolve();
 }
 
 module.exports = {
