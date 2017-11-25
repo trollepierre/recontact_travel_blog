@@ -7,14 +7,15 @@ const articleRepository = require('../domain/repositories/article-repository');
 const chapterRepository = require('../domain/repositories/chapter-repository');
 const photoRepository = require('../domain/repositories/photo-repository');
 const subscriptionRepository = require('../domain/repositories/subscription-repository');
-const articlesChangedEmailTemplate = require('../infrastructure/mailing/articles-changed-email-template');
+const articlesChangedEmailFrTemplate = require('../infrastructure/mailing/articles-changed-email-fr-template');
+const articlesChangedEmailEnTemplate = require('../infrastructure/mailing/articles-changed-email-en-template');
 
 async function synchronizeArticles() {
   const dropboxFiles = await DropboxClient.getAllDropboxFoldersMetadatas();
   const freshArticles = _serializeArticles(dropboxFiles);
   const report = await _compareDropboxAndDatabaseArticles(freshArticles);
-  await _ifArticlesChangesThenUpdateArticlesInDatabase(report, dropboxFiles);
-  return _ifArticlesChangedThenSendEmailToRecipients(report);
+  const articlesToReport = await _ifArticlesChangesThenUpdateArticlesInDatabase(report, dropboxFiles);
+  return _ifArticlesChangedThenSendEmailToRecipients(articlesToReport);
 }
 
 function _serializeArticles(metadatas) {
@@ -53,7 +54,7 @@ function _ifArticlesChangedThenSendEmailToRecipients(report) {
   if (report.hasChanges) {
     return subscriptionRepository.getAll()
       .then((subscriptions) => {
-        result.receivers = subscriptions.map(({ email }) => email);
+        result.receivers = subscriptions;
         return result;
       })
       .then(form => _sendArticlesChangedEmail(form))
@@ -64,36 +65,45 @@ function _ifArticlesChangedThenSendEmailToRecipients(report) {
 
 function _sendArticlesChangedEmail(form) {
   const { receivers } = form;
-  const template = articlesChangedEmailTemplate.compile(form);
+  const templateFr = articlesChangedEmailFrTemplate.compile(form);
+  const templateEn = articlesChangedEmailEnTemplate.compile(form);
 
-  const options = {
+  const optionsFr = {
     from: config.MAIL_FROM,
     fromName: 'RecontactMe',
-    to: receivers,
+    to: receivers.filter(({ lang }) => lang === 'fr-Fr').map(({ email }) => email),
     subject: '[RecontactMe] Il y a du nouveau sur le site !',
-    template,
+    template: templateFr,
   };
-  return mailJet.sendEmail(options);
+  const optionsEn = {
+    from: config.MAIL_FROM,
+    fromName: 'RecontactMe',
+    to: receivers.filter(({ lang }) => lang !== 'fr-Fr').map(({ email }) => email),
+    subject: '[RecontactMe] Some news on the website !',
+    template: templateEn,
+  };
+  return Promise.all([mailJet.sendEmail(optionsFr), mailJet.sendEmail(optionsEn)]);
 }
 
 function _ifArticlesChangesThenUpdateArticlesInDatabase(report, dropboxFiles) {
   if (report.hasChanges) {
     return _createArticlesInDatabase(report)
       .then(() => _insertArticlesContentsInDatabase(report, dropboxFiles))
-      .then(() => _createPhotosOfArticlesInDatabase(report));
+      .then(articlesToReport => _createPhotosOfArticlesInDatabase(articlesToReport));
   }
   return report;
 }
 
-function _createPhotosOfArticlesInDatabase({ addedArticles }) {
-  const allPhotosOfAllArticles = addedArticles.reduce((promises, article) => {
+function _createPhotosOfArticlesInDatabase(report) {
+  const allPhotosOfAllArticles = report.addedArticles.reduce((promises, article) => {
     const photosOfArticle = getPhotosOfArticle(article);
     promises.push(photosOfArticle);
     return promises;
   }, []);
   return Promise.all(allPhotosOfAllArticles)
     .then(photos => flatten(photos))
-    .then(photos => photoRepository.createPhotos(photos));
+    .then(photos => photoRepository.createPhotos(photos))
+    .then(() => report);
 }
 
 function getPhotosOfArticle({ dropboxId }) {
@@ -156,15 +166,33 @@ function _shareImageZero(article) {
     }));
 }
 
-function _insertArticlesContentsInDatabase({ addedArticles }, dropboxFiles) {
-  const allChaptersToSave = addedArticles.reduce((promises, article) => {
+function insertTitleInReport(report, articlesContents) {
+  const result = report;
+  result.addedArticles.map((article) => {
+    const articleWithTitle = article;
+    const correctArticleInfo = articlesContents.filter(articleInfo => articleInfo.dropboxId === article.dropboxId);
+    articleWithTitle.frTitle = correctArticleInfo[0].frTitle;
+    articleWithTitle.enTitle = correctArticleInfo[0].enTitle;
+    return articleWithTitle;
+  });
+  return result;
+}
+
+function _insertArticlesContentsInDatabase(report, dropboxFiles) {
+  let result;
+  const allChaptersToSave = report.addedArticles.reduce((promises, article) => {
     const chaptersToSave = _updateTitleAndExtractChaptersFromArticleContent(article, dropboxFiles);
     promises.push(chaptersToSave);
     return promises;
   }, []);
   return Promise.all(allChaptersToSave)
+    .then((articlesContents) => {
+      result = insertTitleInReport(report, articlesContents);
+      return articlesContents.map(({ chapters }) => chapters);
+    })
     .then(allChapters => flatten(allChapters))
-    .then(chapters => chapterRepository.createArticleChapters(chapters));
+    .then(chapters => chapterRepository.createArticleChapters(chapters))
+    .then(() => result);
 }
 
 function _updateTitleAndExtractChaptersFromArticleContent(article, dropboxFiles) {
@@ -179,8 +207,7 @@ function _updateTitleAndExtractChaptersFromArticleContent(article, dropboxFiles)
     ]))
     .then(articleContents => _serializeArticleContents(articleContents, dropboxId, dropboxFiles))
     .then(articleInfos => _updateArticleTitles(articleInfos, dropboxId))
-    .then(articleInfos => _shareChapterImages(articleInfos))
-    .then(articleInfos => articleInfos.chapters);
+    .then(articleInfos => _shareChapterImages(articleInfos));
 }
 
 function _updateArticleTitles(articleInfos, dropboxId) {
@@ -200,6 +227,7 @@ function _serializeArticleContents(rawArticles, dropboxId, dropboxFiles) {
     frTitle: cuttedArticles[0][0],
     enTitle: cuttedArticles[1][0],
     chapters,
+    dropboxId,
   };
 }
 
