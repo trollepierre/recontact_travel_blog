@@ -9,10 +9,7 @@ router.get('/', (req, res) => GetAllSubscriptions.getAllSubscriptions()
   .then(subscriptions => res.json(subscriptions)));
 
 router.post('/', (req, res) => {
-  const email = req.body.email;
-  const lang = req.body.lang;
-
-  Subscribe.subscribe({ email, lang })
+  Subscribe.subscribe(req.body)
     .then(({ subscription, created }) => {
       if (created) {
         res.status(201);
