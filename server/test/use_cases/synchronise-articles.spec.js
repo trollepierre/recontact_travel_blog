@@ -75,24 +75,28 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
   describe('when a new article has been added', () => {
     beforeEach(() => {
-      const subscriptions = [{ email: 'abonne@recontact.me' }];
+      const subscriptions = [
+        { email: 'abonne@recontact.me', lang: 'fr-Fr' },
+        { email: 'subscriber@recontact.me', lang: 'en' },
+      ];
       const oldArticles = [savedArticle('46')];
       sinon.stub(SubscriptionRepository, 'getAll').resolves(subscriptions);
       sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
       sinon.stub(ArticleRepository, 'update').resolves(oldArticles);
-      sinon.stub(ArticleRepository, 'create')
-        .resolves(savedArticle('47'))
-        .resolves(savedArticle('48'));
-      sinon.stub(ChapterRepository, 'createArticleChapters')
-        .resolves(chapterOfArticle());
+      const articleRepoCreateStub = sinon.stub(ArticleRepository, 'create');
+      articleRepoCreateStub.onFirstCall().resolves(savedArticle('47'));
+      articleRepoCreateStub.onSecondCall().resolves(savedArticle('48'));
+      sinon.stub(ChapterRepository, 'createArticleChapters').resolves(chapterOfArticle());
       sinon.stub(PhotoRepository, 'createPhotos');
       sinon.stub(DropboxClient, 'getFilesFolderPaths').resolves(dropboxPhotosPaths);
       sinon.stub(DropboxClient, 'createSharedLink');
       sinon.stub(DropboxClient, 'getFrTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
       sinon.stub(DropboxClient, 'getEnTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
-      sinon.stub(FileReader, 'read')
-        .resolves(dropboxArticleFr)
-        .resolves(dropboxArticleEn);
+      const fileReaderReadStub = sinon.stub(FileReader, 'read');
+      fileReaderReadStub.onFirstCall().resolves(dropboxArticleFr);
+      fileReaderReadStub.onSecondCall().resolves(dropboxArticleEn);
+      fileReaderReadStub.onThirdCall().resolves(dropboxArticleFr);
+      fileReaderReadStub.onCall(3).resolves(dropboxArticleEn);
       sinon.stub(mailJet, 'sendEmail').resolves({});
     });
 
@@ -189,7 +193,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // then
         return promise.then(() => {
           const article = {
-            frTitle: '59. Lost autour du mont Gongga',
+            frTitle: '59. Perdus autour du mont Gongga',
             enTitle: '59. Lost autour du mont Gongga',
           };
           expect(ArticleRepository.update).to.have.been.calledWith(article, '47');
@@ -255,7 +259,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           {
             dropboxId: '47',
             imgLink: 'db.com/call4.jpg?dl=1',
-            frText: 'Gathering trois valeureux compagnons :' +
+            frText: 'Rassemblant trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
             '\r\n# - Franzi, la photographe' +
             '\r\n# - Vincent, le guide à la carte' +
@@ -293,7 +297,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           {
             dropboxId: '48',
             imgLink: 'db.com/call6.jpg?dl=1',
-            frText: 'Gathering trois valeureux compagnons :' +
+            frText: 'Rassemblant trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
             '\r\n# - Franzi, la photographe' +
             '\r\n# - Vincent, le guide à la carte' +
@@ -348,10 +352,21 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             fromName: 'RecontactMe',
             to: ['abonne@recontact.me'],
             subject: '[RecontactMe] Il y a du nouveau sur le site !',
-            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://centralamerica.recontact.me/#">Recontact Me</a>.</p>' +
+            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
             '<p>2 nouveaux articles :<ul>' +
-            '<li><a href="http://centralamerica.recontact.me/#/articles/47">47</a></li>' +
-            '<li><a href="http://centralamerica.recontact.me/#/articles/48">48</a></li>' +
+            '<li><a href="http://www.recontact.me/#/articles/47">59. Perdus autour du mont Gongga</a></li>' +
+            '<li><a href="http://www.recontact.me/#/articles/48">59. Perdus autour du mont Gongga</a></li>' +
+            '</ul></p>',
+          });
+          expect(mailJet.sendEmail).to.have.been.calledWith({
+            from: 'contact@recontact.me',
+            fromName: 'RecontactMe',
+            to: ['subscriber@recontact.me'],
+            subject: '[RecontactMe] Some news on the website !',
+            template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
+            '<p>2 new articles:<ul>' +
+            '<li><a href="http://www.recontact.me/#/articles/47">59. Lost autour du mont Gongga</a></li>' +
+            '<li><a href="http://www.recontact.me/#/articles/48">59. Lost autour du mont Gongga</a></li>' +
             '</ul></p>',
           });
         });
@@ -373,9 +388,19 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             fromName: 'RecontactMe',
             to: ['abonne@recontact.me'],
             subject: '[RecontactMe] Il y a du nouveau sur le site !',
-            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://centralamerica.recontact.me/#">Recontact Me</a>.</p>' +
+            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
             '<p>Un nouvel article :<ul>' +
-            '<li><a href="http://centralamerica.recontact.me/#/articles/47">47</a></li>' +
+            '<li><a href="http://www.recontact.me/#/articles/47">59. Perdus autour du mont Gongga</a></li>' +
+            '</ul></p>',
+          });
+          expect(mailJet.sendEmail).to.have.been.calledWith({
+            from: 'contact@recontact.me',
+            fromName: 'RecontactMe',
+            to: ['subscriber@recontact.me'],
+            subject: '[RecontactMe] Some news on the website !',
+            template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
+            '<p>One new article:<ul>' +
+            '<li><a href="http://www.recontact.me/#/articles/47">59. Lost autour du mont Gongga</a></li>' +
             '</ul></p>',
           });
         });
@@ -387,18 +412,29 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           addedArticles: [
             {
               dropboxId: '47',
+              enTitle: '59. Lost autour du mont Gongga',
+              frTitle: '59. Perdus autour du mont Gongga',
               galleryPath: '/47',
               imgPath: '/47/Img-0.jpg',
             },
             {
               dropboxId: '48',
+              enTitle: '59. Lost autour du mont Gongga',
+              frTitle: '59. Perdus autour du mont Gongga',
               galleryPath: '/48',
               imgPath: '/48/Img-0.jpg',
             },
           ],
           hasChanges: true,
           receivers: [
-            'abonne@recontact.me',
+            {
+              email: 'abonne@recontact.me',
+              lang: 'fr-Fr',
+            },
+            {
+              email: 'subscriber@recontact.me',
+              lang: 'en',
+            },
           ],
         };
 
