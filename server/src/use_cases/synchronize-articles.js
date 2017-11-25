@@ -166,13 +166,13 @@ function _shareImageZero(article) {
     }));
 }
 
-function insertTitleInReport(report, articlesContents) {
+function _insertTitleInReport(report, articlesContents) {
   const result = report;
   result.addedArticles.map((article) => {
     const articleWithTitle = article;
-    const correctArticleInfo = articlesContents.filter(articleInfo => articleInfo.dropboxId === article.dropboxId);
-    articleWithTitle.frTitle = correctArticleInfo[0].frTitle;
-    articleWithTitle.enTitle = correctArticleInfo[0].enTitle;
+    const { frTitle, enTitle } = articlesContents.find(({ dropboxId }) => dropboxId === article.dropboxId);
+    articleWithTitle.frTitle = frTitle;
+    articleWithTitle.enTitle = enTitle;
     return articleWithTitle;
   });
   return result;
@@ -187,11 +187,11 @@ function _insertArticlesContentsInDatabase(report, dropboxFiles) {
   }, []);
   return Promise.all(allChaptersToSave)
     .then((articlesContents) => {
-      result = insertTitleInReport(report, articlesContents);
+      result = _insertTitleInReport(report, articlesContents);
       return articlesContents.map(({ chapters }) => chapters);
     })
     .then(allChapters => flatten(allChapters))
-    .then(chapters => chapterRepository.createArticleChapters(chapters))
+    .then(chapterRepository.createArticleChapters)
     .then(() => result);
 }
 
@@ -207,7 +207,7 @@ function _updateTitleAndExtractChaptersFromArticleContent(article, dropboxFiles)
     ]))
     .then(articleContents => _serializeArticleContents(articleContents, dropboxId, dropboxFiles))
     .then(articleInfos => _updateArticleTitles(articleInfos, dropboxId))
-    .then(articleInfos => _shareChapterImages(articleInfos));
+    .then(_shareChapterImages);
 }
 
 function _updateArticleTitles(articleInfos, dropboxId) {
