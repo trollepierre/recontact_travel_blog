@@ -3,18 +3,16 @@
     <modal class="feedback-modal" name="feedback-modal"
            @before-open="beforeOpen" @opened="opened" :height="415">
 
-      <!-- modal header-->
       <div class="feedback-modal__header">
         <h2 class="feedback-modal__title">{{ $t("suggest") }}</h2>
       </div>
 
-      <!-- modal body -->
       <div class="feedback-modal__body">
-        <form class="feedback-modal__form">
+        <form class="feedback-modal__form" @submit="submit">
           <p class="feedback-modal__error" v-if="error" aria-live="polite">{{error}}</p>
 
           <label class="feedback-modal__label" for="feedback-email">{{ $t("email") }}</label>
-          <input class="feedback-modal__email" id="feedback-email" v-model="email" @keyup.enter="sendFeedback"/>
+          <input class="feedback-modal__email" id="feedback-email" v-model="email"/>
 
           <label class="feedback-modal__label" for="feedback-content">{{ $t("content") }}</label>
           <textarea class="feedback-modal__text" id="feedback-content" v-model="feedback"
@@ -22,7 +20,6 @@
         </form>
       </div>
 
-      <!-- modal footer -->
       <div class="feedback-modal__footer">
         <div class="feedback-modal__actions">
           <button class="feedback-modal__action feedback-modal__action--send" @click.prevent="sendFeedback">
@@ -58,11 +55,11 @@
         this._resetEmail();
         this._resetHeight();
         this._removeError();
-        this._closeOnEscapeKey();
       },
 
       opened() {
         this._focusOnInput();
+        this._closeOnEscapeKey();
       },
 
       _closeOnEscapeKey() {
@@ -130,6 +127,11 @@
 
       _closeModal() {
         this.$modal.hide('feedback-modal');
+      },
+
+      submit(e) {
+        e.preventDefault();
+        this.sendFeedback();
       },
     },
 
