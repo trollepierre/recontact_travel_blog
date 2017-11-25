@@ -1,5 +1,6 @@
 import axios from 'axios';
 import api from '@/api/subscriptions';
+import translationsService from '@/services/translations';
 
 describe('Unit | API | subscriptions api', () => {
   describe('#sendSubscription', () => {
@@ -11,10 +12,12 @@ describe('Unit | API | subscriptions api', () => {
         },
       };
       sinon.stub(axios, 'post').resolves(stubbedResponse);
+      sinon.stub(translationsService, 'getNavigatorLanguage').returns('en');
     });
 
     afterEach(() => {
       axios.post.restore();
+      translationsService.getNavigatorLanguage.restore();
     });
 
     it('should post subscriptions to API with the email', () => {
@@ -22,7 +25,7 @@ describe('Unit | API | subscriptions api', () => {
       const email = 'pierre@recontact.me';
 
       const expectedUrl = `${process.env.API_URL}api/subscriptions`;
-      const expectedBody = { email };
+      const expectedBody = { email, lang: 'en' };
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when
