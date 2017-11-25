@@ -82,7 +82,7 @@
         fr: {
           getNewArticles: 'Récupérer les nouveaux articles',
           fixWebsite: 'Réparer le site',
-          theArticlesOfTheTrip: 'Les articles du voyage',
+          theArticlesOfTheTrip: 'Voyageons avec Pierre',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
           syncDone: 'La synchronisation s‘est effectuée sans problème !',
           syncError: 'Erreur : Problème durant la synchronisation :',
@@ -90,7 +90,7 @@
         en: {
           getNewArticles: 'Synchronise the new articles',
           fixWebsite: 'Fix the website',
-          theArticlesOfTheTrip: 'The articles of the trip',
+          theArticlesOfTheTrip: 'Travelling with Pierre',
           syncLaunched: 'The synchronisation is launched! Please wait...',
           syncDone: 'The synchronisation succeeds!',
           syncError: 'Error during the synchronisation:',

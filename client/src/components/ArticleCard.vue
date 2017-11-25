@@ -203,11 +203,15 @@
 
   .article__footer button:disabled,
   .article__footer button:active {
-
     background: #BDBDBD;
     border-color: #616161;
     color: #FAFAFA;
     cursor: auto;
   }
 
+  @media only screen and (max-width: 640px) {
+    .article {
+      max-width: inherit;
+    }
+  }
 </style>
