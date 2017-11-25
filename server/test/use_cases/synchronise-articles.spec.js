@@ -76,7 +76,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
   describe('when a new article has been added', () => {
     beforeEach(() => {
       const subscriptions = [
-        { email: 'abonne@recontact.me', lang: 'fr-Fr' },
+        { email: 'abonne@recontact.me', lang: 'fr' },
         { email: 'subscriber@recontact.me', lang: 'en' },
       ];
       const oldArticles = [savedArticle('46')];
@@ -429,7 +429,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           receivers: [
             {
               email: 'abonne@recontact.me',
-              lang: 'fr-Fr',
+              lang: 'fr',
             },
             {
               email: 'subscriber@recontact.me',

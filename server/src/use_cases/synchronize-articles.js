@@ -71,14 +71,14 @@ function _sendArticlesChangedEmail(form) {
   const optionsFr = {
     from: config.MAIL_FROM,
     fromName: 'RecontactMe',
-    to: receivers.filter(({ lang }) => lang === 'fr-Fr').map(({ email }) => email),
+    to: receivers.filter(({ lang }) => lang === 'fr').map(({ email }) => email),
     subject: '[RecontactMe] Il y a du nouveau sur le site !',
     template: templateFr,
   };
   const optionsEn = {
     from: config.MAIL_FROM,
     fromName: 'RecontactMe',
-    to: receivers.filter(({ lang }) => lang !== 'fr-Fr').map(({ email }) => email),
+    to: receivers.filter(({ lang }) => lang !== 'fr').map(({ email }) => email),
     subject: '[RecontactMe] Some news on the website !',
     template: templateEn,
   };
