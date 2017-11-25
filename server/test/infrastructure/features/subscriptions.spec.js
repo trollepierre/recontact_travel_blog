@@ -18,18 +18,18 @@ describe('Integration | Routes | subscriptions route', () => {
 
     it('should call Subscribe#subscribe', (done) => {
       // given
-      const persistedSubscription = { id: 1, email: 'mail@recontact.me' };
+      const persistedSubscription = { id: 1, email: 'mail@recontact.me', lang: 'en' };
       Subscribe.subscribe.resolves({ subscription: persistedSubscription, created: false });
 
       // when
       request(app)
         .post('/api/subscriptions')
         .set('Authorization', 'Bearer access-token')
-        .send({ email })
+        .send({ email, lang: 'en' })
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
           // then
-          expect(Subscribe.subscribe).to.have.been.calledWith('mail@recontact.me');
+          expect(Subscribe.subscribe).to.have.been.calledWith({ email: 'mail@recontact.me', lang: 'en' });
           expect(res.body).to.deep.equal(persistedSubscription);
           done();
         });

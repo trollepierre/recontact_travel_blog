@@ -4,8 +4,8 @@ function getByEmail(subscriberEmail) {
   return Subscription.findOne({ where: { email: subscriberEmail } });
 }
 
-function create(subscriberEmail) {
-  return Subscription.create({ email: subscriberEmail });
+function create(subscription) {
+  return Subscription.create(subscription);
 }
 
 function deleteById(subscriptionId) {

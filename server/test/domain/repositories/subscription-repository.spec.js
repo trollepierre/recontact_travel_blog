@@ -16,17 +16,19 @@ describe('Unit | Repository | subscription-repository', () => {
       // given
       const subscription = {
         email: 'email@mail.com',
+        lang: 'en',
         id: 1,
       };
       Subscription.create.resolves(subscription);
 
       // when
-      const promise = subscriptionRepository.create('email@mail.com');
+      const subscriptionToCreate = { email: 'email@mail.com', lang: 'fr' };
+      const promise = subscriptionRepository.create(subscriptionToCreate);
 
       // then
 
       return promise.then((res) => {
-        expect(Subscription.create).to.have.been.calledWith({ email: 'email@mail.com' });
+        expect(Subscription.create).to.have.been.calledWith(subscriptionToCreate);
         expect(res).to.deep.equal(subscription);
       });
     });
@@ -45,6 +47,7 @@ describe('Unit | Repository | subscription-repository', () => {
       // given
       const subscription = {
         email: 'email@mail.com',
+        lang: 'en',
         id: 1,
       };
       Subscription.findOne.resolves(subscription);
