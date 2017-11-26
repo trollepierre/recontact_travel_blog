@@ -51,6 +51,7 @@
       },
 
       opened() {
+        this.trackEvent();
         this._focusOnInput();
         this._closeOnEscapeKey();
       },
@@ -107,6 +108,15 @@
       submit(e) {
         e.preventDefault();
         this.sendSubscription();
+      },
+
+      trackEvent() {
+        this.$ga.event({
+          eventCategory: 'Subscribe Modal',
+          eventAction: 'open',
+          eventLabel: 'Subscribe modal is opened',
+          eventValue: null,
+        });
       },
     },
     i18n: {
