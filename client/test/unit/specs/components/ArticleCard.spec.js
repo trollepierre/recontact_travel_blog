@@ -260,6 +260,22 @@ describe('ArticleCard.vue', () => {
         component.$router.push.restore();
       });
     });
+
+    describe('clicking on image', () => {
+      it('should redirect to /article/id', () => {
+        // given
+        sinon.stub(component.$router, 'push').resolves({});
+
+        // when
+        component.$el.querySelector('.article__content').click();
+
+        // then
+        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+
+        // after
+        component.$router.push.restore();
+      });
+    });
   });
 
   describe('when adminMode is true', () => {

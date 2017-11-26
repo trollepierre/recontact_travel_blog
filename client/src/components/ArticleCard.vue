@@ -6,7 +6,7 @@
           <h2 class="article__title">{{ articleTitle }}</h2>
         </a>
       </header>
-      <div class="article__content">
+      <div class="article__content" @click.prevent.once="viewArticle">
         <img class="article__image" :src="article.imgLink" width="200"/>
       </div>
       <footer class="article__footer">
