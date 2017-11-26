@@ -71,6 +71,7 @@
         this.getPhotos();
       },
       getChapters() {
+        this.trackEvent();
         chaptersApi.fetch(this.dropboxId)
           .then((article) => {
             (this.chapters = article.chapters);
@@ -94,6 +95,14 @@
       },
       goToArticle(idArticle) {
         this.$router.push(`/articles/${idArticle}`);
+      },
+      trackEvent() {
+        this.$ga.event({
+          eventCategory: 'Article Page',
+          eventAction: 'read',
+          eventLabel: `article ${this.$route.params.id} is read`,
+          eventValue: null,
+        });
       },
     },
     i18n: {
