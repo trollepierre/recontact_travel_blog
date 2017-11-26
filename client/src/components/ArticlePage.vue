@@ -57,6 +57,7 @@
     },
     watch: {
       $route(to) {
+        window.scrollTo(0, 0);
         this.dropboxId = parseInt(to.params.id, 10);
         this.fetchArticle();
       },
