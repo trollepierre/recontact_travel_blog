@@ -460,11 +460,12 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(FeedbackModal.i18n.messages.fr);
 
-        it('contains 9 locales', () => {
-          expect(locales.length).to.equal(9);
+        it('contains 10 locales', () => {
+          expect(locales.length).to.equal(10);
           expect(locales).to.deep.equal([
             'suggest',
             'content',
+            'placeholder',
             'email',
             'send',
             'cancel',
@@ -479,11 +480,12 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       describe('en', () => {
         const locales = Object.keys(FeedbackModal.i18n.messages.en);
 
-        it('contains 9 locales', () => {
-          expect(locales.length).to.equal(9);
+        it('contains 10 locales', () => {
+          expect(locales.length).to.equal(10);
           expect(locales).to.deep.equal([
             'suggest',
             'content',
+            'placeholder',
             'email',
             'send',
             'cancel',
