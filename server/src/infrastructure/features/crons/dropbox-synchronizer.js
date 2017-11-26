@@ -5,11 +5,11 @@ const SynchronizeArticles = require('../../../use_cases/synchronize-articles');
 const EVERY_15_MINUTES = '*/15 * * * *';
 
 scheduler.scheduleJob(EVERY_15_MINUTES, () => {
-  console.log('Synchronize Articles from Dropbox...');
+  console.info('Synchronize Articles from Dropbox...');
 
   return SynchronizeArticles.synchronizeArticles()
     .then(() => {
-      console.log('Synchronization successful.');
+      console.info('Synchronization successful.');
     })
     .catch((err) => {
       console.error('Synchronization failed');

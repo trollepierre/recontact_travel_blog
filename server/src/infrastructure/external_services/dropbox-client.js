@@ -24,8 +24,8 @@ const DropboxClient = {
       .then(dropboxAnswer => this.getFilesListContinue(dropboxAnswer))
       .then(response => response.entries)
       .catch((err) => {
-        console.log('Erreur lors de la récupération de tous les fichiers Dropbox : ');
-        console.log(err);
+        console.error('Erreur lors de la récupération de tous les fichiers Dropbox : ');
+        console.error(err);
         throw err;
       });
   },
@@ -34,8 +34,8 @@ const DropboxClient = {
     return DropboxApi.filesListFolder({ path: `/${id}/`, recursive: true })
       .then(response => response.entries.map(entry => entry.path_display))
       .catch((err) => {
-        console.log(`Erreur lors de la récupération de toutes les photos de l‘article Dropbox : ${id}`);
-        console.log(err);
+        console.error(`Erreur lors de la récupération de toutes les photos de l‘article Dropbox : ${id}`);
+        console.error(err);
         throw err;
       });
   },
@@ -45,8 +45,8 @@ const DropboxClient = {
     return DropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.${extension}` })
       .then(result => result.link)
       .catch((err) => {
-        console.log('Erreur lors de la récupération du fichier texte de : ', `/${id}/fr.${extension}`);
-        console.log(err);
+        console.error('Erreur lors de la récupération du fichier texte de : ', `/${id}/fr.${extension}`);
+        console.error(err);
         throw err;
       });
   },
@@ -56,8 +56,8 @@ const DropboxClient = {
     return DropboxApi.filesGetTemporaryLink({ path: `/${id}/en.${extension}` })
       .then(result => result.link)
       .catch((err) => {
-        console.log('Erreur lors de la récupération du fichier texte de : ', `/${id}/en.${extension}`);
-        console.log(err);
+        console.error('Erreur lors de la récupération du fichier texte de : ', `/${id}/en.${extension}`);
+        console.error(err);
         throw err;
       });
   },
@@ -66,30 +66,25 @@ const DropboxClient = {
     const options = { path, short_url: false };
     return DropboxApi.sharingCreateSharedLink(options)
       .catch((err) => {
-        console.log('err.error.code');
-        console.log(err.error.code === 'ECONNRESET');
-
-        if (err.error.code === 'ECONNRESET') {
-          console.log('je tente une nouvelle fois');
-
+        if (err.error && err.error.code === 'ECONNRESET') {
           setTimeout(() => DropboxApi.sharingCreateSharedLink(options)
             .then((response) => {
-              console.log('success');
+              console.info('Erreur ECONNRESET fixed after Timeout');
               return response;
             })
             .catch((err2) => {
               if (err2.error.code === 'ECONNRESET') {
-                console.log('Erreur ECONNRESET lors de la création du lien de : ', path);
-                console.log('Dropbox TCP error ECNNRESET', err2);
+                console.error('Erreur ECONNRESET lors de la création du lien de : ', path);
+                console.error('Dropbox TCP error ECNNRESET', err2);
                 return Promise.resolve({});
               }
-              console.log('Erreur étrange (ECONNRESET puis autre) lors de la création du lien de : ', path);
-              console.log(err2);
+              console.error('Erreur étrange (ECONNRESET puis autre) lors de la création du lien de : ', path);
+              console.error(err2);
               return Promise.resolve({});
             }), 1000);
         }
-        console.log('Erreur lors de la création du lien de : ', path);
-        console.log(err);
+        console.error('Erreur lors de la création du lien de : ', path);
+        console.error(err);
         return Promise.resolve({});
       });
   },
