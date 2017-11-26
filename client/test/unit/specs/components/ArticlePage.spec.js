@@ -92,10 +92,12 @@ describe('ArticlePage.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.fr);
 
-        it('contains 1 locale', () => {
-          expect(locales.length).to.equal(1);
+        it('contains 3 locales', () => {
+          expect(locales.length).to.equal(3);
           expect(locales).to.deep.equal([
             'hereTheGallery',
+            'goToPreviousArticle',
+            'goToNextArticle',
           ]);
         });
       });
@@ -103,10 +105,12 @@ describe('ArticlePage.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.en);
 
-        it('contains 1 locale', () => {
-          expect(locales.length).to.equal(1);
+        it('contains 3 locales', () => {
+          expect(locales.length).to.equal(3);
           expect(locales).to.deep.equal([
             'hereTheGallery',
+            'goToPreviousArticle',
+            'goToNextArticle',
           ]);
         });
       });
