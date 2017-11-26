@@ -12,10 +12,10 @@
           <p class="feedback-modal__error" v-if="error" aria-live="polite">{{error}}</p>
 
           <label class="feedback-modal__label" for="feedback-email">{{ $t("email") }}</label>
-          <input class="feedback-modal__email" id="feedback-email" v-model="email"/>
+          <input class="feedback-modal__email" id="feedback-email" placeholder="pierre@recontact.me" v-model="email"/>
 
           <label class="feedback-modal__label" for="feedback-content">{{ $t("content") }}</label>
-          <textarea class="feedback-modal__text" id="feedback-content" v-model="feedback"
+          <textarea class="feedback-modal__text" id="feedback-content" :placeholder="placeholder"  v-model="feedback"
                     :style="{height: heightMessage}" @keyup.shift.enter="sendFeedback"></textarea>
         </form>
       </div>
@@ -47,6 +47,7 @@
         feedback: null,
         error: null,
         heightMessage: '152px',
+        placeholder: this.$t('placeholder'),
       };
     },
     methods: {
@@ -140,6 +141,7 @@
         fr: {
           suggest: 'Laisser un message',
           content: 'Contenu du message :',
+          placeholder: 'Votre message ici',
           email: 'Email :',
           send: 'Envoyer',
           cancel: 'Annuler',
@@ -151,6 +153,7 @@
         en: {
           suggest: 'Leave a message',
           content: 'Message:',
+          placeholder: 'Your message here',
           email: 'Email:',
           send: 'Send',
           cancel: 'Cancel',
