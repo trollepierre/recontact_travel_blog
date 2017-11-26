@@ -6,7 +6,7 @@ const router = express.Router();
 router.patch('/', (req, res) => SynchronizeArticles.synchronizeArticles()
   .then(() => {
     console.log('Synchronization successful.');
-    res.json('Synchronization successful.');
+    res.status(200).json('Synchronization successful.');
   })
   .catch((err) => {
     console.error('Synchronization failed.');
