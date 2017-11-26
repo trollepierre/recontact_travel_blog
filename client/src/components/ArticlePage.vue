@@ -19,6 +19,9 @@
           </ul>
         </aside>
         <footer class="article-page__footer footer-article">
+          <button class="footer-article__home" @click="goToHomePage">
+            {{ $t("goToHomePage") }}
+          </button>
           <button class="footer-article__previous" @click="viewPreviousArticle">
             {{ $t("goToPreviousArticle") }}
           </button>
@@ -85,13 +88,11 @@
       viewNextArticle() {
         this.goToArticle(this.dropboxId + 1);
       },
+      goToHomePage() {
+        this.$router.push('/');
+      },
       goToArticle(idArticle) {
-        console.log('go to');
-
         this.$router.push(`/articles/${idArticle}`);
-        this.dropboxId = idArticle;
-        this.getChapters();
-        this.getPhotos();
       },
     },
     i18n: {
@@ -100,11 +101,13 @@
           hereTheGallery: 'Voici la galerie photo de cet article !',
           goToPreviousArticle: 'Voir l‘article précédent',
           goToNextArticle: 'Voir l‘article suivant',
+          goToHomePage: 'Retour à la page d‘accueil',
         },
         en: {
           hereTheGallery: 'Here is the photo gallery of this article',
           goToPreviousArticle: 'Read the previous article',
           goToNextArticle: 'Read the next article',
+          goToHomePage: 'Go to Home Page',
         },
       },
     },
