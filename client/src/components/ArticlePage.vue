@@ -101,7 +101,6 @@
           eventCategory: 'Article Page',
           eventAction: 'read',
           eventLabel: `article ${this.$route.params.id} is read`,
-          eventValue: null,
         });
       },
     },

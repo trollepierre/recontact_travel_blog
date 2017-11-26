@@ -64,6 +64,7 @@
       },
 
       updateArticle() {
+        this.trackEvent();
         this.disableUpdateButton();
         notificationsService.information(this, this.$t('syncLaunched'));
         articlesApi.update(this.article.dropboxId)
@@ -80,6 +81,14 @@
 
       disableUpdateButton() {
         this.isUpdateClicked = true;
+      },
+
+      trackEvent() {
+        this.$ga.event({
+          eventCategory: 'Article Card',
+          eventAction: 'update',
+          eventLabel: `article ${this.article.dropboxId} is updated`,
+        });
       },
 
       deleteArticle() {

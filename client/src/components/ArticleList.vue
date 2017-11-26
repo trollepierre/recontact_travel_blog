@@ -74,6 +74,7 @@
       },
 
       synchronise() {
+        this.trackEvent();
         this.disableButton();
         notificationsService.information(this, this.$t('syncLaunched'));
         syncApi.launch()
@@ -116,6 +117,14 @@
             notificationsService.removeInformation(this);
             notificationsService.error(this, `${this.$t('syncError')} ${err}`);
           });
+      },
+
+      trackEvent() {
+        this.$ga.event({
+          eventCategory: 'Article List',
+          eventAction: 'synchronise',
+          eventLabel: 'All articles have been synchronised',
+        });
       },
 
       goToHome() {

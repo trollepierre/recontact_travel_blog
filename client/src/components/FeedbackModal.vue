@@ -59,6 +59,7 @@
       },
 
       opened() {
+        this.trackEvent();
         this._focusOnInput();
         this._closeOnEscapeKey();
       },
@@ -96,6 +97,14 @@
             this.error = this.$t('sendingError');
             this._setErrorHeight();
           });
+      },
+
+      trackEvent() {
+        this.$ga.event({
+          eventCategory: 'Feedback Modal',
+          eventAction: 'open',
+          eventLabel: 'Feedback modal is opened',
+        });
       },
 
       cancelFeedback() {
