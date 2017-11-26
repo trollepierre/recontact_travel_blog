@@ -73,6 +73,10 @@ const DropboxClient = {
           console.log('je tente une nouvelle fois');
 
           setTimeout(() => DropboxApi.sharingCreateSharedLink(options)
+            .then((response) => {
+              console.log('success');
+              return response;
+            })
             .catch((err2) => {
               if (err2.error.code === 'ECONNRESET') {
                 console.log('Erreur ECONNRESET lors de la création du lien de : ', path);
