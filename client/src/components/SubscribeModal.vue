@@ -115,7 +115,6 @@
           eventCategory: 'Subscribe Modal',
           eventAction: 'open',
           eventLabel: 'Subscribe modal is opened',
-          eventValue: null,
         });
       },
     },
