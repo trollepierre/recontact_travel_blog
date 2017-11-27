@@ -25,7 +25,7 @@ router.get('/art/del/:id', (req, res) => {
     .then(() => res.status(204).send());
 });
 
-router.get('/art/del/syn', (req, res) => DeleteAllArticles.deleteAllArticles()
+router.get('/art/delsyn', (req, res) => DeleteAllArticles.deleteAllArticles()
   .then(() => SynchronizeArticles.synchronizeArticles())
   .then(() => res.status(200).json('Success'))
   .catch(err => res.status(500).json('Synchronization failed :', err)));

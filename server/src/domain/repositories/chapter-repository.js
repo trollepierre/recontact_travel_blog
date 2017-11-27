@@ -17,8 +17,13 @@ function deleteChaptersOfArticle(dropboxId) {
   });
 }
 
+function deleteAll() {
+  return Chapter.destroy({ where: {} });
+}
+
 module.exports = {
   createArticleChapters,
   getChaptersOfArticle,
   deleteChaptersOfArticle,
+  deleteAll,
 };

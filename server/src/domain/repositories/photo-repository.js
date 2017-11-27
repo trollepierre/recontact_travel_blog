@@ -17,8 +17,13 @@ function deletePhotosOfArticle(dropboxId) {
   });
 }
 
+function deleteAll() {
+  return Photo.destroy({ where: {} });
+}
+
 module.exports = {
   createPhotos,
   getPhotosOfArticle,
   deletePhotosOfArticle,
+  deleteAll,
 };
