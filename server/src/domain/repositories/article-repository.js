@@ -20,10 +20,15 @@ function deleteArticle(dropboxId) {
   return Article.destroy({ where: { dropboxId } });
 }
 
+function deleteAll() {
+  return Article.destroy({ where: {} });
+}
+
 module.exports = {
   create,
   getAll,
   get,
   deleteArticle,
   update,
+  deleteAll,
 };

@@ -3,16 +3,28 @@
   <div class="page">
     <main class="page__body">
       <div class="page__container">
-          <section class="article-results">
-            <h1 class="article-results__title">{{ title }}</h1>
-            <button v-if="adminMode" class="article-results__sync" type="button" :disabled="isClicked"
-                    @click.prevent.once="synchronise">{{ $t("getNewArticles") }}</button>
-            <ul class="article-results__list">
-              <li v-for="article in articles" class="article-results__item">
-                <article-card :article="article" :adminMode="adminMode"></article-card>
-              </li>
-            </ul>
-          </section>
+        <section class="article-results">
+          <h1 class="article-results__title">{{ title }}</h1>
+          <template v-if="adminMode">
+            <a href="http://recontact.me/apo/sub">
+              <button class="article-results__sync" type="button">{{ $t("getSubscribers") }}
+              </button>
+            </a>
+            <button class="article-results__sync" type="button" :disabled="isClickedSync"
+                    @click.prevent="synchronise">{{ $t("getNewArticles") }}</button>
+            <button class="article-results__sync" type="button" :disabled="isClickedSync"
+                    @click.prevent="deleteAll">{{ $t("deleteAllArticles") }}
+            </button>
+            <button class="article-results__sync" type="button" :disabled="isClickedSync"
+                    @click.prevent="deleteAndSyncAll">{{ $t("deleteAndSyncAllArticles") }}
+            </button>
+          </template>
+          <ul class="article-results__list">
+            <li v-for="article in articles" class="article-results__item">
+              <article-card :article="article" :adminMode="adminMode"></article-card>
+            </li>
+          </ul>
+        </section>
       </div>
     </main>
   </div>
@@ -34,7 +46,7 @@
     data() {
       return {
         articles: [],
-        isClicked: false,
+        isClickedSync: false,
       };
     },
     mounted() {
@@ -54,7 +66,11 @@
       },
 
       disableButton() {
-        this.isClicked = true;
+        this.isClickedSync = true;
+      },
+
+      enableButton() {
+        this.isClickedSync = false;
       },
 
       synchronise() {
@@ -72,7 +88,38 @@
           });
       },
 
+      deleteAll() {
+        this.disableButton();
+        notificationsService.information(this, this.$t('syncLaunched'));
+        articlesApi.deleteAll()
+          .then(() => {
+            notificationsService.removeInformation(this);
+            notificationsService.success(this, this.$t('syncDone'));
+          })
+          .then(() => this.goToHome())
+          .catch((err) => {
+            notificationsService.removeInformation(this);
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
+          });
+      },
+
+      deleteAndSyncAll() {
+        this.disableButton();
+        notificationsService.information(this, this.$t('syncLaunched'));
+        articlesApi.deleteAndSyncAll()
+          .then(() => {
+            notificationsService.removeInformation(this);
+            notificationsService.success(this, this.$t('syncDone'));
+          })
+          .then(() => this.goToHome())
+          .catch((err) => {
+            notificationsService.removeInformation(this);
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
+          });
+      },
+
       goToHome() {
+        this.enableButton();
         this.$router.push('/');
       },
     },
@@ -81,6 +128,9 @@
       messages: {
         fr: {
           getNewArticles: 'Récupérer les nouveaux articles',
+          deleteAllArticles: 'Supprimer tous les articles',
+          deleteAndSyncAllArticles: 'Supprimer & synchro tous les articles',
+          getSubscribers: 'Récupérer les abonnés de Recontact.me',
           fixWebsite: 'Réparer le site',
           theArticlesOfTheTrip: 'Voyageons avec Pierre',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
@@ -89,6 +139,9 @@
         },
         en: {
           getNewArticles: 'Synchronise the new articles',
+          deleteAllArticles: 'Delete all articles',
+          deleteAndSyncAllArticles: 'Delete and synchronise all articles',
+          getSubscribers: 'Get the subscribers',
           fixWebsite: 'Fix the website',
           theArticlesOfTheTrip: 'Travelling with Pierre',
           syncLaunched: 'The synchronisation is launched! Please wait...',
@@ -140,7 +193,7 @@
 
   .article-results__sync {
     text-transform: uppercase;
-    color: #d14800;
+    color: #f76252;
     background: #ffffff;
     border: 1px solid #d14800;
     cursor: pointer;
