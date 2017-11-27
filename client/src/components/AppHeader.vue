@@ -18,11 +18,6 @@
                       @click.prevent="displayFeedbackModal">{{ $t("suggestion") }}
               </button>
             </li>
-            <li class="navigation__link">
-              <button class="navbar-action navbar-action__problem" type="button"
-                      @click.prevent="goToAdmin">{{ $t("problem") }}
-              </button>
-            </li>
             <li class="navigation__link tdm">
               <a class="navbar-action navbar-action__tdm" href="http://worldtour.recontact.me" :title="tdm">
                 <img class="tdm__image" src="/static/tdm.jpg"/>
@@ -52,10 +47,6 @@
 
       displayFeedbackModal() {
         this.$modal.show('feedback-modal');
-      },
-
-      goToAdmin() {
-        this.$router.push('/admin');
       },
     },
     i18n: {
