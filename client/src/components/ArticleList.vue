@@ -7,15 +7,15 @@
           <h1 class="article-results__title">{{ title }}</h1>
           <template v-if="adminMode">
             <a href="http://recontact.me/apo/sub">
-              <button class="article-results__sync" type="button">{{ $t("getSubscribers") }}
+              <button class="article-results__sync article-results__sync_hidden" type="button">{{ $t("getSubscribers") }}
               </button>
             </a>
             <button class="article-results__sync" type="button" :disabled="isClickedSync"
                     @click.prevent="synchronise">{{ $t("getNewArticles") }}</button>
-            <button class="article-results__sync" type="button" :disabled="isClickedSync"
+            <button class="article-results__sync article-results__sync_hidden" type="button" :disabled="isClickedSync"
                     @click.prevent="deleteAll">{{ $t("deleteAllArticles") }}
             </button>
-            <button class="article-results__sync" type="button" :disabled="isClickedSync"
+            <button class="article-results__sync article-results__sync_hidden" type="button" :disabled="isClickedSync"
                     @click.prevent="deleteAndSyncAll">{{ $t("deleteAndSyncAllArticles") }}
             </button>
           </template>
@@ -202,6 +202,10 @@
     width: 230px;
     margin-bottom: 10px;
     font-weight: 700;
+  }
+
+  .article-results__sync_hidden {
+    color: #f7b5a9;
   }
 
   .article-results__sync:hover {

@@ -15,7 +15,7 @@
                   @click.prevent.once="updateArticle">
             {{ $t("repairArticle") }}
           </button>
-          <button class="article__delete-button" :disabled="isDeleteClicked"
+          <button class="article__delete-button article__footer_hidden" :disabled="isDeleteClicked"
                   @click.prevent.once="deleteArticle">
             {{ $t("deleteArticle") }}
           </button>
@@ -225,6 +225,10 @@
     width: 100%;
     margin-bottom: 10px;
     font-weight: 700;
+  }
+
+  .article__footer button.article__footer_hidden {
+    color: #f7b5a9;
   }
 
   .article__footer button:hover {
