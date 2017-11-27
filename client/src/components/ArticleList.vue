@@ -3,16 +3,28 @@
   <div class="page">
     <main class="page__body">
       <div class="page__container">
-          <section class="article-results">
-            <h1 class="article-results__title">{{ title }}</h1>
-            <button v-if="adminMode" class="article-results__sync" type="button" :disabled="isClicked"
-                    @click.prevent.once="synchronise">{{ $t("getNewArticles") }}</button>
-            <ul class="article-results__list">
-              <li v-for="article in articles" class="article-results__item">
-                <article-card :article="article" :adminMode="adminMode"></article-card>
-              </li>
-            </ul>
-          </section>
+        <section class="article-results">
+          <h1 class="article-results__title">{{ title }}</h1>
+          <template v-if="adminMode">
+            <a href="http://recontact.me/apo/sub">
+              <button class="article-results__sync article-results__sync_hidden" type="button">{{ $t("getSubscribers") }}
+              </button>
+            </a>
+            <button class="article-results__sync" type="button" :disabled="isClickedSync"
+                    @click.prevent="synchronise">{{ $t("getNewArticles") }}</button>
+            <button class="article-results__sync article-results__sync_hidden" type="button" :disabled="isClickedSync"
+                    @click.prevent="deleteAll">{{ $t("deleteAllArticles") }}
+            </button>
+            <button class="article-results__sync article-results__sync_hidden" type="button" :disabled="isClickedSync"
+                    @click.prevent="deleteAndSyncAll">{{ $t("deleteAndSyncAllArticles") }}
+            </button>
+          </template>
+          <ul class="article-results__list">
+            <li v-for="article in articles" class="article-results__item">
+              <article-card :article="article" :adminMode="adminMode"></article-card>
+            </li>
+          </ul>
+        </section>
       </div>
     </main>
   </div>
@@ -23,6 +35,7 @@
   import articlesApi from '@/api/articles';
   import syncApi from '@/api/sync';
   import notificationsService from '@/services/notifications';
+  import articlesSorter from '@/services/articlesSorter';
 
   export default {
     name: 'ArticleList',
@@ -33,7 +46,7 @@
     data() {
       return {
         articles: [],
-        isClicked: false,
+        isClickedSync: false,
       };
     },
     mounted() {
@@ -48,28 +61,65 @@
       getArticles() {
         articlesApi.fetchAll()
           .then((articles) => {
-            this.articles = articles;
+            this.articles = articlesSorter.sortByDropboxId(articles);
           });
       },
 
       disableButton() {
-        this.isClicked = true;
+        this.isClickedSync = true;
+      },
+
+      enableButton() {
+        this.isClickedSync = false;
       },
 
       synchronise() {
         this.disableButton();
-        notificationsService.success(this, this.$t('syncLaunched'));
+        notificationsService.information(this, this.$t('syncLaunched'));
         syncApi.launch()
           .then(() => {
+            notificationsService.removeInformation(this);
             notificationsService.success(this, this.$t('syncDone'));
           })
           .then(() => this.goToHome())
           .catch((err) => {
+            notificationsService.removeInformation(this);
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
+          });
+      },
+
+      deleteAll() {
+        this.disableButton();
+        notificationsService.information(this, this.$t('syncLaunched'));
+        articlesApi.deleteAll()
+          .then(() => {
+            notificationsService.removeInformation(this);
+            notificationsService.success(this, this.$t('syncDone'));
+          })
+          .then(() => this.goToHome())
+          .catch((err) => {
+            notificationsService.removeInformation(this);
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
+          });
+      },
+
+      deleteAndSyncAll() {
+        this.disableButton();
+        notificationsService.information(this, this.$t('syncLaunched'));
+        articlesApi.deleteAndSyncAll()
+          .then(() => {
+            notificationsService.removeInformation(this);
+            notificationsService.success(this, this.$t('syncDone'));
+          })
+          .then(() => this.goToHome())
+          .catch((err) => {
+            notificationsService.removeInformation(this);
             notificationsService.error(this, `${this.$t('syncError')} ${err}`);
           });
       },
 
       goToHome() {
+        this.enableButton();
         this.$router.push('/');
       },
     },
@@ -78,16 +128,22 @@
       messages: {
         fr: {
           getNewArticles: 'Récupérer les nouveaux articles',
+          deleteAllArticles: 'Supprimer tous les articles',
+          deleteAndSyncAllArticles: 'Supprimer & synchro tous les articles',
+          getSubscribers: 'Récupérer les abonnés de Recontact.me',
           fixWebsite: 'Réparer le site',
-          theArticlesOfTheTrip: 'Les articles du voyage',
+          theArticlesOfTheTrip: 'Voyageons avec Pierre',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
           syncDone: 'La synchronisation s‘est effectuée sans problème !',
           syncError: 'Erreur : Problème durant la synchronisation :',
         },
         en: {
           getNewArticles: 'Synchronise the new articles',
+          deleteAllArticles: 'Delete all articles',
+          deleteAndSyncAllArticles: 'Delete and synchronise all articles',
+          getSubscribers: 'Get the subscribers',
           fixWebsite: 'Fix the website',
-          theArticlesOfTheTrip: 'The articles of the trip',
+          theArticlesOfTheTrip: 'Travelling with Pierre',
           syncLaunched: 'The synchronisation is launched! Please wait...',
           syncDone: 'The synchronisation succeeds!',
           syncError: 'Error during the synchronisation:',
@@ -137,7 +193,7 @@
 
   .article-results__sync {
     text-transform: uppercase;
-    color: #d14800;
+    color: #f76252;
     background: #ffffff;
     border: 1px solid #d14800;
     cursor: pointer;
@@ -146,6 +202,10 @@
     width: 230px;
     margin-bottom: 10px;
     font-weight: 700;
+  }
+
+  .article-results__sync_hidden {
+    color: #f7b5a9;
   }
 
   .article-results__sync:hover {

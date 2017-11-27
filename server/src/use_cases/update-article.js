@@ -5,22 +5,16 @@ const { isEmpty, flatten } = require('lodash');
 const DropboxClient = require('../infrastructure/external_services/dropbox-client');
 const FileReader = require('../infrastructure/external_services/file-reader');
 
-function sync(dropboxId) {
-  function _createPhotosOfArticlesInDatabase({ addedArticles }) {
-    const allPhotosOfAllArticles = addedArticles.reduce((promises, article) => {
-      const photosOfArticle = getPhotosOfArticle(article);
-      promises.push(photosOfArticle);
-      return promises;
-    }, []);
-    return Promise.all(allPhotosOfAllArticles)
+async function sync(dropboxId) {
+  function _createPhotosOfArticlesInDatabase(dropboxFilesPath) {
+    return getPhotosOfArticle(dropboxFilesPath)
       .then(photos => flatten(photos))
       .then(photos => photoRepository.createPhotos(photos));
   }
 
-  function getPhotosOfArticle() {
-    return DropboxClient.getArticlePhotosPaths(dropboxId)
-      .then(paths => filterOnlyGalleryPhotos(paths))
-      .then(paths => createPhotoOfArticle(paths, dropboxId));
+  function getPhotosOfArticle(dropboxFilesPath) {
+    const paths = filterOnlyGalleryPhotos(dropboxFilesPath);
+    return createPhotoOfArticle(paths, dropboxId);
   }
 
   function filterOnlyGalleryPhotos(paths) {
@@ -29,8 +23,8 @@ function sync(dropboxId) {
       return extension === 'jpg' || extension === 'jpeg' || extension === 'png';
     });
     return photosPaths.filter((path) => {
-      const shortName = path.split('/').pop().substring(0, 3).toLowerCase();
-      return shortName !== 'img';
+      const shortName = path.split('/').pop().substring(0, 3);
+      return !shortName.match('[iI]mg');
     });
   }
 
@@ -77,13 +71,13 @@ function sync(dropboxId) {
       }));
   }
 
-  function _insertArticlesContentsInDatabase() {
-    return _updateTitleAndExtractChaptersFromArticleContent()
+  function _insertArticlesContentsInDatabase(dropboxFilesPath) {
+    return _updateTitleAndExtractChaptersFromArticleContent(dropboxFilesPath)
       .then(allChapters => flatten(allChapters))
       .then(chapters => chapterRepository.createArticleChapters(chapters));
   }
 
-  function _updateTitleAndExtractChaptersFromArticleContent() {
+  function _updateTitleAndExtractChaptersFromArticleContent(dropboxFilesPath) {
     return Promise.all([
       DropboxClient.getFrTextFileStream(dropboxId),
       DropboxClient.getEnTextFileStream(dropboxId),
@@ -92,7 +86,7 @@ function sync(dropboxId) {
         FileReader.read(files[0]),
         FileReader.read(files[1]),
       ]))
-      .then(articleContents => _serializeArticleContents(articleContents))
+      .then(articleContents => _serializeArticleContents(articleContents, dropboxFilesPath))
       .then(articleInfos => _updateArticleTitles(articleInfos))
       .then(articleInfos => _shareChapterImages(articleInfos))
       .then(({ chapters }) => chapters);
@@ -104,12 +98,12 @@ function sync(dropboxId) {
     return articleInfos;
   }
 
-  function _serializeArticleContents(rawArticles) {
+  function _serializeArticleContents(rawArticles, dropboxFilesPath) {
     const cuttedArticles = rawArticles.map(rawArticle => rawArticle
       .split('*')
       .map(row => row.trim()));
 
-    const chapters = _generateChapters(cuttedArticles);
+    const chapters = _generateChapters(cuttedArticles, dropboxFilesPath);
 
     return {
       frTitle: cuttedArticles[0][0],
@@ -118,12 +112,13 @@ function sync(dropboxId) {
     };
   }
 
-  function _generateChapters(cuttedArticles) {
+  function _generateChapters(cuttedArticles, dropboxFilesPath) {
     const frenchArticle = cuttedArticles[0];
     const englishArticle = cuttedArticles[1];
     const chapters = [];
     for (let i = 1; i < frenchArticle.length / 3; i += 1) {
-      const imgLink = `img${i}.jpg`;
+      const imgLink = dropboxFilesPath.filter(imgPath => imgPath.match(`[iI]mg-?${i}.jpg$`))[0];
+
       const frenchTitle = frenchArticle[(3 * i) - 2];
       const frenchSubtitle = frenchArticle[(3 * i) - 1];
       const englishTitle = englishArticle[(3 * i) - 2];
@@ -139,7 +134,6 @@ function sync(dropboxId) {
     }
     return chapters;
   }
-
 
   function _shareChapterImages(articleInfos) {
     const chaptersWithSharableLink = articleInfos.chapters.reduce((promises, chapter) => {
@@ -158,7 +152,7 @@ function sync(dropboxId) {
   }
 
   function _shareChapterImage(imgLink) {
-    return DropboxClient.createSharedLink(`/${dropboxId}/${imgLink}`)
+    return DropboxClient.createSharedLink(imgLink)
       .then(_transformToImgLink);
   }
 
@@ -170,24 +164,27 @@ function sync(dropboxId) {
     return isEmpty(response) ? '' : response.url;
   }
 
+  await Promise.all([
+    articleRepository.deleteArticle(dropboxId),
+    chapterRepository.deleteChaptersOfArticle(dropboxId),
+    photoRepository.deletePhotosOfArticle(dropboxId),
+  ]);
+  const dropboxFilesPath = await DropboxClient.getFilesFolderPaths(dropboxId);
+  const imageZero = dropboxFilesPath
+    .filter(path => path.match('0.jpg$'))[0];
   const report = {
     addedArticles: [
       {
         dropboxId,
-        imgPath: `/${dropboxId}/img0.jpg`,
+        imgPath: imageZero,
         galleryPath: `/${dropboxId}`,
       },
     ],
   };
-  return Promise.all([
-    articleRepository.deleteArticle(dropboxId),
-    chapterRepository.deleteChaptersOfArticle(dropboxId),
-    photoRepository.deletePhotosOfArticle(dropboxId),
-  ])
-    .then(() => _createArticlesInDatabase(report))
-    .then(() => _insertArticlesContentsInDatabase())
-    .then(() => _createPhotosOfArticlesInDatabase(report))
-    .then(() => report);
+  await _createArticlesInDatabase(report);
+  await _insertArticlesContentsInDatabase(dropboxFilesPath);
+  await _createPhotosOfArticlesInDatabase(dropboxFilesPath);
+  return report;
 }
 
 module.exports = {

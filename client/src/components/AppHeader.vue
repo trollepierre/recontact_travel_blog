@@ -2,7 +2,7 @@
   <div class="app-header">
     <header class="page__header">
       <div class="page__container page__header--container">
-        <a class="logo-link" href="/">
+        <a class="logo-link" href="/" :title="home">
           <span class="logo-link__recontact">Recontact</span>
           <span class="logo-link__me">Me</span>
         </a>
@@ -18,10 +18,10 @@
                       @click.prevent="displayFeedbackModal">{{ $t("suggestion") }}
               </button>
             </li>
-            <li class="navigation__link">
-              <button class="navbar-action navbar-action__problem" type="button"
-                      @click.prevent="goToAdmin">{{ $t("problem") }}
-              </button>
+            <li class="navigation__link tdm">
+              <a class="navbar-action navbar-action__tdm" href="http://worldtour.recontact.me" :title="tdm">
+                <img class="tdm__image" src="/static/tdm.jpg"/>
+              </a>
             </li>
           </ol>
         </nav>
@@ -32,6 +32,14 @@
 <script>
   export default {
     name: 'AppHeader',
+    computed: {
+      tdm() {
+        return this.$t('tdm');
+      },
+      home() {
+        return this.$t('home');
+      },
+    },
     methods: {
       displaySubscribeModal() {
         this.$modal.show('subscribe-modal');
@@ -40,10 +48,6 @@
       displayFeedbackModal() {
         this.$modal.show('feedback-modal');
       },
-
-      goToAdmin() {
-        this.$router.push('/admin');
-      },
     },
     i18n: {
       messages: {
@@ -51,11 +55,15 @@
           subscribe: 'S‘abonner',
           suggestion: 'Laisser un message',
           problem: 'Un problème ?',
+          tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
+          home: 'Page d’accueil',
         },
         en: {
           subscribe: 'Subscribe',
           suggestion: 'Leave a message',
           problem: 'A problem?',
+          tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
+          home: 'Home page',
         },
       },
     },
@@ -85,6 +93,10 @@
     padding: 15px 0;
   }
 
+  .logo-link:hover {
+    outline: -webkit-focus-ring-color auto 5px;
+  }
+
   .logo-link__recontact {
     color: #07c;
   }
@@ -106,6 +118,7 @@
 
   .navbar-action:hover {
     text-decoration: underline;
+    outline: -webkit-focus-ring-color auto 5px;
   }
 
   .navigation {
@@ -124,6 +137,14 @@
 
   .page__container {
     margin: 0 auto;
+  }
+
+  .tdm {
+    display: inline-flex;
+  }
+
+  .navbar-action__tdm {
+    padding: 10px;
   }
 
   @media only screen and (min-width: 640px) {

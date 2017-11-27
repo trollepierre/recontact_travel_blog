@@ -7,23 +7,31 @@ const articleRepository = require('../domain/repositories/article-repository');
 const chapterRepository = require('../domain/repositories/chapter-repository');
 const photoRepository = require('../domain/repositories/photo-repository');
 const subscriptionRepository = require('../domain/repositories/subscription-repository');
-const articlesChangedEmailTemplate = require('../infrastructure/mailing/articles-changed-email-template');
+const articlesChangedEmailFrTemplate = require('../infrastructure/mailing/articles-changed-email-fr-template');
+const articlesChangedEmailEnTemplate = require('../infrastructure/mailing/articles-changed-email-en-template');
 
-function synchronizeArticles() {
-  return DropboxClient.getAllDropboxFoldersMetadatas()
-    .then(_serializeArticles)
-    .then(_compareDropboxAndDatabaseArticles)
-    .then(_ifArticlesChangesThenUpdateArticlesInDatabase)
-    .then(_ifArticlesChangedThenSendEmailToRecipients);
+async function synchronizeArticles() {
+  const dropboxFiles = await DropboxClient.getAllDropboxFoldersMetadatas();
+  const freshArticles = _serializeArticles(dropboxFiles);
+  const report = await _compareDropboxAndDatabaseArticles(freshArticles);
+  const articlesToReport = await _ifArticlesChangesThenUpdateArticlesInDatabase(report, dropboxFiles);
+  return _ifArticlesChangedThenSendEmailToRecipients(articlesToReport);
 }
 
 function _serializeArticles(metadatas) {
+  const imageZeros = metadatas
+    .map(fileMetadata => fileMetadata.path_display)
+    .filter(path => path.match('0.jpg$'));
   return metadatas
-    .map(metadata => ({
-      dropboxId: metadata.name,
-      imgPath: `/${metadata.name}/img0.jpg`,
-      galleryPath: `/${metadata.name}`,
-    }));
+    .filter(metadata => metadata['.tag'] === 'folder')
+    .map((metadata) => {
+      const imgPath = imageZeros.filter(img => img.match(`^/${metadata.name}`))[0];
+      return ({
+        dropboxId: metadata.name,
+        imgPath,
+        galleryPath: `/${metadata.name}`,
+      });
+    });
 }
 
 function _compareDropboxAndDatabaseArticles(freshArticles) {
@@ -46,7 +54,7 @@ function _ifArticlesChangedThenSendEmailToRecipients(report) {
   if (report.hasChanges) {
     return subscriptionRepository.getAll()
       .then((subscriptions) => {
-        result.receivers = subscriptions.map(({ email }) => email);
+        result.receivers = subscriptions;
         return result;
       })
       .then(form => _sendArticlesChangedEmail(form))
@@ -57,41 +65,49 @@ function _ifArticlesChangedThenSendEmailToRecipients(report) {
 
 function _sendArticlesChangedEmail(form) {
   const { receivers } = form;
-  const template = articlesChangedEmailTemplate.compile(form);
+  const templateFr = articlesChangedEmailFrTemplate.compile(form);
+  const templateEn = articlesChangedEmailEnTemplate.compile(form);
 
-  const options = {
+  const optionsFr = {
     from: config.MAIL_FROM,
     fromName: 'RecontactMe',
-    to: receivers,
+    to: receivers.filter(({ lang }) => lang === 'fr').map(({ email }) => email),
     subject: '[RecontactMe] Il y a du nouveau sur le site !',
-    template,
+    template: templateFr,
   };
-  return mailJet.sendEmail(options);
+  const optionsEn = {
+    from: config.MAIL_FROM,
+    fromName: 'RecontactMe',
+    to: receivers.filter(({ lang }) => lang !== 'fr').map(({ email }) => email),
+    subject: '[RecontactMe] Some news on the website !',
+    template: templateEn,
+  };
+  return Promise.all([mailJet.sendEmail(optionsFr), mailJet.sendEmail(optionsEn)]);
 }
 
-function _ifArticlesChangesThenUpdateArticlesInDatabase(report) {
+function _ifArticlesChangesThenUpdateArticlesInDatabase(report, dropboxFiles) {
   if (report.hasChanges) {
     return _createArticlesInDatabase(report)
-      .then(() => _insertArticlesContentsInDatabase(report))
-      .then(() => _createPhotosOfArticlesInDatabase(report))
-      .then(() => report);
+      .then(() => _insertArticlesContentsInDatabase(report, dropboxFiles))
+      .then(articlesToReport => _createPhotosOfArticlesInDatabase(articlesToReport));
   }
   return report;
 }
 
-function _createPhotosOfArticlesInDatabase({ addedArticles }) {
-  const allPhotosOfAllArticles = addedArticles.reduce((promises, article) => {
+function _createPhotosOfArticlesInDatabase(report) {
+  const allPhotosOfAllArticles = report.addedArticles.reduce((promises, article) => {
     const photosOfArticle = getPhotosOfArticle(article);
     promises.push(photosOfArticle);
     return promises;
   }, []);
   return Promise.all(allPhotosOfAllArticles)
     .then(photos => flatten(photos))
-    .then(photos => photoRepository.createPhotos(photos));
+    .then(photos => photoRepository.createPhotos(photos))
+    .then(() => report);
 }
 
 function getPhotosOfArticle({ dropboxId }) {
-  return DropboxClient.getArticlePhotosPaths(dropboxId)
+  return DropboxClient.getFilesFolderPaths(dropboxId)
     .then(paths => filterOnlyGalleryPhotos(paths))
     .then(paths => createPhotoOfArticle(paths, dropboxId));
 }
@@ -102,8 +118,8 @@ function filterOnlyGalleryPhotos(paths) {
     return extension === 'jpg' || extension === 'jpeg' || extension === 'png';
   });
   return photosPaths.filter((path) => {
-    const shortName = path.split('/').pop().substring(0, 3).toLowerCase();
-    return shortName !== 'img';
+    const shortName = path.split('/').pop().substring(0, 3);
+    return !shortName.match('[iI]mg');
   });
 }
 
@@ -150,18 +166,36 @@ function _shareImageZero(article) {
     }));
 }
 
-function _insertArticlesContentsInDatabase({ addedArticles }) {
-  const allChaptersToSave = addedArticles.reduce((promises, article) => {
-    const chaptersToSave = _updateTitleAndExtractChaptersFromArticleContent(article);
+function _insertTitleInReport(report, articlesContents) {
+  const result = report;
+  result.addedArticles.map((article) => {
+    const articleWithTitle = article;
+    const { frTitle, enTitle } = articlesContents.find(({ dropboxId }) => dropboxId === article.dropboxId);
+    articleWithTitle.frTitle = frTitle;
+    articleWithTitle.enTitle = enTitle;
+    return articleWithTitle;
+  });
+  return result;
+}
+
+function _insertArticlesContentsInDatabase(report, dropboxFiles) {
+  let result;
+  const allChaptersToSave = report.addedArticles.reduce((promises, article) => {
+    const chaptersToSave = _updateTitleAndExtractChaptersFromArticleContent(article, dropboxFiles);
     promises.push(chaptersToSave);
     return promises;
   }, []);
   return Promise.all(allChaptersToSave)
+    .then((articlesContents) => {
+      result = _insertTitleInReport(report, articlesContents);
+      return articlesContents.map(({ chapters }) => chapters);
+    })
     .then(allChapters => flatten(allChapters))
-    .then(chapters => chapterRepository.createArticleChapters(chapters));
+    .then(chapterRepository.createArticleChapters)
+    .then(() => result);
 }
 
-function _updateTitleAndExtractChaptersFromArticleContent(article) {
+function _updateTitleAndExtractChaptersFromArticleContent(article, dropboxFiles) {
   const dropboxId = article.dropboxId;
   return Promise.all([
     DropboxClient.getFrTextFileStream(dropboxId),
@@ -171,10 +205,9 @@ function _updateTitleAndExtractChaptersFromArticleContent(article) {
       FileReader.read(files[0]),
       FileReader.read(files[1]),
     ]))
-    .then(articleContents => _serializeArticleContents(articleContents, dropboxId))
+    .then(articleContents => _serializeArticleContents(articleContents, dropboxId, dropboxFiles))
     .then(articleInfos => _updateArticleTitles(articleInfos, dropboxId))
-    .then(articleInfos => _shareChapterImages(articleInfos, dropboxId))
-    .then(articleInfos => articleInfos.chapters);
+    .then(_shareChapterImages);
 }
 
 function _updateArticleTitles(articleInfos, dropboxId) {
@@ -183,26 +216,28 @@ function _updateArticleTitles(articleInfos, dropboxId) {
   return articleInfos;
 }
 
-function _serializeArticleContents(rawArticles, dropboxId) {
+function _serializeArticleContents(rawArticles, dropboxId, dropboxFiles) {
   const cuttedArticles = rawArticles.map(rawArticle => rawArticle
     .split('*')
     .map(row => row.trim()));
 
-  const chapters = _generateChapters(cuttedArticles, dropboxId);
+  const chapters = _generateChapters(cuttedArticles, dropboxId, dropboxFiles);
 
   return {
     frTitle: cuttedArticles[0][0],
     enTitle: cuttedArticles[1][0],
     chapters,
+    dropboxId,
   };
 }
 
-function _generateChapters(cuttedArticles, dropboxId) {
+function _generateChapters(cuttedArticles, dropboxId, dropboxFiles) {
+  const chapterImagesPath = dropboxFiles.map(img => img.path_display);
   const frenchArticle = cuttedArticles[0];
   const englishArticle = cuttedArticles[1];
   const chapters = [];
   for (let i = 1; i < frenchArticle.length / 3; i += 1) {
-    const imgLink = `img${i}.jpg`;
+    const imgLink = chapterImagesPath.filter(imgPath => imgPath.match(`/${dropboxId}/[iI]mg-?${i}.jpg$`))[0];
     const frenchTitle = frenchArticle[(3 * i) - 2];
     const frenchSubtitle = frenchArticle[(3 * i) - 1];
     const englishTitle = englishArticle[(3 * i) - 2];
@@ -219,9 +254,14 @@ function _generateChapters(cuttedArticles, dropboxId) {
   return chapters;
 }
 
-function _shareChapterImages(articleInfos, dropboxId) {
+function _shareChapterImages(articleInfos) {
   const chaptersWithSharableLink = articleInfos.chapters.reduce((promises, chapter) => {
-    const promise = _shareChapterImage(chapter.imgLink, dropboxId);
+    if (isEmpty(chapter.imgLink)) {
+      console.error('Problème avec les données fournies dans cet article : ');
+      console.error(chapter);
+      return promises;
+    }
+    const promise = _shareChapterImage(chapter.imgLink);
     promises.push(promise);
     return promises;
   }, []);
@@ -235,8 +275,8 @@ function _shareChapterImages(articleInfos, dropboxId) {
     });
 }
 
-function _shareChapterImage(imgLink, dropboxId) {
-  return DropboxClient.createSharedLink(`/${dropboxId}/${imgLink}`)
+function _shareChapterImage(imgLink) {
+  return DropboxClient.createSharedLink(imgLink)
     .then(_transformToImgLink);
 }
 

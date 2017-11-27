@@ -4,25 +4,23 @@ import articlesApi from '@/api/articles';
 import ArticleList from '@/components/ArticleList';
 import syncApi from '@/api/sync';
 import notificationsService from '@/services/notifications';
+import articlesSorter from '@/services/articlesSorter';
 
 describe('ArticleList.vue', () => {
   let component;
-  let articles;
+
+  const article = (dropboxId = 59) => ({
+    dropboxId,
+    frTitle: 'Le titre',
+    enTitle: 'The title',
+  });
+
+  const fetchArticles = [article('92'), article('12')];
+  const sortedArticles = [article('12'), article('92')];
 
   beforeEach(() => {
-    articles = [
-      {
-        name: '60 : Pierre avec les webf',
-        imgLink: '../assets/toto.jpg',
-      }, {
-        name: '61 : Pierre au Koezio',
-        imgLink: '/assets/tata.jpg',
-      }, {
-        name: '62 : Pierre au Koezio',
-        imgLink: '/assets/tata.jpg',
-      },
-    ];
-    sinon.stub(articlesApi, 'fetchAll').resolves(articles);
+    sinon.stub(articlesSorter, 'sortByDropboxId').returns(sortedArticles);
+    sinon.stub(articlesApi, 'fetchAll').resolves(fetchArticles);
     const Constructor = Vue.extend(ArticleList);
     component = new Constructor(({
       router,
@@ -33,6 +31,7 @@ describe('ArticleList.vue', () => {
   });
 
   afterEach(() => {
+    articlesSorter.sortByDropboxId.restore();
     articlesApi.fetchAll.restore();
   });
 
@@ -45,15 +44,19 @@ describe('ArticleList.vue', () => {
       expect(articlesApi.fetchAll).to.have.been.calledWith();
     });
 
+    it('should call articles api to fetch articles', () => {
+      expect(articlesApi.fetchAll).to.have.been.calledWith();
+    });
+
     it('should save articles from api in data articles', () => Vue.nextTick().then(() => {
-      expect(component.$data.articles).to.equal(articles);
+      expect(component.$data.articles).to.equal(sortedArticles);
     }));
   });
 
   describe('render', () => {
     it('should render as many articles as received from the API', () => Vue.nextTick().then(() => {
       const articleCards = component.$el.querySelectorAll('.article-card');
-      expect(articleCards.length).to.equal(3);
+      expect(articleCards.length).to.equal(2);
     }));
 
     it('should render correct title', () => {
@@ -62,7 +65,7 @@ describe('ArticleList.vue', () => {
     });
 
     it('should display a button to synchronise', () => {
-      const buttonToSync = component.$el.querySelector('button.article-results__sync');
+      const buttonToSync = component.$el.querySelectorAll('button.article-results__sync')[1];
       expect(buttonToSync).to.exist;
       expect(buttonToSync.innerText).to.equal('getNewArticles');
     });
@@ -97,12 +100,16 @@ describe('ArticleList.vue', () => {
       // given
       sinon.stub(syncApi, 'launch');
       sinon.stub(notificationsService, 'success').resolves({});
+      sinon.stub(notificationsService, 'information').resolves({});
+      sinon.stub(notificationsService, 'removeInformation').resolves({});
       sinon.stub(notificationsService, 'error').resolves({});
     });
 
     afterEach(() => {
       syncApi.launch.restore();
       notificationsService.success.restore();
+      notificationsService.information.restore();
+      notificationsService.removeInformation.restore();
       notificationsService.error.restore();
     });
 
@@ -115,7 +122,7 @@ describe('ArticleList.vue', () => {
 
       // then
       const message = 'syncLaunched';
-      expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+      expect(notificationsService.information).to.have.been.calledWithExactly(component, message);
     });
 
     it('should call syncApi', () => {
@@ -140,6 +147,7 @@ describe('ArticleList.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
+        expect(notificationsService.removeInformation).to.have.been.calledWithExactly(component);
         const message = 'syncDone';
         expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
       });
@@ -170,6 +178,7 @@ describe('ArticleList.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
+        expect(notificationsService.removeInformation).to.have.been.calledWithExactly(component);
         const message = 'syncError Error: Expected error';
         expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
       });
@@ -177,30 +186,36 @@ describe('ArticleList.vue', () => {
   });
 
   describe('clicking on button "Synchronise"', () => {
+    let stub;
+    let syncButton;
+
     beforeEach(() => {
-      sinon.stub(notificationsService, 'success').resolves({});
+      stub = sinon.stub(notificationsService, 'information');
+      syncButton = component.$el.querySelectorAll('button.article-results__sync')[1];
     });
 
     afterEach(() => {
-      notificationsService.success.restore();
+      notificationsService.information.restore();
     });
 
-    it('should disable button', () => {
+    it('should disable sync button', () => {
       // when
-      component.$el.querySelector('button.article-results__sync').click();
+      stub.rejects();
+      syncButton.click();
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('button.article-results__sync').disabled).to.be.true;
+        expect(syncButton.disabled).to.be.true;
       });
     });
 
     it('should call synchronise api', () => {
       // given
+      stub.resolves({});
       sinon.stub(component, 'synchronise').resolves({});
 
       // when
-      component.$el.querySelector('button.article-results__sync').click();
+      syncButton.click();
 
       // then
       return Vue.nextTick().then(() => {
@@ -224,10 +239,13 @@ describe('ArticleList.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticleList.i18n.messages.fr);
 
-        it('contains 6 locales', () => {
-          expect(locales.length).to.equal(6);
+        it('contains 9 locales', () => {
+          expect(locales.length).to.equal(9);
           expect(locales).to.deep.equal([
             'getNewArticles',
+            'deleteAllArticles',
+            'deleteAndSyncAllArticles',
+            'getSubscribers',
             'fixWebsite',
             'theArticlesOfTheTrip',
             'syncLaunched',
@@ -240,10 +258,13 @@ describe('ArticleList.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ArticleList.i18n.messages.en);
 
-        it('contains 6 locales', () => {
-          expect(locales.length).to.equal(6);
+        it('contains 9 locales', () => {
+          expect(locales.length).to.equal(9);
           expect(locales).to.deep.equal([
             'getNewArticles',
+            'deleteAllArticles',
+            'deleteAndSyncAllArticles',
+            'getSubscribers',
             'fixWebsite',
             'theArticlesOfTheTrip',
             'syncLaunched',

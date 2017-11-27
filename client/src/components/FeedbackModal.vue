@@ -1,30 +1,29 @@
 <template>
   <div class="feedback-modal-wrapper">
-    <modal class="feedback-modal" name="feedback-modal" @before-open="beforeOpen" :height="415">
+    <modal class="feedback-modal" name="feedback-modal"
+           @before-open="beforeOpen" @opened="opened" :height="415">
 
-      <!-- modal header-->
       <div class="feedback-modal__header">
         <h2 class="feedback-modal__title">{{ $t("suggest") }}</h2>
       </div>
 
-      <!-- modal body -->
       <div class="feedback-modal__body">
-        <form class="feedback-modal__form">
+        <form class="feedback-modal__form" @submit="submit">
           <p class="feedback-modal__error" v-if="error" aria-live="polite">{{error}}</p>
 
-          <label class="feedback-modal__label" for="subscribe-content">{{ $t("email") }}</label>
-          <input class="feedback-modal__email" id="subscribe-content" v-model="email"/>
+          <label class="feedback-modal__label" for="feedback-email">{{ $t("email") }}</label>
+          <input class="feedback-modal__email" id="feedback-email" v-model="email"/>
 
           <label class="feedback-modal__label" for="feedback-content">{{ $t("content") }}</label>
           <textarea class="feedback-modal__text" id="feedback-content" v-model="feedback"
-                    :style="{height: heightMessage}"></textarea>
+                    :style="{height: heightMessage}" @keyup.shift.enter="sendFeedback"></textarea>
         </form>
       </div>
 
-      <!-- modal footer -->
       <div class="feedback-modal__footer">
         <div class="feedback-modal__actions">
-          <button class="feedback-modal__action feedback-modal__action--send" @click.prevent="sendFeedback">{{ $t("send") }}
+          <button class="feedback-modal__action feedback-modal__action--send" @click.prevent="sendFeedback">
+            {{ $t("send") }}
           </button>
           <button class="feedback-modal__action feedback-modal__action--cancel" @click.prevent="cancelFeedback">
             {{ $t("cancel") }}
@@ -56,6 +55,23 @@
         this._resetEmail();
         this._resetHeight();
         this._removeError();
+      },
+
+      opened() {
+        this._focusOnInput();
+        this._closeOnEscapeKey();
+      },
+
+      _closeOnEscapeKey() {
+        document.addEventListener('keydown', (e) => {
+          if (e.keyCode === 27) {
+            this._closeModal();
+          }
+        });
+      },
+
+      _focusOnInput() {
+        this.$el.querySelector('input#feedback-email').focus();
       },
 
       sendFeedback() {
@@ -111,6 +127,11 @@
 
       _closeModal() {
         this.$modal.hide('feedback-modal');
+      },
+
+      submit(e) {
+        e.preventDefault();
+        this.sendFeedback();
       },
     },
 

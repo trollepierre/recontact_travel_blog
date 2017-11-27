@@ -2,7 +2,6 @@ const DropboxClient = require('../../../src/infrastructure/external_services/dro
 const { expect, sinon } = require('../../test-helper');
 const Dropbox = require('dropbox');
 const dropboxFilesListFolder = require('../../fixtures/dropboxFilesListFolder');
-const filteredDropboxFilesListFolder = require('../../fixtures/filteredDropboxFilesListFolder');
 const filteredDropboxPaths = require('../../fixtures/filteredDropboxPaths');
 const dropboxFilesGetTemporaryLink = require('../../fixtures/dropboxFilesGetTemporaryLink');
 
@@ -10,10 +9,12 @@ describe('Unit | Infrastructure | dropbox-client', () => {
   describe('#getAllDropboxFoldersMetadatas', () => {
     beforeEach(() => {
       sinon.stub(Dropbox.prototype, 'filesListFolder');
+      sinon.stub(Dropbox.prototype, 'filesListFolderContinue');
     });
 
     afterEach(() => {
       Dropbox.prototype.filesListFolder.restore();
+      Dropbox.prototype.filesListFolderContinue.restore();
     });
 
     describe('with a successful answer', () => {
@@ -26,7 +27,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
         // then
         return promise.then((entries) => {
-          expect(entries).to.deep.equal([filteredDropboxFilesListFolder('58'), filteredDropboxFilesListFolder('59')]);
+          expect(entries).to.deep.equal(dropboxFilesListFolder());
         });
       });
 
@@ -39,6 +40,94 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
         // then
         expect(Dropbox.prototype.filesListFolder).to.have.been.calledWith({ path: '', recursive: true });
+      });
+
+      describe('when FilesListFolder.has_more is false', () => {
+        it('should not call dropbox API "filesListFolderContinue" ', () => {
+          // given
+          Dropbox.prototype.filesListFolder.resolves({
+            has_more: false,
+            cursor: 'cursor',
+            entries: dropboxFilesListFolder(),
+          });
+          Dropbox.prototype.filesListFolderContinue.resolves({ entries: dropboxFilesListFolder() });
+
+          // when
+          const promise = DropboxClient.getAllDropboxFoldersMetadatas();
+
+          // then
+          return promise.then(() => {
+            expect(Dropbox.prototype.filesListFolderContinue).not.to.have.been.called;
+          });
+        });
+      });
+
+      describe('when FilesListFolder.has_more is true', () => {
+        it('should call dropbox API "filesListFolderContinue" with former cursor', () => {
+          // given
+          Dropbox.prototype.filesListFolder.resolves({
+            has_more: true,
+            cursor: 'cursor',
+            entries: dropboxFilesListFolder(),
+          });
+          Dropbox.prototype.filesListFolderContinue.resolves({ entries: dropboxFilesListFolder() });
+
+          // when
+          const promise = DropboxClient.getAllDropboxFoldersMetadatas();
+
+          // then
+          return promise.then(() => {
+            expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor' });
+          });
+        });
+
+        describe('when FilesListFolderContinue.has_more is true twice', () => {
+          beforeEach(() => {
+            // given
+            Dropbox.prototype.filesListFolder.resolves({
+              has_more: true,
+              cursor: 'cursor',
+              entries: dropboxFilesListFolder(),
+            });
+            const stub = Dropbox.prototype.filesListFolderContinue;
+            stub.onFirstCall()
+              .resolves({
+                has_more: true,
+                cursor: 'cursor2',
+                entries: dropboxFilesListFolder(),
+              });
+            stub.onSecondCall()
+              .resolves({
+                has_more: true,
+                cursor: 'cursor3',
+                entries: dropboxFilesListFolder(),
+              });
+            stub.onThirdCall().resolves({ entries: dropboxFilesListFolder() });
+          });
+
+          it('should call again  2 more times dropbox API "filesListFolderContinue" with former cursors', () => {
+            // when
+            const promise = DropboxClient.getAllDropboxFoldersMetadatas();
+
+            // then
+            return promise.then(() => {
+              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledThrice;
+              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor' });
+              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor2' });
+              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor3' });
+            });
+          });
+
+          it('should return the response of the four dropbox answer as entries', () => {
+            // when
+            const promise = DropboxClient.getAllDropboxFoldersMetadatas();
+
+            // then
+            return promise.then((entries) => {
+              expect(entries.length).to.equal(dropboxFilesListFolder().length * 4);
+            });
+          });
+        });
       });
     });
 
@@ -60,7 +149,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     });
   });
 
-  describe('#getArticlePhotosPaths()', () => {
+  describe('#getFilesFolderPaths()', () => {
     const idArticle = 59;
 
     beforeEach(() => {
@@ -77,7 +166,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() });
 
         // when
-        const promise = DropboxClient.getArticlePhotosPaths(idArticle);
+        const promise = DropboxClient.getFilesFolderPaths(idArticle);
 
         // then
         return promise.then((entries) => {
@@ -90,7 +179,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() });
 
         // when
-        DropboxClient.getArticlePhotosPaths(idArticle);
+        DropboxClient.getFilesFolderPaths(idArticle);
 
         // then
         expect(Dropbox.prototype.filesListFolder).to.have.been.calledWith({ path: '/59/', recursive: true });
@@ -103,7 +192,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         Dropbox.prototype.filesListFolder.rejects(new Error('Expected error'));
 
         // when
-        const promise = DropboxClient.getArticlePhotosPaths(idArticle);
+        const promise = DropboxClient.getFilesFolderPaths(idArticle);
 
         // then
         return promise.then(() => {

@@ -1,4 +1,4 @@
-const { sinon } = require('../../test-helper');
+const { expect, sinon } = require('../../test-helper');
 const Mailjet = require('../../../src/infrastructure/mailing/mailjet');
 
 const nodeMailjet = require('node-mailjet');
@@ -105,13 +105,7 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
 
         // then
         return result.then(() => {
-          sinon.assert.calledWith(requestStub, {
-            FromEmail: 'from',
-            FromName: 'name',
-            Subject: 'subject',
-            'Html-part': 'body',
-            Recipients: [],
-          });
+          expect(mailJetConnectStub).not.to.have.been.calledWith();
         });
       });
 

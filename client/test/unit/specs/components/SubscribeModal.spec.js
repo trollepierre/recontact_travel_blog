@@ -59,6 +59,71 @@ describe('Unit | Component | SubscribeModal.vue', () => {
     });
   });
 
+  describe('#opened', () => {
+    beforeEach(() => {
+      sinon.stub(component, '_focusOnInput');
+      sinon.stub(component, '_closeModal');
+    });
+
+    afterEach(() => {
+      component._focusOnInput.restore();
+      component._closeModal.restore();
+    });
+
+    it('should focusOnInput', () => {
+      // when
+      component.opened();
+
+      // then
+      expect(component._focusOnInput).to.have.been.calledWith();
+    });
+
+    it('should close on escape key', () => {
+      // when
+      component.opened();
+
+      // then
+      const e = document.createEvent('Events');
+      e.initEvent('keydown', true, true);
+      e.keyCode = 27;
+      document.dispatchEvent(e);
+
+      return Vue.nextTick().then(() => {
+        expect(component._closeModal).to.have.been.calledWith();
+      });
+    });
+
+    it('should not close on any other key than space', () => {
+      // when
+      component.opened();
+
+      // then
+      const e = document.createEvent('Events');
+      e.initEvent('keydown', true, true);
+      e.keyCode = 13;
+      document.dispatchEvent(e);
+
+      return Vue.nextTick().then(() => {
+        expect(component._closeModal).not.to.have.been.calledWith();
+      });
+    });
+  });
+
+  describe('#_focusOnInput', () => {
+    it.skip('should focus on input subscribe content', (done) => {
+      // given
+      component.$modal.show('subscribe-modal');
+
+      // when
+      setTimeout(() => {
+        // then
+        const inputSubscribe = component.$el.querySelector('input#subscribe-content');
+        expect(inputSubscribe).to.have.focus();
+        done();
+      }, 100);
+    });
+  });
+
   describe('#sendSubscription', () => {
     beforeEach(() => {
       sinon.stub(subscriptionsApi, 'subscribe').resolves();

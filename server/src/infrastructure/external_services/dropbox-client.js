@@ -1,13 +1,28 @@
 const config = require('../config/index');
 const Dropbox = require('dropbox');
+const { flatten } = require('lodash');
 
 const DropboxApi = new Dropbox({ accessToken: config.DROPBOX_CLIENT_ID });
 
 const DropboxClient = {
 
+  async getFilesListContinue(dropboxAnswer) {
+    if (dropboxAnswer.has_more) {
+      const filesListFolderContinue = await DropboxApi.filesListFolderContinue({ cursor: dropboxAnswer.cursor });
+      return this.getFilesListContinue(
+        {
+          has_more: filesListFolderContinue.has_more,
+          entries: flatten([dropboxAnswer.entries, filesListFolderContinue.entries]),
+          cursor: filesListFolderContinue.cursor,
+        });
+    }
+    return dropboxAnswer;
+  },
+
   getAllDropboxFoldersMetadatas() {
     return DropboxApi.filesListFolder({ path: '', recursive: true })
-      .then(response => response.entries.filter(metadata => metadata['.tag'] === 'folder'))
+      .then(dropboxAnswer => this.getFilesListContinue(dropboxAnswer))
+      .then(response => response.entries)
       .catch((err) => {
         console.log('Erreur lors de la récupération de tous les fichiers Dropbox : ');
         console.log(err);
@@ -15,7 +30,7 @@ const DropboxClient = {
       });
   },
 
-  getArticlePhotosPaths(id) {
+  getFilesFolderPaths(id) {
     return DropboxApi.filesListFolder({ path: `/${id}/`, recursive: true })
       .then(response => response.entries.map(entry => entry.path_display))
       .catch((err) => {

@@ -14,14 +14,15 @@ const dropboxPhotosPaths = require('../fixtures/filteredDropboxPaths');
 const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTemporaryLink');
 const dropboxArticleFr = require('../fixtures/dropboxArticleFr');
 const dropboxArticleEn = require('../fixtures/dropboxArticleEn');
+const { flatten } = require('lodash');
 
 describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
   beforeEach(() => {
-    const dropboxFolders = [
+    const dropboxFolders = flatten([
       filteredDropboxFilesListFolder('46'),
       filteredDropboxFilesListFolder('47'),
       filteredDropboxFilesListFolder('48'),
-    ];
+    ]);
     sinon.stub(DropboxClient, 'getAllDropboxFoldersMetadatas').resolves(dropboxFolders);
   });
 
@@ -74,24 +75,28 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
   describe('when a new article has been added', () => {
     beforeEach(() => {
-      const subscriptions = [{ email: 'abonne@recontact.me' }];
+      const subscriptions = [
+        { email: 'abonne@recontact.me', lang: 'fr' },
+        { email: 'subscriber@recontact.me', lang: 'en' },
+      ];
       const oldArticles = [savedArticle('46')];
       sinon.stub(SubscriptionRepository, 'getAll').resolves(subscriptions);
       sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
       sinon.stub(ArticleRepository, 'update').resolves(oldArticles);
-      sinon.stub(ArticleRepository, 'create')
-        .resolves(savedArticle('47'))
-        .resolves(savedArticle('48'));
-      sinon.stub(ChapterRepository, 'createArticleChapters')
-        .resolves(chapterOfArticle());
+      const articleRepoCreateStub = sinon.stub(ArticleRepository, 'create');
+      articleRepoCreateStub.onFirstCall().resolves(savedArticle('47'));
+      articleRepoCreateStub.onSecondCall().resolves(savedArticle('48'));
+      sinon.stub(ChapterRepository, 'createArticleChapters').resolves(chapterOfArticle());
       sinon.stub(PhotoRepository, 'createPhotos');
-      sinon.stub(DropboxClient, 'getArticlePhotosPaths').resolves(dropboxPhotosPaths);
+      sinon.stub(DropboxClient, 'getFilesFolderPaths').resolves(dropboxPhotosPaths);
       sinon.stub(DropboxClient, 'createSharedLink');
       sinon.stub(DropboxClient, 'getFrTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
       sinon.stub(DropboxClient, 'getEnTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
-      sinon.stub(FileReader, 'read')
-        .resolves(dropboxArticleFr)
-        .resolves(dropboxArticleEn);
+      const fileReaderReadStub = sinon.stub(FileReader, 'read');
+      fileReaderReadStub.onFirstCall().resolves(dropboxArticleFr);
+      fileReaderReadStub.onSecondCall().resolves(dropboxArticleEn);
+      fileReaderReadStub.onThirdCall().resolves(dropboxArticleFr);
+      fileReaderReadStub.onCall(3).resolves(dropboxArticleEn);
       sinon.stub(mailJet, 'sendEmail').resolves({});
     });
 
@@ -102,7 +107,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       ArticleRepository.create.restore();
       ChapterRepository.createArticleChapters.restore();
       PhotoRepository.createPhotos.restore();
-      DropboxClient.getArticlePhotosPaths.restore();
+      DropboxClient.getFilesFolderPaths.restore();
       DropboxClient.createSharedLink.restore();
       DropboxClient.getFrTextFileStream.restore();
       DropboxClient.getEnTextFileStream.restore();
@@ -110,9 +115,11 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       mailJet.sendEmail.restore();
     });
 
-    describe('when dropbbox can create shared link', () => {
+    describe('when dropbox can create shared link', () => {
       beforeEach(() => {
-        DropboxClient.createSharedLink.resolves({ url: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1' });
+        for (let i = 0; i < 20; i += 1) {
+          DropboxClient.createSharedLink.onCall(i).resolves({ url: `db.com/call${i}.jpg?dl=1` });
+        }
       });
 
       it('should create shared link for each image path of the new articles ', () => {
@@ -121,8 +128,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         // then
         return promise.then(() => {
-          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/img0.jpg');
-          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/img0.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/Img-0.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/Img-0.jpg');
         });
       });
 
@@ -130,12 +137,12 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // given
         const articlesToSave = [{
           dropboxId: '47',
-          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+          galleryLink: 'db.com/call1.jpg?dl=1',
+          imgLink: 'db.com/call0.jpg?dl=1',
         }, {
           dropboxId: '48',
-          galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+          galleryLink: 'db.com/call3.jpg?dl=1',
+          imgLink: 'db.com/call2.jpg?dl=1',
         }];
 
         // when
@@ -186,7 +193,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // then
         return promise.then(() => {
           const article = {
-            frTitle: '59. Lost autour du mont Gongga',
+            frTitle: '59. Perdus autour du mont Gongga',
             enTitle: '59. Lost autour du mont Gongga',
           };
           expect(ArticleRepository.update).to.have.been.calledWith(article, '47');
@@ -202,28 +209,47 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         return promise.then(() => {
           expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
             dropboxId: '47',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+            imgLink: 'db.com/call8.jpg?dl=1',
           }, {
             dropboxId: '47',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+            imgLink: 'db.com/call9.jpg?dl=1',
+          }, {
+            dropboxId: '47',
+            imgLink: 'db.com/call10.jpg?dl=1',
           }, {
             dropboxId: '48',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+            imgLink: 'db.com/call11.jpg?dl=1',
           }, {
             dropboxId: '48',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+            imgLink: 'db.com/call12.jpg?dl=1',
+          }, {
+            dropboxId: '48',
+            imgLink: 'db.com/call13.jpg?dl=1',
           }]);
         });
       });
 
-      it('should create shared link 2 times (/47 + /47/img0) par articles (so 4 times) ' +
-        '+ 2x2 initial calls (img1&img2 x2) per imgLink + 2x2 calls per galleryPhotosLink ', () => {
+      it('should create shared link 2 times per photos + one for folder = 7 times two articles', () => {
         // when
         const promise = SynchroniseArticles.synchronizeArticles();
 
         // then
         return promise.then(() => {
-          expect(DropboxClient.createSharedLink).to.have.been.callCount(12);
+          expect(DropboxClient.createSharedLink).to.have.been.callCount(14);
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/Img-0.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/Img-0.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/img1.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/img2.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/img1.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/img2.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_180834.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_180839.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/IMG_2mggh.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_180834.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_180839.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/IMG_2mggh.jpg');
         });
       });
 
@@ -232,8 +258,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         const chaptersToSave = [
           {
             dropboxId: '47',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
-            frText: 'Gathering trois valeureux compagnons :' +
+            imgLink: 'db.com/call4.jpg?dl=1',
+            frText: 'Rassemblant trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
             '\r\n# - Franzi, la photographe' +
             '\r\n# - Vincent, le guide à la carte' +
@@ -250,7 +276,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
           }, {
             dropboxId: '47',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+            imgLink: 'db.com/call5.jpg?dl=1',
             frText: 'La région de Kangding' +
             '\r\n#' +
             "\r\nSituée sur l'autoroute menant au Tibet à l'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du \"Tibet\"." +
@@ -270,8 +296,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           },
           {
             dropboxId: '48',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
-            frText: 'Gathering trois valeureux compagnons :' +
+            imgLink: 'db.com/call6.jpg?dl=1',
+            frText: 'Rassemblant trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
             '\r\n# - Franzi, la photographe' +
             '\r\n# - Vincent, le guide à la carte' +
@@ -287,7 +313,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             enTitle: 'Le trek incroyable autour du mont Gongga Par Pierre avec Vincent et Franzi',
           }, {
             dropboxId: '48',
-            imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4/img0.jpg?dl=1',
+            imgLink: 'db.com/call7.jpg?dl=1',
             frText: 'La région de Kangding' +
             '\r\n#' +
             "\r\nSituée sur l'autoroute menant au Tibet à l'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du \"Tibet\"." +
@@ -326,10 +352,21 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             fromName: 'RecontactMe',
             to: ['abonne@recontact.me'],
             subject: '[RecontactMe] Il y a du nouveau sur le site !',
-            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://centralamerica.recontact.me/#">Recontact Me</a>.</p>' +
+            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
             '<p>2 nouveaux articles :<ul>' +
-            '<li><a href="http://centralamerica.recontact.me/#/articles/47">47</a></li>' +
-            '<li><a href="http://centralamerica.recontact.me/#/articles/48">48</a></li>' +
+            '<li><a href="http://www.recontact.me/#/articles/47">59. Perdus autour du mont Gongga</a></li>' +
+            '<li><a href="http://www.recontact.me/#/articles/48">59. Perdus autour du mont Gongga</a></li>' +
+            '</ul></p>',
+          });
+          expect(mailJet.sendEmail).to.have.been.calledWith({
+            from: 'contact@recontact.me',
+            fromName: 'RecontactMe',
+            to: ['subscriber@recontact.me'],
+            subject: '[RecontactMe] Some news on the website !',
+            template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
+            '<p>2 new articles:<ul>' +
+            '<li><a href="http://www.recontact.me/#/articles/47">59. Lost autour du mont Gongga</a></li>' +
+            '<li><a href="http://www.recontact.me/#/articles/48">59. Lost autour du mont Gongga</a></li>' +
             '</ul></p>',
           });
         });
@@ -351,9 +388,19 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             fromName: 'RecontactMe',
             to: ['abonne@recontact.me'],
             subject: '[RecontactMe] Il y a du nouveau sur le site !',
-            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://centralamerica.recontact.me/#">Recontact Me</a>.</p>' +
+            template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
             '<p>Un nouvel article :<ul>' +
-            '<li><a href="http://centralamerica.recontact.me/#/articles/47">47</a></li>' +
+            '<li><a href="http://www.recontact.me/#/articles/47">59. Perdus autour du mont Gongga</a></li>' +
+            '</ul></p>',
+          });
+          expect(mailJet.sendEmail).to.have.been.calledWith({
+            from: 'contact@recontact.me',
+            fromName: 'RecontactMe',
+            to: ['subscriber@recontact.me'],
+            subject: '[RecontactMe] Some news on the website !',
+            template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
+            '<p>One new article:<ul>' +
+            '<li><a href="http://www.recontact.me/#/articles/47">59. Lost autour du mont Gongga</a></li>' +
             '</ul></p>',
           });
         });
@@ -365,18 +412,29 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           addedArticles: [
             {
               dropboxId: '47',
+              enTitle: '59. Lost autour du mont Gongga',
+              frTitle: '59. Perdus autour du mont Gongga',
               galleryPath: '/47',
-              imgPath: '/47/img0.jpg',
+              imgPath: '/47/Img-0.jpg',
             },
             {
               dropboxId: '48',
+              enTitle: '59. Lost autour du mont Gongga',
+              frTitle: '59. Perdus autour du mont Gongga',
               galleryPath: '/48',
-              imgPath: '/48/img0.jpg',
+              imgPath: '/48/Img-0.jpg',
             },
           ],
           hasChanges: true,
           receivers: [
-            'abonne@recontact.me',
+            {
+              email: 'abonne@recontact.me',
+              lang: 'fr',
+            },
+            {
+              email: 'subscriber@recontact.me',
+              lang: 'en',
+            },
           ],
         };
 

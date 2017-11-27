@@ -1,15 +1,14 @@
 <template>
   <div class="subscribe-modal-wrapper">
-    <modal class="subscribe-modal" name="subscribe-modal" @before-open="beforeOpen" :height="315">
+    <modal class="subscribe-modal" name="subscribe-modal"
+           @before-open="beforeOpen" @opened="opened" :height="315">
 
-      <!-- modal header-->
       <div class="subscribe-modal__header">
         <h2 class="subscribe-modal__title">{{ $t("subscribe") }}</h2>
       </div>
 
-      <!-- modal body -->
       <div class="subscribe-modal__body">
-        <form class="subscribe-modal__form">
+        <form class="subscribe-modal__form" @submit="submit">
 
           <p class="subscribe-modal__error" v-if="error" aria-live="polite">{{error}}</p>
 
@@ -22,7 +21,6 @@
         </form>
       </div>
 
-      <!-- modal footer -->
       <div class="subscribe-modal__footer">
         <div class="subscribe-modal__actions">
           <button class="subscribe-modal__action subscribe-modal__action--send" @click="sendSubscription">{{ $t("confirm") }}</button>
@@ -50,6 +48,23 @@
       beforeOpen() {
         this._resetEmail();
         this._removeError();
+      },
+
+      opened() {
+        this._focusOnInput();
+        this._closeOnEscapeKey();
+      },
+
+      _closeOnEscapeKey() {
+        document.addEventListener('keydown', (e) => {
+          if (e.keyCode === 27) {
+            this._closeModal();
+          }
+        });
+      },
+
+      _focusOnInput() {
+        this.$el.querySelector('input#subscribe-content').focus();
       },
 
       sendSubscription() {
@@ -88,6 +103,11 @@
       _closeModal() {
         this.$modal.hide('subscribe-modal');
       },
+
+      submit(e) {
+        e.preventDefault();
+        this.sendSubscription();
+      },
     },
     i18n: {
       messages: {
@@ -122,7 +142,8 @@
     background-color: #eef0f4;
     padding: 10px 20px;
     justify-content: center;
-    display: flex;  }
+    display: flex;
+  }
 
   .subscribe-modal__body {
     padding: 25px 20px;

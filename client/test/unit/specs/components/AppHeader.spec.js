@@ -32,8 +32,11 @@ describe('Unit | Component | AppHeader.vue', () => {
       expect(component.$el.querySelector('button.navbar-action.navbar-action__suggestion')).to.exist;
     });
 
-    it('should display a button to alert a problem', () => {
-      expect(component.$el.querySelector('button.navbar-action.navbar-action__problem')).to.exist;
+    it('should display a img to go to tdm', () => {
+      const link = component.$el.querySelector('a.navbar-action__tdm');
+      expect(link.getAttribute('href')).to.equal('http://worldtour.recontact.me');
+      const image = component.$el.querySelector('img.tdm__image');
+      expect(image.getAttribute('src')).to.equal('/static/tdm.jpg');
     });
   });
 
@@ -73,26 +76,6 @@ describe('Unit | Component | AppHeader.vue', () => {
     });
   });
 
-  describe('#goToAdmin', () => {
-    beforeEach(() => {
-      sinon.stub(component.$router, 'push').resolves({});
-    });
-
-    afterEach(() => {
-      component.$router.push.restore();
-    });
-
-    it('should redirect to admin page', () => {
-      // when
-      component.goToAdmin();
-
-      // then
-      return Vue.nextTick().then(() => {
-        expect(component.$router.push).to.have.been.calledWith('/admin');
-      });
-    });
-  });
-
   describe('clicking on button "Laisser un message"', () => {
     it('should call displayFeedbackModal', () => {
       // given
@@ -129,24 +112,6 @@ describe('Unit | Component | AppHeader.vue', () => {
     });
   });
 
-  describe('clicking on button "Signaler un problème"', () => {
-    it('should call goToAdmin', () => {
-      // given
-      sinon.stub(component, 'goToAdmin').resolves({});
-
-      // when
-      component.$el.querySelector('button.navbar-action.navbar-action__problem').click();
-
-      // then
-      return Vue.nextTick().then(() => {
-        expect(component.goToAdmin).to.have.been.called;
-
-        // after
-        component.goToAdmin.restore();
-      });
-    });
-  });
-
   describe('locales', () => {
     const languages = Object.keys(AppHeader.i18n.messages);
 
@@ -159,18 +124,18 @@ describe('Unit | Component | AppHeader.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(AppHeader.i18n.messages.fr);
 
-        it('contains 3 locales', () => {
-          expect(locales.length).to.equal(3);
-          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem']);
+        it('contains 5 locales', () => {
+          expect(locales.length).to.equal(5);
+          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
         });
       });
 
       describe('en', () => {
         const locales = Object.keys(AppHeader.i18n.messages.en);
 
-        it('contains 3 locales', () => {
-          expect(locales.length).to.equal(3);
-          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem']);
+        it('contains 5 locales', () => {
+          expect(locales.length).to.equal(5);
+          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
         });
       });
     });
