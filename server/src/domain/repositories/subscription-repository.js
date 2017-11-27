@@ -5,7 +5,12 @@ function getByEmail(subscriberEmail) {
 }
 
 function create(subscription) {
-  return Subscription.create(subscription);
+  return Subscription.create(subscription)
+    .catch((err) => {
+      console.log('y a des errors dans le create');
+      console.error(err);
+      return err;
+    });
 }
 
 function deleteById(subscriptionId) {
