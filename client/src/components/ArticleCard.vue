@@ -15,6 +15,10 @@
                   @click.prevent.once="updateArticle">
             {{ $t("repairArticle") }}
           </button>
+          <button class="article__delete-button" :disabled="isDeleteClicked"
+                  @click.prevent.once="deleteArticle">
+            {{ $t("deleteArticle") }}
+          </button>
         </template>
         <template v-else>
           <button class="article__view-button"
@@ -43,6 +47,7 @@
     data() {
       return {
         isUpdateClicked: false,
+        isDeleteClicked: false,
       };
     },
     computed: {
@@ -59,7 +64,7 @@
       },
 
       updateArticle() {
-        this.disableDeleteButton();
+        this.disableUpdateButton();
         notificationsService.information(this, this.$t('syncLaunched'));
         articlesApi.update(this.article.dropboxId)
           .then(() => {
@@ -73,8 +78,26 @@
           });
       },
 
-      disableDeleteButton() {
+      disableUpdateButton() {
         this.isUpdateClicked = true;
+      },
+
+      deleteArticle() {
+        this.disableDeleteButton();
+        notificationsService.information(this, this.$t('deleteLaunched'));
+        articlesApi.delete(this.article.dropboxId)
+          .then(() => {
+            notificationsService.removeInformation(this);
+            notificationsService.success(this, this.$t('deleteDone'));
+          })
+          .catch((err) => {
+            notificationsService.removeInformation(this);
+            notificationsService.error(this, `${this.$t('deleteError')} ${err}`);
+          });
+      },
+
+      disableDeleteButton() {
+        this.isDeleteClicked = true;
       },
 
       goToArticle() {
@@ -86,19 +109,27 @@
       messages: {
         fr: {
           repairArticle: 'Réparer l‘article',
+          deleteArticle: 'Supprimer l‘article',
           goToArticle: 'Voir l‘article',
           viewGallery: 'Voir les photos',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
           syncDone: 'La synchronisation s‘est effectuée sans problème !',
           syncError: 'Erreur : Problème durant la synchronisation :',
+          deleteLaunched: 'La suppression est lancée ! Patientez quelques secondes...',
+          deleteDone: 'La suppression s‘est effectuée sans problème !',
+          deleteError: 'Erreur : Problème durant la suppression :',
         },
         en: {
           repairArticle: 'Repair the article',
+          deleteArticle: 'Delete the article',
           goToArticle: 'Read the article',
           viewGallery: 'Discover the pictures',
           syncLaunched: 'The synchronisation is launched! Please wait...',
           syncDone: 'The synchronisation succeeds!',
           syncError: 'Error during the synchronisation:',
+          deleteLaunched: 'The deletion is launched! Please wait...',
+          deleteDone: 'The deletion succeeds!',
+          deleteError: 'Error during the deletion:',
         },
       },
     },

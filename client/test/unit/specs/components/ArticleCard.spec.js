@@ -89,10 +89,10 @@ describe('ArticleCard.vue', () => {
       });
     });
 
-    describe('#disableDeleteButton', () => {
+    describe('#disableUpdateButton', () => {
       it('should set isUpdateClicked to true', () => {
         // when
-        component.disableDeleteButton();
+        component.disableUpdateButton();
 
         // then
         expect(component.$data.isUpdateClicked).to.be.true;
@@ -331,15 +331,19 @@ describe('ArticleCard.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticleCard.i18n.messages.fr);
 
-        it('contains 6 locales', () => {
-          expect(locales.length).to.equal(6);
+        it('contains 10 locales', () => {
+          expect(locales.length).to.equal(10);
           expect(locales).to.deep.equal([
             'repairArticle',
+            'deleteArticle',
             'goToArticle',
             'viewGallery',
             'syncLaunched',
             'syncDone',
             'syncError',
+            'deleteLaunched',
+            'deleteDone',
+            'deleteError',
           ]);
         });
       });
@@ -347,15 +351,19 @@ describe('ArticleCard.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ArticleCard.i18n.messages.en);
 
-        it('contains 6 locales', () => {
-          expect(locales.length).to.equal(6);
+        it('contains 10 locales', () => {
+          expect(locales.length).to.equal(10);
           expect(locales).to.deep.equal([
             'repairArticle',
+            'deleteArticle',
             'goToArticle',
             'viewGallery',
             'syncLaunched',
             'syncDone',
             'syncError',
+            'deleteLaunched',
+            'deleteDone',
+            'deleteError',
           ]);
         });
       });

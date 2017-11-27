@@ -15,8 +15,8 @@ describe('ArticleList.vue', () => {
     enTitle: 'The title',
   });
 
-  const fetchArticles = [article('62'), article('12')];
-  const sortedArticles = [article('12'), article('62')];
+  const fetchArticles = [article('92'), article('12')];
+  const sortedArticles = [article('12'), article('92')];
 
   beforeEach(() => {
     sinon.stub(articlesSorter, 'sortByDropboxId').returns(sortedArticles);
@@ -65,7 +65,7 @@ describe('ArticleList.vue', () => {
     });
 
     it('should display a button to synchronise', () => {
-      const buttonToSync = component.$el.querySelector('button.article-results__sync');
+      const buttonToSync = component.$el.querySelectorAll('button.article-results__sync')[1];
       expect(buttonToSync).to.exist;
       expect(buttonToSync.innerText).to.equal('getNewArticles');
     });
@@ -186,30 +186,36 @@ describe('ArticleList.vue', () => {
   });
 
   describe('clicking on button "Synchronise"', () => {
+    let stub;
+    let syncButton;
+
     beforeEach(() => {
-      sinon.stub(notificationsService, 'information').resolves({});
+      stub = sinon.stub(notificationsService, 'information');
+      syncButton = component.$el.querySelectorAll('button.article-results__sync')[1];
     });
 
     afterEach(() => {
       notificationsService.information.restore();
     });
 
-    it('should disable button', () => {
+    it('should disable sync button', () => {
       // when
-      component.$el.querySelector('button.article-results__sync').click();
+      stub.rejects();
+      syncButton.click();
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('button.article-results__sync').disabled).to.be.true;
+        expect(syncButton.disabled).to.be.true;
       });
     });
 
     it('should call synchronise api', () => {
       // given
+      stub.resolves({});
       sinon.stub(component, 'synchronise').resolves({});
 
       // when
-      component.$el.querySelector('button.article-results__sync').click();
+      syncButton.click();
 
       // then
       return Vue.nextTick().then(() => {
@@ -233,10 +239,13 @@ describe('ArticleList.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticleList.i18n.messages.fr);
 
-        it('contains 6 locales', () => {
-          expect(locales.length).to.equal(6);
+        it('contains 9 locales', () => {
+          expect(locales.length).to.equal(9);
           expect(locales).to.deep.equal([
             'getNewArticles',
+            'deleteAllArticles',
+            'deleteAndSyncAllArticles',
+            'getSubscribers',
             'fixWebsite',
             'theArticlesOfTheTrip',
             'syncLaunched',
@@ -249,10 +258,13 @@ describe('ArticleList.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ArticleList.i18n.messages.en);
 
-        it('contains 6 locales', () => {
-          expect(locales.length).to.equal(6);
+        it('contains 9 locales', () => {
+          expect(locales.length).to.equal(9);
           expect(locales).to.deep.equal([
             'getNewArticles',
+            'deleteAllArticles',
+            'deleteAndSyncAllArticles',
+            'getSubscribers',
             'fixWebsite',
             'theArticlesOfTheTrip',
             'syncLaunched',
