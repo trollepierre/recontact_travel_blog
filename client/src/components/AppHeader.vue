@@ -52,7 +52,7 @@
     i18n: {
       messages: {
         fr: {
-          subscribe: 'S‘abonner',
+          subscribe: 'S’abonner',
           suggestion: 'Laisser un message',
           problem: 'Un problème ?',
           tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',

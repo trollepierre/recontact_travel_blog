@@ -34,7 +34,7 @@ const DropboxClient = {
     return DropboxApi.filesListFolder({ path: `/${id}/`, recursive: true })
       .then(response => response.entries.map(entry => entry.path_display))
       .catch((err) => {
-        console.error(`Erreur lors de la récupération de toutes les photos de l‘article Dropbox : ${id}`);
+        console.error(`Erreur lors de la récupération de toutes les photos de l’article Dropbox : ${id}`);
         console.error(err);
         throw err;
       });
