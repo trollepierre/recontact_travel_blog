@@ -121,7 +121,7 @@
     i18n: {
       messages: {
         fr: {
-          subscribe: 'S‘abonner',
+          subscribe: 'S’abonner',
           modalText: 'Recevoir un email à chaque nouvel article du voyage !',
           email: 'Email :',
           confirm: 'Confirmer',

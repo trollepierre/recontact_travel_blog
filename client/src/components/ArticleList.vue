@@ -143,7 +143,7 @@
           fixWebsite: 'Réparer le site',
           theArticlesOfTheTrip: 'Voyageons avec Pierre',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
-          syncDone: 'La synchronisation s‘est effectuée sans problème !',
+          syncDone: 'La synchronisation s’est effectuée sans problème !',
           syncError: 'Erreur : Problème durant la synchronisation :',
         },
         en: {
