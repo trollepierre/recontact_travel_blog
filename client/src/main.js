@@ -26,8 +26,6 @@ Vue.use(VueLazyload, {
   loading: '/static/loader.gif',
 });
 
-console.log(process.env.ANALYTICS_KEY);
-
 Vue.use(VueAnalytics, {
   id: `${process.env.ANALYTICS_KEY}`,
 });
