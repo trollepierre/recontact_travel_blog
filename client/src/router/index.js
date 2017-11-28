@@ -29,5 +29,7 @@ export default new Router({
       name: 'SubscriberList',
       component: SubscriberList,
     },
+    { path: '/sub', redirect: '/subscriptions' },
+    { path: '/a/:id', redirect: '/articles/:id' },
   ],
 });
