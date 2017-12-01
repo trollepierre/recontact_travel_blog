@@ -86,10 +86,14 @@ describe('ChapterCard.vue when imgLink not set', () => {
   let chapter;
 
   beforeEach(() => {
+    sinon.stub(translationsService, 'getChapterTitle').returns('My title');
+    sinon.stub(translationsService, 'getChapterText').returns(['one text']);
     chapter = {
-      title: 'Titre du premier paragraphe',
+      frTitle: 'Titre du premier paragraphe',
+      enTitle: 'Title of the first paragraph',
       imgLink: '',
-      text: 'some blabla',
+      frText: 'du blabla',
+      enText: 'some blabla',
     };
     const Constructor = Vue.extend(ChapterCard);
     component = new Constructor({
@@ -97,6 +101,11 @@ describe('ChapterCard.vue when imgLink not set', () => {
         chapter,
       },
     }).$mount();
+  });
+
+  afterEach(() => {
+    translationsService.getChapterTitle.restore();
+    translationsService.getChapterText.restore();
   });
 
   describe('render', () => {
