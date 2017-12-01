@@ -3,6 +3,7 @@ import router from '@/router';
 import photosApi from '@/api/photos';
 import chaptersApi from '@/api/chapters';
 import ArticlePage from '@/components/ArticlePage';
+import translationsService from '@/services/translations';
 
 describe('ArticlePage.vue', () => {
   let component;
@@ -12,19 +13,21 @@ describe('ArticlePage.vue', () => {
   const idArticle = 8;
 
   beforeEach(() => {
+    sinon.stub(translationsService, 'getChapterTitle').returns('My title');
+    sinon.stub(translationsService, 'getChapterText').returns(['one text']);
     chapters = [
       {
         title: '60 : Pierre avec les webf',
         imgLink: '../assets/toto.jpg',
-        text: 'some text',
+        text: ['some text'],
       }, {
         title: '61 : Pierre au Koezio',
         imgLink: '/assets/tata.jpg',
-        text: 'some text',
+        text: ['some text'],
       }, {
         title: '62 : Pierre au Koezio',
         imgLink: '/assets/tata.jpg',
-        text: 'some text',
+        text: ['some text'],
       },
     ];
     photos = [
@@ -41,6 +44,8 @@ describe('ArticlePage.vue', () => {
   afterEach(() => {
     chaptersApi.fetch.restore();
     photosApi.fetch.restore();
+    translationsService.getChapterTitle.restore();
+    translationsService.getChapterText.restore();
   });
 
   it('should be named "ArticlePage"', () => {
