@@ -7,7 +7,8 @@
           <h1 class="article-results__title">{{ title }}</h1>
           <template v-if="adminMode">
             <a href="http://recontact.me/apo/sub">
-              <button class="article-results__sync article-results__sync_hidden" type="button">{{ $t("getSubscribers") }}
+              <button class="article-results__sync article-results__sync_hidden" type="button"
+              @click.prevent="goToSubscriptions">{{ $t("getSubscribers") }}
               </button>
             </a>
             <button class="article-results__sync" type="button" :disabled="isClickedSync"
@@ -118,7 +119,9 @@
             notificationsService.error(this, `${this.$t('syncError')} ${err}`);
           });
       },
-
+      goToSubscriptions() {
+        this.$router.push('/subscriptions');
+      },
       trackEvent() {
         this.$ga.event({
           eventCategory: 'Article List',
