@@ -17,7 +17,7 @@
           </p>
 
           <label class="subscribe-modal__label" for="subscribe-content">{{ $t("email") }}</label>
-          <input class="subscribe-modal__email" id="subscribe-content" v-model="email"/>
+          <input class="subscribe-modal__email" id="subscribe-content" placeholder="pierre@recontact.me" v-model="email"/>
         </form>
       </div>
 
@@ -51,6 +51,7 @@
       },
 
       opened() {
+        this.trackEvent();
         this._focusOnInput();
         this._closeOnEscapeKey();
       },
@@ -108,11 +109,19 @@
         e.preventDefault();
         this.sendSubscription();
       },
+
+      trackEvent() {
+        this.$ga.event({
+          eventCategory: 'Subscribe Modal',
+          eventAction: 'open',
+          eventLabel: 'Subscribe modal is opened',
+        });
+      },
     },
     i18n: {
       messages: {
         fr: {
-          subscribe: 'S‘abonner',
+          subscribe: 'S’abonner',
           modalText: 'Recevoir un email à chaque nouvel article du voyage !',
           email: 'Email :',
           confirm: 'Confirmer',

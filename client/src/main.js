@@ -5,6 +5,7 @@ import Toastr from 'vue-toastr';
 import VueModal from 'vue-js-modal';
 import VueLazyload from 'vue-lazyload';
 import VueI18n from 'vue-i18n';
+import VueAnalytics from 'vue-analytics';
 import App from './App';
 import router from './router/index';
 
@@ -23,6 +24,10 @@ const i18n = new VueI18n({
 Vue.use(VueLazyload, {
   error: '',
   loading: '/static/loader.gif',
+});
+
+Vue.use(VueAnalytics, {
+  id: `${process.env.ANALYTICS_KEY}`,
 });
 
 /* eslint-disable no-new */

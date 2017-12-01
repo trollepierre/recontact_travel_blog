@@ -9,8 +9,11 @@
         <span v-else>{{ $t("missingImage") }}</span>
       </div>
       <footer class="chapter__footer">
-        <div class="chapter__footer_text" v-for="text in chapterText">
-          <p>{{ text }}</p>
+        <div class="chapter__footer_text" v-for="paragraph in chapterText">
+          <template v-if="paragraph">
+            <a target="_blank" :href="paragraph.text" v-if="paragraph.isLink">{{ paragraph.text }}</a>
+            <p v-else>{{ paragraph.text }}</p>
+          </template>
         </div>
       </footer>
     </article>
@@ -35,7 +38,16 @@
         return translationsService.getChapterTitle(this.chapter);
       },
       chapterText() {
-        return translationsService.getChapterText(this.chapter);
+        const text2 = translationsService.getChapterText(this.chapter);
+        return text2.map((paragraph) => {
+          let isLink = false;
+          /* eslint-disable no-useless-escape */
+          const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?');
+          if (urlRegExp.test(paragraph)) {
+            isLink = true;
+          }
+          return { isLink, text: paragraph };
+        });
       },
     },
     i18n: {

@@ -6,7 +6,7 @@
           <h2 class="article__title">{{ articleTitle }}</h2>
         </a>
       </header>
-      <div class="article__content">
+      <div class="article__content" @click.prevent.once="viewArticle">
         <img class="article__image" :src="article.imgLink" width="200"/>
       </div>
       <footer class="article__footer">
@@ -64,6 +64,7 @@
       },
 
       updateArticle() {
+        this.trackEvent();
         this.disableUpdateButton();
         notificationsService.information(this, this.$t('syncLaunched'));
         articlesApi.update(this.article.dropboxId)
@@ -80,6 +81,14 @@
 
       disableUpdateButton() {
         this.isUpdateClicked = true;
+      },
+
+      trackEvent() {
+        this.$ga.event({
+          eventCategory: 'Article Card',
+          eventAction: 'update',
+          eventLabel: `article ${this.article.dropboxId} is updated`,
+        });
       },
 
       deleteArticle() {
@@ -108,15 +117,15 @@
     i18n: {
       messages: {
         fr: {
-          repairArticle: 'Réparer l‘article',
-          deleteArticle: 'Supprimer l‘article',
-          goToArticle: 'Voir l‘article',
+          repairArticle: 'Réparer l’article',
+          deleteArticle: 'Supprimer l’article',
+          goToArticle: 'Voir l’article',
           viewGallery: 'Voir les photos',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
-          syncDone: 'La synchronisation s‘est effectuée sans problème !',
+          syncDone: 'La synchronisation s’est effectuée sans problème !',
           syncError: 'Erreur : Problème durant la synchronisation :',
           deleteLaunched: 'La suppression est lancée ! Patientez quelques secondes...',
-          deleteDone: 'La suppression s‘est effectuée sans problème !',
+          deleteDone: 'La suppression s’est effectuée sans problème !',
           deleteError: 'Erreur : Problème durant la suppression :',
         },
         en: {

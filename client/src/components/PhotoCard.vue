@@ -4,7 +4,7 @@
       <div class="photo__content">
         <div ref="container">
           <img v-lazy="imgLink"/>
-          <div v-lazy:background-image="imgUrl"></div>
+          <div v-lazy:background-image="imgLink"></div>
         </div>
       </div>
     </article>

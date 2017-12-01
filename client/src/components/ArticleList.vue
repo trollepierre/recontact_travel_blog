@@ -74,6 +74,7 @@
       },
 
       synchronise() {
+        this.trackEvent();
         this.disableButton();
         notificationsService.information(this, this.$t('syncLaunched'));
         syncApi.launch()
@@ -118,6 +119,14 @@
           });
       },
 
+      trackEvent() {
+        this.$ga.event({
+          eventCategory: 'Article List',
+          eventAction: 'synchronise',
+          eventLabel: 'All articles have been synchronised',
+        });
+      },
+
       goToHome() {
         this.enableButton();
         this.$router.push('/');
@@ -134,7 +143,7 @@
           fixWebsite: 'Réparer le site',
           theArticlesOfTheTrip: 'Voyageons avec Pierre',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
-          syncDone: 'La synchronisation s‘est effectuée sans problème !',
+          syncDone: 'La synchronisation s’est effectuée sans problème !',
           syncError: 'Erreur : Problème durant la synchronisation :',
         },
         en: {

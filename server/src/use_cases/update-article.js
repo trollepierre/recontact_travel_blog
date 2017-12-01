@@ -137,6 +137,11 @@ async function sync(dropboxId) {
 
   function _shareChapterImages(articleInfos) {
     const chaptersWithSharableLink = articleInfos.chapters.reduce((promises, chapter) => {
+      if (isEmpty(chapter.imgLink)) {
+        console.error('Problème avec les données fournies dans cet article : ');
+        console.error(chapter);
+        return promises;
+      }
       const promise = _shareChapterImage(chapter.imgLink);
       promises.push(promise);
       return promises;
