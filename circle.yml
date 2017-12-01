@@ -4,7 +4,7 @@ machine:
 
 test:
   pre:
-    - npm run lint
+    - npm run lint:fix
 
 deployment:
   staging:
