@@ -196,7 +196,7 @@ function _insertArticlesContentsInDatabase(report, dropboxFiles) {
 }
 
 function _updateTitleAndExtractChaptersFromArticleContent(article, dropboxFiles) {
-  const dropboxId = article.dropboxId;
+  const { dropboxId } = article;
   return Promise.all([
     DropboxClient.getFrTextFileStream(dropboxId),
     DropboxClient.getEnTextFileStream(dropboxId),

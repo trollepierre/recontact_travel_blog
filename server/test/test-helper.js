@@ -1,15 +1,17 @@
 // Mocha
-const { describe, it, before, after, beforeEach, afterEach } = require('mocha');
+const {
+  describe, it, before, after, beforeEach, afterEach,
+} = require('mocha');
 
 // Sinon
 const sinon = require('sinon');
 
-const assert = sinon.assert;
+const { assert } = sinon;
 
 // Chai
 const chai = require('chai');
 
-const expect = chai.expect;
+const { expect } = chai;
 
 // Chai plugins
 chai.use(require('chai-as-promised'));

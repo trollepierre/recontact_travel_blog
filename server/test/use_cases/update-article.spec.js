@@ -287,6 +287,5 @@ describe('Unit | UpdateArticle | sync', () => {
       });
     });
   });
-})
-;
+});
 
