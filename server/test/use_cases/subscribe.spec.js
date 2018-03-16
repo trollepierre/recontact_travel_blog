@@ -49,8 +49,7 @@ describe('Unit | Subscribe | subscribe', () => {
 
       // then
       return promise.then((returnedSubscriptions) => {
-        expect(returnedSubscriptions).to.deep.equal(
-          { created: false, subscription: subscription() });
+        expect(returnedSubscriptions).to.deep.equal({ created: false, subscription: subscription() });
       });
     });
   });
@@ -76,8 +75,7 @@ describe('Unit | Subscribe | subscribe', () => {
 
       // then
       return promise.then((returnedSubscriptions) => {
-        expect(returnedSubscriptions).to.deep.equal(
-          { created: true, subscription: subscription() });
+        expect(returnedSubscriptions).to.deep.equal({ created: true, subscription: subscription() });
       });
     });
   });

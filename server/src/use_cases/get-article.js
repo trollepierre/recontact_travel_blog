@@ -10,11 +10,13 @@ function _addParagraphsInOneText(text) {
 }
 
 function _addParagraphsInAllChapters(chapters) {
-  return chapters.map(chapter => Object.assign(chapter,
+  return chapters.map(chapter => Object.assign(
+    chapter,
     {
       frText: _addParagraphsInOneText(chapter.frText),
       enText: _addParagraphsInOneText(chapter.enText),
-    }));
+    },
+  ));
 }
 
 function _addTitle(chapters, dropboxId) {
