@@ -9,12 +9,11 @@ const DropboxClient = {
   async getFilesListContinue(dropboxAnswer) {
     if (dropboxAnswer.has_more) {
       const filesListFolderContinue = await DropboxApi.filesListFolderContinue({ cursor: dropboxAnswer.cursor });
-      return this.getFilesListContinue(
-        {
-          has_more: filesListFolderContinue.has_more,
-          entries: flatten([dropboxAnswer.entries, filesListFolderContinue.entries]),
-          cursor: filesListFolderContinue.cursor,
-        });
+      return this.getFilesListContinue({
+        has_more: filesListFolderContinue.has_more,
+        entries: flatten([dropboxAnswer.entries, filesListFolderContinue.entries]),
+        cursor: filesListFolderContinue.cursor,
+      });
     }
     return dropboxAnswer;
   },
