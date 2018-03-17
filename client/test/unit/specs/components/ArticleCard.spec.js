@@ -82,10 +82,10 @@ describe('ArticleCard.vue', () => {
     describe('computed property #articleTitle', () => {
       it('should return articleName', () => {
         // When
-        const { articleTile } = component;
+        const { articleTitle } = component;
 
         // Then
-        expect(articleTile).to.equal('Pierre somewhere');
+        expect(articleTitle).to.equal('Pierre somewhere');
       });
     });
 
