@@ -191,7 +191,7 @@ describe('ArticleList.vue', () => {
 
     beforeEach(() => {
       stub = sinon.stub(notificationsService, 'information');
-      syncButton = component.$el.querySelectorAll('button.article-results__sync')[1];
+      [, syncButton] = component.$el.querySelectorAll('button.article-results__sync');
     });
 
     afterEach(() => {
