@@ -28,7 +28,7 @@
     props: ['chapter'],
     computed: {
       imgLink() {
-        const imgLink = this.chapter.imgLink;
+        const { imgLink } = this.chapter;
         if (!imgLink) {
           return false;
         }

@@ -77,7 +77,7 @@ describe('ArticleList.vue', () => {
       component.$props.adminMode = true;
 
       // When
-      const title = component.title;
+      const { title } = component;
 
       // Then
       expect(title).to.equal('fixWebsite');
@@ -88,7 +88,7 @@ describe('ArticleList.vue', () => {
       component.$props.adminMode = false;
 
       // When
-      const title = component.title;
+      const { title } = component;
 
       // Then
       expect(title).to.equal('theArticlesOfTheTrip');
