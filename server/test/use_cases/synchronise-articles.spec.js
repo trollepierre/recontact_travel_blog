@@ -271,8 +271,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             '\r\n# - Vincent, le guide à la carte' +
             '\r\n##' +
             "\r\nCe trek avait sur le papier, tout d'un long fleuve tranquille... Le destin en a décidé autrement...",
-            frTitle: 'Le trek incroyable autour du mont Gongga Par Pierre avec Vincent et Franzi',
-            enTitle: 'Le trek incroyable autour du mont Gongga Par Pierre avec Vincent et Franzi',
+            frTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
+            enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
 
           }, {
             dropboxId: '47',
@@ -309,8 +309,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             '\r\n# - Vincent, le guide à la carte' +
             '\r\n##' +
             "\r\nCe trek avait sur le papier, tout d'un long fleuve tranquille... Le destin en a décidé autrement...",
-            frTitle: 'Le trek incroyable autour du mont Gongga Par Pierre avec Vincent et Franzi',
-            enTitle: 'Le trek incroyable autour du mont Gongga Par Pierre avec Vincent et Franzi',
+            frTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
+            enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
           }, {
             dropboxId: '48',
             imgLink: 'db.com/call7.jpg?dl=1',

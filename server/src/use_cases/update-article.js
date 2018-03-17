@@ -112,6 +112,13 @@ async function sync(dropboxId) {
     };
   }
 
+  function buildFullTitle(title, subtitle) {
+    if ((title && subtitle) || (!title && !subtitle)) {
+      return [title, subtitle].join(' - ').trim();
+    }
+    return [title, subtitle].join('');
+  }
+
   function _generateChapters(cuttedArticles, dropboxFilesPath) {
     const frenchArticle = cuttedArticles[0];
     const englishArticle = cuttedArticles[1];
@@ -123,10 +130,12 @@ async function sync(dropboxId) {
       const frenchSubtitle = frenchArticle[(3 * i) - 1];
       const englishTitle = englishArticle[(3 * i) - 2];
       const englishSubtitle = englishArticle[(3 * i) - 1];
+      const frTitle = buildFullTitle(frenchTitle, frenchSubtitle);
+      const enTitle = buildFullTitle(englishTitle, englishSubtitle);
       chapters[i - 1] = {
         dropboxId,
-        frTitle: [frenchTitle, frenchSubtitle].join(' ').trim(),
-        enTitle: [englishTitle, englishSubtitle].join(' ').trim(),
+        frTitle,
+        enTitle,
         imgLink,
         frText: frenchArticle[3 * i],
         enText: englishArticle[3 * i],
