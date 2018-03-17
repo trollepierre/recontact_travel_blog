@@ -47,7 +47,7 @@ describe('PhotoCard.vue', () => {
       photo.imgLink = 'dropbox.com/img0.jpg';
 
       // When
-      const imgLink = component.imgLink;
+      const { imgLink } = component;
 
       // Then
       expect(imgLink).to.equal('dropbox.com/img0.jpg');
@@ -58,7 +58,7 @@ describe('PhotoCard.vue', () => {
       photo.imgLink = '';
 
       // When
-      const imgLink = component.imgLink;
+      const { imgLink } = component;
 
       // Then
       expect(imgLink).to.equal(false);

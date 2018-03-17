@@ -72,7 +72,7 @@ describe('ArticleCard.vue', () => {
     describe('computed property #articleUrl', () => {
       it('should return /articles/:id', () => {
         // When
-        const articleUrl = component.articleUrl;
+        const { articleUrl } = component;
 
         // Then
         expect(articleUrl).to.equal('/articles/58');
@@ -82,7 +82,7 @@ describe('ArticleCard.vue', () => {
     describe('computed property #articleTitle', () => {
       it('should return articleName', () => {
         // When
-        const articleTile = component.articleTitle;
+        const { articleTile } = component;
 
         // Then
         expect(articleTile).to.equal('Pierre somewhere');

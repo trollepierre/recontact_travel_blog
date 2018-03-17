@@ -62,7 +62,7 @@ describe('ChapterCard.vue', () => {
       chapter.imgLink = 'dropbox.com/img0.jpg';
 
       // When
-      const imgLink = component.imgLink;
+      const { imgLink } = component;
 
       // Then
       expect(imgLink).to.equal('dropbox.com/img0.jpg');
@@ -73,7 +73,7 @@ describe('ChapterCard.vue', () => {
       chapter.imgLink = '';
 
       // When
-      const imgLink = component.imgLink;
+      const { imgLink } = component;
 
       // Then
       expect(imgLink).to.equal(false);

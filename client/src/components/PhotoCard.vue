@@ -20,7 +20,7 @@
     },
     computed: {
       imgLink() {
-        const imgLink = this.photo.imgLink;
+        const { imgLink } = this.photo;
         if (!imgLink) {
           return false;
         }
