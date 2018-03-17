@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "clean": "npm run clean:dependencies && npm run clean:db",
+    "clean": "yarn clean:dependencies && yarn clean:db",
     "clean:dependencies": "rm -rf node_modules",
     "clean:db": "rm src/db/data.development.sqlite",
     "configure": "./tools/setup/setup.sh",
@@ -11,7 +11,7 @@
     "db": "./node_modules/.bin/sequelize",
     "db:help": "./node_modules/.bin/sequelize help",
     "db:migrate": "./node_modules/.bin/sequelize db:migrate",
-    "db:reset": "npm run clean:db && npm run db:migrate",
+    "db:reset": "yarn clean:db && yarn db:migrate",
     "db:rollback": "./node_modules/.bin/sequelize db:migrate:undo",
     "lint": "./node_modules/.bin/eslint --ext .js src test",
     "lint:fix": "./node_modules/.bin/eslint --fix --ext .js src test",
