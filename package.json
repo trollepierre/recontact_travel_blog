@@ -4,8 +4,6 @@
   "description": "Travel blog of Pierre Trollé",
   "author": "Pierre Trollé <pierre@recontact.me>",
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {},
   "scripts": {
     "install:client": "(cd client && yarn)",
     "install:server": "(cd server && yarn)",
