@@ -4,7 +4,10 @@
     <main class="page__body">
       <div class="page__container">
         <section class="article-results">
-          <h1 class="article-results__title">{{ title }}</h1>
+          <h1 class="article-results__title hidden">{{ title }}</h1>
+          <p class="article-results__title h1">Pierre en voyage</p>
+          <p class="article-results__title h2">Dernière position connue :
+            <span class="article-results__title h3">{{ lastPosition }}</span></p>
           <template v-if="adminMode">
             <a href="http://recontact.me/apo/sub">
               <button class="article-results__sync article-results__sync_hidden" type="button"
@@ -34,6 +37,7 @@
 <script>
   import ArticleCard from '@/components/ArticleCard';
   import articlesApi from '@/api/articles';
+  import positionsApi from '@/api/positions';
   import syncApi from '@/api/sync';
   import notificationsService from '@/services/notifications';
   import articlesSorter from '@/services/articlesSorter';
@@ -48,10 +52,12 @@
       return {
         articles: [],
         isClickedSync: false,
+        lastPosition: 'Cancun, Mexico, le 5 mars 2018',
       };
     },
     mounted() {
       this.getArticles();
+      this.getLastPosition();
     },
     computed: {
       title() {
@@ -63,6 +69,13 @@
         articlesApi.fetchAll()
           .then((articles) => {
             this.articles = articlesSorter.sortByDropboxId(articles);
+          });
+      },
+
+      getLastPosition() {
+        positionsApi.fetchLast()
+          .then((position) => {
+            this.lastPosition = position;
           });
       },
 
@@ -144,7 +157,7 @@
           deleteAndSyncAllArticles: 'Supprimer & synchro tous les articles',
           getSubscribers: 'Récupérer les abonnés de Recontact.me',
           fixWebsite: 'Réparer le site',
-          theArticlesOfTheTrip: 'Voyageons avec Pierre',
+          theArticlesOfTheTrip: 'Blog de voyage de Pierre Trollé et Benoît Lefebvre après un tour du monde et d’autres aventures',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
           syncDone: 'La synchronisation s’est effectuée sans problème !',
           syncError: 'Erreur : Problème durant la synchronisation :',
@@ -155,7 +168,7 @@
           deleteAndSyncAllArticles: 'Delete and synchronise all articles',
           getSubscribers: 'Get the subscribers',
           fixWebsite: 'Fix the website',
-          theArticlesOfTheTrip: 'Travelling with Pierre',
+          theArticlesOfTheTrip: 'Travel blog of Pierre Trollé and Benoît Lefebvre after a world trip and other adventures',
           syncLaunched: 'The synchronisation is launched! Please wait...',
           syncDone: 'The synchronisation succeeds!',
           syncError: 'Error during the synchronisation:',
@@ -182,6 +195,19 @@
     font-weight: 300;
     font-size: 24px;
     margin: 0 0 15px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .h2 {
+    font-size: 16px;
+  }
+
+  .h3 {
+    font-size: 16px;
+    font-weight: 600;
   }
 
   .article-results__list {
