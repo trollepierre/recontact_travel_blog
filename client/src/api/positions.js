@@ -14,5 +14,5 @@ export default {
     const options = { headers: { 'Content-Type': 'application/json' } };
     return axios.post(url, position, options)
       .then(response => response.data);
-  }
+  },
 };
