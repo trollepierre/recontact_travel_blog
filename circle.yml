@@ -1,10 +1,12 @@
 machine:
   node:
-   version: 7
+   version: 9
+  npm:
+   version: 5.6
 
 test:
   pre:
-    - npm run lint:fix
+    - npm run lint
 
 deployment:
   staging:

@@ -209,8 +209,8 @@ describe('Unit | UpdateArticle | sync', () => {
           '\r\n# - Vincent, le guide à la carte' +
           '\r\n##' +
           "\r\nCe trek avait sur le papier, tout d'un long fleuve tranquille... Le destin en a décidé autrement...",
-          frTitle: 'Le trek incroyable autour du mont Gongga Par Pierre avec Vincent et Franzi',
-          enTitle: 'Le trek incroyable autour du mont Gongga Par Pierre avec Vincent et Franzi',
+          frTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
+          enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
 
         }, {
           dropboxId: 8,
@@ -265,7 +265,7 @@ describe('Unit | UpdateArticle | sync', () => {
     });
   });
 
-  describe('when dropbbox cannot create shared link', () => {
+  describe('when Dropbox cannot create shared link', () => {
     beforeEach(() => {
       DropboxClient.createSharedLink.resolves({});
     });
@@ -287,6 +287,5 @@ describe('Unit | UpdateArticle | sync', () => {
       });
     });
   });
-})
-;
+});
 

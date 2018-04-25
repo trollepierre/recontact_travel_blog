@@ -65,7 +65,7 @@ describe('ArticleList.vue', () => {
     });
 
     it('should display a button to synchronise', () => {
-      const buttonToSync = component.$el.querySelectorAll('button.article-results__sync')[1];
+      const buttonToSync = component.$el.querySelectorAll('button.article-results__buttons')[1];
       expect(buttonToSync).to.exist;
       expect(buttonToSync.innerText).to.equal('getNewArticles');
     });
@@ -77,7 +77,7 @@ describe('ArticleList.vue', () => {
       component.$props.adminMode = true;
 
       // When
-      const title = component.title;
+      const { title } = component;
 
       // Then
       expect(title).to.equal('fixWebsite');
@@ -88,7 +88,7 @@ describe('ArticleList.vue', () => {
       component.$props.adminMode = false;
 
       // When
-      const title = component.title;
+      const { title } = component;
 
       // Then
       expect(title).to.equal('theArticlesOfTheTrip');
@@ -191,7 +191,7 @@ describe('ArticleList.vue', () => {
 
     beforeEach(() => {
       stub = sinon.stub(notificationsService, 'information');
-      syncButton = component.$el.querySelectorAll('button.article-results__sync')[1];
+      [, syncButton] = component.$el.querySelectorAll('button.article-results__buttons');
     });
 
     afterEach(() => {
@@ -240,7 +240,7 @@ describe('ArticleList.vue', () => {
         const locales = Object.keys(ArticleList.i18n.messages.fr);
 
         it('contains 9 locales', () => {
-          expect(locales.length).to.equal(9);
+          expect(locales.length).to.equal(13);
           expect(locales).to.deep.equal([
             'getNewArticles',
             'deleteAllArticles',
@@ -251,6 +251,10 @@ describe('ArticleList.vue', () => {
             'syncLaunched',
             'syncDone',
             'syncError',
+            'place',
+            'time',
+            'confirm',
+            'lastPosition',
           ]);
         });
       });
@@ -259,7 +263,7 @@ describe('ArticleList.vue', () => {
         const locales = Object.keys(ArticleList.i18n.messages.en);
 
         it('contains 9 locales', () => {
-          expect(locales.length).to.equal(9);
+          expect(locales.length).to.equal(13);
           expect(locales).to.deep.equal([
             'getNewArticles',
             'deleteAllArticles',
@@ -270,6 +274,10 @@ describe('ArticleList.vue', () => {
             'syncLaunched',
             'syncDone',
             'syncError',
+            'place',
+            'time',
+            'confirm',
+            'lastPosition',
           ]);
         });
       });
