@@ -22,7 +22,7 @@ describe('Unit | API | positions api', () => {
 
     it('should fetchLast API with the good params', () => {
       // given
-      const expectedUrl = `${process.env.API_URL}positions/last`;
+      const expectedUrl = `${process.env.API_URL}api/positions/last`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when
@@ -40,7 +40,7 @@ describe('Unit | API | positions api', () => {
 
       // then
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).to.equal(data.lastPosition);
+        expect(returnedChapters).to.equal(data);
       });
     });
 
