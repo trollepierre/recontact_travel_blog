@@ -17,7 +17,7 @@ Vue.use(VueI18n);
 Vue.use(VueModal);
 
 const i18n = new VueI18n({
-  locale: navigator.language,
+  locale: navigator.language.substring(0, 2),
   fallbackLocale: 'en',
 });
 

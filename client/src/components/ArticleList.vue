@@ -10,18 +10,31 @@
             <span class="article-results__title h3">{{ lastPosition }}</span></p>
           <template v-if="adminMode">
             <a href="http://recontact.me/apo/sub">
-              <button class="article-results__sync article-results__sync_hidden" type="button"
-              @click.prevent="goToSubscriptions">{{ $t("getSubscribers") }}
+              <button class="article-results__buttons article-results__sync_hidden" type="button"
+                      @click.prevent="goToSubscriptions">{{ $t("getSubscribers") }}
               </button>
             </a>
-            <button class="article-results__sync" type="button" :disabled="isClickedSync"
+            <button class="article-results__buttons" type="button" :disabled="isClickedSync"
                     @click.prevent="synchronise">{{ $t("getNewArticles") }}</button>
-            <button class="article-results__sync article-results__sync_hidden" type="button" :disabled="isClickedSync"
+            <button class="article-results__buttons article-results__sync_hidden" type="button" :disabled="isClickedSync"
                     @click.prevent="deleteAll">{{ $t("deleteAllArticles") }}
             </button>
-            <button class="article-results__sync article-results__sync_hidden" type="button" :disabled="isClickedSync"
+            <button class="article-results__buttons article-results__sync_hidden" type="button" :disabled="isClickedSync"
                     @click.prevent="deleteAndSyncAll">{{ $t("deleteAndSyncAllArticles") }}
             </button>
+            <br>
+
+            <form class="article-results__form">
+              <p class="article-results__text">
+                {{ $t("lastPosition") }}
+              </p>
+              <label class="article-results__label" for="position-place">{{ $t("place") }}</label>
+              <input class="article-results__input article-results__place" id="position-place" placeholder="Paris" v-model="place"/>
+              <label class="article-results__label" for="position-time">{{ $t("time") }}</label>
+              <input class="article-results__input article-results__time" id="position-time" placeholder="le 1er mai 2018" v-model="time"/>
+              <button class="article-results__buttons article-results__action--send" @click="updateLastPosition">{{ $t("confirm") }}</button>
+            </form>
+
           </template>
           <ul class="article-results__list">
             <li v-for="article in articles" class="article-results__item">
@@ -53,6 +66,8 @@
         articles: [],
         isClickedSync: false,
         lastPosition: 'Cancun, Mexico, le 5 mars 2018',
+        place: null,
+        time: null,
       };
     },
     mounted() {
@@ -72,11 +87,27 @@
           });
       },
 
+      updateLastPositionData({place, time}) {
+        this.lastPosition = `${place}, ${time}`;
+      },
+
       getLastPosition() {
         positionsApi.fetchLast()
-          .then((position) => {
-            this.lastPosition = position;
-          });
+          .then(this.updateLastPositionData);
+      },
+
+      submit(e) {
+        e.preventDefault();
+        this.updateLastPosition();
+      },
+
+      updateLastPosition() {
+        let position = {
+          place: this.place,
+          time: this.time,
+        }
+        positionsApi.setLast(position)
+          .then(this.updateLastPositionData);
       },
 
       disableButton() {
@@ -161,6 +192,10 @@
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
           syncDone: 'La synchronisation s’est effectuée sans problème !',
           syncError: 'Erreur : Problème durant la synchronisation :',
+          place: 'Position :',
+          time: 'Date :',
+          confirm: 'Envoyer',
+          lastPosition: 'Dernière position :'
         },
         en: {
           getNewArticles: 'Synchronise the new articles',
@@ -172,6 +207,10 @@
           syncLaunched: 'The synchronisation is launched! Please wait...',
           syncDone: 'The synchronisation succeeds!',
           syncError: 'Error during the synchronisation:',
+          place: 'Position:',
+          time: 'Date:',
+          confirm: 'Confirm',
+          lastPosition: 'Last position:'
         },
       },
     },
@@ -229,7 +268,17 @@
     }
   }
 
-  .article-results__sync {
+  .article-results__input {
+    background: #ffffff;
+    border: 1px solid cadetblue;
+    padding: 15px 10px;
+    border-radius: 4px;
+    width: 230px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .article-results__buttons {
     text-transform: uppercase;
     color: #f76252;
     background: #ffffff;
@@ -246,12 +295,12 @@
     color: #f7b5a9;
   }
 
-  .article-results__sync:hover {
+  .article-results__buttons:hover {
     background: #d14800;
     color: #ffffff;
   }
 
-  .article-results__sync:disabled,
+  .article-results__buttons:disabled,
   .article__footer button:active {
 
     background: #BDBDBD;
