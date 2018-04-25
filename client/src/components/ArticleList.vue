@@ -65,7 +65,7 @@
       return {
         articles: [],
         isClickedSync: false,
-        lastPosition: 'Cancun, Mexico, le 5 mars 2018',
+        lastPosition: '',
         place: null,
         time: null,
       };
@@ -87,7 +87,7 @@
           });
       },
 
-      updateLastPositionData({place, time}) {
+      updateLastPositionData({ place, time }) {
         this.lastPosition = `${place}, ${time}`;
       },
 
@@ -102,10 +102,10 @@
       },
 
       updateLastPosition() {
-        let position = {
+        const position = {
           place: this.place,
           time: this.time,
-        }
+        };
         positionsApi.setLast(position)
           .then(this.updateLastPositionData);
       },
@@ -195,7 +195,7 @@
           place: 'Position :',
           time: 'Date :',
           confirm: 'Envoyer',
-          lastPosition: 'Dernière position :'
+          lastPosition: 'Dernière position :',
         },
         en: {
           getNewArticles: 'Synchronise the new articles',
@@ -210,7 +210,7 @@
           place: 'Position:',
           time: 'Date:',
           confirm: 'Confirm',
-          lastPosition: 'Last position:'
+          lastPosition: 'Last position:',
         },
       },
     },
