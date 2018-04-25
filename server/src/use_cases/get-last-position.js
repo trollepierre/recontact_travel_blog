@@ -6,8 +6,8 @@ function getAllPositions() {
   return positionRepository.getAll();
 }
 
-function getLastPosition() {
-  return maxBy(getAllPositions(), 'id');
+async function getLastPosition() {
+  return maxBy(await getAllPositions(), 'id');
 }
 
 module.exports = {
