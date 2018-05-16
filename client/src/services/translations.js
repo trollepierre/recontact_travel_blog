@@ -5,16 +5,16 @@ export default {
   },
 
   getTitle(article) {
-    const title = this.getNavigatorLanguage() === 'fr' ? article.frTitle : article.enTitle;
+    const title = this.getNavigatorLanguage().substring(0, 2) === 'fr' ? article.frTitle : article.enTitle;
     if (!title) return article.dropboxId;
     return title;
   },
 
   getChapterTitle(chapter) {
-    return this.getNavigatorLanguage() === 'fr' ? chapter.frTitle : chapter.enTitle;
+    return this.getNavigatorLanguage().substring(0, 2) === 'fr' ? chapter.frTitle : chapter.enTitle;
   },
 
   getChapterText(chapter) {
-    return this.getNavigatorLanguage() === 'fr' ? chapter.frText : chapter.enText;
+    return this.getNavigatorLanguage().substring(0, 2) === 'fr' ? chapter.frText : chapter.enText;
   },
 };

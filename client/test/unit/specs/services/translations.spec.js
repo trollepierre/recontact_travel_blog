@@ -14,7 +14,7 @@ describe('Unit | services | translations', () => {
   describe('#getTitle', () => {
     it('should return enTitle by default', () => {
       // given
-      navigatorLanguage.returns('en');
+      navigatorLanguage.returns('en-En');
       const article = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -30,7 +30,7 @@ describe('Unit | services | translations', () => {
 
     it('should return dropboxId when enTitle is empty', () => {
       // given
-      navigatorLanguage.returns('en');
+      navigatorLanguage.returns('en-En');
       const article = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -45,7 +45,7 @@ describe('Unit | services | translations', () => {
 
     it('should return frTitle when navigator language is French', () => {
       // given
-      navigatorLanguage.returns('fr');
+      navigatorLanguage.returns('fr-Fr');
       const article = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -63,7 +63,7 @@ describe('Unit | services | translations', () => {
   describe('#getChapterTitle', () => {
     it('should return enTitle by default', () => {
       // given
-      navigatorLanguage.returns('en');
+      navigatorLanguage.returns('en-en');
       const chapter = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -79,7 +79,7 @@ describe('Unit | services | translations', () => {
 
     it('should return frTitle when navigator language is French', () => {
       // given
-      navigatorLanguage.returns('fr');
+      navigatorLanguage.returns('fr-Fr');
       const chapter = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -97,7 +97,7 @@ describe('Unit | services | translations', () => {
   describe('#getChapterText', () => {
     it('should return enTitle by default', () => {
       // given
-      navigatorLanguage.returns('en');
+      navigatorLanguage.returns('en-en');
       const frText = [
         'Rassemblant trois valeureux compagnons :',
       ];
@@ -119,9 +119,9 @@ describe('Unit | services | translations', () => {
       expect(title).to.equal(enText);
     });
 
-    it('should return frTitle when navigator language is French', () => {
+    it('should return frTitle when navigator language starts by French', () => {
       // given
-      navigatorLanguage.returns('fr');
+      navigatorLanguage.returns('fr-Fr');
 
       const frText = [
         'Rassemblant trois valeureux compagnons :',
