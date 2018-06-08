@@ -239,8 +239,8 @@ describe('ArticleList.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticleList.i18n.messages.fr);
 
-        it('contains 9 locales', () => {
-          expect(locales.length).to.equal(13);
+        it('contains 15 locales', () => {
+          expect(locales.length).to.equal(15);
           expect(locales).to.deep.equal([
             'getNewArticles',
             'deleteAllArticles',
@@ -255,6 +255,8 @@ describe('ArticleList.vue', () => {
             'time',
             'confirm',
             'lastPosition',
+            'subtitle',
+            'lastKnownPosition',
           ]);
         });
       });
@@ -262,8 +264,8 @@ describe('ArticleList.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ArticleList.i18n.messages.en);
 
-        it('contains 9 locales', () => {
-          expect(locales.length).to.equal(13);
+        it('contains 15 locales', () => {
+          expect(locales.length).to.equal(15);
           expect(locales).to.deep.equal([
             'getNewArticles',
             'deleteAllArticles',
@@ -278,6 +280,8 @@ describe('ArticleList.vue', () => {
             'time',
             'confirm',
             'lastPosition',
+            'subtitle',
+            'lastKnownPosition',
           ]);
         });
       });

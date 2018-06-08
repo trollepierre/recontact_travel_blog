@@ -5,8 +5,8 @@
       <div class="page__container">
         <section class="article-results">
           <h1 class="article-results__title hidden">{{ title }}</h1>
-          <p class="article-results__title h1">Pierre en voyage</p>
-          <p class="article-results__title h2">Dernière position connue :
+          <p class="article-results__title h1">{{ $t("subtitle") }}</p>
+          <p class="article-results__title h2">{{ $t("lastKnownPosition") }}
             <span class="article-results__title h3">{{ lastPosition }}</span></p>
           <template v-if="adminMode">
             <a href="http://recontact.me/apo/sub">
@@ -196,6 +196,8 @@
           time: 'Date :',
           confirm: 'Envoyer',
           lastPosition: 'Dernière position :',
+          subtitle: 'Pierre en voyage',
+          lastKnownPosition: 'Dernière position connue :',
         },
         en: {
           getNewArticles: 'Synchronise the new articles',
@@ -211,6 +213,8 @@
           time: 'Date:',
           confirm: 'Confirm',
           lastPosition: 'Last position:',
+          subtitle: 'Traveling Pierre',
+          lastKnownPosition: 'Last known position:',
         },
       },
     },
