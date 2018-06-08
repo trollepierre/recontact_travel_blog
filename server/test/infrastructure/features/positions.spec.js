@@ -4,7 +4,6 @@ const GetLastPosition = require('../../../src/use_cases/get-last-position');
 const SetPosition = require('../../../src/use_cases/set-position');
 
 describe('Integration | Routes | positions route', () => {
-
   describe('GET /api/positions/last', () => {
     let persistedSubscriptions;
     beforeEach(() => {
@@ -33,7 +32,6 @@ describe('Integration | Routes | positions route', () => {
   });
 
   describe('POST /api/positions', () => {
-
     beforeEach(() => {
       sinon.stub(SetPosition, 'setPosition');
     });
@@ -55,8 +53,8 @@ describe('Integration | Routes | positions route', () => {
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
           // then
-          expect(SetPosition.setPosition).to.have.been.calledWith({ lastPosition: "Mexico" });
-          expect(res.body).to.deep.equal({ position: { id: 1, lastPosition: "Mexico" } });
+          expect(SetPosition.setPosition).to.have.been.calledWith({ lastPosition: 'Mexico' });
+          expect(res.body).to.deep.equal({ position: { id: 1, lastPosition: 'Mexico' } });
           done();
         });
     });

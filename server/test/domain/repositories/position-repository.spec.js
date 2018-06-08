@@ -15,7 +15,7 @@ describe('Unit | Repository | position-repository', () => {
     it('should call Sequelize Model#create', () => {
       // given
       const position = {
-        lastPosition: 'Mexico'
+        lastPosition: 'Mexico',
       };
       Position.create.resolves(position);
 
