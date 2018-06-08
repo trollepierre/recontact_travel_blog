@@ -39,7 +39,7 @@ describe('Integration | Routes | optimisation route', () => {
       GetAllSubscriptions.getAllSubscriptions.restore();
     });
 
-    it('should call subscriptionService#getAll', (done) => {
+    it('should call GetAllSubscriptions#getAllSubscriptions', (done) => {
       // when
       request(app)
         .get('/apo/sub/')
