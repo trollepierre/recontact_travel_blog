@@ -5,7 +5,7 @@ const PositionRepository = require('../../src/domain/repositories/position-repos
 describe('Unit | GetLastPosition | getLastPosition', () => {
   const positions = [
     { id: 1, lastPosition: 'Mexico' },
-    { id: 2, lastPosition: 'Paris' }
+    { id: 2, lastPosition: 'Paris' },
   ];
 
   beforeEach(() => {

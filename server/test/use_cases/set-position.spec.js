@@ -3,7 +3,7 @@ const SetPosition = require('../../src/use_cases/set-position');
 const PositionRepository = require('../../src/domain/repositories/position-repository');
 
 describe('Unit | SetPosition | setPosition', () => {
-  const position = { lastPosition: 'Mexico' }
+  const position = { lastPosition: 'Mexico' };
   const persistedPosition = { id: 1, lastPosition: 'Mexico' };
 
   beforeEach(() => {
