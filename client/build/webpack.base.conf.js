@@ -3,7 +3,8 @@ var webpack = require('webpack')
 var Dotenv = require('dotenv-webpack')
 var utils = require('./utils')
 var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 function resolve (dir) {
 	return path.join(__dirname, '..', dir)
 }
@@ -31,7 +32,6 @@ module.exports = {
 			{
 				test: /\.vue$/,
 				loader: 'vue-loader',
-				options: vueLoaderConfig
 			},
 			{
 				test: /\.js$/,
@@ -57,7 +57,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-
+    new VueLoaderPlugin(),
 		new Dotenv({
 			path: resolve('.env'), // Path to .env file (this is the default)
 		}),
