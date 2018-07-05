@@ -111,8 +111,8 @@ describe('ArticleList.vue', () => {
       positionsApi.add.resolves({});
       const position = {
         place: null,
-        time: null
-      }
+        time: null,
+      };
 
       // when
       component.updateLastPosition();
@@ -127,7 +127,7 @@ describe('ArticleList.vue', () => {
       // given
       positionsApi.add.resolves({
         place: 'London',
-        time: '6 May 2018'
+        time: '6 May 2018',
       });
 
       // when
@@ -135,7 +135,7 @@ describe('ArticleList.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.$data.lastPosition).to.equal('London, 6 May 2018')
+        expect(component.$data.lastPosition).to.equal('London, 6 May 2018');
       });
     });
   });
