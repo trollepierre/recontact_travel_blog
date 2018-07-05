@@ -5,7 +5,7 @@ const { Position } = require('../../../src/domain/models/index');
 describe('Unit | Repository | position-repository', () => {
   const position = {
     lastPosition: 'Mexico',
-    id: 1
+    id: 1,
   };
 
   describe('#create', () => {
