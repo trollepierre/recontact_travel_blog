@@ -59,7 +59,7 @@ describe('Unit | API | positions api', () => {
     });
   });
 
-  describe('#setLast', () => {
+  describe('#add', () => {
     let data;
 
     beforeEach(() => {
@@ -77,7 +77,7 @@ describe('Unit | API | positions api', () => {
       axios.post.restore();
     });
 
-    it('should setLast API with the good params', () => {
+    it('should set last position thanks to API with the good params', () => {
       // given
       const position = {
         lastPosition: 'Cancun, Mexico, le 5 mars 2018',
@@ -86,7 +86,7 @@ describe('Unit | API | positions api', () => {
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when
-      const promise = positionsApi.setLast(position);
+      const promise = positionsApi.add(position);
 
       // then
       return promise.then(() => {
@@ -96,7 +96,7 @@ describe('Unit | API | positions api', () => {
 
     it('should return the response', () => {
       // when
-      const promise = positionsApi.setLast();
+      const promise = positionsApi.add();
 
       // then
       return promise.then((returnedChapters) => {
@@ -109,7 +109,7 @@ describe('Unit | API | positions api', () => {
       axios.post.rejects(new Error('some error'));
 
       // when
-      const promise = positionsApi.setLast();
+      const promise = positionsApi.add();
 
       // then
       promise.catch((error) => {

@@ -9,7 +9,7 @@ export default {
       .then(response => response.data);
   },
 
-  setLast(position) {
+  add(position) {
     const url = `${process.env.API_URL}api/positions`;
     const options = { headers: { 'Content-Type': 'application/json' } };
     return axios.post(url, position, options)
