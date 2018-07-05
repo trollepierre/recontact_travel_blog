@@ -5,5 +5,5 @@ function createPosition(position) {
 }
 
 module.exports = {
-  setPosition: createPosition,
+  addPosition: createPosition,
 };

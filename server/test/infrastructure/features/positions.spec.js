@@ -1,7 +1,7 @@
 const { request, expect, sinon } = require('../../test-helper');
 const app = require('../../../app');
 const GetLastPosition = require('../../../src/use_cases/get-last-position');
-const SetPosition = require('../../../src/use_cases/set-position');
+const AddPosition = require('../../../src/use_cases/add-position');
 
 describe('Integration | Routes | positions route', () => {
   describe('GET /api/positions/last', () => {
@@ -16,7 +16,7 @@ describe('Integration | Routes | positions route', () => {
       GetLastPosition.getLastPosition.restore();
     });
 
-    it('should call GetLastPosition#getLastPosition', (done) => {
+    it('should call GetLastPosition#getLastPosition and return position', (done) => {
       // when
       request(app)
         .get('/api/positions/last')
@@ -33,17 +33,17 @@ describe('Integration | Routes | positions route', () => {
 
   describe('POST /api/positions', () => {
     beforeEach(() => {
-      sinon.stub(SetPosition, 'setPosition');
+      sinon.stub(AddPosition, 'addPosition');
     });
 
     afterEach(() => {
-      SetPosition.setPosition.restore();
+      AddPosition.addPosition.restore();
     });
 
-    it('should call SetPosition#setPosition', (done) => {
+    it('should call AddPosition#addPosition and return position', (done) => {
       // given
       const persistedPosition = { id: 1, lastPosition: 'Mexico' };
-      SetPosition.setPosition.resolves({ position: persistedPosition });
+      AddPosition.addPosition.resolves({ position: persistedPosition });
 
       // when
       request(app)
@@ -53,7 +53,7 @@ describe('Integration | Routes | positions route', () => {
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
           // then
-          expect(SetPosition.setPosition).to.have.been.calledWith({ lastPosition: 'Mexico' });
+          expect(AddPosition.addPosition).to.have.been.calledWith({ lastPosition: 'Mexico' });
           expect(res.body).to.deep.equal({ position: { id: 1, lastPosition: 'Mexico' } });
           done();
         });
@@ -61,7 +61,7 @@ describe('Integration | Routes | positions route', () => {
 
     it('should return 403 when position service throws an error', () => {
       // given
-      SetPosition.setPosition.rejects(new Error('Some error'));
+      AddPosition.addPosition.rejects(new Error('Some error'));
 
       // when
       return request(app)
