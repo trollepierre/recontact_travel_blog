@@ -1,5 +1,6 @@
 import axios from 'axios';
 import api from '@/api/articles';
+import env from '../../../../src/env/env.js'
 
 describe('Unit | API | articles api', () => {
   describe('#fetchAll', () => {
@@ -19,7 +20,7 @@ describe('Unit | API | articles api', () => {
 
     it('should fetch API with the good params', () => {
       // given
-      const expectedUrl = `${process.env.API_URL}api/articles`;
+      const expectedUrl = `${env('API_URL')}api/articles`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when
@@ -66,7 +67,7 @@ describe('Unit | API | articles api', () => {
 
     it('should patch API with the good params', () => {
       // given
-      const expectedUrl = `${process.env.API_URL}api/admin/articles/${id}`;
+      const expectedUrl = `${env('API_URL')}api/admin/articles/${id}`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when

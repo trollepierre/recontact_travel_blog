@@ -1,5 +1,6 @@
 import axios from 'axios';
 import syncApi from '@/api/sync';
+import env from '../../../../src/env/env.js'
 
 describe('Unit | API | sync api', () => {
   describe('#launch', () => {
@@ -18,7 +19,7 @@ describe('Unit | API | sync api', () => {
 
     it('should launch API with the good params', () => {
       // given
-      const expectedUrl = `${process.env.API_URL}api/sync/`;
+      const expectedUrl = `${env('API_URL')}api/sync/`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when

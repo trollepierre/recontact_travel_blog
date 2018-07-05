@@ -1,9 +1,10 @@
 import axios from 'axios';
+import env from '../env/env.js'
 
 const FeedbacksApi = {
 
   sendFeedback(feedback, email) {
-    const url = `${process.env.API_URL}api/feedbacks`;
+    const url = `${env('API_URL')}api/feedbacks`;
     const body = {
       feedback,
       email,

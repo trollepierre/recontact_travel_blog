@@ -1,5 +1,6 @@
 import axios from 'axios';
 import api from '@/api/feedbacks';
+import env from '../../../../src/env/env.js'
 
 describe('Unit | API | feedbacks api', () => {
   describe('#sendFeedback', () => {
@@ -22,7 +23,7 @@ describe('Unit | API | feedbacks api', () => {
       const email = 'pierre@recontact.me';
       const feedback = 'Vive le Tour de France !';
 
-      const expectedUrl = `${process.env.API_URL}api/feedbacks`;
+      const expectedUrl = `${env('API_URL')}api/feedbacks`;
       const expectedBody = { feedback, email };
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
