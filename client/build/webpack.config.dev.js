@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const generateEnvFileContent = require('./env/env-vars-helper')
 const { resolveFromRootDir } = require('./webpack.utils')
 
-const DEFAULT_PORT = 8000
+const DEFAULT_PORT = 8181
 
 module.exports = {
   mode: 'development',

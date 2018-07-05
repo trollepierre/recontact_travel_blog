@@ -3,7 +3,7 @@ const { adjust, curry, fromPairs, keys, map, pickBy, pipe, slice, toPairs } = re
 
 // When building the application for production, all environment variables
 // prefixed with this pattern will be automatically injected in the final env.js file
-const ENV_VAR_PREFIX = 'RANDSTAD_FRONT_'
+const ENV_VAR_PREFIX = ''
 
 // https://github.com/ramda/ramda/wiki/Cookbook#rename-keys-of-an-object
 const renameObjKeysBy = curry((fn, obj) => pipe(toPairs, map(adjust(fn, 0)), fromPairs)(obj))
