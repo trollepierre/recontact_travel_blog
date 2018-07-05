@@ -5,11 +5,11 @@ const AddPosition = require('../../../src/use_cases/add-position');
 
 describe('Integration | Routes | positions route', () => {
   describe('GET /api/positions/last', () => {
-    let persistedSubscriptions;
+    let persistedPositions;
     beforeEach(() => {
       sinon.stub(GetLastPosition, 'getLastPosition');
-      persistedSubscriptions = [{ id: 1, lastPosition: 'Mexico' }];
-      GetLastPosition.getLastPosition.resolves(persistedSubscriptions);
+      persistedPositions = [{ id: 1, lastPosition: 'Mexico' }];
+      GetLastPosition.getLastPosition.resolves(persistedPositions);
     });
 
     afterEach(() => {
@@ -25,7 +25,7 @@ describe('Integration | Routes | positions route', () => {
         .expect(200, (err, res) => {
           // then
           expect(GetLastPosition.getLastPosition).to.have.been.calledWith();
-          expect(res.body).to.deep.equal(persistedSubscriptions);
+          expect(res.body).to.deep.equal(persistedPositions);
           done();
         });
     });
@@ -59,7 +59,7 @@ describe('Integration | Routes | positions route', () => {
         });
     });
 
-    it('should return 403 when position service throws an error', () => {
+    it('should return 403 when add position throws an error', () => {
       // given
       AddPosition.addPosition.rejects(new Error('Some error'));
 
