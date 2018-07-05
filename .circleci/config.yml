@@ -1,0 +1,57 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/trollepierre/recontact_travel_blog
+    parallelism: 1
+    shell: /bin/bash --login
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+    docker:
+    - image: circleci/node:9-browsers
+    steps:
+    - checkout
+    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+    - restore_cache:
+        keys:
+        - v1-dep-{{ .Branch }}-
+        - v1-dep-dev-
+        - v1-dep-
+    - run: if [ -z "${NODE_ENV:-}" ]; then export NODE_ENV=test; fi
+    - run: export PATH="~/trollepierre/recontact_travel_blog/node_modules/.bin:$PATH"
+    - run: npm install
+    - save_cache:
+        key: v1-dep-{{ .Branch }}-{{ epoch }}
+        paths:
+        - vendor/bundle
+        - ~/virtualenvs
+        - ~/.ivy2
+        - ~/.bundle
+        - ~/.go_workspace
+        - ./node_modules
+    - run: yarn lint
+    - run: yarn test
+    - store_test_results:
+        path: /tmp/circleci-test-results
+    - store_artifacts:
+        path: /tmp/circleci-artifacts
+    - store_artifacts:
+        path: /tmp/circleci-test-results
+
+#  deploy_for_staging:
+    - run:
+        filters:
+          branches:
+            only: dev
+        name: Deploy dev to Heroku staging
+        command: |
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git dev
+
+#  deploy_for_staging:
+    - run:
+        filters:
+          branches:
+            only: master
+        name: Deploy master to Heroku
+        command: |
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git master
