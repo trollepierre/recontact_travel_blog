@@ -3,6 +3,11 @@ const positionRepository = require('../../../src/domain/repositories/position-re
 const { Position } = require('../../../src/domain/models/index');
 
 describe('Unit | Repository | position-repository', () => {
+  const position = {
+    lastPosition: 'Mexico',
+    id: 1
+  };
+
   describe('#create', () => {
     beforeEach(() => {
       sinon.stub(Position, 'create');
@@ -14,17 +19,13 @@ describe('Unit | Repository | position-repository', () => {
 
     it('should call Sequelize Model#create', () => {
       // given
-      const position = {
-        lastPosition: 'Mexico',
-      };
       Position.create.resolves(position);
+      const positionToCreate = { place: 'Mexico', time: '4 October 1999' };
 
       // when
-      const positionToCreate = { email: 'email@mail.com', lang: 'fr' };
       const promise = positionRepository.create(positionToCreate);
 
       // then
-
       return promise.then((res) => {
         expect(Position.create).to.have.been.calledWith(positionToCreate);
         expect(res).to.deep.equal(position);
@@ -33,8 +34,10 @@ describe('Unit | Repository | position-repository', () => {
   });
 
   describe('#getAll', () => {
+    const positions = [position];
+
     beforeEach(() => {
-      sinon.stub(Position, 'all').resolves();
+      sinon.stub(Position, 'all').resolves(positions);
     });
 
     afterEach(() => {
@@ -46,8 +49,9 @@ describe('Unit | Repository | position-repository', () => {
       const promise = positionRepository.getAll();
 
       // then
-      return promise.then(() => {
-        expect(Position.all).to.have.been.called;
+      return promise.then((res) => {
+        expect(Position.all).to.have.been.calledWith();
+        expect(res).to.deep.equal(positions);
       });
     });
   });

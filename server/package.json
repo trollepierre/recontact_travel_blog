@@ -9,7 +9,6 @@
     "configure": "./tools/setup/setup.sh",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "db": "./node_modules/.bin/sequelize",
-    "db:help": "./node_modules/.bin/sequelize help",
     "db:migrate": "./node_modules/.bin/sequelize db:migrate",
     "db:reset": "yarn clean:db && yarn db:migrate",
     "db:rollback": "./node_modules/.bin/sequelize db:migrate:undo",
@@ -18,6 +17,7 @@
     "start": "node ./bin/www",
     "start:dev": "nodemon ./bin/www",
     "test": "NODE_ENV=test nyc mocha --recursive",
+    "test:unit": "NODE_ENV=test mocha --recursive",
     "test:watch": "NODE_ENV=test ./node_modules/mocha/bin/mocha --recursive --watch"
   },
   "dependencies": {
