@@ -1,8 +1,8 @@
 const { expect, sinon } = require('../test-helper');
-const SetPosition = require('../../src/use_cases/set-position');
+const AddPosition = require('../../src/use_cases/add-position');
 const PositionRepository = require('../../src/domain/repositories/position-repository');
 
-describe('Unit | SetPosition | setPosition', () => {
+describe('Unit | AddPosition | addPosition', () => {
   const position = { lastPosition: 'Mexico' };
   const persistedPosition = { id: 1, lastPosition: 'Mexico' };
 
@@ -14,17 +14,17 @@ describe('Unit | SetPosition | setPosition', () => {
     PositionRepository.create.restore();
   });
 
-  it('should call PositionRepository to create articles', () => {
+  it('should call PositionRepository to create position', () => {
     // when
-    SetPosition.setPosition(position);
+    AddPosition.addPosition(position);
 
     // then
     expect(PositionRepository.create).to.have.been.calledWith(position);
   });
 
-  it('should return positions', () => {
+  it('should return added position', () => {
     // when
-    const promise = SetPosition.setPosition(position);
+    const promise = AddPosition.addPosition(position);
 
     // then
     return promise.then((returnedPositions) => {
