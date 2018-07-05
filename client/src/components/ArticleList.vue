@@ -106,7 +106,7 @@
           place: this.place,
           time: this.time,
         };
-        positionsApi.setLast(position)
+        positionsApi.add(position)
           .then(this.updateLastPositionData);
       },
 
