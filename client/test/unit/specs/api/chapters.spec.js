@@ -1,5 +1,6 @@
 import axios from 'axios';
 import chaptersApi from '@/api/chapters';
+import env from '../../../../src/env/env.js'
 
 describe('Unit | API | chapters api', () => {
   describe('#fetch', () => {
@@ -25,7 +26,7 @@ describe('Unit | API | chapters api', () => {
 
     it('should fetch API with the good params', () => {
       // given
-      const expectedUrl = `${process.env.API_URL}api/articles/${idArticle}`;
+      const expectedUrl = `${env('API_URL')}api/articles/${idArticle}`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when
