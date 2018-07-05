@@ -3,6 +3,7 @@ import router from '@/router';
 import articlesApi from '@/api/articles';
 import ArticleList from '@/components/ArticleList';
 import syncApi from '@/api/sync';
+import positionsApi from '@/api/positions';
 import notificationsService from '@/services/notifications';
 import articlesSorter from '@/services/articlesSorter';
 
@@ -92,6 +93,50 @@ describe('ArticleList.vue', () => {
 
       // Then
       expect(title).to.equal('theArticlesOfTheTrip');
+    });
+  });
+
+  describe('#updateLastPosition', () => {
+    beforeEach(() => {
+      // given
+      sinon.stub(positionsApi, 'add');
+    });
+
+    afterEach(() => {
+      positionsApi.add.restore();
+    });
+
+    it('should call positionsApi to add default position', () => {
+      // given
+      positionsApi.add.resolves({});
+      const position = {
+        place: null,
+        time: null
+      }
+
+      // when
+      component.updateLastPosition();
+
+      // then
+      return Vue.nextTick().then(() => {
+        expect(positionsApi.add).to.have.been.calledWith(position);
+      });
+    });
+
+    it('should updateLastPositionData with api answer', () => {
+      // given
+      positionsApi.add.resolves({
+        place: 'London',
+        time: '6 May 2018'
+      });
+
+      // when
+      component.updateLastPosition();
+
+      // then
+      return Vue.nextTick().then(() => {
+        expect(component.$data.lastPosition).to.equal('London, 6 May 2018')
+      });
     });
   });
 
