@@ -1,3 +1,5 @@
+import env from './src/env/env.js'
+
 // http://eslint.org/docs/user-guide/configuring
 
 module.exports = {
@@ -34,6 +36,6 @@ module.exports = {
       'optionalDependencies': ['test/unit/index.js']
     }],
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': env('NODE_ENV') === 'production' ? 2 : 0
   }
 };

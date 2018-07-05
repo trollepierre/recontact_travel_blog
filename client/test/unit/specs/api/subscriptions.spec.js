@@ -1,6 +1,7 @@
 import axios from 'axios';
 import api from '@/api/subscriptions';
 import translationsService from '@/services/translations';
+import env from '../../../../src/env/env.js'
 
 describe('Unit | API | subscriptions api', () => {
   describe('#sendSubscription', () => {
@@ -24,7 +25,7 @@ describe('Unit | API | subscriptions api', () => {
       // given
       const email = 'pierre@recontact.me';
 
-      const expectedUrl = `${process.env.API_URL}api/subscriptions`;
+      const expectedUrl = `${env('API_URL')}api/subscriptions`;
       const expectedBody = { email, lang: 'en' };
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 

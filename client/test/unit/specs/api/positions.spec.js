@@ -1,5 +1,6 @@
 import axios from 'axios';
 import positionsApi from '@/api/positions';
+import env from '../../../../src/env/env.js'
 
 describe('Unit | API | positions api', () => {
   describe('#fetchLast', () => {
@@ -22,7 +23,7 @@ describe('Unit | API | positions api', () => {
 
     it('should fetchLast API with the good params', () => {
       // given
-      const expectedUrl = `${process.env.API_URL}api/positions/last`;
+      const expectedUrl = `${env('API_URL')}api/positions/last`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when
@@ -82,7 +83,7 @@ describe('Unit | API | positions api', () => {
       const position = {
         lastPosition: 'Cancun, Mexico, le 5 mars 2018',
       };
-      const expectedUrl = `${process.env.API_URL}api/positions`;
+      const expectedUrl = `${env('API_URL')}api/positions`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when

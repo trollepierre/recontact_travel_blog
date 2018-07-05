@@ -1,5 +1,6 @@
 import axios from 'axios';
 import photosApi from '@/api/photos';
+import env from '../../../../src/env/env.js'
 
 describe('Unit | API | photos api', () => {
   describe('#fetch', () => {
@@ -25,7 +26,7 @@ describe('Unit | API | photos api', () => {
 
     it('should fetch API with the good params', () => {
       // given
-      const expectedUrl = `${process.env.API_URL}api/articles/${idArticle}/photos`;
+      const expectedUrl = `${env('API_URL')}api/articles/${idArticle}/photos`;
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
       // when
