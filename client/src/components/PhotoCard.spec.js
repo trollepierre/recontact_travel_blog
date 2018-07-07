@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import PhotoCard from './PhotoCard';
 
-describe('PhotoCard.vue', () => {
+xdescribe('PhotoCard.vue', () => {
   let component;
   let photo;
 

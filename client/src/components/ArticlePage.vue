@@ -37,9 +37,9 @@
 <script>
   import ChapterCard from './ChapterCard';
   import PhotoCard from './PhotoCard';
-  import chaptersApi from '@/api/chapters';
-  import photosApi from '@/api/photos';
-  import translationsService from '@/services/translations';
+  import chaptersApi from '../api/chapters';
+  import photosApi from '../api/photos';
+  import translationsService from '../services/translations';
 
   export default {
     name: 'ArticlePage',

@@ -37,9 +37,9 @@
 </template>
 
 <script>
-  import articlesApi from '@/api/articles';
-  import notificationsService from '@/services/notifications';
-  import translationsService from '@/services/translations';
+  import articlesApi from '../api/articles';
+  import notificationsService from '../services/notifications';
+  import translationsService from '../services/translations';
 
   export default {
     name: 'ArticleCard',

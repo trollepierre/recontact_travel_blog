@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import subscriptionsApi from '@/api/subscriptions';
+  import subscriptionsApi from '../api/subscriptions';
 
   export default {
     name: 'SubscriberList',

@@ -36,8 +36,8 @@
 </template>
 
 <script>
-  import feedbacksApi from '@/api/feedbacks';
-  import notificationsService from '@/services/notifications';
+  import feedbacksApi from '../api/feedbacks';
+  import notificationsService from '../services/notifications';
 
   export default {
     name: 'FeedbackModal',
