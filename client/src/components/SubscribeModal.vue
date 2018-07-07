@@ -33,8 +33,8 @@
 </template>
 
 <script>
-  import subscriptionsApi from '@/api/subscriptions';
-  import notificationsService from '@/services/notifications';
+  import subscriptionsApi from '../api/subscriptions';
+  import notificationsService from '../services/notifications';
 
   export default {
     name: 'SubscribeModal',

@@ -68,11 +68,8 @@ describe('Unit | API | positions api', () => {
         status: 200,
         data,
       };
-      sinon.stub(axios, 'post').resolves(stubbedResponse);
-    });
-
-    afterEach(() => {
-      axios.post.restore();
+      axios.post = jest.fn()
+      axios.post.mockResolvedValue(stubbedResponse)
     });
 
     it('should set last position thanks to API with the good params', () => {

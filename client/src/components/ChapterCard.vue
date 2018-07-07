@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import translationsService from '@/services/translations';
+  import translationsService from '../services/translations';
 
   export default {
     name: 'ChapterCard',
