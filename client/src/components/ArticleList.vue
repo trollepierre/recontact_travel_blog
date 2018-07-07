@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import ArticleCard from '@/components/ArticleCard';
+  import ArticleCard from './ArticleCard';
   import articlesApi from '@/api/articles';
   import positionsApi from '@/api/positions';
   import syncApi from '@/api/sync';

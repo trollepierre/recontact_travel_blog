@@ -1,6 +1,6 @@
 import axios from 'axios';
-import photosApi from '@/api/photos';
-import env from '../../../../src/env/env.js'
+import photosApi from './photos';
+import env from '../env/env.js'
 
 describe('Unit | API | photos api', () => {
   describe('#fetch', () => {
@@ -17,7 +17,8 @@ describe('Unit | API | photos api', () => {
         status: 200,
         data,
       };
-      sinon.stub(axios, 'get').resolves(stubbedResponse);
+      axios.get = jest.fn()
+      axios.getmockResolvedValue(stubbedResponse);
     });
 
     afterEach(() => {
@@ -34,7 +35,7 @@ describe('Unit | API | photos api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.get).to.have.been.calledWith(expectedUrl, expectedOptions);
+        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
       });
     });
 
@@ -44,21 +45,21 @@ describe('Unit | API | photos api', () => {
 
       // then
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).to.equal(data);
+        expect(returnedChapters).toEqual(data);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
       const accessToken = 'invalid-access_token';
-      axios.get.rejects(new Error('some error'));
+      axios.get.mockRejectedValue(new Error('some error'));
 
       // when
       const promise = photosApi.fetch(accessToken);
 
       // then
       promise.catch((error) => {
-        expect(error.message).to.equal('some error');
+        expect(error.message).toEqual('some error');
         done();
       });
     });

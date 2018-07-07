@@ -1,21 +1,16 @@
 import axios from 'axios';
-import api from '@/api/articles';
-import env from '../../../../src/env/env.js'
+import api from './articles';
+import env from '../env/env.js'
 
 describe('Unit | API | articles api', () => {
   describe('#fetchAll', () => {
     beforeEach(() => {
       const stubbedResponse = {
         status: 200,
-        data: {
-          foo: 'bar',
-        },
+        data: { foo: 'bar' },
       };
-      sinon.stub(axios, 'get').resolves(stubbedResponse);
-    });
-
-    afterEach(() => {
-      axios.get.restore();
+      axios.get = jest.fn()
+      axios.get.mockResolvedValue(stubbedResponse)
     });
 
     it('should fetch API with the good params', () => {
@@ -28,21 +23,21 @@ describe('Unit | API | articles api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.get).to.have.been.calledWith(expectedUrl, expectedOptions);
+        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
       const accessToken = 'invalid-access_token';
-      axios.get.rejects(new Error('some error'));
+      axios.get.mockRejectedValue(new Error('some error'));
 
       // when
       const promise = api.fetchAll(accessToken);
 
       // then
       promise.catch((error) => {
-        expect(error.message).to.equal('some error');
+        expect(error.message).toEqual('some error');
         done();
       });
     });
@@ -58,11 +53,8 @@ describe('Unit | API | articles api', () => {
           foo: 'bar',
         },
       };
-      sinon.stub(axios, 'patch').resolves(stubbedResponse);
-    });
-
-    afterEach(() => {
-      axios.patch.restore();
+      axios.patch = jest.fn()
+      axios.patch.mockResolvedValue(stubbedResponse)
     });
 
     it('should patch API with the good params', () => {
@@ -75,21 +67,21 @@ describe('Unit | API | articles api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.patch).to.have.been.calledWith(expectedUrl, {}, expectedOptions);
+        expect(axios.patch).toHaveBeenCalledWith(expectedUrl, {}, expectedOptions);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
       const accessToken = 'invalid-access_token';
-      axios.patch.rejects(new Error('some error'));
+      axios.patch.mockRejectedValue(new Error('some error'));
 
       // when
       const promise = api.update(accessToken);
 
       // then
       promise.catch((error) => {
-        expect(error.message).to.equal('some error');
+        expect(error.message).toEqual('some error');
         done();
       });
     });

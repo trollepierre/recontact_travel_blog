@@ -1,20 +1,17 @@
-import translationsService from '@/services/translations';
+import translationsService from './translations';
 
 describe('Unit | services | translations', () => {
   let navigatorLanguage;
 
   beforeEach(() => {
-    navigatorLanguage = sinon.stub(translationsService, 'getNavigatorLanguage');
-  });
-
-  afterEach(() => {
-    translationsService.getNavigatorLanguage.restore();
+    navigatorLanguage = jest.fn()
+    translationsService.getNavigatorLanguage = navigatorLanguage
   });
 
   describe('#getTitle', () => {
     it('should return enTitle by default', () => {
       // given
-      navigatorLanguage.returns('en-En');
+      navigatorLanguage.mockReturnValue('en-En');
       const article = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -25,12 +22,12 @@ describe('Unit | services | translations', () => {
       const title = translationsService.getTitle(article);
 
       // then
-      expect(title).to.equal('The title');
+      expect(title).toEqual('The title');
     });
 
     it('should return dropboxId when enTitle is empty', () => {
       // given
-      navigatorLanguage.returns('en-En');
+      navigatorLanguage.mockReturnValue('en-En');
       const article = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -40,12 +37,12 @@ describe('Unit | services | translations', () => {
       const title = translationsService.getTitle(article);
 
       // then
-      expect(title).to.equal(59);
+      expect(title).toEqual(59);
     });
 
     it('should return frTitle when navigator language is French', () => {
       // given
-      navigatorLanguage.returns('fr-Fr');
+      navigatorLanguage.mockReturnValue('fr-Fr');
       const article = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -56,14 +53,14 @@ describe('Unit | services | translations', () => {
       const title = translationsService.getTitle(article);
 
       // then
-      expect(title).to.equal('Le titre');
+      expect(title).toEqual('Le titre');
     });
   });
 
   describe('#getChapterTitle', () => {
     it('should return enTitle by default', () => {
       // given
-      navigatorLanguage.returns('en-en');
+      navigatorLanguage.mockReturnValue('en-en');
       const chapter = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -74,12 +71,12 @@ describe('Unit | services | translations', () => {
       const title = translationsService.getChapterTitle(chapter);
 
       // then
-      expect(title).to.equal('The title');
+      expect(title).toEqual('The title');
     });
 
     it('should return frTitle when navigator language is French', () => {
       // given
-      navigatorLanguage.returns('fr-Fr');
+      navigatorLanguage.mockReturnValue('fr-Fr');
       const chapter = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -90,14 +87,14 @@ describe('Unit | services | translations', () => {
       const title = translationsService.getChapterTitle(chapter);
 
       // then
-      expect(title).to.equal('Le titre');
+      expect(title).toEqual('Le titre');
     });
   });
 
   describe('#getChapterText', () => {
     it('should return enTitle by default', () => {
       // given
-      navigatorLanguage.returns('en-en');
+      navigatorLanguage.mockReturnValue('en-en');
       const frText = [
         'Rassemblant trois valeureux compagnons :',
       ];
@@ -116,12 +113,12 @@ describe('Unit | services | translations', () => {
       const title = translationsService.getChapterText(chapter);
 
       // then
-      expect(title).to.equal(enText);
+      expect(title).toEqual(enText);
     });
 
     it('should return frTitle when navigator language starts by French', () => {
       // given
-      navigatorLanguage.returns('fr-Fr');
+      navigatorLanguage.mockReturnValue('fr-Fr');
 
       const frText = [
         'Rassemblant trois valeureux compagnons :',
@@ -141,7 +138,7 @@ describe('Unit | services | translations', () => {
       const title = translationsService.getChapterText(chapter);
 
       // then
-      expect(title).to.equal(frText);
+      expect(title).toEqual(frText);
     });
   });
 });

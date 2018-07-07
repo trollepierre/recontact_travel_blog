@@ -1,12 +1,6 @@
-import articlesSorter from '@/services/articlesSorter';
+import articlesSorter from './articlesSorter';
 
 describe('Unit | services | articlesSorter', () => {
-  beforeEach(() => {
-  });
-
-  afterEach(() => {
-  });
-
   describe('#sortByDropboxId', () => {
     it('should return sortByDropboxId articles', () => {
       // given
@@ -21,7 +15,7 @@ describe('Unit | services | articlesSorter', () => {
       const sortedArticles = articlesSorter.sortByDropboxId(articles);
 
       // then
-      expect(sortedArticles).to.deep.equal([article('11'), article(3), article('2')]);
+      expect(sortedArticles).toEqual([article('11'), article(3), article('2')]);
     });
   });
 });
