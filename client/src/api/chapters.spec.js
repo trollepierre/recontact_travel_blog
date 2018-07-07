@@ -1,6 +1,6 @@
 import axios from 'axios';
-import chaptersApi from '@/api/chapters';
-import env from '../../../../src/env/env.js'
+import chaptersApi from './chapters';
+import env from '../env/env.js'
 
 describe('Unit | API | chapters api', () => {
   describe('#fetch', () => {
@@ -17,11 +17,8 @@ describe('Unit | API | chapters api', () => {
         status: 200,
         data,
       };
-      sinon.stub(axios, 'get').resolves(stubbedResponse);
-    });
-
-    afterEach(() => {
-      axios.get.restore();
+      axios.get = jest.fn()
+      axios.get.mockResolvedValue(stubbedResponse)
     });
 
     it('should fetch API with the good params', () => {
@@ -34,7 +31,7 @@ describe('Unit | API | chapters api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.get).to.have.been.calledWith(expectedUrl, expectedOptions);
+        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
       });
     });
 
@@ -44,21 +41,21 @@ describe('Unit | API | chapters api', () => {
 
       // then
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).to.equal(data);
+        expect(returnedChapters).toEqual(data);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
       const accessToken = 'invalid-access_token';
-      axios.get.rejects(new Error('some error'));
+      axios.get.mockRejectedValue(new Error('some error'));
 
       // when
       const promise = chaptersApi.fetch(accessToken);
 
       // then
       promise.catch((error) => {
-        expect(error.message).to.equal('some error');
+        expect(error.message).toEqual('some error');
         done();
       });
     });

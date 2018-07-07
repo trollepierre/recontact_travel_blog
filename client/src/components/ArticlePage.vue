@@ -35,8 +35,8 @@
 </template>
 
 <script>
-  import ChapterCard from '@/components/ChapterCard';
-  import PhotoCard from '@/components/PhotoCard';
+  import ChapterCard from './ChapterCard';
+  import PhotoCard from './PhotoCard';
   import chaptersApi from '@/api/chapters';
   import photosApi from '@/api/photos';
   import translationsService from '@/services/translations';

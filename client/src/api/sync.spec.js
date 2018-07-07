@@ -1,6 +1,6 @@
 import axios from 'axios';
-import syncApi from '@/api/sync';
-import env from '../../../../src/env/env.js'
+import syncApi from './sync';
+import env from '../env/env.js'
 
 describe('Unit | API | sync api', () => {
   describe('#launch', () => {
@@ -10,11 +10,8 @@ describe('Unit | API | sync api', () => {
       stubbedResponse = {
         status: 200,
       };
-      sinon.stub(axios, 'patch').resolves(stubbedResponse);
-    });
-
-    afterEach(() => {
-      axios.patch.restore();
+      axios.patch = jest.fn()
+      axios.patch.mockResolvedValue(stubbedResponse)
     });
 
     it('should launch API with the good params', () => {
@@ -27,7 +24,7 @@ describe('Unit | API | sync api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.patch).to.have.been.calledWith(expectedUrl, expectedOptions);
+        expect(axios.patch).toHaveBeenCalledWith(expectedUrl, expectedOptions);
       });
     });
 
@@ -37,21 +34,21 @@ describe('Unit | API | sync api', () => {
 
       // then
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).to.equal(stubbedResponse);
+        expect(returnedChapters).toEqual(stubbedResponse);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
       const accessToken = 'invalid-access_token';
-      axios.patch.rejects(new Error('some error'));
+      axios.patch.mockRejectedValue(new Error('some error'));
 
       // when
       const promise = syncApi.launch(accessToken);
 
       // then
       promise.catch((error) => {
-        expect(error.message).to.equal('some error');
+        expect(error.message).toEqual('some error');
         done();
       });
     });

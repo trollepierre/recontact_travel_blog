@@ -1,6 +1,6 @@
 import axios from 'axios';
-import api from '@/api/feedbacks';
-import env from '../../../../src/env/env.js'
+import api from './feedbacks';
+import env from '../env/env.js'
 
 describe('Unit | API | feedbacks api', () => {
   describe('#sendFeedback', () => {
@@ -11,11 +11,8 @@ describe('Unit | API | feedbacks api', () => {
           foo: 'bar',
         },
       };
-      sinon.stub(axios, 'post').resolves(stubbedResponse);
-    });
-
-    afterEach(() => {
-      axios.post.restore();
+      axios.post = jest.fn()
+      axios.post.mockResolvedValue(stubbedResponse)
     });
 
     it('should post feedbacks to API with the feedback and email', () => {
@@ -32,13 +29,13 @@ describe('Unit | API | feedbacks api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.post).to.have.been.calledWith(expectedUrl, expectedBody, expectedOptions);
+        expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedBody, expectedOptions);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
-      axios.post.rejects(new Error('some error'));
+      axios.post.mockRejectedValue(new Error('some error'));
       const feedback = 'coucou';
       const email = 'pierre@recontact.me';
 
@@ -47,7 +44,7 @@ describe('Unit | API | feedbacks api', () => {
 
       // then
       promise.catch((error) => {
-        expect(error.message).to.equal('some error');
+        expect(error.message).toEqual('some error');
         done();
       });
     });

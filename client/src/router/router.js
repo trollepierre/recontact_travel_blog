@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import ArticleList from '@/components/ArticleList';
-import ArticlePage from '@/components/ArticlePage';
-import SubscriberList from '@/components/SubscriberList';
+import ArticleList from '../components/ArticleList.vue';
+import ArticlePage from '../components/ArticlePage.vue';
+import SubscriberList from '../components/SubscriberList.vue';
 
 Vue.use(Router);
 

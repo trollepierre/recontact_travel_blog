@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import FeedbackModal from '@/components/FeedbackModal';
+import FeedbackModal from './FeedbackModal';
 import feedbacksApi from '@/api/feedbacks';
 import notificationsService from '@/services/notifications';
 
@@ -25,15 +25,15 @@ describe('Unit | Component | FeedbackModal.vue', () => {
   });
 
   it('should be named "FeedbackModal"', () => {
-    expect(component.$options.name).to.equal('FeedbackModal');
+    expect(component.$options.name).toEqual('FeedbackModal');
   });
 
   it('should have empty error', () => {
-    expect(component.$data.error).to.equal(null);
+    expect(component.$data.error).toEqual(null);
   });
 
   it('should have message with height to 152px', () => {
-    expect(component.$data.heightMessage).to.equal('152px');
+    expect(component.$data.heightMessage).toEqual('152px');
   });
 
   describe('rendering', () => {
@@ -57,7 +57,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       component.beforeOpen();
 
       // then
-      expect(component.$data.feedback).to.equal(null);
+      expect(component.$data.feedback).toEqual(null);
     });
 
     it('should reset email', () => {
@@ -68,7 +68,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       component.beforeOpen();
 
       // then
-      expect(component.$data.email).to.equal(null);
+      expect(component.$data.email).toEqual(null);
     });
 
     it('should reset height', () => {
@@ -79,7 +79,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       component.beforeOpen();
 
       // then
-      expect(component.$data.heightMessage).to.equal('152px');
+      expect(component.$data.heightMessage).toEqual('152px');
     });
 
     it('should remove error', () => {
@@ -90,7 +90,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       component.beforeOpen();
 
       // then
-      expect(component.$data.error).to.equal(null);
+      expect(component.$data.error).toEqual(null);
     });
   });
 
@@ -110,7 +110,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       component.opened();
 
       // then
-      expect(component._focusOnInput).to.have.been.calledWith();
+      expect(component._focusOnInput).toHaveBeenCalledWith();
     });
 
     it('should close on escape key', () => {
@@ -124,7 +124,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       document.dispatchEvent(e);
 
       return Vue.nextTick().then(() => {
-        expect(component._closeModal).to.have.been.calledWith();
+        expect(component._closeModal).toHaveBeenCalledWith();
       });
     });
 
@@ -139,7 +139,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       document.dispatchEvent(e);
 
       return Vue.nextTick().then(() => {
-        expect(component._closeModal).not.to.have.been.calledWith();
+        expect(component._closeModal).not.toHaveBeenCalledWith();
       });
     });
   });
@@ -178,7 +178,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       component.sendFeedback();
 
       // then
-      expect(component.$data.error).to.equal(null);
+      expect(component.$data.error).toEqual(null);
     });
 
     describe('when email is empty', () => {
@@ -190,7 +190,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('emailError');
+        expect(component.$data.error).toEqual('emailError');
       });
 
       it('should set error height', () => {
@@ -201,7 +201,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.heightMessage).to.equal('90px');
+        expect(component.$data.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
@@ -212,7 +212,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(feedbacksApi.sendFeedback).not.to.have.been.called;
+        expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
     });
 
@@ -225,7 +225,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('emailError');
+        expect(component.$data.error).toEqual('emailError');
       });
 
       it('should set error height', () => {
@@ -236,7 +236,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.heightMessage).to.equal('90px');
+        expect(component.$data.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
@@ -247,7 +247,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(feedbacksApi.sendFeedback).not.to.have.been.called;
+        expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
     });
 
@@ -260,7 +260,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('feedbackError');
+        expect(component.$data.error).toEqual('feedbackError');
       });
 
       it('should set error height', () => {
@@ -271,7 +271,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.heightMessage).to.equal('90px');
+        expect(component.$data.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
@@ -282,7 +282,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(feedbacksApi.sendFeedback).not.to.have.been.called;
+        expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
     });
 
@@ -295,7 +295,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.error).to.equal('feedbackError');
+        expect(component.$data.error).toEqual('feedbackError');
       });
 
       it('should set error height', () => {
@@ -306,7 +306,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(component.$data.heightMessage).to.equal('90px');
+        expect(component.$data.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
@@ -317,7 +317,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         component.sendFeedback();
 
         // then
-        expect(feedbacksApi.sendFeedback).not.to.have.been.called;
+        expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
     });
 
@@ -326,7 +326,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       component.sendFeedback();
 
       // then
-      expect(feedbacksApi.sendFeedback).to.have.been.calledWith(feedback, email);
+      expect(feedbacksApi.sendFeedback).toHaveBeenCalledWith(feedback, email);
     });
 
     it('should display success notification', () => {
@@ -339,7 +339,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       // then
       return Vue.nextTick().then(() => {
         const message = 'sendingSuccess';
-        expect(notificationsService.success).to.have.been.calledWith(component, message);
+        expect(notificationsService.success).toHaveBeenCalledWith(component, message);
       });
     });
 
@@ -385,7 +385,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$data.error).to.equal('sendingError');
+          expect(component.$data.error).toEqual('sendingError');
         });
       });
 
@@ -395,7 +395,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$data.heightMessage).to.equal('90px');
+          expect(component.$data.heightMessage).toEqual('90px');
         });
       });
     });
@@ -428,7 +428,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       myButton.click();
 
       // Then
-      expect(component.sendFeedback).to.have.been.called;
+      expect(component.sendFeedback).toHaveBeenCalled;
     });
   });
 
@@ -444,7 +444,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
       myButton.click();
 
       // Then
-      expect(component.cancelFeedback).to.have.been.called;
+      expect(component.cancelFeedback).toHaveBeenCalled;
     });
   });
 
@@ -452,7 +452,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
     const languages = Object.keys(FeedbackModal.i18n.messages);
 
     it('contains 2 languages', () => {
-      expect(languages.length).to.equal(2);
+      expect(languages.length).toEqual(2);
       expect(languages).to.deep.equal(['fr', 'en']);
     });
 
@@ -461,7 +461,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         const locales = Object.keys(FeedbackModal.i18n.messages.fr);
 
         it('contains 10 locales', () => {
-          expect(locales.length).to.equal(10);
+          expect(locales.length).toEqual(10);
           expect(locales).to.deep.equal([
             'suggest',
             'content',
@@ -481,7 +481,7 @@ describe('Unit | Component | FeedbackModal.vue', () => {
         const locales = Object.keys(FeedbackModal.i18n.messages.en);
 
         it('contains 10 locales', () => {
-          expect(locales.length).to.equal(10);
+          expect(locales.length).toEqual(10);
           expect(locales).to.deep.equal([
             'suggest',
             'content',

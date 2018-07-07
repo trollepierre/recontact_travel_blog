@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import ArticleCard from '@/components/ArticleCard';
+import ArticleCard from './ArticleCard';
 import router from '@/router';
 import notificationsService from '@/services/notifications';
 import translationsService from '@/services/translations';
@@ -34,7 +34,7 @@ describe('ArticleCard.vue', () => {
     });
 
     it('should be named "ArticleCard"', () => {
-      expect(component.$options.name).to.equal('ArticleCard');
+      expect(component.$options.name).toEqual('ArticleCard');
     });
 
     describe('$data', () => {
@@ -46,7 +46,7 @@ describe('ArticleCard.vue', () => {
     describe('render', () => {
       it('should render article title', () => {
         const articleTitle = component.$el.querySelector('.article__title');
-        expect(articleTitle.textContent).to.equal('Pierre somewhere');
+        expect(articleTitle.textContent).toEqual('Pierre somewhere');
       });
 
       it('should render article image', () => {
@@ -56,8 +56,8 @@ describe('ArticleCard.vue', () => {
 
       it('should render dropbox gallery link', () => {
         const dropboxLink = component.$el.querySelector('a.article__dropbox');
-        expect(dropboxLink.getAttribute('href')).to.equal(galleryLink);
-        expect(dropboxLink.getAttribute('target')).to.equal('_blank');
+        expect(dropboxLink.getAttribute('href')).toEqual(galleryLink);
+        expect(dropboxLink.getAttribute('target')).toEqual('_blank');
       });
 
       it('should have enabled article button', () => {
@@ -75,7 +75,7 @@ describe('ArticleCard.vue', () => {
         const { articleUrl } = component;
 
         // Then
-        expect(articleUrl).to.equal('/articles/58');
+        expect(articleUrl).toEqual('/articles/58');
       });
     });
 
@@ -85,7 +85,7 @@ describe('ArticleCard.vue', () => {
         const { articleTitle } = component;
 
         // Then
-        expect(articleTitle).to.equal('Pierre somewhere');
+        expect(articleTitle).toEqual('Pierre somewhere');
       });
     });
 
@@ -108,7 +108,7 @@ describe('ArticleCard.vue', () => {
         component.viewArticle();
 
         // then
-        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+        expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
 
         // after
         component.$router.push.restore();
@@ -124,7 +124,7 @@ describe('ArticleCard.vue', () => {
         component.goToArticle();
 
         // then
-        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+        expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
 
         // after
         component.$router.push.restore();
@@ -168,7 +168,7 @@ describe('ArticleCard.vue', () => {
         component.updateArticle();
 
         // then
-        expect(articlesApi.update).to.have.been.calledWith();
+        expect(articlesApi.update).toHaveBeenCalledWith();
       });
 
       it('should display success toast notification before synchronisation calls', () => {
@@ -180,7 +180,7 @@ describe('ArticleCard.vue', () => {
 
         // then
         const message = 'syncLaunched';
-        expect(notificationsService.information).to.have.been.calledWithExactly(component, message);
+        expect(notificationsService.information).toHaveBeenCalledWithExactly(component, message);
       });
 
       it('should redirect to /article/id', () => {
@@ -193,7 +193,7 @@ describe('ArticleCard.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$router.push).to.have.been.calledWith('/articles/58');
+          expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
           // after
           component.$router.push.restore();
         });
@@ -208,9 +208,9 @@ describe('ArticleCard.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(notificationsService.removeInformation).to.have.been.calledWithExactly(component);
+          expect(notificationsService.removeInformation).toHaveBeenCalledWithExactly(component);
           const message = 'syncDone';
-          expect(notificationsService.success).to.have.been.calledWithExactly(component, message);
+          expect(notificationsService.success).toHaveBeenCalledWithExactly(component, message);
         });
       });
 
@@ -223,9 +223,9 @@ describe('ArticleCard.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(notificationsService.removeInformation).to.have.been.calledWithExactly(component);
+          expect(notificationsService.removeInformation).toHaveBeenCalledWithExactly(component);
           const message = 'syncError Error: Expected error';
-          expect(notificationsService.error).to.have.been.calledWithExactly(component, message);
+          expect(notificationsService.error).toHaveBeenCalledWithExactly(component, message);
         });
       });
     });
@@ -239,7 +239,7 @@ describe('ArticleCard.vue', () => {
         component.$el.querySelector('button.article__view-button').click();
 
         // then
-        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+        expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
         // after
         component.$router.push.restore();
       });
@@ -254,7 +254,7 @@ describe('ArticleCard.vue', () => {
         component.$el.querySelector('.article__header a').click();
 
         // then
-        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+        expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
 
         // after
         component.$router.push.restore();
@@ -270,7 +270,7 @@ describe('ArticleCard.vue', () => {
         component.$el.querySelector('.article__content').click();
 
         // then
-        expect(component.$router.push).to.have.been.calledWith('/articles/58');
+        expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
 
         // after
         component.$router.push.restore();
@@ -330,7 +330,7 @@ describe('ArticleCard.vue', () => {
         component.$el.querySelector('button.article__update-button').click();
 
         // then
-        expect(articlesApi.update).to.have.been.calledWith('58');
+        expect(articlesApi.update).toHaveBeenCalledWith('58');
       });
     });
   });
@@ -339,7 +339,7 @@ describe('ArticleCard.vue', () => {
     const languages = Object.keys(ArticleCard.i18n.messages);
 
     it('contains 2 languages', () => {
-      expect(languages.length).to.equal(2);
+      expect(languages.length).toEqual(2);
       expect(languages).to.deep.equal(['fr', 'en']);
     });
 
@@ -348,7 +348,7 @@ describe('ArticleCard.vue', () => {
         const locales = Object.keys(ArticleCard.i18n.messages.fr);
 
         it('contains 10 locales', () => {
-          expect(locales.length).to.equal(10);
+          expect(locales.length).toEqual(10);
           expect(locales).to.deep.equal([
             'repairArticle',
             'deleteArticle',
@@ -368,7 +368,7 @@ describe('ArticleCard.vue', () => {
         const locales = Object.keys(ArticleCard.i18n.messages.en);
 
         it('contains 10 locales', () => {
-          expect(locales.length).to.equal(10);
+          expect(locales.length).toEqual(10);
           expect(locales).to.deep.equal([
             'repairArticle',
             'deleteArticle',

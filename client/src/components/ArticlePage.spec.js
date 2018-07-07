@@ -2,7 +2,7 @@ import Vue from 'vue';
 import router from '@/router';
 import photosApi from '@/api/photos';
 import chaptersApi from '@/api/chapters';
-import ArticlePage from '@/components/ArticlePage';
+import ArticlePage from './ArticlePage';
 import translationsService from '@/services/translations';
 
 describe('ArticlePage.vue', () => {
@@ -49,31 +49,31 @@ describe('ArticlePage.vue', () => {
   });
 
   it('should be named "ArticlePage"', () => {
-    expect(component.$options.name).to.equal('ArticlePage');
+    expect(component.$options.name).toEqual('ArticlePage');
   });
 
   describe('mounted', () => {
     it('should call chapters api to fetch chapters', () => {
-      expect(chaptersApi.fetch).to.have.been.calledWith(idArticle);
+      expect(chaptersApi.fetch).toHaveBeenCalledWith(idArticle);
     });
 
     it('should call photos api to fetch photos', () => {
-      expect(photosApi.fetch).to.have.been.calledWith(idArticle);
+      expect(photosApi.fetch).toHaveBeenCalledWith(idArticle);
     });
 
     it('should save chapters from api in data chapters', () => Vue.nextTick().then(() => {
-      expect(component.$data.chapters).to.equal(chapters);
+      expect(component.$data.chapters).toEqual(chapters);
     }));
 
     it('should save photos from api in data photos', () => Vue.nextTick().then(() => {
-      expect(component.$data.photos).to.equal(photos);
+      expect(component.$data.photos).toEqual(photos);
     }));
   });
 
   describe('render', () => {
     it('should render as many chapters as received from the API', () => Vue.nextTick().then(() => {
       const chaptersCards = component.$el.querySelectorAll('.chapter-card');
-      expect(chaptersCards.length).to.equal(3);
+      expect(chaptersCards.length).toEqual(3);
     }));
 
     it('should have empty chapters in data chapters', () => {
@@ -89,7 +89,7 @@ describe('ArticlePage.vue', () => {
     const languages = Object.keys(ArticlePage.i18n.messages);
 
     it('contains 2 languages', () => {
-      expect(languages.length).to.equal(2);
+      expect(languages.length).toEqual(2);
       expect(languages).to.deep.equal(['fr', 'en']);
     });
 
@@ -98,7 +98,7 @@ describe('ArticlePage.vue', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.fr);
 
         it('contains 4 locales', () => {
-          expect(locales.length).to.equal(4);
+          expect(locales.length).toEqual(4);
           expect(locales).to.deep.equal([
             'hereTheGallery',
             'goToPreviousArticle',
@@ -112,7 +112,7 @@ describe('ArticlePage.vue', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.en);
 
         it('contains 4 locales', () => {
-          expect(locales.length).to.equal(4);
+          expect(locales.length).toEqual(4);
           expect(locales).to.deep.equal([
             'hereTheGallery',
             'goToPreviousArticle',

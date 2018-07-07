@@ -1,7 +1,7 @@
 import axios from 'axios';
-import api from '@/api/subscriptions';
-import translationsService from '@/services/translations';
-import env from '../../../../src/env/env.js'
+import api from './subscriptions';
+import translationsService from '../services/translations';
+import env from '../env/env.js'
 
 describe('Unit | API | subscriptions api', () => {
   describe('#sendSubscription', () => {
@@ -12,14 +12,12 @@ describe('Unit | API | subscriptions api', () => {
           foo: 'bar',
         },
       };
-      sinon.stub(axios, 'post').resolves(stubbedResponse);
-      sinon.stub(translationsService, 'getNavigatorLanguage').returns('en');
+      axios.post = jest.fn()
+      axios.post.mockResolvedValue(stubbedResponse)
+      translationsService.getNavigatorLanguage = jest.fn()
+      translationsService.getNavigatorLanguage.mockReturnValue('en')
     });
 
-    afterEach(() => {
-      axios.post.restore();
-      translationsService.getNavigatorLanguage.restore();
-    });
 
     it('should post subscriptions to API with the email', () => {
       // given
@@ -34,13 +32,13 @@ describe('Unit | API | subscriptions api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.post).to.have.been.calledWith(expectedUrl, expectedBody, expectedOptions);
+        expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedBody, expectedOptions);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
-      axios.post.rejects(new Error('some error'));
+      axios.post.mockRejectedValue(new Error('some error'));
       const email = 'pierre@recontact.me';
 
       // when
@@ -48,7 +46,7 @@ describe('Unit | API | subscriptions api', () => {
 
       // then
       promise.catch((error) => {
-        expect(error.message).to.equal('some error');
+        expect(error.message).toEqual('some error');
         done();
       });
     });
