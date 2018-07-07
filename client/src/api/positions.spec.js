@@ -1,6 +1,6 @@
 import axios from 'axios';
-import positionsApi from '@/api/positions';
-import env from '../../../../src/env/env.js'
+import positionsApi from './positions';
+import env from '../env/env.js'
 
 describe('Unit | API | positions api', () => {
   describe('#fetchLast', () => {
@@ -14,11 +14,8 @@ describe('Unit | API | positions api', () => {
         status: 200,
         data,
       };
-      sinon.stub(axios, 'get').resolves(stubbedResponse);
-    });
-
-    afterEach(() => {
-      axios.get.restore();
+      axios.get = jest.fn()
+      axios.get.mockResolvedValue(stubbedResponse)
     });
 
     it('should fetchLast API with the good params', () => {
@@ -31,7 +28,7 @@ describe('Unit | API | positions api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.get).to.have.been.calledWith(expectedUrl, expectedOptions);
+        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
       });
     });
 
@@ -41,20 +38,20 @@ describe('Unit | API | positions api', () => {
 
       // then
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).to.equal(data);
+        expect(returnedChapters).toEqual(data);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
-      axios.get.rejects(new Error('some error'));
+      axios.get.mockRejectedValue(new Error('some error'));
 
       // when
       const promise = positionsApi.fetchLast();
 
       // then
       promise.catch((error) => {
-        expect(error.message).to.equal('some error');
+        expect(error.message).toEqual('some error');
         done();
       });
     });
@@ -91,7 +88,7 @@ describe('Unit | API | positions api', () => {
 
       // then
       return promise.then(() => {
-        expect(axios.post).to.have.been.calledWith(expectedUrl, position, expectedOptions);
+        expect(axios.post).toHaveBeenCalledWith(expectedUrl, position, expectedOptions);
       });
     });
 
@@ -101,20 +98,20 @@ describe('Unit | API | positions api', () => {
 
       // then
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).to.equal(data);
+        expect(returnedChapters).toEqual(data);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
       // given
-      axios.post.rejects(new Error('some error'));
+      axios.post.mockRejectedValue(new Error('some error'));
 
       // when
       const promise = positionsApi.add();
 
       // then
       promise.catch((error) => {
-        expect(error.message).to.equal('some error');
+        expect(error.message).toEqual('some error');
         done();
       });
     });

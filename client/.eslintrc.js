@@ -14,7 +14,8 @@ module.exports = {
   // required to lint *.vue files
   plugins: [
     'html',
-    'eslint-plugin-html'
+    'eslint-plugin-html',
+    'jest'
   ],
   // check if imports actually resolve
   'settings': {

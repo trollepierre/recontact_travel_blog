@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import SubscribeModal from '@/components/SubscribeModal';
+import SubscribeModal from './SubscribeModal';
 import subscriptionsApi from '@/api/subscriptions';
 import notificationsService from '@/services/notifications';
 
@@ -22,7 +22,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
   });
 
   it('should be named "SubscribeModal"', () => {
-    expect(component.$options.name).to.equal('SubscribeModal');
+    expect(component.$options.name).toEqual('SubscribeModal');
   });
 
   describe('rendering', () => {
@@ -44,7 +44,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       component.beforeOpen();
 
       // then
-      expect(component.$data.email).to.equal(null);
+      expect(component.$data.email).toEqual(null);
     });
 
     it('should remove error', () => {
@@ -55,7 +55,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       component.beforeOpen();
 
       // then
-      expect(component.$data.error).to.equal(null);
+      expect(component.$data.error).toEqual(null);
     });
   });
 
@@ -75,7 +75,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       component.opened();
 
       // then
-      expect(component._focusOnInput).to.have.been.calledWith();
+      expect(component._focusOnInput).toHaveBeenCalledWith();
     });
 
     it('should close on escape key', () => {
@@ -89,7 +89,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       document.dispatchEvent(e);
 
       return Vue.nextTick().then(() => {
-        expect(component._closeModal).to.have.been.calledWith();
+        expect(component._closeModal).toHaveBeenCalledWith();
       });
     });
 
@@ -104,7 +104,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       document.dispatchEvent(e);
 
       return Vue.nextTick().then(() => {
-        expect(component._closeModal).not.to.have.been.calledWith();
+        expect(component._closeModal).not.toHaveBeenCalledWith();
       });
     });
   });
@@ -144,7 +144,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       component.sendSubscription();
 
       // then
-      expect(component.$data.error).to.equal(null);
+      expect(component.$data.error).toEqual(null);
     });
 
     describe('when email is empty', () => {
@@ -156,7 +156,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         component.sendSubscription();
 
         // then
-        expect(component.$data.error).to.equal('emailError');
+        expect(component.$data.error).toEqual('emailError');
       });
 
       it('should not call sendSubscription', () => {
@@ -167,7 +167,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         component.sendSubscription();
 
         // then
-        expect(subscriptionsApi.subscribe).not.to.have.been.called;
+        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled;
       });
     });
 
@@ -180,7 +180,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         component.sendSubscription();
 
         // then
-        expect(component.$data.error).to.equal('emailError');
+        expect(component.$data.error).toEqual('emailError');
       });
 
       it('should not call sendSubscription', () => {
@@ -191,7 +191,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         component.sendSubscription();
 
         // then
-        expect(subscriptionsApi.subscribe).not.to.have.been.called;
+        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled;
       });
     });
 
@@ -200,7 +200,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       component.sendSubscription(email);
 
       // then
-      expect(subscriptionsApi.subscribe).to.have.been.calledWith(email);
+      expect(subscriptionsApi.subscribe).toHaveBeenCalledWith(email);
     });
 
     it('should display success notification', () => {
@@ -213,7 +213,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       // then
       return Vue.nextTick().then(() => {
         const message = 'subscriptionSuccess';
-        expect(notificationsService.success).to.have.been.calledWith(component, message);
+        expect(notificationsService.success).toHaveBeenCalledWith(component, message);
       });
     });
 
@@ -255,7 +255,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$data.error).to.equal('subscriptionError');
+          expect(component.$data.error).toEqual('subscriptionError');
         });
       });
     });
@@ -288,7 +288,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       myButton.click();
 
       // Then
-      expect(component.sendSubscription).to.have.been.called;
+      expect(component.sendSubscription).toHaveBeenCalled;
     });
   });
 
@@ -304,7 +304,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
       myButton.click();
 
       // Then
-      expect(component.cancelSubscription).to.have.been.called;
+      expect(component.cancelSubscription).toHaveBeenCalled;
     });
   });
 
@@ -312,7 +312,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
     const languages = Object.keys(SubscribeModal.i18n.messages);
 
     it('contains 2 languages', () => {
-      expect(languages.length).to.equal(2);
+      expect(languages.length).toEqual(2);
       expect(languages).to.deep.equal(['fr', 'en']);
     });
 
@@ -321,7 +321,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         const locales = Object.keys(SubscribeModal.i18n.messages.fr);
 
         it('contains 8 locales', () => {
-          expect(locales.length).to.equal(8);
+          expect(locales.length).toEqual(8);
           expect(locales).to.deep.equal([
             'subscribe',
             'modalText',
@@ -339,7 +339,7 @@ describe('Unit | Component | SubscribeModal.vue', () => {
         const locales = Object.keys(SubscribeModal.i18n.messages.en);
 
         it('contains 8 locales', () => {
-          expect(locales.length).to.equal(8);
+          expect(locales.length).toEqual(8);
           expect(locales).to.deep.equal([
             'subscribe',
             'modalText',

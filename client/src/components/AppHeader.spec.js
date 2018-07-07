@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import router from '@/router';
-import AppHeader from '@/components/AppHeader';
+import router from '../router/router';
+import AppHeader from './AppHeader';
 
 describe('Unit | Component | AppHeader.vue', () => {
   let component;
@@ -16,7 +16,7 @@ describe('Unit | Component | AppHeader.vue', () => {
   });
 
   it('should be named "AppHeader"', () => {
-    expect(component.$options.name).to.equal('AppHeader');
+    expect(component.$options.name).toEqual('AppHeader');
   });
 
   describe('rendering', () => {
@@ -34,9 +34,9 @@ describe('Unit | Component | AppHeader.vue', () => {
 
     it('should display a img to go to tdm', () => {
       const link = component.$el.querySelector('a.navbar-action__tdm');
-      expect(link.getAttribute('href')).to.equal('http://worldtour.recontact.me');
+      expect(link.getAttribute('href')).toEqual('http://worldtour.recontact.me');
       const image = component.$el.querySelector('img.tdm__image');
-      expect(image.getAttribute('src')).to.equal('/static/tdm.jpg');
+      expect(image.getAttribute('src')).toEqual('/static/tdm.jpg');
     });
   });
 
@@ -54,7 +54,7 @@ describe('Unit | Component | AppHeader.vue', () => {
       component.displayFeedbackModal();
 
       // then
-      expect(component.$modal.show).to.have.been.calledWith('feedback-modal');
+      expect(component.$modal.show).toHaveBeenCalledWith('feedback-modal');
     });
   });
 
@@ -72,7 +72,7 @@ describe('Unit | Component | AppHeader.vue', () => {
       component.displaySubscribeModal();
 
       // then
-      expect(component.$modal.show).to.have.been.calledWith('subscribe-modal');
+      expect(component.$modal.show).toHaveBeenCalledWith('subscribe-modal');
     });
   });
 
@@ -86,7 +86,7 @@ describe('Unit | Component | AppHeader.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.displayFeedbackModal).to.have.been.called;
+        expect(component.displayFeedbackModal).toHaveBeenCalled;
 
         // after
         component.displayFeedbackModal.restore();
@@ -104,7 +104,7 @@ describe('Unit | Component | AppHeader.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.displaySubscribeModal).to.have.been.called;
+        expect(component.displaySubscribeModal).toHaveBeenCalled;
 
         // after
         component.displaySubscribeModal.restore();
@@ -116,7 +116,7 @@ describe('Unit | Component | AppHeader.vue', () => {
     const languages = Object.keys(AppHeader.i18n.messages);
 
     it('contains 2 languages', () => {
-      expect(languages.length).to.equal(2);
+      expect(languages.length).toEqual(2);
       expect(languages).to.deep.equal(['fr', 'en']);
     });
 
@@ -125,7 +125,7 @@ describe('Unit | Component | AppHeader.vue', () => {
         const locales = Object.keys(AppHeader.i18n.messages.fr);
 
         it('contains 5 locales', () => {
-          expect(locales.length).to.equal(5);
+          expect(locales.length).toEqual(5);
           expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
         });
       });
@@ -134,7 +134,7 @@ describe('Unit | Component | AppHeader.vue', () => {
         const locales = Object.keys(AppHeader.i18n.messages.en);
 
         it('contains 5 locales', () => {
-          expect(locales.length).to.equal(5);
+          expect(locales.length).toEqual(5);
           expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
         });
       });

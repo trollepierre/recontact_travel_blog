@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import PhotoCard from '@/components/PhotoCard';
+import PhotoCard from './PhotoCard';
 
 describe('PhotoCard.vue', () => {
   let component;
@@ -19,14 +19,14 @@ describe('PhotoCard.vue', () => {
   });
 
   it('should be named "PhotoCard"', () => {
-    expect(component.$options.name).to.equal('PhotoCard');
+    expect(component.$options.name).toEqual('PhotoCard');
   });
 
   describe('render', () => {
     it('should render photo image', () => Vue.nextTick().then(() => {
       const photoLink = component.$el.querySelector('img');
-      expect(photoLink.getAttribute('src')).to.equal('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
-      expect(photoLink.getAttribute('lazy')).to.equal('loading');
+      expect(photoLink.getAttribute('src')).toEqual('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+      expect(photoLink.getAttribute('lazy')).toEqual('loading');
     }));
 
     // Comment tester le lazy load ?
@@ -35,7 +35,7 @@ describe('PhotoCard.vue', () => {
 
       // return Vue.nextTick().then(() => {
       // console.log(photoLink);
-      expect(photoLink.getAttribute('lazy')).to.equal('loaded');
+      expect(photoLink.getAttribute('lazy')).toEqual('loaded');
       expect(photoLink.getAttribute('src')).to.contain('webf');
       // });
     }));
@@ -50,7 +50,7 @@ describe('PhotoCard.vue', () => {
       const { imgLink } = component;
 
       // Then
-      expect(imgLink).to.equal('dropbox.com/img0.jpg');
+      expect(imgLink).toEqual('dropbox.com/img0.jpg');
     });
 
     it('should return false when api status is undefined', () => {
@@ -61,7 +61,7 @@ describe('PhotoCard.vue', () => {
       const { imgLink } = component;
 
       // Then
-      expect(imgLink).to.equal(false);
+      expect(imgLink).toEqual(false);
     });
   });
 });

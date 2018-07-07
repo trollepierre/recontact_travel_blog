@@ -1,20 +1,14 @@
-import notificationsService from '@/services/notifications';
+import notificationsService from './notifications';
 
 describe('Unit | services | notifications', () => {
-  let toaster;
-
   beforeEach(() => {
-    toaster = sinon.stub(notificationsService, 'toaster');
-  });
-
-  afterEach(() => {
-    toaster.restore();
+    notificationsService.toaster = jest.fn()
   });
 
   describe('#success', () => {
     it('should call s method', (done) => {
       // given
-      toaster.returns({
+      notificationsService.toaster.mockReturnValue({
         s(message) {
           if (message === 'message') {
             return done();
@@ -30,7 +24,7 @@ describe('Unit | services | notifications', () => {
 
     it('should call toaster with component', () => {
       // given
-      toaster.returns({
+      notificationsService.toaster.mockReturnValue({
         s() {
         },
       });
@@ -40,14 +34,14 @@ describe('Unit | services | notifications', () => {
       notificationsService.success(component, 'message');
 
       // then
-      expect(toaster).to.have.been.calledWith(component);
+      expect(notificationsService.toaster).toHaveBeenCalledWith(component);
     });
   });
 
   describe('#error', () => {
     it('should call e method', (done) => {
       // given
-      toaster.returns({
+      notificationsService.toaster.mockReturnValue({
         e(message) {
           if (message === 'message') {
             return done();
@@ -63,7 +57,7 @@ describe('Unit | services | notifications', () => {
 
     it('should call toaster with component', () => {
       // given
-      toaster.returns({
+      notificationsService.toaster.mockReturnValue({
         e() {
         },
       });
@@ -73,14 +67,14 @@ describe('Unit | services | notifications', () => {
       notificationsService.error(component, 'message');
 
       // then
-      expect(toaster).to.have.been.calledWith(component);
+      expect(notificationsService.toaster).toHaveBeenCalledWith(component);
     });
   });
 
   describe('#information', () => {
     it('should call s method', (done) => {
       // given
-      toaster.returns({
+      notificationsService.toaster.mockReturnValue({
         i(options) {
           if (options.msg === 'message' && options.timeout === 30000) {
             return done();
@@ -96,7 +90,7 @@ describe('Unit | services | notifications', () => {
 
     it('should call toaster with component', () => {
       // given
-      toaster.returns({
+      notificationsService.toaster.mockReturnValue({
         i() {
         },
       });
@@ -106,14 +100,14 @@ describe('Unit | services | notifications', () => {
       notificationsService.information(component, 'message');
 
       // then
-      expect(toaster).to.have.been.calledWith(component);
+      expect(notificationsService.toaster).toHaveBeenCalledWith(component);
     });
   });
 
   describe('#removeInformation', () => {
     it('should call s method', (done) => {
       // given
-      toaster.returns({
+      notificationsService.toaster.mockReturnValue({
         removeByType(type) {
           if (type === 'info') return done();
           return 'erreur';
@@ -127,7 +121,7 @@ describe('Unit | services | notifications', () => {
 
     it('should call toaster with component', () => {
       // given
-      toaster.returns({
+      notificationsService.toaster.mockReturnValue({
         removeByType() {
         },
       });
@@ -137,7 +131,7 @@ describe('Unit | services | notifications', () => {
       notificationsService.removeInformation(component, 'message');
 
       // then
-      expect(toaster).to.have.been.calledWith(component);
+      expect(notificationsService.toaster).toHaveBeenCalledWith(component);
     });
   });
 });
