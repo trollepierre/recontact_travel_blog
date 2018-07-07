@@ -18,11 +18,7 @@ describe('Unit | API | photos api', () => {
         data,
       };
       axios.get = jest.fn()
-      axios.getmockResolvedValue(stubbedResponse);
-    });
-
-    afterEach(() => {
-      axios.get.restore();
+      axios.get.mockResolvedValue(stubbedResponse);
     });
 
     it('should fetch API with the good params', () => {

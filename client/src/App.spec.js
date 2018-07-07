@@ -14,15 +14,5 @@ describe('Component | App', () => {
       // Then
       expect(wrapper.element).toMatchSnapshot()
     })
-
-    xit('should have AppHeader', () => {
-      // When
-      const wrapper = shallowMount(App, {
-        localVue,
-      })
-
-      // Then
-      expect(wrapper.find(AppHeader).exists()).toBe(true)
-    })
   })
 })

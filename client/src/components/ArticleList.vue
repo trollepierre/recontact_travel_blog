@@ -49,11 +49,11 @@
 
 <script>
   import ArticleCard from './ArticleCard';
-  import articlesApi from '@/api/articles';
-  import positionsApi from '@/api/positions';
-  import syncApi from '@/api/sync';
-  import notificationsService from '@/services/notifications';
-  import articlesSorter from '@/services/articlesSorter';
+  import articlesApi from '../api/articles';
+  import positionsApi from '../api/positions';
+  import syncApi from '../api/sync';
+  import notificationsService from '../services/notifications';
+  import articlesSorter from '../services/articlesSorter';
 
   export default {
     name: 'ArticleList',
