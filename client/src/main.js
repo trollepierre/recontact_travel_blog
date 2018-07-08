@@ -7,7 +7,7 @@ import VueLazyload from 'vue-lazyload';
 import VueI18n from 'vue-i18n';
 import VueAnalytics from 'vue-analytics';
 import App from './App';
-import router from './router/index';
+import router from './router/router';
 import env from './env/env.js'
 
 Vue.component('vue-toastr', Toastr);

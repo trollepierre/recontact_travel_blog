@@ -8,10 +8,10 @@ xdescribe('Component | SubscribeModal.vue', () => {
   const email = 'pierre@recontact.me';
 
   beforeEach(() => {
-    // given
+
     const Constructor = Vue.extend(SubscribeModal);
 
-    // when
+
     let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
       data() {
         return {
@@ -45,25 +45,25 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
   describe('#beforeOpen', () => {
     it('should reset email', () => {
-      // given
-      component.$data.email = 'Coucou@contact.me';
 
-      // when
+      wrapper.vm.email = 'Coucou@contact.me';
+
+
       component.beforeOpen();
 
-      // then
-      expect(component.$data.email).toEqual(null);
+
+      expect(wrapper.vm.email).toEqual(null);
     });
 
     it('should remove error', () => {
-      // given
-      component.$data.error = 'C\'est un problème';
 
-      // when
+      wrapper.vm.error = 'C\'est un problème';
+
+
       component.beforeOpen();
 
-      // then
-      expect(component.$data.error).toEqual(null);
+
+      expect(wrapper.vm.error).toEqual(null);
     });
   });
 
@@ -79,18 +79,18 @@ xdescribe('Component | SubscribeModal.vue', () => {
     });
 
     it('should focusOnInput', () => {
-      // when
+
       component.opened();
 
-      // then
+
       expect(component._focusOnInput).toHaveBeenCalledWith();
     });
 
     it('should close on escape key', () => {
-      // when
+
       component.opened();
 
-      // then
+
       const e = document.createEvent('Events');
       e.initEvent('keydown', true, true);
       e.keyCode = 27;
@@ -102,10 +102,10 @@ xdescribe('Component | SubscribeModal.vue', () => {
     });
 
     it('should not close on any other key than space', () => {
-      // when
+
       component.opened();
 
-      // then
+
       const e = document.createEvent('Events');
       e.initEvent('keydown', true, true);
       e.keyCode = 13;
@@ -119,12 +119,12 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
   describe('#_focusOnInput', () => {
     it.skip('should focus on input subscribe content', (done) => {
-      // given
+
       component.$modal.show('subscribe-modal');
 
-      // when
+
       setTimeout(() => {
-        // then
+
         const inputSubscribe = wrapper.find('input#subscribe-content');
         expect(inputSubscribe).to.have.focus();
         done();
@@ -145,80 +145,80 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
 
     it('should remove error', () => {
-      // given
-      component.$data.error = 'C\'est un problème';
 
-      // when
+      wrapper.vm.error = 'C\'est un problème';
+
+
       component.sendSubscription();
 
-      // then
-      expect(component.$data.error).toEqual(null);
+
+      expect(wrapper.vm.error).toEqual(null);
     });
 
     describe('when email is empty', () => {
       it('should set error', () => {
-        // given
-        component.$data.email = '';
 
-        // when
+        wrapper.vm.email = '';
+
+
         component.sendSubscription();
 
-        // then
-        expect(component.$data.error).toEqual('emailError');
+
+        expect(wrapper.vm.error).toEqual('emailError');
       });
 
       it('should not call sendSubscription', () => {
-        // given
-        component.$data.email = '';
 
-        // when
+        wrapper.vm.email = '';
+
+
         component.sendSubscription();
 
-        // then
+
         expect(subscriptionsApi.subscribe).not.toHaveBeenCalled;
       });
     });
 
     describe('when email does not follow good pattern', () => {
       it('should set error', () => {
-        // given
-        component.$data.email = 'pierrerecontact';
 
-        // when
+        wrapper.vm.email = 'pierrerecontact';
+
+
         component.sendSubscription();
 
-        // then
-        expect(component.$data.error).toEqual('emailError');
+
+        expect(wrapper.vm.error).toEqual('emailError');
       });
 
       it('should not call sendSubscription', () => {
-        // given
-        component.$data.email = 'pierre@recontact.m';
 
-        // when
+        wrapper.vm.email = 'pierre@recontact.m';
+
+
         component.sendSubscription();
 
-        // then
+
         expect(subscriptionsApi.subscribe).not.toHaveBeenCalled;
       });
     });
 
     it('should call the API with good params', () => {
-      // when
+
       component.sendSubscription(email);
 
-      // then
+
       expect(subscriptionsApi.subscribe).toHaveBeenCalledWith(email);
     });
 
     it('should display success notification', () => {
-      // given
+
       notificationsService.success.resolves({});
 
-      // when
+
       component.sendSubscription();
 
-      // then
+
       return Vue.nextTick().then(() => {
         const message = 'subscriptionSuccess';
         expect(notificationsService.success).toHaveBeenCalledWith(component, message);
@@ -226,14 +226,14 @@ xdescribe('Component | SubscribeModal.vue', () => {
     });
 
     it('should close modal', () => {
-      // given
-      component.$modal.show('subscribe-modal');
-      component.$data.email = 'email@recontact.me';
 
-      // when
+      component.$modal.show('subscribe-modal');
+      wrapper.vm.email = 'email@recontact.me';
+
+
       component.sendSubscription();
 
-      // then
+
       return Vue.nextTick().then(() => {
         expect(wrapper.find('.subscribe-modal')).not.to.exist;
       });
@@ -243,27 +243,27 @@ xdescribe('Component | SubscribeModal.vue', () => {
       beforeEach(() => {
         subscriptionsApi.subscribe.restore();
         component.$modal.show('subscribe-modal');
-        component.$data.email = 'email@recontact.me';
+        wrapper.vm.email = 'email@recontact.me';
         sinon.stub(subscriptionsApi, 'subscribe').rejects(new Error('e'));
       });
 
       it('should not close modal', () => {
-        // when
+
         component.sendSubscription();
 
-        // then
+
         return Vue.nextTick().then(() => {
           expect(wrapper.find('.subscribe-modal')).to.exist;
         });
       });
 
       it('should set error', () => {
-        // when
+
         component.sendSubscription();
 
-        // then
+
         return Vue.nextTick().then(() => {
-          expect(component.$data.error).toEqual('subscriptionError');
+          expect(wrapper.vm.error).toEqual('subscriptionError');
         });
       });
     });
@@ -271,13 +271,13 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
   describe('#cancelSubscription', () => {
     it('should close modal', () => {
-      // given
+
       component.$modal.show('subscribe-modal');
 
-      // when
+
       component.cancelSubscription();
 
-      // then
+
       return Vue.nextTick().then(() => {
         expect(wrapper.find('.subscribe-modal')).not.to.exist;
       });
@@ -285,33 +285,33 @@ xdescribe('Component | SubscribeModal.vue', () => {
   });
 
   it.skip('should sendSubscription on click on "send" button', () => {
-    // Given
+
     component.$modal.show('subscribe-modal');
     sinon.stub(component, 'sendSubscription');
 
     return Vue.nextTick().then(() => {
       const myButton = wrapper.find('.subscribe-modal__action--send');
 
-      // When
+
       myButton.click();
 
-      // Then
+
       expect(component.sendSubscription).toHaveBeenCalled;
     });
   });
 
   it.skip('should cancelSubscription on click on "cancel" button', () => {
-    // Given
+
     component.$modal.show('subscribe-modal');
     sinon.stub(component, 'cancelSubscription');
 
     return Vue.nextTick().then(() => {
       const myButton = wrapper.find('.subscribe-modal__action--cancel');
 
-      // When
+
       myButton.click();
 
-      // Then
+
       expect(component.cancelSubscription).toHaveBeenCalled;
     });
   });

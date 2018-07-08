@@ -70,11 +70,11 @@ xdescribe('Component | ArticlePage.vue', () => {
     });
 
     it('should save chapters from api in data chapters', () => Vue.nextTick().then(() => {
-      expect(component.$data.chapters).toEqual(chapters);
+      expect(wrapper.vm.chapters).toEqual(chapters);
     }));
 
     it('should save photos from api in data photos', () => Vue.nextTick().then(() => {
-      expect(component.$data.photos).toEqual(photos);
+      expect(wrapper.vm.photos).toEqual(photos);
     }));
   });
 
@@ -85,11 +85,11 @@ xdescribe('Component | ArticlePage.vue', () => {
     }));
 
     it('should have empty chapters in data chapters', () => {
-      expect(component.$data.chapters).toEqual([]);
+      expect(wrapper.vm.chapters).toEqual([]);
     });
 
     it('should have empty photos in data photos', () => {
-      expect(component.$data.photos).toEqual([]);
+      expect(wrapper.vm.photos).toEqual([]);
     });
   });
 

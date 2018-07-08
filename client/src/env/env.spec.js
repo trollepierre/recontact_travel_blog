@@ -13,14 +13,12 @@ beforeEach(() => {
 
 describe('when asking for an unknown key', () => {
   it('should return undefined', () => {
-    // Then
     expect(env('unknown')).toBeUndefined()
   })
 })
 
 describe('when asking for a known key', () => {
   it('should return the corresponding environment value', () => {
-    // Then
     expect(env('cyka')).toEqual(defaultWindowEnv['cyka'])
   })
 })

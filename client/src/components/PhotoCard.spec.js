@@ -51,24 +51,24 @@ xdescribe('Component | PhotoCard.vue', () => {
 
   describe('computed property #imgLink', () => {
     it('should return imgLink when defined', () => {
-      // Given
+
       photo.imgLink = 'dropbox.com/img0.jpg';
 
-      // When
+
       const { imgLink } = component;
 
-      // Then
+
       expect(imgLink).toEqual('dropbox.com/img0.jpg');
     });
 
     it('should return false when api status is undefined', () => {
-      // Given
+
       photo.imgLink = '';
 
-      // When
+
       const { imgLink } = component;
 
-      // Then
+
       expect(imgLink).toEqual(false);
     });
   });
