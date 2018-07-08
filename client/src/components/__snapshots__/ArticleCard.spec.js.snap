@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | ArticleCard.vue when adminMode is not defined template should match snapshot 1`] = `
+<div
+  class="article-card"
+>
+  <article
+    class="article"
+  >
+    <header
+      class="article__header"
+    >
+      <a
+        href="/articles/58"
+      >
+        <h2
+          class="article__title"
+        >
+          Pierre somewhere
+        </h2>
+      </a>
+    </header>
+     
+    <div
+      class="article__content"
+    >
+      <img
+        class="article__image"
+        src="webf"
+        width="200"
+      />
+    </div>
+     
+    <footer
+      class="article__footer"
+    >
+      <button
+        class="article__view-button"
+      >
+        
+          goToArticle
+        
+      </button>
+       
+      <a
+        class="article__dropbox"
+        href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0"
+        target="_blank"
+      >
+        <button
+          class="article__dropbox-button"
+        >
+          
+            viewGallery
+          
+        </button>
+      </a>
+    </footer>
+  </article>
+</div>
+`;

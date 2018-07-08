@@ -4,7 +4,7 @@ import subscriptionsApi from '../api/subscriptions';
 import notificationsService from '../services/notifications';
 
 xdescribe('Component | SubscribeModal.vue', () => {
-  let component;
+  let wrapper
   const email = 'pierre@recontact.me';
 
   beforeEach(() => {
@@ -12,25 +12,33 @@ xdescribe('Component | SubscribeModal.vue', () => {
     const Constructor = Vue.extend(SubscribeModal);
 
     // when
-    component = new Constructor({
+    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
       data() {
         return {
           email,
         };
       },
-    }).$mount();
+    })
   });
 
   it('should be named "SubscribeModal"', () => {
-    expect(component.$options.name).toEqual('SubscribeModal');
+    expect(wrapper.name()).toEqual('SubscribeModal');
   });
+
+  describe('template', () => {
+    it('should match snapshot', () => {
+      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
+
+      expect(wrapper.element).toMatchSnapshot()
+    })
+  })
 
   describe('rendering', () => {
     it('should display the modal', () => {
       component.$modal.show('subscribe-modal');
 
       return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('.subscribe-modal')).to.exist;
+        expect(wrapper.find('.subscribe-modal')).to.exist;
       });
     });
   });
@@ -117,7 +125,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
       // when
       setTimeout(() => {
         // then
-        const inputSubscribe = component.$el.querySelector('input#subscribe-content');
+        const inputSubscribe = wrapper.find('input#subscribe-content');
         expect(inputSubscribe).to.have.focus();
         done();
       }, 100);
@@ -227,7 +235,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('.subscribe-modal')).not.to.exist;
+        expect(wrapper.find('.subscribe-modal')).not.to.exist;
       });
     });
 
@@ -245,7 +253,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$el.querySelector('.subscribe-modal')).to.exist;
+          expect(wrapper.find('.subscribe-modal')).to.exist;
         });
       });
 
@@ -271,7 +279,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('.subscribe-modal')).not.to.exist;
+        expect(wrapper.find('.subscribe-modal')).not.to.exist;
       });
     });
   });
@@ -282,7 +290,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
     sinon.stub(component, 'sendSubscription');
 
     return Vue.nextTick().then(() => {
-      const myButton = component.$el.querySelector('.subscribe-modal__action--send');
+      const myButton = wrapper.find('.subscribe-modal__action--send');
 
       // When
       myButton.click();
@@ -298,7 +306,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
     sinon.stub(component, 'cancelSubscription');
 
     return Vue.nextTick().then(() => {
-      const myButton = component.$el.querySelector('.subscribe-modal__action--cancel');
+      const myButton = wrapper.find('.subscribe-modal__action--cancel');
 
       // When
       myButton.click();
@@ -313,16 +321,16 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
     it('contains 2 languages', () => {
       expect(languages.length).toEqual(2);
-      expect(languages).to.deep.equal(['fr', 'en']);
+      expect(languages).toEqual(['fr', 'en']);
     });
 
-    context('each language', () => {
+    describe('each language', () => {
       describe('fr', () => {
         const locales = Object.keys(SubscribeModal.i18n.messages.fr);
 
         it('contains 8 locales', () => {
           expect(locales.length).toEqual(8);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'subscribe',
             'modalText',
             'email',
@@ -340,7 +348,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
         it('contains 8 locales', () => {
           expect(locales.length).toEqual(8);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'subscribe',
             'modalText',
             'email',
