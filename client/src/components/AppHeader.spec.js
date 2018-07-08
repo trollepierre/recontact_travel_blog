@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueI18n from 'vue-i18n';
 import router from '../router/router';
 import AppHeader from './AppHeader';
 
@@ -8,13 +9,14 @@ describe('Unit | Component | AppHeader.vue', () => {
 
   beforeEach(() => {
     localVue = createLocalVue()
-    const Constructor = Vue.extend(AppHeader);
-    component = new Constructor({
-      router,
-    }).$mount();
+    localVue.use(VueI18n)
+    // const Constructor = Vue.extend(AppHeader);
+    // component = new Constructor({
+    //   router,
+    // }).$mount();
   });
 
-  xdescribe('template', () => {
+  describe('template', () => {
     it('should match snapshot', () => {
       // When
       const wrapper = shallowMount(AppHeader, { localVue })
