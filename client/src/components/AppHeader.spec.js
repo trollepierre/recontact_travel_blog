@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-import router from '../router/router';
+// import router from '../router/router';
 import AppHeader from './AppHeader';
 
 describe('Unit | Component | AppHeader.vue', () => {
@@ -26,8 +26,12 @@ describe('Unit | Component | AppHeader.vue', () => {
     })
   })
 
-  xit('should be named "AppHeader"', () => {
-    expect(component.$options.name).toEqual('AppHeader');
+  it('should be named "AppHeader"', () => {
+    // When
+    const wrapper = shallowMount(AppHeader, { localVue })
+
+    // Then
+    expect(wrapper.name()).toEqual('AppHeader');
   });
 
   xdescribe('rendering', () => {
