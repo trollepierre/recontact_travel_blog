@@ -58,7 +58,7 @@ xdescribe('Component | ArticleList.vue', () => {
     });
 
     it('should save articles from api in data articles', () => Vue.nextTick().then(() => {
-      expect(component.$data.articles).toEqual(sortedArticles);
+      expect(wrapper.vm.articles).toEqual(sortedArticles);
     }));
   });
 
@@ -82,31 +82,24 @@ xdescribe('Component | ArticleList.vue', () => {
 
   describe('computed property #title', () => {
     it('should return "Réparer le site" when site is in adminMode', () => {
-      // Given
       component.$props.adminMode = true;
 
-      // When
       const { title } = component;
 
-      // Then
       expect(title).toEqual('fixWebsite');
     });
 
     it('should return "Les articles du voyage" when site is in adminMode', () => {
-      // Given
       component.$props.adminMode = false;
 
-      // When
       const { title } = component;
 
-      // Then
       expect(title).toEqual('theArticlesOfTheTrip');
     });
   });
 
   describe('#updateLastPosition', () => {
     beforeEach(() => {
-      // given
       sinon.stub(positionsApi, 'add');
     });
 
@@ -115,42 +108,35 @@ xdescribe('Component | ArticleList.vue', () => {
     });
 
     it('should call positionsApi to add default position', () => {
-      // given
       positionsApi.add.resolves({});
       const position = {
         place: null,
         time: null,
       };
 
-      // when
       component.updateLastPosition();
 
-      // then
       return Vue.nextTick().then(() => {
         expect(positionsApi.add).toHaveBeenCalledWith(position);
       });
     });
 
     it('should updateLastPositionData with api answer', () => {
-      // given
       positionsApi.add.resolves({
         place: 'London',
         time: '6 May 2018',
       });
 
-      // when
       component.updateLastPosition();
 
-      // then
       return Vue.nextTick().then(() => {
-        expect(component.$data.lastPosition).toEqual('London, 6 May 2018');
+        expect(wrapper.vm.lastPosition).toEqual('London, 6 May 2018');
       });
     });
   });
 
   describe('#synchronise', () => {
     beforeEach(() => {
-      // given
       sinon.stub(syncApi, 'launch');
       sinon.stub(notificationsService, 'success').resolves({});
       sinon.stub(notificationsService, 'information').resolves({});
@@ -167,54 +153,54 @@ xdescribe('Component | ArticleList.vue', () => {
     });
 
     it('should display success toast notification before synchronisation calls', () => {
-      // given
+
       syncApi.launch.resolves({});
 
-      // when
+
       component.synchronise();
 
-      // then
+
       const message = 'syncLaunched';
-      expect(notificationsService.information).toHaveBeenCalledWithExactly(component, message);
+      expect(notificationsService.information).toHaveBeenCalledWith(component, message);
     });
 
     it('should call syncApi', () => {
-      // given
+
       syncApi.launch.resolves({});
 
-      // when
+
       component.synchronise();
 
-      // then
+
       return Vue.nextTick().then(() => {
         expect(syncApi.launch).toHaveBeenCalledWith();
       });
     });
 
     it('should display success toast notification when synchronisation succeeds', () => {
-      // given
+
       syncApi.launch.resolves({});
 
-      // when
+
       component.synchronise();
 
-      // then
+
       return Vue.nextTick().then(() => {
-        expect(notificationsService.removeInformation).toHaveBeenCalledWithExactly(component);
+        expect(notificationsService.removeInformation).toHaveBeenCalledWith(component);
         const message = 'syncDone';
-        expect(notificationsService.success).toHaveBeenCalledWithExactly(component, message);
+        expect(notificationsService.success).toHaveBeenCalledWith(component, message);
       });
     });
 
     it('should redirect to /', () => {
-      // given
+
       sinon.stub(component.$router, 'push').resolves({});
       syncApi.launch.resolves({});
 
-      // when
+
       component.synchronise();
 
-      // then
+
       return Vue.nextTick().then(() => {
         expect(component.$router.push).toHaveBeenCalledWith('/');
         // after
@@ -223,17 +209,17 @@ xdescribe('Component | ArticleList.vue', () => {
     });
 
     it('should display error toast notification when synchronisation fails', () => {
-      // given
+
       syncApi.launch.rejects(new Error('Expected error'));
 
-      // when
+
       component.synchronise();
 
-      // then
+
       return Vue.nextTick().then(() => {
-        expect(notificationsService.removeInformation).toHaveBeenCalledWithExactly(component);
+        expect(notificationsService.removeInformation).toHaveBeenCalledWith(component);
         const message = 'syncError Error: Expected error';
-        expect(notificationsService.error).toHaveBeenCalledWithExactly(component, message);
+        expect(notificationsService.error).toHaveBeenCalledWith(component, message);
       });
     });
   });
@@ -252,25 +238,25 @@ xdescribe('Component | ArticleList.vue', () => {
     });
 
     it('should disable sync button', () => {
-      // when
+
       stub.rejects();
       syncButton.click();
 
-      // then
+
       return Vue.nextTick().then(() => {
-        expect(syncButton.disabled).to.be.true;
+        expect(syncButton.disabled).toEqual(true)
       });
     });
 
     it('should call synchronise api', () => {
-      // given
+
       stub.resolves({});
       sinon.stub(component, 'synchronise').resolves({});
 
-      // when
+
       syncButton.click();
 
-      // then
+
       return Vue.nextTick().then(() => {
         expect(component.synchronise).toHaveBeenCalled;
 

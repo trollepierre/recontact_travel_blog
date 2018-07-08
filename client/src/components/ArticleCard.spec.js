@@ -1,6 +1,9 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+import VueAnalytics from 'vue-analytics';
+
 import ArticleCard from './ArticleCard.vue';
-// import router from '../router/router';
+
 import notificationsService from '../services/notifications';
 import translationsService from '../services/translations';
 import articlesApi from '../api/articles';
@@ -12,12 +15,16 @@ describe('Component | ArticleCard.vue', () => {
   const galleryLink = 'https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0';
   let article;
   let propsData;
+  const dropboxId = '58';
 
   beforeEach(() => {
     localVue = createLocalVue()
     localVue.use(VueI18n)
+    localVue.use(VueRouter)
+    localVue.use(VueAnalytics, { id: '12' })
+
     article = {
-      dropboxId: '58',
+      dropboxId,
       enTitle: 'Pierre in Costa Rica',
       frTitle: 'Pierre au Costa Rica',
       imgLink: 'webf',
@@ -37,12 +44,11 @@ describe('Component | ArticleCard.vue', () => {
     beforeEach(() => {
       translationsService.getTitle = jest.fn()
       translationsService.getTitle.mockReturnValue('Pierre somewhere')
+      wrapper = shallowMount(ArticleCard, { localVue, propsData })
     });
 
     describe('template', () => {
       it('should match snapshot', () => {
-        wrapper = shallowMount(ArticleCard, { localVue, propsData })
-
         expect(wrapper.element).toMatchSnapshot()
       })
 
@@ -64,166 +70,126 @@ describe('Component | ArticleCard.vue', () => {
       });
     });
 
-    xdescribe('computed', () => {
-      describe('computed property #articleUrl', () => {
+    describe('computed', () => {
+      describe('#articleUrl', () => {
         it('should return /articles/:id', () => {
-          // When
-          const { articleUrl } = wrapper.props();
-
-          // Then
-          expect(articleUrl).toEqual('/articles/58');
+          expect(wrapper.vm.articleUrl).toEqual('/articles/58');
         });
       });
 
-      describe('computed property #articleTitle', () => {
+      describe('#articleTitle', () => {
         it('should return articleName', () => {
-          // When
-          const { articleTitle } = wrapper.props();
-
-          // Then
-          expect(articleTitle).toEqual('Pierre somewhere');
+          expect(wrapper.vm.articleTitle).toEqual('Pierre somewhere');
         });
       });
     })
 
-    xdescribe('methods', () => {
+    describe('methods', () => {
       describe('#disableUpdateButton', () => {
         it('should set isUpdateClicked to true', () => {
-          // when
-          component.disableUpdateButton();
+          wrapper.vm.disableUpdateButton();
 
-          // then
-          expect(component.$data.isUpdateClicked).to.be.true;
+          expect(wrapper.vm.isUpdateClicked).toEqual(true)
         });
       });
 
       describe('#viewArticle', () => {
         it('should redirect to /articles/:articleId', () => {
-          // given
-          sinon.stub(component.$router, 'push').resolves({});
+          let router = {
+            init: jest.fn(),
+            push: jest.fn(),
+            history: {},
+          }
+          wrapper = shallowMount(ArticleCard, { localVue, propsData, router })
 
-          // when
-          component.viewArticle();
+          wrapper.vm.viewArticle();
 
-          // then
-          expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
-
-          // after
-          component.$router.push.restore();
+          expect(router.push).toHaveBeenCalledWith('/articles/58');
         });
       });
 
       describe('#goToArticle', () => {
         it('should redirect to /articles/:articleId', () => {
-          // given
-          sinon.stub(component.$router, 'push').resolves({});
+          let router = {
+            init: jest.fn(),
+            push: jest.fn(),
+            history: {},
+          }
+          wrapper = shallowMount(ArticleCard, { localVue, propsData, router })
 
-          // when
-          component.goToArticle();
+          wrapper.vm.goToArticle();
 
-          // then
-          expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
-
-          // after
-          component.$router.push.restore();
+          expect(router.push).toHaveBeenCalledWith('/articles/58');
         });
       });
 
-      describe('#update', () => {
+      describe('#updateArticle', () => {
         beforeEach(() => {
-          // given
-          sinon.stub(articlesApi, 'update');
-          sinon.stub(notificationsService, 'success').resolves({});
-          sinon.stub(notificationsService, 'information').resolves({});
-          sinon.stub(notificationsService, 'removeInformation').resolves({});
-          sinon.stub(notificationsService, 'error').resolves({});
-        });
 
-        afterEach(() => {
-          articlesApi.update.restore();
-          notificationsService.success.restore();
-          notificationsService.information.restore();
-          notificationsService.removeInformation.restore();
-          notificationsService.error.restore();
+          articlesApi.update = jest.fn()
+          notificationsService.success = jest.fn()
+          notificationsService.information = jest.fn()
+          notificationsService.removeInformation = jest.fn()
+          notificationsService.error = jest.fn()
         });
 
         it('should set isUpdateClicked to true', () => {
-          // given
-          articlesApi.update.resolves({});
+          articlesApi.update.mockResolvedValue({});
 
-          // when
-          component.updateArticle();
+          wrapper.vm.updateArticle();
 
-          // then
-          expect(component.$data.isUpdateClicked).to.be.true;
+          expect(wrapper.vm.isUpdateClicked).toEqual(true)
         });
 
         it('should call delete article api', () => {
-          // given
-          articlesApi.update.resolves({});
+          articlesApi.update.mockResolvedValue({});
 
-          // when
-          component.updateArticle();
+          wrapper.vm.updateArticle();
 
-          // then
-          expect(articlesApi.update).toHaveBeenCalledWith();
+          expect(articlesApi.update).toHaveBeenCalledWith(dropboxId);
         });
 
-        it('should display success toast notification before synchronisation calls', () => {
-          // given
-          articlesApi.update.resolves({});
+        xit('should display success toast notification before synchronisation calls', () => {
+          articlesApi.update.mockResolvedValue({});
 
-          // when
-          component.updateArticle();
+          wrapper.vm.updateArticle();
 
-          // then
           const message = 'syncLaunched';
-          expect(notificationsService.information).toHaveBeenCalledWithExactly(component, message);
+          expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message);
         });
 
-        it('should redirect to /article/id', () => {
-          // given
-          sinon.stub(component.$router, 'push').resolves({});
-          articlesApi.update.resolves({});
+        xit('should redirect to /article/id', () => {
+          component.outer = jest.fn()
+          articlesApi.update.mockResolvedValue({});
 
-          // when
-          component.updateArticle();
+          wrapper.vm.updateArticle();
 
-          // then
           return Vue.nextTick().then(() => {
             expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
-            // after
-            component.$router.push.restore();
           });
         });
 
-        it('should display success toast notification when synchronisation succeeds', () => {
-          // given
-          articlesApi.update.resolves({});
+        xit('should display success toast notification when synchronisation succeeds', () => {
+          articlesApi.update.mockResolvedValue({});
 
-          // when
-          component.updateArticle();
+          wrapper.vm.updateArticle();
 
-          // then
           return Vue.nextTick().then(() => {
-            expect(notificationsService.removeInformation).toHaveBeenCalledWithExactly(component);
+            expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything());
             const message = 'syncDone';
-            expect(notificationsService.success).toHaveBeenCalledWithExactly(component, message);
+            expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message);
           });
         });
 
-        it('should display error toast notification when synchronisation fails', () => {
-          // given
-          articlesApi.update.rejects(new Error('Expected error'));
+        xit('should display error toast notification when synchronisation fails', () => {
+          articlesApi.update.mockRejectedValue(new Error('Expected error'));
 
-          // when
-          component.updateArticle();
+          wrapper.vm.updateArticle();
 
-          // then
           return Vue.nextTick().then(() => {
-            expect(notificationsService.removeInformation).toHaveBeenCalledWithExactly(component);
+            expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything());
             const message = 'syncError Error: Expected error';
-            expect(notificationsService.error).toHaveBeenCalledWithExactly(component, message);
+            expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), message);
           });
         });
       });
@@ -232,13 +198,13 @@ describe('Component | ArticleCard.vue', () => {
     xdescribe('events', () => {
       describe('clicking on button "Voir l\'article"', () => {
         it('should redirect to /article/id', () => {
-          // given
-          sinon.stub(component.$router, 'push').resolves({});
 
-          // when
+          component.outer = jest.fn()
+
+
           wrapper.find('button.article__view-button').click();
 
-          // then
+
           expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
           // after
           component.$router.push.restore();
@@ -247,13 +213,13 @@ describe('Component | ArticleCard.vue', () => {
 
       describe('clicking on title', () => {
         it('should redirect to /article/id', () => {
-          // given
-          sinon.stub(component.$router, 'push').resolves({});
 
-          // when
+          component.outer = jest.fn()
+
+
           wrapper.find('.article__header a').click();
 
-          // then
+
           expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
 
           // after
@@ -263,13 +229,13 @@ describe('Component | ArticleCard.vue', () => {
 
       describe('clicking on image', () => {
         it('should redirect to /article/id', () => {
-          // given
-          sinon.stub(component.$router, 'push').resolves({});
 
-          // when
+          component.outer = jest.fn()
+
+
           wrapper.find('.article__content').click();
 
-          // then
+
           expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
 
           // after
@@ -303,12 +269,12 @@ describe('Component | ArticleCard.vue', () => {
 
     describe('clicking on button "reparer l\'article"', () => {
       beforeEach(() => {
-        // given
-        sinon.stub(articlesApi, 'update').resolves({});
-        sinon.stub(notificationsService, 'success').resolves({});
-        sinon.stub(notificationsService, 'information').resolves({});
-        sinon.stub(notificationsService, 'removeInformation').resolves({});
-        sinon.stub(notificationsService, 'error').resolves({});
+
+        articlesApi.update = jest.fn()
+        notificationsService.success = jest.fn()
+        notificationsService.information = jest.fn()
+        notificationsService.removeInformation = jest.fn()
+        notificationsService.error = jest.fn()
       });
 
       afterEach(() => {
@@ -320,20 +286,20 @@ describe('Component | ArticleCard.vue', () => {
       });
 
       it('should disable button', () => {
-        // when
+
         wrapper.find('button.article__update-button').click();
 
-        // then
+
         return Vue.nextTick().then(() => {
-          expect(wrapper.find('.article__update-button').disabled).to.be.true;
+          expect(wrapper.find('.article__update-button').disabled).toEqual(true)
         });
       });
 
       it('should call articlesApi', () => {
-        // when
+
         wrapper.find('button.article__update-button').click();
 
-        // then
+
         expect(articlesApi.update).toHaveBeenCalledWith('58');
       });
     });

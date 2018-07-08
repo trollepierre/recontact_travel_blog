@@ -10,10 +10,10 @@ xdescribe('Component | FeedbackModal.vue', () => {
   const email = 'pierre@recontact.me';
 
   beforeEach(() => {
-    // given
+
     const Constructor = Vue.extend(FeedbackModal);
 
-    // when
+
     let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
       data() {
         return {
@@ -37,19 +37,19 @@ xdescribe('Component | FeedbackModal.vue', () => {
   })
 
   it('should have empty error', () => {
-    expect(component.$data.error).toEqual(null);
+    expect(wrapper.vm.error).toEqual(null);
   });
 
   it('should have message with height to 152px', () => {
-    expect(component.$data.heightMessage).toEqual('152px');
+    expect(wrapper.vm.heightMessage).toEqual('152px');
   });
 
   describe('rendering', () => {
     it('should display the modal', () => {
-      // when
+
       component.$modal.show('feedback-modal');
 
-      // then
+
       return Vue.nextTick().then(() => {
         expect(wrapper.find('.feedback-modal')).to.exist;
       });
@@ -58,47 +58,47 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
   describe('#beforeOpen', () => {
     it('should reset feedback', () => {
-      // given
-      component.$data.feedback = 'Coucou';
 
-      // when
+      wrapper.vm.feedback = 'Coucou';
+
+
       component.beforeOpen();
 
-      // then
-      expect(component.$data.feedback).toEqual(null);
+
+      expect(wrapper.vm.feedback).toEqual(null);
     });
 
     it('should reset email', () => {
-      // given
-      component.$data.email = 'Coucou@contact.me';
 
-      // when
+      wrapper.vm.email = 'Coucou@contact.me';
+
+
       component.beforeOpen();
 
-      // then
-      expect(component.$data.email).toEqual(null);
+
+      expect(wrapper.vm.email).toEqual(null);
     });
 
     it('should reset height', () => {
-      // given
-      component.$data.heightMessage = '34px';
 
-      // when
+      wrapper.vm.heightMessage = '34px';
+
+
       component.beforeOpen();
 
-      // then
-      expect(component.$data.heightMessage).toEqual('152px');
+
+      expect(wrapper.vm.heightMessage).toEqual('152px');
     });
 
     it('should remove error', () => {
-      // given
-      component.$data.error = 'C\'est un problème';
 
-      // when
+      wrapper.vm.error = 'C\'est un problème';
+
+
       component.beforeOpen();
 
-      // then
-      expect(component.$data.error).toEqual(null);
+
+      expect(wrapper.vm.error).toEqual(null);
     });
   });
 
@@ -114,18 +114,18 @@ xdescribe('Component | FeedbackModal.vue', () => {
     });
 
     it('should focusOnInput', () => {
-      // when
+
       component.opened();
 
-      // then
+
       expect(component._focusOnInput).toHaveBeenCalledWith();
     });
 
     it('should close on escape key', () => {
-      // when
+
       component.opened();
 
-      // then
+
       const e = document.createEvent('Events');
       e.initEvent('keydown', true, true);
       e.keyCode = 27;
@@ -137,10 +137,10 @@ xdescribe('Component | FeedbackModal.vue', () => {
     });
 
     it('should not close on any other key than space', () => {
-      // when
+
       component.opened();
 
-      // then
+
       const e = document.createEvent('Events');
       e.initEvent('keydown', true, true);
       e.keyCode = 13;
@@ -154,12 +154,12 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
   describe('#_focusOnInput', () => {
     it.skip('should focus on input feedback content', (done) => {
-      // given
+
       component.$modal.show('feedback-modal');
 
-      // when
+
       setTimeout(() => {
-        // then
+
         const inputSubscribe = wrapper.find('input#feedback-email');
         expect(inputSubscribe).to.have.focus();
         done();
@@ -179,172 +179,172 @@ xdescribe('Component | FeedbackModal.vue', () => {
     });
 
     it('should remove error', () => {
-      // given
-      component.$data.error = 'C\'est un problème';
 
-      // when
+      wrapper.vm.error = 'C\'est un problème';
+
+
       component.sendFeedback();
 
-      // then
-      expect(component.$data.error).toEqual(null);
+
+      expect(wrapper.vm.error).toEqual(null);
     });
 
     describe('when email is empty', () => {
       it('should set error', () => {
-        // given
-        component.$data.email = '';
 
-        // when
+        wrapper.vm.email = '';
+
+
         component.sendFeedback();
 
-        // then
-        expect(component.$data.error).toEqual('emailError');
+
+        expect(wrapper.vm.error).toEqual('emailError');
       });
 
       it('should set error height', () => {
-        // given
-        component.$data.email = '';
 
-        // when
+        wrapper.vm.email = '';
+
+
         component.sendFeedback();
 
-        // then
-        expect(component.$data.heightMessage).toEqual('90px');
+
+        expect(wrapper.vm.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
-        // given
-        component.$data.email = '';
 
-        // when
+        wrapper.vm.email = '';
+
+
         component.sendFeedback();
 
-        // then
+
         expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
     });
 
     describe('when email does not follow the good pattern', () => {
       it('should set error', () => {
-        // given
-        component.$data.email = '@recontact.me';
 
-        // when
+        wrapper.vm.email = '@recontact.me';
+
+
         component.sendFeedback();
 
-        // then
-        expect(component.$data.error).toEqual('emailError');
+
+        expect(wrapper.vm.error).toEqual('emailError');
       });
 
       it('should set error height', () => {
-        // given
-        component.$data.email = 'pierre@recontact.m';
 
-        // when
+        wrapper.vm.email = 'pierre@recontact.m';
+
+
         component.sendFeedback();
 
-        // then
-        expect(component.$data.heightMessage).toEqual('90px');
+
+        expect(wrapper.vm.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
-        // given
-        component.$data.email = 'pierre@recontact.m';
 
-        // when
+        wrapper.vm.email = 'pierre@recontact.m';
+
+
         component.sendFeedback();
 
-        // then
+
         expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
     });
 
     describe('when feedback is empty', () => {
       it('should set error', () => {
-        // given
-        component.$data.feedback = '';
 
-        // when
+        wrapper.vm.feedback = '';
+
+
         component.sendFeedback();
 
-        // then
-        expect(component.$data.error).toEqual('feedbackError');
+
+        expect(wrapper.vm.error).toEqual('feedbackError');
       });
 
       it('should set error height', () => {
-        // given
-        component.$data.feedback = '';
 
-        // when
+        wrapper.vm.feedback = '';
+
+
         component.sendFeedback();
 
-        // then
-        expect(component.$data.heightMessage).toEqual('90px');
+
+        expect(wrapper.vm.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
-        // given
-        component.$data.feedback = '';
 
-        // when
+        wrapper.vm.feedback = '';
+
+
         component.sendFeedback();
 
-        // then
+
         expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
     });
 
     describe('when trimmed feedback is empty', () => {
       it('should set error', () => {
-        // given
-        component.$data.feedback = ' ';
 
-        // when
+        wrapper.vm.feedback = ' ';
+
+
         component.sendFeedback();
 
-        // then
-        expect(component.$data.error).toEqual('feedbackError');
+
+        expect(wrapper.vm.error).toEqual('feedbackError');
       });
 
       it('should set error height', () => {
-        // given
-        component.$data.feedback = ' \n';
 
-        // when
+        wrapper.vm.feedback = ' \n';
+
+
         component.sendFeedback();
 
-        // then
-        expect(component.$data.heightMessage).toEqual('90px');
+
+        expect(wrapper.vm.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
-        // given
-        component.$data.feedback = '';
 
-        // when
+        wrapper.vm.feedback = '';
+
+
         component.sendFeedback();
 
-        // then
+
         expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
     });
 
     it('should call the API with good params', () => {
-      // when
+
       component.sendFeedback();
 
-      // then
+
       expect(feedbacksApi.sendFeedback).toHaveBeenCalledWith(feedback, email);
     });
 
     it('should display success notification', () => {
-      // given
+
       notificationsService.success.resolves({});
 
-      // when
+
       component.sendFeedback();
 
-      // then
+
       return Vue.nextTick().then(() => {
         const message = 'sendingSuccess';
         expect(notificationsService.success).toHaveBeenCalledWith(component, message);
@@ -352,16 +352,16 @@ xdescribe('Component | FeedbackModal.vue', () => {
     });
 
     it('should close modal', () => {
-      // given
+
       notificationsService.success.resolves({});
       component.$modal.show('feedback-modal');
-      component.$data.email = 'email@recontact.me';
-      component.$data.feedback = 'Coucou';
+      wrapper.vm.email = 'email@recontact.me';
+      wrapper.vm.feedback = 'Coucou';
 
-      // when
+
       component.sendFeedback();
 
-      // then
+
       return Vue.nextTick().then(() => {
         expect(wrapper.find('.feedback-modal')).not.to.exist;
       });
@@ -372,38 +372,38 @@ xdescribe('Component | FeedbackModal.vue', () => {
         feedbacksApi.sendFeedback.restore();
         component.$modal.show('feedback-modal');
         sinon.stub(feedbacksApi, 'sendFeedback').rejects(new Error('e'));
-        component.$data.feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?';
-        component.$data.email = 'contact@recontact.me';
-        component.$data.heightMessage = '12px';
+        wrapper.vm.feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?';
+        wrapper.vm.email = 'contact@recontact.me';
+        wrapper.vm.heightMessage = '12px';
       });
 
       it('should not close modal', () => {
-        // when
+
         component.sendFeedback();
 
-        // then
+
         return Vue.nextTick().then(() => {
           expect(wrapper.find('.feedback-modal')).to.exist;
         });
       });
 
       it('should set error', () => {
-        // when
+
         component.sendFeedback();
 
-        // then
+
         return Vue.nextTick().then(() => {
-          expect(component.$data.error).toEqual('sendingError');
+          expect(wrapper.vm.error).toEqual('sendingError');
         });
       });
 
       it('should set error height', () => {
-        // when
+
         component.sendFeedback();
 
-        // then
+
         return Vue.nextTick().then(() => {
-          expect(component.$data.heightMessage).toEqual('90px');
+          expect(wrapper.vm.heightMessage).toEqual('90px');
         });
       });
     });
@@ -411,13 +411,13 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
   describe('#cancelFeedback', () => {
     it('should close modal', () => {
-      // given
+
       component.$modal.show('feedback-modal');
 
-      // when
+
       component.cancelFeedback();
 
-      // then
+
       return Vue.nextTick().then(() => {
         expect(wrapper.find('.feedback-modal')).not.to.exist;
       });
@@ -425,33 +425,33 @@ xdescribe('Component | FeedbackModal.vue', () => {
   });
 
   it.skip('should sendFeedback on click on "send" button', () => {
-    // Given
+
     component.$modal.show('feedback-modal');
     sinon.stub(component, 'sendFeedback');
 
     return Vue.nextTick().then(() => {
       const myButton = wrapper.find('.feedback-modal__action--send');
 
-      // When
+
       myButton.click();
 
-      // Then
+
       expect(component.sendFeedback).toHaveBeenCalled;
     });
   });
 
   it.skip('should cancelFeedback on click on "cancel" button', () => {
-    // Given
+
     component.$modal.show('feedback-modal');
     sinon.stub(component, 'cancelFeedback');
 
     return Vue.nextTick().then(() => {
       const myButton = wrapper.find('.feedback-modal__action--cancel');
 
-      // When
+
       myButton.click();
 
-      // Then
+
       expect(component.cancelFeedback).toHaveBeenCalled;
     });
   });

@@ -66,24 +66,24 @@ xdescribe('Component | ChapterCard.vue', () => {
 
   describe('computed property #imgLink', () => {
     it('should return imgLink when defined', () => {
-      // Given
+
       chapter.imgLink = 'dropbox.com/img0.jpg';
 
-      // When
+
       const { imgLink } = component;
 
-      // Then
+
       expect(imgLink).toEqual('dropbox.com/img0.jpg');
     });
 
     it('should return false when api status is undefined', () => {
-      // Given
+
       chapter.imgLink = '';
 
-      // When
+
       const { imgLink } = component;
 
-      // Then
+
       expect(imgLink).toEqual(false);
     });
   });

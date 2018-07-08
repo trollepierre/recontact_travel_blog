@@ -16,7 +16,7 @@ describe('Unit | API | feedbacks api', () => {
     });
 
     it('should post feedbacks to API with the feedback and email', () => {
-      // given
+
       const email = 'pierre@recontact.me';
       const feedback = 'Vive le Tour de France !';
 
@@ -24,25 +24,25 @@ describe('Unit | API | feedbacks api', () => {
       const expectedBody = { feedback, email };
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
 
-      // when
+
       const promise = api.sendFeedback(feedback, email);
 
-      // then
+
       return promise.then(() => {
         expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedBody, expectedOptions);
       });
     });
 
     it('should return a rejected promise when an error is thrown', (done) => {
-      // given
+
       axios.post.mockRejectedValue(new Error('some error'));
       const feedback = 'coucou';
       const email = 'pierre@recontact.me';
 
-      // when
+
       const promise = api.sendFeedback(feedback, email);
 
-      // then
+
       promise.catch((error) => {
         expect(error.message).toEqual('some error');
         done();
