@@ -2,7 +2,7 @@ import Vue from 'vue';
 import ChapterCard from './ChapterCard';
 import translationsService from '../services/translations';
 
-xdescribe('ChapterCard.vue', () => {
+xdescribe('Component | ChapterCard.vue', () => {
   let component;
   let chapter;
 

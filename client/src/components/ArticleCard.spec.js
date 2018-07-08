@@ -5,7 +5,7 @@ import notificationsService from '../services/notifications';
 import translationsService from '../services/translations';
 import articlesApi from '../api/articles';
 
-xdescribe('ArticleCard.vue', () => {
+xdescribe('Component | ArticleCard.vue', () => {
   describe('when adminMode is not defined', () => {
     const galleryLink = 'https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0';
     let component;

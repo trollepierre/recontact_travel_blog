@@ -5,7 +5,7 @@ import chaptersApi from '../api/chapters';
 import ArticlePage from './ArticlePage';
 import translationsService from '../services/translations';
 
-xdescribe('ArticlePage.vue', () => {
+xdescribe('Component | ArticlePage.vue', () => {
   let component;
   let chapters;
   let photos;

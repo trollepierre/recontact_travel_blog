@@ -7,7 +7,7 @@ import positionsApi from '../api/positions';
 import notificationsService from '../services/notifications';
 import articlesSorter from '../services/articlesSorter';
 
-xdescribe('ArticleList.vue', () => {
+xdescribe('Component | ArticleList.vue', () => {
   let component;
 
   const article = (dropboxId = 59) => ({
