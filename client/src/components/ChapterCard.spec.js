@@ -3,7 +3,7 @@ import ChapterCard from './ChapterCard';
 import translationsService from '../services/translations';
 
 xdescribe('Component | ChapterCard.vue', () => {
-  let component;
+  let wrapper
   let chapter;
 
   beforeEach(() => {
@@ -17,11 +17,11 @@ xdescribe('Component | ChapterCard.vue', () => {
       enText: 'some blabla',
     };
     const Constructor = Vue.extend(ChapterCard);
-    component = new Constructor({
+    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
       propsData: {
         chapter,
       },
-    }).$mount();
+    })
   });
 
   afterEach(() => {
@@ -30,28 +30,36 @@ xdescribe('Component | ChapterCard.vue', () => {
   });
 
   it('should be named "ChapterCard"', () => {
-    expect(component.$options.name).toEqual('ChapterCard');
+    expect(wrapper.name()).toEqual('ChapterCard');
   });
+
+  describe('template', () => {
+    it('should match snapshot', () => {
+      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
+
+      expect(wrapper.element).toMatchSnapshot()
+    })
+  })
 
   describe('render', () => {
     it('should render chapter title', () => {
-      const chapterTitle = component.$el.querySelector('h2');
+      const chapterTitle = wrapper.find('h2');
       expect(chapterTitle.textContent).toEqual('My title');
     });
 
     it('should render chapter image', () => {
-      const chapterLink = component.$el.querySelector('img');
-      expect(chapterLink.getAttribute('src')).to.contain('webf');
+      const chapterLink = wrapper.find('img');
+      expect(chapterLink.getAttribute('src')).toContain('webf');
     });
 
     it('should render chapter text', () => {
-      const chapterTitle = component.$el.querySelectorAll('.chapter__footer_text p');
+      const chapterTitle = wrapper.findAll('.chapter__footer_text p');
       expect(chapterTitle.length).toEqual(1);
       expect(chapterTitle[0].textContent).toEqual('one text');
     });
 
     it('should not render a span text with Image manquante', () => {
-      const missingImage = component.$el.querySelector('span');
+      const missingImage = wrapper.find('span');
       expect(missingImage).to.be.null;
     });
   });
@@ -82,7 +90,7 @@ xdescribe('Component | ChapterCard.vue', () => {
 });
 
 xdescribe('ChapterCard.vue when imgLink not set', () => {
-  let component;
+  let wrapper
   let chapter;
 
   beforeEach(() => {
@@ -96,11 +104,11 @@ xdescribe('ChapterCard.vue when imgLink not set', () => {
       enText: 'some blabla',
     };
     const Constructor = Vue.extend(ChapterCard);
-    component = new Constructor({
+    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
       propsData: {
         chapter,
       },
-    }).$mount();
+    })
   });
 
   afterEach(() => {
@@ -110,13 +118,13 @@ xdescribe('ChapterCard.vue when imgLink not set', () => {
 
   describe('render', () => {
     it('should not render chapter image', () => {
-      const chapterLink = component.$el.querySelector('img');
+      const chapterLink = wrapper.find('img');
       expect(chapterLink).to.be.null;
     });
 
     it('should render a span text with Image manquante', () => {
-      const missingImage = component.$el.querySelector('span');
-      expect(missingImage.innerText).to.contain('missingImage');
+      const missingImage = wrapper.find('span');
+      expect(missingImage.innerText).toContain('missingImage');
     });
   });
 
@@ -125,16 +133,16 @@ xdescribe('ChapterCard.vue when imgLink not set', () => {
 
     it('contains 2 languages', () => {
       expect(languages.length).toEqual(2);
-      expect(languages).to.deep.equal(['fr', 'en']);
+      expect(languages).toEqual(['fr', 'en']);
     });
 
-    context('each language', () => {
+    describe('each language', () => {
       describe('fr', () => {
         const locales = Object.keys(ChapterCard.i18n.messages.fr);
 
         it('contains 1 locale', () => {
           expect(locales.length).toEqual(1);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'missingImage',
           ]);
         });
@@ -145,7 +153,7 @@ xdescribe('ChapterCard.vue when imgLink not set', () => {
 
         it('contains 1 locale', () => {
           expect(locales.length).toEqual(1);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'missingImage',
           ]);
         });

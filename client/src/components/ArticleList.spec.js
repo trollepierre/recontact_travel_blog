@@ -8,7 +8,7 @@ import notificationsService from '../services/notifications';
 import articlesSorter from '../services/articlesSorter';
 
 xdescribe('Component | ArticleList.vue', () => {
-  let component;
+  let wrapper
 
   const article = (dropboxId = 59) => ({
     dropboxId,
@@ -28,7 +28,7 @@ xdescribe('Component | ArticleList.vue', () => {
       propsData: {
         adminMode: true,
       },
-    })).$mount();
+    }))
   });
 
   afterEach(() => {
@@ -37,8 +37,16 @@ xdescribe('Component | ArticleList.vue', () => {
   });
 
   it('should be named "ArticleList"', () => {
-    expect(component.$options.name).toEqual('ArticleList');
+    expect(wrapper.name()).toEqual('ArticleList');
   });
+
+  describe('template', () => {
+    it('should match snapshot', () => {
+      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
+
+      expect(wrapper.element).toMatchSnapshot()
+    })
+  })
 
   describe('mounted', () => {
     it('should call articles api to fetch articles', () => {
@@ -56,17 +64,17 @@ xdescribe('Component | ArticleList.vue', () => {
 
   describe('render', () => {
     it('should render as many articles as received from the API', () => Vue.nextTick().then(() => {
-      const articleCards = component.$el.querySelectorAll('.article-card');
+      const articleCards = wrapper.findAll('.article-card');
       expect(articleCards.length).toEqual(2);
     }));
 
     it('should render correct title', () => {
-      const articleCards = component.$el.querySelector('.article-results__title');
+      const articleCards = wrapper.find('.article-results__title');
       expect(articleCards.innerText).toEqual('fixWebsite');
     });
 
     it('should display a button to synchronise', () => {
-      const buttonToSync = component.$el.querySelectorAll('button.article-results__buttons')[1];
+      const buttonToSync = wrapper.findAll('button.article-results__buttons')[1];
       expect(buttonToSync).to.exist;
       expect(buttonToSync.innerText).toEqual('getNewArticles');
     });
@@ -236,7 +244,7 @@ xdescribe('Component | ArticleList.vue', () => {
 
     beforeEach(() => {
       stub = sinon.stub(notificationsService, 'information');
-      [, syncButton] = component.$el.querySelectorAll('button.article-results__buttons');
+      [, syncButton] = wrapper.findAll('button.article-results__buttons');
     });
 
     afterEach(() => {
@@ -277,16 +285,16 @@ xdescribe('Component | ArticleList.vue', () => {
 
     it('contains 2 languages', () => {
       expect(languages.length).toEqual(2);
-      expect(languages).to.deep.equal(['fr', 'en']);
+      expect(languages).toEqual(['fr', 'en']);
     });
 
-    context('each language', () => {
+    describe('each language', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticleList.i18n.messages.fr);
 
         it('contains 15 locales', () => {
           expect(locales.length).toEqual(15);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'getNewArticles',
             'deleteAllArticles',
             'deleteAndSyncAllArticles',
@@ -311,7 +319,7 @@ xdescribe('Component | ArticleList.vue', () => {
 
         it('contains 15 locales', () => {
           expect(locales.length).toEqual(15);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'getNewArticles',
             'deleteAllArticles',
             'deleteAndSyncAllArticles',
