@@ -10,6 +10,6 @@ exports[`Component | App template should match snapshot 1`] = `
    
   <feedbackmodal-stub />
    
-  <router-view />
+  <vuecomponent-stub />
 </div>
 `;
