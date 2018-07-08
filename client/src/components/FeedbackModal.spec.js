@@ -4,7 +4,7 @@ import feedbacksApi from '../api/feedbacks';
 import notificationsService from '../services/notifications';
 
 xdescribe('Component | FeedbackModal.vue', () => {
-  let component;
+  let wrapper
 
   const feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?';
   const email = 'pierre@recontact.me';
@@ -14,19 +14,27 @@ xdescribe('Component | FeedbackModal.vue', () => {
     const Constructor = Vue.extend(FeedbackModal);
 
     // when
-    component = new Constructor({
+    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
       data() {
         return {
           feedback,
           email,
         };
       },
-    }).$mount();
+    })
   });
 
   it('should be named "FeedbackModal"', () => {
-    expect(component.$options.name).toEqual('FeedbackModal');
+    expect(wrapper.name()).toEqual('FeedbackModal');
   });
+
+  describe('template', () => {
+    it('should match snapshot', () => {
+      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
+
+      expect(wrapper.element).toMatchSnapshot()
+    })
+  })
 
   it('should have empty error', () => {
     expect(component.$data.error).toEqual(null);
@@ -43,7 +51,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('.feedback-modal')).to.exist;
+        expect(wrapper.find('.feedback-modal')).to.exist;
       });
     });
   });
@@ -152,7 +160,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
       // when
       setTimeout(() => {
         // then
-        const inputSubscribe = component.$el.querySelector('input#feedback-email');
+        const inputSubscribe = wrapper.find('input#feedback-email');
         expect(inputSubscribe).to.have.focus();
         done();
       }, 100);
@@ -355,7 +363,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('.feedback-modal')).not.to.exist;
+        expect(wrapper.find('.feedback-modal')).not.to.exist;
       });
     });
 
@@ -375,7 +383,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
         // then
         return Vue.nextTick().then(() => {
-          expect(component.$el.querySelector('.feedback-modal')).to.exist;
+          expect(wrapper.find('.feedback-modal')).to.exist;
         });
       });
 
@@ -411,7 +419,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
       // then
       return Vue.nextTick().then(() => {
-        expect(component.$el.querySelector('.feedback-modal')).not.to.exist;
+        expect(wrapper.find('.feedback-modal')).not.to.exist;
       });
     });
   });
@@ -422,7 +430,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
     sinon.stub(component, 'sendFeedback');
 
     return Vue.nextTick().then(() => {
-      const myButton = component.$el.querySelector('.feedback-modal__action--send');
+      const myButton = wrapper.find('.feedback-modal__action--send');
 
       // When
       myButton.click();
@@ -438,7 +446,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
     sinon.stub(component, 'cancelFeedback');
 
     return Vue.nextTick().then(() => {
-      const myButton = component.$el.querySelector('.feedback-modal__action--cancel');
+      const myButton = wrapper.find('.feedback-modal__action--cancel');
 
       // When
       myButton.click();
@@ -453,16 +461,16 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
     it('contains 2 languages', () => {
       expect(languages.length).toEqual(2);
-      expect(languages).to.deep.equal(['fr', 'en']);
+      expect(languages).toEqual(['fr', 'en']);
     });
 
-    context('each language', () => {
+    describe('each language', () => {
       describe('fr', () => {
         const locales = Object.keys(FeedbackModal.i18n.messages.fr);
 
         it('contains 10 locales', () => {
           expect(locales.length).toEqual(10);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'suggest',
             'content',
             'placeholder',
@@ -482,7 +490,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
         it('contains 10 locales', () => {
           expect(locales.length).toEqual(10);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'suggest',
             'content',
             'placeholder',

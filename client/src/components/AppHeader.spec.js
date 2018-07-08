@@ -11,18 +11,18 @@ describe('Component | AppHeader.vue', () => {
     localVue.use(VueI18n)
   });
 
-  describe('template', () => {
-    beforeEach(() => {
-      wrapper = shallowMount(AppHeader, { localVue })
-    })
+  it('should be named "AppHeader"', () => {
+    wrapper = shallowMount(AppHeader, { localVue })
 
+    expect(wrapper.name()).toEqual('AppHeader');
+  });
+
+  describe('template', () => {
     it('should match snapshot', () => {
+      wrapper = shallowMount(AppHeader, { localVue })
+
       expect(wrapper.element).toMatchSnapshot()
     })
-
-    it('should be named "AppHeader"', () => {
-      expect(wrapper.name()).toEqual('AppHeader');
-    });
   })
 
   describe('methods', () => {

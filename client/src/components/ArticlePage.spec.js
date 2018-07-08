@@ -6,7 +6,7 @@ import ArticlePage from './ArticlePage';
 import translationsService from '../services/translations';
 
 xdescribe('Component | ArticlePage.vue', () => {
-  let component;
+  let wrapper
   let chapters;
   let photos;
   const title = 'Pierre au pays des';
@@ -37,7 +37,7 @@ xdescribe('Component | ArticlePage.vue', () => {
     sinon.stub(photosApi, 'fetch').resolves(photos);
     sinon.stub(chaptersApi, 'fetch').resolves({ title, chapters });
     const Constructor = Vue.extend(ArticlePage);
-    component = new Constructor({ router }).$mount();
+    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue, router })
     component.$route.params.id = idArticle;
   });
 
@@ -49,8 +49,16 @@ xdescribe('Component | ArticlePage.vue', () => {
   });
 
   it('should be named "ArticlePage"', () => {
-    expect(component.$options.name).toEqual('ArticlePage');
+    expect(wrapper.name()).toEqual('ArticlePage');
   });
+
+  describe('template', () => {
+    it('should match snapshot', () => {
+      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
+
+      expect(wrapper.element).toMatchSnapshot()
+    })
+  })
 
   describe('mounted', () => {
     it('should call chapters api to fetch chapters', () => {
@@ -72,16 +80,16 @@ xdescribe('Component | ArticlePage.vue', () => {
 
   describe('render', () => {
     it('should render as many chapters as received from the API', () => Vue.nextTick().then(() => {
-      const chaptersCards = component.$el.querySelectorAll('.chapter-card');
+      const chaptersCards = wrapper.findAll('.chapter-card');
       expect(chaptersCards.length).toEqual(3);
     }));
 
     it('should have empty chapters in data chapters', () => {
-      expect(component.$data.chapters).to.deep.equal([]);
+      expect(component.$data.chapters).toEqual([]);
     });
 
     it('should have empty photos in data photos', () => {
-      expect(component.$data.photos).to.deep.equal([]);
+      expect(component.$data.photos).toEqual([]);
     });
   });
 
@@ -90,16 +98,16 @@ xdescribe('Component | ArticlePage.vue', () => {
 
     it('contains 2 languages', () => {
       expect(languages.length).toEqual(2);
-      expect(languages).to.deep.equal(['fr', 'en']);
+      expect(languages).toEqual(['fr', 'en']);
     });
 
-    context('each language', () => {
+    describe('each language', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.fr);
 
         it('contains 4 locales', () => {
           expect(locales.length).toEqual(4);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'hereTheGallery',
             'goToPreviousArticle',
             'goToNextArticle',
@@ -113,7 +121,7 @@ xdescribe('Component | ArticlePage.vue', () => {
 
         it('contains 4 locales', () => {
           expect(locales.length).toEqual(4);
-          expect(locales).to.deep.equal([
+          expect(locales).toEqual([
             'hereTheGallery',
             'goToPreviousArticle',
             'goToNextArticle',

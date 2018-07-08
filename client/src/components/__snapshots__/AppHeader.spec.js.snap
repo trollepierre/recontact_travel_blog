@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unit | Component | AppHeader.vue template should match snapshot 1`] = `
+exports[`Component | AppHeader.vue template should match snapshot 1`] = `
 <div
   class="app-header"
 >

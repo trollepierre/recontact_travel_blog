@@ -2,7 +2,7 @@ import Vue from 'vue';
 import PhotoCard from './PhotoCard';
 
 xdescribe('Component | PhotoCard.vue', () => {
-  let component;
+  let wrapper
   let photo;
 
   beforeEach(() => {
@@ -11,32 +11,40 @@ xdescribe('Component | PhotoCard.vue', () => {
       dropboxId: '45',
     };
     const Constructor = Vue.extend(PhotoCard);
-    component = new Constructor({
+    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
       propsData: {
         photo,
       },
-    }).$mount();
+    })
   });
 
   it('should be named "PhotoCard"', () => {
-    expect(component.$options.name).toEqual('PhotoCard');
+    expect(wrapper.name()).toEqual('PhotoCard');
   });
+
+  describe('template', () => {
+    it('should match snapshot', () => {
+      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
+
+      expect(wrapper.element).toMatchSnapshot()
+    })
+  })
 
   describe('render', () => {
     it('should render photo image', () => Vue.nextTick().then(() => {
-      const photoLink = component.$el.querySelector('img');
+      const photoLink = wrapper.find('img');
       expect(photoLink.getAttribute('src')).toEqual('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
       expect(photoLink.getAttribute('lazy')).toEqual('loading');
     }));
 
     // Comment tester le lazy load ?
     it.skip('should render photo image', () => Vue.nextTick().then(() => {
-      const photoLink = component.$el.querySelector('img');
+      const photoLink = wrapper.find('img');
 
       // return Vue.nextTick().then(() => {
       // console.log(photoLink);
       expect(photoLink.getAttribute('lazy')).toEqual('loaded');
-      expect(photoLink.getAttribute('src')).to.contain('webf');
+      expect(photoLink.getAttribute('src')).toContain('webf');
       // });
     }));
   });
