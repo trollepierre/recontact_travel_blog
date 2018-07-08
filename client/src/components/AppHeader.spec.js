@@ -1,147 +1,94 @@
-import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-// import router from '../router/router';
+import VueModal from 'vue-js-modal';
 import AppHeader from './AppHeader';
 
-describe('Unit | Component | AppHeader.vue', () => {
-  let component;
+describe('Component | AppHeader.vue', () => {
   let localVue
+  let wrapper
 
   beforeEach(() => {
     localVue = createLocalVue()
     localVue.use(VueI18n)
-    // const Constructor = Vue.extend(AppHeader);
-    // component = new Constructor({
-    //   router,
-    // }).$mount();
   });
 
   describe('template', () => {
-    it('should match snapshot', () => {
-      // When
-      const wrapper = shallowMount(AppHeader, { localVue })
+    beforeEach(() => {
+      wrapper = shallowMount(AppHeader, { localVue })
+    })
 
-      // Then
+    it('should match snapshot', () => {
       expect(wrapper.element).toMatchSnapshot()
     })
+
+    it('should be named "AppHeader"', () => {
+      expect(wrapper.name()).toEqual('AppHeader');
+    });
   })
 
-  it('should be named "AppHeader"', () => {
-    // When
-    const wrapper = shallowMount(AppHeader, { localVue })
-
-    // Then
-    expect(wrapper.name()).toEqual('AppHeader');
-  });
-
-  xdescribe('rendering', () => {
-    it('should display a link to home', () => {
-      expect(component.$el.querySelector('.logo-link')).to.exist;
-    });
-
-    it('should display a button to subscribe', () => {
-      expect(component.$el.querySelector('button.navbar-action.navbar-action__subscribe')).to.exist;
-    });
-
-    it('should display a button to suggest', () => {
-      expect(component.$el.querySelector('button.navbar-action.navbar-action__suggestion')).to.exist;
-    });
-
-    it('should display a img to go to tdm', () => {
-      const link = component.$el.querySelector('a.navbar-action__tdm');
-      expect(link.getAttribute('href')).toEqual('http://worldtour.recontact.me');
-      const image = component.$el.querySelector('img.tdm__image');
-      expect(image.getAttribute('src')).toEqual('/static/tdm.jpg');
-    });
-  });
-
-  xdescribe('#displayFeedbackModal', () => {
+  describe('methods', () => {
     beforeEach(() => {
-      sinon.stub(component.$modal, 'show');
+      wrapper = shallowMount(AppHeader, { localVue })
+      localVue.use(VueModal)
+    })
+
+    describe('#displayFeedbackModal', () => {
+      it('should display the feedback-modal', () => {
+        wrapper.vm.$modal.show = jest.fn()
+
+        wrapper.vm.displayFeedbackModal();
+
+        expect(wrapper.vm.$modal.show).toHaveBeenCalledWith('feedback-modal');
+      });
     });
 
-    afterEach(() => {
-      component.$modal.show.restore();
-    });
+    describe('#displaySubscribeModal', () => {
+      it('should display the subscribe-modal', () => {
+        wrapper.vm.$modal.show = jest.fn()
 
-    it('should display the feedback-modal', () => {
-      // when
-      component.displayFeedbackModal();
+        wrapper.vm.displaySubscribeModal();
 
-      // then
-      expect(component.$modal.show).toHaveBeenCalledWith('feedback-modal');
-    });
-  });
-
-  xdescribe('#displaySubscribeModal', () => {
-    beforeEach(() => {
-      sinon.stub(component.$modal, 'show');
-    });
-
-    afterEach(() => {
-      component.$modal.show.restore();
-    });
-
-    it('should display the subscribe-modal', () => {
-      // when
-      component.displaySubscribeModal();
-
-      // then
-      expect(component.$modal.show).toHaveBeenCalledWith('subscribe-modal');
-    });
-  });
-
-  xdescribe('clicking on button "Laisser un message"', () => {
-    it('should call displayFeedbackModal', () => {
-      // given
-      sinon.stub(component, 'displayFeedbackModal').resolves({});
-
-      // when
-      component.$el.querySelector('button.navbar-action.navbar-action__suggestion').click();
-
-      // then
-      return Vue.nextTick().then(() => {
-        expect(component.displayFeedbackModal).toHaveBeenCalled;
-
-        // after
-        component.displayFeedbackModal.restore();
+        expect(wrapper.vm.$modal.show).toHaveBeenCalledWith('subscribe-modal');
       });
     });
   });
 
-  xdescribe('clicking on button "S\'abonner"', () => {
-    it('should call displaySubscribeModal', () => {
-      // given
-      sinon.stub(component, 'displaySubscribeModal').resolves({});
+  describe('events', () => {
+    describe('clicking on button "Laisser un message"', () => {
+      it('should call displayFeedbackModal', () => {
+        wrapper.vm.displayFeedbackModal = jest.fn()
 
-      // when
-      component.$el.querySelector('button.navbar-action.navbar-action__subscribe').click();
+        wrapper.find('button.navbar-action.navbar-action__suggestion').trigger('click')
 
-      // then
-      return Vue.nextTick().then(() => {
-        expect(component.displaySubscribeModal).toHaveBeenCalled;
+        expect(wrapper.vm.displayFeedbackModal).toHaveBeenCalled;
+      });
+    });
 
-        // after
-        component.displaySubscribeModal.restore();
+    describe('clicking on button "S\'abonner"', () => {
+      it('should call displaySubscribeModal', () => {
+        wrapper.vm.displaySubscribeModal = jest.fn()
+
+        wrapper.find('button.navbar-action.navbar-action__subscribe').trigger('click')
+
+        expect(wrapper.vm.displaySubscribeModal).toHaveBeenCalled;
       });
     });
   });
 
-  xdescribe('locales', () => {
+  describe('locales', () => {
     const languages = Object.keys(AppHeader.i18n.messages);
 
     it('contains 2 languages', () => {
       expect(languages.length).toEqual(2);
-      expect(languages).to.deep.equal(['fr', 'en']);
+      expect(languages).toEqual(['fr', 'en']);
     });
 
-    context('each language', () => {
+    describe('each language', () => {
       describe('fr', () => {
         const locales = Object.keys(AppHeader.i18n.messages.fr);
 
         it('contains 5 locales', () => {
           expect(locales.length).toEqual(5);
-          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
+          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
         });
       });
 
@@ -150,7 +97,7 @@ describe('Unit | Component | AppHeader.vue', () => {
 
         it('contains 5 locales', () => {
           expect(locales.length).toEqual(5);
-          expect(locales).to.deep.equal(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
+          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home']);
         });
       });
     });
