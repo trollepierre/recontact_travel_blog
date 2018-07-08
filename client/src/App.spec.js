@@ -10,10 +10,8 @@ describe('Component | App', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      // When
       const wrapper = shallowMount(App, { localVue })
 
-      // Then
       expect(wrapper.element).toMatchSnapshot()
     })
   })
