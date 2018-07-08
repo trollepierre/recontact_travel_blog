@@ -3,7 +3,7 @@ import FeedbackModal from './FeedbackModal';
 import feedbacksApi from '../api/feedbacks';
 import notificationsService from '../services/notifications';
 
-xdescribe('Unit | Component | FeedbackModal.vue', () => {
+xdescribe('Component | FeedbackModal.vue', () => {
   let component;
 
   const feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?';

@@ -3,7 +3,7 @@ import SubscribeModal from './SubscribeModal';
 import subscriptionsApi from '../api/subscriptions';
 import notificationsService from '../services/notifications';
 
-xdescribe('Unit | Component | SubscribeModal.vue', () => {
+xdescribe('Component | SubscribeModal.vue', () => {
   let component;
   const email = 'pierre@recontact.me';
 
