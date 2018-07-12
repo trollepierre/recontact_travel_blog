@@ -16,6 +16,11 @@ describe('Component | ArticleCard.vue', () => {
   let article;
   let propsData;
   const dropboxId = '58';
+  let router = {
+    init: jest.fn(),
+    push: jest.fn(),
+    history: {},
+  }
 
   beforeEach(() => {
     localVue = createLocalVue()
@@ -33,7 +38,7 @@ describe('Component | ArticleCard.vue', () => {
     propsData = {
       article,
     };
-    wrapper = shallowMount(ArticleCard, { localVue, propsData })
+    wrapper = shallowMount(ArticleCard, { localVue, propsData, router })
   });
 
   it('should be named "ArticleCard"', () => {
@@ -44,7 +49,7 @@ describe('Component | ArticleCard.vue', () => {
     beforeEach(() => {
       translationsService.getTitle = jest.fn()
       translationsService.getTitle.mockReturnValue('Pierre somewhere')
-      wrapper = shallowMount(ArticleCard, { localVue, propsData })
+      wrapper = shallowMount(ArticleCard, { localVue, propsData, router })
     });
 
     describe('template', () => {
@@ -95,11 +100,6 @@ describe('Component | ArticleCard.vue', () => {
 
       describe('#viewArticle', () => {
         it('should redirect to /articles/:articleId', () => {
-          let router = {
-            init: jest.fn(),
-            push: jest.fn(),
-            history: {},
-          }
           wrapper = shallowMount(ArticleCard, { localVue, propsData, router })
 
           wrapper.vm.viewArticle();
@@ -110,11 +110,6 @@ describe('Component | ArticleCard.vue', () => {
 
       describe('#goToArticle', () => {
         it('should redirect to /articles/:articleId', () => {
-          let router = {
-            init: jest.fn(),
-            push: jest.fn(),
-            history: {},
-          }
           wrapper = shallowMount(ArticleCard, { localVue, propsData, router })
 
           wrapper.vm.goToArticle();
@@ -125,7 +120,6 @@ describe('Component | ArticleCard.vue', () => {
 
       describe('#updateArticle', () => {
         beforeEach(() => {
-
           articlesApi.update = jest.fn()
           notificationsService.success = jest.fn()
           notificationsService.information = jest.fn()
@@ -149,7 +143,7 @@ describe('Component | ArticleCard.vue', () => {
           expect(articlesApi.update).toHaveBeenCalledWith(dropboxId);
         });
 
-        xit('should display success toast notification before synchronisation calls', () => {
+        it('should display success toast notification before synchronisation calls', () => {
           articlesApi.update.mockResolvedValue({});
 
           wrapper.vm.updateArticle();
@@ -158,18 +152,18 @@ describe('Component | ArticleCard.vue', () => {
           expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message);
         });
 
-        xit('should redirect to /article/id', () => {
-          component.outer = jest.fn()
+        it('should redirect to /article/id', () => {
           articlesApi.update.mockResolvedValue({});
+          wrapper = shallowMount(ArticleCard, { localVue, propsData, router })
 
           wrapper.vm.updateArticle();
 
           return Vue.nextTick().then(() => {
-            expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
+            expect(router.push).toHaveBeenCalledWith('/articles/58');
           });
         });
 
-        xit('should display success toast notification when synchronisation succeeds', () => {
+        it('should display success toast notification when synchronisation succeeds', () => {
           articlesApi.update.mockResolvedValue({});
 
           wrapper.vm.updateArticle();
@@ -195,110 +189,64 @@ describe('Component | ArticleCard.vue', () => {
       });
     })
 
-    xdescribe('events', () => {
+    describe('events', () => {
       describe('clicking on button "Voir l\'article"', () => {
         it('should redirect to /article/id', () => {
+          wrapper.find('button.article__view-button').trigger('click');
 
-          component.outer = jest.fn()
-
-
-          wrapper.find('button.article__view-button').click();
-
-
-          expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
-          // after
-          component.$router.push.restore();
+          expect(router.push).toHaveBeenCalledWith('/articles/58');
         });
       });
 
       describe('clicking on title', () => {
         it('should redirect to /article/id', () => {
+          wrapper.find('.article__header a').trigger('click')
 
-          component.outer = jest.fn()
-
-
-          wrapper.find('.article__header a').click();
-
-
-          expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
-
-          // after
-          component.$router.push.restore();
+          expect(router.push).toHaveBeenCalledWith('/articles/58');
         });
       });
 
       describe('clicking on image', () => {
         it('should redirect to /article/id', () => {
+          wrapper.find('.article__content').trigger('click')
 
-          component.outer = jest.fn()
-
-
-          wrapper.find('.article__content').click();
-
-
-          expect(component.$router.push).toHaveBeenCalledWith('/articles/58');
-
-          // after
-          component.$router.push.restore();
+          expect(router.push).toHaveBeenCalledWith('/articles/58');
         });
       });
     })
   });
 
-  xdescribe('when adminMode is true', () => {
-    let wrapper
-    let article;
-
+  describe('when adminMode is true', () => {
     beforeEach(() => {
-      article = {
-        dropboxId: '58',
-        imgLink: 'webf',
+      translationsService.getTitle = jest.fn()
+      translationsService.getTitle.mockReturnValue('Pierre somewhere')
+      propsData = {
+        article,
+        adminMode: true,
       };
-      const Constructor = Vue.extend(ArticleCard);
-      let localVue;
-      localVue = createLocalVue();
-      wrapper = shallowMount(AppHeader, {
-        localVue,
-        router,
-        propsData: {
-          article,
-          adminMode: true,
-        },
-      })
+      wrapper = shallowMount(ArticleCard, { localVue, propsData, router })
     });
 
     describe('clicking on button "reparer l\'article"', () => {
       beforeEach(() => {
-
         articlesApi.update = jest.fn()
+        articlesApi.update.mockResolvedValue({})
         notificationsService.success = jest.fn()
         notificationsService.information = jest.fn()
         notificationsService.removeInformation = jest.fn()
         notificationsService.error = jest.fn()
       });
 
-      afterEach(() => {
-        articlesApi.update.restore();
-        notificationsService.success.restore();
-        notificationsService.information.restore();
-        notificationsService.removeInformation.restore();
-        notificationsService.error.restore();
-      });
-
-      it('should disable button', () => {
-
-        wrapper.find('button.article__update-button').click();
-
+      xit('should disable button', () => {
+        wrapper.find('button.article__update-button').trigger('click')
 
         return Vue.nextTick().then(() => {
           expect(wrapper.find('.article__update-button').disabled).toEqual(true)
         });
       });
 
-      it('should call articlesApi', () => {
-
-        wrapper.find('button.article__update-button').click();
-
+      fit('should call articlesApi', () => {
+        wrapper.find('button.article__update-button').trigger('click')
 
         expect(articlesApi.update).toHaveBeenCalledWith('58');
       });
