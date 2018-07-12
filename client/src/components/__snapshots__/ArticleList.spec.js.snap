@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | ArticleList.vue template should match snapshot 1`] = `
+<div
+  class="page"
+>
+  <main
+    class="page__body"
+  >
+    <div
+      class="page__container"
+    >
+      <section
+        class="article-results"
+      >
+        <h1
+          class="article-results__title hidden"
+        >
+          fixWebsite
+        </h1>
+         
+        <p
+          class="article-results__title h1"
+        >
+          subtitle
+        </p>
+         
+        <p
+          class="article-results__title h2"
+        >
+          lastKnownPosition
+          
+          <span
+            class="article-results__title h3"
+          >
+            
+          </span>
+        </p>
+         
+        <a
+          href="http://recontact.me/apo/sub"
+        >
+          <button
+            class="article-results__buttons article-results__sync_hidden"
+            type="button"
+          >
+            getSubscribers
+            
+          </button>
+        </a>
+         
+        <button
+          class="article-results__buttons"
+          type="button"
+        >
+          getNewArticles
+        </button>
+         
+        <button
+          class="article-results__buttons article-results__sync_hidden"
+          type="button"
+        >
+          deleteAllArticles
+          
+        </button>
+         
+        <button
+          class="article-results__buttons article-results__sync_hidden"
+          type="button"
+        >
+          deleteAndSyncAllArticles
+          
+        </button>
+         
+        <br />
+         
+        <form
+          class="article-results__form"
+        >
+          <p
+            class="article-results__text"
+          >
+            
+              lastPosition
+            
+          </p>
+           
+          <label
+            class="article-results__label"
+            for="position-place"
+          >
+            place
+          </label>
+           
+          <input
+            class="article-results__input article-results__place"
+            id="position-place"
+            placeholder="Paris"
+          />
+           
+          <label
+            class="article-results__label"
+            for="position-time"
+          >
+            time
+          </label>
+           
+          <input
+            class="article-results__input article-results__time"
+            id="position-time"
+            placeholder="le 1er mai 2018"
+          />
+           
+          <button
+            class="article-results__buttons article-results__action--send"
+          >
+            confirm
+          </button>
+        </form>
+         
+        <ul
+          class="article-results__list"
+        >
+          <li
+            class="article-results__item"
+          >
+            <articlecard-stub />
+          </li>
+          <li
+            class="article-results__item"
+          >
+            <articlecard-stub />
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</div>
+`;
