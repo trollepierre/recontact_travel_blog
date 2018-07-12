@@ -2,19 +2,21 @@ import Vue from 'vue';
 import FeedbackModal from './FeedbackModal';
 import feedbacksApi from '../api/feedbacks';
 import notificationsService from '../services/notifications';
+import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
 
-xdescribe('Component | FeedbackModal.vue', () => {
+describe('Component | FeedbackModal.vue', () => {
   let wrapper
 
   const feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?';
   const email = 'pierre@recontact.me';
 
   beforeEach(() => {
-
-    const Constructor = Vue.extend(FeedbackModal);
-
-
-    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
+    let localVue;
+    localVue = createLocalVue();
+    localVue.use(VueI18n)
+    localVue.use(VueRouter)
+    wrapper = shallowMount(FeedbackModal, { localVue,
       data() {
         return {
           feedback,
@@ -30,8 +32,6 @@ xdescribe('Component | FeedbackModal.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
-
       expect(wrapper.element).toMatchSnapshot()
     })
   })
@@ -44,7 +44,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
     expect(wrapper.vm.heightMessage).toEqual('152px');
   });
 
-  describe('rendering', () => {
+  xdescribe('rendering', () => {
     it('should display the modal', () => {
 
       component.$modal.show('feedback-modal');
@@ -56,7 +56,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
     });
   });
 
-  describe('#beforeOpen', () => {
+  xdescribe('#beforeOpen', () => {
     it('should reset feedback', () => {
 
       wrapper.vm.feedback = 'Coucou';
@@ -102,7 +102,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
     });
   });
 
-  describe('#opened', () => {
+  xdescribe('#opened', () => {
     beforeEach(() => {
       sinon.stub(component, '_focusOnInput');
       sinon.stub(component, '_closeModal');
@@ -152,7 +152,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
     });
   });
 
-  describe('#_focusOnInput', () => {
+  xdescribe('#_focusOnInput', () => {
     it.skip('should focus on input feedback content', (done) => {
 
       component.$modal.show('feedback-modal');
@@ -167,7 +167,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
     });
   });
 
-  describe('#sendFeedback', () => {
+  xdescribe('#sendFeedback', () => {
     beforeEach(() => {
       sinon.stub(feedbacksApi, 'sendFeedback').resolves();
       sinon.stub(notificationsService, 'success');
@@ -409,7 +409,7 @@ xdescribe('Component | FeedbackModal.vue', () => {
     });
   });
 
-  describe('#cancelFeedback', () => {
+  xdescribe('#cancelFeedback', () => {
     it('should close modal', () => {
 
       component.$modal.show('feedback-modal');

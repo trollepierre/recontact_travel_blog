@@ -1,14 +1,18 @@
 import Vue from 'vue';
 import ChapterCard from './ChapterCard';
 import translationsService from '../services/translations';
+import VueI18n from 'vue-i18n';
 
-xdescribe('Component | ChapterCard.vue', () => {
+describe('Component | ChapterCard.vue', () => {
   let wrapper
   let chapter;
+    let localVue;
 
   beforeEach(() => {
-    sinon.stub(translationsService, 'getChapterTitle').returns('My title');
-    sinon.stub(translationsService, 'getChapterText').returns(['one text']);
+    translationsService.getChapterTitle = jest.fn()
+    translationsService.getChapterTitle.mockReturnValue('My title');
+    translationsService.getChapterText = jest.fn()
+    translationsService.getChapterText.mockReturnValue(['one text']);
     chapter = {
       frTitle: 'Titre du premier paragraphe',
       enTitle: 'Title of the first paragraph',
@@ -16,17 +20,12 @@ xdescribe('Component | ChapterCard.vue', () => {
       frText: 'du blabla',
       enText: 'some blabla',
     };
-    const Constructor = Vue.extend(ChapterCard);
-    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
-      propsData: {
-        chapter,
-      },
-    })
-  });
-
-  afterEach(() => {
-    translationsService.getChapterTitle.restore();
-    translationsService.getChapterText.restore();
+    const propsData = {
+      chapter,
+    };
+    localVue = createLocalVue()
+    localVue.use(VueI18n)
+    wrapper = shallowMount(ChapterCard, { localVue, propsData })
   });
 
   it('should be named "ChapterCard"', () => {
@@ -35,13 +34,11 @@ xdescribe('Component | ChapterCard.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
-
       expect(wrapper.element).toMatchSnapshot()
     })
   })
 
-  describe('render', () => {
+  xdescribe('render', () => {
     it('should render chapter title', () => {
       const chapterTitle = wrapper.find('h2');
       expect(chapterTitle.textContent).toEqual('My title');
@@ -64,7 +61,7 @@ xdescribe('Component | ChapterCard.vue', () => {
     });
   });
 
-  describe('computed property #imgLink', () => {
+  xdescribe('computed property #imgLink', () => {
     it('should return imgLink when defined', () => {
 
       chapter.imgLink = 'dropbox.com/img0.jpg';
@@ -94,8 +91,11 @@ xdescribe('ChapterCard.vue when imgLink not set', () => {
   let chapter;
 
   beforeEach(() => {
-    sinon.stub(translationsService, 'getChapterTitle').returns('My title');
-    sinon.stub(translationsService, 'getChapterText').returns(['one text']);
+    translationsService.getChapterTitle = jest.fn()
+    translationsService.getChapterTitle.mockReturnValue('My title');
+    translationsService.getChapterText = jest.fn()
+    translationsService.getChapterText.mockReturnValue(['one text']);
+
     chapter = {
       frTitle: 'Titre du premier paragraphe',
       enTitle: 'Title of the first paragraph',
@@ -103,20 +103,21 @@ xdescribe('ChapterCard.vue when imgLink not set', () => {
       frText: 'du blabla',
       enText: 'some blabla',
     };
-    const Constructor = Vue.extend(ChapterCard);
-    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
-      propsData: {
-        chapter,
-      },
+    const propsData = {
+      chapter,
+    };
+    localVue = createLocalVue()
+    localVue.use(VueI18n)
+    wrapper = shallowMount(ChapterCard, { localVue, propsData })
+  });
+
+  describe('template', () => {
+    it('should match snapshot', () => {
+      expect(wrapper.element).toMatchSnapshot()
     })
-  });
+  })
 
-  afterEach(() => {
-    translationsService.getChapterTitle.restore();
-    translationsService.getChapterText.restore();
-  });
-
-  describe('render', () => {
+  xdescribe('render', () => {
     it('should not render chapter image', () => {
       const chapterLink = wrapper.find('img');
       expect(chapterLink).to.be.null;

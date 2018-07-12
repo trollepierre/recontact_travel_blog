@@ -16,7 +16,7 @@ describe('Component | ArticleCard.vue', () => {
   let article;
   let propsData;
   const dropboxId = '58';
-  let router = {
+  const router = {
     init: jest.fn(),
     push: jest.fn(),
     history: {},
