@@ -1,14 +1,21 @@
 import Vue from 'vue';
-import router from '../router/router';
 import articlesApi from '../api/articles';
 import ArticleList from './ArticleList';
 import syncApi from '../api/sync';
 import positionsApi from '../api/positions';
 import notificationsService from '../services/notifications';
 import articlesSorter from '../services/articlesSorter';
+import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
 
-xdescribe('Component | ArticleList.vue', () => {
+describe('Component | ArticleList.vue', () => {
+  let localVue
   let wrapper
+  const router = {
+    init: jest.fn(),
+    push: jest.fn(),
+    history: {},
+  }
 
   const article = (dropboxId = 59) => ({
     dropboxId,
@@ -20,20 +27,17 @@ xdescribe('Component | ArticleList.vue', () => {
   const sortedArticles = [article('12'), article('92')];
 
   beforeEach(() => {
-    sinon.stub(articlesSorter, 'sortByDropboxId').returns(sortedArticles);
-    sinon.stub(articlesApi, 'fetchAll').resolves(fetchArticles);
-    const Constructor = Vue.extend(ArticleList);
-    component = new Constructor(({
-      router,
-      propsData: {
-        adminMode: true,
-      },
-    }))
-  });
-
-  afterEach(() => {
-    articlesSorter.sortByDropboxId.restore();
-    articlesApi.fetchAll.restore();
+    articlesSorter.sortByDropboxId = jest.fn()
+    articlesSorter.sortByDropboxId.mockReturnValue(sortedArticles);
+    articlesApi.fetchAll = jest.fn()
+    articlesApi.fetchAll.mockResolvedValue(fetchArticles);
+    const propsData = {
+      adminMode: true,
+    };
+    localVue = createLocalVue()
+    localVue.use(VueI18n)
+    localVue.use(VueRouter)
+    wrapper = shallowMount(ArticleList, { localVue, router, propsData })
   });
 
   it('should be named "ArticleList"', () => {
@@ -42,13 +46,11 @@ xdescribe('Component | ArticleList.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
-
       expect(wrapper.element).toMatchSnapshot()
     })
   })
 
-  describe('mounted', () => {
+  xdescribe('mounted', () => {
     it('should call articles api to fetch articles', () => {
       expect(articlesApi.fetchAll).toHaveBeenCalledWith();
     });
@@ -62,7 +64,7 @@ xdescribe('Component | ArticleList.vue', () => {
     }));
   });
 
-  describe('render', () => {
+  xdescribe('render', () => {
     it('should render as many articles as received from the API', () => Vue.nextTick().then(() => {
       const articleCards = wrapper.findAll('.article-card');
       expect(articleCards.length).toEqual(2);
@@ -80,7 +82,7 @@ xdescribe('Component | ArticleList.vue', () => {
     });
   });
 
-  describe('computed property #title', () => {
+  xdescribe('computed property #title', () => {
     it('should return "Réparer le site" when site is in adminMode', () => {
       component.$props.adminMode = true;
 
@@ -98,133 +100,135 @@ xdescribe('Component | ArticleList.vue', () => {
     });
   });
 
-  describe('#updateLastPosition', () => {
-    beforeEach(() => {
-      sinon.stub(positionsApi, 'add');
-    });
+  xdescribe('methods', () => {
+    describe('#updateLastPosition', () => {
+      beforeEach(() => {
+        sinon.stub(positionsApi, 'add');
+      });
 
-    afterEach(() => {
-      positionsApi.add.restore();
-    });
+      afterEach(() => {
+        positionsApi.add.restore();
+      });
 
-    it('should call positionsApi to add default position', () => {
-      positionsApi.add.resolves({});
-      const position = {
-        place: null,
-        time: null,
-      };
+      it('should call positionsApi to add default position', () => {
+        positionsApi.add.resolves({});
+        const position = {
+          place: null,
+          time: null,
+        };
 
-      component.updateLastPosition();
+        component.updateLastPosition();
 
-      return Vue.nextTick().then(() => {
-        expect(positionsApi.add).toHaveBeenCalledWith(position);
+        return Vue.nextTick().then(() => {
+          expect(positionsApi.add).toHaveBeenCalledWith(position);
+        });
+      });
+
+      it('should updateLastPositionData with api answer', () => {
+        positionsApi.add.resolves({
+          place: 'London',
+          time: '6 May 2018',
+        });
+
+        component.updateLastPosition();
+
+        return Vue.nextTick().then(() => {
+          expect(wrapper.vm.lastPosition).toEqual('London, 6 May 2018');
+        });
       });
     });
 
-    it('should updateLastPositionData with api answer', () => {
-      positionsApi.add.resolves({
-        place: 'London',
-        time: '6 May 2018',
+    describe('#synchronise', () => {
+      beforeEach(() => {
+        sinon.stub(syncApi, 'launch');
+        sinon.stub(notificationsService, 'success').resolves({});
+        sinon.stub(notificationsService, 'information').resolves({});
+        sinon.stub(notificationsService, 'removeInformation').resolves({});
+        sinon.stub(notificationsService, 'error').resolves({});
       });
 
-      component.updateLastPosition();
+      afterEach(() => {
+        syncApi.launch.restore();
+        notificationsService.success.restore();
+        notificationsService.information.restore();
+        notificationsService.removeInformation.restore();
+        notificationsService.error.restore();
+      });
 
-      return Vue.nextTick().then(() => {
-        expect(wrapper.vm.lastPosition).toEqual('London, 6 May 2018');
+      it('should display success toast notification before synchronisation calls', () => {
+
+        syncApi.launch.resolves({});
+
+
+        component.synchronise();
+
+
+        const message = 'syncLaunched';
+        expect(notificationsService.information).toHaveBeenCalledWith(component, message);
+      });
+
+      it('should call syncApi', () => {
+
+        syncApi.launch.resolves({});
+
+
+        component.synchronise();
+
+
+        return Vue.nextTick().then(() => {
+          expect(syncApi.launch).toHaveBeenCalledWith();
+        });
+      });
+
+      it('should display success toast notification when synchronisation succeeds', () => {
+
+        syncApi.launch.resolves({});
+
+
+        component.synchronise();
+
+
+        return Vue.nextTick().then(() => {
+          expect(notificationsService.removeInformation).toHaveBeenCalledWith(component);
+          const message = 'syncDone';
+          expect(notificationsService.success).toHaveBeenCalledWith(component, message);
+        });
+      });
+
+      it('should redirect to /', () => {
+
+        sinon.stub(component.$router, 'push').resolves({});
+        syncApi.launch.resolves({});
+
+
+        component.synchronise();
+
+
+        return Vue.nextTick().then(() => {
+          expect(component.$router.push).toHaveBeenCalledWith('/');
+          // after
+          component.$router.push.restore();
+        });
+      });
+
+      it('should display error toast notification when synchronisation fails', () => {
+
+        syncApi.launch.rejects(new Error('Expected error'));
+
+
+        component.synchronise();
+
+
+        return Vue.nextTick().then(() => {
+          expect(notificationsService.removeInformation).toHaveBeenCalledWith(component);
+          const message = 'syncError Error: Expected error';
+          expect(notificationsService.error).toHaveBeenCalledWith(component, message);
+        });
       });
     });
-  });
+  })
 
-  describe('#synchronise', () => {
-    beforeEach(() => {
-      sinon.stub(syncApi, 'launch');
-      sinon.stub(notificationsService, 'success').resolves({});
-      sinon.stub(notificationsService, 'information').resolves({});
-      sinon.stub(notificationsService, 'removeInformation').resolves({});
-      sinon.stub(notificationsService, 'error').resolves({});
-    });
-
-    afterEach(() => {
-      syncApi.launch.restore();
-      notificationsService.success.restore();
-      notificationsService.information.restore();
-      notificationsService.removeInformation.restore();
-      notificationsService.error.restore();
-    });
-
-    it('should display success toast notification before synchronisation calls', () => {
-
-      syncApi.launch.resolves({});
-
-
-      component.synchronise();
-
-
-      const message = 'syncLaunched';
-      expect(notificationsService.information).toHaveBeenCalledWith(component, message);
-    });
-
-    it('should call syncApi', () => {
-
-      syncApi.launch.resolves({});
-
-
-      component.synchronise();
-
-
-      return Vue.nextTick().then(() => {
-        expect(syncApi.launch).toHaveBeenCalledWith();
-      });
-    });
-
-    it('should display success toast notification when synchronisation succeeds', () => {
-
-      syncApi.launch.resolves({});
-
-
-      component.synchronise();
-
-
-      return Vue.nextTick().then(() => {
-        expect(notificationsService.removeInformation).toHaveBeenCalledWith(component);
-        const message = 'syncDone';
-        expect(notificationsService.success).toHaveBeenCalledWith(component, message);
-      });
-    });
-
-    it('should redirect to /', () => {
-
-      sinon.stub(component.$router, 'push').resolves({});
-      syncApi.launch.resolves({});
-
-
-      component.synchronise();
-
-
-      return Vue.nextTick().then(() => {
-        expect(component.$router.push).toHaveBeenCalledWith('/');
-        // after
-        component.$router.push.restore();
-      });
-    });
-
-    it('should display error toast notification when synchronisation fails', () => {
-
-      syncApi.launch.rejects(new Error('Expected error'));
-
-
-      component.synchronise();
-
-
-      return Vue.nextTick().then(() => {
-        expect(notificationsService.removeInformation).toHaveBeenCalledWith(component);
-        const message = 'syncError Error: Expected error';
-        expect(notificationsService.error).toHaveBeenCalledWith(component, message);
-      });
-    });
-  });
-
-  describe('clicking on button "Synchronise"', () => {
+  xdescribe('clicking on button "Synchronise"', () => {
     let stub;
     let syncButton;
 

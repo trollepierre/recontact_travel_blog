@@ -4,8 +4,12 @@ import photosApi from '../api/photos';
 import chaptersApi from '../api/chapters';
 import ArticlePage from './ArticlePage';
 import translationsService from '../services/translations';
+import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
+import VueAnalytics from 'vue-analytics';
 
-xdescribe('Component | ArticlePage.vue', () => {
+describe('Component | ArticlePage.vue', () => {
+  let localVue
   let wrapper
   let chapters;
   let photos;
@@ -13,8 +17,10 @@ xdescribe('Component | ArticlePage.vue', () => {
   const idArticle = 8;
 
   beforeEach(() => {
-    sinon.stub(translationsService, 'getChapterTitle').returns('My title');
-    sinon.stub(translationsService, 'getChapterText').returns(['one text']);
+    translationsService.getChapterTitle = jest.fn()
+    translationsService.getChapterTitle.mockReturnValue('My title');
+    translationsService.getChapterText = jest.fn()
+    translationsService.getChapterText.mockReturnValue(['one text']);
     chapters = [
       {
         title: '60 : Pierre avec les webf',
@@ -34,18 +40,17 @@ xdescribe('Component | ArticlePage.vue', () => {
       { imgLink: 'url/photo1' },
       { imgLink: 'url/photo2' },
     ];
-    sinon.stub(photosApi, 'fetch').resolves(photos);
-    sinon.stub(chaptersApi, 'fetch').resolves({ title, chapters });
-    const Constructor = Vue.extend(ArticlePage);
-    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue, router })
-    component.$route.params.id = idArticle;
-  });
+    photosApi.fetch = jest.fn()
+    photosApi.fetch.mockResolvedValue(photos);
+    chaptersApi.fetch = jest.fn()
+    chaptersApi.fetch.mockResolvedValue({ title, chapters });
+    // component.$route.params.id = idArticle;
 
-  afterEach(() => {
-    chaptersApi.fetch.restore();
-    photosApi.fetch.restore();
-    translationsService.getChapterTitle.restore();
-    translationsService.getChapterText.restore();
+    localVue = createLocalVue()
+    localVue.use(VueI18n)
+    localVue.use(VueRouter)
+    localVue.use(VueAnalytics, { id: '12' })
+    wrapper = shallowMount(ArticlePage, { localVue, router })
   });
 
   it('should be named "ArticlePage"', () => {
@@ -54,13 +59,11 @@ xdescribe('Component | ArticlePage.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
-
       expect(wrapper.element).toMatchSnapshot()
     })
   })
 
-  describe('mounted', () => {
+  xdescribe('mounted', () => {
     it('should call chapters api to fetch chapters', () => {
       expect(chaptersApi.fetch).toHaveBeenCalledWith(idArticle);
     });
@@ -78,7 +81,7 @@ xdescribe('Component | ArticlePage.vue', () => {
     }));
   });
 
-  describe('render', () => {
+  xdescribe('render', () => {
     it('should render as many chapters as received from the API', () => Vue.nextTick().then(() => {
       const chaptersCards = wrapper.findAll('.chapter-card');
       expect(chaptersCards.length).toEqual(3);

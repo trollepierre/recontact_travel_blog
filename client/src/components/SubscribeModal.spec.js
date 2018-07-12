@@ -2,17 +2,19 @@ import Vue from 'vue';
 import SubscribeModal from './SubscribeModal';
 import subscriptionsApi from '../api/subscriptions';
 import notificationsService from '../services/notifications';
+import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
 
-xdescribe('Component | SubscribeModal.vue', () => {
+describe('Component | SubscribeModal.vue', () => {
   let wrapper
   const email = 'pierre@recontact.me';
 
   beforeEach(() => {
-
-    const Constructor = Vue.extend(SubscribeModal);
-
-
-    let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue,
+    let localVue;
+    localVue = createLocalVue();
+    localVue.use(VueI18n)
+    localVue.use(VueRouter)
+    wrapper = shallowMount(SubscribeModal, { localVue,
       data() {
         return {
           email,
@@ -27,13 +29,11 @@ xdescribe('Component | SubscribeModal.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      let localVue; localVue = createLocalVue(); wrapper = shallowMount(AppHeader, { localVue })
-
       expect(wrapper.element).toMatchSnapshot()
     })
   })
 
-  describe('rendering', () => {
+  xdescribe('rendering', () => {
     it('should display the modal', () => {
       component.$modal.show('subscribe-modal');
 
@@ -43,7 +43,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
     });
   });
 
-  describe('#beforeOpen', () => {
+  xdescribe('#beforeOpen', () => {
     it('should reset email', () => {
 
       wrapper.vm.email = 'Coucou@contact.me';
@@ -67,7 +67,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
     });
   });
 
-  describe('#opened', () => {
+  xdescribe('#opened', () => {
     beforeEach(() => {
       sinon.stub(component, '_focusOnInput');
       sinon.stub(component, '_closeModal');
@@ -117,7 +117,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
     });
   });
 
-  describe('#_focusOnInput', () => {
+  xdescribe('#_focusOnInput', () => {
     it.skip('should focus on input subscribe content', (done) => {
 
       component.$modal.show('subscribe-modal');
@@ -132,7 +132,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
     });
   });
 
-  describe('#sendSubscription', () => {
+  xdescribe('#sendSubscription', () => {
     beforeEach(() => {
       sinon.stub(subscriptionsApi, 'subscribe').resolves();
       sinon.stub(notificationsService, 'success');
@@ -269,7 +269,7 @@ xdescribe('Component | SubscribeModal.vue', () => {
     });
   });
 
-  describe('#cancelSubscription', () => {
+  xdescribe('#cancelSubscription', () => {
     it('should close modal', () => {
 
       component.$modal.show('subscribe-modal');
