@@ -7,6 +7,7 @@ import notificationsService from '../services/notifications';
 import articlesSorter from '../services/articlesSorter';
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
+import VueAnalytics from 'vue-analytics';
 
 describe('Component | ArticleList.vue', () => {
   let localVue
@@ -31,12 +32,11 @@ describe('Component | ArticleList.vue', () => {
     articlesSorter.sortByDropboxId.mockReturnValue(sortedArticles);
     articlesApi.fetchAll = jest.fn()
     articlesApi.fetchAll.mockResolvedValue(fetchArticles);
-    const propsData = {
-      adminMode: true,
-    };
     localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
+    localVue.use(VueAnalytics, { id: '12' })
+    const propsData = { adminMode: true };
     wrapper = shallowMount(ArticleList, { localVue, router, propsData })
   });
 
@@ -50,7 +50,7 @@ describe('Component | ArticleList.vue', () => {
     })
   })
 
-  xdescribe('mounted', () => {
+  describe('mounted', () => {
     it('should call articles api to fetch articles', () => {
       expect(articlesApi.fetchAll).toHaveBeenCalledWith();
     });
@@ -64,60 +64,36 @@ describe('Component | ArticleList.vue', () => {
     }));
   });
 
-  xdescribe('render', () => {
-    it('should render as many articles as received from the API', () => Vue.nextTick().then(() => {
-      const articleCards = wrapper.findAll('.article-card');
-      expect(articleCards.length).toEqual(2);
-    }));
-
-    it('should render correct title', () => {
-      const articleCards = wrapper.find('.article-results__title');
-      expect(articleCards.innerText).toEqual('fixWebsite');
-    });
-
-    it('should display a button to synchronise', () => {
-      const buttonToSync = wrapper.findAll('button.article-results__buttons')[1];
-      expect(buttonToSync).to.exist;
-      expect(buttonToSync.innerText).toEqual('getNewArticles');
-    });
-  });
-
-  xdescribe('computed property #title', () => {
+  describe('computed property #title', () => {
     it('should return "Réparer le site" when site is in adminMode', () => {
-      component.$props.adminMode = true;
+      const propsData = { adminMode: true };
+      wrapper = shallowMount(ArticleList, { localVue, router, propsData })
 
-      const { title } = component;
-
-      expect(title).toEqual('fixWebsite');
+      expect(wrapper.vm.title).toEqual('fixWebsite');
     });
 
     it('should return "Les articles du voyage" when site is in adminMode', () => {
-      component.$props.adminMode = false;
+      const propsData = { adminMode: false };
+      wrapper = shallowMount(ArticleList, { localVue, router, propsData })
 
-      const { title } = component;
-
-      expect(title).toEqual('theArticlesOfTheTrip');
+      expect(wrapper.vm.title).toEqual('theArticlesOfTheTrip');
     });
   });
 
-  xdescribe('methods', () => {
+  describe('methods', () => {
     describe('#updateLastPosition', () => {
       beforeEach(() => {
-        sinon.stub(positionsApi, 'add');
-      });
-
-      afterEach(() => {
-        positionsApi.add.restore();
+        positionsApi.add = jest.fn()
       });
 
       it('should call positionsApi to add default position', () => {
-        positionsApi.add.resolves({});
+        positionsApi.add.mockResolvedValue({});
         const position = {
           place: null,
           time: null,
         };
 
-        component.updateLastPosition();
+        wrapper.vm.updateLastPosition();
 
         return Vue.nextTick().then(() => {
           expect(positionsApi.add).toHaveBeenCalledWith(position);
@@ -125,12 +101,12 @@ describe('Component | ArticleList.vue', () => {
       });
 
       it('should updateLastPositionData with api answer', () => {
-        positionsApi.add.resolves({
+        positionsApi.add.mockResolvedValue({
           place: 'London',
           time: '6 May 2018',
         });
 
-        component.updateLastPosition();
+        wrapper.vm.updateLastPosition();
 
         return Vue.nextTick().then(() => {
           expect(wrapper.vm.lastPosition).toEqual('London, 6 May 2018');
@@ -140,39 +116,35 @@ describe('Component | ArticleList.vue', () => {
 
     describe('#synchronise', () => {
       beforeEach(() => {
-        sinon.stub(syncApi, 'launch');
-        sinon.stub(notificationsService, 'success').resolves({});
-        sinon.stub(notificationsService, 'information').resolves({});
-        sinon.stub(notificationsService, 'removeInformation').resolves({});
-        sinon.stub(notificationsService, 'error').resolves({});
-      });
-
-      afterEach(() => {
-        syncApi.launch.restore();
-        notificationsService.success.restore();
-        notificationsService.information.restore();
-        notificationsService.removeInformation.restore();
-        notificationsService.error.restore();
+        syncApi.launch = jest.fn()
+        notificationsService.success = jest.fn()
+        notificationsService.success.mockResolvedValue({});
+        notificationsService.information = jest.fn()
+        notificationsService.information.mockResolvedValue({});
+        notificationsService.removeInformation = jest.fn()
+        notificationsService.removeInformation.mockResolvedValue({});
+        notificationsService.error = jest.fn()
+        notificationsService.error.mockResolvedValue({});
       });
 
       it('should display success toast notification before synchronisation calls', () => {
 
-        syncApi.launch.resolves({});
+        syncApi.launch.mockResolvedValue({});
 
 
-        component.synchronise();
+        wrapper.vm.synchronise();
 
 
         const message = 'syncLaunched';
-        expect(notificationsService.information).toHaveBeenCalledWith(component, message);
+        expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message);
       });
 
       it('should call syncApi', () => {
 
-        syncApi.launch.resolves({});
+        syncApi.launch.mockResolvedValue({});
 
 
-        component.synchronise();
+        wrapper.vm.synchronise();
 
 
         return Vue.nextTick().then(() => {
@@ -182,69 +154,65 @@ describe('Component | ArticleList.vue', () => {
 
       it('should display success toast notification when synchronisation succeeds', () => {
 
-        syncApi.launch.resolves({});
+        syncApi.launch.mockResolvedValue({});
 
 
-        component.synchronise();
+        wrapper.vm.synchronise();
 
 
         return Vue.nextTick().then(() => {
-          expect(notificationsService.removeInformation).toHaveBeenCalledWith(component);
+          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything());
           const message = 'syncDone';
-          expect(notificationsService.success).toHaveBeenCalledWith(component, message);
+          expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message);
         });
       });
 
-      it('should redirect to /', () => {
+      xit('should redirect to /', () => {
 
-        sinon.stub(component.$router, 'push').resolves({});
-        syncApi.launch.resolves({});
+        sinon.stub(wrapper.vm.$router, 'push').mockResolvedValue({});
+        syncApi.launch.mockResolvedValue({});
 
 
-        component.synchronise();
+        wrapper.vm.synchronise();
 
 
         return Vue.nextTick().then(() => {
-          expect(component.$router.push).toHaveBeenCalledWith('/');
+          expect(wrapper.vm.$router.push).toHaveBeenCalledWith('/');
           // after
-          component.$router.push.restore();
+          wrapper.vm.$router.push.restore();
         });
       });
 
-      it('should display error toast notification when synchronisation fails', () => {
+      xit('should display error toast notification when synchronisation fails', () => {
 
-        syncApi.launch.rejects(new Error('Expected error'));
+        syncApi.launch.mockRejectedValue('Expected error');
 
 
-        component.synchronise();
+        wrapper.vm.synchronise();
 
 
         return Vue.nextTick().then(() => {
-          expect(notificationsService.removeInformation).toHaveBeenCalledWith(component);
+          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything());
           const message = 'syncError Error: Expected error';
-          expect(notificationsService.error).toHaveBeenCalledWith(component, message);
+          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), message);
         });
       });
     });
   })
 
-  xdescribe('clicking on button "Synchronise"', () => {
-    let stub;
+  describe('clicking on button "Synchronise"', () => {
     let syncButton;
 
     beforeEach(() => {
-      stub = sinon.stub(notificationsService, 'information');
-      [, syncButton] = wrapper.findAll('button.article-results__buttons');
+      notificationsService.information = jest.fn();
+      syncApi.launch.mockResolvedValue({});
+      syncButton = wrapper.findAll('button.article-results__buttons').at(1);
     });
 
-    afterEach(() => {
-      notificationsService.information.restore();
-    });
+    xit('should disable sync button', () => {
 
-    it('should disable sync button', () => {
-
-      stub.rejects();
-      syncButton.click();
+      notificationsService.information.mockRejectedValue();
+      syncButton.trigger('click');
 
 
       return Vue.nextTick().then(() => {
@@ -252,20 +220,18 @@ describe('Component | ArticleList.vue', () => {
       });
     });
 
-    it('should call synchronise api', () => {
+    xit('should call synchronise api', () => {
 
-      stub.resolves({});
-      sinon.stub(component, 'synchronise').resolves({});
+      notificationsService.information.mockResolvedValue({});
+      sinon.stub(component, 'synchronise').mockResolvedValue({});
 
 
-      syncButton.click();
+      syncButton.trigger('click');
 
 
       return Vue.nextTick().then(() => {
-        expect(component.synchronise).toHaveBeenCalled;
+        expect(wrapper.vm.synchronise).toHaveBeenCalled;
 
-        // after
-        component.synchronise.restore();
       });
     });
   });
