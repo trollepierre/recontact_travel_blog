@@ -32,11 +32,11 @@ describe('Component | PhotoCard.vue', () => {
     })
   })
 
-  xdescribe('render', () => {
+  describe('render', () => {
     it('should render photo image', () => Vue.nextTick().then(() => {
       const photoLink = wrapper.find('img');
-      expect(photoLink.getAttribute('src')).toEqual('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
-      expect(photoLink.getAttribute('lazy')).toEqual('loading');
+      expect(photoLink.attributes().src).toEqual('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+      expect(photoLink.attributes().lazy).toEqual('loading');
     }));
 
     // Comment tester le lazy load ?
@@ -51,27 +51,23 @@ describe('Component | PhotoCard.vue', () => {
     }));
   });
 
-  xdescribe('computed property #imgLink', () => {
+  describe('computed property #imgLink', () => {
     it('should return imgLink when defined', () => {
-
       photo.imgLink = 'dropbox.com/img0.jpg';
+      const propsData = { photo };
 
-
-      const { imgLink } = component;
-
-
-      expect(imgLink).toEqual('dropbox.com/img0.jpg');
+      wrapper = shallowMount(PhotoCard, { localVue, propsData })
+      
+      expect(wrapper.vm.imgLink).toEqual('dropbox.com/img0.jpg');
     });
 
     it('should return false when api status is undefined', () => {
-
       photo.imgLink = '';
+      const propsData = { photo };
 
+      wrapper = shallowMount(PhotoCard, { localVue, propsData })
 
-      const { imgLink } = component;
-
-
-      expect(imgLink).toEqual(false);
+      expect(wrapper.vm.imgLink).toEqual(false);
     });
   });
 });
