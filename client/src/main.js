@@ -1,14 +1,12 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Toastr from 'vue-toastr'
 import VueModal from 'vue-js-modal'
 import VueLazyload from 'vue-lazyload'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
-import App from './App'
+import App from './App.vue'
 import router from './router/router'
-import env from './env/env.js'
+import env from './env/env'
 
 Vue.component('vue-toastr', Toastr)
 require('vue-toastr/dist/vue-toastr.css')

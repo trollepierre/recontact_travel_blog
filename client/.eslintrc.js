@@ -28,21 +28,8 @@ module.exports = {
     'vue',
     'jest'
   ],
-  // check if imports actually resolve
-  'settings': {
-    'import/resolver': {
-      'webpack': {
-        'config': 'build/webpack.base.conf.js'
-      }
-    }
-  },
   // add your custom rules here
   rules: {
-    // don't require .vue extension when importing
-    'import/extensions': ['error', 'always', {
-      'js': 'never',
-      'vue': 'never'
-    }],
     // allow optionalDependencies
     'import/no-extraneous-dependencies': ['error', {
       'optionalDependencies': ['test/unit/index.js']
@@ -53,7 +40,7 @@ module.exports = {
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
-    'jest/valid-expect': 'error',
+    // 'jest/valid-expect': 'error',
 
     /* VueX rules */
     // disallow reassignment of function parameters
@@ -82,6 +69,16 @@ module.exports = {
     'padded-blocks': 'error',
     'quotes': ['error', 'single'],
     'semi': ['error', 'never'],
-    'space-before-function-paren': 'error'
+    'space-before-function-paren': 'error',
+
+    /* WARNING TO REMOVE */
+    'jest/valid-expect': 'warn', // uncomment celui du hatu
+    'vue/require-prop-types': 'warn',
+    'jest/no-identical-title': 'warn',
+    'import/first': 'warn',
+
+    'no-undef': 'warn',
+
+    'no-unused-vars': 'warn'
   }
 };
