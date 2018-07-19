@@ -1,137 +1,117 @@
-import notificationsService from './notifications';
+import notificationsService from './notifications'
 
 describe('Unit | services | notifications', () => {
   beforeEach(() => {
     notificationsService.toaster = jest.fn()
-  });
+  })
 
   describe('#success', () => {
     it('should call s method', (done) => {
-
       notificationsService.toaster.mockReturnValue({
         s(message) {
           if (message === 'message') {
-            return done();
+            return done()
           }
-          return 'erreur';
+          return 'erreur'
         },
-      });
-      const component = {};
+      })
+      const component = {}
 
-
-      notificationsService.success(component, 'message');
-    });
+      notificationsService.success(component, 'message')
+    })
 
     it('should call toaster with component', () => {
-
       notificationsService.toaster.mockReturnValue({
         s() {
         },
-      });
-      const component = {};
+      })
+      const component = {}
 
+      notificationsService.success(component, 'message')
 
-      notificationsService.success(component, 'message');
-
-
-      expect(notificationsService.toaster).toHaveBeenCalledWith(component);
-    });
-  });
+      expect(notificationsService.toaster).toHaveBeenCalledWith(component)
+    })
+  })
 
   describe('#error', () => {
     it('should call e method', (done) => {
-
       notificationsService.toaster.mockReturnValue({
         e(message) {
           if (message === 'message') {
-            return done();
+            return done()
           }
-          return 'erreur';
+          return 'erreur'
         },
-      });
-      const component = {};
+      })
+      const component = {}
 
-
-      notificationsService.error(component, 'message');
-    });
+      notificationsService.error(component, 'message')
+    })
 
     it('should call toaster with component', () => {
-
       notificationsService.toaster.mockReturnValue({
         e() {
         },
-      });
-      const component = {};
+      })
+      const component = {}
 
+      notificationsService.error(component, 'message')
 
-      notificationsService.error(component, 'message');
-
-
-      expect(notificationsService.toaster).toHaveBeenCalledWith(component);
-    });
-  });
+      expect(notificationsService.toaster).toHaveBeenCalledWith(component)
+    })
+  })
 
   describe('#information', () => {
     it('should call s method', (done) => {
-
       notificationsService.toaster.mockReturnValue({
         i(options) {
           if (options.msg === 'message' && options.timeout === 30000) {
-            return done();
+            return done()
           }
-          return 'erreur';
+          return 'erreur'
         },
-      });
-      const component = {};
+      })
+      const component = {}
 
-
-      notificationsService.information(component, 'message');
-    });
+      notificationsService.information(component, 'message')
+    })
 
     it('should call toaster with component', () => {
-
       notificationsService.toaster.mockReturnValue({
         i() {
         },
-      });
-      const component = {};
+      })
+      const component = {}
 
+      notificationsService.information(component, 'message')
 
-      notificationsService.information(component, 'message');
-
-
-      expect(notificationsService.toaster).toHaveBeenCalledWith(component);
-    });
-  });
+      expect(notificationsService.toaster).toHaveBeenCalledWith(component)
+    })
+  })
 
   describe('#removeInformation', () => {
     it('should call s method', (done) => {
-
       notificationsService.toaster.mockReturnValue({
         removeByType(type) {
-          if (type === 'info') return done();
-          return 'erreur';
+          if (type === 'info') return done()
+          return 'erreur'
         },
-      });
-      const component = {};
+      })
+      const component = {}
 
-
-      notificationsService.removeInformation(component, 'message');
-    });
+      notificationsService.removeInformation(component, 'message')
+    })
 
     it('should call toaster with component', () => {
-
       notificationsService.toaster.mockReturnValue({
         removeByType() {
         },
-      });
-      const component = {};
+      })
+      const component = {}
 
+      notificationsService.removeInformation(component, 'message')
 
-      notificationsService.removeInformation(component, 'message');
-
-
-      expect(notificationsService.toaster).toHaveBeenCalledWith(component);
-    });
-  });
-});
+      expect(notificationsService.toaster).toHaveBeenCalledWith(component)
+    })
+  })
+})

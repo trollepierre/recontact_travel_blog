@@ -5,27 +5,37 @@
         <section class="article-page">
           <h1 class="article-page__title">{{ title }}</h1>
           <ul class="chapter__list">
-            <li v-for="chapter in chapters" class="chapter__item">
-              <chapter-card :chapter="chapter"></chapter-card>
+            <li
+              v-for="chapter in chapters"
+              class="chapter__item">
+              <chapter-card :chapter="chapter"/>
             </li>
           </ul>
         </section>
         <aside class="article-page__photo-gallery photo-gallery">
           <h2 class="photo-gallery__title">{{ $t("hereTheGallery") }}</h2>
           <ul class="photo-gallery__list">
-            <li v-for="photo in photos" class="photo__item">
-              <photo-card :photo="photo"></photo-card>
+            <li
+              v-for="photo in photos"
+              class="photo__item">
+              <photo-card :photo="photo"/>
             </li>
           </ul>
         </aside>
         <footer class="article-page__footer footer-article">
-          <button class="footer-article__home" @click="goToHomePage">
+          <button
+            class="footer-article__home"
+            @click="goToHomePage">
             {{ $t("goToHomePage") }}
           </button>
-          <button class="footer-article__previous" @click="viewPreviousArticle">
+          <button
+            class="footer-article__previous"
+            @click="viewPreviousArticle">
             {{ $t("goToPreviousArticle") }}
           </button>
-          <button class="footer-article__next" @click="viewNextArticle">
+          <button
+            class="footer-article__next"
+            @click="viewNextArticle">
             {{ $t("goToNextArticle") }}
           </button>
         </footer>
@@ -35,13 +45,13 @@
 </template>
 
 <script>
-  import ChapterCard from './ChapterCard';
-  import PhotoCard from './PhotoCard';
-  import chaptersApi from '../api/chapters';
-  import photosApi from '../api/photos';
-  import translationsService from '../services/translations';
+  import ChapterCard from './ChapterCard'
+import PhotoCard from './PhotoCard'
+import chaptersApi from '../api/chapters'
+import photosApi from '../api/photos'
+import translationsService from '../services/translations'
 
-  export default {
+export default {
     name: 'ArticlePage',
     components: {
       'chapter-card': ChapterCard,
@@ -53,55 +63,55 @@
         photos: [],
         title: '',
         dropboxId: parseInt(this.$route.params.id, 10),
-      };
-    },
+      }
+  },
     watch: {
       $route(to) {
-        window.scrollTo(0, 0);
-        this.dropboxId = parseInt(to.params.id, 10);
-        this.fetchArticle();
+        window.scrollTo(0, 0)
+        this.dropboxId = parseInt(to.params.id, 10)
+        this.fetchArticle()
       },
     },
     mounted() {
-      this.fetchArticle();
-    },
+      this.fetchArticle()
+  },
     methods: {
       fetchArticle() {
-        this.getChapters();
-        this.getPhotos();
+        this.getChapters()
+        this.getPhotos()
       },
       getChapters() {
-        this.trackEvent();
+        this.trackEvent()
         chaptersApi.fetch(this.dropboxId)
           .then((article) => {
             (this.chapters = article.chapters);
-            (this.title = translationsService.getTitle(article));
-          });
+            (this.title = translationsService.getTitle(article))
+          })
       },
       getPhotos() {
         photosApi.fetch(this.$route.params.id)
           .then((photos) => {
-            (this.photos = photos);
-          });
+            (this.photos = photos)
+          })
       },
       viewPreviousArticle() {
-        this.goToArticle(this.dropboxId - 1);
+        this.goToArticle(this.dropboxId - 1)
       },
       viewNextArticle() {
-        this.goToArticle(this.dropboxId + 1);
+        this.goToArticle(this.dropboxId + 1)
       },
       goToHomePage() {
-        this.$router.push('/');
+        this.$router.push('/')
       },
       goToArticle(idArticle) {
-        this.$router.push(`/articles/${idArticle}`);
+        this.$router.push(`/articles/${idArticle}`)
       },
       trackEvent() {
         this.$ga.event({
           eventCategory: 'Article Page',
           eventAction: 'read',
           eventLabel: `article ${this.$route.params.id} is read`,
-        });
+        })
       },
     },
     i18n: {
@@ -120,7 +130,7 @@
         },
       },
     },
-  };
+  }
 </script>
 
 <style scoped>
@@ -158,7 +168,6 @@
     width: 100%;
     margin: 5px;
   }
-
 
   .footer-article {
     text-align: center;

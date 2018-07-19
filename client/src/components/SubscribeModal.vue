@@ -1,30 +1,49 @@
 <template>
   <div class="subscribe-modal-wrapper">
-    <modal class="subscribe-modal" name="subscribe-modal"
-           @before-open="beforeOpen" @opened="opened" :height="315">
+    <modal
+      :height="315"
+      class="subscribe-modal"
+      name="subscribe-modal"
+      @before-open="beforeOpen"
+      @opened="opened">
 
       <div class="subscribe-modal__header">
         <h2 class="subscribe-modal__title">{{ $t("subscribe") }}</h2>
       </div>
 
       <div class="subscribe-modal__body">
-        <form class="subscribe-modal__form" @submit="submit">
+        <form
+          class="subscribe-modal__form"
+          @submit="submit">
 
-          <p class="subscribe-modal__error" v-if="error" aria-live="polite">{{error}}</p>
+          <p
+            v-if="error"
+            class="subscribe-modal__error"
+            aria-live="polite">{{ error }}</p>
 
           <p class="subscribe-modal__text">
             {{ $t("modalText") }}
           </p>
 
-          <label class="subscribe-modal__label" for="subscribe-content">{{ $t("email") }}</label>
-          <input class="subscribe-modal__email" id="subscribe-content" placeholder="pierre@recontact.me" v-model="email"/>
+          <label
+            class="subscribe-modal__label"
+            for="subscribe-content">{{ $t("email") }}</label>
+          <input
+            id="subscribe-content"
+            v-model="email"
+            class="subscribe-modal__email"
+            placeholder="pierre@recontact.me">
         </form>
       </div>
 
       <div class="subscribe-modal__footer">
         <div class="subscribe-modal__actions">
-          <button class="subscribe-modal__action subscribe-modal__action--send" @click="sendSubscription">{{ $t("confirm") }}</button>
-          <button class="subscribe-modal__action subscribe-modal__action--cancel" @click="cancelSubscription">{{ $t("cancel") }}</button>
+          <button
+            class="subscribe-modal__action subscribe-modal__action--send"
+            @click="sendSubscription">{{ $t("confirm") }}</button>
+          <button
+            class="subscribe-modal__action subscribe-modal__action--cancel"
+            @click="cancelSubscription">{{ $t("cancel") }}</button>
         </div>
       </div>
 
@@ -33,81 +52,81 @@
 </template>
 
 <script>
-  import subscriptionsApi from '../api/subscriptions';
-  import notificationsService from '../services/notifications';
+  import subscriptionsApi from '../api/subscriptions'
+import notificationsService from '../services/notifications'
 
-  export default {
+export default {
     name: 'SubscribeModal',
     data() {
       return {
         email: null,
         error: null,
-      };
-    },
+      }
+  },
     methods: {
       beforeOpen() {
-        this._resetEmail();
-        this._removeError();
+        this._resetEmail()
+        this._removeError()
       },
 
       opened() {
-        this.trackEvent();
-        this._focusOnInput();
-        this._closeOnEscapeKey();
+        this.trackEvent()
+        this._focusOnInput()
+        this._closeOnEscapeKey()
       },
 
       _closeOnEscapeKey() {
         document.addEventListener('keydown', (e) => {
           if (e.keyCode === 27) {
-            this._closeModal();
+            this._closeModal()
           }
-        });
+        })
       },
 
       _focusOnInput() {
-        this.$el.querySelector('input#subscribe-content').focus();
+        this.$el.querySelector('input#subscribe-content').focus()
       },
 
       sendSubscription() {
-        this._removeError();
+        this._removeError()
         /* eslint-disable no-useless-escape */
-        const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$');
+        const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$')
         if (!regex.exec(this.email)) {
-          this.error = this.$t('emailError');
-          return;
+          this.error = this.$t('emailError')
+          return
         }
 
         subscriptionsApi.subscribe(this.email)
           .then(this.displaySuccessNotification)
           .then(this._closeModal)
           .catch(() => {
-            this.error = this.$t('subscriptionError');
-          });
+            this.error = this.$t('subscriptionError')
+          })
       },
 
       displaySuccessNotification() {
-        notificationsService.success(this, this.$t('subscriptionSuccess'));
+        notificationsService.success(this, this.$t('subscriptionSuccess'))
       },
 
       cancelSubscription() {
-        this._closeModal();
+        this._closeModal()
       },
 
       _resetEmail() {
-        this.email = null;
+        this.email = null
       },
 
       _removeError() {
-        this.error = null;
+        this.error = null
       },
 
       _closeModal() {
-        this.$modal.hide('subscribe-modal');
+        this.$modal.hide('subscribe-modal')
       },
 
       submit(e) {
-        e.preventDefault();
-        this.sendSubscription();
+        e.preventDefault()
+        this.sendSubscription()
       },
 
       trackEvent() {
@@ -115,7 +134,7 @@
           eventCategory: 'Subscribe Modal',
           eventAction: 'open',
           eventLabel: 'Subscribe modal is opened',
-        });
+        })
       },
     },
     i18n: {
@@ -142,7 +161,7 @@
         },
       },
     },
-  };
+  }
 
 </script>
 

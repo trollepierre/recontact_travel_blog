@@ -2,6 +2,4 @@ function get(key) {
   return window[key]
 }
 
-export {
-  get,
-}
+export { get }

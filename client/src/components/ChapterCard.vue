@@ -5,13 +5,21 @@
         <h2 class="chapter__title">{{ chapterTitle }}</h2>
       </header>
       <div class="chapter__content">
-        <img v-if="imgLink" class="chapter__image" :src="imgLink"/>
+        <img
+          v-if="imgLink"
+          :src="imgLink"
+          class="chapter__image">
         <span v-else>{{ $t("missingImage") }}</span>
       </div>
       <footer class="chapter__footer">
-        <div class="chapter__footer_text" v-for="paragraph in chapterText">
+        <div
+          v-for="paragraph in chapterText"
+          class="chapter__footer_text">
           <template v-if="paragraph">
-            <a target="_blank" :href="paragraph.text" v-if="paragraph.isLink">{{ paragraph.text }}</a>
+            <a
+              v-if="paragraph.isLink"
+              :href="paragraph.text"
+              target="_blank">{{ paragraph.text }}</a>
             <p v-else>{{ paragraph.text }}</p>
           </template>
         </div>
@@ -21,33 +29,33 @@
 </template>
 
 <script>
-  import translationsService from '../services/translations';
+  import translationsService from '../services/translations'
 
-  export default {
+export default {
     name: 'ChapterCard',
     props: ['chapter'],
     computed: {
       imgLink() {
-        const { imgLink } = this.chapter;
+        const { imgLink } = this.chapter
         if (!imgLink) {
-          return false;
+          return false
         }
-        return imgLink;
+        return imgLink
       },
       chapterTitle() {
-        return translationsService.getChapterTitle(this.chapter);
+        return translationsService.getChapterTitle(this.chapter)
       },
       chapterText() {
-        const text2 = translationsService.getChapterText(this.chapter);
+        const text2 = translationsService.getChapterText(this.chapter)
         return text2.map((paragraph) => {
-          let isLink = false;
+          let isLink = false
           /* eslint-disable no-useless-escape */
-          const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?');
+          const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?')
           if (urlRegExp.test(paragraph)) {
-            isLink = true;
+            isLink = true
           }
-          return { isLink, text: paragraph };
-        });
+          return { isLink, text: paragraph }
+        })
       },
     },
     i18n: {
@@ -60,7 +68,7 @@
         },
       },
     },
-  };
+  }
 </script>
 
 <style scoped>

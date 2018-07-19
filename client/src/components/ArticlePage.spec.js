@@ -1,26 +1,26 @@
-import Vue from 'vue';
-import router from '../router/router';
-import photosApi from '../api/photos';
-import chaptersApi from '../api/chapters';
-import ArticlePage from './ArticlePage';
-import translationsService from '../services/translations';
-import VueRouter from 'vue-router';
-import VueI18n from 'vue-i18n';
-import VueAnalytics from 'vue-analytics';
+import Vue from 'vue'
+import router from '../router/router'
+import photosApi from '../api/photos'
+import chaptersApi from '../api/chapters'
+import ArticlePage from './ArticlePage'
+import translationsService from '../services/translations'
+import VueRouter from 'vue-router'
+import VueI18n from 'vue-i18n'
+import VueAnalytics from 'vue-analytics'
 
 describe('Component | ArticlePage.vue', () => {
   let localVue
   let wrapper
-  let chapters;
-  let photos;
-  const title = 'Pierre au pays des';
-  const idArticle = 8;
+  let chapters
+  let photos
+  const title = 'Pierre au pays des'
+  const idArticle = 8
 
   beforeEach(() => {
     translationsService.getChapterTitle = jest.fn()
-    translationsService.getChapterTitle.mockReturnValue('My title');
+    translationsService.getChapterTitle.mockReturnValue('My title')
     translationsService.getChapterText = jest.fn()
-    translationsService.getChapterText.mockReturnValue(['one text']);
+    translationsService.getChapterText.mockReturnValue(['one text'])
     chapters = [
       {
         title: '60 : Pierre avec les webf',
@@ -35,15 +35,15 @@ describe('Component | ArticlePage.vue', () => {
         imgLink: '/assets/tata.jpg',
         text: ['some text'],
       },
-    ];
+    ]
     photos = [
       { imgLink: 'url/photo1' },
       { imgLink: 'url/photo2' },
-    ];
+    ]
     photosApi.fetch = jest.fn()
-    photosApi.fetch.mockResolvedValue(photos);
+    photosApi.fetch.mockResolvedValue(photos)
     chaptersApi.fetch = jest.fn()
-    chaptersApi.fetch.mockResolvedValue({ title, chapters });
+    chaptersApi.fetch.mockResolvedValue({ title, chapters })
     // component.$route.params.id = idArticle;
 
     localVue = createLocalVue()
@@ -51,11 +51,11 @@ describe('Component | ArticlePage.vue', () => {
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
     wrapper = shallowMount(ArticlePage, { localVue, router })
-  });
+  })
 
   it('should be named "ArticlePage"', () => {
-    expect(wrapper.name()).toEqual('ArticlePage');
-  });
+    expect(wrapper.name()).toEqual('ArticlePage')
+  })
 
   describe('template', () => {
     it('should match snapshot', () => {
@@ -65,68 +65,68 @@ describe('Component | ArticlePage.vue', () => {
 
   describe('mounted', () => {
     xit('should call chapters api to fetch chapters', () => {
-      expect(chaptersApi.fetch).toHaveBeenCalledWith(idArticle);
-    });
+      expect(chaptersApi.fetch).toHaveBeenCalledWith(idArticle)
+    })
 
     xit('should call photos api to fetch photos', () => {
-      expect(photosApi.fetch).toHaveBeenCalledWith(idArticle);
-    });
+      expect(photosApi.fetch).toHaveBeenCalledWith(idArticle)
+    })
 
     it('should save chapters from api in data chapters', () => Vue.nextTick().then(() => {
-      expect(wrapper.vm.chapters).toEqual(chapters);
-    }));
+      expect(wrapper.vm.chapters).toEqual(chapters)
+    }))
 
     it('should save photos from api in data photos', () => Vue.nextTick().then(() => {
-      expect(wrapper.vm.photos).toEqual(photos);
-    }));
-  });
+      expect(wrapper.vm.photos).toEqual(photos)
+    }))
+  })
 
   describe('render', () => {
     it('should have empty chapters in data chapters', () => {
-      expect(wrapper.vm.chapters).toEqual(chapters);
-    });
+      expect(wrapper.vm.chapters).toEqual(chapters)
+    })
 
     it('should have empty photos in data photos', () => {
-      expect(wrapper.vm.photos).toEqual(photos);
-    });
-  });
+      expect(wrapper.vm.photos).toEqual(photos)
+    })
+  })
 
   describe('locales', () => {
-    const languages = Object.keys(ArticlePage.i18n.messages);
+    const languages = Object.keys(ArticlePage.i18n.messages)
 
     it('contains 2 languages', () => {
-      expect(languages.length).toEqual(2);
-      expect(languages).toEqual(['fr', 'en']);
-    });
+      expect(languages).toHaveLength(2)
+      expect(languages).toEqual(['fr', 'en'])
+    })
 
     describe('each language', () => {
       describe('fr', () => {
-        const locales = Object.keys(ArticlePage.i18n.messages.fr);
+        const locales = Object.keys(ArticlePage.i18n.messages.fr)
 
         it('contains 4 locales', () => {
-          expect(locales.length).toEqual(4);
+          expect(locales).toHaveLength(4)
           expect(locales).toEqual([
             'hereTheGallery',
             'goToPreviousArticle',
             'goToNextArticle',
             'goToHomePage',
-          ]);
-        });
-      });
+          ])
+        })
+      })
 
       describe('en', () => {
-        const locales = Object.keys(ArticlePage.i18n.messages.en);
+        const locales = Object.keys(ArticlePage.i18n.messages.en)
 
         it('contains 4 locales', () => {
-          expect(locales.length).toEqual(4);
+          expect(locales).toHaveLength(4)
           expect(locales).toEqual([
             'hereTheGallery',
             'goToPreviousArticle',
             'goToNextArticle',
             'goToHomePage',
-          ]);
-        });
-      });
-    });
-  });
-});
+          ])
+        })
+      })
+    })
+  })
+})

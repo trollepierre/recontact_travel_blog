@@ -1,56 +1,48 @@
-import axios from 'axios';
-import syncApi from './sync';
+import axios from 'axios'
+import syncApi from './sync'
 import env from '../env/env.js'
 
 describe('Unit | API | sync api', () => {
   describe('#launch', () => {
-    let stubbedResponse;
+    let stubbedResponse
 
     beforeEach(() => {
       stubbedResponse = {
         status: 200,
-      };
+      }
       axios.patch = jest.fn()
       axios.patch.mockResolvedValue(stubbedResponse)
-    });
+    })
 
     it('should launch API with the good params', () => {
+      const expectedUrl = `${env('API_URL')}api/sync/`
+      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
 
-      const expectedUrl = `${env('API_URL')}api/sync/`;
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
-
-
-      const promise = syncApi.launch();
-
+      const promise = syncApi.launch()
 
       return promise.then(() => {
-        expect(axios.patch).toHaveBeenCalledWith(expectedUrl, expectedOptions);
-      });
-    });
+        expect(axios.patch).toHaveBeenCalledWith(expectedUrl, expectedOptions)
+      })
+    })
 
     it('should return the response', () => {
-
-      const promise = syncApi.launch();
-
+      const promise = syncApi.launch()
 
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).toEqual(stubbedResponse);
-      });
-    });
+        expect(returnedChapters).toEqual(stubbedResponse)
+      })
+    })
 
     it('should return a rejected promise when an error is thrown', (done) => {
+      const accessToken = 'invalid-access_token'
+      axios.patch.mockRejectedValue(new Error('some error'))
 
-      const accessToken = 'invalid-access_token';
-      axios.patch.mockRejectedValue(new Error('some error'));
-
-
-      const promise = syncApi.launch(accessToken);
-
+      const promise = syncApi.launch(accessToken)
 
       promise.catch((error) => {
-        expect(error.message).toEqual('some error');
-        done();
-      });
-    });
-  });
-});
+        expect(error.message).toEqual('some error')
+        done()
+      })
+    })
+  })
+})

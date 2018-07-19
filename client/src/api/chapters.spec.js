@@ -1,63 +1,55 @@
-import axios from 'axios';
-import chaptersApi from './chapters';
+import axios from 'axios'
+import chaptersApi from './chapters'
 import env from '../env/env.js'
 
 describe('Unit | API | chapters api', () => {
   describe('#fetch', () => {
-    let idArticle;
-    let data;
+    let idArticle
+    let data
 
     beforeEach(() => {
-      idArticle = 59;
+      idArticle = 59
       data = {
         foo: 'bar',
         chapters: 'some chapters',
-      };
+      }
       const stubbedResponse = {
         status: 200,
         data,
-      };
+      }
       axios.get = jest.fn()
       axios.get.mockResolvedValue(stubbedResponse)
-    });
+    })
 
     it('should fetch API with the good params', () => {
+      const expectedUrl = `${env('API_URL')}api/articles/${idArticle}`
+      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
 
-      const expectedUrl = `${env('API_URL')}api/articles/${idArticle}`;
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
-
-
-      const promise = chaptersApi.fetch(idArticle);
-
+      const promise = chaptersApi.fetch(idArticle)
 
       return promise.then(() => {
-        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
-      });
-    });
+        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions)
+      })
+    })
 
     it('should return the response', () => {
-
-      const promise = chaptersApi.fetch(idArticle);
-
+      const promise = chaptersApi.fetch(idArticle)
 
       return promise.then((returnedChapters) => {
-        expect(returnedChapters).toEqual(data);
-      });
-    });
+        expect(returnedChapters).toEqual(data)
+      })
+    })
 
     it('should return a rejected promise when an error is thrown', (done) => {
+      const accessToken = 'invalid-access_token'
+      axios.get.mockRejectedValue(new Error('some error'))
 
-      const accessToken = 'invalid-access_token';
-      axios.get.mockRejectedValue(new Error('some error'));
-
-
-      const promise = chaptersApi.fetch(accessToken);
-
+      const promise = chaptersApi.fetch(accessToken)
 
       promise.catch((error) => {
-        expect(error.message).toEqual('some error');
-        done();
-      });
-    });
-  });
-});
+        expect(error.message).toEqual('some error')
+        done()
+      })
+    })
+  })
+})
