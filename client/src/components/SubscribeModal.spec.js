@@ -121,8 +121,8 @@ describe('Component | SubscribeModal.vue', () => {
 
   describe('#sendSubscription', () => {
     beforeEach(() => {
-      subscriptionsApi.subscribe=jest.fn()
-      notificationsService.success=jest.fn()
+      subscriptionsApi.subscribe = jest.fn()
+      notificationsService.success = jest.fn()
       subscriptionsApi.subscribe.mockResolvedValue({})
     });
 
