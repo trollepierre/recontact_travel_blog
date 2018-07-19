@@ -19,6 +19,6 @@ describe('when asking for an unknown key', () => {
 
 describe('when asking for a known key', () => {
   it('should return the corresponding environment value', () => {
-    expect(env('cyka')).toEqual(defaultWindowEnv['cyka'])
+    expect(env('cyka')).toEqual(defaultWindowEnv.cyka)
   })
 })

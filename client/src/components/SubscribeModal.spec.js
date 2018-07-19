@@ -1,18 +1,18 @@
-import Vue from 'vue';
-import SubscribeModal from './SubscribeModal';
-import subscriptionsApi from '../api/subscriptions';
-import notificationsService from '../services/notifications';
-import VueRouter from 'vue-router';
-import VueI18n from 'vue-i18n';
-import VueAnalytics from 'vue-analytics';
+import Vue from 'vue'
+import SubscribeModal from './SubscribeModal'
+import subscriptionsApi from '../api/subscriptions'
+import notificationsService from '../services/notifications'
+import VueRouter from 'vue-router'
+import VueI18n from 'vue-i18n'
+import VueAnalytics from 'vue-analytics'
 
 describe('Component | SubscribeModal.vue', () => {
   let wrapper
-  const email = 'pierre@recontact.me';
-  let localVue;
+  const email = 'pierre@recontact.me'
+  let localVue
 
   beforeEach(() => {
-    localVue = createLocalVue();
+    localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
@@ -21,14 +21,14 @@ describe('Component | SubscribeModal.vue', () => {
       data() {
         return {
           email,
-        };
+        }
       },
     })
-  });
+  })
 
   it('should be named "SubscribeModal"', () => {
-    expect(wrapper.name()).toEqual('SubscribeModal');
-  });
+    expect(wrapper.name()).toEqual('SubscribeModal')
+  })
 
   describe('template', () => {
     it('should match snapshot', () => {
@@ -39,252 +39,239 @@ describe('Component | SubscribeModal.vue', () => {
   xdescribe('rendering', () => {
     it('should display the modal', () => {
       const vm = wrapper
-      wrapper.$modal.show('subscribe-modal');
+      wrapper.$modal.show('subscribe-modal')
 
       return Vue.nextTick().then(() => {
-        expect(wrapper.find('.subscribe-modal')).to.exist;
-      });
-    });
-  });
+        expect(wrapper.find('.subscribe-modal')).to.exist
+      })
+    })
+  })
 
   describe('#beforeOpen', () => {
     it('should reset email', () => {
-      wrapper.vm.email = 'Coucou@contact.me';
+      wrapper.vm.email = 'Coucou@contact.me'
 
-      wrapper.vm.beforeOpen();
+      wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.email).toEqual(null);
-    });
+      expect(wrapper.vm.email).toEqual(null)
+    })
 
     it('should remove error', () => {
-      wrapper.vm.error = 'C\'est un problème';
+      wrapper.vm.error = 'C\'est un problème'
 
-      wrapper.vm.beforeOpen();
+      wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.error).toEqual(null);
-    });
-  });
+      expect(wrapper.vm.error).toEqual(null)
+    })
+  })
 
   describe('#opened', () => {
     beforeEach(() => {
       wrapper.vm._focusOnInput = jest.fn()
       wrapper.vm._closeModal = jest.fn()
-    });
+    })
 
     it('should focusOnInput', () => {
-      wrapper.vm.opened();
+      wrapper.vm.opened()
 
-      expect(wrapper.vm._focusOnInput).toHaveBeenCalledWith();
-    });
+      expect(wrapper.vm._focusOnInput).toHaveBeenCalledWith()
+    })
 
     it('should close on escape key', () => {
-      wrapper.vm.opened();
+      wrapper.vm.opened()
 
-      const e = document.createEvent('Events');
-      e.initEvent('keydown', true, true);
-      e.keyCode = 27;
-      document.dispatchEvent(e);
+      const e = document.createEvent('Events')
+      e.initEvent('keydown', true, true)
+      e.keyCode = 27
+      document.dispatchEvent(e)
 
       return Vue.nextTick().then(() => {
-        expect(wrapper.vm._closeModal).toHaveBeenCalledWith();
-      });
-    });
+        expect(wrapper.vm._closeModal).toHaveBeenCalledWith()
+      })
+    })
 
     it('should not close on any other key than space', () => {
-      wrapper.vm.opened();
+      wrapper.vm.opened()
 
-      const e = document.createEvent('Events');
-      e.initEvent('keydown', true, true);
-      e.keyCode = 13;
-      document.dispatchEvent(e);
+      const e = document.createEvent('Events')
+      e.initEvent('keydown', true, true)
+      e.keyCode = 13
+      document.dispatchEvent(e)
 
       return Vue.nextTick().then(() => {
-        expect(wrapper.vm._closeModal).not.toHaveBeenCalled();
-      });
-    });
-  });
+        expect(wrapper.vm._closeModal).not.toHaveBeenCalled()
+      })
+    })
+  })
 
   xdescribe('#_focusOnInput', () => {
     it.skip('should focus on input subscribe content', (done) => {
-
-      wrapper.$modal.show('subscribe-modal');
-
+      wrapper.$modal.show('subscribe-modal')
 
       setTimeout(() => {
-
-        const inputSubscribe = wrapper.find('input#subscribe-content');
-        expect(inputSubscribe).to.have.focus();
-        done();
-      }, 100);
-    });
-  });
+        const inputSubscribe = wrapper.find('input#subscribe-content')
+        expect(inputSubscribe).to.have.focus()
+        done()
+      }, 100)
+    })
+  })
 
   describe('#sendSubscription', () => {
     beforeEach(() => {
       subscriptionsApi.subscribe = jest.fn()
       notificationsService.success = jest.fn()
       subscriptionsApi.subscribe.mockResolvedValue({})
-    });
+    })
 
     it('should remove error', () => {
-      wrapper.vm.error = 'C\'est un problème';
+      wrapper.vm.error = 'C\'est un problème'
 
-      wrapper.vm.sendSubscription();
+      wrapper.vm.sendSubscription()
 
-      expect(wrapper.vm.error).toEqual(null);
-    });
+      expect(wrapper.vm.error).toEqual(null)
+    })
 
     describe('when email is empty', () => {
       it('should set error', () => {
-        wrapper.vm.email = '';
+        wrapper.vm.email = ''
 
-        wrapper.vm.sendSubscription();
+        wrapper.vm.sendSubscription()
 
-
-        expect(wrapper.vm.error).toEqual('emailError');
-      });
+        expect(wrapper.vm.error).toEqual('emailError')
+      })
 
       it('should not call sendSubscription', () => {
-        wrapper.vm.email = '';
+        wrapper.vm.email = ''
 
-        wrapper.vm.sendSubscription();
+        wrapper.vm.sendSubscription()
 
-        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled;
-      });
-    });
+        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled
+      })
+    })
 
     describe('when email does not follow good pattern', () => {
       it('should set error', () => {
-        wrapper.vm.email = 'pierrerecontact';
+        wrapper.vm.email = 'pierrerecontact'
 
-        wrapper.vm.sendSubscription();
+        wrapper.vm.sendSubscription()
 
-        expect(wrapper.vm.error).toEqual('emailError');
-      });
+        expect(wrapper.vm.error).toEqual('emailError')
+      })
 
       it('should not call sendSubscription', () => {
-        wrapper.vm.email = 'pierre@recontact.m';
+        wrapper.vm.email = 'pierre@recontact.m'
 
-        wrapper.vm.sendSubscription();
+        wrapper.vm.sendSubscription()
 
-        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled;
-      });
-    });
+        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled
+      })
+    })
 
     it('should call the API with good params', () => {
-      wrapper.vm.sendSubscription(email);
+      wrapper.vm.sendSubscription(email)
 
-      expect(subscriptionsApi.subscribe).toHaveBeenCalledWith(email);
-    });
+      expect(subscriptionsApi.subscribe).toHaveBeenCalledWith(email)
+    })
 
     it('should display success notification', () => {
       notificationsService.success.mockResolvedValue({})
 
-      wrapper.vm.sendSubscription();
+      wrapper.vm.sendSubscription()
 
       return Vue.nextTick().then(() => {
-        const message = 'subscriptionSuccess';
-        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message);
-      });
-    });
+        const message = 'subscriptionSuccess'
+        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+      })
+    })
 
     xit('should close modal', () => {
-      wrapper.$modal.show('subscribe-modal');
-      wrapper.vm.email = 'email@recontact.me';
+      wrapper.$modal.show('subscribe-modal')
+      wrapper.vm.email = 'email@recontact.me'
 
-      wrapper.vm.sendSubscription();
+      wrapper.vm.sendSubscription()
 
       return Vue.nextTick().then(() => {
-        expect(wrapper.find('.subscribe-modal')).not.to.exist;
-      });
-    });
+        expect(wrapper.find('.subscribe-modal')).not.to.exist
+      })
+    })
 
     describe('when sendSubscription fails', () => {
       beforeEach(() => {
         // wrapper.$modal.show('subscribe-modal');
-        wrapper.vm.email = 'email@recontact.me';
-        subscriptionsApi.subscribe.mockRejectedValue(new Error('e'));
-      });
+        wrapper.vm.email = 'email@recontact.me'
+        subscriptionsApi.subscribe.mockRejectedValue(new Error('e'))
+      })
 
       xit('should not close modal', () => {
-        wrapper.vm.sendSubscription();
+        wrapper.vm.sendSubscription()
 
         return Vue.nextTick().then(() => {
-          expect(wrapper.find('.subscribe-modal')).to.exist;
-        });
-      });
+          expect(wrapper.find('.subscribe-modal')).to.exist
+        })
+      })
 
       xit('should set error', () => {
-        wrapper.vm.sendSubscription();
+        wrapper.vm.sendSubscription()
 
         return Vue.nextTick().then(() => {
-          expect(wrapper.vm.error).toEqual('subscriptionError');
-        });
-      });
-    });
-  });
+          expect(wrapper.vm.error).toEqual('subscriptionError')
+        })
+      })
+    })
+  })
 
   xdescribe('#cancelSubscription', () => {
     it('should close modal', () => {
+      wrapper.$modal.show('subscribe-modal')
 
-      wrapper.$modal.show('subscribe-modal');
-
-
-      wrapper.cancelSubscription();
-
+      wrapper.cancelSubscription()
 
       return Vue.nextTick().then(() => {
-        expect(wrapper.find('.subscribe-modal')).not.to.exist;
-      });
-    });
-  });
+        expect(wrapper.find('.subscribe-modal')).not.to.exist
+      })
+    })
+  })
 
   it.skip('should sendSubscription on click on "send" button', () => {
-
-    wrapper.$modal.show('subscribe-modal');
-    sinon.stub(component, 'sendSubscription');
+    wrapper.$modal.show('subscribe-modal')
+    sinon.stub(component, 'sendSubscription')
 
     return Vue.nextTick().then(() => {
-      const myButton = wrapper.find('.subscribe-modal__action--send');
+      const myButton = wrapper.find('.subscribe-modal__action--send')
 
+      myButton.click()
 
-      myButton.click();
-
-
-      expect(wrapper.sendSubscription).toHaveBeenCalled;
-    });
-  });
+      expect(wrapper.sendSubscription).toHaveBeenCalled
+    })
+  })
 
   it.skip('should cancelSubscription on click on "cancel" button', () => {
-
-    wrapper.$modal.show('subscribe-modal');
-    sinon.stub(component, 'cancelSubscription');
+    wrapper.$modal.show('subscribe-modal')
+    sinon.stub(component, 'cancelSubscription')
 
     return Vue.nextTick().then(() => {
-      const myButton = wrapper.find('.subscribe-modal__action--cancel');
+      const myButton = wrapper.find('.subscribe-modal__action--cancel')
 
+      myButton.click()
 
-      myButton.click();
-
-
-      expect(wrapper.cancelSubscription).toHaveBeenCalled;
-    });
-  });
+      expect(wrapper.cancelSubscription).toHaveBeenCalled
+    })
+  })
 
   describe('locales', () => {
-    const languages = Object.keys(SubscribeModal.i18n.messages);
+    const languages = Object.keys(SubscribeModal.i18n.messages)
 
     it('contains 2 languages', () => {
-      expect(languages.length).toEqual(2);
-      expect(languages).toEqual(['fr', 'en']);
-    });
+      expect(languages).toHaveLength(2)
+      expect(languages).toEqual(['fr', 'en'])
+    })
 
     describe('each language', () => {
       describe('fr', () => {
-        const locales = Object.keys(SubscribeModal.i18n.messages.fr);
+        const locales = Object.keys(SubscribeModal.i18n.messages.fr)
 
         it('contains 8 locales', () => {
-          expect(locales.length).toEqual(8);
+          expect(locales).toHaveLength(8)
           expect(locales).toEqual([
             'subscribe',
             'modalText',
@@ -294,15 +281,15 @@ describe('Component | SubscribeModal.vue', () => {
             'emailError',
             'subscriptionError',
             'subscriptionSuccess',
-          ]);
-        });
-      });
+          ])
+        })
+      })
 
       describe('en', () => {
-        const locales = Object.keys(SubscribeModal.i18n.messages.en);
+        const locales = Object.keys(SubscribeModal.i18n.messages.en)
 
         it('contains 8 locales', () => {
-          expect(locales.length).toEqual(8);
+          expect(locales).toHaveLength(8)
           expect(locales).toEqual([
             'subscribe',
             'modalText',
@@ -312,9 +299,9 @@ describe('Component | SubscribeModal.vue', () => {
             'emailError',
             'subscriptionError',
             'subscriptionSuccess',
-          ]);
-        });
-      });
-    });
-  });
-});
+          ])
+        })
+      })
+    })
+  })
+})

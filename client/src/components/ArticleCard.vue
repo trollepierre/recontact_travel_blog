@@ -2,30 +2,45 @@
   <div class="article-card">
     <article class="article">
       <header class="article__header">
-        <a :href="articleUrl" @click.prevent.once="viewArticle">
+        <a
+          :href="articleUrl"
+          @click.prevent.once="viewArticle">
           <h2 class="article__title">{{ articleTitle }}</h2>
         </a>
       </header>
-      <div class="article__content" @click.prevent.once="viewArticle">
-        <img class="article__image" :src="article.imgLink" width="200"/>
+      <div
+        class="article__content"
+        @click.prevent.once="viewArticle">
+        <img
+          :src="article.imgLink"
+          class="article__image"
+          width="200">
       </div>
       <footer class="article__footer">
         <template v-if="adminMode">
-          <button class="article__update-button" :disabled="isUpdateClicked"
-                  @click.prevent.once="updateArticle">
+          <button
+            :disabled="isUpdateClicked"
+            class="article__update-button"
+            @click.prevent.once="updateArticle">
             {{ $t("repairArticle") }}
           </button>
-          <button class="article__delete-button article__footer_hidden" :disabled="isDeleteClicked"
-                  @click.prevent.once="deleteArticle">
+          <button
+            :disabled="isDeleteClicked"
+            class="article__delete-button article__footer_hidden"
+            @click.prevent.once="deleteArticle">
             {{ $t("deleteArticle") }}
           </button>
         </template>
         <template v-else>
-          <button class="article__view-button"
-                  @click.prevent.once="viewArticle">
+          <button
+            class="article__view-button"
+            @click.prevent.once="viewArticle">
             {{ $t("goToArticle") }}
           </button>
-          <a :href="article.galleryLink" target="_blank" class="article__dropbox">
+          <a
+            :href="article.galleryLink"
+            target="_blank"
+            class="article__dropbox">
             <button class="article__dropbox-button">
               {{ $t("viewGallery") }}
             </button>
@@ -37,50 +52,50 @@
 </template>
 
 <script>
-  import articlesApi from '../api/articles';
-  import notificationsService from '../services/notifications';
-  import translationsService from '../services/translations';
+  import articlesApi from '../api/articles'
+import notificationsService from '../services/notifications'
+import translationsService from '../services/translations'
 
-  export default {
+export default {
     name: 'ArticleCard',
     props: ['article', 'adminMode'],
     data() {
       return {
         isUpdateClicked: false,
         isDeleteClicked: false,
-      };
-    },
+      }
+  },
     computed: {
       articleUrl() {
-        return `/articles/${this.article.dropboxId}`;
+        return `/articles/${this.article.dropboxId}`
       },
       articleTitle() {
-        return translationsService.getTitle(this.article);
+        return translationsService.getTitle(this.article)
       },
     },
     methods: {
       viewArticle() {
-        this.goToArticle();
+        this.goToArticle()
       },
 
       updateArticle() {
-        this.trackEvent();
-        this.disableUpdateButton();
-        notificationsService.information(this, this.$t('syncLaunched'));
+        this.trackEvent()
+        this.disableUpdateButton()
+        notificationsService.information(this, this.$t('syncLaunched'))
         articlesApi.update(this.article.dropboxId)
           .then(() => {
-            notificationsService.removeInformation(this);
-            notificationsService.success(this, this.$t('syncDone'));
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToArticle())
           .catch((err) => {
-            notificationsService.removeInformation(this);
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
-          });
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+          })
       },
 
       disableUpdateButton() {
-        this.isUpdateClicked = true;
+        this.isUpdateClicked = true
       },
 
       trackEvent() {
@@ -88,29 +103,29 @@
           eventCategory: 'Article Card',
           eventAction: 'update',
           eventLabel: `article ${this.article.dropboxId} is updated`,
-        });
+        })
       },
 
       deleteArticle() {
-        this.disableDeleteButton();
-        notificationsService.information(this, this.$t('deleteLaunched'));
+        this.disableDeleteButton()
+        notificationsService.information(this, this.$t('deleteLaunched'))
         articlesApi.delete(this.article.dropboxId)
           .then(() => {
-            notificationsService.removeInformation(this);
-            notificationsService.success(this, this.$t('deleteDone'));
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('deleteDone'))
           })
           .catch((err) => {
-            notificationsService.removeInformation(this);
-            notificationsService.error(this, `${this.$t('deleteError')} ${err}`);
-          });
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('deleteError')} ${err}`)
+          })
       },
 
       disableDeleteButton() {
-        this.isDeleteClicked = true;
+        this.isDeleteClicked = true
       },
 
       goToArticle() {
-        this.$router.push(this.articleUrl);
+        this.$router.push(this.articleUrl)
       },
     },
 
@@ -142,7 +157,7 @@
         },
       },
     },
-  };
+  }
 </script>
 
 <style scoped>

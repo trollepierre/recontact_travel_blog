@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import ArticleList from '../components/ArticleList.vue';
-import ArticlePage from '../components/ArticlePage.vue';
-import SubscriberList from '../components/SubscriberList.vue';
+import Vue from 'vue'
+import Router from 'vue-router'
+import ArticleList from '../components/ArticleList.vue'
+import ArticlePage from '../components/ArticlePage.vue'
+import SubscriberList from '../components/SubscriberList.vue'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   routes: [
@@ -32,4 +32,4 @@ export default new Router({
     { path: '/sub', redirect: '/subscriptions' },
     { path: '/a/:id', redirect: '/articles/:id' },
   ],
-});
+})

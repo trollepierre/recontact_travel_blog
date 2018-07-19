@@ -3,8 +3,8 @@
     <article class="photo">
       <div class="photo__content">
         <div ref="container">
-          <img v-lazy="imgLink"/>
-          <div v-lazy:background-image="imgLink"></div>
+          <img v-lazy="imgLink">
+          <div v-lazy:background-image="imgLink"/>
         </div>
       </div>
     </article>
@@ -15,19 +15,19 @@
   export default {
     name: 'PhotoCard',
     props: ['photo'],
-    mounted() {
-      this.$Lazyload.lazyLoadHandler();
-    },
     computed: {
       imgLink() {
-        const { imgLink } = this.photo;
+        const { imgLink } = this.photo
         if (!imgLink) {
-          return false;
+          return false
         }
-        return imgLink;
+        return imgLink
       },
     },
-  };
+    mounted() {
+      this.$Lazyload.lazyLoadHandler()
+    },
+  }
 </script>
 
 <style scoped>

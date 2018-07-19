@@ -8,9 +8,9 @@
 </template>
 
 <script>
-  import AppHeader from '@/components/AppHeader';
-  import FeedbackModal from '@/components/FeedbackModal';
-  import SubscribeModal from '@/components/SubscribeModal';
+  import AppHeader from '@/components/AppHeader'
+  import FeedbackModal from '@/components/FeedbackModal'
+  import SubscribeModal from '@/components/SubscribeModal'
 
   export default {
     name: 'App',
@@ -20,7 +20,7 @@
       'feedback-modal': FeedbackModal,
       'subscribe-modal': SubscribeModal,
     },
-  };
+  }
 </script>
 
 <style>

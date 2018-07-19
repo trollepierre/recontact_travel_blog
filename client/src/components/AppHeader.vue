@@ -2,25 +2,40 @@
   <div class="app-header">
     <header class="page__header">
       <div class="page__container page__header--container">
-        <a class="logo-link" href="/" :title="home">
+        <a
+          :title="home"
+          class="logo-link"
+          href="/">
           <span class="logo-link__recontact">Recontact</span>
           <span class="logo-link__me">Me</span>
         </a>
-        <nav class="app-header__navigation navigation" role="navigation" aria-label="site navigation">
+        <nav
+          class="app-header__navigation navigation"
+          role="navigation"
+          aria-label="site navigation">
           <ol class="navigation__links">
             <li class="navigation__link">
-              <button class="navbar-action navbar-action__subscribe" type="button"
-                      @click.prevent="displaySubscribeModal">{{ $t("subscribe") }}
+              <button
+                class="navbar-action navbar-action__subscribe"
+                type="button"
+                @click.prevent="displaySubscribeModal">{{ $t("subscribe") }}
               </button>
             </li>
             <li class="navigation__link">
-              <button class="navbar-action navbar-action__suggestion" type="button"
-                      @click.prevent="displayFeedbackModal">{{ $t("suggestion") }}
+              <button
+                class="navbar-action navbar-action__suggestion"
+                type="button"
+                @click.prevent="displayFeedbackModal">{{ $t("suggestion") }}
               </button>
             </li>
             <li class="navigation__link tdm">
-              <a class="navbar-action navbar-action__tdm" href="http://worldtour.recontact.me" :title="tdm">
-                <img class="tdm__image" src="/static/tdm.jpg"/>
+              <a
+                :title="tdm"
+                class="navbar-action navbar-action__tdm"
+                href="http://worldtour.recontact.me">
+                <img
+                  class="tdm__image"
+                  src="/static/tdm.jpg">
               </a>
             </li>
           </ol>
@@ -34,19 +49,19 @@
     name: 'AppHeader',
     computed: {
       tdm() {
-        return this.$t('tdm');
+        return this.$t('tdm')
       },
       home() {
-        return this.$t('home');
+        return this.$t('home')
       },
     },
     methods: {
       displaySubscribeModal() {
-        this.$modal.show('subscribe-modal');
+        this.$modal.show('subscribe-modal')
       },
 
       displayFeedbackModal() {
-        this.$modal.show('feedback-modal');
+        this.$modal.show('feedback-modal')
       },
     },
     i18n: {
@@ -67,7 +82,7 @@
         },
       },
     },
-  };
+  }
 </script>
 
 <style scoped>

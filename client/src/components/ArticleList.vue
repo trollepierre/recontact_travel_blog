@@ -7,20 +7,31 @@
           <h1 class="article-results__title hidden">{{ title }}</h1>
           <p class="article-results__title h1">{{ $t("subtitle") }}</p>
           <p class="article-results__title h2">{{ $t("lastKnownPosition") }}
-            <span class="article-results__title h3">{{ lastPosition }}</span></p>
+          <span class="article-results__title h3">{{ lastPosition }}</span></p>
           <template v-if="adminMode">
             <a href="http://recontact.me/apo/sub">
-              <button class="article-results__buttons article-results__sync_hidden" type="button"
-                      @click.prevent="goToSubscriptions">{{ $t("getSubscribers") }}
+              <button
+                class="article-results__buttons article-results__sync_hidden"
+                type="button"
+                @click.prevent="goToSubscriptions">{{ $t("getSubscribers") }}
               </button>
             </a>
-            <button class="article-results__buttons" type="button" :disabled="isClickedSync"
-                    @click.prevent="synchronise">{{ $t("getNewArticles") }}</button>
-            <button class="article-results__buttons article-results__sync_hidden" type="button" :disabled="isClickedSync"
-                    @click.prevent="deleteAll">{{ $t("deleteAllArticles") }}
+            <button
+              :disabled="isClickedSync"
+              class="article-results__buttons"
+              type="button"
+              @click.prevent="synchronise">{{ $t("getNewArticles") }}</button>
+            <button
+              :disabled="isClickedSync"
+              class="article-results__buttons article-results__sync_hidden"
+              type="button"
+              @click.prevent="deleteAll">{{ $t("deleteAllArticles") }}
             </button>
-            <button class="article-results__buttons article-results__sync_hidden" type="button" :disabled="isClickedSync"
-                    @click.prevent="deleteAndSyncAll">{{ $t("deleteAndSyncAllArticles") }}
+            <button
+              :disabled="isClickedSync"
+              class="article-results__buttons article-results__sync_hidden"
+              type="button"
+              @click.prevent="deleteAndSyncAll">{{ $t("deleteAndSyncAllArticles") }}
             </button>
             <br>
 
@@ -28,17 +39,35 @@
               <p class="article-results__text">
                 {{ $t("lastPosition") }}
               </p>
-              <label class="article-results__label" for="position-place">{{ $t("place") }}</label>
-              <input class="article-results__input article-results__place" id="position-place" placeholder="Paris" v-model="place"/>
-              <label class="article-results__label" for="position-time">{{ $t("time") }}</label>
-              <input class="article-results__input article-results__time" id="position-time" placeholder="le 1er mai 2018" v-model="time"/>
-              <button class="article-results__buttons article-results__action--send" @click="updateLastPosition">{{ $t("confirm") }}</button>
+              <label
+                class="article-results__label"
+                for="position-place">{{ $t("place") }}</label>
+              <input
+                id="position-place"
+                v-model="place"
+                class="article-results__input article-results__place"
+                placeholder="Paris">
+              <label
+                class="article-results__label"
+                for="position-time">{{ $t("time") }}</label>
+              <input
+                id="position-time"
+                v-model="time"
+                class="article-results__input article-results__time"
+                placeholder="le 1er mai 2018">
+              <button
+                class="article-results__buttons article-results__action--send"
+                @click="updateLastPosition">{{ $t("confirm") }}</button>
             </form>
 
           </template>
           <ul class="article-results__list">
-            <li v-for="article in articles" class="article-results__item">
-              <article-card :article="article" :adminMode="adminMode"></article-card>
+            <li
+              v-for="article in articles"
+              class="article-results__item">
+              <article-card
+                :article="article"
+                :admin-mode="adminMode"/>
             </li>
           </ul>
         </section>
@@ -48,14 +77,14 @@
 </template>
 
 <script>
-  import ArticleCard from './ArticleCard';
-  import articlesApi from '../api/articles';
-  import positionsApi from '../api/positions';
-  import syncApi from '../api/sync';
-  import notificationsService from '../services/notifications';
-  import articlesSorter from '../services/articlesSorter';
+  import ArticleCard from './ArticleCard'
+import articlesApi from '../api/articles'
+import positionsApi from '../api/positions'
+import syncApi from '../api/sync'
+import notificationsService from '../services/notifications'
+import articlesSorter from '../services/articlesSorter'
 
-  export default {
+export default {
     name: 'ArticleList',
     components: {
       'article-card': ArticleCard,
@@ -68,115 +97,115 @@
         lastPosition: '',
         place: null,
         time: null,
-      };
-    },
-    mounted() {
-      this.getArticles();
-      this.getLastPosition();
-    },
+      }
+  },
     computed: {
       title() {
-        return (this.adminMode) ? this.$t('fixWebsite') : this.$t('theArticlesOfTheTrip');
+        return (this.adminMode) ? this.$t('fixWebsite') : this.$t('theArticlesOfTheTrip')
       },
     },
+    mounted() {
+      this.getArticles()
+      this.getLastPosition()
+  },
     methods: {
       getArticles() {
         articlesApi.fetchAll()
           .then((articles) => {
-            this.articles = articlesSorter.sortByDropboxId(articles);
-          });
+            this.articles = articlesSorter.sortByDropboxId(articles)
+          })
       },
 
       updateLastPositionData({ place, time }) {
-        this.lastPosition = `${place}, ${time}`;
+        this.lastPosition = `${place}, ${time}`
       },
 
       getLastPosition() {
         positionsApi.fetchLast()
-          .then(this.updateLastPositionData);
+          .then(this.updateLastPositionData)
       },
 
       submit(e) {
-        e.preventDefault();
-        this.updateLastPosition();
+        e.preventDefault()
+        this.updateLastPosition()
       },
 
       updateLastPosition() {
         const position = {
           place: this.place,
           time: this.time,
-        };
+        }
         positionsApi.add(position)
-          .then(this.updateLastPositionData);
+          .then(this.updateLastPositionData)
       },
 
       disableButton() {
-        this.isClickedSync = true;
+        this.isClickedSync = true
       },
 
       enableButton() {
-        this.isClickedSync = false;
+        this.isClickedSync = false
       },
 
       synchronise() {
-        this.trackEvent();
-        this.disableButton();
-        notificationsService.information(this, this.$t('syncLaunched'));
+        this.trackEvent()
+        this.disableButton()
+        notificationsService.information(this, this.$t('syncLaunched'))
         syncApi.launch()
           .then(() => {
-            notificationsService.removeInformation(this);
-            notificationsService.success(this, this.$t('syncDone'));
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch((err) => {
-            notificationsService.removeInformation(this);
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
-          });
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+          })
       },
 
       deleteAll() {
-        this.disableButton();
-        notificationsService.information(this, this.$t('syncLaunched'));
+        this.disableButton()
+        notificationsService.information(this, this.$t('syncLaunched'))
         articlesApi.deleteAll()
           .then(() => {
-            notificationsService.removeInformation(this);
-            notificationsService.success(this, this.$t('syncDone'));
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch((err) => {
-            notificationsService.removeInformation(this);
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
-          });
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+          })
       },
 
       deleteAndSyncAll() {
-        this.disableButton();
-        notificationsService.information(this, this.$t('syncLaunched'));
+        this.disableButton()
+        notificationsService.information(this, this.$t('syncLaunched'))
         articlesApi.deleteAndSyncAll()
           .then(() => {
-            notificationsService.removeInformation(this);
-            notificationsService.success(this, this.$t('syncDone'));
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch((err) => {
-            notificationsService.removeInformation(this);
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
-          });
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+          })
       },
       goToSubscriptions() {
-        this.$router.push('/subscriptions');
+        this.$router.push('/subscriptions')
       },
       trackEvent() {
         this.$ga.event({
           eventCategory: 'Article List',
           eventAction: 'synchronise',
           eventLabel: 'All articles have been synchronised',
-        });
+        })
       },
 
       goToHome() {
-        this.enableButton();
-        this.$router.push('/');
+        this.enableButton()
+        this.$router.push('/')
       },
     },
 
@@ -218,7 +247,7 @@
         },
       },
     },
-  };
+  }
 
 </script>
 
@@ -312,6 +341,5 @@
     color: #FAFAFA;
     cursor: auto;
   }
-
 
 </style>
