@@ -11,6 +11,7 @@
       <tbody>
         <tr
           v-for="subscription in subscriptions"
+          :key="subscription.email"
           class="subscription__row">
           <td class="subscription__email">{{ subscription.email }}</td>
           <td class="subscription__lang">{{ subscription.lang }}</td>
