@@ -63,12 +63,12 @@ describe('Component | ArticlePage.vue', () => {
     })
   })
 
-  xdescribe('mounted', () => {
-    it('should call chapters api to fetch chapters', () => {
+  describe('mounted', () => {
+    xit('should call chapters api to fetch chapters', () => {
       expect(chaptersApi.fetch).toHaveBeenCalledWith(idArticle);
     });
 
-    it('should call photos api to fetch photos', () => {
+    xit('should call photos api to fetch photos', () => {
       expect(photosApi.fetch).toHaveBeenCalledWith(idArticle);
     });
 
@@ -81,18 +81,13 @@ describe('Component | ArticlePage.vue', () => {
     }));
   });
 
-  xdescribe('render', () => {
-    it('should render as many chapters as received from the API', () => Vue.nextTick().then(() => {
-      const chaptersCards = wrapper.findAll('.chapter-card');
-      expect(chaptersCards.length).toEqual(3);
-    }));
-
+  describe('render', () => {
     it('should have empty chapters in data chapters', () => {
-      expect(wrapper.vm.chapters).toEqual([]);
+      expect(wrapper.vm.chapters).toEqual(chapters);
     });
 
     it('should have empty photos in data photos', () => {
-      expect(wrapper.vm.photos).toEqual([]);
+      expect(wrapper.vm.photos).toEqual(photos);
     });
   });
 
