@@ -1,6 +1,6 @@
-import axios from 'axios';
-import api from './subscriptions';
-import translationsService from '../services/translations';
+import axios from 'axios'
+import api from './subscriptions'
+import translationsService from '../services/translations'
 import env from '../env/env.js'
 
 describe('Unit | API | subscriptions api', () => {
@@ -11,44 +11,37 @@ describe('Unit | API | subscriptions api', () => {
         data: {
           foo: 'bar',
         },
-      };
+      }
       axios.post = jest.fn()
       axios.post.mockResolvedValue(stubbedResponse)
       translationsService.getNavigatorLanguage = jest.fn()
       translationsService.getNavigatorLanguage.mockReturnValue('en')
-    });
-
+    })
 
     it('should post subscriptions to API with the email', () => {
+      const email = 'pierre@recontact.me'
 
-      const email = 'pierre@recontact.me';
+      const expectedUrl = `${env('API_URL')}api/subscriptions`
+      const expectedBody = { email, lang: 'en' }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
 
-      const expectedUrl = `${env('API_URL')}api/subscriptions`;
-      const expectedBody = { email, lang: 'en' };
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
-
-
-      const promise = api.subscribe(email);
-
+      const promise = api.subscribe(email)
 
       return promise.then(() => {
-        expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedBody, expectedOptions);
-      });
-    });
+        expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedBody, expectedOptions)
+      })
+    })
 
     it('should return a rejected promise when an error is thrown', (done) => {
+      axios.post.mockRejectedValue(new Error('some error'))
+      const email = 'pierre@recontact.me'
 
-      axios.post.mockRejectedValue(new Error('some error'));
-      const email = 'pierre@recontact.me';
-
-
-      const promise = api.subscribe(email);
-
+      const promise = api.subscribe(email)
 
       promise.catch((error) => {
-        expect(error.message).toEqual('some error');
-        done();
-      });
-    });
-  });
-});
+        expect(error.message).toEqual('some error')
+        done()
+      })
+    })
+  })
+})

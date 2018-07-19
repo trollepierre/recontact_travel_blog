@@ -1,5 +1,5 @@
-import axios from 'axios';
-import api from './articles';
+import axios from 'axios'
+import api from './articles'
 import env from '../env/env.js'
 
 describe('Unit | API | articles api', () => {
@@ -8,37 +8,37 @@ describe('Unit | API | articles api', () => {
       const stubbedResponse = {
         status: 200,
         data: { foo: 'bar' },
-      };
+      }
       axios.get = jest.fn()
       axios.get.mockResolvedValue(stubbedResponse)
-    });
+    })
 
     it('should fetch API with the good params', () => {
-      const expectedUrl = `${env('API_URL')}api/articles`;
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
+      const expectedUrl = `${env('API_URL')}api/articles`
+      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
 
-      const promise = api.fetchAll();
+      const promise = api.fetchAll()
 
       return promise.then(() => {
-        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
-      });
-    });
+        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions)
+      })
+    })
 
     it('should return a rejected promise when an error is thrown', (done) => {
-      const accessToken = 'invalid-access_token';
-      axios.get.mockRejectedValue(new Error('some error'));
+      const accessToken = 'invalid-access_token'
+      axios.get.mockRejectedValue(new Error('some error'))
 
-      const promise = api.fetchAll(accessToken);
+      const promise = api.fetchAll(accessToken)
 
       promise.catch((error) => {
-        expect(error.message).toEqual('some error');
-        done();
-      });
-    });
-  });
+        expect(error.message).toEqual('some error')
+        done()
+      })
+    })
+  })
 
   describe('#updateArticle', () => {
-    const id = 59;
+    const id = 59
 
     beforeEach(() => {
       const stubbedResponse = {
@@ -46,32 +46,32 @@ describe('Unit | API | articles api', () => {
         data: {
           foo: 'bar',
         },
-      };
+      }
       axios.patch = jest.fn()
       axios.patch.mockResolvedValue(stubbedResponse)
-    });
+    })
 
     it('should patch API with the good params', () => {
-      const expectedUrl = `${env('API_URL')}api/admin/articles/${id}`;
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } };
+      const expectedUrl = `${env('API_URL')}api/admin/articles/${id}`
+      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
 
-      const promise = api.update(id);
+      const promise = api.update(id)
 
       return promise.then(() => {
-        expect(axios.patch).toHaveBeenCalledWith(expectedUrl, {}, expectedOptions);
-      });
-    });
+        expect(axios.patch).toHaveBeenCalledWith(expectedUrl, {}, expectedOptions)
+      })
+    })
 
     it('should return a rejected promise when an error is thrown', (done) => {
-      const accessToken = 'invalid-access_token';
-      axios.patch.mockRejectedValue(new Error('some error'));
+      const accessToken = 'invalid-access_token'
+      axios.patch.mockRejectedValue(new Error('some error'))
 
-      const promise = api.update(accessToken);
+      const promise = api.update(accessToken)
 
       promise.catch((error) => {
-        expect(error.message).toEqual('some error');
-        done();
-      });
-    });
-  });
-});
+        expect(error.message).toEqual('some error')
+        done()
+      })
+    })
+  })
+})

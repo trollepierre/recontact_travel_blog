@@ -1,31 +1,57 @@
 <template>
   <div class="feedback-modal-wrapper">
-    <modal class="feedback-modal" name="feedback-modal"
-           @before-open="beforeOpen" @opened="opened" :height="415">
+    <modal
+      :height="415"
+      class="feedback-modal"
+      name="feedback-modal"
+      @before-open="beforeOpen"
+      @opened="opened">
 
       <div class="feedback-modal__header">
         <h2 class="feedback-modal__title">{{ $t("suggest") }}</h2>
       </div>
 
       <div class="feedback-modal__body">
-        <form class="feedback-modal__form" @submit="submit">
-          <p class="feedback-modal__error" v-if="error" aria-live="polite">{{error}}</p>
+        <form
+          class="feedback-modal__form"
+          @submit="submit">
+          <p
+            v-if="error"
+            class="feedback-modal__error"
+            aria-live="polite">{{ error }}</p>
 
-          <label class="feedback-modal__label" for="feedback-email">{{ $t("email") }}</label>
-          <input class="feedback-modal__email" id="feedback-email" placeholder="pierre@recontact.me" v-model="email"/>
+          <label
+            class="feedback-modal__label"
+            for="feedback-email">{{ $t("email") }}</label>
+          <input
+            id="feedback-email"
+            v-model="email"
+            class="feedback-modal__email"
+            placeholder="pierre@recontact.me">
 
-          <label class="feedback-modal__label" for="feedback-content">{{ $t("content") }}</label>
-          <textarea class="feedback-modal__text" id="feedback-content" :placeholder="placeholder"  v-model="feedback"
-                    :style="{height: heightMessage}" @keyup.shift.enter="sendFeedback"></textarea>
+          <label
+            class="feedback-modal__label"
+            for="feedback-content">{{ $t("content") }}</label>
+          <textarea
+            id="feedback-content"
+            :placeholder="placeholder"
+            v-model="feedback"
+            :style="{height: heightMessage}"
+            class="feedback-modal__text"
+            @keyup.shift.enter="sendFeedback"/>
         </form>
       </div>
 
       <div class="feedback-modal__footer">
         <div class="feedback-modal__actions">
-          <button class="feedback-modal__action feedback-modal__action--send" @click.prevent="sendFeedback">
+          <button
+            class="feedback-modal__action feedback-modal__action--send"
+            @click.prevent="sendFeedback">
             {{ $t("send") }}
           </button>
-          <button class="feedback-modal__action feedback-modal__action--cancel" @click.prevent="cancelFeedback">
+          <button
+            class="feedback-modal__action feedback-modal__action--cancel"
+            @click.prevent="cancelFeedback">
             {{ $t("cancel") }}
           </button>
         </div>
@@ -36,10 +62,10 @@
 </template>
 
 <script>
-  import feedbacksApi from '../api/feedbacks';
-  import notificationsService from '../services/notifications';
+  import feedbacksApi from '../api/feedbacks'
+import notificationsService from '../services/notifications'
 
-  export default {
+export default {
     name: 'FeedbackModal',
     data() {
       return {
@@ -48,55 +74,55 @@
         error: null,
         heightMessage: '152px',
         placeholder: this.$t('placeholder'),
-      };
-    },
+      }
+  },
     methods: {
       beforeOpen() {
-        this._resetFeedback();
-        this._resetEmail();
-        this._resetHeight();
-        this._removeError();
+        this._resetFeedback()
+        this._resetEmail()
+        this._resetHeight()
+        this._removeError()
       },
 
       opened() {
-        this.trackEvent();
-        this._focusOnInput();
-        this._closeOnEscapeKey();
+        this.trackEvent()
+        this._focusOnInput()
+        this._closeOnEscapeKey()
       },
 
       _closeOnEscapeKey() {
         document.addEventListener('keydown', (e) => {
           if (e.keyCode === 27) {
-            this._closeModal();
+            this._closeModal()
           }
-        });
+        })
       },
 
       _focusOnInput() {
-        this.$el.querySelector('input#feedback-email').focus();
+        this.$el.querySelector('input#feedback-email').focus()
       },
 
       sendFeedback() {
-        this._removeError();
+        this._removeError()
         /* eslint-disable no-useless-escape */
-        const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$');
+        const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$')
         if (!regex.exec(this.email)) {
-          this.error = this.$t('emailError');
-          this._setErrorHeight();
-          return;
+          this.error = this.$t('emailError')
+          this._setErrorHeight()
+          return
         }
         if (!this.feedback || this.feedback.trim().length === 0) {
-          this.error = this.$t('feedbackError');
-          this._setErrorHeight();
-          return;
+          this.error = this.$t('feedbackError')
+          this._setErrorHeight()
+          return
         }
         feedbacksApi.sendFeedback(this.feedback, this.email)
           .then(this.displaySuccessNotification)
           .then(() => this._closeModal())
           .catch(() => {
-            this.error = this.$t('sendingError');
-            this._setErrorHeight();
-          });
+            this.error = this.$t('sendingError')
+            this._setErrorHeight()
+          })
       },
 
       trackEvent() {
@@ -104,44 +130,44 @@
           eventCategory: 'Feedback Modal',
           eventAction: 'open',
           eventLabel: 'Feedback modal is opened',
-        });
+        })
       },
 
       cancelFeedback() {
-        this._closeModal();
+        this._closeModal()
       },
 
       displaySuccessNotification() {
-        notificationsService.success(this, this.$t('sendingSuccess'));
+        notificationsService.success(this, this.$t('sendingSuccess'))
       },
 
       _resetFeedback() {
-        this.feedback = null;
+        this.feedback = null
       },
 
       _resetEmail() {
-        this.email = null;
+        this.email = null
       },
 
       _resetHeight() {
-        this.heightMessage = '152px';
+        this.heightMessage = '152px'
       },
 
       _setErrorHeight() {
-        this.heightMessage = '90px';
+        this.heightMessage = '90px'
       },
 
       _removeError() {
-        this.error = null;
+        this.error = null
       },
 
       _closeModal() {
-        this.$modal.hide('feedback-modal');
+        this.$modal.hide('feedback-modal')
       },
 
       submit(e) {
-        e.preventDefault();
-        this.sendFeedback();
+        e.preventDefault()
+        this.sendFeedback()
       },
     },
 
@@ -173,7 +199,7 @@
         },
       },
     },
-  };
+  }
 
 </script>
 

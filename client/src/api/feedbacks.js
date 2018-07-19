@@ -1,18 +1,18 @@
-import axios from 'axios';
+import axios from 'axios'
 import env from '../env/env.js'
 
 const FeedbacksApi = {
 
   sendFeedback(feedback, email) {
-    const url = `${env('API_URL')}api/feedbacks`;
+    const url = `${env('API_URL')}api/feedbacks`
     const body = {
       feedback,
       email,
-    };
-    const options = { headers: { 'Content-Type': 'application/json' } };
+    }
+    const options = { headers: { 'Content-Type': 'application/json' } }
 
-    return axios.post(url, body, options);
+    return axios.post(url, body, options)
   },
-};
+}
 
-export default FeedbacksApi;
+export default FeedbacksApi
