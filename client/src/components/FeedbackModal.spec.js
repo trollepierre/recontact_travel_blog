@@ -4,6 +4,7 @@ import feedbacksApi from '../api/feedbacks';
 import notificationsService from '../services/notifications';
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
+import VueAnalytics from 'vue-analytics';
 
 describe('Component | FeedbackModal.vue', () => {
   let wrapper
@@ -16,6 +17,7 @@ describe('Component | FeedbackModal.vue', () => {
     localVue = createLocalVue();
     localVue.use(VueI18n)
     localVue.use(VueRouter)
+    localVue.use(VueAnalytics, { id: '12' })
     wrapper = shallowMount(FeedbackModal, { localVue,
       data() {
         return {
@@ -46,9 +48,7 @@ describe('Component | FeedbackModal.vue', () => {
 
   xdescribe('rendering', () => {
     it('should display the modal', () => {
-
-      component.$modal.show('feedback-modal');
-
+      wrapper.vm.$modal.show('feedback-modal');
 
       return Vue.nextTick().then(() => {
         expect(wrapper.find('.feedback-modal')).to.exist;
@@ -56,75 +56,54 @@ describe('Component | FeedbackModal.vue', () => {
     });
   });
 
-  xdescribe('#beforeOpen', () => {
+  describe('#beforeOpen', () => {
     it('should reset feedback', () => {
-
       wrapper.vm.feedback = 'Coucou';
 
-
-      component.beforeOpen();
-
+      wrapper.vm.beforeOpen();
 
       expect(wrapper.vm.feedback).toEqual(null);
     });
 
     it('should reset email', () => {
-
       wrapper.vm.email = 'Coucou@contact.me';
 
-
-      component.beforeOpen();
-
+      wrapper.vm.beforeOpen();
 
       expect(wrapper.vm.email).toEqual(null);
     });
 
     it('should reset height', () => {
-
       wrapper.vm.heightMessage = '34px';
 
-
-      component.beforeOpen();
-
+      wrapper.vm.beforeOpen();
 
       expect(wrapper.vm.heightMessage).toEqual('152px');
     });
 
     it('should remove error', () => {
-
       wrapper.vm.error = 'C\'est un problème';
 
-
-      component.beforeOpen();
-
+      wrapper.vm.beforeOpen();
 
       expect(wrapper.vm.error).toEqual(null);
     });
   });
 
-  xdescribe('#opened', () => {
+  describe('#opened', () => {
     beforeEach(() => {
-      sinon.stub(component, '_focusOnInput');
-      sinon.stub(component, '_closeModal');
-    });
-
-    afterEach(() => {
-      component._focusOnInput.restore();
-      component._closeModal.restore();
+      wrapper.vm._focusOnInput = jest.fn()
+      wrapper.vm._closeModal = jest.fn()
     });
 
     it('should focusOnInput', () => {
+      wrapper.vm.opened();
 
-      component.opened();
-
-
-      expect(component._focusOnInput).toHaveBeenCalledWith();
+      expect(wrapper.vm._focusOnInput).toHaveBeenCalledWith();
     });
 
     it('should close on escape key', () => {
-
-      component.opened();
-
+      wrapper.vm.opened();
 
       const e = document.createEvent('Events');
       e.initEvent('keydown', true, true);
@@ -132,14 +111,12 @@ describe('Component | FeedbackModal.vue', () => {
       document.dispatchEvent(e);
 
       return Vue.nextTick().then(() => {
-        expect(component._closeModal).toHaveBeenCalledWith();
+        expect(wrapper.vm._closeModal).toHaveBeenCalledWith();
       });
     });
 
     it('should not close on any other key than space', () => {
-
-      component.opened();
-
+      wrapper.vm.opened();
 
       const e = document.createEvent('Events');
       e.initEvent('keydown', true, true);
@@ -147,7 +124,7 @@ describe('Component | FeedbackModal.vue', () => {
       document.dispatchEvent(e);
 
       return Vue.nextTick().then(() => {
-        expect(component._closeModal).not.toHaveBeenCalledWith();
+        expect(wrapper.vm._closeModal).not.toHaveBeenCalledWith();
       });
     });
   });
@@ -155,7 +132,7 @@ describe('Component | FeedbackModal.vue', () => {
   xdescribe('#_focusOnInput', () => {
     it.skip('should focus on input feedback content', (done) => {
 
-      component.$modal.show('feedback-modal');
+      wrapper.vm.$modal.show('feedback-modal');
 
 
       setTimeout(() => {
@@ -169,56 +146,40 @@ describe('Component | FeedbackModal.vue', () => {
 
   xdescribe('#sendFeedback', () => {
     beforeEach(() => {
-      sinon.stub(feedbacksApi, 'sendFeedback').resolves();
-      sinon.stub(notificationsService, 'success');
-    });
-
-    afterEach(() => {
-      feedbacksApi.sendFeedback.restore();
-      notificationsService.success.restore();
+      feedbacksApi.sendFeedback = jest.fn()
+      feedbacksApi.sendFeedback.mockResolvedValue({})
+      notificationsService.success = jest.fn()
     });
 
     it('should remove error', () => {
-
       wrapper.vm.error = 'C\'est un problème';
 
-
-      component.sendFeedback();
-
+      wrapper.vm.sendFeedback();
 
       expect(wrapper.vm.error).toEqual(null);
     });
 
     describe('when email is empty', () => {
       it('should set error', () => {
-
         wrapper.vm.email = '';
 
-
-        component.sendFeedback();
-
+        wrapper.vm.sendFeedback();
 
         expect(wrapper.vm.error).toEqual('emailError');
       });
 
       it('should set error height', () => {
-
         wrapper.vm.email = '';
 
-
-        component.sendFeedback();
-
+        wrapper.vm.sendFeedback();
 
         expect(wrapper.vm.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
-
         wrapper.vm.email = '';
 
-
-        component.sendFeedback();
-
+        wrapper.vm.sendFeedback();
 
         expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
@@ -226,34 +187,25 @@ describe('Component | FeedbackModal.vue', () => {
 
     describe('when email does not follow the good pattern', () => {
       it('should set error', () => {
-
         wrapper.vm.email = '@recontact.me';
 
-
-        component.sendFeedback();
-
+        wrapper.vm.sendFeedback();
 
         expect(wrapper.vm.error).toEqual('emailError');
       });
 
       it('should set error height', () => {
-
         wrapper.vm.email = 'pierre@recontact.m';
 
-
-        component.sendFeedback();
-
+        wrapper.vm.sendFeedback();
 
         expect(wrapper.vm.heightMessage).toEqual('90px');
       });
 
       it('should not call sendFeedback', () => {
-
         wrapper.vm.email = 'pierre@recontact.m';
 
-
-        component.sendFeedback();
-
+        wrapper.vm.sendFeedback();
 
         expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
       });
@@ -261,23 +213,17 @@ describe('Component | FeedbackModal.vue', () => {
 
     describe('when feedback is empty', () => {
       it('should set error', () => {
-
         wrapper.vm.feedback = '';
 
-
-        component.sendFeedback();
-
+        wrapper.vm.sendFeedback();
 
         expect(wrapper.vm.error).toEqual('feedbackError');
       });
 
       it('should set error height', () => {
-
         wrapper.vm.feedback = '';
 
-
-        component.sendFeedback();
-
+        wrapper.vm.sendFeedback();
 
         expect(wrapper.vm.heightMessage).toEqual('90px');
       });
@@ -287,7 +233,7 @@ describe('Component | FeedbackModal.vue', () => {
         wrapper.vm.feedback = '';
 
 
-        component.sendFeedback();
+        wrapper.vm.sendFeedback();
 
 
         expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
@@ -300,7 +246,7 @@ describe('Component | FeedbackModal.vue', () => {
         wrapper.vm.feedback = ' ';
 
 
-        component.sendFeedback();
+        wrapper.vm.sendFeedback();
 
 
         expect(wrapper.vm.error).toEqual('feedbackError');
@@ -311,7 +257,7 @@ describe('Component | FeedbackModal.vue', () => {
         wrapper.vm.feedback = ' \n';
 
 
-        component.sendFeedback();
+        wrapper.vm.sendFeedback();
 
 
         expect(wrapper.vm.heightMessage).toEqual('90px');
@@ -322,7 +268,7 @@ describe('Component | FeedbackModal.vue', () => {
         wrapper.vm.feedback = '';
 
 
-        component.sendFeedback();
+        wrapper.vm.sendFeedback();
 
 
         expect(feedbacksApi.sendFeedback).not.toHaveBeenCalled;
@@ -331,7 +277,7 @@ describe('Component | FeedbackModal.vue', () => {
 
     it('should call the API with good params', () => {
 
-      component.sendFeedback();
+      wrapper.vm.sendFeedback();
 
 
       expect(feedbacksApi.sendFeedback).toHaveBeenCalledWith(feedback, email);
@@ -339,10 +285,10 @@ describe('Component | FeedbackModal.vue', () => {
 
     it('should display success notification', () => {
 
-      notificationsService.success.resolves({});
+      notificationsService.success.mockResolvedValue({})
 
 
-      component.sendFeedback();
+      wrapper.vm.sendFeedback();
 
 
       return Vue.nextTick().then(() => {
@@ -353,13 +299,13 @@ describe('Component | FeedbackModal.vue', () => {
 
     it('should close modal', () => {
 
-      notificationsService.success.resolves({});
-      component.$modal.show('feedback-modal');
+      notificationsService.success.mockResolvedValue({})
+      wrapper.vm.$modal.show('feedback-modal');
       wrapper.vm.email = 'email@recontact.me';
       wrapper.vm.feedback = 'Coucou';
 
 
-      component.sendFeedback();
+      wrapper.vm.sendFeedback();
 
 
       return Vue.nextTick().then(() => {
@@ -367,10 +313,10 @@ describe('Component | FeedbackModal.vue', () => {
       });
     });
 
-    describe('when sendFeedback fails', () => {
+    xdescribe('when sendFeedback fails', () => {
       beforeEach(() => {
         feedbacksApi.sendFeedback.restore();
-        component.$modal.show('feedback-modal');
+        wrapper.vm.$modal.show('feedback-modal');
         sinon.stub(feedbacksApi, 'sendFeedback').rejects(new Error('e'));
         wrapper.vm.feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?';
         wrapper.vm.email = 'contact@recontact.me';
@@ -379,7 +325,7 @@ describe('Component | FeedbackModal.vue', () => {
 
       it('should not close modal', () => {
 
-        component.sendFeedback();
+        wrapper.vm.sendFeedback();
 
 
         return Vue.nextTick().then(() => {
@@ -389,7 +335,7 @@ describe('Component | FeedbackModal.vue', () => {
 
       it('should set error', () => {
 
-        component.sendFeedback();
+        wrapper.vm.sendFeedback();
 
 
         return Vue.nextTick().then(() => {
@@ -399,7 +345,7 @@ describe('Component | FeedbackModal.vue', () => {
 
       it('should set error height', () => {
 
-        component.sendFeedback();
+        wrapper.vm.sendFeedback();
 
 
         return Vue.nextTick().then(() => {
@@ -412,10 +358,10 @@ describe('Component | FeedbackModal.vue', () => {
   xdescribe('#cancelFeedback', () => {
     it('should close modal', () => {
 
-      component.$modal.show('feedback-modal');
+      wrapper.vm.$modal.show('feedback-modal');
 
 
-      component.cancelFeedback();
+      wrapper.vm.cancelFeedback();
 
 
       return Vue.nextTick().then(() => {
@@ -426,7 +372,7 @@ describe('Component | FeedbackModal.vue', () => {
 
   it.skip('should sendFeedback on click on "send" button', () => {
 
-    component.$modal.show('feedback-modal');
+    wrapper.vm.$modal.show('feedback-modal');
     sinon.stub(component, 'sendFeedback');
 
     return Vue.nextTick().then(() => {
@@ -436,13 +382,13 @@ describe('Component | FeedbackModal.vue', () => {
       myButton.click();
 
 
-      expect(component.sendFeedback).toHaveBeenCalled;
+      expect(wrapper.vm.sendFeedback).toHaveBeenCalled;
     });
   });
 
   it.skip('should cancelFeedback on click on "cancel" button', () => {
 
-    component.$modal.show('feedback-modal');
+    wrapper.vm.$modal.show('feedback-modal');
     sinon.stub(component, 'cancelFeedback');
 
     return Vue.nextTick().then(() => {
@@ -452,7 +398,7 @@ describe('Component | FeedbackModal.vue', () => {
       myButton.click();
 
 
-      expect(component.cancelFeedback).toHaveBeenCalled;
+      expect(wrapper.vm.cancelFeedback).toHaveBeenCalled;
     });
   });
 
