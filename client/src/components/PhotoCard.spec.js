@@ -57,7 +57,7 @@ describe('Component | PhotoCard.vue', () => {
       const propsData = { photo };
 
       wrapper = shallowMount(PhotoCard, { localVue, propsData })
-      
+
       expect(wrapper.vm.imgLink).toEqual('dropbox.com/img0.jpg');
     });
 
