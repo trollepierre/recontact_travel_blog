@@ -14,6 +14,7 @@
       <footer class="chapter__footer">
         <div
           v-for="paragraph in chapterText"
+          :key="paragraph.text"
           class="chapter__footer_text">
           <template v-if="paragraph">
             <a
