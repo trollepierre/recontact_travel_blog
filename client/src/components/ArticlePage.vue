@@ -7,7 +7,7 @@
           <ul class="chapter__list">
             <li
               v-for="chapter in chapters"
-              :key="chapter"
+              :key="chapter.imgLink"
               class="chapter__item">
               <chapter-card :chapter="chapter"/>
             </li>
@@ -18,7 +18,7 @@
           <ul class="photo-gallery__list">
             <li
               v-for="photo in photos"
-              :key="photo"
+              :key="photo.imgLink"
               class="photo__item">
               <photo-card :photo="photo"/>
             </li>

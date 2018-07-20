@@ -64,7 +64,7 @@
           <ul class="article-results__list">
             <li
               v-for="article in articles"
-              :key="article"
+              :key="article.dropboxId"
               class="article-results__item">
               <article-card
                 :article="article"
