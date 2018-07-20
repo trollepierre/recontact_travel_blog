@@ -245,7 +245,7 @@ describe('Component | ArticleCard.vue', () => {
         })
       })
 
-      fit('should call articlesApi', () => {
+      it('should call articlesApi', () => {
         wrapper.find('button.article__update-button').trigger('click')
 
         expect(articlesApi.update).toHaveBeenCalledWith('58')
