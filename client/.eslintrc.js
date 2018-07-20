@@ -78,7 +78,8 @@ module.exports = {
     'import/first': 'warn',
 
     'no-undef': 'warn',
-
+    'import/extensions': 'warn',
+    'import/no-unresolved': 'warn',
     'no-unused-vars': 'warn'
   }
 };

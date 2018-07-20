@@ -64,6 +64,7 @@
           <ul class="article-results__list">
             <li
               v-for="article in articles"
+              :key="article"
               class="article-results__item">
               <article-card
                 :article="article"
