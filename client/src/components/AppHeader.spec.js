@@ -1,6 +1,6 @@
 import VueI18n from 'vue-i18n'
 import VueModal from 'vue-js-modal'
-import AppHeader from './AppHeader'
+import AppHeader from './AppHeader.vue'
 
 describe('Component | AppHeader.vue', () => {
   let localVue
