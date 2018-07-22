@@ -1,6 +1,6 @@
 import axios from 'axios'
 import translationsService from '../services/translations'
-import env from '../env/env.js'
+import env from '../env/env'
 
 export default {
 

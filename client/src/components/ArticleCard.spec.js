@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueAnalytics from 'vue-analytics'
+import VueI18n from 'vue-i18n'
 
 import ArticleCard from './ArticleCard.vue'
 
 import notificationsService from '../services/notifications'
 import translationsService from '../services/translations'
 import articlesApi from '../api/articles'
-import VueI18n from 'vue-i18n'
 
 describe('Component | ArticleCard.vue', () => {
   let localVue
