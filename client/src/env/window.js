@@ -1,5 +1,3 @@
-function get(key) {
-  return window[key]
-}
+ get = key => window[key]
 
-export { get }
+ export { get }

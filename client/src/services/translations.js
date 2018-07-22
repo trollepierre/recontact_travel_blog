@@ -4,17 +4,21 @@ export default {
     return navigator.language
   },
 
+  isFrancophone() {
+    return this.getNavigatorLanguage().substring(0, 2) === 'fr'
+  },
+
   getTitle(article) {
-    const title = this.getNavigatorLanguage().substring(0, 2) === 'fr' ? article.frTitle : article.enTitle
+    const title = this.isFrancophone() ? article.frTitle : article.enTitle
     if (!title) return article.dropboxId
     return title
   },
 
   getChapterTitle(chapter) {
-    return this.getNavigatorLanguage().substring(0, 2) === 'fr' ? chapter.frTitle : chapter.enTitle
+    return this.isFrancophone() ? chapter.frTitle : chapter.enTitle
   },
 
   getChapterText(chapter) {
-    return this.getNavigatorLanguage().substring(0, 2) === 'fr' ? chapter.frText : chapter.enText
+    return this.isFrancophone() ? chapter.frText : chapter.enText
   },
 }
