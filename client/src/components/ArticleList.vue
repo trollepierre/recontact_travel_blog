@@ -103,7 +103,7 @@ export default {
   },
     computed: {
       title() {
-        return (this.adminMode) ? this.$t('fixWebsite') : this.$t('theArticlesOfTheTrip')
+        return this.adminMode ? this.$t('fixWebsite') : this.$t('theArticlesOfTheTrip')
       },
     },
     mounted() {
