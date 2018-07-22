@@ -18,10 +18,7 @@
     computed: {
       imgLink() {
         const { imgLink } = this.photo
-        if (!imgLink) {
-          return false
-        }
-        return imgLink
+        return !imgLink ? false : imgLink
       },
     },
     mounted() {
