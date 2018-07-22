@@ -38,17 +38,14 @@ export default {
     computed: {
       imgLink() {
         const { imgLink } = this.chapter
-        if (!imgLink) {
-          return false
-        }
-        return imgLink
+        return !imgLink ? false : imgLink
       },
       chapterTitle() {
         return translationsService.getChapterTitle(this.chapter)
       },
       chapterText() {
-        const text2 = translationsService.getChapterText(this.chapter)
-        return text2.map(paragraph => {
+        const chapterText = translationsService.getChapterText(this.chapter)
+        return chapterText.map(paragraph => {
           let isLink = false
           /* eslint-disable no-useless-escape */
           const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?')

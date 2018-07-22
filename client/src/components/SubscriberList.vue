@@ -38,11 +38,8 @@ export default {
       this.getSubscriptions()
   },
     methods: {
-      getSubscriptions() {
-        subscriptionsApi.fetchAll()
-          .then(subscriptions => {
-            this.subscriptions = subscriptions
-          })
+      async getSubscriptions() {
+        this.subscriptions = await subscriptionsApi.fetchAll()
       },
 
       unsubscribe(id) {

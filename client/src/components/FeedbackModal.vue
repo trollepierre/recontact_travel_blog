@@ -63,9 +63,9 @@
 
 <script>
   import feedbacksApi from '../api/feedbacks'
-import notificationsService from '../services/notifications'
+  import notificationsService from '../services/notifications'
 
-export default {
+  export default {
     name: 'FeedbackModal',
     data() {
       return {
@@ -75,7 +75,7 @@ export default {
         heightMessage: '152px',
         placeholder: this.$t('placeholder'),
       }
-  },
+    },
     methods: {
       beforeOpen() {
         this._resetFeedback()

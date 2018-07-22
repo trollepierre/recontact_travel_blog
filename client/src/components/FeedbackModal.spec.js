@@ -1,10 +1,9 @@
-import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import FeedbackModal from './FeedbackModal.vue'
-import feedbacksApi from '../api/feedbacks'
-import notificationsService from '../services/notifications'
+// import feedbacksApi from '../api/feedbacks'
+// import notificationsService from '../services/notifications'
 
 describe('Component | FeedbackModal.vue', () => {
   let wrapper
@@ -47,7 +46,7 @@ describe('Component | FeedbackModal.vue', () => {
     expect(wrapper.vm.heightMessage).toEqual('152px')
   })
 
-  xdescribe('rendering', () => {
+  /*xdescribe('rendering', () => {
     it('should display the modal', () => {
       wrapper.vm.$modal.show('feedback-modal')
 
@@ -56,7 +55,7 @@ describe('Component | FeedbackModal.vue', () => {
       })
     })
   })
-
+*/
   describe('#beforeOpen', () => {
     it('should reset feedback', () => {
       wrapper.vm.feedback = 'Coucou'
@@ -111,9 +110,7 @@ describe('Component | FeedbackModal.vue', () => {
       e.keyCode = 27
       document.dispatchEvent(e)
 
-      return Vue.nextTick().then(() => {
         expect(wrapper.vm._closeModal).toHaveBeenCalledWith()
-      })
     })
 
     it('should not close on any other key than space', () => {
@@ -124,12 +121,11 @@ describe('Component | FeedbackModal.vue', () => {
       e.keyCode = 13
       document.dispatchEvent(e)
 
-      return Vue.nextTick().then(() => {
         expect(wrapper.vm._closeModal).not.toHaveBeenCalledWith()
-      })
     })
   })
 
+/*
   xdescribe('#_focusOnInput', () => {
     it.skip('should focus on input feedback content', done => {
       wrapper.vm.$modal.show('feedback-modal')
@@ -141,8 +137,9 @@ describe('Component | FeedbackModal.vue', () => {
       }, 100)
     })
   })
+*/
 
-  xdescribe('#sendFeedback', () => {
+  /*xdescribe('#sendFeedback', () => {
     beforeEach(() => {
       feedbacksApi.sendFeedback = jest.fn()
       feedbacksApi.sendFeedback.mockResolvedValue({})
@@ -272,10 +269,8 @@ describe('Component | FeedbackModal.vue', () => {
 
       wrapper.vm.sendFeedback()
 
-      return Vue.nextTick().then(() => {
         const message = 'sendingSuccess'
         expect(notificationsService.success).toHaveBeenCalledWith(component, message)
-      })
     })
 
     it('should close modal', () => {
@@ -286,12 +281,10 @@ describe('Component | FeedbackModal.vue', () => {
 
       wrapper.vm.sendFeedback()
 
-      return Vue.nextTick().then(() => {
         expect(wrapper.find('.feedback-modal')).not.to.exist
-      })
     })
 
-    xdescribe('when sendFeedback fails', () => {
+    /!*xdescribe('when sendFeedback fails', () => {
       beforeEach(() => {
         feedbacksApi.sendFeedback.restore()
         wrapper.vm.$modal.show('feedback-modal')
@@ -312,22 +305,18 @@ describe('Component | FeedbackModal.vue', () => {
       it('should set error', () => {
         wrapper.vm.sendFeedback()
 
-        return Vue.nextTick().then(() => {
           expect(wrapper.vm.error).toEqual('sendingError')
-        })
       })
 
       it('should set error height', () => {
         wrapper.vm.sendFeedback()
 
-        return Vue.nextTick().then(() => {
           expect(wrapper.vm.heightMessage).toEqual('90px')
-        })
       })
-    })
+    })*!/
   })
-
-  xdescribe('#cancelFeedback', () => {
+*/
+  /*xdescribe('#cancelFeedback', () => {
     it('should close modal', () => {
       wrapper.vm.$modal.show('feedback-modal')
 
@@ -337,9 +326,9 @@ describe('Component | FeedbackModal.vue', () => {
         expect(wrapper.find('.feedback-modal')).not.to.exist
       })
     })
-  })
+  })*/
 
-  it.skip('should sendFeedback on click on "send" button', () => {
+  /*it.skip('should sendFeedback on click on "send" button', () => {
     wrapper.vm.$modal.show('feedback-modal')
     sinon.stub(component, 'sendFeedback')
 
@@ -350,9 +339,9 @@ describe('Component | FeedbackModal.vue', () => {
 
       expect(wrapper.vm.sendFeedback).toHaveBeenCalled
     })
-  })
+  })*/
 
-  it.skip('should cancelFeedback on click on "cancel" button', () => {
+  /*it.skip('should cancelFeedback on click on "cancel" button', () => {
     wrapper.vm.$modal.show('feedback-modal')
     sinon.stub(component, 'cancelFeedback')
 
@@ -363,7 +352,7 @@ describe('Component | FeedbackModal.vue', () => {
 
       expect(wrapper.vm.cancelFeedback).toHaveBeenCalled
     })
-  })
+  })*/
 
   describe('locales', () => {
     const languages = Object.keys(FeedbackModal.i18n.messages)
