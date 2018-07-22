@@ -71,6 +71,9 @@ module.exports = {
     'semi': ['error', 'never'],
     'space-before-function-paren': 'error',
 
+    // PERSO
+    'no-extra-parens': 'error',
+
     /* WARNING TO REMOVE */
     'jest/valid-expect': 'warn', // uncomment above
     'jest/no-identical-title': 'warn', // uncomment above

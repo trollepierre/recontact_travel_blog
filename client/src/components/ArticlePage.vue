@@ -86,14 +86,14 @@ export default {
         this.trackEvent()
         chaptersApi.fetch(this.dropboxId)
           .then((article) => {
-            (this.chapters = article.chapters);
-            (this.title = translationsService.getTitle(article))
+            this.chapters = article.chapters
+            this.title = translationsService.getTitle(article)
           })
       },
       getPhotos() {
         photosApi.fetch(this.$route.params.id)
           .then((photos) => {
-            (this.photos = photos)
+            this.photos = photos
           })
       },
       viewPreviousArticle() {
