@@ -1,7 +1,7 @@
 import axios from 'axios'
 import api from './subscriptions'
 import translationsService from '../services/translations'
-import env from '../env/env.js'
+import env from '../env/env'
 
 describe('Unit | API | subscriptions api', () => {
   describe('#sendSubscription', () => {

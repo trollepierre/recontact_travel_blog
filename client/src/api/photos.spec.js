@@ -1,6 +1,6 @@
 import axios from 'axios'
 import photosApi from './photos'
-import env from '../env/env.js'
+import env from '../env/env'
 
 describe('Unit | API | photos api', () => {
   describe('#fetch', () => {

@@ -7,7 +7,8 @@
           <h1 class="article-results__title hidden">{{ title }}</h1>
           <p class="article-results__title h1">{{ $t("subtitle") }}</p>
           <p class="article-results__title h2">{{ $t("lastKnownPosition") }}
-          <span class="article-results__title h3">{{ lastPosition }}</span></p>
+            <span class="article-results__title h3">{{ lastPosition }}</span>
+          </p>
           <template v-if="adminMode">
             <a href="http://recontact.me/apo/sub">
               <button

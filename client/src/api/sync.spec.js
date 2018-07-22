@@ -1,6 +1,6 @@
 import axios from 'axios'
 import syncApi from './sync'
-import env from '../env/env.js'
+import env from '../env/env'
 
 describe('Unit | API | sync api', () => {
   describe('#launch', () => {

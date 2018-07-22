@@ -1,6 +1,6 @@
 import axios from 'axios'
-import api from './articles'
-import env from '../env/env.js'
+import articlesApi from './articles'
+import env from '../env/env'
 
 describe('Unit | API | articles api', () => {
   describe('#fetchAll', () => {
@@ -17,7 +17,7 @@ describe('Unit | API | articles api', () => {
       const expectedUrl = `${env('API_URL')}api/articles`
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
 
-      const promise = api.fetchAll()
+      const promise = articlesApi.fetchAll()
 
       return promise.then(() => {
         expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions)
@@ -28,7 +28,7 @@ describe('Unit | API | articles api', () => {
       const accessToken = 'invalid-access_token'
       axios.get.mockRejectedValue(new Error('some error'))
 
-      const promise = api.fetchAll(accessToken)
+      const promise = articlesApi.fetchAll(accessToken)
 
       promise.catch((error) => {
         expect(error.message).toEqual('some error')
@@ -55,7 +55,7 @@ describe('Unit | API | articles api', () => {
       const expectedUrl = `${env('API_URL')}api/admin/articles/${id}`
       const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
 
-      const promise = api.update(id)
+      const promise = articlesApi.update(id)
 
       return promise.then(() => {
         expect(axios.patch).toHaveBeenCalledWith(expectedUrl, {}, expectedOptions)
@@ -66,7 +66,7 @@ describe('Unit | API | articles api', () => {
       const accessToken = 'invalid-access_token'
       axios.patch.mockRejectedValue(new Error('some error'))
 
-      const promise = api.update(accessToken)
+      const promise = articlesApi.update(accessToken)
 
       promise.catch((error) => {
         expect(error.message).toEqual('some error')
