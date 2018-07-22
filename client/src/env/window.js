@@ -1,3 +1,3 @@
- get = key => window[key]
+const get = key => window[key]
 
- export { get }
+export { get }
