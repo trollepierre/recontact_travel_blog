@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import PhotoCard from './PhotoCard'
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueLazyload from 'vue-lazyload'
+import PhotoCard from './PhotoCard.vue'
 
 describe('Component | PhotoCard.vue', () => {
   let wrapper
