@@ -88,7 +88,7 @@ export default {
             notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToArticle())
-          .catch((err) => {
+          .catch(err => {
             notificationsService.removeInformation(this)
             notificationsService.error(this, `${this.$t('syncError')} ${err}`)
           })
@@ -114,7 +114,7 @@ export default {
             notificationsService.removeInformation(this)
             notificationsService.success(this, this.$t('deleteDone'))
           })
-          .catch((err) => {
+          .catch(err => {
             notificationsService.removeInformation(this)
             notificationsService.error(this, `${this.$t('deleteError')} ${err}`)
           })

@@ -30,14 +30,14 @@ describe('Unit | API | feedbacks api', () => {
       })
     })
 
-    it('should reject a promise when an error is thrown', (done) => {
+    it('should reject a promise when an error is thrown', done => {
       axios.post.mockRejectedValue(new Error('some error'))
       const feedback = 'coucou'
       const email = 'pierre@recontact.me'
 
       const promise = api.sendFeedback(feedback, email)
 
-      promise.catch((error) => {
+      promise.catch(error => {
         expect(error.message).toEqual('some error')
         done()
       })

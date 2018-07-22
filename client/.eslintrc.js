@@ -73,6 +73,7 @@ module.exports = {
 
     // PERSO
     'no-extra-parens': 'error',
+    'arrow-parens': ['error', 'as-needed'],
 
     /* WARNING TO REMOVE */
     'jest/valid-expect': 'warn', // uncomment above

@@ -35,18 +35,18 @@ describe('Unit | API | chapters api', () => {
     it('should return the response', () => {
       const promise = chaptersApi.fetch(idArticle)
 
-      return promise.then((returnedChapters) => {
+      return promise.then(returnedChapters => {
         expect(returnedChapters).toEqual(data)
       })
     })
 
-    it('should return a rejected promise when an error is thrown', (done) => {
+    it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
       axios.get.mockRejectedValue(new Error('some error'))
 
       const promise = chaptersApi.fetch(accessToken)
 
-      promise.catch((error) => {
+      promise.catch(error => {
         expect(error.message).toEqual('some error')
         done()
       })

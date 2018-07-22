@@ -28,18 +28,18 @@ describe('Unit | API | sync api', () => {
     it('should return the response', () => {
       const promise = syncApi.launch()
 
-      return promise.then((returnedChapters) => {
+      return promise.then(returnedChapters => {
         expect(returnedChapters).toEqual(stubbedResponse)
       })
     })
 
-    it('should return a rejected promise when an error is thrown', (done) => {
+    it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
       axios.patch.mockRejectedValue(new Error('some error'))
 
       const promise = syncApi.launch(accessToken)
 
-      promise.catch((error) => {
+      promise.catch(error => {
         expect(error.message).toEqual('some error')
         done()
       })
