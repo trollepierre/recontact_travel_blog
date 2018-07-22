@@ -131,7 +131,7 @@ describe('Component | FeedbackModal.vue', () => {
   })
 
   xdescribe('#_focusOnInput', () => {
-    it.skip('should focus on input feedback content', (done) => {
+    it.skip('should focus on input feedback content', done => {
       wrapper.vm.$modal.show('feedback-modal')
 
       setTimeout(() => {

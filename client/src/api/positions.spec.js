@@ -32,17 +32,17 @@ describe('Unit | API | positions api', () => {
     it('should return the response', () => {
       const promise = positionsApi.fetchLast()
 
-      return promise.then((returnedChapters) => {
+      return promise.then(returnedChapters => {
         expect(returnedChapters).toEqual(data)
       })
     })
 
-    it('should return a rejected promise when an error is thrown', (done) => {
+    it('should return a rejected promise when an error is thrown', done => {
       axios.get.mockRejectedValue(new Error('some error'))
 
       const promise = positionsApi.fetchLast()
 
-      promise.catch((error) => {
+      promise.catch(error => {
         expect(error.message).toEqual('some error')
         done()
       })
@@ -81,17 +81,17 @@ describe('Unit | API | positions api', () => {
     it('should return the response', () => {
       const promise = positionsApi.add()
 
-      return promise.then((returnedChapters) => {
+      return promise.then(returnedChapters => {
         expect(returnedChapters).toEqual(data)
       })
     })
 
-    it('should return a rejected promise when an error is thrown', (done) => {
+    it('should return a rejected promise when an error is thrown', done => {
       axios.post.mockRejectedValue(new Error('some error'))
 
       const promise = positionsApi.add()
 
-      promise.catch((error) => {
+      promise.catch(error => {
         expect(error.message).toEqual('some error')
         done()
       })

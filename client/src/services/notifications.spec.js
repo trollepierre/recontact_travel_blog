@@ -6,7 +6,7 @@ describe('Unit | services | notifications', () => {
   })
 
   describe('#success', () => {
-    it('should call s method', (done) => {
+    it('should call s method', done => {
       notificationsService.toaster.mockReturnValue({
         s(message) {
           if (message === 'message') {
@@ -34,7 +34,7 @@ describe('Unit | services | notifications', () => {
   })
 
   describe('#error', () => {
-    it('should call e method', (done) => {
+    it('should call e method', done => {
       notificationsService.toaster.mockReturnValue({
         e(message) {
           if (message === 'message') {
@@ -62,7 +62,7 @@ describe('Unit | services | notifications', () => {
   })
 
   describe('#information', () => {
-    it('should call s method', (done) => {
+    it('should call s method', done => {
       notificationsService.toaster.mockReturnValue({
         i(options) {
           if (options.msg === 'message' && options.timeout === 30000) {
@@ -90,7 +90,7 @@ describe('Unit | services | notifications', () => {
   })
 
   describe('#removeInformation', () => {
-    it('should call s method', (done) => {
+    it('should call s method', done => {
       notificationsService.toaster.mockReturnValue({
         removeByType(type) {
           if (type === 'info') return done()

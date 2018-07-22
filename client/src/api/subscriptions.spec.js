@@ -32,13 +32,13 @@ describe('Unit | API | subscriptions api', () => {
       })
     })
 
-    it('should return a rejected promise when an error is thrown', (done) => {
+    it('should return a rejected promise when an error is thrown', done => {
       axios.post.mockRejectedValue(new Error('some error'))
       const email = 'pierre@recontact.me'
 
       const promise = api.subscribe(email)
 
-      promise.catch((error) => {
+      promise.catch(error => {
         expect(error.message).toEqual('some error')
         done()
       })

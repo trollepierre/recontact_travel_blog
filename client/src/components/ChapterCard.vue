@@ -48,7 +48,7 @@ export default {
       },
       chapterText() {
         const text2 = translationsService.getChapterText(this.chapter)
-        return text2.map((paragraph) => {
+        return text2.map(paragraph => {
           let isLink = false
           /* eslint-disable no-useless-escape */
           const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?')

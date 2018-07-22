@@ -24,13 +24,13 @@ describe('Unit | API | articles api', () => {
       })
     })
 
-    it('should return a rejected promise when an error is thrown', (done) => {
+    it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
       axios.get.mockRejectedValue(new Error('some error'))
 
       const promise = articlesApi.fetchAll(accessToken)
 
-      promise.catch((error) => {
+      promise.catch(error => {
         expect(error.message).toEqual('some error')
         done()
       })
@@ -62,13 +62,13 @@ describe('Unit | API | articles api', () => {
       })
     })
 
-    it('should return a rejected promise when an error is thrown', (done) => {
+    it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
       axios.patch.mockRejectedValue(new Error('some error'))
 
       const promise = articlesApi.update(accessToken)
 
-      promise.catch((error) => {
+      promise.catch(error => {
         expect(error.message).toEqual('some error')
         done()
       })

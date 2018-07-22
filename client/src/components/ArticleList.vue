@@ -113,7 +113,7 @@ export default {
     methods: {
       getArticles() {
         articlesApi.fetchAll()
-          .then((articles) => {
+          .then(articles => {
             this.articles = articlesSorter.sortByDropboxId(articles)
           })
       },
@@ -159,7 +159,7 @@ export default {
             notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToHome())
-          .catch((err) => {
+          .catch(err => {
             notificationsService.removeInformation(this)
             notificationsService.error(this, `${this.$t('syncError')} ${err}`)
           })
@@ -174,7 +174,7 @@ export default {
             notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToHome())
-          .catch((err) => {
+          .catch(err => {
             notificationsService.removeInformation(this)
             notificationsService.error(this, `${this.$t('syncError')} ${err}`)
           })
@@ -189,7 +189,7 @@ export default {
             notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToHome())
-          .catch((err) => {
+          .catch(err => {
             notificationsService.removeInformation(this)
             notificationsService.error(this, `${this.$t('syncError')} ${err}`)
           })
