@@ -38,7 +38,7 @@ module.exports = {
     /* Jest rules */
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'error',
-    'jest/no-identical-title': 'error',
+    // 'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
     // 'jest/valid-expect': 'error',
 
@@ -72,9 +72,9 @@ module.exports = {
     'space-before-function-paren': 'error',
 
     /* WARNING TO REMOVE */
-    'jest/valid-expect': 'warn', // uncomment celui du hatu
+    'jest/valid-expect': 'warn', // uncomment above
+    'jest/no-identical-title': 'warn', // uncomment above
     'vue/require-prop-types': 'warn',
-    'jest/no-identical-title': 'warn',
     'import/first': 'warn',
 
     'no-undef': 'warn',
