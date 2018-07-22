@@ -91,7 +91,7 @@ export default {
       },
 
       _closeOnEscapeKey() {
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', e => {
           if (e.keyCode === 27) {
             this._closeModal()
           }

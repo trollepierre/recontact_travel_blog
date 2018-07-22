@@ -104,7 +104,7 @@ describe('Component | SubscribeModal.vue', () => {
   })
 
   xdescribe('#_focusOnInput', () => {
-    it.skip('should focus on input subscribe content', (done) => {
+    it.skip('should focus on input subscribe content', done => {
       wrapper.$modal.show('subscribe-modal')
 
       setTimeout(() => {

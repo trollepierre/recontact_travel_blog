@@ -40,7 +40,7 @@ export default {
     methods: {
       getSubscriptions() {
         subscriptionsApi.fetchAll()
-          .then((subscriptions) => {
+          .then(subscriptions => {
             this.subscriptions = subscriptions
           })
       },
