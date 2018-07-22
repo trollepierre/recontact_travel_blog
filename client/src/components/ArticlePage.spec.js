@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import router from '../router/router'
-import photosApi from '../api/photos'
-import chaptersApi from '../api/chapters'
-import ArticlePage from './ArticlePage'
-import translationsService from '../services/translations'
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
+import ArticlePage from './ArticlePage.vue'
+import router from '../router/router'
+import photosApi from '../api/photos'
+import chaptersApi from '../api/chapters'
+import translationsService from '../services/translations'
 
 describe('Component | ArticlePage.vue', () => {
   let localVue
@@ -44,7 +44,6 @@ describe('Component | ArticlePage.vue', () => {
     photosApi.fetch.mockResolvedValue(photos)
     chaptersApi.fetch = jest.fn()
     chaptersApi.fetch.mockResolvedValue({ title, chapters })
-    // component.$route.params.id = idArticle;
 
     localVue = createLocalVue()
     localVue.use(VueI18n)
@@ -72,21 +71,11 @@ describe('Component | ArticlePage.vue', () => {
       expect(photosApi.fetch).toHaveBeenCalledWith(idArticle)
     })
 
-    it('should save chapters from api in data chapters', () => Vue.nextTick().then(() => {
-      expect(wrapper.vm.chapters).toEqual(chapters)
-    }))
-
-    it('should save photos from api in data photos', () => Vue.nextTick().then(() => {
-      expect(wrapper.vm.photos).toEqual(photos)
-    }))
-  })
-
-  describe('render', () => {
-    it('should have empty chapters in data chapters', () => {
+    it('should save chapters from api in data chapters', () => {
       expect(wrapper.vm.chapters).toEqual(chapters)
     })
 
-    it('should have empty photos in data photos', () => {
+    it('should save photos from api in data photos', () => {
       expect(wrapper.vm.photos).toEqual(photos)
     })
   })

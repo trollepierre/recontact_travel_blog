@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
-import FeedbackModal from './FeedbackModal'
+import FeedbackModal from './FeedbackModal.vue'
 import feedbacksApi from '../api/feedbacks'
 import notificationsService from '../services/notifications'
 
