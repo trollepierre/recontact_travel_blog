@@ -24,8 +24,6 @@
     "!src/main.js",
     "!src/env/window.js",
     "!src/env/process.js",
-    "!src/stories/stories.js",
-    "!**/node_modules/**",
-    "!**/vendor/**"
+    "!**/node_modules/**"
   ]
 }
