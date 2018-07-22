@@ -36,7 +36,7 @@ describe('Component | SubscribeModal.vue', () => {
     })
   })
 
-  xdescribe('rendering', () => {
+  /*xdescribe('rendering', () => {
     it('should display the modal', () => {
       wrapper.$modal.show('subscribe-modal')
 
@@ -44,7 +44,7 @@ describe('Component | SubscribeModal.vue', () => {
         expect(wrapper.find('.subscribe-modal')).toBeDefined()
       })
     })
-  })
+  })*/
 
   describe('#beforeOpen', () => {
     it('should reset email', () => {
@@ -103,7 +103,7 @@ describe('Component | SubscribeModal.vue', () => {
     })
   })
 
-  xdescribe('#_focusOnInput', () => {
+  /*xdescribe('#_focusOnInput', () => {
     it.skip('should focus on input subscribe content', done => {
       wrapper.$modal.show('subscribe-modal')
 
@@ -113,7 +113,7 @@ describe('Component | SubscribeModal.vue', () => {
         done()
       }, 100)
     })
-  })
+  })*/
 
   describe('#sendSubscription', () => {
     beforeEach(() => {
@@ -183,7 +183,7 @@ describe('Component | SubscribeModal.vue', () => {
       })
     })
 
-    xit('should close modal', () => {
+    /*xit('should close modal', () => {
       wrapper.$modal.show('subscribe-modal')
       wrapper.vm.email = 'email@recontact.me'
 
@@ -192,7 +192,7 @@ describe('Component | SubscribeModal.vue', () => {
       return Vue.nextTick().then(() => {
         expect(wrapper.find('.subscribe-modal')).not.to.exist
       })
-    })
+    })*/
 
     describe('when sendSubscription fails', () => {
       beforeEach(() => {
@@ -219,7 +219,7 @@ describe('Component | SubscribeModal.vue', () => {
     })
   })
 
-  xdescribe('#cancelSubscription', () => {
+  /*xdescribe('#cancelSubscription', () => {
     it('should close modal', () => {
       wrapper.$modal.show('subscribe-modal')
 
@@ -229,9 +229,9 @@ describe('Component | SubscribeModal.vue', () => {
         expect(wrapper.find('.subscribe-modal')).not.to.exist
       })
     })
-  })
+  })*/
 
-  it.skip('should sendSubscription on click on "send" button', () => {
+  /*it.skip('should sendSubscription on click on "send" button', () => {
     wrapper.$modal.show('subscribe-modal')
     sinon.stub(component, 'sendSubscription')
 
@@ -242,9 +242,9 @@ describe('Component | SubscribeModal.vue', () => {
 
       expect(wrapper.sendSubscription).toHaveBeenCalled
     })
-  })
+  })*/
 
-  it.skip('should cancelSubscription on click on "cancel" button', () => {
+  /*it.skip('should cancelSubscription on click on "cancel" button', () => {
     wrapper.$modal.show('subscribe-modal')
     sinon.stub(component, 'cancelSubscription')
 
@@ -255,7 +255,7 @@ describe('Component | SubscribeModal.vue', () => {
 
       expect(wrapper.cancelSubscription).toHaveBeenCalled
     })
-  })
+  })*/
 
   describe('locales', () => {
     const languages = Object.keys(SubscribeModal.i18n.messages)
