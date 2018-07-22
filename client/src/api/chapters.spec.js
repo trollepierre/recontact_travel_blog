@@ -1,6 +1,6 @@
 import axios from 'axios'
 import chaptersApi from './chapters'
-import env from '../env/env.js'
+import env from '../env/env'
 
 describe('Unit | API | chapters api', () => {
   describe('#fetch', () => {

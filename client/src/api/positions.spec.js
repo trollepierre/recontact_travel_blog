@@ -1,6 +1,6 @@
 import axios from 'axios'
 import positionsApi from './positions'
-import env from '../env/env.js'
+import env from '../env/env'
 
 describe('Unit | API | positions api', () => {
   describe('#fetchLast', () => {

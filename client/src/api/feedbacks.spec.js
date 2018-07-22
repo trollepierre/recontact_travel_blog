@@ -1,6 +1,6 @@
 import axios from 'axios'
 import api from './feedbacks'
-import env from '../env/env.js'
+import env from '../env/env'
 
 describe('Unit | API | feedbacks api', () => {
   describe('#sendFeedback', () => {
@@ -15,7 +15,7 @@ describe('Unit | API | feedbacks api', () => {
       axios.post.mockResolvedValue(stubbedResponse)
     })
 
-    it('should post feedbacks to API with the feedback and email', () => {
+    it('should post feedback to API with the feedback and email', () => {
       const email = 'pierre@recontact.me'
       const feedback = 'Vive le Tour de France !'
 
@@ -30,7 +30,7 @@ describe('Unit | API | feedbacks api', () => {
       })
     })
 
-    it('should return a rejected promise when an error is thrown', (done) => {
+    it('should reject a promise when an error is thrown', (done) => {
       axios.post.mockRejectedValue(new Error('some error'))
       const feedback = 'coucou'
       const email = 'pierre@recontact.me'
