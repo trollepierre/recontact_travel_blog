@@ -21,6 +21,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
+// static resources
+// FIXME manage better environment variables
+if (process.env.NODE_ENV !== 'test') {
+  app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+}
+
 app.use('/api/sync', sync);
 app.use('/api/articles', articles);
 app.use('/api/admin', admin);
