@@ -2,51 +2,51 @@
   <div class="subscription">
     <table class="subscription__table">
       <thead>
-      <tr class="subscription__row">
-        <th class="subscription__email">email</th>
-        <th class="subscription__lang">lang</th>
-        <th class="subscription__unsubscribe">Unsubscribe</th>
-      </tr>
+        <tr class="subscription__row">
+          <th class="subscription__email">email</th>
+          <th class="subscription__lang">lang</th>
+          <th class="subscription__unsubscribe">Unsubscribe</th>
+        </tr>
       </thead>
       <tbody>
-      <tr v-for="subscription in subscriptions" class="subscription__row">
-        <td class="subscription__email">{{ subscription.email }}</td>
-        <td class="subscription__lang">{{ subscription.lang }}</td>
-        <td class="subscription__unsubscribe">
-          <button @click.prevent="unsubscribe(subscription.id)">Unsubscribe</button>
-        </td>
-      </tr>
+        <tr
+          v-for="subscription in subscriptions"
+          :key="subscription.email"
+          class="subscription__row">
+          <td class="subscription__email">{{ subscription.email }}</td>
+          <td class="subscription__lang">{{ subscription.lang }}</td>
+          <td class="subscription__unsubscribe">
+            <button @click.prevent="unsubscribe(subscription.id)">Unsubscribe</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
-  import subscriptionsApi from '@/api/subscriptions';
+  import subscriptionsApi from '../api/subscriptions'
 
-  export default {
+export default {
     name: 'SubscriberList',
     data() {
       return {
         subscriptions: [],
-      };
-    },
+      }
+  },
     mounted() {
-      this.getSubscriptions();
-    },
+      this.getSubscriptions()
+  },
     methods: {
-      getSubscriptions() {
-        subscriptionsApi.fetchAll()
-          .then((subscriptions) => {
-            this.subscriptions = subscriptions;
-          });
+      async getSubscriptions() {
+        this.subscriptions = await subscriptionsApi.fetchAll()
       },
 
       unsubscribe(id) {
-        subscriptionsApi.delete(id);
+        subscriptionsApi.delete(id)
       },
     },
-  };
+  }
 </script>
 
 <style scoped>

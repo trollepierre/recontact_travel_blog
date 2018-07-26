@@ -9,7 +9,6 @@
     "configure": "./tools/setup/setup.sh",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "db": "./node_modules/.bin/sequelize",
-    "db:help": "./node_modules/.bin/sequelize help",
     "db:migrate": "./node_modules/.bin/sequelize db:migrate",
     "db:reset": "yarn clean:db && yarn db:migrate",
     "db:rollback": "./node_modules/.bin/sequelize db:migrate:undo",
@@ -18,6 +17,7 @@
     "start": "node ./bin/www",
     "start:dev": "nodemon ./bin/www",
     "test": "NODE_ENV=test nyc mocha --recursive",
+    "test:unit": "NODE_ENV=test mocha --recursive",
     "test:watch": "NODE_ENV=test ./node_modules/mocha/bin/mocha --recursive --watch"
   },
   "dependencies": {
@@ -25,7 +25,7 @@
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.4",
     "debug": "^3.1.0",
-    "dotenv": "^5.0.1",
+    "dotenv": "^6.0.0",
     "dropbox": "^2.5.13",
     "express": "^4.16.3",
     "fs": "0.0.1-security",
@@ -53,8 +53,8 @@
     "eslint-plugin-promise": "^3.7.0",
     "mocha": "^5.0.4",
     "nodemon": "^1.17.2",
-    "nyc": "^11.6.0",
-    "sinon": "^4.4.6",
+    "nyc": "^12.0.2",
+    "sinon": "^5.1.0",
     "sinon-chai": "^3.0.0",
     "supertest": "^3.0.0"
   }

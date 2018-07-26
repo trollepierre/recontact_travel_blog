@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
+<div
+  class="subscribe-modal-wrapper"
+>
+  <modal
+    class="subscribe-modal"
+    height="315"
+    name="subscribe-modal"
+  >
+    <div
+      class="subscribe-modal__header"
+    >
+      <h2
+        class="subscribe-modal__title"
+      >
+        subscribe
+      </h2>
+    </div>
+     
+    <div
+      class="subscribe-modal__body"
+    >
+      <form
+        class="subscribe-modal__form"
+      >
+        <!---->
+         
+        <p
+          class="subscribe-modal__text"
+        >
+          
+          modalText
+        
+        </p>
+         
+        <label
+          class="subscribe-modal__label"
+          for="subscribe-content"
+        >
+          email
+        </label>
+         
+        <input
+          class="subscribe-modal__email"
+          id="subscribe-content"
+          placeholder="pierre@recontact.me"
+        />
+      </form>
+    </div>
+     
+    <div
+      class="subscribe-modal__footer"
+    >
+      <div
+        class="subscribe-modal__actions"
+      >
+        <button
+          class="subscribe-modal__action subscribe-modal__action--send"
+        >
+          confirm
+        </button>
+         
+        <button
+          class="subscribe-modal__action subscribe-modal__action--cancel"
+        >
+          cancel
+        </button>
+      </div>
+    </div>
+  </modal>
+</div>
+`;
