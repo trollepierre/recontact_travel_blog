@@ -13,7 +13,7 @@ module.exports = {
   mode: 'production',
 
   entry: {
-    env: './build/env/env-vars-template.js',
+    env: './build/env/env-vars-prod.js',
     app: ['babel-polyfill', 'whatwg-fetch', './src/main.js'],
   },
 
@@ -81,7 +81,7 @@ module.exports = {
         include: [resolveFromRootDir('src')],
       },
       {
-        test: /env-vars-template\.js$/,
+        test: /env-vars-prod\.js$/,
         loader: 'string-replace-loader',
         options: {
           multiple: [

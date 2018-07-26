@@ -4,4 +4,8 @@
 // You can thus use it to define some environment variables that will
 // be made available synchronously in all your JS modules under "src".
 
-window.env = {}
+window.env = {
+  NODE_ENV: '"production"',
+  API_URL: '/',
+  ANALYTICS_KEY: '"UA-110218257-1"',
+}
