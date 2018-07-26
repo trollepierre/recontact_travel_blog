@@ -13,7 +13,7 @@ const DEFAULT_PORT = 8181
 module.exports = {
   mode: 'development',
 
-  devtool : 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
 
   entry: {
     env: './build/env/env-vars-template.js',
@@ -80,6 +80,14 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolveFromRootDir('src')],
+      },
+      {
+        test: /\.(png|svg|jpg|ico)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: { name: '[path][name][hash].[ext]' }
+          }],
       },
       {
         test: /env-vars-template\.js$/,

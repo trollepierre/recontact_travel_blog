@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const { VueLoaderPlugin } = require('vue-loader')
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const generateEnvFileContent = require('./env/env-vars-helper')
 const { resolveFromRootDir } = require('./webpack.utils')
@@ -81,6 +82,14 @@ module.exports = {
         include: [resolveFromRootDir('src')],
       },
       {
+        test: /\.(png|svg|jpg|ico)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: { name: '[path][name][hash].[ext]' }
+          }],
+      },
+      {
         test: /env-vars-prod\.js$/,
         loader: 'string-replace-loader',
         options: {
@@ -115,5 +124,6 @@ module.exports = {
       chunkFilename: "static/css/[name].[chunkhash].css"
     }),
     new VueLoaderPlugin(),
+    new CopyWebpackPlugin([{ from: 'static', to: 'static' }], {})
   ]
 }
