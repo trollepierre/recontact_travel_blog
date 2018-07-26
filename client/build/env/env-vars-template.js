@@ -6,6 +6,6 @@
 
 window.env = {
   NODE_ENV: '"production"',
-  API_URL: '"/"',
+  API_URL: '/',
   ANALYTICS_KEY: '"UA-110218257-1"',
 }
