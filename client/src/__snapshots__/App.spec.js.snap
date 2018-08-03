@@ -4,12 +4,14 @@ exports[`Component | App template should match snapshot 1`] = `
 <div
   id="app"
 >
-  <appheader-stub />
+  <app-header-stub />
    
-  <subscribemodal-stub />
+  <subscribe-modal-stub />
    
-  <feedbackmodal-stub />
+  <feedback-modal-stub />
    
-  <vuecomponent-stub />
+  <router-view-stub
+    name="default"
+  />
 </div>
 `;
