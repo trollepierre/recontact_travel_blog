@@ -25,17 +25,23 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
           <li
             class="chapter__item"
           >
-            <chaptercard-stub />
+            <chapter-card-stub
+              chapter="[object Object]"
+            />
           </li>
           <li
             class="chapter__item"
           >
-            <chaptercard-stub />
+            <chapter-card-stub
+              chapter="[object Object]"
+            />
           </li>
           <li
             class="chapter__item"
           >
-            <chaptercard-stub />
+            <chapter-card-stub
+              chapter="[object Object]"
+            />
           </li>
         </ul>
       </section>
@@ -55,12 +61,16 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
           <li
             class="photo__item"
           >
-            <photocard-stub />
+            <photo-card-stub
+              photo="[object Object]"
+            />
           </li>
           <li
             class="photo__item"
           >
-            <photocard-stub />
+            <photo-card-stub
+              photo="[object Object]"
+            />
           </li>
         </ul>
       </aside>

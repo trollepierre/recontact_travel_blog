@@ -124,12 +124,18 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
           <li
             class="article-results__item"
           >
-            <articlecard-stub />
+            <article-card-stub
+              adminmode="true"
+              article="[object Object]"
+            />
           </li>
           <li
             class="article-results__item"
           >
-            <articlecard-stub />
+            <article-card-stub
+              adminmode="true"
+              article="[object Object]"
+            />
           </li>
         </ul>
       </section>
