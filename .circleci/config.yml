@@ -1,57 +1,172 @@
+common_properties: &common_properties
+  docker:
+    - image: circleci/node:9-browsers
+  working_directory: ~/trollepierre/recontact_travel_blog
+
 version: 2
 jobs:
-  build:
-    working_directory: ~/trollepierre/recontact_travel_blog
-    parallelism: 1
-    shell: /bin/bash --login
-    environment:
-      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
-    docker:
-    - image: circleci/node:9-browsers
+  checkout_code:
+    <<: *common_properties
     steps:
-    - checkout
-    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
-    - restore_cache:
-        keys:
-        - v1-dep-{{ .Branch }}-
-        - v1-dep-dev-
-        - v1-dep-
-    - run: if [ -z "${NODE_ENV:-}" ]; then export NODE_ENV=test; fi
-    - run: export PATH="~/trollepierre/recontact_travel_blog/node_modules/.bin:$PATH"
-    - run: npm install
-    - save_cache:
-        key: v1-dep-{{ .Branch }}-{{ epoch }}
-        paths:
-        - vendor/bundle
-        - ~/virtualenvs
-        - ~/.ivy2
-        - ~/.bundle
-        - ~/.go_workspace
-        - ./node_modules
-    - run: yarn lint
-    - run: yarn test
-    - store_test_results:
-        path: /tmp/circleci-test-results
-    - store_artifacts:
-        path: /tmp/circleci-artifacts
-    - store_artifacts:
-        path: /tmp/circleci-test-results
+      - checkout
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - save_cache:
+          key: v1-code-{{ checksum ".circle-cache-key" }}
+          paths:
+            - ./package.json
+            - ./server
+            - ./client
+            - ./.eslintrc.js
 
-#  deploy_for_staging:
-    - run:
-        filters:
-          branches:
-            only: dev
-        name: Deploy dev to Heroku staging
-        command: |
-          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git dev
+  install_front:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - restore_cache:
+          keys:
+            - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
+      - run:
+          name: Install front
+          command: yarn install:client
+      - save_cache:
+          key: v1-front-dependencies-{{ checksum "client/yarn.lock" }}
+          paths:
+            - ./client/node_modules
 
-#  deploy_for_staging:
-    - run:
-        filters:
-          branches:
-            only: master
-        name: Deploy master to Heroku
-        command: |
-          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact.git master
+  install_back:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - restore_cache:
+          keys:
+            - v1-back-dependencies-{{ checksum "server/yarn.lock" }}
+      - run:
+          name: Install back
+          command: yarn install:server
+      - save_cache:
+          key: v1-back-dependencies-{{ checksum "server/yarn.lock" }}
+          paths:
+            - ./server/node_modules
+
+  test_front:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - restore_cache:
+          keys:
+            - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
+      - run:
+          name: Lint front
+          command: yarn lint:client
+      - run:
+          name: Test front
+          command: yarn test:client
+      - store_test_results:
+          path: /tmp/circleci-test-results/front
+
+  test_back:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - restore_cache:
+          keys:
+            - v1-back-dependencies-{{ checksum "server/yarn.lock" }}
+      - run:
+          name: Lint back
+          command: yarn lint:server
+      - run:
+          name: Test back
+          command: yarn test:server
+      - store_test_results:
+          path: /tmp/circleci-test-results/back
+
+  build-front:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - restore_cache:
+          keys:
+            - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
+      - run: yarn build
+
+  deploy-staging:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - run:
+          name: Deploy dev to Heroku staging
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git dev
+
+  deploy-master:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - run:
+          name: Deploy master to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact.git master
+
+workflows:
+  version: 2
+  recontact-workflow:
+    jobs:
+      - checkout_code
+      - install_front:
+          requires:
+            - checkout_code
+      - install_back:
+          requires:
+            - checkout_code
+      - test_front:
+          requires:
+            - install_front
+      - test_back:
+          requires:
+            - install_back
+      - build-front:
+          requires:
+            - install_front
+          filters:
+            branches:
+              ignore:
+                - dev
+                - master
+      - deploy-staging:
+          requires:
+            - test_front
+            - test_back
+            - build-front
+          filters:
+            branches:
+              only: dev
+      - deploy-master:
+          requires:
+            - test_front
+            - test_back
+            - build-front
+          filters:
+            branches:
+              only: master
+
