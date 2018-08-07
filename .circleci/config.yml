@@ -54,4 +54,4 @@ jobs:
             only: master
         name: Deploy master to Heroku
         command: |
-          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git master
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact.git master
