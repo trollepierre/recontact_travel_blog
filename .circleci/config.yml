@@ -106,6 +106,7 @@ jobs:
 
   deploy_staging:
     <<: *common_properties
+    shell: /bin/bash --login
     steps:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
@@ -118,6 +119,7 @@ jobs:
 
   deploy_master:
     <<: *common_properties
+    shell: /bin/bash --login
     steps:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
