@@ -13,10 +13,7 @@ jobs:
       - save_cache:
           key: v1-code-{{ checksum ".circle-cache-key" }}
           paths:
-            - ./package.json
-            - ./server
-            - ./client
-            - ./.eslintrc.js
+            - ~/trollepierre/recontact_travel_blog
 
   install_front:
     <<: *common_properties
