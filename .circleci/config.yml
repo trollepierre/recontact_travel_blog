@@ -92,7 +92,7 @@ jobs:
       - store_test_results:
           path: /tmp/circleci-test-results/back
 
-  build-front:
+  build_front:
     <<: *common_properties
     steps:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
@@ -104,7 +104,7 @@ jobs:
             - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
       - run: yarn build
 
-  deploy-staging:
+  deploy_staging:
     <<: *common_properties
     steps:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
@@ -116,7 +116,7 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git dev
 
-  deploy-master:
+  deploy_master:
     <<: *common_properties
     steps:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
@@ -145,7 +145,7 @@ workflows:
       - test_back:
           requires:
             - install_back
-      - build-front:
+      - build_front:
           requires:
             - install_front
           filters:
@@ -153,19 +153,19 @@ workflows:
               ignore:
                 - dev
                 - master
-      - deploy-staging:
+      - deploy_staging:
           requires:
             - test_front
             - test_back
-            - build-front
+            - build_front
           filters:
             branches:
               only: dev
-      - deploy-master:
+      - deploy_master:
           requires:
             - test_front
             - test_back
-            - build-front
+            - build_front
           filters:
             branches:
               only: master
