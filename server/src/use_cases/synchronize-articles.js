@@ -21,7 +21,7 @@ async function synchronizeArticles() {
 function _serializeArticles(metadatas) {
   const imageZeros = metadatas
     .map(fileMetadata => fileMetadata.path_display)
-    .filter(path => path.match('0.jpg$'));
+    .filter(path => path.match('[Ii]mg-?0.jpg$'));
   return metadatas
     .filter(metadata => metadata['.tag'] === 'folder')
     .map((metadata) => {
