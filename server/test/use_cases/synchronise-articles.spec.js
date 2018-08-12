@@ -244,10 +244,10 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/img2.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/img1.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/img2.jpg');
-          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_180834.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_1808340.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_180839.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/IMG_2mggh.jpg');
-          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_180834.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_1808340.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_180839.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/IMG_2mggh.jpg');
         });

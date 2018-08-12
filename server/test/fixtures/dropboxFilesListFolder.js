@@ -15,8 +15,8 @@ module.exports = () => [{
 {
   '.tag': 'file',
   name: '20150707_180834.jpg',
-  path_lower: '/58/20150707_180834.jpg',
-  path_display: '/58/20150707_180834.jpg',
+  path_lower: '/58/20150707_1808340.jpg',
+  path_display: '/58/20150707_1808340.jpg',
   id: 'id:9bI7qq4nJAAAAAAAAAAOMw',
   client_modified: '2015-12-04T14:55:20Z',
   server_modified: '2017-08-09T19:08:25Z',
