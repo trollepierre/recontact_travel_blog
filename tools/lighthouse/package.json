@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "test": "jest"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "chrome-launcher": "^0.10.2",
+    "jest": "^23.6.0",
+    "lighthouse": "^3.0.0"
+  }
+}

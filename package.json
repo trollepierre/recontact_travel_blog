@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Travel blog of Pierre Trollé",
   "author": "Pierre Trollé <pierre@recontact.me>",
-  "main": "index.js",
   "scripts": {
     "install:client": "(cd client && yarn)",
     "install:server": "(cd server && yarn)",
@@ -26,6 +25,7 @@
     "lint": "yarn lint:client && yarn lint:server",
     "lint:fix": "yarn lintfix:client && yarn lintfix:server",
     "release": "./tools/release/release.sh",
+    "lighthouse": "(cd tools/lighthouse && yarn) && (cd tools/lighthouse && yarn test)",
     "heroku-postbuild": "yarn build"
   },
   "repository": {
