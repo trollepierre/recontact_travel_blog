@@ -126,6 +126,16 @@ jobs:
       - run: yarn add pa11y
       - run: ./node_modules/.bin/pa11y -T 10 https://recontact-branch.herokuapp.com/
 
+
+  lighthouse:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - run: yarn lighthouse
+
   deploy_staging:
     <<: *common_properties
     shell: /bin/bash --login
@@ -186,6 +196,9 @@ workflows:
           requires:
             - deploy_branch
       - validate_accessibility_pa11y:
+          requires:
+            - deploy_branch
+      - lighthouse:
           requires:
             - deploy_branch
       - deploy_staging:
