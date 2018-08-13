@@ -185,7 +185,7 @@ async function sync(dropboxId) {
   ]);
   const dropboxFilesPath = await DropboxClient.getFilesFolderPaths(dropboxId);
   const imageZero = dropboxFilesPath
-    .filter(path => path.match('0.jpg$'))[0];
+    .filter(path => path.match('[Ii]mg-?0.jpg$'))[0];
   const report = {
     addedArticles: [
       {
