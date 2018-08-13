@@ -27,6 +27,7 @@ Vue.use(VueLazyload, {
 
 Vue.use(VueAnalytics, {
   id: `${env('ANALYTICS_KEY')}`,
+  router,
 })
 
 /* eslint-disable no-new */
