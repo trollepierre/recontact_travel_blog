@@ -5,7 +5,7 @@
 // be made available synchronously in all your JS modules under "src".
 
 window.env = {
-  NODE_ENV: '"production"',
+  NODE_ENV: 'production',
   API_URL: '/',
-  ANALYTICS_KEY: '"UA-110218257-1"',
+  ANALYTICS_KEY: 'UA-110218257-1',
 }
