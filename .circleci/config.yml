@@ -101,6 +101,19 @@ jobs:
             - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
       - run: yarn build
 
+  deploy_branch:
+    <<: *common_properties
+    shell: /bin/bash --login
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - run:
+          name: Deploy branch to Heroku branch
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-branch.git $CIRCLE_BRANCH:master --force
+
   deploy_staging:
     <<: *common_properties
     shell: /bin/bash --login
@@ -147,6 +160,16 @@ workflows:
       - build_front:
           requires:
             - install_front
+          filters:
+            branches:
+              ignore:
+                - dev
+                - master
+      - deploy_branch:
+          requires:
+            - test_front
+            - test_back
+            - build_front
           filters:
             branches:
               ignore:
