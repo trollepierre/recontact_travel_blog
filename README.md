@@ -1,5 +1,7 @@
 # Recontact - Travel blog
 
+[![Coverage Status](https://coveralls.io/repos/github/trollepierre/recontact_travel_blog/badge.svg)](https://coveralls.io/github/trollepierre/recontact_travel_blog)
+
 ## Getting started
 
 ```bash
