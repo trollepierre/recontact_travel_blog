@@ -1,5 +1,7 @@
 # Recontact - Travel blog
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/5f37552833dea8b9ae48/maintainability)](https://codeclimate.com/github/trollepierre/recontact_travel_blog/maintainability)
+
 ## Getting started
 
 ```bash
