@@ -1,5 +1,7 @@
 # Recontact - Travel blog
 
+[![CircleCI](https://circleci.com/gh/trollepierre/recontact_travel_blog/tree/master.svg?style=svg)](https://circleci.com/gh/trollepierre/recontact_travel_blog/tree/master)
+
 ## Getting started
 
 ```bash
