@@ -290,7 +290,7 @@ function _shareChapterImage(imgLink) {
 }
 
 function _transformToImgLink(response) {
-  return isEmpty(response) ? '' : response.url.replace(/.$/, '1');
+  return isEmpty(response) ? '' : response.url.replace(/....$/, 'raw=1');
 }
 
 function _getGalleryUrl(response) {
