@@ -1,7 +1,7 @@
 module.exports = {
   chapters: [
     {
-      imgLink: 'https://www.dropbox.com/s/tk2qzdf6u1brv6o/img0.jpg?dl=1',
+      imgLink: 'https://www.dropbox.com/s/tk2qzdf6u1brv6o/img0.jpg?raw=1',
       frText: [
         'Rassemblant trois valeureux compagnons :',
         '- Pierre, l\'expérimenté',
@@ -22,7 +22,7 @@ module.exports = {
       enTitle: 'The trek incroyable autour du mont Gongga Par Pierre avec Vincent et Franzi',
     },
     {
-      imgLink: 'https://www.dropbox.com/s/tk2qzdf6u1brv6o/img0.jpg?dl=1',
+      imgLink: 'https://www.dropbox.com/s/tk2qzdf6u1brv6o/img0.jpg?raw=1',
       frText: [
         'La région de Kangding',
         'Située sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".',

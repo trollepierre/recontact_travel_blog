@@ -84,9 +84,9 @@ describe('Unit | UpdateArticle | sync', () => {
     expect(ArticleRepository.deleteArticle).to.have.been.calledWith(dropboxId);
   });
 
-  describe('when dropbbox can create shared link', () => {
+  describe('when Dropbox can create shared link', () => {
     beforeEach(() => {
-      DropboxClient.createSharedLink.resolves({ url: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1' });
+      DropboxClient.createSharedLink.resolves({ url: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=0' });
     });
 
     it('should create shared link for each image path of the new articles ', () => {
@@ -103,8 +103,8 @@ describe('Unit | UpdateArticle | sync', () => {
       // given
       const articlesToSave = [{
         dropboxId,
-        galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
-        imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+        galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=0',
+        imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
       }];
 
       // when
@@ -167,14 +167,14 @@ describe('Unit | UpdateArticle | sync', () => {
       return promise.then(() => {
         expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
         }, {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
         },
         {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
         },
         ]);
       });
@@ -196,7 +196,7 @@ describe('Unit | UpdateArticle | sync', () => {
       const chaptersToSave = [
         {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
           frText: 'Gathering trois valeureux compagnons :' +
           '\r\n# - Pierre, l\'expérimenté' +
           '\r\n# - Franzi, la photographe' +
@@ -214,7 +214,7 @@ describe('Unit | UpdateArticle | sync', () => {
 
         }, {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=1',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
           frText: 'La région de Kangding' +
           '\r\n#' +
           "\r\nSituée sur l'autoroute menant au Tibet à l'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du \"Tibet\"." +
@@ -288,4 +288,3 @@ describe('Unit | UpdateArticle | sync', () => {
     });
   });
 });
-
