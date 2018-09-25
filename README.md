@@ -1,5 +1,9 @@
 # Recontact - Travel blog
 
+[![CircleCI](https://circleci.com/gh/trollepierre/recontact_travel_blog/tree/master.svg?style=svg)](https://circleci.com/gh/trollepierre/recontact_travel_blog/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/trollepierre/recontact_travel_blog/badge.svg)](https://coveralls.io/github/trollepierre/recontact_travel_blog)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5f37552833dea8b9ae48/maintainability)](https://codeclimate.com/github/trollepierre/recontact_travel_blog/maintainability)
+
 ## Getting started
 
 ```bash
@@ -8,43 +12,30 @@ git clone git@github.com:trollepierre/recontact_travel_blog.git
 cd recontact_travel_blog
 
 # install dependencies
-npm install
+yarn
 
 # run tests
-npm test
+yarn test
 
 # build Vue.js  client for production with minification
-npm run build
+yarn build
 
-# start the application
-npm start
+# start the application (run in two terminals)
+yarn start:back
+yarn start:front
 ```
 
 You can run the API server independently from the client's development one.
 
-## Server
-
-```bash
-cd server
-npm start
-```
-
-## Client
-
-```bash
-cd client
-npm start
-```
-
-## Release to production (not working yet)
+## Release to production
 
 The release to production process is as simple as running the command (from any branch):
 
 ```bash
-npm run release
+yarn release
 ```
 
 ## PostgreSQL
 
-Il est nécessaire d'installer une base PostGreSQL pour être isoProd (sinon prenez MySQLite).
+SQLite is recommended for local development. To fix bug in production, it is better to use PostgreSQL
 https://www.postgresql.org/download/

@@ -118,7 +118,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
     describe('when dropbox can create shared link', () => {
       beforeEach(() => {
         for (let i = 0; i < 20; i += 1) {
-          DropboxClient.createSharedLink.onCall(i).resolves({ url: `db.com/call${i}.jpg?dl=1` });
+          DropboxClient.createSharedLink.onCall(i).resolves({ url: `db.com/call${i}.jpg?dl=0` });
         }
       });
 
@@ -137,12 +137,12 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // given
         const articlesToSave = [{
           dropboxId: '47',
-          galleryLink: 'db.com/call1.jpg?dl=1',
-          imgLink: 'db.com/call0.jpg?dl=1',
+          galleryLink: 'db.com/call1.jpg?dl=0',
+          imgLink: 'db.com/call0.jpg?raw=1',
         }, {
           dropboxId: '48',
-          galleryLink: 'db.com/call3.jpg?dl=1',
-          imgLink: 'db.com/call2.jpg?dl=1',
+          galleryLink: 'db.com/call3.jpg?dl=0',
+          imgLink: 'db.com/call2.jpg?raw=1',
         }];
 
         // when
@@ -209,22 +209,22 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         return promise.then(() => {
           expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
             dropboxId: '47',
-            imgLink: 'db.com/call8.jpg?dl=1',
+            imgLink: 'db.com/call8.jpg?raw=1',
           }, {
             dropboxId: '47',
-            imgLink: 'db.com/call9.jpg?dl=1',
+            imgLink: 'db.com/call9.jpg?raw=1',
           }, {
             dropboxId: '47',
-            imgLink: 'db.com/call10.jpg?dl=1',
+            imgLink: 'db.com/call10.jpg?raw=1',
           }, {
             dropboxId: '48',
-            imgLink: 'db.com/call11.jpg?dl=1',
+            imgLink: 'db.com/call11.jpg?raw=1',
           }, {
             dropboxId: '48',
-            imgLink: 'db.com/call12.jpg?dl=1',
+            imgLink: 'db.com/call12.jpg?raw=1',
           }, {
             dropboxId: '48',
-            imgLink: 'db.com/call13.jpg?dl=1',
+            imgLink: 'db.com/call13.jpg?raw=1',
           }]);
         });
       });
@@ -258,7 +258,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         const chaptersToSave = [
           {
             dropboxId: '47',
-            imgLink: 'db.com/call4.jpg?dl=1',
+            imgLink: 'db.com/call4.jpg?raw=1',
             frText: 'Rassemblant trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
             '\r\n# - Franzi, la photographe' +
@@ -276,7 +276,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
           }, {
             dropboxId: '47',
-            imgLink: 'db.com/call5.jpg?dl=1',
+            imgLink: 'db.com/call5.jpg?raw=1',
             frText: 'La région de Kangding' +
             '\r\n#' +
             "\r\nSituée sur l'autoroute menant au Tibet à l'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du \"Tibet\"." +
@@ -296,7 +296,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           },
           {
             dropboxId: '48',
-            imgLink: 'db.com/call6.jpg?dl=1',
+            imgLink: 'db.com/call6.jpg?raw=1',
             frText: 'Rassemblant trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
             '\r\n# - Franzi, la photographe' +
@@ -313,7 +313,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
           }, {
             dropboxId: '48',
-            imgLink: 'db.com/call7.jpg?dl=1',
+            imgLink: 'db.com/call7.jpg?raw=1',
             frText: 'La région de Kangding' +
             '\r\n#' +
             "\r\nSituée sur l'autoroute menant au Tibet à l'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du \"Tibet\"." +
@@ -448,7 +448,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       });
     });
 
-    describe('when dropbbox cannot create shared link', () => {
+    describe('when Dropbox cannot create shared link', () => {
       beforeEach(() => {
         DropboxClient.createSharedLink.resolves({});
       });
