@@ -21,8 +21,9 @@ git checkout master
 git merge -X theirs dev
 git push origin master
 
-echo "Go back to branch dev"
+echo "Rebase dev on master"
 git checkout dev
-git pull
+git rebase origin/master
+git push
 
 exit 0
