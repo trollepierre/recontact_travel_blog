@@ -27,6 +27,27 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 }
 
+const robotsOptions = {
+  root: path.join(__dirname, '..', 'client', 'static'),
+  headers: {
+    'Content-Type': 'text/plain;charset=UTF-8',
+  },
+};
+app.use('/robots.txt', (req, res) => (
+  res.status(200).sendFile('robots.txt', robotsOptions)
+));
+
+const sitemapOptions = {
+  root: path.join(__dirname, '..', 'client', 'static'),
+  headers: {
+    'Content-Type': 'text/xml;charset=UTF-8',
+  },
+};
+app.use('/sitemap.xml', (req, res) => (
+  res.status(200).sendFile('sitemap.xml', sitemapOptions)
+));
+
+app.use('/sitemap.xml', express.static(path.join(__dirname, '..', 'client', 'static', 'sitemap')));
 app.use('/api/sync', sync);
 app.use('/api/articles', articles);
 app.use('/api/admin', admin);
