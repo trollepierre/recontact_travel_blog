@@ -4,6 +4,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const history = require('connect-history-api-fallback');
 
 const articles = require('./src/infrastructure/features/api/articles');
 const admin = require('./src/infrastructure/features/api/admin');
@@ -20,9 +21,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
+app.use(history({
+  rewrites: [
+    {
+      from: /^\/articles\/static.*$/,
+      to(context) {
+        const staticPathWithHistory = context.parsedUrl.pathname.replace('/articles', '');
+        return `/${staticPathWithHistory}`;
+      },
+    },
+  ],
+}));
 
-// static resources
-// FIXME manage better environment variables
 if (process.env.NODE_ENV !== 'test') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 }
@@ -69,7 +79,6 @@ app.use((err, req, res) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
 });
 
