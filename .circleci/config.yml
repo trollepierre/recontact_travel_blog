@@ -120,13 +120,6 @@ jobs:
       - run: yarn add html5-validator
       - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/
 
-  validate_accessibility_pa11y:
-    <<: *common_properties
-    steps:
-      - run: yarn add pa11y
-      - run: ./node_modules/.bin/pa11y -T 10 https://recontact-branch.herokuapp.com/
-
-
   lighthouse:
     <<: *common_properties
     steps:
@@ -193,9 +186,6 @@ workflows:
                 - dev
                 - master
       - validate_accessibility_html5v:
-          requires:
-            - deploy_branch
-      - validate_accessibility_pa11y:
           requires:
             - deploy_branch
       - lighthouse:
