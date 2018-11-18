@@ -4,7 +4,6 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const history = require('connect-history-api-fallback');
 
 const articles = require('./src/infrastructure/features/api/articles');
 const admin = require('./src/infrastructure/features/api/admin');
@@ -14,6 +13,10 @@ const feedbacks = require('./src/infrastructure/features/api/feedbacks');
 const positions = require('./src/infrastructure/features/api/positions');
 const optimisation = require('./src/infrastructure/features/api/optimisation');
 
+const robots = require('./src/infrastructure/seo/robots')
+const sitemap = require('./src/infrastructure/seo/sitemap')
+const history = require('./src/infrastructure/seo/history')
+
 const app = express();
 
 app.use(logger('dev'));
@@ -22,40 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
-const robotsOptions = {
-  root: path.join(__dirname, '..', 'client', 'static'),
-  headers: {
-    'Content-Type': 'text/plain;charset=UTF-8',
-  },
-};
-app.use('/robots.txt', (req, res) => (
-  res.status(200).sendFile('robots.txt', robotsOptions)
-));
-
-const sitemapOptions = {
-  root: path.join(__dirname, '..', 'client', 'static'),
-  headers: {
-    'Content-Type': 'text/xml;charset=UTF-8',
-  },
-};
-app.use('/sitemap.xml', (req, res) => (
-  res.status(200).sendFile('sitemap.xml', sitemapOptions)
-));
-
-app.use('/sitemap.xml', express.static(path.join(__dirname, '..', 'client', 'static', 'sitemap')));
-
+app.use('/robots.txt', robots);
+app.use('/sitemap.xml', sitemap);
 // Should be after robot and sitemap but before dist
-app.use(history({
-  rewrites: [
-    {
-      from: /^\/articles\/static.*$/,
-      to(context) {
-        const staticPathWithHistory = context.parsedUrl.pathname.replace('/articles', '');
-        return `/${staticPathWithHistory}`;
-      },
-    },
-  ],
-}));
+app.use(history);
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
