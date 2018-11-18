@@ -21,21 +21,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
-app.use(history({
-  rewrites: [
-    {
-      from: /^\/articles\/static.*$/,
-      to(context) {
-        const staticPathWithHistory = context.parsedUrl.pathname.replace('/articles', '');
-        return `/${staticPathWithHistory}`;
-      },
-    },
-  ],
-}));
-
-if (process.env.NODE_ENV !== 'test') {
-  app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
-}
 
 const robotsOptions = {
   root: path.join(__dirname, '..', 'client', 'static'),
@@ -58,6 +43,24 @@ app.use('/sitemap.xml', (req, res) => (
 ));
 
 app.use('/sitemap.xml', express.static(path.join(__dirname, '..', 'client', 'static', 'sitemap')));
+
+// Should be after robot and sitemap but before dist
+app.use(history({
+  rewrites: [
+    {
+      from: /^\/articles\/static.*$/,
+      to(context) {
+        const staticPathWithHistory = context.parsedUrl.pathname.replace('/articles', '');
+        return `/${staticPathWithHistory}`;
+      },
+    },
+  ],
+}));
+
+if (process.env.NODE_ENV !== 'test') {
+  app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+}
+
 app.use('/api/sync', sync);
 app.use('/api/articles', articles);
 app.use('/api/admin', admin);
