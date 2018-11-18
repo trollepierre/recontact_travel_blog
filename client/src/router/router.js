@@ -6,7 +6,7 @@ import SubscriberList from '../components/SubscriberList.vue'
 
 Vue.use(Router)
 
-export default new Router({
+export const conf = {
   mode: 'history',
   routes: [
     {
@@ -33,4 +33,6 @@ export default new Router({
     { path: '/sub', redirect: '/subscriptions' },
     { path: '/a/:id', redirect: '/articles/:id' },
   ],
-})
+}
+
+export default new Router(conf)
