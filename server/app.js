@@ -13,6 +13,10 @@ const feedbacks = require('./src/infrastructure/features/api/feedbacks');
 const positions = require('./src/infrastructure/features/api/positions');
 const optimisation = require('./src/infrastructure/features/api/optimisation');
 
+const robots = require('./src/infrastructure/seo/robots')
+const sitemap = require('./src/infrastructure/seo/sitemap')
+const history = require('./src/infrastructure/seo/history')
+
 const app = express();
 
 app.use(logger('dev'));
@@ -21,8 +25,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
-// static resources
-// FIXME manage better environment variables
+app.use('/robots.txt', robots);
+app.use('/sitemap.xml', sitemap);
+// Should be after robot and sitemap but before dist
+app.use(history);
+
 if (process.env.NODE_ENV !== 'test') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 }
@@ -48,7 +55,6 @@ app.use((err, req, res) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
 });
 

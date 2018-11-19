@@ -120,11 +120,14 @@ jobs:
       - run: yarn add html5-validator
       - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/
 
-  validate_accessibility_pa11y:
+  lighthouse:
     <<: *common_properties
     steps:
-      - run: yarn add pa11y
-      - run: ./node_modules/.bin/pa11y -T 10 https://recontact-branch.herokuapp.com/
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - run: yarn lighthouse
 
   deploy_staging:
     <<: *common_properties
@@ -185,7 +188,7 @@ workflows:
       - validate_accessibility_html5v:
           requires:
             - deploy_branch
-      - validate_accessibility_pa11y:
+      - lighthouse:
           requires:
             - deploy_branch
       - deploy_staging:
