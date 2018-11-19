@@ -1,10 +1,8 @@
 const express = require('express');
 const path = require('path');
-const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const rotatingFileStream = require('rotating-file-stream');
 
 const articles = require('./src/infrastructure/features/api/articles');
 const admin = require('./src/infrastructure/features/api/admin');
@@ -14,9 +12,10 @@ const feedbacks = require('./src/infrastructure/features/api/feedbacks');
 const positions = require('./src/infrastructure/features/api/positions');
 const optimisation = require('./src/infrastructure/features/api/optimisation');
 
-const robots = require('./src/infrastructure/seo/robots')
-const sitemap = require('./src/infrastructure/seo/sitemap')
-const history = require('./src/infrastructure/seo/history')
+const robots = require('./src/infrastructure/seo/robots');
+const sitemap = require('./src/infrastructure/seo/sitemap');
+const history = require('./src/infrastructure/seo/history');
+const logger = require('./src/infrastructure/logger/logger');
 
 const app = express();
 
@@ -25,13 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
-// create a rotating write stream
-const accessLogStream = rotatingFileStream('access.log', {
-  interval: '1d', // rotate daily
-  path: path.join(__dirname, 'log'),
-});
-
-app.use(logger('combined', { stream: accessLogStream }));
+app.use(logger);
 
 app.use('/robots.txt', robots);
 app.use('/sitemap.xml', sitemap);
