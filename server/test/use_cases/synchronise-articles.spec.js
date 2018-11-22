@@ -21,7 +21,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
     const dropboxFolders = flatten([
       filteredDropboxFilesListFolder('46'),
       filteredDropboxFilesListFolder('47'),
-      filteredDropboxFilesListFolder('48'),
+      filteredDropboxFilesListFolder('5'),
     ]);
     sinon.stub(DropboxClient, 'getAllDropboxFoldersMetadatas').resolves(dropboxFolders);
   });
@@ -32,7 +32,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
   describe('basic call', () => {
     beforeEach(() => {
-      const oldArticles = [savedArticle('46'), savedArticle('47'), savedArticle('48')];
+      const oldArticles = [savedArticle('46'), savedArticle('47'), savedArticle('5')];
       sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
     });
 
@@ -51,7 +51,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
   describe('when no new article has been added', () => {
     beforeEach(() => {
-      const oldArticles = [savedArticle('46'), savedArticle('47'), savedArticle('48')];
+      const oldArticles = [savedArticle('46'), savedArticle('47'), savedArticle('5')];
       sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
     });
 
@@ -85,7 +85,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       sinon.stub(ArticleRepository, 'update').resolves(oldArticles);
       const articleRepoCreateStub = sinon.stub(ArticleRepository, 'create');
       articleRepoCreateStub.onFirstCall().resolves(savedArticle('47'));
-      articleRepoCreateStub.onSecondCall().resolves(savedArticle('48'));
+      articleRepoCreateStub.onSecondCall().resolves(savedArticle('5'));
       sinon.stub(ChapterRepository, 'createArticleChapters').resolves(chapterOfArticle());
       sinon.stub(PhotoRepository, 'createPhotos');
       sinon.stub(DropboxClient, 'getFilesFolderPaths').resolves(dropboxPhotosPaths);
@@ -129,7 +129,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // then
         return promise.then(() => {
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/Img-0.jpg');
-          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/Img-0.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/5/Img-0.jpg');
         });
       });
 
@@ -140,7 +140,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           galleryLink: 'db.com/call1.jpg?dl=0',
           imgLink: 'db.com/call0.jpg?raw=1',
         }, {
-          dropboxId: '48',
+          dropboxId: '5',
           galleryLink: 'db.com/call3.jpg?dl=0',
           imgLink: 'db.com/call2.jpg?raw=1',
         }];
@@ -161,7 +161,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // then
         return promise.then(() => {
           expect(DropboxClient.getFrTextFileStream).to.have.been.calledWith('47');
-          expect(DropboxClient.getFrTextFileStream).to.have.been.calledWith('48');
+          expect(DropboxClient.getFrTextFileStream).to.have.been.calledWith('5');
         });
       });
 
@@ -172,7 +172,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // then
         return promise.then(() => {
           expect(DropboxClient.getEnTextFileStream).to.have.been.calledWith('47');
-          expect(DropboxClient.getEnTextFileStream).to.have.been.calledWith('48');
+          expect(DropboxClient.getEnTextFileStream).to.have.been.calledWith('5');
         });
       });
 
@@ -197,7 +197,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             enTitle: '59. Lost autour du mont Gongga',
           };
           expect(ArticleRepository.update).to.have.been.calledWith(article, '47');
-          expect(ArticleRepository.update).to.have.been.calledWith(article, '48');
+          expect(ArticleRepository.update).to.have.been.calledWith(article, '5');
         });
       });
 
@@ -217,13 +217,13 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             dropboxId: '47',
             imgLink: 'db.com/call10.jpg?raw=1',
           }, {
-            dropboxId: '48',
+            dropboxId: '5',
             imgLink: 'db.com/call11.jpg?raw=1',
           }, {
-            dropboxId: '48',
+            dropboxId: '5',
             imgLink: 'db.com/call12.jpg?raw=1',
           }, {
-            dropboxId: '48',
+            dropboxId: '5',
             imgLink: 'db.com/call13.jpg?raw=1',
           }]);
         });
@@ -238,12 +238,12 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           expect(DropboxClient.createSharedLink).to.have.been.callCount(14);
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/Img-0.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47');
-          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/Img-0.jpg');
-          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/5/Img-0.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/5');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/img1.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/47/img2.jpg');
-          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/img1.jpg');
-          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/48/img2.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/5/img1.jpg');
+          expect(DropboxClient.createSharedLink).to.have.been.calledWith('/5/img2.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_1808340.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/20150707_180839.jpg');
           expect(DropboxClient.createSharedLink).to.have.been.calledWith('/58/IMG_2mggh.jpg');
@@ -295,7 +295,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             enTitle: 'Le programme',
           },
           {
-            dropboxId: '48',
+            dropboxId: '5',
             imgLink: 'db.com/call6.jpg?raw=1',
             frText: 'Rassemblant trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
@@ -312,7 +312,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             frTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
             enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
           }, {
-            dropboxId: '48',
+            dropboxId: '5',
             imgLink: 'db.com/call7.jpg?raw=1',
             frText: 'La région de Kangding' +
             '\r\n#' +
@@ -354,8 +354,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             subject: '[RecontactMe] Il y a du nouveau sur le site !',
             template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
             '<p>2 nouveaux articles :<ul>' +
+            '<li><a href="http://www.recontact.me/#/articles/5">59. Perdus autour du mont Gongga</a></li>' +
             '<li><a href="http://www.recontact.me/#/articles/47">59. Perdus autour du mont Gongga</a></li>' +
-            '<li><a href="http://www.recontact.me/#/articles/48">59. Perdus autour du mont Gongga</a></li>' +
             '</ul></p>',
           });
           expect(mailJet.sendEmail).to.have.been.calledWith({
@@ -365,8 +365,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             subject: '[RecontactMe] Some news on the website !',
             template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
             '<p>2 new articles:<ul>' +
+            '<li><a href="http://www.recontact.me/#/articles/5">59. Lost autour du mont Gongga</a></li>' +
             '<li><a href="http://www.recontact.me/#/articles/47">59. Lost autour du mont Gongga</a></li>' +
-            '<li><a href="http://www.recontact.me/#/articles/48">59. Lost autour du mont Gongga</a></li>' +
             '</ul></p>',
           });
         });
@@ -375,7 +375,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       it('should send email with correct options when there is one added article', () => {
         // given
         ArticleRepository.getAll.restore();
-        const oldArticles = [savedArticle('46'), savedArticle('48')];
+        const oldArticles = [savedArticle('46'), savedArticle('5')];
         sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
 
         // when
@@ -411,18 +411,18 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         const expectedResult = {
           addedArticles: [
             {
+              dropboxId: '5',
+              enTitle: '59. Lost autour du mont Gongga',
+              frTitle: '59. Perdus autour du mont Gongga',
+              galleryPath: '/5',
+              imgPath: '/5/Img-0.jpg',
+            },
+            {
               dropboxId: '47',
               enTitle: '59. Lost autour du mont Gongga',
               frTitle: '59. Perdus autour du mont Gongga',
               galleryPath: '/47',
               imgPath: '/47/Img-0.jpg',
-            },
-            {
-              dropboxId: '48',
-              enTitle: '59. Lost autour du mont Gongga',
-              frTitle: '59. Perdus autour du mont Gongga',
-              galleryPath: '/48',
-              imgPath: '/48/Img-0.jpg',
             },
           ],
           hasChanges: true,
@@ -460,7 +460,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           galleryLink: '',
           imgLink: '',
         }, {
-          dropboxId: '48',
+          dropboxId: '5',
           galleryLink: '',
           imgLink: '',
         }];
