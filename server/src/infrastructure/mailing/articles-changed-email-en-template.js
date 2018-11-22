@@ -10,11 +10,10 @@ module.exports = {
     } else {
       template += `${addedArticles.length} new articles:`;
     }
-    template += '<ul>';
+    addedArticles.sort((a, b) => a.dropboxId - b.dropboxId);
     addedArticles.forEach((article) => {
-      template += `<li><a href="http://www.recontact.me/#/articles/${article.dropboxId}">${article.enTitle}</a></li>`;
+      template += `<a href="http://www.recontact.me/#/articles/${article.dropboxId}">${article.enTitle}</a>`;
     });
-    template += '</ul>';
     template += '</p>';
     return template;
   },
