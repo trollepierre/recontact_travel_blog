@@ -17,11 +17,15 @@ const dropboxArticleEn = require('../fixtures/dropboxArticleEn');
 const { flatten } = require('lodash');
 
 describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
+  const idOldArticle = '46';
+  const idNewArticle1 = '47';
+  const idNewArticle2 = '5';
+
   beforeEach(() => {
     const dropboxFolders = flatten([
-      filteredDropboxFilesListFolder('46'),
-      filteredDropboxFilesListFolder('47'),
-      filteredDropboxFilesListFolder('5'),
+      filteredDropboxFilesListFolder(idOldArticle),
+      filteredDropboxFilesListFolder(idNewArticle1),
+      filteredDropboxFilesListFolder(idNewArticle2),
     ]);
     sinon.stub(DropboxClient, 'getAllDropboxFoldersMetadatas').resolves(dropboxFolders);
   });
@@ -32,7 +36,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
   describe('basic call', () => {
     beforeEach(() => {
-      const oldArticles = [savedArticle('46'), savedArticle('47'), savedArticle('5')];
+      const oldArticles = [savedArticle(idOldArticle), savedArticle(idNewArticle1), savedArticle(idNewArticle2)];
       sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
     });
 
@@ -51,7 +55,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
   describe('when no new article has been added', () => {
     beforeEach(() => {
-      const oldArticles = [savedArticle('46'), savedArticle('47'), savedArticle('5')];
+      const oldArticles = [savedArticle(idOldArticle), savedArticle(idNewArticle1), savedArticle(idNewArticle2)];
       sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
     });
 
@@ -79,17 +83,17 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         { email: 'abonne@recontact.me', lang: 'fr' },
         { email: 'subscriber@recontact.me', lang: 'en' },
       ];
-      const oldArticles = [savedArticle('46')];
+      const oldArticles = [savedArticle(idOldArticle)];
       sinon.stub(SubscriptionRepository, 'getAll').resolves(subscriptions);
       sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
       sinon.stub(ArticleRepository, 'update').resolves(oldArticles);
       const articleRepoCreateStub = sinon.stub(ArticleRepository, 'create');
-      articleRepoCreateStub.onFirstCall().resolves(savedArticle('47'));
-      articleRepoCreateStub.onSecondCall().resolves(savedArticle('5'));
+      articleRepoCreateStub.onFirstCall().resolves(savedArticle(idNewArticle1));
+      articleRepoCreateStub.onSecondCall().resolves(savedArticle(idNewArticle2));
       sinon.stub(ChapterRepository, 'createArticleChapters').resolves(chapterOfArticle());
       sinon.stub(PhotoRepository, 'createPhotos');
       sinon.stub(DropboxClient, 'getFilesFolderPaths').resolves(dropboxPhotosPaths);
-      sinon.stub(DropboxClient, 'createSharedLink');
+      sinon.stub(DropboxClient, 'createSharedLink').resolves();
       sinon.stub(DropboxClient, 'getFrTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
       sinon.stub(DropboxClient, 'getEnTextFileStream').resolves(dropboxFilesGetTemporaryLink().link);
       const fileReaderReadStub = sinon.stub(FileReader, 'read');
@@ -97,6 +101,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       fileReaderReadStub.onSecondCall().resolves(dropboxArticleEn);
       fileReaderReadStub.onThirdCall().resolves(dropboxArticleFr);
       fileReaderReadStub.onCall(3).resolves(dropboxArticleEn);
+      fileReaderReadStub.onCall(4).resolves(dropboxArticleFr);
+      fileReaderReadStub.onCall(5).resolves(dropboxArticleEn);
       sinon.stub(mailJet, 'sendEmail').resolves({});
     });
 
@@ -136,11 +142,11 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       it('should call ArticleRepository to create articlesToSave', () => {
         // given
         const articlesToSave = [{
-          dropboxId: '47',
+          dropboxId: idNewArticle1,
           galleryLink: 'db.com/call1.jpg?dl=0',
           imgLink: 'db.com/call0.jpg?raw=1',
         }, {
-          dropboxId: '5',
+          dropboxId: idNewArticle2,
           galleryLink: 'db.com/call3.jpg?dl=0',
           imgLink: 'db.com/call2.jpg?raw=1',
         }];
@@ -160,8 +166,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         // then
         return promise.then(() => {
-          expect(DropboxClient.getFrTextFileStream).to.have.been.calledWith('47');
-          expect(DropboxClient.getFrTextFileStream).to.have.been.calledWith('5');
+          expect(DropboxClient.getFrTextFileStream).to.have.been.calledWith(idNewArticle1);
+          expect(DropboxClient.getFrTextFileStream).to.have.been.calledWith(idNewArticle2);
         });
       });
 
@@ -171,8 +177,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         // then
         return promise.then(() => {
-          expect(DropboxClient.getEnTextFileStream).to.have.been.calledWith('47');
-          expect(DropboxClient.getEnTextFileStream).to.have.been.calledWith('5');
+          expect(DropboxClient.getEnTextFileStream).to.have.been.calledWith(idNewArticle1);
+          expect(DropboxClient.getEnTextFileStream).to.have.been.calledWith(idNewArticle2);
         });
       });
 
@@ -196,8 +202,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             frTitle: '59. Perdus autour du mont Gongga',
             enTitle: '59. Lost autour du mont Gongga',
           };
-          expect(ArticleRepository.update).to.have.been.calledWith(article, '47');
-          expect(ArticleRepository.update).to.have.been.calledWith(article, '5');
+          expect(ArticleRepository.update).to.have.been.calledWith(article, idNewArticle1);
+          expect(ArticleRepository.update).to.have.been.calledWith(article, idNewArticle2);
         });
       });
 
@@ -208,22 +214,22 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // then
         return promise.then(() => {
           expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
-            dropboxId: '47',
+            dropboxId: idNewArticle1,
             imgLink: 'db.com/call8.jpg?raw=1',
           }, {
-            dropboxId: '47',
+            dropboxId: idNewArticle1,
             imgLink: 'db.com/call9.jpg?raw=1',
           }, {
-            dropboxId: '47',
+            dropboxId: idNewArticle1,
             imgLink: 'db.com/call10.jpg?raw=1',
           }, {
-            dropboxId: '5',
+            dropboxId: idNewArticle2,
             imgLink: 'db.com/call11.jpg?raw=1',
           }, {
-            dropboxId: '5',
+            dropboxId: idNewArticle2,
             imgLink: 'db.com/call12.jpg?raw=1',
           }, {
-            dropboxId: '5',
+            dropboxId: idNewArticle2,
             imgLink: 'db.com/call13.jpg?raw=1',
           }]);
         });
@@ -257,7 +263,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         // given
         const chaptersToSave = [
           {
-            dropboxId: '47',
+            dropboxId: idNewArticle1,
             imgLink: 'db.com/call4.jpg?raw=1',
             frText: 'Rassemblant trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
@@ -275,7 +281,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
 
           }, {
-            dropboxId: '47',
+            dropboxId: idNewArticle1,
             imgLink: 'db.com/call5.jpg?raw=1',
             frText: 'La région de Kangding' +
             '\r\n#' +
@@ -295,7 +301,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             enTitle: 'Le programme',
           },
           {
-            dropboxId: '5',
+            dropboxId: idNewArticle2,
             imgLink: 'db.com/call6.jpg?raw=1',
             frText: 'Rassemblant trois valeureux compagnons :' +
             '\r\n# - Pierre, l\'expérimenté' +
@@ -312,7 +318,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             frTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
             enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
           }, {
-            dropboxId: '5',
+            dropboxId: idNewArticle2,
             imgLink: 'db.com/call7.jpg?raw=1',
             frText: 'La région de Kangding' +
             '\r\n#' +
@@ -375,7 +381,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       it('should send email with correct options when there is one added article', () => {
         // given
         ArticleRepository.getAll.restore();
-        const oldArticles = [savedArticle('46'), savedArticle('5')];
+
+        const oldArticles = [savedArticle(idOldArticle), savedArticle(idNewArticle2)];
         sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
 
         // when
@@ -406,19 +413,35 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         });
       });
 
+      it('should not send email when there are more than two added articles', () => {
+        // given
+        ArticleRepository.getAll.restore();
+
+        const oldArticles = [];
+        sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles);
+
+        // when
+        const promise = SynchroniseArticles.synchronizeArticles();
+
+        // then
+        return promise.then(() => {
+          expect(mailJet.sendEmail).not.to.have.been.called;
+        });
+      });
+
       it('should return result', () => {
         // given
         const expectedResult = {
           addedArticles: [
             {
-              dropboxId: '5',
+              dropboxId: idNewArticle2,
               enTitle: '59. Lost autour du mont Gongga',
               frTitle: '59. Perdus autour du mont Gongga',
               galleryPath: '/5',
               imgPath: '/5/Img-0.jpg',
             },
             {
-              dropboxId: '47',
+              dropboxId: idNewArticle1,
               enTitle: '59. Lost autour du mont Gongga',
               frTitle: '59. Perdus autour du mont Gongga',
               galleryPath: '/47',
@@ -456,11 +479,11 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       it('should call ArticleRepository to create articlesToSave with empty imgLink', () => {
         // given
         const articlesToSave = [{
-          dropboxId: '47',
+          dropboxId: idNewArticle1,
           galleryLink: '',
           imgLink: '',
         }, {
-          dropboxId: '5',
+          dropboxId: idNewArticle2,
           galleryLink: '',
           imgLink: '',
         }];

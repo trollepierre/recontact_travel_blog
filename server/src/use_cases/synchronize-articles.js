@@ -51,7 +51,7 @@ function _compareDropboxAndDatabaseArticles(freshArticles) {
 
 function _ifArticlesChangedThenSendEmailToRecipients(report) {
   const result = report;
-  if (report.hasChanges) {
+  if (report.hasChanges && report.addedArticles.length < 3) {
     return subscriptionRepository.getAll()
       .then((subscriptions) => {
         result.receivers = subscriptions;
