@@ -18,7 +18,8 @@ async function synchronizeArticles() {
     const articlesToReport = await _ifArticlesChangesThenUpdateArticlesInDatabase(report, dropboxFiles);
     return _ifArticlesChangedThenSendEmailToRecipients(articlesToReport);
   } catch (error) {
-    return _sendMailToSupport(error);
+    await _sendMailToSupport(error);
+    throw error;
   }
 }
 
