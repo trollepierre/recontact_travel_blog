@@ -30,31 +30,32 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       mailJet.sendEmail.restore();
     });
 
-    it('should send mail to support', () => {
+    it('should send mail to support', (done) => {
       // when
-      try {
-        SynchroniseArticles.synchronizeArticles();
+      const promise = SynchroniseArticles.synchronizeArticles();
 
-        // then
-      } catch (catchedError) {
+      // then
+      promise.catch(() => {
         expect(mailJet.sendEmail).to.have.been.calledWith({
           from: 'contact@recontact.me',
           fromName: 'RecontactMe',
           to: ['support@recontact.me'],
           subject: '[RecontactMe] Il y a des erreurs sur le site !',
-          template: '<p>Error</p>',
+          template: '<p>{}</p>',
         });
-      }
+        done();
+      });
     });
 
-    it('should throw error', () => {
+    it('should throw error', (done) => {
       // when
-      try {
-        SynchroniseArticles.synchronizeArticles();
-        // then
-      } catch (catchedError) {
-        expect(catchedError).to.equal(error);
-      }
+      const promise = SynchroniseArticles.synchronizeArticles();
+
+      // then
+      promise.catch((catchedError) => {
+        expect(catchedError).to.deep.equal(error);
+        done();
+      });
     });
   });
 
