@@ -32,10 +32,11 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
     it('should send mail to support', () => {
       // when
-      const promise = SynchroniseArticles.synchronizeArticles();
+      try {
+        SynchroniseArticles.synchronizeArticles();
 
-      // then
-      return promise.then(() => {
+        // then
+      } catch (catchedError) {
         expect(mailJet.sendEmail).to.have.been.calledWith({
           from: 'contact@recontact.me',
           fromName: 'RecontactMe',
@@ -43,7 +44,17 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           subject: '[RecontactMe] Il y a des erreurs sur le site !',
           template: '<p>Error</p>',
         });
-      });
+      }
+    });
+
+    it('should throw error', () => {
+      // when
+      try {
+        SynchroniseArticles.synchronizeArticles();
+        // then
+      } catch (catchedError) {
+        expect(catchedError).to.equal(error);
+      }
     });
   });
 
@@ -531,3 +542,4 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
     });
   });
 });
+
