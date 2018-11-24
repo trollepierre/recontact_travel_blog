@@ -40,5 +40,5 @@ test('Meaningful first paint score', () =>
       expect(categories.pwa.score * 100).toBeGreaterThanOrEqual(46); // 46
       expect(categories.accessibility.score * 100).toBeGreaterThanOrEqual(73); // 73
       expect(categories['best-practices'].score * 100).toBeGreaterThanOrEqual(80); // 80
-      expect(categories.seo.score * 100).toBeGreaterThanOrEqual(89); // 89, 90
+      expect(categories.seo.score * 100).toBeGreaterThanOrEqual(82); // 82
     }));
