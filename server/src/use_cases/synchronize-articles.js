@@ -96,7 +96,7 @@ function _sendMailToSupport(error) {
     fromName: 'RecontactMe',
     to: [config.MAIL_SUPPORT],
     subject: '[RecontactMe] Il y a des erreurs sur le site !',
-    template: `<p>${error.toString()}</p>`,
+    template: `<p>${JSON.stringify(error)}</p>`,
   };
   return mailJet.sendEmail(optionsFr);
 }
