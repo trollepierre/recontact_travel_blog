@@ -1,9 +1,8 @@
 {
-  "name": "recontact_travel_blog",
+  "name": "recontact_travel_blog-front",
   "version": "1.0.0",
   "description": "Travel blog of Pierre Trollé",
   "author": "Pierre Trollé <pierre@recontact.me>",
-  "private": true,
   "scripts": {
     "build": "yarn clean && webpack --config build/webpack.config.prod.js",
     "clean": "rimraf dist && mkdirp dist",
@@ -84,8 +83,8 @@
     "webpack-dev-server": "^3.1.4"
   },
   "engines": {
-    "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
+    "yarn": ">=1.10.1",
+    "node": ">=10.13.0"
   },
   "browserslist": [
     "> 1%",

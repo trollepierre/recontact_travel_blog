@@ -7,7 +7,11 @@
 
 ## Getting started
 
-```bash
+
+``` bash
+# install Yarn
+npm install -g yarn@1.10.1
+
 # get project sources
 git clone git@github.com:trollepierre/recontact_travel_blog.git
 cd recontact_travel_blog

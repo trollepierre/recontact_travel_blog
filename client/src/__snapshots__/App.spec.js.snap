@@ -10,7 +10,7 @@ exports[`Component | App template should match snapshot 1`] = `
    
   <feedback-modal-stub />
    
-  <router-view-stub
+  <routerview-stub
     name="default"
   />
 </div>
