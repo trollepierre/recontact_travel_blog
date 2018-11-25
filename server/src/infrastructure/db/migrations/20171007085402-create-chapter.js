@@ -26,4 +26,4 @@ module.exports = {
     },
   }),
   down: queryInterface => queryInterface.dropTable('Chapters'),
-};
+}

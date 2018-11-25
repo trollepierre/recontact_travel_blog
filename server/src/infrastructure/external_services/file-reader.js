@@ -1,4 +1,4 @@
-const request = require('request');
+const request = require('request')
 
 const FileReader = {
 
@@ -6,16 +6,16 @@ const FileReader = {
     return new Promise((resolve, reject) => {
       const options = {
         url: filePath,
-      };
+      }
 
       request.get(options, (err, response) => {
         if (err) {
-          reject(err);
+          reject(err)
         }
-        resolve(response.body);
-      });
-    });
+        resolve(response.body)
+      })
+    })
   },
-};
+}
 
-module.exports = FileReader;
+module.exports = FileReader

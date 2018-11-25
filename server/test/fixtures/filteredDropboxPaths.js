@@ -15,4 +15,4 @@ module.exports =
     '/59/img0.jpg',
     '/59/img1.jpg',
     '/59/img2.jpg',
-  ];
+  ]

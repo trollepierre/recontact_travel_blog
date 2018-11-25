@@ -1,5 +1,3 @@
-// http://eslint.org/docs/user-guide/configuring
-
 module.exports = {
   root: true,
   parserOptions: {
@@ -17,8 +15,6 @@ module.exports = {
   },
   extends: [
     '../.eslintrc.js',
-    'airbnb-base',
-    'eslint:recommended',
     'plugin:vue/recommended',
     'plugin:import/errors',
     'plugin:import/warnings'
@@ -57,19 +53,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     /* YPAM custom rules */
-    'comma-dangle': ['error', 'always-multiline'],
-    'comma-spacing': 'error',
     'import/prefer-default-export': null,
-    'key-spacing': 'error',
-    'no-multi-spaces': 'error',
-    'no-multiple-empty-lines': ['error', { 'max': 1 }],
-    'no-trailing-spaces': 'error',
-    'object-curly-spacing': ['error', 'always'],
-    'object-shorthand': 'error',
-    'padded-blocks': 'error',
-    'quotes': ['error', 'single'],
-    'semi': ['error', 'never'],
-    'space-before-function-paren': 'error',
 
     // PERSO
     'no-extra-parens': 'error',

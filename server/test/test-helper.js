@@ -1,18 +1,18 @@
 const {
   describe, it, before, after, beforeEach, afterEach,
-} = require('mocha');
+} = require('mocha')
 
-const sinon = require('sinon');
+const sinon = require('sinon')
 
-const { assert } = sinon;
+const { assert } = sinon
 
-const chai = require('chai');
+const chai = require('chai')
 
-const { expect } = chai;
-chai.use(require('chai-as-promised'));
-chai.use(require('sinon-chai'));
+const { expect } = chai
+chai.use(require('chai-as-promised'))
+chai.use(require('sinon-chai'))
 
-const request = require('supertest');
+const request = require('supertest')
 
 module.exports = {
   describe,
@@ -25,4 +25,4 @@ module.exports = {
   request,
   sinon,
   assert,
-};
+}

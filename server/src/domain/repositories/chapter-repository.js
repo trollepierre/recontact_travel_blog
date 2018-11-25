@@ -1,24 +1,24 @@
-const { Chapter } = require('../models/index');
+const { Chapter } = require('../models/index')
 
 function createArticleChapters(chapters) {
   return Chapter
-    .bulkCreate(chapters);
+    .bulkCreate(chapters)
 }
 
 function getChaptersOfArticle(dropboxId) {
   return Chapter.findAll({
     where: { dropboxId },
-  });
+  })
 }
 
 function deleteChaptersOfArticle(dropboxId) {
   return Chapter.destroy({
     where: { dropboxId },
-  });
+  })
 }
 
 function deleteAll() {
-  return Chapter.destroy({ where: {} });
+  return Chapter.destroy({ where: {} })
 }
 
 module.exports = {
@@ -26,4 +26,4 @@ module.exports = {
   getChaptersOfArticle,
   deleteChaptersOfArticle,
   deleteAll,
-};
+}

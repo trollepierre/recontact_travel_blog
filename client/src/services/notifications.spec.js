@@ -93,7 +93,9 @@ describe('Unit | services | notifications', () => {
     it('should call s method', done => {
       notificationsService.toaster.mockReturnValue({
         removeByType(type) {
-          if (type === 'info') return done()
+          if (type === 'info') {
+            return done()
+          }
           return 'erreur'
         },
       })
