@@ -16,6 +16,7 @@ import optimisation from './src/infrastructure/features/api/optimisation'
 import robots from './src/infrastructure/seo/robots'
 import sitemap from './src/infrastructure/seo/sitemap'
 import history from './src/infrastructure/seo/history'
+import env from './src/infrastructure/env/env'
 
 const app = express()
 
@@ -30,8 +31,8 @@ app.use('/sitemap.xml', sitemap)
 // Should be after robot and sitemap but before dist
 app.use(history)
 
-if (process.env.NODE_ENV !== 'test') {
-  app.use(express.static(path.join(__dirname, '..', 'client', 'dist')))
+if (env('NODE_ENV') !== 'test') {
+  app.use(express.static(path.join(__dirname, '..', '..', 'client', 'dist')))
 }
 
 app.use('/api/sync', sync)
