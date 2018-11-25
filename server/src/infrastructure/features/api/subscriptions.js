@@ -1,19 +1,19 @@
-const express = require('express');
-const Subscribe = require('../../../use_cases/subscribe');
+const express = require('express')
+const Subscribe = require('../../../use_cases/subscribe')
 
-const router = express.Router();
+const router = express.Router()
 
 router.post('/', (req, res) => {
   Subscribe.subscribe(req.body)
     .then(({ subscription, created }) => {
       if (created) {
-        res.status(201);
+        res.status(201)
       }
-      res.json(subscription);
+      res.json(subscription)
     })
     .catch(() => {
-      res.status(403).send();
-    });
-});
+      res.status(403).send()
+    })
+})
 
-module.exports = router;
+module.exports = router

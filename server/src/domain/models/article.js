@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     galleryLink: DataTypes.STRING,
     frTitle: DataTypes.STRING,
     enTitle: DataTypes.STRING,
-  });
+  })
 
-  return Article;
-};
+  return Article
+}

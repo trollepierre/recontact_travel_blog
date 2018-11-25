@@ -1,12 +1,12 @@
-const chapterRepository = require('../domain/repositories/chapter-repository');
-const articleRepository = require('../domain/repositories/article-repository');
+const chapterRepository = require('../domain/repositories/chapter-repository')
+const articleRepository = require('../domain/repositories/article-repository')
 
 function _getChaptersOfArticle(dropboxId) {
-  return chapterRepository.getChaptersOfArticle(dropboxId);
+  return chapterRepository.getChaptersOfArticle(dropboxId)
 }
 
 function _addParagraphsInOneText(text) {
-  return text.split('#').map(row => row.trim());
+  return text.split('#').map(row => row.trim())
 }
 
 function _addParagraphsInAllChapters(chapters) {
@@ -16,20 +16,20 @@ function _addParagraphsInAllChapters(chapters) {
       frText: _addParagraphsInOneText(chapter.frText),
       enText: _addParagraphsInOneText(chapter.enText),
     },
-  ));
+  ))
 }
 
 function _addTitle(chapters, dropboxId) {
   return articleRepository.get(dropboxId)
-    .then(({ frTitle, enTitle }) => ({ chapters, frTitle, enTitle }));
+    .then(({ frTitle, enTitle }) => ({ chapters, frTitle, enTitle }))
 }
 
 function getArticle(dropboxId) {
   return _getChaptersOfArticle(dropboxId)
     .then(chapters => _addParagraphsInAllChapters(chapters))
-    .then(chapters => _addTitle(chapters, dropboxId));
+    .then(chapters => _addTitle(chapters, dropboxId))
 }
 
 module.exports = {
   getArticle,
-};
+}

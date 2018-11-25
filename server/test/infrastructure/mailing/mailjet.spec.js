@@ -1,21 +1,21 @@
-const { expect, sinon } = require('../../test-helper');
-const Mailjet = require('../../../src/infrastructure/mailing/mailjet');
+const { expect, sinon } = require('../../test-helper')
+const Mailjet = require('../../../src/infrastructure/mailing/mailjet')
 
-const nodeMailjet = require('node-mailjet');
+const nodeMailjet = require('node-mailjet')
 
 describe('Unit | Infrastructure | Mailing | Mailjet', () => {
-  let mailJetConnectStub;
+  let mailJetConnectStub
 
   beforeEach(() => {
-    mailJetConnectStub = sinon.stub(nodeMailjet, 'connect');
-  });
+    mailJetConnectStub = sinon.stub(nodeMailjet, 'connect')
+  })
 
   afterEach(() => {
-    mailJetConnectStub.restore();
-  });
+    mailJetConnectStub.restore()
+  })
 
   describe('#sendEmail', () => {
-    let options;
+    let options
 
     beforeEach(() => {
       options = {
@@ -24,8 +24,8 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
         subject: 'mon sujet',
         template: 'Corps du mail',
         to: 'contact@recontact.me',
-      };
-    });
+      }
+    })
 
     it('should create an instance of mailJet', () => {
       // Given
@@ -34,37 +34,37 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
           request: () => {
           },
         }),
-      });
+      })
 
       // When
-      Mailjet.sendEmail(options);
+      Mailjet.sendEmail(options)
 
       // Then
-      sinon.assert.calledWith(mailJetConnectStub, 'test-api-key', 'test-api-secret');
-    });
+      sinon.assert.calledWith(mailJetConnectStub, 'test-api-key', 'test-api-secret')
+    })
 
     it('should post a send instruction', () => {
       // Given
-      const postStub = sinon.stub().returns({ request: () => Promise.resolve() });
-      mailJetConnectStub.returns({ post: postStub });
+      const postStub = sinon.stub().returns({ request: () => Promise.resolve() })
+      mailJetConnectStub.returns({ post: postStub })
 
       // When
-      const result = Mailjet.sendEmail(options);
+      const result = Mailjet.sendEmail(options)
 
       // Then
       return result.then(() => {
-        sinon.assert.calledWith(postStub, 'send');
-      });
-    });
+        sinon.assert.calledWith(postStub, 'send')
+      })
+    })
 
     it('should request with a payload', () => {
       // Given
-      const requestStub = sinon.stub().returns(Promise.resolve());
-      const postStub = sinon.stub().returns({ request: requestStub });
-      mailJetConnectStub.returns({ post: postStub });
+      const requestStub = sinon.stub().returns(Promise.resolve())
+      const postStub = sinon.stub().returns({ request: requestStub })
+      mailJetConnectStub.returns({ post: postStub })
 
       // When
-      const result = Mailjet.sendEmail(options);
+      const result = Mailjet.sendEmail(options)
 
       // Then
       return result.then(() => {
@@ -74,18 +74,18 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
           Subject: 'mon sujet',
           'Html-part': 'Corps du mail',
           Recipients: [{ Email: 'contact@recontact.me' }],
-        });
-      });
-    });
+        })
+      })
+    })
 
     describe('#_formatRecipients', () => {
-      let requestStub;
-      let postStub;
+      let requestStub
+      let postStub
 
       beforeEach(() => {
-        requestStub = sinon.stub().returns(Promise.resolve());
-        postStub = sinon.stub().returns({ request: requestStub });
-        mailJetConnectStub.returns({ post: postStub });
+        requestStub = sinon.stub().returns(Promise.resolve())
+        postStub = sinon.stub().returns({ request: requestStub })
+        mailJetConnectStub.returns({ post: postStub })
 
         options = {
           from: 'from',
@@ -93,28 +93,28 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
           subject: 'subject',
           template: 'body',
           to: null,
-        };
-      });
+        }
+      })
 
       it('should take into account when specified receivers is null or undefined', () => {
         // given
-        options.to = null;
+        options.to = null
 
         // when
-        const result = Mailjet.sendEmail(options);
+        const result = Mailjet.sendEmail(options)
 
         // then
         return result.then(() => {
-          expect(mailJetConnectStub).not.to.have.been.calledWith();
-        });
-      });
+          expect(mailJetConnectStub).not.to.have.been.calledWith()
+        })
+      })
 
       it('should take into account when specified receivers is a string with single email', () => {
         // given
-        options.to = 'recipient@mail.com';
+        options.to = 'recipient@mail.com'
 
         // when
-        const result = Mailjet.sendEmail(options);
+        const result = Mailjet.sendEmail(options)
 
         // then
         return result.then(() => {
@@ -124,16 +124,16 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
             Subject: 'subject',
             'Html-part': 'body',
             Recipients: [{ Email: 'recipient@mail.com' }],
-          });
-        });
-      });
+          })
+        })
+      })
 
       it('should take into account when specified receivers is an array of receivers', () => {
         // given
-        options.to = ['recipient_1@mail.com', 'recipient_2@mail.com', 'recipient_3@mail.com'];
+        options.to = ['recipient_1@mail.com', 'recipient_2@mail.com', 'recipient_3@mail.com']
 
         // when
-        const result = Mailjet.sendEmail(options);
+        const result = Mailjet.sendEmail(options)
 
         // then
         return result.then(() => {
@@ -147,9 +147,9 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
               { Email: 'recipient_2@mail.com' },
               { Email: 'recipient_3@mail.com' },
             ],
-          });
-        });
-      });
-    });
-  });
-});
+          })
+        })
+      })
+    })
+  })
+})

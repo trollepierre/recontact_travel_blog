@@ -115,4 +115,4 @@ module.exports = (dropboxId = '58') =>
       size: 92100,
       content_hash: '0cd8de1ec2cce0256b44f2c62bd0cb30c6d5aefa1cfade21f94fc582e32151d4',
     }]
-  );
+  )

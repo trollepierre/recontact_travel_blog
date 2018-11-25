@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     imgLink: DataTypes.STRING,
     enText: DataTypes.TEXT,
     frText: DataTypes.TEXT,
-  });
+  })
 
-  return Chapter;
-};
+  return Chapter
+}
 

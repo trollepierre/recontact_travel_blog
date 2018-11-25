@@ -1,17 +1,17 @@
-const { request, expect, sinon } = require('../../test-helper');
-const app = require('../../../app');
-const DeleteSubscription = require('../../../src/use_cases/delete-subscription');
-const GetAllSubscriptions = require('../../../src/use_cases/get-all-subscriptions');
+const { request, expect, sinon } = require('../../test-helper')
+const app = require('../../../app')
+const DeleteSubscription = require('../../../src/use_cases/delete-subscription')
+const GetAllSubscriptions = require('../../../src/use_cases/get-all-subscriptions')
 
 describe('Integration | Routes | optimisation route', () => {
   describe('DELETE /api/subscriptions/:subscription_id', () => {
     beforeEach(() => {
-      sinon.stub(DeleteSubscription, 'deleteSubscription').resolves();
-    });
+      sinon.stub(DeleteSubscription, 'deleteSubscription').resolves()
+    })
 
     afterEach(() => {
-      DeleteSubscription.deleteSubscription.restore();
-    });
+      DeleteSubscription.deleteSubscription.restore()
+    })
 
     it('should call subscriptionService#deleteById', (done) => {
       // when
@@ -21,23 +21,23 @@ describe('Integration | Routes | optimisation route', () => {
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(204, () => {
           // then
-          expect(DeleteSubscription.deleteSubscription).to.have.been.calledWith(1234);
-          done();
-        });
-    });
-  });
+          expect(DeleteSubscription.deleteSubscription).to.have.been.calledWith(1234)
+          done()
+        })
+    })
+  })
 
   describe('GET /api/subscriptions/', () => {
-    let persistedSubscriptions;
+    let persistedSubscriptions
     beforeEach(() => {
-      sinon.stub(GetAllSubscriptions, 'getAllSubscriptions');
-      persistedSubscriptions = [{ id: 1, email: 'mail@recontact.me' }];
-      GetAllSubscriptions.getAllSubscriptions.resolves(persistedSubscriptions);
-    });
+      sinon.stub(GetAllSubscriptions, 'getAllSubscriptions')
+      persistedSubscriptions = [{ id: 1, email: 'mail@recontact.me' }]
+      GetAllSubscriptions.getAllSubscriptions.resolves(persistedSubscriptions)
+    })
 
     afterEach(() => {
-      GetAllSubscriptions.getAllSubscriptions.restore();
-    });
+      GetAllSubscriptions.getAllSubscriptions.restore()
+    })
 
     it('should call GetAllSubscriptions#getAllSubscriptions', (done) => {
       // when
@@ -47,10 +47,10 @@ describe('Integration | Routes | optimisation route', () => {
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
           // then
-          expect(GetAllSubscriptions.getAllSubscriptions).to.have.been.calledWith();
-          expect(res.body).to.deep.equal(persistedSubscriptions);
-          done();
-        });
-    });
-  });
-});
+          expect(GetAllSubscriptions.getAllSubscriptions).to.have.been.calledWith()
+          expect(res.body).to.deep.equal(persistedSubscriptions)
+          done()
+        })
+    })
+  })
+})
