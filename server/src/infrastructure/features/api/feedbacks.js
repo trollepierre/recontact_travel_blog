@@ -1,17 +1,17 @@
-const express = require('express');
-const mailService = require('../../../use_cases/send-feedback');
+const express = require('express')
+const mailService = require('../../../use_cases/send-feedback')
 
-const router = express.Router();
+const router = express.Router()
 
 router.post('/', (req, res) => {
-  const form = req.body;
+  const form = req.body
   mailService.sendFeedbackEmail(form)
     .then(() => {
-      res.status(201).json('Feedback sent');
+      res.status(201).json('Feedback sent')
     })
     .catch((err) => {
-      res.status(500).json({ error: err });
-    });
-});
+      res.status(500).json({ error: err })
+    })
+})
 
-module.exports = router;
+module.exports = router

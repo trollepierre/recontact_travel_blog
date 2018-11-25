@@ -8,4 +8,4 @@ module.exports = () => ({
   enText: ['Thanks a lot Pierre'],
   createdAt: '2017-10-21T10:28:38.500Z',
   updatedAt: '2017-10-21T10:28:38.500Z',
-});
+})

@@ -12,8 +12,7 @@ describe('Component | FeedbackModal.vue', () => {
   const email = 'pierre@recontact.me'
 
   beforeEach(() => {
-    let localVue
-    localVue = createLocalVue()
+    const localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })

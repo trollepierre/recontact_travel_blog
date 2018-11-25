@@ -10,7 +10,9 @@ export default {
 
   getTitle(article) {
     const title = this.isFrancophone() ? article.frTitle : article.enTitle
-    if (!title) return article.dropboxId
+    if (!title) {
+      return article.dropboxId
+    }
     return title
   },
 

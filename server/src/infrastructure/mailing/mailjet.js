@@ -1,15 +1,15 @@
-const mailjetConfig = require('../config/index').MAILJET;
-const nodeMailjet = require('node-mailjet');
-const { isEmpty } = require('lodash');
+const mailjetConfig = require('../config/index').MAILJET
+const nodeMailjet = require('node-mailjet')
+const { isEmpty } = require('lodash')
 
 function _formatRecipients(recipients) {
   if (!recipients) {
-    return [];
+    return []
   }
   if (typeof recipients === 'string') {
-    return [{ Email: recipients }];
+    return [{ Email: recipients }]
   }
-  return recipients.map(recipient => ({ Email: recipient }));
+  return recipients.map(recipient => ({ Email: recipient }))
 }
 
 function _formatPayload(options) {
@@ -19,19 +19,19 @@ function _formatPayload(options) {
     Subject: options.subject,
     'Html-part': options.template,
     Recipients: _formatRecipients(options.to),
-  };
+  }
 }
 
 function sendEmail(options) {
   if (!isEmpty(options.to)) {
-    const mailjet = nodeMailjet.connect(mailjetConfig.apiKey, mailjetConfig.apiSecret);
+    const mailjet = nodeMailjet.connect(mailjetConfig.apiKey, mailjetConfig.apiSecret)
     return mailjet
       .post('send')
-      .request(_formatPayload(options));
+      .request(_formatPayload(options))
   }
-  return Promise.resolve();
+  return Promise.resolve()
 }
 
 module.exports = {
   sendEmail,
-};
+}

@@ -179,4 +179,4 @@ module.exports = () => [{
   rev: '1f1f5adb3b57',
   size: 70392,
   content_hash: 'd12ffaa9a8e03697557823307bd957bd398be502557b969289dc715da8f884d9',
-}];
+}]

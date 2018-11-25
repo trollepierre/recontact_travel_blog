@@ -9,4 +9,4 @@ module.exports = (dropboxId = '47') => ({
     updatedAt: '2017-10-25T21:39:18.034Z',
   },
   isNewRecord: false,
-});
+})

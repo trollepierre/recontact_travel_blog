@@ -43,4 +43,4 @@ module.exports = {
   ],
   frTitle: '59. Perdus autour du mont Gongga',
   enTitle: '59. Lost autour du mont Gongga',
-};
+}
