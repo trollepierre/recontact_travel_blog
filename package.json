@@ -8,13 +8,14 @@
     "install:server": "(cd server && yarn)",
     "install": "yarn install:client && yarn install:server",
     "build:client": "(cd client && yarn build)",
-    "build": "yarn build:client",
+    "build:server": "(cd server && yarn build)",
+    "build": "yarn build:client && yarn build:server",
     "clean:client": "(cd client && yarn clean)",
     "clean:server": "(cd server && yarn clean)",
     "clean": "yarn clean:client && yarn clean:server",
-    "start:client": "(cd client && yarn dev)",
-    "start": "(cd server && node ./bin/www)",
+    "start:client": "(cd client && yarn start)",
     "start:dev": "(cd server && yarn start:dev)",
+    "start": "(cd server && yarn start)",
     "test:client": "(cd client && npm test)",
     "test:server": "(cd server && npm test)",
     "test": "yarn test:client && yarn test:server",
@@ -32,7 +33,7 @@
     "type": "git",
     "url": "git+https://github.com/trollepierre/recontact_travel_blog.git"
   },
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/trollepierre/recontact_travel_blog/issues"
   },
