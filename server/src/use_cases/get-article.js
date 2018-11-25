@@ -30,6 +30,6 @@ function getArticle(dropboxId) {
     .then(chapters => _addTitle(chapters, dropboxId))
 }
 
-module.exports = {
+export {
   getArticle,
 }

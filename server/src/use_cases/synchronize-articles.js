@@ -312,6 +312,6 @@ function _transformToImgLink(response) {
 function _getGalleryUrl(response) {
   return isEmpty(response) ? '' : response.url
 }
-module.exports = {
+export {
   synchronizeArticles,
 }

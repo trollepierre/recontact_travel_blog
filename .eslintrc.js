@@ -2,6 +2,8 @@ module.exports = {
   extends: [
     'airbnb-base',
     'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings'
   ],
   rules: {
     /* YPAM custom rules */
@@ -29,6 +31,7 @@ module.exports = {
     }],
     'prefer-const': 'error',
     'prefer-template': 'error',
+    'import/default': 0,
     'import/prefer-default-export': 0,
     'quotes': ['error', 'single'],
     'quote-props': ['error', 'as-needed'],

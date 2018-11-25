@@ -4,6 +4,6 @@ function createPosition(position) {
   return positionRepository.create(position)
 }
 
-module.exports = {
+export default {
   addPosition: createPosition,
 }
