@@ -1,7 +1,7 @@
-const { sinon, expect } = require('../test-helper')
+import { sinon, expect } from '../test-helper'
 
-const mailJet = require('../../src/infrastructure/mailing/mailjet')
-const mailService = require('../../src/use_cases/send-feedback')
+import mailJet from '../../src/infrastructure/mailing/mailjet'
+import mailService from '../../src/use_cases/send-feedback'
 
 describe('Unit | Service | MailService', () => {
   beforeEach(() => {

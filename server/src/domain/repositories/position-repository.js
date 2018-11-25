@@ -8,7 +8,7 @@ function create(position) {
   return Position.create(position)
 }
 
-export {
+export default {
   getAll,
   create,
 }

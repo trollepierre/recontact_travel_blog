@@ -32,6 +32,6 @@ function sendEmail(options) {
   return Promise.resolve()
 }
 
-export {
+export default {
   sendEmail,
 }

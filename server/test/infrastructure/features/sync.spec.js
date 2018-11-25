@@ -1,6 +1,6 @@
-const { request, sinon, expect } = require('../../test-helper')
-const app = require('../../../app')
-const SynchronizeArticles = require('../../../src/use_cases/synchronize-articles')
+import { request, sinon, expect } from '../../test-helper'
+import app from '../../../app'
+import SynchronizeArticles from '../../../src/use_cases/synchronize-articles'
 
 describe('Integration | Routes | index route', () => {
   afterEach(() => {

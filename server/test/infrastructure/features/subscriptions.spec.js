@@ -1,6 +1,6 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const Subscribe = require('../../../src/use_cases/subscribe')
+import { request, expect, sinon } from '../../test-helper'
+import app from '../../../app'
+import Subscribe from '../../../src/use_cases/subscribe'
 
 describe('Integration | Routes | subscriptions route', () => {
   describe('POST /api/subscriptions', () => {

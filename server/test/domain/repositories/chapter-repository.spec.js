@@ -1,8 +1,8 @@
-const { sinon, expect } = require('../../test-helper')
-const chapterRepository = require('../../../src/domain/repositories/chapter-repository')
-const { Chapter } = require('../../../src/domain/models/index')
-const chapterOfArticleSaved = require('../../fixtures/chapterOfArticleSaved')
-const chapterOfArticleToSave = require('../../fixtures/chapterOfArticleToSave')
+import { sinon, expect } from '../../test-helper'
+import chapterRepository from '../../../src/domain/repositories/chapter-repository'
+import { Chapter } from '../../../src/domain/models/index'
+import chapterOfArticleSaved from '../../fixtures/chapterOfArticleSaved'
+import chapterOfArticleToSave from '../../fixtures/chapterOfArticleToSave'
 
 describe('Unit | Repository | chapter-repository', () => {
   let chaptersOfArticleToSave

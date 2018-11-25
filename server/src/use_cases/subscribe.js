@@ -17,6 +17,6 @@ function _createSubscription(subscription) {
   return subscriptionRepository.create(subscription)
 }
 
-export {
+export default {
   subscribe,
 }

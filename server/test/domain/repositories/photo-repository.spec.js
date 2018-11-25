@@ -1,13 +1,12 @@
-const { sinon, expect } = require('../../test-helper')
-const photoRepository = require('../../../src/domain/repositories/photo-repository')
-const { Photo } = require('../../../src/domain/models/index')
-const photoOfArticleSaved = require('../../fixtures/photoOfArticleSaved')
-const photoOfArticleToSave = require('../../fixtures/photo')
-const photo = require('../../fixtures/photo')
+import { sinon, expect } from '../../test-helper'
+import photoRepository from '../../../src/domain/repositories/photo-repository'
+import { Photo } from '../../../src/domain/models/index'
+import photoOfArticleSaved from '../../fixtures/photoOfArticleSaved'
+import photoOfArticleToSave from '../../fixtures/photo'
 
 describe('Unit | Repository | photo-repository', () => {
   let photosOfArticleToSave
-  let savedPhotosOfArticle = [photo()]
+  let savedPhotosOfArticle = [photoOfArticleToSave()]
 
   beforeEach(() => {
     photosOfArticleToSave = [photoOfArticleToSave(), photoOfArticleToSave()]

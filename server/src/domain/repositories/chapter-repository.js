@@ -21,7 +21,7 @@ function deleteAll() {
   return Chapter.destroy({ where: {} })
 }
 
-export {
+export default {
   createArticleChapters,
   getChaptersOfArticle,
   deleteChaptersOfArticle,

@@ -1,7 +1,7 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const GetLastPosition = require('../../../src/use_cases/get-last-position')
-const AddPosition = require('../../../src/use_cases/add-position')
+import { request, expect, sinon } from '../../test-helper'
+import app from '../../../app'
+import GetLastPosition from '../../../src/use_cases/get-last-position'
+import AddPosition from '../../../src/use_cases/add-position'
 
 describe('Integration | Routes | positions route', () => {
   describe('GET /api/positions/last', () => {

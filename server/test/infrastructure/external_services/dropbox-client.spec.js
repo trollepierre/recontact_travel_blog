@@ -1,9 +1,9 @@
-const DropboxClient = require('../../../src/infrastructure/external_services/dropbox-client')
-const { expect, sinon } = require('../../test-helper')
-const Dropbox = require('dropbox')
-const dropboxFilesListFolder = require('../../fixtures/dropboxFilesListFolder')
-const filteredDropboxPaths = require('../../fixtures/filteredDropboxPaths')
-const dropboxFilesGetTemporaryLink = require('../../fixtures/dropboxFilesGetTemporaryLink')
+import Dropbox from 'dropbox'
+import dropboxFilesListFolder from '../../fixtures/dropboxFilesListFolder'
+import filteredDropboxPaths from '../../fixtures/filteredDropboxPaths'
+import dropboxFilesGetTemporaryLink from '../../fixtures/dropboxFilesGetTemporaryLink'
+import DropboxClient from '../../../src/infrastructure/external_services/dropbox-client'
+import { expect, sinon } from '../../test-helper'
 
 describe('Unit | Infrastructure | dropbox-client', () => {
   describe('#getAllDropboxFoldersMetadatas', () => {

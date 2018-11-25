@@ -1,6 +1,6 @@
-const { expect, sinon } = require('../test-helper')
-const AddPosition = require('../../src/use_cases/add-position')
-const PositionRepository = require('../../src/domain/repositories/position-repository')
+import { expect, sinon } from '../test-helper'
+import AddPosition from '../../src/use_cases/add-position'
+import PositionRepository from '../../src/domain/repositories/position-repository'
 
 describe('Unit | AddPosition | addPosition', () => {
   const position = { lastPosition: 'Mexico' }

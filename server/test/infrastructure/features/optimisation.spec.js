@@ -1,7 +1,7 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const DeleteSubscription = require('../../../src/use_cases/delete-subscription')
-const GetAllSubscriptions = require('../../../src/use_cases/get-all-subscriptions')
+import { request, expect, sinon } from '../../test-helper'
+import app from '../../../app'
+import DeleteSubscription from '../../../src/use_cases/delete-subscription'
+import GetAllSubscriptions from '../../../src/use_cases/get-all-subscriptions'
 
 describe('Integration | Routes | optimisation route', () => {
   describe('DELETE /api/subscriptions/:subscription_id', () => {

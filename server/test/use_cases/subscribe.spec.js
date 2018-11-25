@@ -1,7 +1,7 @@
-const { expect, sinon } = require('../test-helper')
-const Subscribe = require('../../src/use_cases/subscribe')
-const SubscriptionRepository = require('../../src/domain/repositories/subscription-repository')
-const subscription = require('../fixtures/savedSubscription')
+import { expect, sinon } from '../test-helper'
+import Subscribe from '../../src/use_cases/subscribe'
+import SubscriptionRepository from '../../src/domain/repositories/subscription-repository'
+import subscription from '../fixtures/savedSubscription'
 
 describe('Unit | Subscribe | subscribe', () => {
   const email = 'pierre@recontact.me'

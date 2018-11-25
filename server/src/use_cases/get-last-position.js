@@ -10,6 +10,6 @@ async function getLastPosition() {
   return maxBy(await getAllPositions(), 'id')
 }
 
-export {
+export default {
   getLastPosition,
 }

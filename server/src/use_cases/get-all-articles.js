@@ -4,6 +4,6 @@ function getAllArticles() {
   return articleRepository.getAll()
 }
 
-export {
+export default {
   getAllArticles,
 }
