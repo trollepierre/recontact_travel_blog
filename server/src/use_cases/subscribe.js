@@ -1,5 +1,5 @@
-const subscriptionRepository = require('../domain/repositories/subscription-repository')
-const { isEmpty } = require('lodash')
+import { isEmpty } from 'lodash'
+import subscriptionRepository from '../domain/repositories/subscription-repository'
 
 function subscribe(subscriptionForm) {
   return _findSubscription(subscriptionForm.email)

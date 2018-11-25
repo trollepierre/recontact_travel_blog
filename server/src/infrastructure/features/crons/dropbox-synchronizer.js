@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-const scheduler = require('node-schedule')
-const SynchronizeArticles = require('../../../use_cases/synchronize-articles')
+import scheduler from 'node-schedule'
+import SynchronizeArticles from '../../../use_cases/synchronize-articles'
 
 const EVERY_15_MINUTES = '*/15 * * * *'
 

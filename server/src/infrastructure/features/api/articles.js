@@ -1,7 +1,7 @@
-const express = require('express')
-const GetAllArticles = require('../../../use_cases/get-all-articles')
-const GetArticle = require('../../../use_cases/get-article')
-const GetPhotosOfArticle = require('../../../use_cases/get-photos-of-article')
+import express from 'express'
+import GetAllArticles from '../../../use_cases/get-all-articles'
+import GetArticle from '../../../use_cases/get-article'
+import GetPhotosOfArticle from '../../../use_cases/get-photos-of-article'
 
 const router = express.Router()
 

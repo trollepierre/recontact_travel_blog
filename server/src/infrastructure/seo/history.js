@@ -1,4 +1,4 @@
-const connectHistoryApiFallback = require('connect-history-api-fallback')
+import connectHistoryApiFallback from 'connect-history-api-fallback'
 
 const history = connectHistoryApiFallback({
   rewrites: [

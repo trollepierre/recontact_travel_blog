@@ -1,9 +1,9 @@
-const chapterRepository = require('../domain/repositories/chapter-repository')
-const articleRepository = require('../domain/repositories/article-repository')
-const photoRepository = require('../domain/repositories/photo-repository')
-const { isEmpty, flatten } = require('lodash')
-const DropboxClient = require('../infrastructure/external_services/dropbox-client')
-const FileReader = require('../infrastructure/external_services/file-reader')
+import { isEmpty, flatten } from 'lodash'
+import chapterRepository from '../domain/repositories/chapter-repository'
+import articleRepository from '../domain/repositories/article-repository'
+import photoRepository from '../domain/repositories/photo-repository'
+import DropboxClient from '../infrastructure/external_services/dropbox-client'
+import FileReader from '../infrastructure/external_services/file-reader'
 
 async function sync(dropboxId) {
   function _createPhotosOfArticlesInDatabase(dropboxFilesPath) {

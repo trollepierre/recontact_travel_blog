@@ -1,14 +1,14 @@
-const mailJet = require('../infrastructure/mailing/mailjet')
-const config = require('../infrastructure/config')
+import mailJet from '../infrastructure/mailing/mailjet'
+import env from '../infrastructure/env/env'
 
 function sendFeedbackEmail({ feedback, email }) {
   const subject = `[RecontactMe] [Support] ${email} a émis un message`
   const template = `${feedback}`
 
   const options = {
-    from: config.MAIL_FROM,
+    from: env('MAIL_FROM'),
     fromName: 'RecontactMe - Ne pas répondre',
-    to: config.MAIL_TO,
+    to: env('MAIL_TO'),
     subject,
     template,
   }
