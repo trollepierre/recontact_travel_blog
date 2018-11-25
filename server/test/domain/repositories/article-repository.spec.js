@@ -1,8 +1,8 @@
-const { sinon, expect } = require('../../test-helper')
-const articleRepository = require('../../../src/domain/repositories/article-repository')
-const { Article } = require('../../../src/domain/models/index')
-const articleSaved = require('../../fixtures/articleSaved')
-const articleToSave = require('../../fixtures/articleToSave')
+import { sinon, expect } from '../../test-helper'
+import articleRepository from '../../../src/domain/repositories/article-repository'
+import { Article } from '../../../src/domain/models/index'
+import articleSaved from '../../fixtures/articleSaved'
+import articleToSave from '../../fixtures/articleToSave'
 
 describe('Unit | Repository | article-repository', () => {
   describe('#create', () => {

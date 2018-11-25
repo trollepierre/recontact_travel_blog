@@ -201,6 +201,6 @@ async function sync(dropboxId) {
   return report
 }
 
-export {
+export default {
   sync,
 }

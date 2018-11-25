@@ -4,6 +4,6 @@ function deleteSubscription(id) {
   return subscriptionRepository.deleteById(id)
 }
 
-export {
+export default {
   deleteSubscription,
 }

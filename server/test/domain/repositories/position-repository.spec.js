@@ -1,6 +1,6 @@
-const { sinon, expect } = require('../../test-helper')
-const positionRepository = require('../../../src/domain/repositories/position-repository')
-const { Position } = require('../../../src/domain/models/index')
+import { sinon, expect } from '../../test-helper'
+import positionRepository from '../../../src/domain/repositories/position-repository'
+import { Position } from '../../../src/domain/models/index'
 
 describe('Unit | Repository | position-repository', () => {
   const position = {

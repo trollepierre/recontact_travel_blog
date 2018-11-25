@@ -1,11 +1,11 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const GetPhotosOfArticle = require('../../../src/use_cases/get-photos-of-article')
-const GetAllArticles = require('../../../src/use_cases/get-all-articles')
-const GetArticle = require('../../../src/use_cases/get-article')
-const article = require('../../fixtures/articleSaved')
-const chapter = require('../../fixtures/chapterWithParagraphs')
-const photo = require('../../fixtures/photo')
+import { request, expect, sinon } from '../../test-helper'
+import app from '../../../app'
+import GetPhotosOfArticle from '../../../src/use_cases/get-photos-of-article'
+import GetAllArticles from '../../../src/use_cases/get-all-articles'
+import GetArticle from '../../../src/use_cases/get-article'
+import article from '../../fixtures/articleSaved'
+import chapter from '../../fixtures/chapterWithParagraphs'
+import photo from '../../fixtures/photo'
 
 describe('Integration | Routes | articles route', () => {
   describe('/articles', () => {

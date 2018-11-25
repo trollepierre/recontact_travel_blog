@@ -4,6 +4,6 @@ function getAllSubscriptions() {
   return subscriptionRepository.getAll()
 }
 
-export {
+export default {
   getAllSubscriptions,
 }

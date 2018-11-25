@@ -1,18 +1,18 @@
-const {
+import {
   describe, it, before, after, beforeEach, afterEach,
-} = require('mocha')
+} from 'mocha'
 
-const sinon = require('sinon')
+import sinon from 'sinon'
+
+import chai from 'chai'
+
+import request from 'supertest'
 
 const { assert } = sinon
-
-const chai = require('chai')
 
 const { expect } = chai
 chai.use(require('chai-as-promised'))
 chai.use(require('sinon-chai'))
-
-const request = require('supertest')
 
 module.exports = {
   describe,

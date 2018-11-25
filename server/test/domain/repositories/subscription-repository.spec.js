@@ -1,6 +1,6 @@
-const { sinon, expect } = require('../../test-helper')
-const subscriptionRepository = require('../../../src/domain/repositories/subscription-repository')
-const { Subscription } = require('../../../src/domain/models/index')
+import { sinon, expect } from '../../test-helper'
+import subscriptionRepository from '../../../src/domain/repositories/subscription-repository'
+import { Subscription } from '../../../src/domain/models/index'
 
 describe('Unit | Repository | subscription-repository', () => {
   describe('#create', () => {

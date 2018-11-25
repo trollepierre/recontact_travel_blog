@@ -16,7 +16,7 @@ function getAll() {
   return Subscription.all()
 }
 
-export {
+export default {
   deleteById,
   getAll,
   getByEmail,

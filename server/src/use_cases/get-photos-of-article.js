@@ -4,6 +4,6 @@ function getAllPhotos(dropboxId) {
   return photoRepository.getPhotosOfArticle(dropboxId)
 }
 
-export {
+export default {
   getAllPhotos,
 }

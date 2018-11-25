@@ -1,10 +1,10 @@
-const { expect, sinon } = require('../test-helper')
-const GetArticle = require('../../src/use_cases/get-article')
-const ArticleRepository = require('../../src/domain/repositories/article-repository')
-const ChapterRepository = require('../../src/domain/repositories/chapter-repository')
-const articleSaved = require('../fixtures/articleSaved')
-const chapterOfArticle = require('../fixtures/chapterOfArticleSaved')
-const chapterWithParagraphs = require('../fixtures/chapterWithParagraphs')
+import { expect, sinon } from '../test-helper'
+import GetArticle from '../../src/use_cases/get-article'
+import ArticleRepository from '../../src/domain/repositories/article-repository'
+import ChapterRepository from '../../src/domain/repositories/chapter-repository'
+import articleSaved from '../fixtures/articleSaved'
+import chapterOfArticle from '../fixtures/chapterOfArticleSaved'
+import chapterWithParagraphs from '../fixtures/chapterWithParagraphs'
 
 describe('Unit | GetArticle | getrticle()', () => {
   const dropboxId = 8

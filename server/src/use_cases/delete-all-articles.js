@@ -10,6 +10,6 @@ function deleteAllArticles() {
   ])
 }
 
-export {
+export default {
   deleteAllArticles,
 }

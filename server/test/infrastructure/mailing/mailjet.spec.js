@@ -1,7 +1,6 @@
-const { expect, sinon } = require('../../test-helper')
-const Mailjet = require('../../../src/infrastructure/mailing/mailjet')
-
-const nodeMailjet = require('node-mailjet')
+import nodeMailjet from 'node-mailjet'
+import { expect, sinon } from '../../test-helper'
+import Mailjet from '../../../src/infrastructure/mailing/mailjet'
 
 describe('Unit | Infrastructure | Mailing | Mailjet', () => {
   let mailJetConnectStub

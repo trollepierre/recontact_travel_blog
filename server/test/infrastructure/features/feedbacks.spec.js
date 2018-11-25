@@ -1,6 +1,6 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const mailService = require('../../../src/use_cases/send-feedback')
+import { request, expect, sinon } from '../../test-helper'
+import app from '../../../app'
+import mailService from '../../../src/use_cases/send-feedback'
 
 describe('Integration | Routes | feedbacks route', () => {
   const email = 'mail@recontact.me'

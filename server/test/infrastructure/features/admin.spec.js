@@ -1,6 +1,6 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const UpdateArticle = require('../../../src/use_cases/update-article')
+import { request, expect, sinon } from '../../test-helper'
+import app from '../../../app'
+import UpdateArticle from '../../../src/use_cases/update-article'
 
 describe('Integration | Routes | admin route', () => {
   describe('/admin/articles/:id', () => {

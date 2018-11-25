@@ -4,6 +4,6 @@ function deleteArticle(id) {
   return articleRepository.deleteArticle(id)
 }
 
-export {
+export default {
   deleteArticle,
 }
