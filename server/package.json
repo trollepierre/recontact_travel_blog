@@ -1,6 +1,7 @@
 {
   "name": "recontact_travel_blog-back",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "compile": "babel src --out-dir dist/src && babel index.js --out-dir dist",
     "build": "yarn clean:dist && babel src --out-dir dist/src && babel app.js index.js --out-dir dist",
