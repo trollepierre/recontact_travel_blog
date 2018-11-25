@@ -16,8 +16,6 @@ module.exports = {
   extends: [
     '../.eslintrc.js',
     'plugin:vue/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings'
   ],
   // required to lint *.vue files
   plugins: [

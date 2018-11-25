@@ -11,6 +11,7 @@ module.exports = {
     },
   },
   rules: {
+    'import/named': 1,
     'no-use-before-define': 0,
   },
 };

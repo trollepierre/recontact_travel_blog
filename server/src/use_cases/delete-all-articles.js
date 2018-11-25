@@ -10,6 +10,6 @@ function deleteAllArticles() {
   ])
 }
 
-module.exports = {
+export {
   deleteAllArticles,
 }

@@ -21,7 +21,7 @@ function deleteAll() {
   return Photo.destroy({ where: {} })
 }
 
-module.exports = {
+export {
   createPhotos,
   getPhotosOfArticle,
   deletePhotosOfArticle,

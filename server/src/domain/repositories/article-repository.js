@@ -24,7 +24,7 @@ function deleteAll() {
   return Article.destroy({ where: {} })
 }
 
-module.exports = {
+export {
   create,
   getAll,
   get,

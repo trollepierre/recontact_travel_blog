@@ -16,6 +16,6 @@ function sendFeedbackEmail({ feedback, email }) {
   return mailJet.sendEmail(options)
 }
 
-module.exports = {
+export {
   sendFeedbackEmail,
 }
