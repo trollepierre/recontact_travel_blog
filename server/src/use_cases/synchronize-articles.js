@@ -11,11 +11,16 @@ const articlesChangedEmailFrTemplate = require('../infrastructure/mailing/articl
 const articlesChangedEmailEnTemplate = require('../infrastructure/mailing/articles-changed-email-en-template');
 
 async function synchronizeArticles() {
-  const dropboxFiles = await DropboxClient.getAllDropboxFoldersMetadatas();
-  const freshArticles = _serializeArticles(dropboxFiles);
-  const report = await _compareDropboxAndDatabaseArticles(freshArticles);
-  const articlesToReport = await _ifArticlesChangesThenUpdateArticlesInDatabase(report, dropboxFiles);
-  return _ifArticlesChangedThenSendEmailToRecipients(articlesToReport);
+  try {
+    const dropboxFiles = await DropboxClient.getAllDropboxFoldersMetadatas();
+    const freshArticles = _serializeArticles(dropboxFiles);
+    const report = await _compareDropboxAndDatabaseArticles(freshArticles);
+    const articlesToReport = await _ifArticlesChangesThenUpdateArticlesInDatabase(report, dropboxFiles);
+    return _ifArticlesChangedThenSendEmailToRecipients(articlesToReport);
+  } catch (error) {
+    await _sendMailToSupport(error);
+    throw error;
+  }
 }
 
 function _serializeArticles(metadatas) {
@@ -51,7 +56,7 @@ function _compareDropboxAndDatabaseArticles(freshArticles) {
 
 function _ifArticlesChangedThenSendEmailToRecipients(report) {
   const result = report;
-  if (report.hasChanges) {
+  if (report.hasChanges && report.addedArticles.length < 3) {
     return subscriptionRepository.getAll()
       .then((subscriptions) => {
         result.receivers = subscriptions;
@@ -83,6 +88,17 @@ function _sendArticlesChangedEmail(form) {
     template: templateEn,
   };
   return Promise.all([mailJet.sendEmail(optionsFr), mailJet.sendEmail(optionsEn)]);
+}
+
+function _sendMailToSupport(error) {
+  const optionsFr = {
+    from: config.MAIL_FROM,
+    fromName: 'RecontactMe',
+    to: [config.MAIL_SUPPORT],
+    subject: '[RecontactMe] Il y a des erreurs sur le site !',
+    template: `<p>${JSON.stringify(error)}</p>`,
+  };
+  return mailJet.sendEmail(optionsFr);
 }
 
 function _ifArticlesChangesThenUpdateArticlesInDatabase(report, dropboxFiles) {
