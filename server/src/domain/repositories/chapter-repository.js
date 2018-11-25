@@ -1,4 +1,4 @@
-const { Chapter } = require('../models/index')
+import { Chapter } from '../models/index'
 
 function createArticleChapters(chapters) {
   return Chapter

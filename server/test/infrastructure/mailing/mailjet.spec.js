@@ -40,7 +40,7 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
       Mailjet.sendEmail(options)
 
       // Then
-      sinon.assert.calledWith(mailJetConnectStub, 'test-api-key', 'test-api-secret')
+      sinon.assert.calledWith(mailJetConnectStub, 'fake-mailjet-public-key', 'fake-mailjet-secret-key')
     })
 
     it('should post a send instruction', () => {

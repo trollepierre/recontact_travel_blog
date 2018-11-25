@@ -1,5 +1,5 @@
-const express = require('express')
-const SynchronizeArticles = require('../../../use_cases/synchronize-articles')
+import express from 'express'
+import SynchronizeArticles from '../../../use_cases/synchronize-articles'
 
 const router = express.Router()
 

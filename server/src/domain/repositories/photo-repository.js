@@ -1,4 +1,4 @@
-const { Photo } = require('../models/index')
+import { Photo } from '../models/index'
 
 function createPhotos(photos) {
   return Photo

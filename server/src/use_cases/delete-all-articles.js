@@ -1,6 +1,6 @@
-const articleRepository = require('../domain/repositories/article-repository')
-const chapterRepository = require('../domain/repositories/chapter-repository')
-const photoRepository = require('../domain/repositories/photo-repository')
+import articleRepository from '../domain/repositories/article-repository'
+import chapterRepository from '../domain/repositories/chapter-repository'
+import photoRepository from '../domain/repositories/photo-repository'
 
 function deleteAllArticles() {
   return Promise.all([

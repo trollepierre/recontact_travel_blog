@@ -1,5 +1,5 @@
-const chapterRepository = require('../domain/repositories/chapter-repository')
-const articleRepository = require('../domain/repositories/article-repository')
+import chapterRepository from '../domain/repositories/chapter-repository'
+import articleRepository from '../domain/repositories/article-repository'
 
 function _getChaptersOfArticle(dropboxId) {
   return chapterRepository.getChaptersOfArticle(dropboxId)

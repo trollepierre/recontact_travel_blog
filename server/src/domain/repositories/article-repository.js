@@ -1,4 +1,4 @@
-const { Article } = require('../models/index')
+import { Article } from '../models/index'
 
 function create(articles) {
   return Article.bulkCreate(articles)

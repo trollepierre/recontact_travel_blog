@@ -1,9 +1,9 @@
-const express = require('express')
-const GetAllSubscriptions = require('../../../use_cases/get-all-subscriptions')
-const DeleteSubscription = require('../../../use_cases/delete-subscription')
-const DeleteAllArticles = require('../../../use_cases/delete-all-articles')
-const DeleteArticle = require('../../../use_cases/delete-article')
-const SynchronizeArticles = require('../../../use_cases/synchronize-articles')
+import express from 'express'
+import GetAllSubscriptions from '../../../use_cases/get-all-subscriptions'
+import DeleteSubscription from '../../../use_cases/delete-subscription'
+import DeleteAllArticles from '../../../use_cases/delete-all-articles'
+import DeleteArticle from '../../../use_cases/delete-article'
+import SynchronizeArticles from '../../../use_cases/synchronize-articles'
 
 const router = express.Router()
 

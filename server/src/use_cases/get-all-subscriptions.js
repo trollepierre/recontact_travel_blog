@@ -1,4 +1,4 @@
-const subscriptionRepository = require('../domain/repositories/subscription-repository')
+import subscriptionRepository from '../domain/repositories/subscription-repository'
 
 function getAllSubscriptions() {
   return subscriptionRepository.getAll()

@@ -1,14 +1,14 @@
-const FileReader = require('../infrastructure/external_services/file-reader')
-const DropboxClient = require('../infrastructure/external_services/dropbox-client')
-const mailJet = require('../infrastructure/mailing/mailjet')
-const config = require('../infrastructure/config')
-const { isEmpty, flatten } = require('lodash')
-const articleRepository = require('../domain/repositories/article-repository')
-const chapterRepository = require('../domain/repositories/chapter-repository')
-const photoRepository = require('../domain/repositories/photo-repository')
-const subscriptionRepository = require('../domain/repositories/subscription-repository')
-const articlesChangedEmailFrTemplate = require('../infrastructure/mailing/articles-changed-email-fr-template')
-const articlesChangedEmailEnTemplate = require('../infrastructure/mailing/articles-changed-email-en-template')
+import { isEmpty, flatten } from 'lodash'
+import FileReader from '../infrastructure/external_services/file-reader'
+import DropboxClient from '../infrastructure/external_services/dropbox-client'
+import mailJet from '../infrastructure/mailing/mailjet'
+import articleRepository from '../domain/repositories/article-repository'
+import chapterRepository from '../domain/repositories/chapter-repository'
+import photoRepository from '../domain/repositories/photo-repository'
+import subscriptionRepository from '../domain/repositories/subscription-repository'
+import articlesChangedEmailFrTemplate from '../infrastructure/mailing/articles-changed-email-fr-template'
+import articlesChangedEmailEnTemplate from '../infrastructure/mailing/articles-changed-email-en-template'
+import env from '../infrastructure/env/env'
 
 async function synchronizeArticles() {
   try {
@@ -74,14 +74,14 @@ function _sendArticlesChangedEmail(form) {
   const templateEn = articlesChangedEmailEnTemplate.compile(form)
 
   const optionsFr = {
-    from: config.MAIL_FROM,
+    from: env('MAIL_FROM'),
     fromName: 'RecontactMe',
     to: receivers.filter(({ lang }) => lang === 'fr').map(({ email }) => email),
     subject: '[RecontactMe] Il y a du nouveau sur le site !',
     template: templateFr,
   }
   const optionsEn = {
-    from: config.MAIL_FROM,
+    from: env('MAIL_FROM'),
     fromName: 'RecontactMe',
     to: receivers.filter(({ lang }) => lang !== 'fr').map(({ email }) => email),
     subject: '[RecontactMe] Some news on the website !',
@@ -92,9 +92,9 @@ function _sendArticlesChangedEmail(form) {
 
 function _sendMailToSupport(error) {
   const optionsFr = {
-    from: config.MAIL_FROM,
+    from: env('MAIL_FROM'),
     fromName: 'RecontactMe',
-    to: [config.MAIL_SUPPORT],
+    to: [env('MAIL_SUPPORT')],
     subject: '[RecontactMe] Il y a des erreurs sur le site !',
     template: `<p>${JSON.stringify(error)}</p>`,
   }

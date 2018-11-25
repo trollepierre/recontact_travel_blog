@@ -1,5 +1,5 @@
-const express = require('express')
-const Subscribe = require('../../../use_cases/subscribe')
+import express from 'express'
+import Subscribe from '../../../use_cases/subscribe'
 
 const router = express.Router()
 

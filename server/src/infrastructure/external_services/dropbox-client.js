@@ -1,8 +1,8 @@
-const config = require('../config/index')
-const Dropbox = require('dropbox')
-const { flatten } = require('lodash')
+import { flatten } from 'lodash'
+import Dropbox from 'dropbox'
+import env from '../env/env'
 
-const DropboxApi = new Dropbox({ accessToken: config.DROPBOX_CLIENT_ID })
+const DropboxApi = new Dropbox({ accessToken: env('DROPBOX_CLIENT_ID') })
 
 const DropboxClient = {
 
