@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src --out-dir dist/src && babel index.js --out-dir dist",
     "build": "yarn clean:dist && babel src --out-dir dist/src && babel app.js index.js --out-dir dist",
     "clean": "yarn clean:dependencies && yarn clean:db  && yarn clean:dist",
     "clean:db": "rm src/db/data.development.sqlite",
@@ -21,7 +20,7 @@
     "start:dev": "nodemon --exec babel-node ./index.js",
     "test": "NODE_ENV=test nyc mocha --require @babel/register --recursive",
     "test:unit": "NODE_ENV=test mocha --require @babel/register --recursive",
-    "test:watch": "NODE_ENV=test mocha --require @babel/register --recursive"
+    "test:watch": "yarn test:unit --watch"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
