@@ -4,7 +4,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "chrome-launcher": "0.10.2",
+    "chrome-launcher": "0.10.5",
     "jest": "23.6.0",
     "lighthouse": "3.1.1"
   }
