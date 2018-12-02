@@ -34,7 +34,7 @@
     "dotenv-extended": "2.3.0",
     "dropbox": "2.5.13",
     "express": "4.16.4",
-    "fs": "0.0.1-security",
+    "fs": "0.0.2",
     "http": "0.0.0",
     "lodash": "4.17.11",
     "mkdirp": "0.5.1",
