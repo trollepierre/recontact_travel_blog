@@ -4,7 +4,7 @@ exports[`Component | FeedbackModal.vue template should match snapshot 1`] = `
 <div
   class="feedback-modal-wrapper"
 >
-  <modal
+  <modal-stub
     class="feedback-modal"
     height="415"
     name="feedback-modal"
@@ -79,6 +79,6 @@ exports[`Component | FeedbackModal.vue template should match snapshot 1`] = `
         </button>
       </div>
     </div>
-  </modal>
+  </modal-stub>
 </div>
 `;
