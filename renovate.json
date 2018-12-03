@@ -3,5 +3,5 @@
     "config:base"
   ],
   "prConcurrentLimit": 2,
-  "prCreation": "status-success"
+  "prCreation": "not-pending"
 }
