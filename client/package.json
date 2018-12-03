@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@vue/test-utils": "1.0.0-beta.26",
-    "autoprefixer": "8.6.5",
+    "autoprefixer": "9.4.0",
     "axios": "0.18.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",
