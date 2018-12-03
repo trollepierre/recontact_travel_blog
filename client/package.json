@@ -19,7 +19,7 @@
     "ramda": "0.25.0",
     "vue": "2.5.17",
     "vue-router": "3.0.2",
-    "webpack": "4.12.1",
+    "webpack": "4.26.1",
     "whatwg-fetch": "2.0.4"
   },
   "devDependencies": {
