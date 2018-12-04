@@ -7,7 +7,6 @@ const robotsOptions = {
   },
 }
 
-const robots = (req, res) =>
-  res.status(200).sendFile('robots.txt', robotsOptions)
+const robots = (req, res) => res.status(200).sendFile('robots.txt', robotsOptions)
 
 module.exports = robots

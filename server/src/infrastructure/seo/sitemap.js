@@ -7,7 +7,6 @@ const sitemapOptions = {
   },
 }
 
-const sitemap = (req, res) =>
-  res.status(200).sendFile('sitemap.xml', sitemapOptions)
+const sitemap = (req, res) => res.status(200).sendFile('sitemap.xml', sitemapOptions)
 
 module.exports = sitemap
