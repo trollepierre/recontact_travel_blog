@@ -1,4 +1,4 @@
-import { request, expect, sinon } from '../../test-helper'
+import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
 import GetLastPosition from '../../../src/use_cases/get-last-position'
 import AddPosition from '../../../src/use_cases/add-position'

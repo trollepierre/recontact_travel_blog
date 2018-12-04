@@ -1,4 +1,4 @@
-import { sinon, expect } from '../../test-helper'
+import { expect, sinon } from '../../test-helper'
 import chapterRepository from '../../../src/domain/repositories/chapter-repository'
 import { Chapter } from '../../../src/domain/models/index'
 import chapterOfArticleSaved from '../../fixtures/chapterOfArticleSaved'

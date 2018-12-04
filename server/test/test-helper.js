@@ -1,5 +1,5 @@
 import {
-  describe, it, before, after, beforeEach, afterEach,
+  after, afterEach, before, beforeEach, describe, it,
 } from 'mocha'
 
 import sinon from 'sinon'

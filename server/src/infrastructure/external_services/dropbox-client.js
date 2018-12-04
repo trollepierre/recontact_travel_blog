@@ -40,7 +40,7 @@ const DropboxClient = {
   },
 
   getFrTextFileStream(id) {
-    const extension = (id < 64) ? 'php' : 'txt'
+    const extension = id < 64 ? 'php' : 'txt'
     return DropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.${extension}` })
       .then(result => result.link)
       .catch((err) => {
@@ -51,7 +51,7 @@ const DropboxClient = {
   },
 
   getEnTextFileStream(id) {
-    const extension = (id < 64) ? 'php' : 'txt'
+    const extension = id < 64 ? 'php' : 'txt'
     return DropboxApi.filesGetTemporaryLink({ path: `/${id}/en.${extension}` })
       .then(result => result.link)
       .catch((err) => {

@@ -1,4 +1,4 @@
-import { request, expect, sinon } from '../../test-helper'
+import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
 import GetPhotosOfArticle from '../../../src/use_cases/get-photos-of-article'
 import GetAllArticles from '../../../src/use_cases/get-all-articles'

@@ -1,4 +1,4 @@
-import { isEmpty, flatten } from 'lodash'
+import { flatten, isEmpty } from 'lodash'
 import FileReader from '../infrastructure/external_services/file-reader'
 import DropboxClient from '../infrastructure/external_services/dropbox-client'
 import mailJet from '../infrastructure/mailing/mailjet'
@@ -31,11 +31,11 @@ function _serializeArticles(metadatas) {
     .filter(metadata => metadata['.tag'] === 'folder')
     .map((metadata) => {
       const imgPath = imageZeros.filter(img => img.match(`^/${metadata.name}`))[0]
-      return ({
+      return {
         dropboxId: metadata.name,
         imgPath,
         galleryPath: `/${metadata.name}`,
-      })
+      }
     })
 }
 
