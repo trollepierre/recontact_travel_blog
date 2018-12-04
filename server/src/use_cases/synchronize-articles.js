@@ -1,14 +1,14 @@
 import { flatten, isEmpty } from 'lodash'
-import FileReader from '../infrastructure/external_services/file-reader'
 import DropboxClient from '../infrastructure/external_services/dropbox-client'
-import mailJet from '../infrastructure/mailing/mailjet'
+import FileReader from '../infrastructure/external_services/file-reader'
 import articleRepository from '../domain/repositories/article-repository'
+import articlesChangedEmailEnTemplate from '../infrastructure/mailing/articles-changed-email-en-template'
+import articlesChangedEmailFrTemplate from '../infrastructure/mailing/articles-changed-email-fr-template'
 import chapterRepository from '../domain/repositories/chapter-repository'
+import env from '../infrastructure/env/env'
+import mailJet from '../infrastructure/mailing/mailjet'
 import photoRepository from '../domain/repositories/photo-repository'
 import subscriptionRepository from '../domain/repositories/subscription-repository'
-import articlesChangedEmailFrTemplate from '../infrastructure/mailing/articles-changed-email-fr-template'
-import articlesChangedEmailEnTemplate from '../infrastructure/mailing/articles-changed-email-en-template'
-import env from '../infrastructure/env/env'
 
 async function synchronizeArticles() {
   try {
@@ -29,12 +29,12 @@ function _serializeArticles(metadatas) {
     .filter(path => path.match('[Ii]mg-?0.jpg$'))
   return metadatas
     .filter(metadata => metadata['.tag'] === 'folder')
-    .map((metadata) => {
-      const imgPath = imageZeros.filter(img => img.match(`^/${metadata.name}`))[0]
+    .map(({ name }) => {
+      const imgPath = imageZeros.filter(img => img.match(`^/${name}`))[0]
       return {
-        dropboxId: metadata.name,
+        dropboxId: name,
         imgPath,
-        galleryPath: `/${metadata.name}`,
+        galleryPath: `/${name}`,
       }
     })
 }
