@@ -1,4 +1,4 @@
-import { request, expect } from '../../test-helper'
+import { expect, request } from '../../test-helper'
 import app from '../../../app'
 
 describe('Integration | Routes | index route', () => {

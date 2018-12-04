@@ -1,4 +1,4 @@
-import { sinon, expect } from '../../test-helper'
+import { expect, sinon } from '../../test-helper'
 import subscriptionRepository from '../../../src/domain/repositories/subscription-repository'
 import { Subscription } from '../../../src/domain/models/index'
 

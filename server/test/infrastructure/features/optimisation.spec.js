@@ -1,4 +1,4 @@
-import { request, expect, sinon } from '../../test-helper'
+import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
 import DeleteSubscription from '../../../src/use_cases/delete-subscription'
 import GetAllSubscriptions from '../../../src/use_cases/get-all-subscriptions'

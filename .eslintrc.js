@@ -15,6 +15,7 @@ module.exports = {
     'keyword-spacing': [2, {'before': true, 'after': true}],
     'max-len': 0,
     'no-console': 0,
+    'no-extra-parens': 'error',
     'no-multi-spaces': 'error',
     'no-multiple-empty-lines': ['error', {'max': 1}],
     'no-shadow': 'error',
@@ -35,8 +36,13 @@ module.exports = {
     'import/prefer-default-export': 0,
     'quotes': ['error', 'single'],
     'quote-props': ['error', 'as-needed'],
+    'require-await': 'error',
     'semi': ['error', 'never'],
     'space-before-function-paren': 'error',
     'space-infix-ops': ['error', {'int32Hint': false}],
+
+    // PTR rules
+    'sort-imports': 'warn',
+    'max-lines': 'warn',
   },
 };

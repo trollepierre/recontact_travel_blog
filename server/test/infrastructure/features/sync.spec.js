@@ -1,4 +1,4 @@
-import { request, sinon, expect } from '../../test-helper'
+import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
 import SynchronizeArticles from '../../../src/use_cases/synchronize-articles'
 

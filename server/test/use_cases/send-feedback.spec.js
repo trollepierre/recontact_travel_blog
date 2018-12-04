@@ -1,4 +1,4 @@
-import { sinon, expect } from '../test-helper'
+import { expect, sinon } from '../test-helper'
 
 import mailJet from '../../src/infrastructure/mailing/mailjet'
 import mailService from '../../src/use_cases/send-feedback'
