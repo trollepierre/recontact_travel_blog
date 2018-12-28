@@ -58,7 +58,10 @@ import translationsService from '../services/translations'
 
 export default {
     name: 'ArticleCard',
-    props: ['article', 'adminMode'],
+  props: {
+    adminMode: { type: Boolean, default: () => false },
+    article: { type: Object, default: () => {} },
+  },
     data() {
       return {
         isUpdateClicked: false,

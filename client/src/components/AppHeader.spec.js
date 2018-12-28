@@ -59,7 +59,7 @@ describe('Component | AppHeader.vue', () => {
 
         wrapper.find('button.navbar-action.navbar-action__suggestion').trigger('click')
 
-        expect(wrapper.vm.displayFeedbackModal).toHaveBeenCalled
+        expect(wrapper.vm.displayFeedbackModal).toHaveBeenCalled()
       })
     })
 
@@ -69,7 +69,7 @@ describe('Component | AppHeader.vue', () => {
 
         wrapper.find('button.navbar-action.navbar-action__subscribe').trigger('click')
 
-        expect(wrapper.vm.displaySubscribeModal).toHaveBeenCalled
+        expect(wrapper.vm.displaySubscribeModal).toHaveBeenCalled()
       })
     })
   })

@@ -47,8 +47,8 @@
 </template>
 
 <script>
-  import ChapterCard from './ChapterCard'
-import PhotoCard from './PhotoCard'
+  import ChapterCard from './ChapterCard.vue'
+import PhotoCard from './PhotoCard.vue'
 import chaptersApi from '../api/chapters'
 import photosApi from '../api/photos'
 import translationsService from '../services/translations'

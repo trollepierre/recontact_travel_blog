@@ -79,7 +79,7 @@
 </template>
 
 <script>
-  import ArticleCard from './ArticleCard'
+  import ArticleCard from './ArticleCard.vue'
 import articlesApi from '../api/articles'
 import positionsApi from '../api/positions'
 import syncApi from '../api/sync'
@@ -91,7 +91,9 @@ export default {
     components: {
       'article-card': ArticleCard,
     },
-    props: ['adminMode'],
+  props: {
+    adminMode: { type: Boolean, default: () => false },
+  },
     data() {
       return {
         articles: [],
