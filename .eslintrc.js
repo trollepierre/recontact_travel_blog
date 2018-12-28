@@ -42,7 +42,7 @@ module.exports = {
     'space-infix-ops': ['error', {'int32Hint': false}],
 
     // PTR rules
-    'sort-imports': 'warn',
+    // 'sort-imports': 'warn',
     'max-lines': 'warn',
   },
 };
