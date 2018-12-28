@@ -175,17 +175,17 @@ describe('Component | ArticleCard.vue', () => {
           })
         })
 
-        xit('should display error toast notification when synchronisation fails', () => {
-          articlesApi.update.mockRejectedValue(new Error('Expected error'))
-
-          wrapper.vm.updateArticle()
-
-          return Vue.nextTick().then(() => {
-            expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
-            const message = 'syncError Error: Expected error'
-            expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), message)
-          })
-        })
+        // xit('should display error toast notification when synchronisation fails', () => {
+        //   articlesApi.update.mockRejectedValue(new Error('Expected error'))
+        //
+        //   wrapper.vm.updateArticle()
+        //
+        //   return Vue.nextTick().then(() => {
+        //     expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
+        //     const message = 'syncError Error: Expected error'
+        //     expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), message)
+        //   })
+        // })
       })
     })
 
@@ -237,13 +237,13 @@ describe('Component | ArticleCard.vue', () => {
         notificationsService.error = jest.fn()
       })
 
-      xit('should disable button', () => {
-        wrapper.find('button.article__update-button').trigger('click')
-
-        return Vue.nextTick().then(() => {
-          expect(wrapper.find('.article__update-button').disabled).toEqual(true)
-        })
-      })
+      // xit('should disable button', () => {
+      //   wrapper.find('button.article__update-button').trigger('click')
+      //
+      //   return Vue.nextTick().then(() => {
+      //     expect(wrapper.find('.article__update-button').disabled).toEqual(true)
+      //   })
+      // })
 
       it('should call articlesApi', () => {
         wrapper.find('button.article__update-button').trigger('click')

@@ -34,7 +34,9 @@
 
 export default {
     name: 'ChapterCard',
-    props: ['chapter'],
+  props: {
+    chapter: { type: Object, default: () => {} },
+  },
     computed: {
       imgLink() {
         const { imgLink } = this.chapter

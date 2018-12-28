@@ -39,16 +39,16 @@ describe('Component | PhotoCard.vue', () => {
       expect(photoLink.attributes().lazy).toEqual('loading')
     }))
 
-    // Comment tester le lazy load ?
-    it.skip('should render photo image', () => Vue.nextTick().then(() => {
-      const photoLink = wrapper.find('img')
-
-      // return Vue.nextTick().then(() => {
-      // console.log(photoLink);
-      expect(photoLink.getAttribute('lazy')).toEqual('loaded')
-      expect(photoLink.getAttribute('src')).toContain('webf')
-      // });
-    }))
+    // // Comment tester le lazy load ?
+    // it.skip('should render photo image', () => Vue.nextTick().then(() => {
+    //   const photoLink = wrapper.find('img')
+    //
+    //   // return Vue.nextTick().then(() => {
+    //   // console.log(photoLink);
+    //   expect(photoLink.getAttribute('lazy')).toEqual('loaded')
+    //   expect(photoLink.getAttribute('src')).toContain('webf')
+    //   // });
+    // }))
   })
 
   describe('computed property #imgLink', () => {

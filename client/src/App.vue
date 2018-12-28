@@ -8,9 +8,9 @@
 </template>
 
 <script>
-  import AppHeader from '@/components/AppHeader'
-  import FeedbackModal from '@/components/FeedbackModal'
-  import SubscribeModal from '@/components/SubscribeModal'
+  import AppHeader from './components/AppHeader.vue'
+  import FeedbackModal from './components/FeedbackModal.vue'
+  import SubscribeModal from './components/SubscribeModal.vue'
 
   export default {
     name: 'App',

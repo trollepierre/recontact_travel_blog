@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import Toastr from 'vue-toastr'
-import VueModal from 'vue-js-modal'
-import VueLazyload from 'vue-lazyload'
-import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
+import VueI18n from 'vue-i18n'
+import VueLazyload from 'vue-lazyload'
+import VueModal from 'vue-js-modal'
+import Toastr from 'vue-toastr'
 import App from './App.vue'
-import router from './router/router'
 import env from './env/env'
+import router from './router/router'
 
 Vue.component('vue-toastr', Toastr)
 require('vue-toastr/dist/vue-toastr.css')
