@@ -17,55 +17,43 @@ module.exports = {
     '../.eslintrc.js',
     'plugin:vue/recommended',
   ],
-  // required to lint *.vue files
   plugins: [
     'vue',
     'jest'
   ],
-  // add your custom rules here
   rules: {
-    // allow optionalDependencies
     'import/no-extraneous-dependencies': ['error', {
       'optionalDependencies': ['test/unit/index.js']
     }],
 
-    /* Jest rules */
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'error',
-    // 'jest/no-identical-title': 'error',
+    'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
-    // 'jest/valid-expect': 'error',
+    'jest/valid-expect': 'error',
 
     /* VueX rules */
-    // disallow reassignment of function parameters
-    // disallow parameter object manipulation except for specific exclusions
     'no-param-reassign': ['error', {
       props: true,
       ignorePropertyModificationsFor: [
-        'state', // for vuex state
-        'acc', // for reduce accumulators
-        'e' // for e.returnvalue
+        'state',
+        'acc',
+        'e'
       ]
     }],
-    // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     /* YPAM custom rules */
     'import/prefer-default-export': null,
 
     // PERSO
-    'no-extra-parens': 'error',
     'arrow-parens': ['error', 'as-needed'],
-
-    /* WARNING TO REMOVE */
-    'jest/valid-expect': 'warn', // uncomment above
-    'jest/no-identical-title': 'warn', // uncomment above
-    'vue/require-prop-types': 'warn',
-    'import/first': 'warn',
-
-    'no-undef': 'warn',
-    'import/extensions': 'warn',
-    'import/no-unresolved': 'warn',
-    'no-unused-vars': 'warn'
+    'import/extensions': 'error',
+    'import/first': 'error',
+    'import/no-unresolved': 'error',
+    'no-extra-parens': 'error',
+    'no-undef': 'error',
+    'no-unused-vars': 'error',
+    'vue/require-prop-types': 'error'
   }
 };
