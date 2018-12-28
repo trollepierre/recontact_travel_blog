@@ -10,8 +10,4 @@ module.exports = {
       node: true,
     },
   },
-  rules: {
-    'import/named': 1,
-    'no-use-before-define': 0,
-  },
 };
