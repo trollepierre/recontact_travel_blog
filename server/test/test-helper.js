@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import {
   after, afterEach, before, beforeEach, describe, it,
 } from 'mocha'
@@ -14,7 +15,7 @@ const { expect } = chai
 chai.use(require('chai-as-promised'))
 chai.use(require('sinon-chai'))
 
-module.exports = {
+export {
   describe,
   it,
   before,
