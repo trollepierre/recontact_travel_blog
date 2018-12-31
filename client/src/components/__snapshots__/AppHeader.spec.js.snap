@@ -18,13 +18,17 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
         <span
           class="logo-link__recontact"
         >
+          
           Recontact
+        
         </span>
          
         <span
           class="logo-link__me"
         >
+          
           Me
+        
         </span>
       </a>
        
@@ -43,6 +47,7 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
               class="navbar-action navbar-action__subscribe"
               type="button"
             >
+              
               subscribe
             
             </button>
@@ -55,6 +60,7 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
               class="navbar-action navbar-action__suggestion"
               type="button"
             >
+              
               suggestion
             
             </button>

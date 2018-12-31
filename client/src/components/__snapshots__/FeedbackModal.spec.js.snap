@@ -15,7 +15,9 @@ exports[`Component | FeedbackModal.vue template should match snapshot 1`] = `
       <h2
         class="feedback-modal__title"
       >
+        
         suggest
+      
       </h2>
     </div>
      
@@ -31,7 +33,9 @@ exports[`Component | FeedbackModal.vue template should match snapshot 1`] = `
           class="feedback-modal__label"
           for="feedback-email"
         >
+          
           email
+        
         </label>
          
         <input
@@ -44,7 +48,9 @@ exports[`Component | FeedbackModal.vue template should match snapshot 1`] = `
           class="feedback-modal__label"
           for="feedback-content"
         >
+          
           content
+        
         </label>
          
         <textarea
