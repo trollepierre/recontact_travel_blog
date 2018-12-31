@@ -6,8 +6,12 @@
           :title="home"
           class="logo-link"
           href="/">
-          <span class="logo-link__recontact">Recontact</span>
-          <span class="logo-link__me">Me</span>
+          <span class="logo-link__recontact">
+            Recontact
+          </span>
+          <span class="logo-link__me">
+            Me
+          </span>
         </a>
         <nav
           class="app-header__navigation navigation"
@@ -18,14 +22,16 @@
               <button
                 class="navbar-action navbar-action__subscribe"
                 type="button"
-                @click.prevent="displaySubscribeModal">{{ $t("subscribe") }}
+                @click.prevent="displaySubscribeModal">
+                {{ $t("subscribe") }}
               </button>
             </li>
             <li class="navigation__link">
               <button
                 class="navbar-action navbar-action__suggestion"
                 type="button"
-                @click.prevent="displayFeedbackModal">{{ $t("suggestion") }}
+                @click.prevent="displayFeedbackModal">
+                {{ $t("suggestion") }}
               </button>
             </li>
             <li class="navigation__link tdm">

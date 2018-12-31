@@ -5,7 +5,9 @@
         <a
           :href="articleUrl"
           @click.prevent.once="viewArticle">
-          <h2 class="article__title">{{ articleTitle }}</h2>
+          <h2 class="article__title">
+            {{ articleTitle }}
+          </h2>
         </a>
       </header>
       <div
