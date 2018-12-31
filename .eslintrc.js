@@ -6,7 +6,7 @@ module.exports = {
     'plugin:import/warnings'
   ],
   rules: {
-    /* YPAM custom rules */
+    /* shared custom rules */
     'array-element-newline': ['error', 'consistent'],
     'arrow-parens': ['error', 'as-needed'],
     'comma-dangle': ['error', 'always-multiline'],
