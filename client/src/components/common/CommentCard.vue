@@ -19,13 +19,7 @@
 
   export default {
     name: 'CommentCard',
-    props: {
-      comment: {
-        type: Object,
-        default: () => {
-        },
-      },
-    },
+    props: { comment: { type: Object, default: () => {} } },
     computed: {
       commentAuthor() {
         const date = formatDateWithLongEndianLongFormat(new Date(this.comment.createdAt))

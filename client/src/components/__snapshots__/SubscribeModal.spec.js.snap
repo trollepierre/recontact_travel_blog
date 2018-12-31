@@ -4,7 +4,7 @@ exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
 <div
   class="subscribe-modal-wrapper"
 >
-  <modal-stub
+  <modal
     class="subscribe-modal"
     height="315"
     name="subscribe-modal"
@@ -77,6 +77,6 @@ exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
         </button>
       </div>
     </div>
-  </modal-stub>
+  </modal>
 </div>
 `;
