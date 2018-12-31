@@ -45,7 +45,7 @@ module.exports = {
     }],
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
-    /* YPAM custom rules */
+    /* shared custom rules */
     "vue/component-name-in-template-casing": ["error", "kebab-case"],
     'vue/html-closing-bracket-spacing': ['error', {
       'selfClosingTag': 'never',
