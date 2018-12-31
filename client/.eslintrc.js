@@ -29,7 +29,7 @@ module.exports = {
     'jest/no-disabled-tests': 'error',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
-    // 'jest/no-truthy-falsy': 'error',
+    'jest/no-truthy-falsy': 'error',
     'jest/prefer-to-have-length': 'error',
     'jest/prefer-to-be-undefined': 'error',
     'jest/valid-expect': 'error',
@@ -46,7 +46,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     /* YPAM custom rules */
-    // "vue/component-name-in-template-casing": ["error", "kebab-case", { "ignores": [] }],
+    "vue/component-name-in-template-casing": ["error", "kebab-case"],
     'vue/html-closing-bracket-spacing': ['error', {
       'selfClosingTag': 'never',
     }],
@@ -56,7 +56,6 @@ module.exports = {
     "vue/script-indent": ["warn", 2, {
       "baseIndent": 1,
       "switchCase": 1,
-      "ignores": []
     }],
 
     // PERSO

@@ -3,7 +3,9 @@
     <main class="page__body">
       <div class="page__container">
         <section class="article-page">
-          <h1 class="article-page__title">{{ title }}</h1>
+          <h1 class="article-page__title">
+            {{ title }}
+          </h1>
           <ul class="chapter__list">
             <li
               v-for="chapter in chapters"
@@ -14,7 +16,9 @@
           </ul>
         </section>
         <aside class="article-page__photo-gallery photo-gallery">
-          <h2 class="photo-gallery__title">{{ $t("hereTheGallery") }}</h2>
+          <h2 class="photo-gallery__title">
+            {{ $t("hereTheGallery") }}
+          </h2>
           <ul class="photo-gallery__list">
             <li
               v-for="photo in photos"

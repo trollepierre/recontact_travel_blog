@@ -6,20 +6,22 @@
       name="subscribe-modal"
       @before-open="beforeOpen"
       @opened="opened">
-
       <div class="subscribe-modal__header">
-        <h2 class="subscribe-modal__title">{{ $t("subscribe") }}</h2>
+        <h2 class="subscribe-modal__title">
+          {{ $t("subscribe") }}
+        </h2>
       </div>
 
       <div class="subscribe-modal__body">
         <form
           class="subscribe-modal__form"
           @submit="submit">
-
           <p
             v-if="error"
             class="subscribe-modal__error"
-            aria-live="polite">{{ error }}</p>
+            aria-live="polite">
+            {{ error }}
+          </p>
 
           <p class="subscribe-modal__text">
             {{ $t("modalText") }}
@@ -27,7 +29,9 @@
 
           <label
             class="subscribe-modal__label"
-            for="subscribe-content">{{ $t("email") }}</label>
+            for="subscribe-content">
+            {{ $t("email") }}
+          </label>
           <input
             id="subscribe-content"
             v-model="email"
@@ -40,13 +44,16 @@
         <div class="subscribe-modal__actions">
           <button
             class="subscribe-modal__action subscribe-modal__action--send"
-            @click="sendSubscription">{{ $t("confirm") }}</button>
+            @click="sendSubscription">
+            {{ $t("confirm") }}
+          </button>
           <button
             class="subscribe-modal__action subscribe-modal__action--cancel"
-            @click="cancelSubscription">{{ $t("cancel") }}</button>
+            @click="cancelSubscription">
+            {{ $t("cancel") }}
+          </button>
         </div>
       </div>
-
     </modal>
   </div>
 </template>

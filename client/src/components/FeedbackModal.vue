@@ -6,9 +6,10 @@
       name="feedback-modal"
       @before-open="beforeOpen"
       @opened="opened">
-
       <div class="feedback-modal__header">
-        <h2 class="feedback-modal__title">{{ $t("suggest") }}</h2>
+        <h2 class="feedback-modal__title">
+          {{ $t("suggest") }}
+        </h2>
       </div>
 
       <div class="feedback-modal__body">
@@ -18,11 +19,15 @@
           <p
             v-if="error"
             class="feedback-modal__error"
-            aria-live="polite">{{ error }}</p>
+            aria-live="polite">
+            {{ error }}
+          </p>
 
           <label
             class="feedback-modal__label"
-            for="feedback-email">{{ $t("email") }}</label>
+            for="feedback-email">
+            {{ $t("email") }}
+          </label>
           <input
             id="feedback-email"
             v-model="email"
@@ -31,11 +36,13 @@
 
           <label
             class="feedback-modal__label"
-            for="feedback-content">{{ $t("content") }}</label>
+            for="feedback-content">
+            {{ $t("content") }}
+          </label>
           <textarea
             id="feedback-content"
-            :placeholder="placeholder"
             v-model="feedback"
+            :placeholder="placeholder"
             :style="{height: heightMessage}"
             class="feedback-modal__text"
             @keyup.shift.enter="sendFeedback"/>
@@ -56,7 +63,6 @@
           </button>
         </div>
       </div>
-
     </modal>
   </div>
 </template>
