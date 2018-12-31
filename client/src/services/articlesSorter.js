@@ -1,6 +1,4 @@
-function getDropboxId(article) {
-  return parseInt(article.dropboxId, 10)
-}
+const getDropboxId = article => parseInt(article.dropboxId, 10)
 
 export default {
   sortByDropboxId(articles) {
