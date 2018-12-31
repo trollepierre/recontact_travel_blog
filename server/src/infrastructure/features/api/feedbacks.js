@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
     .then(() => {
       res.status(201).json('Feedback sent')
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).json({ error: err })
     })
 })

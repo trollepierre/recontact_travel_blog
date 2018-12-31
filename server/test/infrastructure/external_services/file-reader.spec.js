@@ -26,7 +26,7 @@ describe('Unit | Infrastructure | file', () => {
       const promise = File.read(filePath)
 
       // then
-      return promise.then((chapters) => {
+      return promise.then(chapters => {
         expect(chapters).to.deep.equal(articleFr)
       })
     })

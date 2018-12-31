@@ -11,7 +11,7 @@ export default {
       template += `${addedArticles.length} new articles:`
     }
     addedArticles.sort((a, b) => a.dropboxId - b.dropboxId)
-    addedArticles.forEach((article) => {
+    addedArticles.forEach(article => {
       template += `<a href="http://www.recontact.me/#/articles/${article.dropboxId}">${article.enTitle}</a>`
     })
     template += '</p>'

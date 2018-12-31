@@ -30,7 +30,7 @@ describe('Unit | Repository | photo-repository', () => {
       const promise = photoRepository.createPhotos(photosOfArticleToSave)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Photo.bulkCreate).to.have.been.called
         expect(res).to.deep.equal(savedPhotosOfArticle)
       })
@@ -53,7 +53,7 @@ describe('Unit | Repository | photo-repository', () => {
       const promise = photoRepository.getPhotosOfArticle(dropboxId)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Photo.findAll).to.have.been.calledWith({ where: { dropboxId } })
         expect(res).to.deep.equal(savedPhotosOfArticle)
       })

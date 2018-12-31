@@ -38,11 +38,16 @@ module.exports = {
 
     // PTR rules
     'import/default': 0,
+    'import/extensions': 'error',
+    'import/first': 'error',
+    'import/no-unresolved': 'error',
     // 'sort-imports': 'warn',
     'max-lines': 'warn',
     'max-len': 0,
     'no-console': 0,
+    'no-undef': 'error',
     'no-tabs': 2,
-    'no-underscore-dangle': 0
+    'no-unused-vars': 'error',
+    'no-underscore-dangle': 0,
   },
 };

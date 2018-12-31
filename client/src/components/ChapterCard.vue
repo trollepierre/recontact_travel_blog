@@ -32,11 +32,11 @@
 <script>
   import translationsService from '../services/translations'
 
-export default {
+  export default {
     name: 'ChapterCard',
-  props: {
-    chapter: { type: Object, default: () => {} },
-  },
+    props: {
+      chapter: { type: Object, default: () => {} },
+    },
     computed: {
       imgLink() {
         const { imgLink } = this.chapter

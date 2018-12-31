@@ -20,7 +20,7 @@ describe('Integration | Routes | articles route', () => {
       GetAllArticles.getAllArticles.restore()
     })
 
-    it('should call GetAllArticles to getAllArticles before sending json', (done) => {
+    it('should call GetAllArticles to getAllArticles before sending json', done => {
       // When
       request(app)
         .get('/api/articles')
@@ -47,7 +47,7 @@ describe('Integration | Routes | articles route', () => {
       GetArticle.getArticle.restore()
     })
 
-    it('should call ChapterRepository to getChaptersOfArticle before sending json', (done) => {
+    it('should call ChapterRepository to getChaptersOfArticle before sending json', done => {
       // Given
       const stringIdArticle = '59'
 
@@ -77,7 +77,7 @@ describe('Integration | Routes | articles route', () => {
       GetPhotosOfArticle.getAllPhotos.restore()
     })
 
-    it('should call GetPhotosOfArticle to getAllPhotos before sending json', (done) => {
+    it('should call GetPhotosOfArticle to getAllPhotos before sending json', done => {
       // Given
       const stringIdArticle = '59'
 

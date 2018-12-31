@@ -80,20 +80,20 @@
 
 <script>
   import ArticleCard from './ArticleCard.vue'
-import articlesApi from '../api/articles'
-import positionsApi from '../api/positions'
-import syncApi from '../api/sync'
-import notificationsService from '../services/notifications'
-import articlesSorter from '../services/articlesSorter'
+  import articlesApi from '../api/articles'
+  import positionsApi from '../api/positions'
+  import syncApi from '../api/sync'
+  import notificationsService from '../services/notifications'
+  import articlesSorter from '../services/articlesSorter'
 
-export default {
+  export default {
     name: 'ArticleList',
     components: {
       'article-card': ArticleCard,
     },
-  props: {
-    adminMode: { type: Boolean, default: () => false },
-  },
+    props: {
+      adminMode: { type: Boolean, default: () => false },
+    },
     data() {
       return {
         articles: [],
@@ -102,7 +102,7 @@ export default {
         place: null,
         time: null,
       }
-  },
+    },
     computed: {
       title() {
         return this.adminMode ? this.$t('fixWebsite') : this.$t('theArticlesOfTheTrip')
@@ -111,7 +111,7 @@ export default {
     mounted() {
       this.getArticles()
       this.getLastPosition()
-  },
+    },
     methods: {
       getArticles() {
         articlesApi.fetchAll()

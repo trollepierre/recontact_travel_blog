@@ -16,7 +16,7 @@ describe('Integration | Routes | positions route', () => {
       GetLastPosition.getLastPosition.restore()
     })
 
-    it('should call GetLastPosition#getLastPosition and return position', (done) => {
+    it('should call GetLastPosition#getLastPosition and return position', done => {
       // when
       request(app)
         .get('/api/positions/last')
@@ -40,7 +40,7 @@ describe('Integration | Routes | positions route', () => {
       AddPosition.addPosition.restore()
     })
 
-    it('should call AddPosition#addPosition and return position', (done) => {
+    it('should call AddPosition#addPosition and return position', done => {
       // given
       const persistedPosition = { id: 1, lastPosition: 'Mexico' }
       AddPosition.addPosition.resolves({ position: persistedPosition })

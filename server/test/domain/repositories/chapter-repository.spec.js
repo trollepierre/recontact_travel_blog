@@ -30,7 +30,7 @@ describe('Unit | Repository | chapter-repository', () => {
       const promise = chapterRepository.createArticleChapters(chaptersOfArticleToSave)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Chapter.bulkCreate).to.have.been.called
         expect(res).to.deep.equal(savedChaptersOfArticle)
       })
@@ -53,7 +53,7 @@ describe('Unit | Repository | chapter-repository', () => {
       const promise = chapterRepository.getChaptersOfArticle(dropboxId)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Chapter.findAll).to.have.been.calledWith({ where: { dropboxId } })
         expect(res).to.deep.equal(savedChaptersOfArticle)
       })

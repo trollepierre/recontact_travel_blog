@@ -26,7 +26,7 @@ describe('Unit | Repository | position-repository', () => {
       const promise = positionRepository.create(positionToCreate)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Position.create).to.have.been.calledWith(positionToCreate)
         expect(res).to.deep.equal(position)
       })
@@ -49,7 +49,7 @@ describe('Unit | Repository | position-repository', () => {
       const promise = positionRepository.getAll()
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Position.all).to.have.been.calledWith()
         expect(res).to.deep.equal(positions)
       })

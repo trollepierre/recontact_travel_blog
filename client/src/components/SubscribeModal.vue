@@ -55,14 +55,14 @@
   import notificationsService from '../services/notifications'
   import subscriptionsApi from '../api/subscriptions'
 
-export default {
+  export default {
     name: 'SubscribeModal',
     data() {
       return {
         email: null,
         error: null,
       }
-  },
+    },
     methods: {
       beforeOpen() {
         this._resetEmail()

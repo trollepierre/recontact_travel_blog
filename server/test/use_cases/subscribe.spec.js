@@ -48,7 +48,7 @@ describe('Unit | Subscribe | subscribe', () => {
       const promise = Subscribe.subscribe(subscriptionForm)
 
       // then
-      return promise.then((returnedSubscriptions) => {
+      return promise.then(returnedSubscriptions => {
         expect(returnedSubscriptions).to.deep.equal({ created: false, subscription: subscription() })
       })
     })
@@ -74,7 +74,7 @@ describe('Unit | Subscribe | subscribe', () => {
       const promise = Subscribe.subscribe(subscriptionForm)
 
       // then
-      return promise.then((returnedSubscriptions) => {
+      return promise.then(returnedSubscriptions => {
         expect(returnedSubscriptions).to.deep.equal({ created: true, subscription: subscription() })
       })
     })

@@ -11,7 +11,7 @@ scheduler.scheduleJob(EVERY_15_MINUTES, () => {
     .then(() => {
       console.info('Synchronization successful.')
     })
-    .catch((err) => {
+    .catch(err => {
       console.error('Synchronization failed')
       console.error(err)
     })

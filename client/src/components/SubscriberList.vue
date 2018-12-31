@@ -27,16 +27,16 @@
 <script>
   import subscriptionsApi from '../api/subscriptions'
 
-export default {
+  export default {
     name: 'SubscriberList',
     data() {
       return {
         subscriptions: [],
       }
-  },
+    },
     mounted() {
       this.getSubscriptions()
-  },
+    },
     methods: {
       async getSubscriptions() {
         this.subscriptions = await subscriptionsApi.fetchAll()

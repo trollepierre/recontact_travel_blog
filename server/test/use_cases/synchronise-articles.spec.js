@@ -30,7 +30,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       mailJet.sendEmail.restore()
     })
 
-    it('should send mail to support', (done) => {
+    it('should send mail to support', done => {
       // when
       const promise = SynchroniseArticles.synchronizeArticles()
 
@@ -47,12 +47,12 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       })
     })
 
-    it('should throw error', (done) => {
+    it('should throw error', done => {
       // when
       const promise = SynchroniseArticles.synchronizeArticles()
 
       // then
-      promise.catch((catchedError) => {
+      promise.catch(catchedError => {
         expect(catchedError).to.deep.equal(error)
         done()
       })
@@ -111,7 +111,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         const promise = SynchroniseArticles.synchronizeArticles()
 
         // then
-        return promise.then((chapters) => {
+        return promise.then(chapters => {
           expect(chapters).to.deep.equal({
             addedArticles: [],
             hasChanges: false,
@@ -510,7 +510,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           const promise = SynchroniseArticles.synchronizeArticles()
 
           // then
-          return promise.then((result) => {
+          return promise.then(result => {
             expect(result).to.deep.equal(expectedResult)
           })
         })

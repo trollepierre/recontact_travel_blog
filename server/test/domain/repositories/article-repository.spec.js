@@ -24,7 +24,7 @@ describe('Unit | Repository | article-repository', () => {
       const promise = articleRepository.create(articlesToSave)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Article.bulkCreate).to.have.been.called
         expect(res).to.deep.equal(savedArticles)
       })
@@ -67,7 +67,7 @@ describe('Unit | Repository | article-repository', () => {
       const promise = articleRepository.get(dropboxId)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Article.findOne).to.have.been.calledWith({ where: { dropboxId } })
         expect(res).to.deep.equal(articleSaved())
       })

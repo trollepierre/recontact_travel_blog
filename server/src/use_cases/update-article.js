@@ -18,11 +18,11 @@ async function sync(dropboxId) {
   }
 
   function filterOnlyGalleryPhotos(paths) {
-    const photosPaths = paths.filter((path) => {
+    const photosPaths = paths.filter(path => {
       const extension = path.split('.').pop()
       return extension === 'jpg' || extension === 'jpeg' || extension === 'png'
     })
-    return photosPaths.filter((path) => {
+    return photosPaths.filter(path => {
       const shortName = path.split('/').pop().substring(0, 3)
       return !shortName.match('[iI]mg')
     })
@@ -156,7 +156,7 @@ async function sync(dropboxId) {
       return promises
     }, [])
     return Promise.all(chaptersWithSharableLink)
-      .then((imgLinks) => {
+      .then(imgLinks => {
         const newArticleInfos = articleInfos
         for (let i = 0; i < imgLinks.length; i += 1) {
           newArticleInfos.chapters[i].imgLink = imgLinks[i]

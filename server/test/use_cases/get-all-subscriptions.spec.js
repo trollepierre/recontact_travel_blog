@@ -19,7 +19,7 @@ describe('Unit | GetAllSubscriptions | getAllSubscriptions', () => {
 
     // then
     expect(SubscriptionRepository.getAll).to.have.been.calledWith()
-    return promise.then((returnedSubscriptions) => {
+    return promise.then(returnedSubscriptions => {
       expect(returnedSubscriptions).to.deep.equal(subscriptions)
     })
   })

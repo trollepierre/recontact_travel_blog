@@ -48,7 +48,7 @@ describe('Unit | Service | MailService', () => {
       const promise = mailService.sendFeedbackEmail(form)
 
       // then
-      return promise.catch((err) => {
+      return promise.catch(err => {
         expect(err.message).to.equal('error')
       })
     })

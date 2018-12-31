@@ -14,7 +14,7 @@ describe('Integration | Routes | feedbacks route', () => {
     mailService.sendFeedbackEmail.restore()
   })
 
-  it('should call mailing service', (done) => {
+  it('should call mailing service', done => {
     // when
     request(app)
       .post('/api/feedbacks')
@@ -29,7 +29,7 @@ describe('Integration | Routes | feedbacks route', () => {
       })
   })
 
-  it('should return error status and error', (done) => {
+  it('should return error status and error', done => {
     // Given
     mailService.sendFeedbackEmail.rejects()
 

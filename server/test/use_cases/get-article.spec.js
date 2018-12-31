@@ -47,7 +47,7 @@ describe('Unit | GetArticle | getrticle()', () => {
     const promise = GetArticle.getArticle(dropboxId)
 
     // then
-    return promise.then((returnedArticle) => {
+    return promise.then(returnedArticle => {
       const chapters = [chapterWithParagraphs()]
       expect(returnedArticle).to.deep.equal({ chapters, frTitle, enTitle })
     })
