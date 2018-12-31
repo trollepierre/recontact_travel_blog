@@ -26,10 +26,12 @@ module.exports = {
       'optionalDependencies': ['test/unit/index.js']
     }],
 
-    'jest/no-disabled-tests': 'warn',
+    'jest/no-disabled-tests': 'error',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
-    'jest/prefer-to-have-length': 'warn',
+    // 'jest/no-truthy-falsy': 'error',
+    'jest/prefer-to-have-length': 'error',
+    'jest/prefer-to-be-undefined': 'error',
     'jest/valid-expect': 'error',
 
     /* VueX rules */
@@ -54,6 +56,32 @@ module.exports = {
     'no-extra-parens': 'error',
     'no-undef': 'error',
     'no-unused-vars': 'error',
-    'vue/require-prop-types': 'error'
+    'vue/require-prop-types': 'error',
+
+    /* VueX rules */
+    // disallow reassignment of function parameters
+    // disallow parameter object manipulation except for specific exclusions
+    'no-param-reassign': ['error', {
+      props: true,
+      ignorePropertyModificationsFor: [
+        'state', // for vuex state
+        'acc', // for reduce accumulators
+        'e', // for e.returnvalue
+      ],
+    }],
+    'import/prefer-default-export': 0,
+    // "vue/component-name-in-template-casing": ["error", "kebab-case", { "ignores": [] }],
+    'vue/html-closing-bracket-spacing': ['error', {
+      'selfClosingTag': 'never',
+    }],
+    'vue/html-closing-bracket-newline': ['error', {
+      'multiline': 'never',
+    }],
+    // "vue/script-indent": ["error", 2, {
+    //   "baseIndent": 1,
+    //   "switchCase": 1,
+    //   "ignores": []
+    // }]
+
   }
 };
