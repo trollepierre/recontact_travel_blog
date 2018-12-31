@@ -17,7 +17,7 @@ module.exports = {
 
   entry: {
     env: './build/env/env-vars-template.js',
-    app: ['babel-polyfill', 'whatwg-fetch', './src/main.js'],
+    app: ['@babel/polyfill', 'whatwg-fetch', './src/main.js'],
   },
 
   output: {
