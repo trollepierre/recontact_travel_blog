@@ -1,10 +1,15 @@
 {
   "scripts": {
+    "lint": "./node_modules/.bin/eslint --ext .js lighthouse.spec.js",
+    "lint:fix": "yarn lint --fix",
     "test": "jest"
   },
   "license": "ISC",
   "devDependencies": {
     "chrome-launcher": "0.10.5",
+    "eslint": "^5.11.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "jest": "23.6.0",
     "lighthouse": "3.2.1"
   }
