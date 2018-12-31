@@ -7,7 +7,7 @@ describe('Integration | Routes | index route', () => {
     SynchronizeArticles.synchronizeArticles.restore()
   })
 
-  it('should return "Synchronization successful" message', (done) => {
+  it('should return "Synchronization successful" message', done => {
     // Given
     sinon.stub(SynchronizeArticles, 'synchronizeArticles').resolves()
     // When
@@ -24,7 +24,7 @@ describe('Integration | Routes | index route', () => {
   })
 
   // TODO fix that test
-  it.skip('should be 500', (done) => {
+  it.skip('should be 500', done => {
     // Given
     sinon.stub(SynchronizeArticles, 'synchronizeArticles').rejects(new Error('Some error'))
     // When

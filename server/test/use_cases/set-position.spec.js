@@ -27,7 +27,7 @@ describe('Unit | AddPosition | addPosition', () => {
     const promise = AddPosition.addPosition(position)
 
     // then
-    return promise.then((returnedPositions) => {
+    return promise.then(returnedPositions => {
       expect(returnedPositions).to.deep.equal(persistedPosition)
     })
   })

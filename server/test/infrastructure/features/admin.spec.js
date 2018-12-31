@@ -12,7 +12,7 @@ describe('Integration | Routes | admin route', () => {
       UpdateArticle.sync.restore()
     })
 
-    it('should call delete article and send 204', (done) => {
+    it('should call delete article and send 204', done => {
       // Given
       const stringIdArticle = '59'
 

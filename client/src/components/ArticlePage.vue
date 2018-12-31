@@ -48,12 +48,12 @@
 
 <script>
   import ChapterCard from './ChapterCard.vue'
-import PhotoCard from './PhotoCard.vue'
-import chaptersApi from '../api/chapters'
-import photosApi from '../api/photos'
-import translationsService from '../services/translations'
+  import PhotoCard from './PhotoCard.vue'
+  import chaptersApi from '../api/chapters'
+  import photosApi from '../api/photos'
+  import translationsService from '../services/translations'
 
-export default {
+  export default {
     name: 'ArticlePage',
     components: {
       'chapter-card': ChapterCard,
@@ -66,7 +66,7 @@ export default {
         title: '',
         dropboxId: parseInt(this.$route.params.id, 10),
       }
-  },
+    },
     watch: {
       $route(to) {
         window.scrollTo(0, 0)
@@ -76,7 +76,7 @@ export default {
     },
     mounted() {
       this.fetchArticle()
-  },
+    },
     methods: {
       fetchArticle() {
         this.getChapters()

@@ -14,7 +14,7 @@ describe('Integration | Routes | subscriptions route', () => {
       Subscribe.subscribe.restore()
     })
 
-    it('should call Subscribe#subscribe', (done) => {
+    it('should call Subscribe#subscribe', done => {
       // given
       const persistedSubscription = { id: 1, email: 'mail@recontact.me', lang: 'en' }
       Subscribe.subscribe.resolves({ subscription: persistedSubscription, created: false })

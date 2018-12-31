@@ -27,7 +27,7 @@ describe('Unit | Repository | subscription-repository', () => {
 
       // then
 
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Subscription.create).to.have.been.calledWith(subscriptionToCreate)
         expect(res).to.deep.equal(subscription)
       })
@@ -56,7 +56,7 @@ describe('Unit | Repository | subscription-repository', () => {
       const promise = subscriptionRepository.getByEmail('email@mail.com')
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Subscription.findOne).to.have.been.calledWith({ where: { email: 'email@mail.com' } })
         expect(res).to.deep.equal(subscription)
       })

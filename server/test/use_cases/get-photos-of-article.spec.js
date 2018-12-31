@@ -28,7 +28,7 @@ describe('Unit | GetPhotosOfArticle | getAllPhotos', () => {
     const promise = GetPhotosOfArticle.getAllPhotos(dropboxId)
 
     // then
-    return promise.then((returnedPhotos) => {
+    return promise.then(returnedPhotos => {
       expect(returnedPhotos).to.deep.equal(photos)
     })
   })

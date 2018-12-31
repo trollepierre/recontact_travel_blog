@@ -53,21 +53,21 @@
 
 <script>
   import articlesApi from '../api/articles'
-import notificationsService from '../services/notifications'
-import translationsService from '../services/translations'
+  import notificationsService from '../services/notifications'
+  import translationsService from '../services/translations'
 
-export default {
+  export default {
     name: 'ArticleCard',
-  props: {
-    adminMode: { type: Boolean, default: () => false },
-    article: { type: Object, default: () => {} },
-  },
+    props: {
+      adminMode: { type: Boolean, default: () => false },
+      article: { type: Object, default: () => {} },
+    },
     data() {
       return {
         isUpdateClicked: false,
         isDeleteClicked: false,
       }
-  },
+    },
     computed: {
       articleUrl() {
         return `/articles/${this.article.dropboxId}`

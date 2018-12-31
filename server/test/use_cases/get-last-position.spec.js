@@ -32,7 +32,7 @@ describe('Unit | GetLastPosition | getLastPosition', () => {
     const promise = GetLastPosition.getLastPosition()
 
     // then
-    return promise.then((returnedPositions) => {
+    return promise.then(returnedPositions => {
       expect(returnedPositions).to.deep.equal(lastPosition)
     })
   })

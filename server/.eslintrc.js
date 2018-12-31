@@ -10,4 +10,7 @@ module.exports = {
       node: true,
     },
   },
-};
+  rules: {
+    'func-style': ['off', 'expression'],
+  }
+}

@@ -13,7 +13,7 @@ describe('Integration | Routes | optimisation route', () => {
       DeleteSubscription.deleteSubscription.restore()
     })
 
-    it('should call subscriptionService#deleteById', (done) => {
+    it('should call subscriptionService#deleteById', done => {
       // when
       request(app)
         .get('/apo/sub/del/1234')
@@ -39,7 +39,7 @@ describe('Integration | Routes | optimisation route', () => {
       GetAllSubscriptions.getAllSubscriptions.restore()
     })
 
-    it('should call GetAllSubscriptions#getAllSubscriptions', (done) => {
+    it('should call GetAllSubscriptions#getAllSubscriptions', done => {
       // when
       request(app)
         .get('/apo/sub/')

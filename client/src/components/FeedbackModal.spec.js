@@ -109,7 +109,7 @@ describe('Component | FeedbackModal.vue', () => {
       e.keyCode = 27
       document.dispatchEvent(e)
 
-        expect(wrapper.vm._closeModal).toHaveBeenCalledWith()
+      expect(wrapper.vm._closeModal).toHaveBeenCalledWith()
     })
 
     it('should not close on any other key than space', () => {
@@ -120,11 +120,11 @@ describe('Component | FeedbackModal.vue', () => {
       e.keyCode = 13
       document.dispatchEvent(e)
 
-        expect(wrapper.vm._closeModal).not.toHaveBeenCalledWith()
+      expect(wrapper.vm._closeModal).not.toHaveBeenCalledWith()
     })
   })
 
-/*
+  /*
   xdescribe('#_focusOnInput', () => {
     it.skip('should focus on input feedback content', done => {
       wrapper.vm.$modal.show('feedback-modal')

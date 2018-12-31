@@ -43,8 +43,8 @@ new Vue({
     this.$refs.toastr.defaultPosition = 'toast-bottom-right'
   },
   template: '' +
-  '<div>' +
-  '<App/>' +
-  '<vue-toastr ref="toastr"/>' +
-  '</div>',
+    '<div>' +
+    '<App/>' +
+    '<vue-toastr ref="toastr"/>' +
+    '</div>',
 })

@@ -41,7 +41,7 @@ function _serializeArticles(metadatas) {
 
 function _compareDropboxAndDatabaseArticles(freshArticles) {
   return articleRepository.getAll()
-    .then((oldArticles) => {
+    .then(oldArticles => {
       const addedArticles = freshArticles.reduce((accumulatedArticles, freshArticle) => {
         const matchedArticles = oldArticles.filter(({ dropboxId }) => dropboxId === freshArticle.dropboxId)
         if (matchedArticles.length === 0) {
@@ -58,7 +58,7 @@ function _ifArticlesChangedThenSendEmailToRecipients(report) {
   const result = report
   if (report.hasChanges && report.addedArticles.length < 3) {
     return subscriptionRepository.getAll()
-      .then((subscriptions) => {
+      .then(subscriptions => {
         result.receivers = subscriptions
         return result
       })
@@ -129,11 +129,11 @@ function getPhotosOfArticle({ dropboxId }) {
 }
 
 function filterOnlyGalleryPhotos(paths) {
-  const photosPaths = paths.filter((path) => {
+  const photosPaths = paths.filter(path => {
     const extension = path.split('.').pop()
     return extension === 'jpg' || extension === 'jpeg' || extension === 'png'
   })
-  return photosPaths.filter((path) => {
+  return photosPaths.filter(path => {
     const shortName = path.split('/').pop().substring(0, 3)
     return !shortName.match('[iI]mg')
   })
@@ -184,7 +184,7 @@ function _shareImageZero(article) {
 
 function _insertTitleInReport(report, articlesContents) {
   const result = report
-  result.addedArticles.map((article) => {
+  result.addedArticles.map(article => {
     const articleWithTitle = article
     const { frTitle, enTitle } = articlesContents.find(({ dropboxId }) => dropboxId === article.dropboxId)
     articleWithTitle.frTitle = frTitle
@@ -202,7 +202,7 @@ function _insertArticlesContentsInDatabase(report, dropboxFiles) {
     return promises
   }, [])
   return Promise.all(allChaptersToSave)
-    .then((articlesContents) => {
+    .then(articlesContents => {
       result = _insertTitleInReport(report, articlesContents)
       return articlesContents.map(({ chapters }) => chapters)
     })
@@ -291,7 +291,7 @@ function _shareChapterImages(articleInfos) {
     return promises
   }, [])
   return Promise.all(chaptersWithSharableLink)
-    .then((imgLinks) => {
+    .then(imgLinks => {
       const newArticleInfos = articleInfos
       for (let i = 0; i < imgLinks.length; i += 1) {
         newArticleInfos.chapters[i].imgLink = imgLinks[i]

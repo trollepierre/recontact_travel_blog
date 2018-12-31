@@ -17,7 +17,7 @@ describe('Unit | DeleteSubscription | deleteSubscription', () => {
 
     // then
     expect(SubscriptionRepository.deleteById).to.have.been.calledWith()
-    return promise.then((returnedSubscriptions) => {
+    return promise.then(returnedSubscriptions => {
       expect(returnedSubscriptions).to.deep.equal({})
     })
   })

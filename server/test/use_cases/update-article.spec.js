@@ -259,7 +259,7 @@ describe('Unit | UpdateArticle | sync', () => {
       const promise = UpdateArticle.sync(dropboxId)
 
       // then
-      return promise.then((result) => {
+      return promise.then(result => {
         expect(result).to.deep.equal(expectedResult)
       })
     })
