@@ -161,22 +161,20 @@
         })
       },
       submitComment(e) {
-        // this.errorComment = ''
         e.preventDefault()
-        console.log('ici')
-
         if (this.newComment !== '') {
-          console.log('la')
-
-          commentsApi.send(this.dropboxId, this.newComment)
+          return commentsApi.send(this.dropboxId, this.newComment)
             .then(this.displaySuccessNotification)
-            // .catch(() => {
-            //   this.errorComment = this.$t('commentError')
-            // })
+            .catch(() => {
+              this.displayErrorNotification()
+            })
         }
       },
       displaySuccessNotification() {
         notificationsService.success(this, this.$t('commentSuccess'))
+      },
+      displayErrorNotification() {
+        notificationsService.error(this, this.$t('commentError'))
       },
     },
     i18n: {

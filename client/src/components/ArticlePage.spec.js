@@ -53,7 +53,7 @@ describe('Component | ArticlePage.vue', () => {
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
-    wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId}) })
+    wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId }) })
   })
 
   it('should be named "ArticlePage"', () => {
@@ -98,19 +98,62 @@ describe('Component | ArticlePage.vue', () => {
 
   describe('methods', () => {
     describe('submitComment', () => {
+      const newComment = 'my text'
+      beforeEach(() => {
+        commentsApi.send = jest.fn()
+        notificationsService.success = jest.fn()
+        notificationsService.error = jest.fn()
+      })
+
       it('should send comment to api', () => {
         // Given
-        commentsApi.send = jest.fn()
-        commentsApi.send.mockResolvedValue({ text: 'createdComment'})
-        notificationsService.success = jest.fn()
-        const newComment = 'my text'
+        commentsApi.send.mockResolvedValue({ text: 'createdComment' })
         wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId, newComment }) })
 
         // When
-        wrapper.vm.submitComment({ preventDefault: jest.fn()})
+        wrapper.vm.submitComment({ preventDefault: jest.fn() })
 
         // Then
         expect(commentsApi.send).toHaveBeenCalledOnceWith(dropboxId, newComment)
+      })
+
+      it('should display success notification', async () => {
+        // Given
+        commentsApi.send.mockResolvedValue({ text: 'createdComment' })
+        wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId, newComment }) })
+
+        // When
+        await wrapper.vm.submitComment({ preventDefault: jest.fn() })
+
+        // Then
+        expect(notificationsService.success).toHaveBeenNotifiedOnceWith('commentSuccess')
+      })
+
+      describe('when api throws error', () => {
+        it('should display error notification', async () => {
+          // Given
+          commentsApi.send.mockRejectedValue({ error: 'no comment...' })
+          wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId, newComment }) })
+
+          // When
+          await wrapper.vm.submitComment({ preventDefault: jest.fn() })
+
+          // Then
+          expect(notificationsService.error).toHaveBeenNotifiedOnceWith('commentError')
+        })
+      })
+
+      describe('when newComment is not set', () => {
+        it('should not send comment', () => {
+          // Given
+          wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId, newComment: '' }) })
+
+          // When
+          wrapper.vm.submitComment({ preventDefault: jest.fn() })
+
+          // Then
+          expect(commentsApi.send).not.toHaveBeenCalled()
+        })
       })
     })
   })
