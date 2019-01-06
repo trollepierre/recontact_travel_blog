@@ -5,6 +5,7 @@ import ArticlePage from './ArticlePage.vue'
 import router from '../router/router'
 import photosApi from '../api/photos'
 import chaptersApi from '../api/chapters'
+import commentsApi from '../api/comments'
 import translationsService from '../services/translations'
 
 describe('Component | ArticlePage.vue', () => {
@@ -13,6 +14,7 @@ describe('Component | ArticlePage.vue', () => {
   let chapters
   let photos
   const title = 'Pierre au pays des'
+  const commentsFromApi = [{ text: 'comment1' }]
 
   beforeEach(() => {
     translationsService.getChapterTitle = jest.fn()
@@ -30,7 +32,7 @@ describe('Component | ArticlePage.vue', () => {
         text: ['some text'],
       }, {
         title: '62 : Pierre au Koezio',
-        imgLink: '/assets/tata.jpg',
+        imgLink: '/assets/titi.jpg',
         text: ['some text'],
       },
     ]
@@ -42,6 +44,8 @@ describe('Component | ArticlePage.vue', () => {
     photosApi.fetch.mockResolvedValue(photos)
     chaptersApi.fetch = jest.fn()
     chaptersApi.fetch.mockResolvedValue({ title, chapters })
+    commentsApi.fetch = jest.fn()
+    commentsApi.fetch.mockResolvedValue(commentsFromApi)
 
     localVue = createLocalVue()
     localVue.use(VueI18n)
@@ -76,6 +80,19 @@ describe('Component | ArticlePage.vue', () => {
     it('should save photos from api in data photos', () => {
       expect(wrapper.vm.photos).toEqual(photos)
     })
+
+    describe('getComments', () => {
+      it('should fetch comments with dropbox id', () => {
+        // Then
+        const dropboxId = NaN
+        expect(commentsApi.fetch).toHaveBeenCalledOnceWith(dropboxId)
+      })
+
+      it('should update comments data', () => {
+        // Then
+        expect(wrapper.vm.comments).toEqual(commentsFromApi)
+      })
+    })
   })
 
   describe('locales', () => {
@@ -90,13 +107,16 @@ describe('Component | ArticlePage.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.fr)
 
-        it('contains 4 locales', () => {
-          expect(locales).toHaveLength(4)
+        it('contains 7 locales', () => {
+          expect(locales).toHaveLength(7)
           expect(locales).toEqual([
             'hereTheGallery',
             'goToPreviousArticle',
             'goToNextArticle',
             'goToHomePage',
+            'addComment',
+            'commentError',
+            'commentSuccess',
           ])
         })
       })
@@ -104,13 +124,16 @@ describe('Component | ArticlePage.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.en)
 
-        it('contains 4 locales', () => {
-          expect(locales).toHaveLength(4)
+        it('contains 7 locales', () => {
+          expect(locales).toHaveLength(7)
           expect(locales).toEqual([
             'hereTheGallery',
             'goToPreviousArticle',
             'goToNextArticle',
             'goToHomePage',
+            'addComment',
+            'commentError',
+            'commentSuccess',
           ])
         })
       })

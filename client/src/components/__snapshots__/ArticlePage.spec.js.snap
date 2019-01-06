@@ -48,7 +48,7 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
         </ul>
       </section>
        
-      <aside
+      <section
         class="article-page__photo-gallery photo-gallery"
       >
         <h2
@@ -77,7 +77,50 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
             />
           </li>
         </ul>
-      </aside>
+      </section>
+       
+      <section
+        class="article-page__forum forum"
+      >
+        <form
+          class="forum__form"
+        >
+          <label
+            class="forum__label"
+            for="comment"
+          >
+            
+            addComment
+          
+          </label>
+           
+          <input
+            class="forum__add-comment"
+            id="comment"
+            placeholder="Mon commentaire. Par Pierre"
+          />
+        </form>
+         
+        <h2
+          class="forum__name"
+        >
+          
+          hereTheGallery
+        
+        </h2>
+         
+        <ul
+          class="forum__comment-list"
+        >
+          <li
+            class="comment__item"
+          >
+            <comment-card-stub
+              comment="[object Object]"
+            />
+          </li>
+        </ul>
+      </section>
        
       <footer
         class="article-page__footer footer-article"
