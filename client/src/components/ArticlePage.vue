@@ -161,14 +161,18 @@
         })
       },
       submitComment(e) {
-        this.errorComment = ''
+        // this.errorComment = ''
         e.preventDefault()
+        console.log('ici')
+
         if (this.newComment !== '') {
+          console.log('la')
+
           commentsApi.send(this.dropboxId, this.newComment)
             .then(this.displaySuccessNotification)
-            .catch(() => {
-              this.errorComment = this.$t('commentError')
-            })
+            // .catch(() => {
+            //   this.errorComment = this.$t('commentError')
+            // })
         }
       },
       displaySuccessNotification() {
