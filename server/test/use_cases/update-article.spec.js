@@ -33,7 +33,7 @@ describe('Unit | UpdateArticle | sync', () => {
       .resolves(chapterOfArticle())
     sinon.stub(PhotoRepository, 'createPhotos')
     sinon.stub(DropboxClient, 'getFilesFolderPaths').resolves(dropboxPhotosPaths)
-    sinon.stub(DropboxClient, 'createSharedLink')
+    sinon.stub(DropboxClient, 'createSharedLink').resolves()
     sinon.stub(DropboxClient, 'getFrTextFileStream').resolves(dropboxFilesGetTemporaryLink().link)
     sinon.stub(DropboxClient, 'getEnTextFileStream').resolves(dropboxFilesGetTemporaryLink().link)
     sinon.stub(FileReader, 'read')
