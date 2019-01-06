@@ -6,10 +6,10 @@ function getAllPositions() {
   return positionRepository.getAll()
 }
 
-async function getLastPosition() {
+async function getComments() {
   return maxBy(await getAllPositions(), 'id')
 }
 
 export default {
-  getLastPosition,
+  getComments,
 }
