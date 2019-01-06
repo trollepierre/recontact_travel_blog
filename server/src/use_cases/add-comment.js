@@ -1,9 +1,9 @@
-import positionRepository from '../domain/repositories/position-repository'
+import commentRepository from '../domain/repositories/comment-repository'
 
-function createPosition(position) {
-  return positionRepository.create(position)
+function createComment(comment) {
+  return commentRepository.create(comment)
 }
 
 export default {
-  addComment: createPosition,
+  addComment: createComment,
 }
