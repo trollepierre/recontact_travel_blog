@@ -7,12 +7,14 @@ import photosApi from '../api/photos'
 import chaptersApi from '../api/chapters'
 import commentsApi from '../api/comments'
 import translationsService from '../services/translations'
+import notificationsService from '../services/notifications'
 
 describe('Component | ArticlePage.vue', () => {
   let localVue
   let wrapper
   let chapters
   let photos
+  const dropboxId = '8'
   const title = 'Pierre au pays des'
   const commentsFromApi = [{ text: 'comment1' }]
 
@@ -51,7 +53,7 @@ describe('Component | ArticlePage.vue', () => {
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
-    wrapper = shallowMount(ArticlePage, { localVue, router })
+    wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId}) })
   })
 
   it('should be named "ArticlePage"', () => {
@@ -84,13 +86,31 @@ describe('Component | ArticlePage.vue', () => {
     describe('getComments', () => {
       it('should fetch comments with dropbox id', () => {
         // Then
-        const dropboxId = NaN
         expect(commentsApi.fetch).toHaveBeenCalledOnceWith(dropboxId)
       })
 
       it('should update comments data', () => {
         // Then
         expect(wrapper.vm.comments).toEqual(commentsFromApi)
+      })
+    })
+  })
+
+  describe('methods', () => {
+    describe('submitComment', () => {
+      it('should send comment to api', () => {
+        // Given
+        commentsApi.send = jest.fn()
+        commentsApi.send.mockResolvedValue({ text: 'createdComment'})
+        notificationsService.success = jest.fn()
+        const newComment = 'my text'
+        wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId, newComment }) })
+
+        // When
+        wrapper.vm.submitComment({ preventDefault: jest.fn()})
+
+        // Then
+        expect(commentsApi.send).toHaveBeenCalledOnceWith(dropboxId, newComment)
       })
     })
   })
