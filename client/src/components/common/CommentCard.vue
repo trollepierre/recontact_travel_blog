@@ -6,7 +6,7 @@
       </div>
     </article>
   </div>
-</template>
+</template>@
 
 <script>
   export default {
