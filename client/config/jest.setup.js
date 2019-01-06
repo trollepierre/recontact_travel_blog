@@ -17,6 +17,11 @@ expect.extend({
     expect(received).toHaveBeenCalledWith(...args)
     return { pass: true }
   },
+  toHaveBeenNotifiedOnceWith(received, ...args) {
+    expect(received).toHaveBeenCalledTimes(1)
+    expect(received).toHaveBeenCalledWith(expect.anything(), ...args)
+    return { pass: true }
+  },
   toEmit(received, eventName, data) {
     if (data) {
       expect(received.emitted()[eventName][0]).toEqual([data])
