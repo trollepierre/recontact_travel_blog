@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | CommentCard.vue template should match snapshot 1`] = `
+<div
+  class="comment-card"
+>
+  <article
+    class="comment"
+  >
+    <div
+      class="comment__content"
+    >
+      <p>
+        comment
+      </p>
+    </div>
+  </article>
+</div>
+`;
