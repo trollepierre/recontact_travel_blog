@@ -1,74 +1,74 @@
 import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
-import GetLastPosition from '../../../src/use_cases/get-last-position'
-import AddPosition from '../../../src/use_cases/add-position'
+import GetComments from '../../../src/use_cases/get-comments'
+import AddComment from '../../../src/use_cases/add-comment'
 
-describe('Integration | Routes | positions route', () => {
-  describe('GET /api/positions/last', () => {
-    let persistedPositions
+describe('Integration | Routes | comments route', () => {
+  describe('GET /api/comments/', () => {
+    let persistedComments
     beforeEach(() => {
-      sinon.stub(GetLastPosition, 'getLastPosition')
-      persistedPositions = [{ id: 1, lastPosition: 'Mexico' }]
-      GetLastPosition.getLastPosition.resolves(persistedPositions)
+      sinon.stub(GetComments, 'getComments')
+      persistedComments = [{ id: 1, text: 'comment' }]
+      GetComments.getComments.resolves(persistedComments)
     })
 
     afterEach(() => {
-      GetLastPosition.getLastPosition.restore()
+      GetComments.getComments.restore()
     })
 
-    it('should call GetLastPosition#getLastPosition and return position', done => {
+    it('should call GetComments#getComments and return comments', done => {
       // when
       request(app)
-        .get('/api/positions/last')
+        .get('/api/comments')
         .send()
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
           // then
-          expect(GetLastPosition.getLastPosition).to.have.been.calledWith()
-          expect(res.body).to.deep.equal(persistedPositions)
+          expect(GetComments.getComments).to.have.been.calledWith()
+          expect(res.body).to.deep.equal(persistedComments)
           done()
         })
     })
   })
 
-  describe('POST /api/positions', () => {
+  describe('POST /api/comments', () => {
     beforeEach(() => {
-      sinon.stub(AddPosition, 'addPosition')
+      sinon.stub(AddComment, 'addComment')
     })
 
     afterEach(() => {
-      AddPosition.addPosition.restore()
+      AddComment.addComment.restore()
     })
 
-    it('should call AddPosition#addPosition and return position', done => {
+    it('should call AddComment#addComment and return comment', done => {
       // given
-      const persistedPosition = { id: 1, lastPosition: 'Mexico' }
-      AddPosition.addPosition.resolves({ position: persistedPosition })
+      const persistedComment = { id: 1, text: 'comment' }
+      AddComment.addComment.resolves(persistedComment)
 
       // when
       request(app)
-        .post('/api/positions')
+        .post('/api/comments')
         .set('Authorization', 'Bearer access-token')
-        .send({ lastPosition: 'Mexico' })
+        .send({ text: 'comment' })
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
           // then
-          expect(AddPosition.addPosition).to.have.been.calledWith({ lastPosition: 'Mexico' })
-          expect(res.body).to.deep.equal({ position: { id: 1, lastPosition: 'Mexico' } })
+          expect(AddComment.addComment).to.have.been.calledWith({ text: 'comment' })
+          expect(res.body).to.deep.equal({ id: 1, text: 'comment' })
           done()
         })
     })
 
-    it('should return 403 when add position throws an error', () => {
+    it('should return 400 when add comment throws an error', () => {
       // given
-      AddPosition.addPosition.rejects(new Error('Some error'))
+      AddComment.addComment.rejects(new Error('Some error'))
 
       // when
       return request(app)
-        .post('/api/positions')
+        .post('/api/comments')
         .set('Authorization', 'Bearer access-token')
         .send()
-        .expect(403)
+        .expect(400)
     })
   })
 })

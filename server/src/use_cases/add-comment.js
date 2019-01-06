@@ -5,5 +5,5 @@ function createPosition(position) {
 }
 
 export default {
-  addPosition: createPosition,
+  addComment: createPosition,
 }
