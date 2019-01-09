@@ -86,7 +86,7 @@
 
   img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 50vw;
   }
 
   .chapter {
