@@ -29,31 +29,7 @@
           </ul>
         </section>
         <section class="article-page__forum forum">
-          <form
-            class="forum__form"
-            @submit="submitComment">
-            <label
-              class="forum__label"
-              for="comment">
-              {{ $t("addComment") }}
-            </label>
-            <input
-              id="comment"
-              v-model="newComment"
-              class="forum__add-comment"
-              placeholder="Mon commentaire. Par Pierre">
-          </form>
-          <h2 class="forum__name">
-            {{ $t("hereTheGallery") }}
-          </h2>
-          <ul class="forum__comment-list">
-            <li
-              v-for="comment in comments"
-              :key="comment.text"
-              class="comment__item">
-              <comment-card :comment="comment"/>
-            </li>
-          </ul>
+          <comments/>
         </section>
         <footer class="article-page__footer footer-article">
           <button
@@ -80,19 +56,17 @@
 <script>
   import ChapterCard from './ChapterCard.vue'
   import PhotoCard from './PhotoCard.vue'
-  import CommentCard from './common/CommentCard.vue'
+  import Comments from './Comments.vue'
   import chaptersApi from '../api/chapters'
   import photosApi from '../api/photos'
-  import commentsApi from '../api/comments'
   import translationsService from '../services/translations'
-  import notificationsService from '../services/notifications'
 
   export default {
     name: 'ArticlePage',
     components: {
-      'chapter-card': ChapterCard,
-      'photo-card': PhotoCard,
-      CommentCard,
+      ChapterCard,
+      Comments,
+      PhotoCard,
     },
     data() {
       return {
@@ -100,9 +74,6 @@
         photos: [],
         title: '',
         dropboxId: parseInt(this.$route.params.id, 10),
-        comments: [],
-        newComment: '',
-        errorComment: '',
       }
     },
     watch: {
@@ -119,7 +90,6 @@
       fetchArticle() {
         this.getChapters()
         this.getPhotos()
-        this.getComments()
       },
       getChapters() {
         this.trackEvent()
@@ -133,12 +103,6 @@
         photosApi.fetch(this.dropboxId)
           .then(photos => {
             this.photos = photos
-          })
-      },
-      getComments() {
-        commentsApi.fetch(this.dropboxId)
-          .then(comments => {
-            this.comments = comments
           })
       },
       viewPreviousArticle() {
@@ -160,22 +124,6 @@
           eventLabel: `article ${this.$route.params.id} is read`,
         })
       },
-      submitComment(e) {
-        e.preventDefault()
-        if (this.newComment !== '') {
-          return commentsApi.send(this.dropboxId, this.newComment)
-            .then(this.displaySuccessNotification)
-            .catch(() => {
-              this.displayErrorNotification()
-            })
-        }
-      },
-      displaySuccessNotification() {
-        notificationsService.success(this, this.$t('commentSuccess'))
-      },
-      displayErrorNotification() {
-        notificationsService.error(this, this.$t('commentError'))
-      },
     },
     i18n: {
       messages: {
@@ -184,18 +132,12 @@
           goToPreviousArticle: 'Voir l’article précédent',
           goToNextArticle: 'Voir l’article suivant',
           goToHomePage: 'Retour à la page d’accueil',
-          addComment: 'Ajouter un commentaire',
-          commentError: 'Erreur lors de la prise en compte de ton commentaire.',
-          commentSuccess: 'Ton commentaire a été pris en compte.',
         },
         en: {
           hereTheGallery: 'Here is the photo gallery of this article',
           goToPreviousArticle: 'Read the previous article',
           goToNextArticle: 'Read the next article',
           goToHomePage: 'Go to Home Page',
-          addComment: 'Add a comment',
-          commentError: 'Error when adding the comment.',
-          commentSuccess: 'Your comment has been taken into consideration.',
         },
       },
     },
