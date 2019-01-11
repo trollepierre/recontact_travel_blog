@@ -6,11 +6,7 @@ function createComment(comment) {
     if (isEmptyPlus(comment.author)) {
       comment.author = 'Anonyme'
     }
-    const enhanceComment = {
-      ...comment,
-      datetime: new Date(),
-    }
-    return commentRepository.create(enhanceComment)
+    return commentRepository.create(comment)
   } else {
     throw new Error('Empty comment')
   }

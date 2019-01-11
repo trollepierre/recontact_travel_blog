@@ -11,8 +11,12 @@ router.post('/', (req, res) => {
   console.log('ici')
 
   AddComment.addComment(req.body)
-    .then(comment => res.json(comment))
-    .catch(() => res.status(400).send())
+    .then(comment => {
+      console.log('la')
+
+      return res.json(comment)
+    })
+    // .catch(() => res.status(400).send())
 })
 
 module.exports = router

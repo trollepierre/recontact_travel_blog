@@ -42,7 +42,6 @@ app.use('/api/admin', admin)
 app.use('/api/subscriptions', subscriptions)
 app.use('/api/feedbacks', feedbacks)
 app.use('/api/positions', positions)
-app.use('/api/comments', comments)
 app.use('/apo', optimisation)
 
 // catch 404 and forward to error handler
