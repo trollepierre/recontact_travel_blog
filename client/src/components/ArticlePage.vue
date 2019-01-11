@@ -15,7 +15,9 @@
             </li>
           </ul>
         </section>
-        <section class="article-page__photo-gallery photo-gallery">
+        <section
+          v-if="!isEmpty(photos)"
+          class="article-page__photo-gallery photo-gallery">
           <h2 class="photo-gallery__title">
             {{ $t("hereTheGallery") }}
           </h2>
@@ -54,6 +56,7 @@
 </template>
 
 <script>
+  import { isEmpty } from 'ramda'
   import ChapterCard from './ChapterCard.vue'
   import PhotoCard from './PhotoCard.vue'
   import Comments from './Comments.vue'
@@ -124,6 +127,7 @@
           eventLabel: `article ${this.$route.params.id} is read`,
         })
       },
+      isEmpty,
     },
     i18n: {
       messages: {
@@ -197,6 +201,7 @@
     width: 100%;
     margin-bottom: 10px;
     font-weight: 700;
+    max-width: 300px;
   }
 
   .footer-article button:hover {
