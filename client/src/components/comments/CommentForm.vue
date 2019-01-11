@@ -35,8 +35,8 @@
   </form>
 </template>
 <script>
-  import commentsApi from '../api/comments'
-  import notificationsService from '../services/notifications'
+  import commentsApi from '../../api/comments'
+  import notificationsService from '../../services/notifications'
 
   export default {
     name: 'CommentForm',

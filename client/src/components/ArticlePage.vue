@@ -59,7 +59,7 @@
   import { isEmpty } from 'ramda'
   import ChapterCard from './ChapterCard.vue'
   import PhotoCard from './PhotoCard.vue'
-  import Comments from './Comments.vue'
+  import Comments from './comments/Comments.vue'
   import chaptersApi from '../api/chapters'
   import photosApi from '../api/photos'
   import translationsService from '../services/translations'
