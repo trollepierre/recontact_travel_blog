@@ -47,6 +47,7 @@
         errorComment: '',
         anonymous: this.$t('anonymous'),
         textPlaceholder: this.$t('textPlaceholder'),
+        dropboxId: parseInt(this.$route.params.id, 10),
       }
     },
     methods: {

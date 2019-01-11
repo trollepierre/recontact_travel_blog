@@ -1,20 +1,13 @@
-import axios from 'axios'
+import apiService from '../services/api-service'
 
 const CommentsApi = {
 
   fetch(id) {
-    const url = `${process.env.API_URL}api/articles/${id}/comments`
-    const options = { headers: { 'Content-Type': 'application/json' } }
-
-    return axios.get(url, options)
-      .then(({ data }) => data)
+    return apiService.get(`articles/${id}/comments`)
   },
 
   send(id, comment) {
-    const url = `${process.env.API_URL}api/articles/${id}/comments`
-    const options = { headers: { 'Content-Type': 'application/json' } }
-    return axios.post(url, comment, options)
-      .then(({ data }) => data)
+    return apiService.post(`articles/${id}/comments`, comment)
   },
 }
 

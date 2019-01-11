@@ -4,8 +4,13 @@ function getAll() {
   return Comment.all()
 }
 
-function create(comment) {
-  return Comment.create(comment)
+function getCreatedComment({ text, author }) {
+  return Comment.findOne({ where: { text, author } })
+}
+
+async function create(comment) {
+  await Comment.create(comment)
+  return getCreatedComment(comment)
 }
 
 export default {
