@@ -16,9 +16,9 @@
   </div>
 </template>
 <script>
-  import CommentCard from './common/CommentCard.vue'
-  import commentsApi from '../api/comments'
-  import { isEmptyPlus } from '../../../server/src/domain/utils/ramda-utils'
+  import CommentCard from '../common/CommentCard.vue'
+  import commentsApi from '../../api/comments'
+  import { isEmptyPlus } from '../../../../server/src/domain/utils/ramda-utils'
 
   export default {
     name: 'CommentList',
