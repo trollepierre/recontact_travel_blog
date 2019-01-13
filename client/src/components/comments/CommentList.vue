@@ -8,7 +8,7 @@
     <ul class="forum__comment-list">
       <li
         v-for="comment in comments"
-        :key="comment.text"
+        :key="comment.createdAt"
         class="comment__item">
         <comment-card :comment="comment"/>
       </li>
@@ -26,6 +26,7 @@
     data() {
       return {
         comments: [],
+        dropboxId: parseInt(this.$route.params.id, 10),
       }
     },
     mounted() {
@@ -52,3 +53,20 @@
     },
   }
 </script>
+
+<style scoped>
+  .forum__comment-list {
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .comment__item {
+    display: block;
+    margin-bottom: 20px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>

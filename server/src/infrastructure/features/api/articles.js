@@ -16,11 +16,15 @@ router.get('/:id', (req, res) => GetArticle.getArticle(req.params.id)
 router.get('/:id/photos', (req, res) => GetPhotosOfArticle.getAllPhotos(req.params.id)
   .then(photos => res.json(photos)))
 
-router.get('/:id/comments', (req, res) => GetComments.getComments()
-  .then(comments => res.json(comments)))
+router.get('/:id/comments', (req, res) => GetComments.getComments(req.params.id)
+  .then(comments => {
+    console.log(comments)
+
+    return res.json(comments)
+  }))
 
 router.post('/:id/comments', (req, res) => {
-  AddComment.addComment(req.body)
+  AddComment.addComment(req.body, req.params.id)
     .then(comment => res.json(comment))
     .catch(() => res.status(400).send())
 })
