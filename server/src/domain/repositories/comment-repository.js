@@ -1,7 +1,9 @@
 import { Comment } from '../models/index'
 
-function getAll() {
-  return Comment.all()
+function getAllById(dropboxId) {
+  return Comment.findAll({
+    where: { dropboxId },
+  })
 }
 
 function getCreatedComment({ text, author }) {
@@ -14,6 +16,6 @@ async function create(comment) {
 }
 
 export default {
-  getAll,
+  getAllById,
   create,
 }

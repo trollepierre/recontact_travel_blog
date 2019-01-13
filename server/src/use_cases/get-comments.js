@@ -1,7 +1,7 @@
 import commentRepository from '../domain/repositories/comment-repository'
 
-const getComments = () => {
-  return commentRepository.getAll()
+const getComments = dropboxId => {
+  return commentRepository.getAllById(dropboxId)
 }
 
 export default {
