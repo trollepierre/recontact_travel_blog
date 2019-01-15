@@ -1,4 +1,4 @@
-const { Article } = require('../models/index')
+import { Article } from '../models/index'
 
 function create(articles) {
   return Article.bulkCreate(articles)
@@ -24,7 +24,7 @@ function deleteAll() {
   return Article.destroy({ where: {} })
 }
 
-module.exports = {
+export default {
   create,
   getAll,
   get,

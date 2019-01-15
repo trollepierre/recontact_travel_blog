@@ -1,5 +1,5 @@
-const express = require('express')
-const UpdateArticle = require('../../../use_cases/update-article')
+import express from 'express'
+import UpdateArticle from '../../../use_cases/update-article'
 
 const router = express.Router()
 

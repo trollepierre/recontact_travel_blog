@@ -4,35 +4,47 @@
     <main class="page__body">
       <div class="page__container">
         <section class="article-results">
-          <h1 class="article-results__title hidden">{{ title }}</h1>
-          <p class="article-results__title h1">{{ $t("subtitle") }}</p>
-          <p class="article-results__title h2">{{ $t("lastKnownPosition") }}
-            <span class="article-results__title h3">{{ lastPosition }}</span>
+          <h1 class="article-results__title hidden">
+            {{ title }}
+          </h1>
+          <p class="article-results__title h1">
+            {{ $t("subtitle") }}
+          </p>
+          <p class="article-results__title h2">
+            {{ $t("lastKnownPosition") }}
+            <span class="article-results__title h3">
+              {{ lastPosition }}
+            </span>
           </p>
           <template v-if="adminMode">
             <a href="http://recontact.me/apo/sub">
               <button
                 class="article-results__buttons article-results__sync_hidden"
                 type="button"
-                @click.prevent="goToSubscriptions">{{ $t("getSubscribers") }}
+                @click.prevent="goToSubscriptions">
+                {{ $t("getSubscribers") }}
               </button>
             </a>
             <button
               :disabled="isClickedSync"
               class="article-results__buttons"
               type="button"
-              @click.prevent="synchronise">{{ $t("getNewArticles") }}</button>
-            <button
-              :disabled="isClickedSync"
-              class="article-results__buttons article-results__sync_hidden"
-              type="button"
-              @click.prevent="deleteAll">{{ $t("deleteAllArticles") }}
+              @click.prevent="synchronise">
+              {{ $t("getNewArticles") }}
             </button>
             <button
               :disabled="isClickedSync"
               class="article-results__buttons article-results__sync_hidden"
               type="button"
-              @click.prevent="deleteAndSyncAll">{{ $t("deleteAndSyncAllArticles") }}
+              @click.prevent="deleteAll">
+              {{ $t("deleteAllArticles") }}
+            </button>
+            <button
+              :disabled="isClickedSync"
+              class="article-results__buttons article-results__sync_hidden"
+              type="button"
+              @click.prevent="deleteAndSyncAll">
+              {{ $t("deleteAndSyncAllArticles") }}
             </button>
             <br>
 
@@ -42,7 +54,9 @@
               </p>
               <label
                 class="article-results__label"
-                for="position-place">{{ $t("place") }}</label>
+                for="position-place">
+                {{ $t("place") }}
+              </label>
               <input
                 id="position-place"
                 v-model="place"
@@ -50,7 +64,9 @@
                 placeholder="Paris">
               <label
                 class="article-results__label"
-                for="position-time">{{ $t("time") }}</label>
+                for="position-time">
+                {{ $t("time") }}
+              </label>
               <input
                 id="position-time"
                 v-model="time"
@@ -58,9 +74,10 @@
                 placeholder="le 1er mai 2018">
               <button
                 class="article-results__buttons article-results__action--send"
-                @click="updateLastPosition">{{ $t("confirm") }}</button>
+                @click="updateLastPosition">
+                {{ $t("confirm") }}
+              </button>
             </form>
-
           </template>
           <ul class="article-results__list">
             <li
@@ -79,19 +96,21 @@
 </template>
 
 <script>
-  import ArticleCard from './ArticleCard'
-import articlesApi from '../api/articles'
-import positionsApi from '../api/positions'
-import syncApi from '../api/sync'
-import notificationsService from '../services/notifications'
-import articlesSorter from '../services/articlesSorter'
+  import ArticleCard from './ArticleCard.vue'
+  import articlesApi from '../api/articles'
+  import positionsApi from '../api/positions'
+  import syncApi from '../api/sync'
+  import notificationsService from '../services/notifications'
+  import articlesSorter from '../services/articlesSorter'
 
-export default {
+  export default {
     name: 'ArticleList',
     components: {
       'article-card': ArticleCard,
     },
-    props: ['adminMode'],
+    props: {
+      adminMode: { type: Boolean, default: () => false },
+    },
     data() {
       return {
         articles: [],
@@ -100,7 +119,7 @@ export default {
         place: null,
         time: null,
       }
-  },
+    },
     computed: {
       title() {
         return this.adminMode ? this.$t('fixWebsite') : this.$t('theArticlesOfTheTrip')
@@ -109,7 +128,7 @@ export default {
     mounted() {
       this.getArticles()
       this.getLastPosition()
-  },
+    },
     methods: {
       getArticles() {
         articlesApi.fetchAll()

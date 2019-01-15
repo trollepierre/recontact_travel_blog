@@ -1,8 +1,8 @@
-const config = require('../config/index')
-const Dropbox = require('dropbox')
-const { flatten } = require('lodash')
+import { flatten } from 'lodash'
+import Dropbox from 'dropbox'
+import env from '../env/env'
 
-const DropboxApi = new Dropbox({ accessToken: config.DROPBOX_CLIENT_ID })
+const DropboxApi = new Dropbox({ accessToken: env('DROPBOX_CLIENT_ID') })
 
 const DropboxClient = {
 
@@ -22,7 +22,7 @@ const DropboxClient = {
     return DropboxApi.filesListFolder({ path: '', recursive: true })
       .then(dropboxAnswer => this.getFilesListContinue(dropboxAnswer))
       .then(response => response.entries)
-      .catch((err) => {
+      .catch(err => {
         console.error('Erreur lors de la récupération de tous les fichiers Dropbox : ')
         console.error(err)
         throw err
@@ -32,7 +32,7 @@ const DropboxClient = {
   getFilesFolderPaths(id) {
     return DropboxApi.filesListFolder({ path: `/${id}/`, recursive: true })
       .then(response => response.entries.map(entry => entry.path_display))
-      .catch((err) => {
+      .catch(err => {
         console.error(`Erreur lors de la récupération de toutes les photos de l’article Dropbox : ${id}`)
         console.error(err)
         throw err
@@ -40,10 +40,10 @@ const DropboxClient = {
   },
 
   getFrTextFileStream(id) {
-    const extension = (id < 64) ? 'php' : 'txt'
+    const extension = id < 64 ? 'php' : 'txt'
     return DropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.${extension}` })
       .then(result => result.link)
-      .catch((err) => {
+      .catch(err => {
         console.error('Erreur lors de la récupération du fichier texte de : ', `/${id}/fr.${extension}`)
         console.error(err)
         throw err
@@ -51,10 +51,10 @@ const DropboxClient = {
   },
 
   getEnTextFileStream(id) {
-    const extension = (id < 64) ? 'php' : 'txt'
+    const extension = id < 64 ? 'php' : 'txt'
     return DropboxApi.filesGetTemporaryLink({ path: `/${id}/en.${extension}` })
       .then(result => result.link)
-      .catch((err) => {
+      .catch(err => {
         console.error('Erreur lors de la récupération du fichier texte de : ', `/${id}/en.${extension}`)
         console.error(err)
         throw err
@@ -64,14 +64,14 @@ const DropboxClient = {
   createSharedLink(path) {
     const options = { path, short_url: false }
     return DropboxApi.sharingCreateSharedLink(options)
-      .catch((err) => {
+      .catch(err => {
         if (err.error && err.error.code === 'ECONNRESET') {
           setTimeout(() => DropboxApi.sharingCreateSharedLink(options)
-            .then((response) => {
+            .then(response => {
               console.info('Erreur ECONNRESET fixed after Timeout')
               return response
             })
-            .catch((err2) => {
+            .catch(err2 => {
               if (err2.error.code === 'ECONNRESET') {
                 console.error('Erreur ECONNRESET lors de la création du lien de : ', path)
                 console.error('Dropbox TCP error ECNNRESET', err2)

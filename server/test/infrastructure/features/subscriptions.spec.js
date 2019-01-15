@@ -1,6 +1,6 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const Subscribe = require('../../../src/use_cases/subscribe')
+import { expect, request, sinon } from '../../test-helper'
+import app from '../../../app'
+import Subscribe from '../../../src/use_cases/subscribe'
 
 describe('Integration | Routes | subscriptions route', () => {
   describe('POST /api/subscriptions', () => {
@@ -14,7 +14,7 @@ describe('Integration | Routes | subscriptions route', () => {
       Subscribe.subscribe.restore()
     })
 
-    it('should call Subscribe#subscribe', (done) => {
+    it('should call Subscribe#subscribe', done => {
       // given
       const persistedSubscription = { id: 1, email: 'mail@recontact.me', lang: 'en' }
       Subscribe.subscribe.resolves({ subscription: persistedSubscription, created: false })

@@ -13,7 +13,9 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
       <h2
         class="chapter__title"
       >
+        
         My title
+      
       </h2>
     </header>
      
@@ -33,7 +35,9 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
         class="chapter__footer_text"
       >
         <p>
-          one text
+          
+            one text
+          
         </p>
       </div>
     </footer>
@@ -54,7 +58,9 @@ exports[`Component | ChapterCard.vue template should match snapshot when imgLink
       <h2
         class="chapter__title"
       >
+        
         My title
+      
       </h2>
     </header>
      
@@ -62,7 +68,9 @@ exports[`Component | ChapterCard.vue template should match snapshot when imgLink
       class="chapter__content"
     >
       <span>
+        
         missingImage
+      
       </span>
     </div>
      
@@ -73,7 +81,9 @@ exports[`Component | ChapterCard.vue template should match snapshot when imgLink
         class="chapter__footer_text"
       >
         <p>
-          one text
+          
+            one text
+          
         </p>
       </div>
     </footer>

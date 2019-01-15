@@ -1,9 +1,9 @@
-const DropboxClient = require('../../../src/infrastructure/external_services/dropbox-client')
-const { expect, sinon } = require('../../test-helper')
-const Dropbox = require('dropbox')
-const dropboxFilesListFolder = require('../../fixtures/dropboxFilesListFolder')
-const filteredDropboxPaths = require('../../fixtures/filteredDropboxPaths')
-const dropboxFilesGetTemporaryLink = require('../../fixtures/dropboxFilesGetTemporaryLink')
+import Dropbox from 'dropbox'
+import dropboxFilesListFolder from '../../fixtures/dropboxFilesListFolder'
+import filteredDropboxPaths from '../../fixtures/filteredDropboxPaths'
+import dropboxFilesGetTemporaryLink from '../../fixtures/dropboxFilesGetTemporaryLink'
+import DropboxClient from '../../../src/infrastructure/external_services/dropbox-client'
+import { expect, sinon } from '../../test-helper'
 
 describe('Unit | Infrastructure | dropbox-client', () => {
   describe('#getAllDropboxFoldersMetadatas', () => {
@@ -26,7 +26,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         const promise = DropboxClient.getAllDropboxFoldersMetadatas()
 
         // then
-        return promise.then((entries) => {
+        return promise.then(entries => {
           expect(entries).to.deep.equal(dropboxFilesListFolder())
         })
       })
@@ -123,7 +123,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
             const promise = DropboxClient.getAllDropboxFoldersMetadatas()
 
             // then
-            return promise.then((entries) => {
+            return promise.then(entries => {
               expect(entries.length).to.equal(dropboxFilesListFolder().length * 4)
             })
           })
@@ -142,7 +142,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         // then
         return promise.then(() => {
           throw new Error()
-        }, (err) => {
+        }, err => {
           expect(err.message).to.equal('Expected error')
         })
       })
@@ -169,7 +169,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         const promise = DropboxClient.getFilesFolderPaths(idArticle)
 
         // then
-        return promise.then((entries) => {
+        return promise.then(entries => {
           expect(entries).to.deep.equal(filteredDropboxPaths)
         })
       })
@@ -197,7 +197,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         // then
         return promise.then(() => {
           throw new Error()
-        }, (err) => {
+        }, err => {
           expect(err.message).to.equal('Expected error')
         })
       })
@@ -225,7 +225,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         const promise = DropboxClient.getFrTextFileStream(idArticle)
 
         // then
-        return promise.then((link) => {
+        return promise.then(link => {
           expect(link).to.deep.equal(dropboxFilesGetTemporaryLink().link)
         })
       })
@@ -253,7 +253,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         // then
         return promise.then(() => {
           throw new Error()
-        }, (err) => {
+        }, err => {
           expect(err.message).to.equal('Expected error')
         })
       })
@@ -281,7 +281,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         const promise = DropboxClient.getEnTextFileStream(idArticle)
 
         // then
-        return promise.then((link) => {
+        return promise.then(link => {
           expect(link).to.deep.equal(dropboxFilesGetTemporaryLink().link)
         })
       })
@@ -309,7 +309,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         // then
         return promise.then(() => {
           throw new Error()
-        }, (err) => {
+        }, err => {
           expect(err.message).to.equal('Expected error')
         })
       })
@@ -337,7 +337,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         const promise = DropboxClient.createSharedLink(path)
 
         // then
-        return promise.then((link) => {
+        return promise.then(link => {
           expect(link).to.deep.equal(dropboxFilesGetTemporaryLink)
         })
       })
@@ -363,7 +363,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         const promise = DropboxClient.createSharedLink(path)
 
         // then
-        return promise.then((link) => {
+        return promise.then(link => {
           expect(link).to.deep.equal({})
         })
       })

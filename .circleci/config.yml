@@ -1,6 +1,6 @@
 common_properties: &common_properties
   docker:
-    - image: circleci/node:9-browsers
+    - image: circleci/node:10.14.1-browsers
   working_directory: ~/trollepierre/recontact_travel_blog
 
 version: 2
@@ -99,7 +99,19 @@ jobs:
       - restore_cache:
           keys:
             - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
-      - run: yarn build
+      - run: yarn build:client
+
+  build_back:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v1-code-{{ checksum ".circle-cache-key" }}
+      - restore_cache:
+          keys:
+            - v1-back-dependencies-{{ checksum "server/yarn.lock" }}
+      - run: yarn build:server
 
   deploy_branch:
     <<: *common_properties
@@ -175,11 +187,15 @@ workflows:
       - build_front:
           requires:
             - install_front
+      - build_back:
+          requires:
+            - install_back
       - deploy_branch:
           requires:
             - test_front
             - test_back
             - build_front
+            - build_back
           filters:
             branches:
               ignore:
@@ -196,6 +212,7 @@ workflows:
             - test_front
             - test_back
             - build_front
+            - build_back
           filters:
             branches:
               only: dev
@@ -204,7 +221,7 @@ workflows:
             - test_front
             - test_back
             - build_front
+            - build_back
           filters:
             branches:
               only: master
-

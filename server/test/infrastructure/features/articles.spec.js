@@ -1,11 +1,11 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const GetPhotosOfArticle = require('../../../src/use_cases/get-photos-of-article')
-const GetAllArticles = require('../../../src/use_cases/get-all-articles')
-const GetArticle = require('../../../src/use_cases/get-article')
-const article = require('../../fixtures/articleSaved')
-const chapter = require('../../fixtures/chapterWithParagraphs')
-const photo = require('../../fixtures/photo')
+import { expect, request, sinon } from '../../test-helper'
+import app from '../../../app'
+import GetPhotosOfArticle from '../../../src/use_cases/get-photos-of-article'
+import GetAllArticles from '../../../src/use_cases/get-all-articles'
+import GetArticle from '../../../src/use_cases/get-article'
+import article from '../../fixtures/articleSaved'
+import chapter from '../../fixtures/chapterWithParagraphs'
+import photo from '../../fixtures/photo'
 
 describe('Integration | Routes | articles route', () => {
   describe('/articles', () => {
@@ -20,7 +20,7 @@ describe('Integration | Routes | articles route', () => {
       GetAllArticles.getAllArticles.restore()
     })
 
-    it('should call GetAllArticles to getAllArticles before sending json', (done) => {
+    it('should call GetAllArticles to getAllArticles before sending json', done => {
       // When
       request(app)
         .get('/api/articles')
@@ -47,7 +47,7 @@ describe('Integration | Routes | articles route', () => {
       GetArticle.getArticle.restore()
     })
 
-    it('should call ChapterRepository to getChaptersOfArticle before sending json', (done) => {
+    it('should call ChapterRepository to getChaptersOfArticle before sending json', done => {
       // Given
       const stringIdArticle = '59'
 
@@ -77,7 +77,7 @@ describe('Integration | Routes | articles route', () => {
       GetPhotosOfArticle.getAllPhotos.restore()
     })
 
-    it('should call GetPhotosOfArticle to getAllPhotos before sending json', (done) => {
+    it('should call GetPhotosOfArticle to getAllPhotos before sending json', done => {
       // Given
       const stringIdArticle = '59'
 

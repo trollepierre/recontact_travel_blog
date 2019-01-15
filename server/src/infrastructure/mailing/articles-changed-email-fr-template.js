@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   compile(model) {
     const { addedArticles } = model
 
@@ -6,13 +6,13 @@ module.exports = {
     template += '<p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>'
     template += '<p>'
     if (addedArticles.length === 1) {
-      template += 'Un nouvel article :'
+      template += 'Un nouvel article : '
     } else {
-      template += `${addedArticles.length} nouveaux articles :`
+      template += `${addedArticles.length} nouveaux articles : `
     }
     addedArticles.sort((a, b) => a.dropboxId - b.dropboxId)
-    addedArticles.forEach((article) => {
-      template += `<a href="http://www.recontact.me/#/articles/${article.dropboxId}">${article.frTitle}</a>`
+    addedArticles.forEach(article => {
+      template += `<a href="http://www.recontact.me/articles/${article.dropboxId}">${article.frTitle}</a>`
     })
     template += '</p>'
     return template

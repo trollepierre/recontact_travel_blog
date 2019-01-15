@@ -1,5 +1,5 @@
-const express = require('express')
-const SynchronizeArticles = require('../../../use_cases/synchronize-articles')
+import express from 'express'
+import SynchronizeArticles from '../../../use_cases/synchronize-articles'
 
 const router = express.Router()
 
@@ -8,7 +8,7 @@ router.patch('/', (req, res) => SynchronizeArticles.synchronizeArticles()
     console.info('Synchronization successful.')
     res.status(200).json('Synchronization successful.')
   })
-  .catch((err) => {
+  .catch(err => {
     console.error('Synchronization failed.')
     console.error(err)
     res.status(500).json('Synchronization failed :', err)

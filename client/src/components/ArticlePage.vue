@@ -3,7 +3,9 @@
     <main class="page__body">
       <div class="page__container">
         <section class="article-page">
-          <h1 class="article-page__title">{{ title }}</h1>
+          <h1 class="article-page__title">
+            {{ title }}
+          </h1>
           <ul class="chapter__list">
             <li
               v-for="chapter in chapters"
@@ -14,7 +16,9 @@
           </ul>
         </section>
         <aside class="article-page__photo-gallery photo-gallery">
-          <h2 class="photo-gallery__title">{{ $t("hereTheGallery") }}</h2>
+          <h2 class="photo-gallery__title">
+            {{ $t("hereTheGallery") }}
+          </h2>
           <ul class="photo-gallery__list">
             <li
               v-for="photo in photos"
@@ -47,13 +51,13 @@
 </template>
 
 <script>
-  import ChapterCard from './ChapterCard'
-import PhotoCard from './PhotoCard'
-import chaptersApi from '../api/chapters'
-import photosApi from '../api/photos'
-import translationsService from '../services/translations'
+  import ChapterCard from './ChapterCard.vue'
+  import PhotoCard from './PhotoCard.vue'
+  import chaptersApi from '../api/chapters'
+  import photosApi from '../api/photos'
+  import translationsService from '../services/translations'
 
-export default {
+  export default {
     name: 'ArticlePage',
     components: {
       'chapter-card': ChapterCard,
@@ -66,7 +70,7 @@ export default {
         title: '',
         dropboxId: parseInt(this.$route.params.id, 10),
       }
-  },
+    },
     watch: {
       $route(to) {
         window.scrollTo(0, 0)
@@ -76,7 +80,7 @@ export default {
     },
     mounted() {
       this.fetchArticle()
-  },
+    },
     methods: {
       fetchArticle() {
         this.getChapters()

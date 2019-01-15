@@ -5,7 +5,9 @@
         <a
           :href="articleUrl"
           @click.prevent.once="viewArticle">
-          <h2 class="article__title">{{ articleTitle }}</h2>
+          <h2 class="article__title">
+            {{ articleTitle }}
+          </h2>
         </a>
       </header>
       <div
@@ -53,18 +55,21 @@
 
 <script>
   import articlesApi from '../api/articles'
-import notificationsService from '../services/notifications'
-import translationsService from '../services/translations'
+  import notificationsService from '../services/notifications'
+  import translationsService from '../services/translations'
 
-export default {
+  export default {
     name: 'ArticleCard',
-    props: ['article', 'adminMode'],
+    props: {
+      adminMode: { type: Boolean, default: () => false },
+      article: { type: Object, default: () => {} },
+    },
     data() {
       return {
         isUpdateClicked: false,
         isDeleteClicked: false,
       }
-  },
+    },
     computed: {
       articleUrl() {
         return `/articles/${this.article.dropboxId}`

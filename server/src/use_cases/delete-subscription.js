@@ -1,9 +1,9 @@
-const subscriptionRepository = require('../domain/repositories/subscription-repository')
+import subscriptionRepository from '../domain/repositories/subscription-repository'
 
 function deleteSubscription(id) {
   return subscriptionRepository.deleteById(id)
 }
 
-module.exports = {
+export default {
   deleteSubscription,
 }

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
@@ -14,7 +13,6 @@ describe('Component | ArticlePage.vue', () => {
   let chapters
   let photos
   const title = 'Pierre au pays des'
-  const idArticle = 8
 
   beforeEach(() => {
     translationsService.getChapterTitle = jest.fn()
@@ -63,13 +61,13 @@ describe('Component | ArticlePage.vue', () => {
   })
 
   describe('mounted', () => {
-    xit('should call chapters api to fetch chapters', () => {
-      expect(chaptersApi.fetch).toHaveBeenCalledWith(idArticle)
-    })
-
-    xit('should call photos api to fetch photos', () => {
-      expect(photosApi.fetch).toHaveBeenCalledWith(idArticle)
-    })
+    // xit('should call chapters api to fetch chapters', () => {
+    //   expect(chaptersApi.fetch).toHaveBeenCalledWith(idArticle)
+    // })
+    //
+    // xit('should call photos api to fetch photos', () => {
+    //   expect(photosApi.fetch).toHaveBeenCalledWith(idArticle)
+    // })
 
     it('should save chapters from api in data chapters', () => {
       expect(wrapper.vm.chapters).toEqual(chapters)

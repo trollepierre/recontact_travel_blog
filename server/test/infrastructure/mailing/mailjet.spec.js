@@ -1,7 +1,6 @@
-const { expect, sinon } = require('../../test-helper')
-const Mailjet = require('../../../src/infrastructure/mailing/mailjet')
-
-const nodeMailjet = require('node-mailjet')
+import nodeMailjet from 'node-mailjet'
+import { expect, sinon } from '../../test-helper'
+import Mailjet from '../../../src/infrastructure/mailing/mailjet'
 
 describe('Unit | Infrastructure | Mailing | Mailjet', () => {
   let mailJetConnectStub
@@ -40,7 +39,7 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
       Mailjet.sendEmail(options)
 
       // Then
-      sinon.assert.calledWith(mailJetConnectStub, 'test-api-key', 'test-api-secret')
+      sinon.assert.calledWith(mailJetConnectStub, 'fake-mailjet-public-key', 'fake-mailjet-secret-key')
     })
 
     it('should post a send instruction', () => {

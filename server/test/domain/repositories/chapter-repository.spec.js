@@ -1,8 +1,8 @@
-const { sinon, expect } = require('../../test-helper')
-const chapterRepository = require('../../../src/domain/repositories/chapter-repository')
-const { Chapter } = require('../../../src/domain/models/index')
-const chapterOfArticleSaved = require('../../fixtures/chapterOfArticleSaved')
-const chapterOfArticleToSave = require('../../fixtures/chapterOfArticleToSave')
+import { expect, sinon } from '../../test-helper'
+import chapterRepository from '../../../src/domain/repositories/chapter-repository'
+import { Chapter } from '../../../src/domain/models/index'
+import chapterOfArticleSaved from '../../fixtures/chapterOfArticleSaved'
+import chapterOfArticleToSave from '../../fixtures/chapterOfArticleToSave'
 
 describe('Unit | Repository | chapter-repository', () => {
   let chaptersOfArticleToSave
@@ -30,7 +30,7 @@ describe('Unit | Repository | chapter-repository', () => {
       const promise = chapterRepository.createArticleChapters(chaptersOfArticleToSave)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Chapter.bulkCreate).to.have.been.called
         expect(res).to.deep.equal(savedChaptersOfArticle)
       })
@@ -53,7 +53,7 @@ describe('Unit | Repository | chapter-repository', () => {
       const promise = chapterRepository.getChaptersOfArticle(dropboxId)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Chapter.findAll).to.have.been.calledWith({ where: { dropboxId } })
         expect(res).to.deep.equal(savedChaptersOfArticle)
       })

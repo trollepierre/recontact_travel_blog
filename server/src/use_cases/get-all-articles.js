@@ -1,9 +1,9 @@
-const articleRepository = require('../domain/repositories/article-repository')
+import articleRepository from '../domain/repositories/article-repository'
 
 function getAllArticles() {
   return articleRepository.getAll()
 }
 
-module.exports = {
+export default {
   getAllArticles,
 }

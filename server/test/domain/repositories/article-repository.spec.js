@@ -1,8 +1,8 @@
-const { sinon, expect } = require('../../test-helper')
-const articleRepository = require('../../../src/domain/repositories/article-repository')
-const { Article } = require('../../../src/domain/models/index')
-const articleSaved = require('../../fixtures/articleSaved')
-const articleToSave = require('../../fixtures/articleToSave')
+import { expect, sinon } from '../../test-helper'
+import articleRepository from '../../../src/domain/repositories/article-repository'
+import { Article } from '../../../src/domain/models/index'
+import articleSaved from '../../fixtures/articleSaved'
+import articleToSave from '../../fixtures/articleToSave'
 
 describe('Unit | Repository | article-repository', () => {
   describe('#create', () => {
@@ -24,7 +24,7 @@ describe('Unit | Repository | article-repository', () => {
       const promise = articleRepository.create(articlesToSave)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Article.bulkCreate).to.have.been.called
         expect(res).to.deep.equal(savedArticles)
       })
@@ -67,7 +67,7 @@ describe('Unit | Repository | article-repository', () => {
       const promise = articleRepository.get(dropboxId)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Article.findOne).to.have.been.calledWith({ where: { dropboxId } })
         expect(res).to.deep.equal(articleSaved())
       })

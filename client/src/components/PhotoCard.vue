@@ -14,7 +14,9 @@
 <script>
   export default {
     name: 'PhotoCard',
-    props: ['photo'],
+    props: {
+      photo: { type: Object, default: () => {} },
+    },
     computed: {
       imgLink() {
         const { imgLink } = this.photo

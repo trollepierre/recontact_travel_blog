@@ -1,6 +1,6 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const mailService = require('../../../src/use_cases/send-feedback')
+import { expect, request, sinon } from '../../test-helper'
+import app from '../../../app'
+import mailService from '../../../src/use_cases/send-feedback'
 
 describe('Integration | Routes | feedbacks route', () => {
   const email = 'mail@recontact.me'
@@ -14,7 +14,7 @@ describe('Integration | Routes | feedbacks route', () => {
     mailService.sendFeedbackEmail.restore()
   })
 
-  it('should call mailing service', (done) => {
+  it('should call mailing service', done => {
     // when
     request(app)
       .post('/api/feedbacks')
@@ -29,7 +29,7 @@ describe('Integration | Routes | feedbacks route', () => {
       })
   })
 
-  it('should return error status and error', (done) => {
+  it('should return error status and error', done => {
     // Given
     mailService.sendFeedbackEmail.rejects()
 

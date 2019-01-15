@@ -1,4 +1,4 @@
-const { Subscription } = require('../models/index')
+import { Subscription } from '../models/index'
 
 function getByEmail(subscriberEmail) {
   return Subscription.findOne({ where: { email: subscriberEmail } })
@@ -16,7 +16,7 @@ function getAll() {
   return Subscription.all()
 }
 
-module.exports = {
+export default {
   deleteById,
   getAll,
   getByEmail,

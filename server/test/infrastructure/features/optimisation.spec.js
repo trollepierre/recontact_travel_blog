@@ -1,7 +1,7 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const DeleteSubscription = require('../../../src/use_cases/delete-subscription')
-const GetAllSubscriptions = require('../../../src/use_cases/get-all-subscriptions')
+import { expect, request, sinon } from '../../test-helper'
+import app from '../../../app'
+import DeleteSubscription from '../../../src/use_cases/delete-subscription'
+import GetAllSubscriptions from '../../../src/use_cases/get-all-subscriptions'
 
 describe('Integration | Routes | optimisation route', () => {
   describe('DELETE /api/subscriptions/:subscription_id', () => {
@@ -13,7 +13,7 @@ describe('Integration | Routes | optimisation route', () => {
       DeleteSubscription.deleteSubscription.restore()
     })
 
-    it('should call subscriptionService#deleteById', (done) => {
+    it('should call subscriptionService#deleteById', done => {
       // when
       request(app)
         .get('/apo/sub/del/1234')
@@ -39,7 +39,7 @@ describe('Integration | Routes | optimisation route', () => {
       GetAllSubscriptions.getAllSubscriptions.restore()
     })
 
-    it('should call GetAllSubscriptions#getAllSubscriptions', (done) => {
+    it('should call GetAllSubscriptions#getAllSubscriptions', done => {
       // when
       request(app)
         .get('/apo/sub/')

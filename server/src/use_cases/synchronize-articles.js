@@ -1,14 +1,14 @@
-const FileReader = require('../infrastructure/external_services/file-reader')
-const DropboxClient = require('../infrastructure/external_services/dropbox-client')
-const mailJet = require('../infrastructure/mailing/mailjet')
-const config = require('../infrastructure/config')
-const { isEmpty, flatten } = require('lodash')
-const articleRepository = require('../domain/repositories/article-repository')
-const chapterRepository = require('../domain/repositories/chapter-repository')
-const photoRepository = require('../domain/repositories/photo-repository')
-const subscriptionRepository = require('../domain/repositories/subscription-repository')
-const articlesChangedEmailFrTemplate = require('../infrastructure/mailing/articles-changed-email-fr-template')
-const articlesChangedEmailEnTemplate = require('../infrastructure/mailing/articles-changed-email-en-template')
+import { flatten, isEmpty } from 'lodash'
+import DropboxClient from '../infrastructure/external_services/dropbox-client'
+import FileReader from '../infrastructure/external_services/file-reader'
+import articleRepository from '../domain/repositories/article-repository'
+import articlesChangedEmailEnTemplate from '../infrastructure/mailing/articles-changed-email-en-template'
+import articlesChangedEmailFrTemplate from '../infrastructure/mailing/articles-changed-email-fr-template'
+import chapterRepository from '../domain/repositories/chapter-repository'
+import env from '../infrastructure/env/env'
+import mailJet from '../infrastructure/mailing/mailjet'
+import photoRepository from '../domain/repositories/photo-repository'
+import subscriptionRepository from '../domain/repositories/subscription-repository'
 
 async function synchronizeArticles() {
   try {
@@ -29,19 +29,19 @@ function _serializeArticles(metadatas) {
     .filter(path => path.match('[Ii]mg-?0.jpg$'))
   return metadatas
     .filter(metadata => metadata['.tag'] === 'folder')
-    .map((metadata) => {
-      const imgPath = imageZeros.filter(img => img.match(`^/${metadata.name}`))[0]
-      return ({
-        dropboxId: metadata.name,
+    .map(({ name }) => {
+      const imgPath = imageZeros.filter(img => img.match(`^/${name}`))[0]
+      return {
+        dropboxId: name,
         imgPath,
-        galleryPath: `/${metadata.name}`,
-      })
+        galleryPath: `/${name}`,
+      }
     })
 }
 
 function _compareDropboxAndDatabaseArticles(freshArticles) {
   return articleRepository.getAll()
-    .then((oldArticles) => {
+    .then(oldArticles => {
       const addedArticles = freshArticles.reduce((accumulatedArticles, freshArticle) => {
         const matchedArticles = oldArticles.filter(({ dropboxId }) => dropboxId === freshArticle.dropboxId)
         if (matchedArticles.length === 0) {
@@ -58,7 +58,7 @@ function _ifArticlesChangedThenSendEmailToRecipients(report) {
   const result = report
   if (report.hasChanges && report.addedArticles.length < 3) {
     return subscriptionRepository.getAll()
-      .then((subscriptions) => {
+      .then(subscriptions => {
         result.receivers = subscriptions
         return result
       })
@@ -74,14 +74,14 @@ function _sendArticlesChangedEmail(form) {
   const templateEn = articlesChangedEmailEnTemplate.compile(form)
 
   const optionsFr = {
-    from: config.MAIL_FROM,
+    from: env('MAIL_FROM'),
     fromName: 'RecontactMe',
     to: receivers.filter(({ lang }) => lang === 'fr').map(({ email }) => email),
     subject: '[RecontactMe] Il y a du nouveau sur le site !',
     template: templateFr,
   }
   const optionsEn = {
-    from: config.MAIL_FROM,
+    from: env('MAIL_FROM'),
     fromName: 'RecontactMe',
     to: receivers.filter(({ lang }) => lang !== 'fr').map(({ email }) => email),
     subject: '[RecontactMe] Some news on the website !',
@@ -92,9 +92,9 @@ function _sendArticlesChangedEmail(form) {
 
 function _sendMailToSupport(error) {
   const optionsFr = {
-    from: config.MAIL_FROM,
+    from: env('MAIL_FROM'),
     fromName: 'RecontactMe',
-    to: [config.MAIL_SUPPORT],
+    to: [env('MAIL_SUPPORT')],
     subject: '[RecontactMe] Il y a des erreurs sur le site !',
     template: `<p>${JSON.stringify(error)}</p>`,
   }
@@ -129,11 +129,11 @@ function getPhotosOfArticle({ dropboxId }) {
 }
 
 function filterOnlyGalleryPhotos(paths) {
-  const photosPaths = paths.filter((path) => {
+  const photosPaths = paths.filter(path => {
     const extension = path.split('.').pop()
     return extension === 'jpg' || extension === 'jpeg' || extension === 'png'
   })
-  return photosPaths.filter((path) => {
+  return photosPaths.filter(path => {
     const shortName = path.split('/').pop().substring(0, 3)
     return !shortName.match('[iI]mg')
   })
@@ -184,7 +184,7 @@ function _shareImageZero(article) {
 
 function _insertTitleInReport(report, articlesContents) {
   const result = report
-  result.addedArticles.map((article) => {
+  result.addedArticles.map(article => {
     const articleWithTitle = article
     const { frTitle, enTitle } = articlesContents.find(({ dropboxId }) => dropboxId === article.dropboxId)
     articleWithTitle.frTitle = frTitle
@@ -202,7 +202,7 @@ function _insertArticlesContentsInDatabase(report, dropboxFiles) {
     return promises
   }, [])
   return Promise.all(allChaptersToSave)
-    .then((articlesContents) => {
+    .then(articlesContents => {
       result = _insertTitleInReport(report, articlesContents)
       return articlesContents.map(({ chapters }) => chapters)
     })
@@ -291,7 +291,7 @@ function _shareChapterImages(articleInfos) {
     return promises
   }, [])
   return Promise.all(chaptersWithSharableLink)
-    .then((imgLinks) => {
+    .then(imgLinks => {
       const newArticleInfos = articleInfos
       for (let i = 0; i < imgLinks.length; i += 1) {
         newArticleInfos.chapters[i].imgLink = imgLinks[i]
@@ -312,6 +312,6 @@ function _transformToImgLink(response) {
 function _getGalleryUrl(response) {
   return isEmpty(response) ? '' : response.url
 }
-module.exports = {
+export default {
   synchronizeArticles,
 }

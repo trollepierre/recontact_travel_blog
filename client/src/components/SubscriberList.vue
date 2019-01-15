@@ -3,9 +3,15 @@
     <table class="subscription__table">
       <thead>
         <tr class="subscription__row">
-          <th class="subscription__email">email</th>
-          <th class="subscription__lang">lang</th>
-          <th class="subscription__unsubscribe">Unsubscribe</th>
+          <th class="subscription__email">
+            email
+          </th>
+          <th class="subscription__lang">
+            lang
+          </th>
+          <th class="subscription__unsubscribe">
+            Unsubscribe
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -13,10 +19,16 @@
           v-for="subscription in subscriptions"
           :key="subscription.email"
           class="subscription__row">
-          <td class="subscription__email">{{ subscription.email }}</td>
-          <td class="subscription__lang">{{ subscription.lang }}</td>
+          <td class="subscription__email">
+            {{ subscription.email }}
+          </td>
+          <td class="subscription__lang">
+            {{ subscription.lang }}
+          </td>
           <td class="subscription__unsubscribe">
-            <button @click.prevent="unsubscribe(subscription.id)">Unsubscribe</button>
+            <button @click.prevent="unsubscribe(subscription.id)">
+              Unsubscribe
+            </button>
           </td>
         </tr>
       </tbody>
@@ -27,16 +39,16 @@
 <script>
   import subscriptionsApi from '../api/subscriptions'
 
-export default {
+  export default {
     name: 'SubscriberList',
     data() {
       return {
         subscriptions: [],
       }
-  },
+    },
     mounted() {
       this.getSubscriptions()
-  },
+    },
     methods: {
       async getSubscriptions() {
         this.subscriptions = await subscriptionsApi.fetchAll()

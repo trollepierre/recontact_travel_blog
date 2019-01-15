@@ -2,14 +2,18 @@
   <div class="chapter-card">
     <article class="chapter">
       <header class="chapter__header">
-        <h2 class="chapter__title">{{ chapterTitle }}</h2>
+        <h2 class="chapter__title">
+          {{ chapterTitle }}
+        </h2>
       </header>
       <div class="chapter__content">
         <img
           v-if="imgLink"
           :src="imgLink"
           class="chapter__image">
-        <span v-else>{{ $t("missingImage") }}</span>
+        <span v-else>
+          {{ $t("missingImage") }}
+        </span>
       </div>
       <footer class="chapter__footer">
         <div
@@ -20,8 +24,12 @@
             <a
               v-if="paragraph.isLink"
               :href="paragraph.text"
-              target="_blank">{{ paragraph.text }}</a>
-            <p v-else>{{ paragraph.text }}</p>
+              target="_blank">
+              {{ paragraph.text }}
+            </a>
+            <p v-else>
+              {{ paragraph.text }}
+            </p>
           </template>
         </div>
       </footer>
@@ -32,9 +40,11 @@
 <script>
   import translationsService from '../services/translations'
 
-export default {
+  export default {
     name: 'ChapterCard',
-    props: ['chapter'],
+    props: {
+      chapter: { type: Object, default: () => {} },
+    },
     computed: {
       imgLink() {
         const { imgLink } = this.chapter

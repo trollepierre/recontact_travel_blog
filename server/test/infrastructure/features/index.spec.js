@@ -1,8 +1,8 @@
-const { request, expect } = require('../../test-helper')
-const app = require('../../../app')
+import { expect, request } from '../../test-helper'
+import app from '../../../app'
 
 describe('Integration | Routes | index route', () => {
-  it('should be 404', (done) => {
+  it('should be 404', done => {
     request(app)
       .get('/')
       .end((err, response) => {

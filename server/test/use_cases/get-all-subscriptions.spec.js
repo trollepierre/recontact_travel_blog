@@ -1,6 +1,6 @@
-const { expect, sinon } = require('../test-helper')
-const GetAllSubscriptions = require('../../src/use_cases/get-all-subscriptions')
-const SubscriptionRepository = require('../../src/domain/repositories/subscription-repository')
+import { expect, sinon } from '../test-helper'
+import GetAllSubscriptions from '../../src/use_cases/get-all-subscriptions'
+import SubscriptionRepository from '../../src/domain/repositories/subscription-repository'
 
 describe('Unit | GetAllSubscriptions | getAllSubscriptions', () => {
   const subscriptions = [{ email: 'pierre@recontact.me' }]
@@ -19,7 +19,7 @@ describe('Unit | GetAllSubscriptions | getAllSubscriptions', () => {
 
     // then
     expect(SubscriptionRepository.getAll).to.have.been.calledWith()
-    return promise.then((returnedSubscriptions) => {
+    return promise.then(returnedSubscriptions => {
       expect(returnedSubscriptions).to.deep.equal(subscriptions)
     })
   })

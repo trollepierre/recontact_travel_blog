@@ -1,20 +1,20 @@
-const { expect, sinon } = require('../test-helper')
-const SynchroniseArticles = require('../../src/use_cases/synchronize-articles')
-const ArticleRepository = require('../../src/domain/repositories/article-repository')
-const ChapterRepository = require('../../src/domain/repositories/chapter-repository')
-const PhotoRepository = require('../../src/domain/repositories/photo-repository')
-const SubscriptionRepository = require('../../src/domain/repositories/subscription-repository')
-const mailJet = require('../../src/infrastructure/mailing/mailjet')
-const DropboxClient = require('../../src/infrastructure/external_services/dropbox-client')
-const FileReader = require('../../src/infrastructure/external_services/file-reader')
-const savedArticle = require('../fixtures/articleToSave')
-const chapterOfArticle = require('../fixtures/chapterOfArticleSaved')
-const filteredDropboxFilesListFolder = require('../fixtures/filteredDropboxFilesListFolder')
-const dropboxPhotosPaths = require('../fixtures/filteredDropboxPaths')
-const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTemporaryLink')
-const dropboxArticleFr = require('../fixtures/dropboxArticleFr')
-const dropboxArticleEn = require('../fixtures/dropboxArticleEn')
-const { flatten } = require('lodash')
+import { flatten } from 'lodash'
+import { expect, sinon } from '../test-helper'
+import SynchroniseArticles from '../../src/use_cases/synchronize-articles'
+import ArticleRepository from '../../src/domain/repositories/article-repository'
+import ChapterRepository from '../../src/domain/repositories/chapter-repository'
+import PhotoRepository from '../../src/domain/repositories/photo-repository'
+import SubscriptionRepository from '../../src/domain/repositories/subscription-repository'
+import mailJet from '../../src/infrastructure/mailing/mailjet'
+import DropboxClient from '../../src/infrastructure/external_services/dropbox-client'
+import FileReader from '../../src/infrastructure/external_services/file-reader'
+import savedArticle from '../fixtures/articleToSave'
+import chapterOfArticle from '../fixtures/chapterOfArticleSaved'
+import filteredDropboxFilesListFolder from '../fixtures/filteredDropboxFilesListFolder'
+import dropboxPhotosPaths from '../fixtures/filteredDropboxPaths'
+import dropboxFilesGetTemporaryLink from '../fixtures/dropboxFilesGetTemporaryLink'
+import dropboxArticleFr from '../fixtures/dropboxArticleFr'
+import dropboxArticleEn from '../fixtures/dropboxArticleEn'
 
 describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
   describe('when dropbox rejects error', () => {
@@ -30,7 +30,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       mailJet.sendEmail.restore()
     })
 
-    it('should send mail to support', (done) => {
+    it('should send mail to support', done => {
       // when
       const promise = SynchroniseArticles.synchronizeArticles()
 
@@ -47,12 +47,12 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       })
     })
 
-    it('should throw error', (done) => {
+    it('should throw error', done => {
       // when
       const promise = SynchroniseArticles.synchronizeArticles()
 
       // then
-      promise.catch((catchedError) => {
+      promise.catch(catchedError => {
         expect(catchedError).to.deep.equal(error)
         done()
       })
@@ -111,7 +111,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
         const promise = SynchroniseArticles.synchronizeArticles()
 
         // then
-        return promise.then((chapters) => {
+        return promise.then(chapters => {
           expect(chapters).to.deep.equal({
             addedArticles: [],
             hasChanges: false,
@@ -404,9 +404,9 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               to: ['abonne@recontact.me'],
               subject: '[RecontactMe] Il y a du nouveau sur le site !',
               template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
-                '<p>2 nouveaux articles :' +
-                '<a href="http://www.recontact.me/#/articles/5">59. Perdus autour du mont Gongga</a>' +
-                '<a href="http://www.recontact.me/#/articles/47">59. Perdus autour du mont Gongga</a>' +
+                '<p>2 nouveaux articles : ' +
+                '<a href="http://www.recontact.me/articles/5">59. Perdus autour du mont Gongga</a>' +
+                '<a href="http://www.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
                 '</p>',
             })
             expect(mailJet.sendEmail).to.have.been.calledWith({
@@ -415,9 +415,9 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               to: ['subscriber@recontact.me'],
               subject: '[RecontactMe] Some news on the website !',
               template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
-                '<p>2 new articles:' +
-                '<a href="http://www.recontact.me/#/articles/5">59. Lost autour du mont Gongga</a>' +
-                '<a href="http://www.recontact.me/#/articles/47">59. Lost autour du mont Gongga</a>' +
+                '<p>2 new articles: ' +
+                '<a href="http://www.recontact.me/articles/5">59. Lost autour du mont Gongga</a>' +
+                '<a href="http://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +
                 '</p>',
             })
           })
@@ -441,8 +441,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               to: ['abonne@recontact.me'],
               subject: '[RecontactMe] Il y a du nouveau sur le site !',
               template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
-                '<p>Un nouvel article :' +
-                '<a href="http://www.recontact.me/#/articles/47">59. Perdus autour du mont Gongga</a>' +
+                '<p>Un nouvel article : ' +
+                '<a href="http://www.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
                 '</p>',
             })
             expect(mailJet.sendEmail).to.have.been.calledWith({
@@ -451,8 +451,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               to: ['subscriber@recontact.me'],
               subject: '[RecontactMe] Some news on the website !',
               template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
-                '<p>One new article:' +
-                '<a href="http://www.recontact.me/#/articles/47">59. Lost autour du mont Gongga</a>' +
+                '<p>One new article: ' +
+                '<a href="http://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +
                 '</p>',
             })
           })
@@ -510,7 +510,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           const promise = SynchroniseArticles.synchronizeArticles()
 
           // then
-          return promise.then((result) => {
+          return promise.then(result => {
             expect(result).to.deep.equal(expectedResult)
           })
         })

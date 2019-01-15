@@ -1,6 +1,6 @@
-const { expect, sinon } = require('../test-helper')
-const DeleteSubscription = require('../../src/use_cases/delete-subscription')
-const SubscriptionRepository = require('../../src/domain/repositories/subscription-repository')
+import { expect, sinon } from '../test-helper'
+import DeleteSubscription from '../../src/use_cases/delete-subscription'
+import SubscriptionRepository from '../../src/domain/repositories/subscription-repository'
 
 describe('Unit | DeleteSubscription | deleteSubscription', () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('Unit | DeleteSubscription | deleteSubscription', () => {
 
     // then
     expect(SubscriptionRepository.deleteById).to.have.been.calledWith()
-    return promise.then((returnedSubscriptions) => {
+    return promise.then(returnedSubscriptions => {
       expect(returnedSubscriptions).to.deep.equal({})
     })
   })

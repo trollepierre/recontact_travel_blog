@@ -16,7 +16,9 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
         <h2
           class="article__title"
         >
+          
           Pierre somewhere
+        
         </h2>
       </a>
     </header>

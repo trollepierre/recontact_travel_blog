@@ -1,7 +1,7 @@
-const { expect, sinon } = require('../test-helper')
-const GetPhotosOfArticle = require('../../src/use_cases/get-photos-of-article')
-const PhotoRepository = require('../../src/domain/repositories/photo-repository')
-const photo = require('../fixtures/photo')
+import { expect, sinon } from '../test-helper'
+import GetPhotosOfArticle from '../../src/use_cases/get-photos-of-article'
+import PhotoRepository from '../../src/domain/repositories/photo-repository'
+import photo from '../fixtures/photo'
 
 describe('Unit | GetPhotosOfArticle | getAllPhotos', () => {
   const dropboxId = 8
@@ -28,7 +28,7 @@ describe('Unit | GetPhotosOfArticle | getAllPhotos', () => {
     const promise = GetPhotosOfArticle.getAllPhotos(dropboxId)
 
     // then
-    return promise.then((returnedPhotos) => {
+    return promise.then(returnedPhotos => {
       expect(returnedPhotos).to.deep.equal(photos)
     })
   })

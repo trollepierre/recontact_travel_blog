@@ -1,5 +1,5 @@
-import App from './App.vue'
 import VueRouter from 'vue-router'
+import App from './App.vue'
 
 describe('Component | App', () => {
   let localVue

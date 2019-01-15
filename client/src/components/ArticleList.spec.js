@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
@@ -52,10 +51,6 @@ describe('Component | ArticleList.vue', () => {
   })
 
   describe('mounted', () => {
-    it('should call articles api to fetch articles', () => {
-      expect(articlesApi.fetchAll).toHaveBeenCalledWith()
-    })
-
     it('should call articles api to fetch articles', () => {
       expect(articlesApi.fetchAll).toHaveBeenCalledWith()
     })
@@ -152,62 +147,62 @@ describe('Component | ArticleList.vue', () => {
         expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
       })
 
-      xit('should redirect to /', () => {
-        router.push.mockResolvedValue({})
-        syncApi.launch.mockResolvedValue({})
-
-        wrapper.vm.synchronise()
-
-        return Vue.nextTick().then(() => {
-          expect(wrapper.vm.$router.push).toHaveBeenCalledWith('/')
-        })
-      })
-
-      xit('should display error toast notification when synchronisation fails', () => {
-        notificationsService.error = jest.fn()
-        notificationsService.error.mockResolvedValue({})
-        syncApi.launch.mockRejectedValue('Expected error')
-
-        wrapper.vm.synchronise()
-
-        return Vue.nextTick().then(() => {
-          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
-          const message = 'syncError Error: Expected error'
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), message)
-        })
-      })
+      // xit('should redirect to /', () => {
+      //   router.push.mockResolvedValue({})
+      //   syncApi.launch.mockResolvedValue({})
+      //
+      //   wrapper.vm.synchronise()
+      //
+      //   return Vue.nextTick().then(() => {
+      //     expect(wrapper.vm.$router.push).toHaveBeenCalledWith('/')
+      //   })
+      // })
+      //
+      // xit('should display error toast notification when synchronisation fails', () => {
+      //   notificationsService.error = jest.fn()
+      //   notificationsService.error.mockResolvedValue({})
+      //   syncApi.launch.mockRejectedValue('Expected error')
+      //
+      //   wrapper.vm.synchronise()
+      //
+      //   return Vue.nextTick().then(() => {
+      //     expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
+      //     const message = 'syncError Error: Expected error'
+      //     expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), message)
+      //   })
+      // })
     })
   })
 
-  describe('clicking on button "Synchronise"', () => {
-    let syncButton
-
-    beforeEach(() => {
-      notificationsService.information = jest.fn()
-      syncApi.launch.mockResolvedValue({})
-      syncButton = wrapper.findAll('button.article-results__buttons').at(1)
-    })
-
-    xit('should disable sync button', () => {
-      notificationsService.information.mockRejectedValue()
-      syncButton.trigger('click')
-
-      return Vue.nextTick().then(() => {
-        expect(syncButton.disabled).toEqual(true)
-      })
-    })
-
-    xit('should call synchronise api', () => {
-      notificationsService.information.mockResolvedValue({})
-      sinon.stub(component, 'synchronise').mockResolvedValue({})
-
-      syncButton.trigger('click')
-
-      return Vue.nextTick().then(() => {
-        expect(wrapper.vm.synchronise).toHaveBeenCalled
-      })
-    })
-  })
+  // describe('clicking on button "Synchronise"', () => {
+  //   let syncButton
+  //
+  //   beforeEach(() => {
+  //     notificationsService.information = jest.fn()
+  //     syncApi.launch.mockResolvedValue({})
+  //     syncButton = wrapper.findAll('button.article-results__buttons').at(1)
+  //   })
+  //
+  //   // xit('should disable sync button', () => {
+  //   //   notificationsService.information.mockRejectedValue()
+  //   //   syncButton.trigger('click')
+  //   //
+  //   //   return Vue.nextTick().then(() => {
+  //   //     expect(syncButton.disabled).toEqual(true)
+  //   //   })
+  //   // })
+  //   //
+  //   // xit('should call synchronise api', () => {
+  //   //   notificationsService.information.mockResolvedValue({})
+  //   //   sinon.stub(component, 'synchronise').mockResolvedValue({})
+  //   //
+  //   //   syncButton.trigger('click')
+  //   //
+  //   //   return Vue.nextTick().then(() => {
+  //   //     expect(wrapper.vm.synchronise).toHaveBeenCalled
+  //   //   })
+  //   // })
+  // })
 
   describe('locales', () => {
     const languages = Object.keys(ArticleList.i18n.messages)

@@ -1,5 +1,5 @@
-import Vue from 'vue'
 import Router from 'vue-router'
+import Vue from 'vue'
 import ArticleList from '../components/ArticleList.vue'
 import ArticlePage from '../components/ArticlePage.vue'
 import SubscriberList from '../components/SubscriberList.vue'

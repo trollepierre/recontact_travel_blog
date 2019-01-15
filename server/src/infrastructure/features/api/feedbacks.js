@@ -1,5 +1,5 @@
-const express = require('express')
-const mailService = require('../../../use_cases/send-feedback')
+import express from 'express'
+import mailService from '../../../use_cases/send-feedback'
 
 const router = express.Router()
 
@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
     .then(() => {
       res.status(201).json('Feedback sent')
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).json({ error: err })
     })
 })

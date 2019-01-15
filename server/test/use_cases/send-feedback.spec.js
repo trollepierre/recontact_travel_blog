@@ -1,7 +1,7 @@
-const { sinon, expect } = require('../test-helper')
+import { expect, sinon } from '../test-helper'
 
-const mailJet = require('../../src/infrastructure/mailing/mailjet')
-const mailService = require('../../src/use_cases/send-feedback')
+import mailJet from '../../src/infrastructure/mailing/mailjet'
+import mailService from '../../src/use_cases/send-feedback'
 
 describe('Unit | Service | MailService', () => {
   beforeEach(() => {
@@ -48,7 +48,7 @@ describe('Unit | Service | MailService', () => {
       const promise = mailService.sendFeedbackEmail(form)
 
       // then
-      return promise.catch((err) => {
+      return promise.catch(err => {
         expect(err.message).to.equal('error')
       })
     })

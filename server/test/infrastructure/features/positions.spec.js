@@ -1,7 +1,7 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const GetLastPosition = require('../../../src/use_cases/get-last-position')
-const AddPosition = require('../../../src/use_cases/add-position')
+import { expect, request, sinon } from '../../test-helper'
+import app from '../../../app'
+import GetLastPosition from '../../../src/use_cases/get-last-position'
+import AddPosition from '../../../src/use_cases/add-position'
 
 describe('Integration | Routes | positions route', () => {
   describe('GET /api/positions/last', () => {
@@ -16,7 +16,7 @@ describe('Integration | Routes | positions route', () => {
       GetLastPosition.getLastPosition.restore()
     })
 
-    it('should call GetLastPosition#getLastPosition and return position', (done) => {
+    it('should call GetLastPosition#getLastPosition and return position', done => {
       // when
       request(app)
         .get('/api/positions/last')
@@ -40,7 +40,7 @@ describe('Integration | Routes | positions route', () => {
       AddPosition.addPosition.restore()
     })
 
-    it('should call AddPosition#addPosition and return position', (done) => {
+    it('should call AddPosition#addPosition and return position', done => {
       // given
       const persistedPosition = { id: 1, lastPosition: 'Mexico' }
       AddPosition.addPosition.resolves({ position: persistedPosition })

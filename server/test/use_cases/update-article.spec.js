@@ -1,18 +1,18 @@
-const { expect, sinon } = require('../test-helper')
-const UpdateArticle = require('../../src/use_cases/update-article')
-const ArticleRepository = require('../../src/domain/repositories/article-repository')
-const ChapterRepository = require('../../src/domain/repositories/chapter-repository')
-const PhotoRepository = require('../../src/domain/repositories/photo-repository')
-const SubscriptionRepository = require('../../src/domain/repositories/subscription-repository')
-const mailJet = require('../../src/infrastructure/mailing/mailjet')
-const DropboxClient = require('../../src/infrastructure/external_services/dropbox-client')
-const FileReader = require('../../src/infrastructure/external_services/file-reader')
-const savedArticle = require('../fixtures/articleToSave')
-const chapterOfArticle = require('../fixtures/chapterOfArticleSaved')
-const dropboxFilesGetTemporaryLink = require('../fixtures/dropboxFilesGetTemporaryLink')
-const dropboxArticleFr = require('../fixtures/dropboxArticleFr')
-const dropboxArticleEn = require('../fixtures/dropboxArticleEn')
-const dropboxPhotosPaths = require('../fixtures/filteredDropboxPathsOfArticle')
+import { expect, sinon } from '../test-helper'
+import UpdateArticle from '../../src/use_cases/update-article'
+import ArticleRepository from '../../src/domain/repositories/article-repository'
+import ChapterRepository from '../../src/domain/repositories/chapter-repository'
+import PhotoRepository from '../../src/domain/repositories/photo-repository'
+import SubscriptionRepository from '../../src/domain/repositories/subscription-repository'
+import mailJet from '../../src/infrastructure/mailing/mailjet'
+import DropboxClient from '../../src/infrastructure/external_services/dropbox-client'
+import FileReader from '../../src/infrastructure/external_services/file-reader'
+import savedArticle from '../fixtures/articleToSave'
+import chapterOfArticle from '../fixtures/chapterOfArticleSaved'
+import dropboxFilesGetTemporaryLink from '../fixtures/dropboxFilesGetTemporaryLink'
+import dropboxArticleFr from '../fixtures/dropboxArticleFr'
+import dropboxArticleEn from '../fixtures/dropboxArticleEn'
+import dropboxPhotosPaths from '../fixtures/filteredDropboxPathsOfArticle'
 
 describe('Unit | UpdateArticle | sync', () => {
   const dropboxId = 8
@@ -259,7 +259,7 @@ describe('Unit | UpdateArticle | sync', () => {
       const promise = UpdateArticle.sync(dropboxId)
 
       // then
-      return promise.then((result) => {
+      return promise.then(result => {
         expect(result).to.deep.equal(expectedResult)
       })
     })

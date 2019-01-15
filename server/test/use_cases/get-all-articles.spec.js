@@ -1,7 +1,7 @@
-const { expect, sinon } = require('../test-helper')
-const GetAllArticles = require('../../src/use_cases/get-all-articles')
-const ArticleRepository = require('../../src/domain/repositories/article-repository')
-const articles = require('../fixtures/articlesWithSharedLink')
+import { expect, sinon } from '../test-helper'
+import GetAllArticles from '../../src/use_cases/get-all-articles'
+import ArticleRepository from '../../src/domain/repositories/article-repository'
+import articles from '../fixtures/articlesWithSharedLink'
 
 describe('Unit | GetAllArticles | getAllArticles', () => {
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('Unit | GetAllArticles | getAllArticles', () => {
 
     // then
     expect(ArticleRepository.getAll).to.have.been.calledWith()
-    return promise.then((returnedArticles) => {
+    return promise.then(returnedArticles => {
       expect(returnedArticles).to.deep.equal(articles())
     })
   })

@@ -1,6 +1,6 @@
-const { sinon, expect } = require('../../test-helper')
-const positionRepository = require('../../../src/domain/repositories/position-repository')
-const { Position } = require('../../../src/domain/models/index')
+import { expect, sinon } from '../../test-helper'
+import positionRepository from '../../../src/domain/repositories/position-repository'
+import { Position } from '../../../src/domain/models/index'
 
 describe('Unit | Repository | position-repository', () => {
   const position = {
@@ -26,7 +26,7 @@ describe('Unit | Repository | position-repository', () => {
       const promise = positionRepository.create(positionToCreate)
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Position.create).to.have.been.calledWith(positionToCreate)
         expect(res).to.deep.equal(position)
       })
@@ -49,7 +49,7 @@ describe('Unit | Repository | position-repository', () => {
       const promise = positionRepository.getAll()
 
       // then
-      return promise.then((res) => {
+      return promise.then(res => {
         expect(Position.all).to.have.been.calledWith()
         expect(res).to.deep.equal(positions)
       })

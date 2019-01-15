@@ -1,4 +1,4 @@
-const { Chapter } = require('../models/index')
+import { Chapter } from '../models/index'
 
 function createArticleChapters(chapters) {
   return Chapter
@@ -21,7 +21,7 @@ function deleteAll() {
   return Chapter.destroy({ where: {} })
 }
 
-module.exports = {
+export default {
   createArticleChapters,
   getChaptersOfArticle,
   deleteChaptersOfArticle,

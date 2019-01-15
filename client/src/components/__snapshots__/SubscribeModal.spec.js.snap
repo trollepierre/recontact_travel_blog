@@ -4,7 +4,7 @@ exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
 <div
   class="subscribe-modal-wrapper"
 >
-  <modal
+  <modal-stub
     class="subscribe-modal"
     height="315"
     name="subscribe-modal"
@@ -15,7 +15,9 @@ exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
       <h2
         class="subscribe-modal__title"
       >
+        
         subscribe
+      
       </h2>
     </div>
      
@@ -39,7 +41,9 @@ exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
           class="subscribe-modal__label"
           for="subscribe-content"
         >
+          
           email
+        
         </label>
          
         <input
@@ -59,16 +63,20 @@ exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
         <button
           class="subscribe-modal__action subscribe-modal__action--send"
         >
+          
           confirm
+        
         </button>
          
         <button
           class="subscribe-modal__action subscribe-modal__action--cancel"
         >
+          
           cancel
+        
         </button>
       </div>
     </div>
-  </modal>
+  </modal-stub>
 </div>
 `;

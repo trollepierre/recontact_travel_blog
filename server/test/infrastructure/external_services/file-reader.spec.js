@@ -1,7 +1,7 @@
-const File = require('../../../src/infrastructure/external_services/file-reader')
-const { expect, sinon } = require('../../test-helper')
-const request = require('request')
-const articleFr = require('../../fixtures/dropboxArticleFr')
+import request from 'request'
+import articleFr from '../../fixtures/dropboxArticleFr'
+import File from '../../../src/infrastructure/external_services/file-reader'
+import { expect, sinon } from '../../test-helper'
 
 describe('Unit | Infrastructure | file', () => {
   describe('#read', () => {
@@ -26,7 +26,7 @@ describe('Unit | Infrastructure | file', () => {
       const promise = File.read(filePath)
 
       // then
-      return promise.then((chapters) => {
+      return promise.then(chapters => {
         expect(chapters).to.deep.equal(articleFr)
       })
     })

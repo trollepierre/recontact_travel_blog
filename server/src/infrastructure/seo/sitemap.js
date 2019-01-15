@@ -1,4 +1,4 @@
-const path = require('path')
+import path from 'path'
 
 const sitemapOptions = {
   root: path.join(__dirname, '..', '..', '..', '..', 'client', 'static'),
@@ -7,8 +7,6 @@ const sitemapOptions = {
   },
 }
 
-const sitemap = (req, res) => (
-  res.status(200).sendFile('sitemap.xml', sitemapOptions)
-)
+const sitemap = (req, res) => res.status(200).sendFile('sitemap.xml', sitemapOptions)
 
 module.exports = sitemap

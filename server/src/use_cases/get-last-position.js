@@ -1,6 +1,6 @@
-const { maxBy } = require('lodash')
+import { maxBy } from 'lodash'
 
-const positionRepository = require('../domain/repositories/position-repository')
+import positionRepository from '../domain/repositories/position-repository'
 
 function getAllPositions() {
   return positionRepository.getAll()
@@ -10,6 +10,6 @@ async function getLastPosition() {
   return maxBy(await getAllPositions(), 'id')
 }
 
-module.exports = {
+export default {
   getLastPosition,
 }

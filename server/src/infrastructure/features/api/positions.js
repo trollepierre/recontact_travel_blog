@@ -1,6 +1,6 @@
-const express = require('express')
-const GetLastPosition = require('../../../use_cases/get-last-position')
-const AddPosition = require('../../../use_cases/add-position')
+import express from 'express'
+import GetLastPosition from '../../../use_cases/get-last-position'
+import AddPosition from '../../../use_cases/add-position'
 
 const router = express.Router()
 

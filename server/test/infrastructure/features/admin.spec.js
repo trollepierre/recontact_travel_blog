@@ -1,6 +1,6 @@
-const { request, expect, sinon } = require('../../test-helper')
-const app = require('../../../app')
-const UpdateArticle = require('../../../src/use_cases/update-article')
+import { expect, request, sinon } from '../../test-helper'
+import app from '../../../app'
+import UpdateArticle from '../../../src/use_cases/update-article'
 
 describe('Integration | Routes | admin route', () => {
   describe('/admin/articles/:id', () => {
@@ -12,7 +12,7 @@ describe('Integration | Routes | admin route', () => {
       UpdateArticle.sync.restore()
     })
 
-    it('should call delete article and send 204', (done) => {
+    it('should call delete article and send 204', done => {
       // Given
       const stringIdArticle = '59'
 

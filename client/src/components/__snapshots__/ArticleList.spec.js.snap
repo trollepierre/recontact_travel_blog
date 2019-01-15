@@ -16,24 +16,31 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
         <h1
           class="article-results__title hidden"
         >
+          
           fixWebsite
+        
         </h1>
          
         <p
           class="article-results__title h1"
         >
+          
           subtitle
+        
         </p>
          
         <p
           class="article-results__title h2"
         >
+          
           lastKnownPosition
           
           <span
             class="article-results__title h3"
           >
             
+            
+          
           </span>
         </p>
          
@@ -44,7 +51,8 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
             class="article-results__buttons article-results__sync_hidden"
             type="button"
           >
-            getSubscribers
+            
+              getSubscribers
             
           </button>
         </a>
@@ -53,14 +61,8 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
           class="article-results__buttons"
           type="button"
         >
-          getNewArticles
-        </button>
-         
-        <button
-          class="article-results__buttons article-results__sync_hidden"
-          type="button"
-        >
-          deleteAllArticles
+          
+            getNewArticles
           
         </button>
          
@@ -68,7 +70,17 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
           class="article-results__buttons article-results__sync_hidden"
           type="button"
         >
-          deleteAndSyncAllArticles
+          
+            deleteAllArticles
+          
+        </button>
+         
+        <button
+          class="article-results__buttons article-results__sync_hidden"
+          type="button"
+        >
+          
+            deleteAndSyncAllArticles
           
         </button>
          
@@ -89,7 +101,9 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
             class="article-results__label"
             for="position-place"
           >
-            place
+            
+              place
+            
           </label>
            
           <input
@@ -102,7 +116,9 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
             class="article-results__label"
             for="position-time"
           >
-            time
+            
+              time
+            
           </label>
            
           <input
@@ -114,7 +130,9 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
           <button
             class="article-results__buttons article-results__action--send"
           >
-            confirm
+            
+              confirm
+            
           </button>
         </form>
          

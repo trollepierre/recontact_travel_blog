@@ -1,9 +1,9 @@
-const chapterRepository = require('../domain/repositories/chapter-repository')
-const articleRepository = require('../domain/repositories/article-repository')
-const photoRepository = require('../domain/repositories/photo-repository')
-const { isEmpty, flatten } = require('lodash')
-const DropboxClient = require('../infrastructure/external_services/dropbox-client')
-const FileReader = require('../infrastructure/external_services/file-reader')
+import { flatten, isEmpty } from 'lodash'
+import chapterRepository from '../domain/repositories/chapter-repository'
+import articleRepository from '../domain/repositories/article-repository'
+import photoRepository from '../domain/repositories/photo-repository'
+import DropboxClient from '../infrastructure/external_services/dropbox-client'
+import FileReader from '../infrastructure/external_services/file-reader'
 
 async function sync(dropboxId) {
   function _createPhotosOfArticlesInDatabase(dropboxFilesPath) {
@@ -18,11 +18,11 @@ async function sync(dropboxId) {
   }
 
   function filterOnlyGalleryPhotos(paths) {
-    const photosPaths = paths.filter((path) => {
+    const photosPaths = paths.filter(path => {
       const extension = path.split('.').pop()
       return extension === 'jpg' || extension === 'jpeg' || extension === 'png'
     })
-    return photosPaths.filter((path) => {
+    return photosPaths.filter(path => {
       const shortName = path.split('/').pop().substring(0, 3)
       return !shortName.match('[iI]mg')
     })
@@ -156,7 +156,7 @@ async function sync(dropboxId) {
       return promises
     }, [])
     return Promise.all(chaptersWithSharableLink)
-      .then((imgLinks) => {
+      .then(imgLinks => {
         const newArticleInfos = articleInfos
         for (let i = 0; i < imgLinks.length; i += 1) {
           newArticleInfos.chapters[i].imgLink = imgLinks[i]
@@ -201,6 +201,6 @@ async function sync(dropboxId) {
   return report
 }
 
-module.exports = {
+export default {
   sync,
 }

@@ -1,9 +1,9 @@
-const photoRepository = require('../domain/repositories/photo-repository')
+import photoRepository from '../domain/repositories/photo-repository'
 
 function getAllPhotos(dropboxId) {
   return photoRepository.getPhotosOfArticle(dropboxId)
 }
 
-module.exports = {
+export default {
   getAllPhotos,
 }

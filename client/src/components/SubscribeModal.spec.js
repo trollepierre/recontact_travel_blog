@@ -144,7 +144,7 @@ describe('Component | SubscribeModal.vue', () => {
 
         wrapper.vm.sendSubscription()
 
-        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled
+        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled()
       })
     })
 
@@ -162,7 +162,7 @@ describe('Component | SubscribeModal.vue', () => {
 
         wrapper.vm.sendSubscription()
 
-        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled
+        expect(subscriptionsApi.subscribe).not.toHaveBeenCalled()
       })
     })
 
@@ -194,29 +194,29 @@ describe('Component | SubscribeModal.vue', () => {
       })
     })*/
 
-    describe('when sendSubscription fails', () => {
-      beforeEach(() => {
-        // wrapper.$modal.show('subscribe-modal');
-        wrapper.vm.email = 'email@recontact.me'
-        subscriptionsApi.subscribe.mockRejectedValue(new Error('e'))
-      })
-
-      xit('should not close modal', () => {
-        wrapper.vm.sendSubscription()
-
-        return Vue.nextTick().then(() => {
-          expect(wrapper.find('.subscribe-modal')).to.exist
-        })
-      })
-
-      xit('should set error', () => {
-        wrapper.vm.sendSubscription()
-
-        return Vue.nextTick().then(() => {
-          expect(wrapper.vm.error).toEqual('subscriptionError')
-        })
-      })
-    })
+    // describe('when sendSubscription fails', () => {
+    //   beforeEach(() => {
+    //     // wrapper.$modal.show('subscribe-modal');
+    //     wrapper.vm.email = 'email@recontact.me'
+    //     subscriptionsApi.subscribe.mockRejectedValue(new Error('e'))
+    //   })
+    //
+    //   // xit('should not close modal', () => {
+    //   //   wrapper.vm.sendSubscription()
+    //   //
+    //   //   return Vue.nextTick().then(() => {
+    //   //     expect(wrapper.find('.subscribe-modal')).to.exist
+    //   //   })
+    //   // })
+    //   //
+    //   // xit('should set error', () => {
+    //   //   wrapper.vm.sendSubscription()
+    //   //
+    //   //   return Vue.nextTick().then(() => {
+    //   //     expect(wrapper.vm.error).toEqual('subscriptionError')
+    //   //   })
+    //   // })
+    // })
   })
 
   /*xdescribe('#cancelSubscription', () => {

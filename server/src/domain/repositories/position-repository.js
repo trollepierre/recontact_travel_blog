@@ -1,4 +1,4 @@
-const { Position } = require('../models/index')
+import { Position } from '../models/index'
 
 function getAll() {
   return Position.all()
@@ -8,7 +8,7 @@ function create(position) {
   return Position.create(position)
 }
 
-module.exports = {
+export default {
   getAll,
   create,
 }

@@ -1,13 +1,13 @@
-const { request, sinon, expect } = require('../../test-helper')
-const app = require('../../../app')
-const SynchronizeArticles = require('../../../src/use_cases/synchronize-articles')
+import { expect, request, sinon } from '../../test-helper'
+import app from '../../../app'
+import SynchronizeArticles from '../../../src/use_cases/synchronize-articles'
 
 describe('Integration | Routes | index route', () => {
   afterEach(() => {
     SynchronizeArticles.synchronizeArticles.restore()
   })
 
-  it('should return "Synchronization successful" message', (done) => {
+  it('should return "Synchronization successful" message', done => {
     // Given
     sinon.stub(SynchronizeArticles, 'synchronizeArticles').resolves()
     // When
@@ -24,7 +24,7 @@ describe('Integration | Routes | index route', () => {
   })
 
   // TODO fix that test
-  it.skip('should be 500', (done) => {
+  it.skip('should be 500', done => {
     // Given
     sinon.stub(SynchronizeArticles, 'synchronizeArticles').rejects(new Error('Some error'))
     // When

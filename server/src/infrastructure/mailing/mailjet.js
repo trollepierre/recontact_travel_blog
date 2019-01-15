@@ -1,6 +1,6 @@
-const mailjetConfig = require('../config/index').MAILJET
-const nodeMailjet = require('node-mailjet')
-const { isEmpty } = require('lodash')
+import nodeMailjet from 'node-mailjet'
+import { isEmpty } from 'lodash'
+import env from '../env/env'
 
 function _formatRecipients(recipients) {
   if (!recipients) {
@@ -24,7 +24,7 @@ function _formatPayload(options) {
 
 function sendEmail(options) {
   if (!isEmpty(options.to)) {
-    const mailjet = nodeMailjet.connect(mailjetConfig.apiKey, mailjetConfig.apiSecret)
+    const mailjet = nodeMailjet.connect(env('MAILJET_PUBLIC_KEY'), env('MAILJET_SECRET_KEY'))
     return mailjet
       .post('send')
       .request(_formatPayload(options))
@@ -32,6 +32,6 @@ function sendEmail(options) {
   return Promise.resolve()
 }
 
-module.exports = {
+export default {
   sendEmail,
 }
