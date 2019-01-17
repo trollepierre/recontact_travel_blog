@@ -193,10 +193,14 @@
 
   .forum__comment-box {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 400;
     margin: 0;
     overflow-wrap: break-word;
     padding-left: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+    border-image: initial;
   }
 
   .input-group {
@@ -248,4 +252,9 @@
     max-width: 300px;
   }
 
+  @media only screen and (max-width: 1000px) {
+    .form {
+      width: 100%;
+    }
+  }
 </style>

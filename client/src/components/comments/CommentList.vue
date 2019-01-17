@@ -69,4 +69,10 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  @media only screen and (max-width: 1000px) {
+    .comment__item {
+      width: 100%;
+    }
+  }
 </style>
