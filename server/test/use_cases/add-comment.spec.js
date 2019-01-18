@@ -3,7 +3,7 @@ import { expect, sinon } from '../test-helper'
 import AddComment from '../../src/use_cases/add-comment'
 import CommentRepository from '../../src/domain/repositories/comment-repository'
 
-describe('Unit | AddComment | addComment', () => {
+describe.skip('Unit | AddComment | addComment', () => {
   const text = 'comment-1'
   const author = 'moi'
   const datetime = 'some date without in a string'

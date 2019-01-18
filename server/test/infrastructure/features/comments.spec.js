@@ -3,7 +3,7 @@ import app from '../../../app'
 import GetComments from '../../../src/use_cases/get-comments'
 import AddComment from '../../../src/use_cases/add-comment'
 
-describe('Integration | Routes | comments route', () => {
+describe.skip('Integration | Routes | comments route', () => {
   describe('GET /api/comments/', () => {
     let persistedComments
     beforeEach(() => {
