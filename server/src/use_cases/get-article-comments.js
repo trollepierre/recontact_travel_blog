@@ -5,5 +5,5 @@ const getComments = dropboxId => {
 }
 
 export default {
-  getComments,
+  getArticleComments: getComments,
 }

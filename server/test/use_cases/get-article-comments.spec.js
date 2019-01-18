@@ -1,8 +1,8 @@
 import { expect, sinon } from '../test-helper'
-import GetComments from '../../src/use_cases/get-comments'
+import GetArticleComments from '../../src/use_cases/get-article-comments'
 import CommentRepository from '../../src/domain/repositories/comment-repository'
 
-describe.skip('Unit | GetComments | getComments', () => {
+describe.skip('Unit | GetArticleComments | getArticleComments', () => {
   const comments = [
     { id: 1, text: 'comment-1' },
     { id: 2, text: 'comment-2' },
@@ -18,7 +18,7 @@ describe.skip('Unit | GetComments | getComments', () => {
 
   it('should call CommentRepository to getAll comments', () => {
     // when
-    GetComments.getComments()
+    GetArticleComments.getArticleComments()
 
     // then
     expect(CommentRepository.getAll).to.have.been.calledWith()
@@ -26,7 +26,7 @@ describe.skip('Unit | GetComments | getComments', () => {
 
   it('should return all comments', () => {
     // when
-    const promise = GetComments.getComments()
+    const promise = GetArticleComments.getArticleComments()
 
     // then
     return promise.then(returnedComments => {
