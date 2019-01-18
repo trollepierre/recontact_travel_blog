@@ -7,13 +7,25 @@ exports[`Component | CommentCard.vue template should match snapshot 1`] = `
   <article
     class="comment"
   >
-    <div
-      class="comment__content"
+    <header
+      class="comment__header"
+    >
+      <p
+        class="comment__author"
+      >
+        
+        From undefined - 13/01/2019 22:12
+      
+      </p>
+    </header>
+     
+    <footer
+      class="comment__footer"
     >
       <p>
         comment
       </p>
-    </div>
+    </footer>
   </article>
 </div>
 `;

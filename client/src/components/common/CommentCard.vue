@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  // import { formatDateWithLittleEndianLongFormat } from '../../utils/date-utils'
+  import { formatDateWithLongEndianLongFormat } from '../../utils/date-utils'
   import translationService from '../../services/translations'
 
   export default {
@@ -28,13 +28,11 @@
     },
     computed: {
       commentAuthor() {
-        console.log(this.comment.createdAt)
-        console.log(new Date(this.comment.createdAt))
-        // console.log(formatDateWithLittleEndianLongFormat(new Date(this.comment.createdAt)))
+        const date = formatDateWithLongEndianLongFormat(new Date(this.comment.createdAt))
         if (translationService.isFrancophone()) {
-          return `De ${this.comment.author} - le 5 avril 2018 à 7h32`
+          return `De ${this.comment.author} - ${date}`
         }
-        return `From ${this.comment.author} - the 5 April 2018 at 7:32am`
+        return `From ${this.comment.author} - ${date}`
       },
     },
   }

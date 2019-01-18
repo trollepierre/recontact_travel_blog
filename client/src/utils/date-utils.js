@@ -1,3 +1,5 @@
+import { formatWithOptions } from 'date-fns/fp'
+
 const differenceInYears = require('date-fns/fp/differenceInYears')
 const differenceInCalendarDays = require('date-fns/fp/differenceInCalendarDays')
 const addDays = require('date-fns/fp/addDays')
@@ -7,7 +9,7 @@ const isSameDay = require('date-fns/fp/isSameDay')
 const subDays = require('date-fns/fp/subDays')
 const addYears = require('date-fns/fp/addYears')
 const { parse, isValid } = require('date-fns')
-const formatWithOptions = require('date-fns/fp/formatWithOptions')
+
 const fr = require('date-fns/locale/fr')
 const { ifElse, isNil } = require('ramda')
 
@@ -17,6 +19,7 @@ const formatDate = formatWithOptions(options)
 const numberOfDaysInLate = date => differenceInCalendarDays(date)(new Date())
 const parseDate = date => parse(date, 'dd/MM/yyyy', new Date())
 const formatDateWithLittleEndianLongFormat = ifElse(isNil, () => '', formatDate('dd/MM/yyyy'))
+const formatDateWithLongEndianLongFormat = ifElse(isNil, () => '', formatDate('dd/MM/yyyy HH:mm'))
 const formatDateWithInternationalLongDateTimeFormat = formatDate('yyyy-MM-dd:HH:mm:ss')
 const earliestDate = (firstDate, secondDate) => isAfter(firstDate)(secondDate) ? firstDate : secondDate
 const latestDate = (firstDate, secondDate) => isBefore(firstDate)(secondDate) ? firstDate : secondDate
@@ -31,11 +34,12 @@ const determineNextBirthday = birthDate => {
   return isToday(lastBirthday) ? lastBirthday : addYears(age + 1)(birthDate)
 }
 
-module.exports = {
+export {
   numberOfDaysInLate,
   parseDate,
   formatDateWithLittleEndianLongFormat,
   formatDateWithInternationalLongDateTimeFormat,
+  formatDateWithLongEndianLongFormat,
   earliestDate,
   latestDate,
   addYears,

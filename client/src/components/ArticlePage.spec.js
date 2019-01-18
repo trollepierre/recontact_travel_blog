@@ -7,7 +7,6 @@ import photosApi from '../api/photos'
 import chaptersApi from '../api/chapters'
 import commentsApi from '../api/comments'
 import translationsService from '../services/translations'
-import notificationsService from '../services/notifications'
 
 describe('Component | ArticlePage.vue', () => {
   let localVue
@@ -82,80 +81,6 @@ describe('Component | ArticlePage.vue', () => {
     it('should save photos from api in data photos', () => {
       expect(wrapper.vm.photos).toEqual(photos)
     })
-
-    describe('getComments', () => {
-      it('should fetch comments with dropbox id', () => {
-        // Then
-        expect(commentsApi.fetch).toHaveBeenCalledOnceWith(dropboxId)
-      })
-
-      it('should update comments data', () => {
-        // Then
-        expect(wrapper.vm.comments).toEqual(commentsFromApi)
-      })
-    })
-  })
-
-  describe('methods', () => {
-    describe('submitComment', () => {
-      const newComment = 'my text'
-      beforeEach(() => {
-        commentsApi.send = jest.fn()
-        notificationsService.success = jest.fn()
-        notificationsService.error = jest.fn()
-      })
-
-      it('should send comment to api', () => {
-        // Given
-        commentsApi.send.mockResolvedValue({ text: 'createdComment' })
-        wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId, newComment }) })
-
-        // When
-        wrapper.vm.submitComment({ preventDefault: jest.fn() })
-
-        // Then
-        expect(commentsApi.send).toHaveBeenCalledOnceWith(dropboxId, newComment)
-      })
-
-      it('should display success notification', async () => {
-        // Given
-        commentsApi.send.mockResolvedValue({ text: 'createdComment' })
-        wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId, newComment }) })
-
-        // When
-        await wrapper.vm.submitComment({ preventDefault: jest.fn() })
-
-        // Then
-        expect(notificationsService.success).toHaveBeenNotifiedOnceWith('commentSuccess')
-      })
-
-      describe('when api throws error', () => {
-        it('should display error notification', async () => {
-          // Given
-          commentsApi.send.mockRejectedValue({ error: 'no comment...' })
-          wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId, newComment }) })
-
-          // When
-          await wrapper.vm.submitComment({ preventDefault: jest.fn() })
-
-          // Then
-          expect(notificationsService.error).toHaveBeenNotifiedOnceWith('commentError')
-        })
-      })
-
-      describe('when newComment is not set', () => {
-        it('should not send comment', () => {
-          // Given
-          wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId, newComment: '' }) })
-
-          // When
-          wrapper.vm.submitComment({ preventDefault: jest.fn() })
-
-          // Then
-          expect(commentsApi.send).not.toHaveBeenCalled()
-        })
-      })
-    })
   })
 
   describe('locales', () => {
@@ -170,16 +95,13 @@ describe('Component | ArticlePage.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.fr)
 
-        it('contains 7 locales', () => {
-          expect(locales).toHaveLength(7)
+        it('contains 4 locales', () => {
+          expect(locales).toHaveLength(4)
           expect(locales).toEqual([
             'hereTheGallery',
             'goToPreviousArticle',
             'goToNextArticle',
             'goToHomePage',
-            'addComment',
-            'commentError',
-            'commentSuccess',
           ])
         })
       })
@@ -187,16 +109,13 @@ describe('Component | ArticlePage.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.en)
 
-        it('contains 7 locales', () => {
-          expect(locales).toHaveLength(7)
+        it('contains 4 locales', () => {
+          expect(locales).toHaveLength(4)
           expect(locales).toEqual([
             'hereTheGallery',
             'goToPreviousArticle',
             'goToNextArticle',
             'goToHomePage',
-            'addComment',
-            'commentError',
-            'commentSuccess',
           ])
         })
       })

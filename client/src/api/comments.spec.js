@@ -2,7 +2,7 @@ import axios from 'axios'
 import commentsApi from './comments'
 import env from '../env/env'
 
-describe('Unit | API | comments api', () => {
+xdescribe('Unit | API | comments api', () => {
   describe('#fetch', () => {
     let idArticle
     let data
