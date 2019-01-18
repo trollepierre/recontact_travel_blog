@@ -16,7 +16,7 @@ describe('Unit | GetLastPosition | getLastPosition', () => {
     PositionRepository.getAll.restore()
   })
 
-  it('should call PositionRepository to getAll articles', () => {
+  it('should call PositionRepository to getAll positions', () => {
     // when
     GetLastPosition.getLastPosition()
 

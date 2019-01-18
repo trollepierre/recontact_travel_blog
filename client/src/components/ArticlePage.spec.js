@@ -5,6 +5,7 @@ import ArticlePage from './ArticlePage.vue'
 import router from '../router/router'
 import photosApi from '../api/photos'
 import chaptersApi from '../api/chapters'
+import commentsApi from '../api/comments'
 import translationsService from '../services/translations'
 
 describe('Component | ArticlePage.vue', () => {
@@ -12,7 +13,9 @@ describe('Component | ArticlePage.vue', () => {
   let wrapper
   let chapters
   let photos
+  const dropboxId = '8'
   const title = 'Pierre au pays des'
+  const commentsFromApi = [{ text: 'comment1' }]
 
   beforeEach(() => {
     translationsService.getChapterTitle = jest.fn()
@@ -30,7 +33,7 @@ describe('Component | ArticlePage.vue', () => {
         text: ['some text'],
       }, {
         title: '62 : Pierre au Koezio',
-        imgLink: '/assets/tata.jpg',
+        imgLink: '/assets/titi.jpg',
         text: ['some text'],
       },
     ]
@@ -42,12 +45,14 @@ describe('Component | ArticlePage.vue', () => {
     photosApi.fetch.mockResolvedValue(photos)
     chaptersApi.fetch = jest.fn()
     chaptersApi.fetch.mockResolvedValue({ title, chapters })
+    commentsApi.fetch = jest.fn()
+    commentsApi.fetch.mockResolvedValue(commentsFromApi)
 
     localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
-    wrapper = shallowMount(ArticlePage, { localVue, router })
+    wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId }) })
   })
 
   it('should be named "ArticlePage"', () => {

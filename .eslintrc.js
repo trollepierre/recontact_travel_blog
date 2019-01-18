@@ -12,6 +12,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'comma-spacing': 'error',
     'curly': ['error', 'all'],
+    'eol-last': ['error'],
     'func-style': ['error', 'expression'],
     'import/prefer-default-export': 0,
     'import/no-duplicates': 'error',

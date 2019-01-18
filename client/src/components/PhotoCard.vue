@@ -32,7 +32,13 @@
 <style scoped>
   img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 40vw;
+  }
+
+  @media only screen and (max-width: 640px) {
+    img {
+      max-height: 100%;
+    }
   }
 
   .photo {

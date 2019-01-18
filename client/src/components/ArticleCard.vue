@@ -170,9 +170,15 @@
     font-weight: normal;
   }
 
-  img {
+  img.article__image {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 40vw;
+  }
+
+  @media only screen and (max-width: 640px) {
+    img.article__image {
+      max-height: 100%;
+    }
   }
 
   .sr-only {

@@ -15,7 +15,12 @@
             </li>
           </ul>
         </section>
-        <aside class="article-page__photo-gallery photo-gallery">
+        <section class="article-page__forum forum">
+          <comments/>
+        </section>
+        <section
+          v-if="!isEmpty(photos)"
+          class="article-page__photo-gallery photo-gallery">
           <h2 class="photo-gallery__title">
             {{ $t("hereTheGallery") }}
           </h2>
@@ -27,7 +32,7 @@
               <photo-card :photo="photo"/>
             </li>
           </ul>
-        </aside>
+        </section>
         <footer class="article-page__footer footer-article">
           <button
             class="footer-article__home"
@@ -51,8 +56,10 @@
 </template>
 
 <script>
+  import { isEmpty } from 'ramda'
   import ChapterCard from './ChapterCard.vue'
   import PhotoCard from './PhotoCard.vue'
+  import Comments from './comments/Comments.vue'
   import chaptersApi from '../api/chapters'
   import photosApi from '../api/photos'
   import translationsService from '../services/translations'
@@ -60,8 +67,9 @@
   export default {
     name: 'ArticlePage',
     components: {
-      'chapter-card': ChapterCard,
-      'photo-card': PhotoCard,
+      ChapterCard,
+      Comments,
+      PhotoCard,
     },
     data() {
       return {
@@ -95,7 +103,7 @@
           })
       },
       getPhotos() {
-        photosApi.fetch(this.$route.params.id)
+        photosApi.fetch(this.dropboxId)
           .then(photos => {
             this.photos = photos
           })
@@ -119,6 +127,7 @@
           eventLabel: `article ${this.$route.params.id} is read`,
         })
       },
+      isEmpty,
     },
     i18n: {
       messages: {
@@ -192,6 +201,7 @@
     width: 100%;
     margin-bottom: 10px;
     font-weight: 700;
+    max-width: 300px;
   }
 
   .footer-article button:hover {

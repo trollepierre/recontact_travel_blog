@@ -13,9 +13,6 @@
     "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
     ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
   },
-  "transformIgnorePatterns": [
-    "node_modules/(?!(date-fns)/)"
-  ],
   "snapshotSerializers": ["<rootDir>/node_modules/jest-serializer-vue"],
   "setupTestFrameworkScriptFile": "<rootDir>/config/jest.setup.js",
   "coverageDirectory": "<rootDir>/test/unit/coverage",

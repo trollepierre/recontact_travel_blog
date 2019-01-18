@@ -8,7 +8,7 @@ const ChaptersApi = {
     const options = { headers: { 'Content-Type': 'application/json' } }
 
     return axios.get(url, options)
-      .then(response => response.data)
+      .then(({ data }) => data)
   },
 }
 

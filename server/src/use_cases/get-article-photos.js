@@ -1,9 +1,9 @@
 import photoRepository from '../domain/repositories/photo-repository'
 
-function getAllPhotos(dropboxId) {
+function getArticlePhotos(dropboxId) {
   return photoRepository.getPhotosOfArticle(dropboxId)
 }
 
 export default {
-  getAllPhotos,
+  getArticlePhotos,
 }

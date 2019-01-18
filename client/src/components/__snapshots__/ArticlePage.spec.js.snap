@@ -48,7 +48,13 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
         </ul>
       </section>
        
-      <aside
+      <section
+        class="article-page__forum forum"
+      >
+        <comments-stub />
+      </section>
+       
+      <section
         class="article-page__photo-gallery photo-gallery"
       >
         <h2
@@ -77,7 +83,7 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
             />
           </li>
         </ul>
-      </aside>
+      </section>
        
       <footer
         class="article-page__footer footer-article"
