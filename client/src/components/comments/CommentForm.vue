@@ -72,6 +72,7 @@
           }
           return commentsApi.send(this.dropboxId, comment)
             .then(this.displaySuccessNotification)
+            .then(() => this.$emit('reload'))
             .catch(() => {
               this.displayErrorNotification()
             })

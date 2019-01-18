@@ -24,11 +24,22 @@
   export default {
     name: 'CommentList',
     components: { CommentCard },
+    props: {
+      toReload: { type: Boolean, default: () => false },
+    },
     data() {
       return {
         comments: [],
         dropboxId: parseInt(this.$route.params.id, 10),
       }
+    },
+    watch: {
+      async toReload() {
+        await commentsApi.fetch(this.dropboxId)
+          .then(comments => {
+            this.comments = comments
+          })
+      },
     },
     mounted() {
       commentsApi.fetch(this.dropboxId)

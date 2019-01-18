@@ -1,7 +1,7 @@
 <template>
   <div class="comments">
-    <comment-list/>
-    <comment-form/>
+    <comment-list :to-reload="toReload"/>
+    <comment-form @reload="reloadTo"/>
   </div>
 </template>
 <script>
@@ -11,5 +11,15 @@
   export default {
     name: 'Comments',
     components: { CommentForm, CommentList },
+    data() {
+      return {
+        toReload: false,
+      }
+    },
+    methods: {
+      reloadTo() {
+        this.toReload = true
+      },
+    },
   }
 </script>
