@@ -1,6 +1,6 @@
 import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
-import GetComments from '../../../src/use_cases/get-comments'
+import GetComments from '../../../src/use_cases/get-article-comments'
 import AddComment from '../../../src/use_cases/add-comment'
 
 describe.skip('Integration | Routes | comments route', () => {
@@ -9,14 +9,14 @@ describe.skip('Integration | Routes | comments route', () => {
     beforeEach(() => {
       sinon.stub(GetComments, 'getComments')
       persistedComments = [{ id: 1, text: 'comment' }]
-      GetComments.getComments.resolves(persistedComments)
+      GetComments.getArticleComments.resolves(persistedComments)
     })
 
     afterEach(() => {
-      GetComments.getComments.restore()
+      GetComments.getArticleComments.restore()
     })
 
-    it('should call GetComments#getComments and return comments', done => {
+    it('should call GetArticleComments#getArticleComments and return comments', done => {
       // when
       request(app)
         .get('/api/comments')
@@ -24,7 +24,7 @@ describe.skip('Integration | Routes | comments route', () => {
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
           // then
-          expect(GetComments.getComments).to.have.been.calledWith()
+          expect(GetComments.getArticleComments).to.have.been.calledWith()
           expect(res.body).to.deep.equal(persistedComments)
           done()
         })

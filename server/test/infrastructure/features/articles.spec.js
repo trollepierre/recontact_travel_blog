@@ -1,6 +1,6 @@
 import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
-import GetPhotosOfArticle from '../../../src/use_cases/get-photos-of-article'
+import GetPhotosOfArticle from '../../../src/use_cases/get-article-photos'
 import GetAllArticles from '../../../src/use_cases/get-all-articles'
 import GetArticle from '../../../src/use_cases/get-article'
 import article from '../../fixtures/articleSaved'
@@ -70,14 +70,14 @@ describe('Integration | Routes | articles route', () => {
   describe('/articles/:id/photos', () => {
     const photos = [photo(), photo()]
     beforeEach(() => {
-      sinon.stub(GetPhotosOfArticle, 'getAllPhotos').resolves(photos)
+      sinon.stub(GetPhotosOfArticle, 'getArticlePhotos').resolves(photos)
     })
 
     afterEach(() => {
-      GetPhotosOfArticle.getAllPhotos.restore()
+      GetPhotosOfArticle.getArticlePhotos.restore()
     })
 
-    it('should call GetPhotosOfArticle to getAllPhotos before sending json', done => {
+    it('should call GetArticlePhotos to getArticlePhotos before sending json', done => {
       // Given
       const stringIdArticle = '59'
 
@@ -87,7 +87,7 @@ describe('Integration | Routes | articles route', () => {
         .expect('Content-Type', /json/)
         .end((err, response) => {
           // Then
-          expect(GetPhotosOfArticle.getAllPhotos).to.have.been.calledWith(stringIdArticle)
+          expect(GetPhotosOfArticle.getArticlePhotos).to.have.been.calledWith(stringIdArticle)
           expect(response.body).to.deep.equal(photos)
           if (err) {
             done(err)
