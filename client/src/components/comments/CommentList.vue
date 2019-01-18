@@ -39,6 +39,7 @@
           .then(comments => {
             this.comments = comments
           })
+          .then(this.reloaded)
       },
     },
     mounted() {
@@ -49,6 +50,9 @@
     },
     methods: {
       isEmpty,
+      reloaded() {
+        this.$emit('reloaded')
+      },
     },
     i18n: {
       messages: {

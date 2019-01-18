@@ -1,6 +1,8 @@
 <template>
   <div class="comments">
-    <comment-list :to-reload="toReload"/>
+    <comment-list
+      :to-reload="toReload"
+      @reloaded="reloadOff"/>
     <comment-form @reload="reloadTo"/>
   </div>
 </template>
@@ -17,8 +19,12 @@
       }
     },
     methods: {
+      // TODO use store
       reloadTo() {
         this.toReload = true
+      },
+      reloadOff() {
+        this.toReload = false
       },
     },
   }
