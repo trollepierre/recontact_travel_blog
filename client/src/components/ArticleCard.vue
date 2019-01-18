@@ -62,10 +62,7 @@
     name: 'ArticleCard',
     props: {
       adminMode: { type: Boolean, default: () => false },
-      article: {
-        type: Object, default: () => {
-        }
-      },
+      article: { type: Object, default: () => {} },
     },
     data() {
       return {
