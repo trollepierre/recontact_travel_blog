@@ -15,6 +15,9 @@
             </li>
           </ul>
         </section>
+        <section class="article-page__forum forum">
+          <comments/>
+        </section>
         <section
           v-if="!isEmpty(photos)"
           class="article-page__photo-gallery photo-gallery">
@@ -29,9 +32,6 @@
               <photo-card :photo="photo"/>
             </li>
           </ul>
-        </section>
-        <section class="article-page__forum forum">
-          <comments/>
         </section>
         <footer class="article-page__footer footer-article">
           <button
