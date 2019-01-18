@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!isEmptyPlus(comments)"
+    v-if="!isEmpty(comments)"
     class="comments-list">
     <h2 class="forum__name">
       {{ $t("hereTheComments") }}
@@ -15,10 +15,11 @@
     </ul>
   </div>
 </template>
+
 <script>
+  import { isEmpty } from 'ramda'
   import CommentCard from '../common/CommentCard.vue'
   import commentsApi from '../../api/comments'
-  import { isEmptyPlus } from '../../../../server/src/domain/utils/ramda-utils'
 
   export default {
     name: 'CommentList',
@@ -30,16 +31,13 @@
       }
     },
     mounted() {
-      this.fetchComments()
+      commentsApi.fetch(this.dropboxId)
+        .then(comments => {
+          this.comments = comments
+        })
     },
     methods: {
-      isEmptyPlus,
-      fetchComments() {
-        commentsApi.fetch(this.dropboxId)
-          .then(comments => {
-            this.comments = comments
-          })
-      },
+      isEmpty,
     },
     i18n: {
       messages: {

@@ -52,7 +52,6 @@ describe('Unit | AddComment | addComment', () => {
     expect(CommentRepository.create).to.have.been.calledWith({ text, author: 'Anonyme', datetime: new Date() })
   })
 
-
   it('should return added comment', () => {
     // when
     const promise = AddComment.addComment(comment)

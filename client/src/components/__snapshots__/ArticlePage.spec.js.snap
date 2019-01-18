@@ -82,44 +82,7 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
       <section
         class="article-page__forum forum"
       >
-        <form
-          class="forum__form"
-        >
-          <label
-            class="forum__label"
-            for="comment"
-          >
-            
-            addComment
-          
-          </label>
-           
-          <input
-            class="forum__add-comment"
-            id="comment"
-            placeholder="Mon commentaire. Par Pierre"
-          />
-        </form>
-         
-        <h2
-          class="forum__name"
-        >
-          
-          hereTheGallery
-        
-        </h2>
-         
-        <ul
-          class="forum__comment-list"
-        >
-          <li
-            class="comment__item"
-          >
-            <comment-card-stub
-              comment="[object Object]"
-            />
-          </li>
-        </ul>
+        <comments-stub />
       </section>
        
       <footer

@@ -6,7 +6,7 @@ import env from '../env/env'
 jest.mock('axios')
 jest.mock('../env/env')
 
-describe('apiService', () => {
+xdescribe('apiService', () => {
   const API_URL = 'http://localhost:9100/api/'
 
   beforeEach(() => {
