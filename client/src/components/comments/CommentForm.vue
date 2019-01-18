@@ -71,8 +71,11 @@
             author: this.newAuthor,
           }
           return commentsApi.send(this.dropboxId, comment)
-            .then(this.displaySuccessNotification)
+            .then(() => {
+              this.newComment = ''
+            })
             .then(() => this.$emit('reload'))
+            .then(this.displaySuccessNotification)
             .catch(() => {
               this.displayErrorNotification()
             })
