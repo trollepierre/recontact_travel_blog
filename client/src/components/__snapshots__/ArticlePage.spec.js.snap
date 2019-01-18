@@ -49,6 +49,12 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
       </section>
        
       <section
+        class="article-page__forum forum"
+      >
+        <comments-stub />
+      </section>
+       
+      <section
         class="article-page__photo-gallery photo-gallery"
       >
         <h2
@@ -77,12 +83,6 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
             />
           </li>
         </ul>
-      </section>
-       
-      <section
-        class="article-page__forum forum"
-      >
-        <comments-stub />
       </section>
        
       <footer
