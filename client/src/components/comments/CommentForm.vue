@@ -71,15 +71,17 @@
             author: this.newAuthor,
           }
           return commentsApi.send(this.dropboxId, comment)
-            .then(() => {
-              this.newComment = ''
-            })
-            .then(() => this.$emit('reload'))
+            .then(this.resetNewComment)
+            .then(this.reloadComments)
             .then(this.displaySuccessNotification)
-            .catch(() => {
-              this.displayErrorNotification()
-            })
+            .catch(this.displayErrorNotification)
         }
+      },
+      reloadComments() {
+        this.$emit('reload')
+      },
+      resetNewComment() {
+        this.newComment = ''
       },
       displaySuccessNotification() {
         notificationsService.success(this, this.$t('commentSuccess'))
@@ -117,55 +119,6 @@
 </script>
 
 <style scoped>
-  /*  .forum__form {
-      margin: 20px;
-    }
-
-    .form-title {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    .input-group {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      margin-top: 10px;
-      margin-bottom: 20px;
-    }
-
-    .forum__label {
-      font-size: 1.5em;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .forum__comment-box {
-      font-size: 1.5em;
-      align-items: start;
-      border-radius: 3px;
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      padding-left: 10px;
-    }
-
-    .forum__comment-box.text {
-      height: 100px;
-    }
-
-    button.form-button {
-      text-transform: uppercase;
-      color: #d14800;
-      background: #ffffff;
-      border: 1px solid #d14800;
-      cursor: pointer;
-      padding: 15px 30px;
-      border-radius: 4px;
-      width: 100%;
-      margin-bottom: 10px;
-      font-weight: 700;
-      max-width: 300px;
-    }*/
-
   .form__title {
     font-size: 1.5em;
     font-weight: bold;
@@ -229,7 +182,7 @@
     padding-bottom: 10px;
   }
 
-  .forum__comment-box.text{
+  .forum__comment-box.text {
     font-weight: 400;
     height: 100px;
     word-break: keep-all;
