@@ -2,7 +2,7 @@ import { expect, sinon } from '../test-helper'
 import GetComments from '../../src/use_cases/get-comments'
 import CommentRepository from '../../src/domain/repositories/comment-repository'
 
-describe('Unit | GetComments | getComments', () => {
+describe.skip('Unit | GetComments | getComments', () => {
   const comments = [
     { id: 1, text: 'comment-1' },
     { id: 2, text: 'comment-2' },

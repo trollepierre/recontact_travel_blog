@@ -2,7 +2,7 @@ import { expect, sinon } from '../../test-helper'
 import commentRepository from '../../../src/domain/repositories/comment-repository'
 import { Comment } from '../../../src/domain/models/index'
 
-describe('Unit | Repository | comment-repository', () => {
+describe.skip('Unit | Repository | comment-repository', () => {
   const comment = {
     lastComment: 'Mexico',
     id: 1,
