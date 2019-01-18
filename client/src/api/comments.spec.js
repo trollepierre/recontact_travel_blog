@@ -102,5 +102,4 @@ xdescribe('Unit | API | comments api', () => {
       })
     })
   })
-
 })

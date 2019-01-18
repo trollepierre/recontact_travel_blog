@@ -26,7 +26,7 @@ module.exports = {
       'optionalDependencies': ['test/unit/index.js']
     }],
 
-    'jest/no-disabled-tests': 'error',
+    // 'jest/no-disabled-tests': 'error',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
     'jest/no-truthy-falsy': 'error',

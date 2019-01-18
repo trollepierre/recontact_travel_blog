@@ -84,7 +84,7 @@ describe('Component | CommentForm.vue', () => {
         wrapper.vm.submitComment({ preventDefault: jest.fn() })
 
         // Then
-        expect(commentsApi.send).toHaveBeenCalledOnceWith(dropboxId, {author: '', text: newComment})
+        expect(commentsApi.send).toHaveBeenCalledOnceWith(dropboxId, { author: '', text: newComment })
       })
 
       it('should display success notification', async () => {
