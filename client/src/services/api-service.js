@@ -12,6 +12,7 @@ const getAll = async path => {
     return prop('data', response)
   } catch (error) {
     logger.error(error.message)
+    throw error
   }
 }
 
@@ -21,7 +22,8 @@ const post = async (path, data) => {
     const response = await axios.post(url, { ...data, json: true })
     return prop('data', response)
   } catch (error) {
-    logger.error(error.message)
+    logger.error(error)
+    throw error
   }
 }
 
@@ -32,6 +34,7 @@ const put = async (path, data) => {
     return prop('data', response)
   } catch (error) {
     logger.error(error.message)
+    throw error
   }
 }
 
@@ -42,6 +45,7 @@ const deleteById = async path => {
     return prop('data', response)
   } catch (error) {
     logger.error(error.message)
+    throw error
   }
 }
 
