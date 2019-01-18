@@ -84,9 +84,15 @@
     font-weight: normal;
   }
 
-  img {
+  img.chapter__image {
     max-width: 100%;
-    max-height: 50vw;
+    max-height: 40vw;
+  }
+
+  @media only screen and (max-width: 640px) {
+    img.chapter__image {
+      max-height: 100%;
+    }
   }
 
   .chapter {

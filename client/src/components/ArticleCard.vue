@@ -62,7 +62,10 @@
     name: 'ArticleCard',
     props: {
       adminMode: { type: Boolean, default: () => false },
-      article: { type: Object, default: () => {} },
+      article: {
+        type: Object, default: () => {
+        }
+      },
     },
     data() {
       return {
@@ -170,9 +173,15 @@
     font-weight: normal;
   }
 
-  img {
+  img.article__image {
     max-width: 100%;
-    max-height: 50vw;
+    max-height: 40vw;
+  }
+
+  @media only screen and (max-width: 640px) {
+    img.article__image {
+      max-height: 100%;
+    }
   }
 
   .sr-only {
