@@ -42,7 +42,5 @@
     "yarn": ">=1.10.1",
     "node": ">=10.13.0"
   },
-  "dependencies": {
-    "babel-plugin-date-fns": "^0.2.1"
-  }
+  "dependencies": {}
 }
