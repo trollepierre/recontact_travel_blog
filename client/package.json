@@ -20,7 +20,7 @@
     "ramda": "0.26.1",
     "vue": "2.6.10",
     "vue-router": "3.0.4",
-    "webpack": "^4.29.6",
+    "webpack": "4.27.0",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
@@ -82,7 +82,7 @@
     "vue-template-compiler": "2.6.10",
     "vue-toastr": "2.0.16",
     "webpack-bundle-analyzer": "3.3.2",
-    "webpack-cli": "3.1.2",
+    "webpack-cli": "3.3.0",
     "webpack-dev-server": "3.3.1"
   },
   "engines": {
