@@ -17,10 +17,10 @@
   },
   "dependencies": {
     "date-fns": "2.0.0-alpha.26",
-    "ramda": "0.26.1",
+    "ramda": "0.25.0",
     "vue": "2.6.10",
     "vue-router": "3.0.4",
-    "webpack": "4.27.0",
+    "webpack": "4.30.0",
     "whatwg-fetch": "3.0.0"
   },
   "devDependencies": {
