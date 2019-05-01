@@ -33,20 +33,20 @@ describe('Unit | Repository | article-repository', () => {
 
   describe('#getAll', () => {
     beforeEach(() => {
-      sinon.stub(Article, 'all').resolves()
+      sinon.stub(Article, 'findAll').resolves()
     })
 
     afterEach(() => {
-      Article.all.restore()
+      Article.findAll.restore()
     })
 
-    it('should call Sequelize Model#all', () => {
+    it('should call Sequelize Model#findAll', () => {
       // when
       const promise = articleRepository.getAll()
 
       // then
       return promise.then(() => {
-        expect(Article.all).to.have.been.called
+        expect(Article.findAll).to.have.been.called
       })
     })
   })

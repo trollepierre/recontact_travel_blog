@@ -5,7 +5,7 @@ function create(articles) {
 }
 
 function getAll() {
-  return Article.all()
+  return Article.findAll()
 }
 
 function get(dropboxId) {

@@ -85,20 +85,20 @@ describe('Unit | Repository | subscription-repository', () => {
 
   describe('#getAll', () => {
     beforeEach(() => {
-      sinon.stub(Subscription, 'all').resolves()
+      sinon.stub(Subscription, 'findAll').resolves()
     })
 
     afterEach(() => {
-      Subscription.all.restore()
+      Subscription.findAll.restore()
     })
 
-    it('should call Sequelize Model#all', () => {
+    it('should call Sequelize Model#findAll', () => {
       // when
       const promise = subscriptionRepository.getAll()
 
       // then
       return promise.then(() => {
-        expect(Subscription.all).to.have.been.called
+        expect(Subscription.findAll).to.have.been.called
       })
     })
   })
