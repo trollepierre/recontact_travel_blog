@@ -1,5 +1,5 @@
 'use strict'
-// const BrotliGzipPlugin = require('brotli-gzip-webpack-plugin')
+const BrotliGzipPlugin = require('brotli-gzip-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
@@ -102,13 +102,13 @@ module.exports = {
   },
 
   plugins: [
-    // new BrotliGzipPlugin({
-    //   asset: '[path].gz[query]',
-    //   algorithm: 'gzip',
-    //   test: /\.(js|css|html|svg)$/,
-    //   threshold: 10240,
-    //   minRatio: 0.8
-    // }),
+    new BrotliGzipPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.(js|css|html|svg)$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
     new HtmlWebpackPlugin({
       template: resolveFromRootDir('index.html'),
       inject: true,
