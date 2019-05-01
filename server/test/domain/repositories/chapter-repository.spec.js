@@ -48,7 +48,7 @@ describe('Unit | Repository | chapter-repository', () => {
       Chapter.findAll.restore()
     })
 
-    it('should call Sequelize Model#all', () => {
+    it('should call Sequelize Model#findAll', () => {
       // when
       const promise = chapterRepository.getChaptersOfArticle(dropboxId)
 

@@ -37,20 +37,20 @@ describe('Unit | Repository | position-repository', () => {
     const positions = [position]
 
     beforeEach(() => {
-      sinon.stub(Position, 'all').resolves(positions)
+      sinon.stub(Position, 'findAll').resolves(positions)
     })
 
     afterEach(() => {
-      Position.all.restore()
+      Position.findAll.restore()
     })
 
-    it('should call Sequelize Model#all', () => {
+    it('should call Sequelize Model#findAll', () => {
       // when
       const promise = positionRepository.getAll()
 
       // then
       return promise.then(res => {
-        expect(Position.all).to.have.been.calledWith()
+        expect(Position.findAll).to.have.been.calledWith()
         expect(res).to.deep.equal(positions)
       })
     })
