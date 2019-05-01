@@ -17,11 +17,11 @@
   },
   "dependencies": {
     "date-fns": "2.0.0-alpha.26",
-    "ramda": "0.25.0",
+    "ramda": "0.26.1",
     "vue": "2.6.10",
     "vue-router": "3.0.4",
     "webpack": "4.27.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "3.0.0"
   },
   "devDependencies": {
     "@vue/test-utils": "1.0.0-beta.26",
