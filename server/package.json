@@ -46,7 +46,7 @@
     "ramda": "0.26.1",
     "request": "2.88.0",
     "rimraf": "2.6.3",
-    "sequelize": "4.41.2",
+    "sequelize": "5.8.2",
     "sequelize-cli": "5.4.0",
     "serve-favicon": "2.5.0",
     "sqlite3": "4.0.4"
