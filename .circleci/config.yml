@@ -1,6 +1,6 @@
 common_properties: &common_properties
   docker:
-    - image: circleci/node:10.14.1-browsers
+    - image: circleci/node:10.15.3-browsers
   working_directory: ~/trollepierre/recontact_travel_blog
 
 version: 2
@@ -124,7 +124,7 @@ jobs:
       - run:
           name: Deploy branch to Heroku branch
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-branch.git $CIRCLE_BRANCH:master --force
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git $CIRCLE_BRANCH:master --force
 
   validate_accessibility_html5v:
     <<: *common_properties
