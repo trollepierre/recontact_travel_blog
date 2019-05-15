@@ -1,5 +1,6 @@
-module.exports = () => ({
+module.exports = (position = 33) => ({
   id: 77,
+  position,
   dropboxId: '59',
   frTitle: 'Quelques mots de Vincent',
   enTitle: 'Some words of Vincent',

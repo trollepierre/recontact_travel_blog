@@ -5,6 +5,7 @@
         <h2 class="chapter__title">
           {{ chapterTitle }}
         </h2>
+        <p class="chapter__position">{{ chapter.position }}</p>
       </header>
       <div class="chapter__content">
         <img
@@ -38,7 +39,7 @@
 </template>
 
 <script>
-  import translationsService from '../services/translations'
+  import translationsService from '../../services/translations'
 
   export default {
     name: 'ChapterCard',
@@ -123,6 +124,10 @@
     color: #07c;
     margin: 0;
     overflow-wrap: break-word;
+  }
+
+  .chapter__position {
+    color: #FFF;
   }
 
   .chapter__content {

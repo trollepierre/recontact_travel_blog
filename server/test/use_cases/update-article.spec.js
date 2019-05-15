@@ -195,6 +195,7 @@ describe('Unit | UpdateArticle | sync', () => {
       // given
       const chaptersToSave = [
         {
+          position: 1,
           dropboxId: 8,
           imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
           frText: 'Gathering trois valeureux compagnons :' +
@@ -213,6 +214,7 @@ describe('Unit | UpdateArticle | sync', () => {
           enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
 
         }, {
+          position: 2,
           dropboxId: 8,
           imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
           frText: 'La région de Kangding' +
