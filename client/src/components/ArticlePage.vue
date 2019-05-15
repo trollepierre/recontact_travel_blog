@@ -57,7 +57,7 @@
 
 <script>
   import { isEmpty } from 'ramda'
-  import ChapterCard from './ChapterCard.vue'
+  import ChapterCard from './ChapterCard/ChapterCard.vue'
   import PhotoCard from './PhotoCard.vue'
   import Comments from './comments/Comments.vue'
   import chaptersApi from '../api/chapters'

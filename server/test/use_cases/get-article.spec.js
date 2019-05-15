@@ -6,7 +6,7 @@ import articleSaved from '../fixtures/articleSaved'
 import chapterOfArticle from '../fixtures/chapterOfArticleSaved'
 import chapterWithParagraphs from '../fixtures/chapterWithParagraphs'
 
-describe('Unit | GetArticle | getrticle()', () => {
+describe('Unit | GetArticle | getArticle()', () => {
   const dropboxId = 8
   const article = articleSaved()
   const frTitle = 'Pierre au pays des'
