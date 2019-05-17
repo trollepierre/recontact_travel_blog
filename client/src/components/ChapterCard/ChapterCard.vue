@@ -11,6 +11,7 @@
         <img
           v-if="imgLink"
           :src="imgLink"
+          :alt="chapterText[0].text"
           class="chapter__image">
         <span v-else>
           {{ $t("missingImage") }}
@@ -56,6 +57,7 @@
       },
       chapterText() {
         const chapterText = translationsService.getChapterText(this.chapter)
+
         return chapterText.map(paragraph => {
           let isLink = false
           /* eslint-disable no-useless-escape */
