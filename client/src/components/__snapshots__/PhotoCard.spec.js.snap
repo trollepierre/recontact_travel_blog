@@ -12,6 +12,7 @@ exports[`Component | PhotoCard.vue template should match snapshot 1`] = `
     >
       <div>
         <img
+          alt="alt"
           data-src="webf"
           lazy="loading"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
