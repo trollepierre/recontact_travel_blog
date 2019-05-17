@@ -40,7 +40,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           from: 'contact@recontact.me',
           fromName: 'RecontactMe',
           to: ['support@recontact.me'],
-          subject: '[RecontactMe] Il y a des erreurs sur le site !',
+          subject: '[RecontactMe] Il y a des erreurs sur le site&nbsp!',
           template: '<p>{}</p>',
         })
         done()
@@ -402,7 +402,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               from: 'contact@recontact.me',
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
-              subject: '[RecontactMe] Il y a du nouveau sur le site !',
+              subject: '[RecontactMe] Il y a du nouveau sur le site&nbsp!',
               template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>2 nouveaux articles : ' +
                 '<a href="http://www.recontact.me/articles/5">59. Perdus autour du mont Gongga</a>' +
@@ -413,7 +413,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               from: 'contact@recontact.me',
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
-              subject: '[RecontactMe] Some news on the website !',
+              subject: '[RecontactMe] Some news on the website&nbsp!',
               template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>2 new articles: ' +
                 '<a href="http://www.recontact.me/articles/5">59. Lost autour du mont Gongga</a>' +
@@ -439,7 +439,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               from: 'contact@recontact.me',
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
-              subject: '[RecontactMe] Il y a du nouveau sur le site !',
+              subject: '[RecontactMe] Il y a du nouveau sur le site&nbsp!',
               template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>Un nouvel article : ' +
                 '<a href="http://www.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
@@ -449,7 +449,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               from: 'contact@recontact.me',
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
-              subject: '[RecontactMe] Some news on the website !',
+              subject: '[RecontactMe] Some news on the website&nbsp!',
               template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>One new article: ' +
                 '<a href="http://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +

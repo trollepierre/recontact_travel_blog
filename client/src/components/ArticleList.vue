@@ -240,7 +240,7 @@
           fixWebsite: 'Réparer le site',
           theArticlesOfTheTrip: 'Blog de voyage de Pierre Trollé et Benoît Lefebvre après un tour du monde et d’autres aventures',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
-          syncDone: 'La synchronisation s’est effectuée sans problème !',
+          syncDone: 'La synchronisation s’est effectuée sans problème&nbsp!',
           syncError: 'Erreur : Problème durant la synchronisation :',
           place: 'Position :',
           time: 'Date :',
