@@ -143,10 +143,10 @@
           goToArticle: 'Voir l’article',
           viewGallery: 'Voir les photos',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
-          syncDone: 'La synchronisation s’est effectuée sans problème !',
+          syncDone: 'La synchronisation s’est effectuée sans problème&nbsp!',
           syncError: 'Erreur : Problème durant la synchronisation :',
           deleteLaunched: 'La suppression est lancée ! Patientez quelques secondes...',
-          deleteDone: 'La suppression s’est effectuée sans problème !',
+          deleteDone: 'La suppression s’est effectuée sans problème&nbsp!',
           deleteError: 'Erreur : Problème durant la suppression :',
         },
         en: {

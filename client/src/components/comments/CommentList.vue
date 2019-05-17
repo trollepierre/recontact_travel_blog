@@ -57,7 +57,7 @@
     i18n: {
       messages: {
         fr: {
-          hereTheComments: 'Voici les commentaires de l\'article !',
+          hereTheComments: 'Voici les commentaires de l\'article&nbsp!',
         },
         en: {
           hereTheComments: 'Here the comments of the article!',

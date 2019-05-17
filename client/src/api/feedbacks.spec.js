@@ -17,7 +17,7 @@ describe('Unit | API | feedbacks api', () => {
 
     it('should post feedback to API with the feedback and email', () => {
       const email = 'pierre@recontact.me'
-      const feedback = 'Vive le Tour de France !'
+      const feedback = 'Vive le Tour de France&nbsp!'
 
       const expectedUrl = `${env('API_URL')}api/feedbacks`
       const expectedBody = { feedback, email }

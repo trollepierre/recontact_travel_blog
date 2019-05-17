@@ -78,14 +78,14 @@ function _sendArticlesChangedEmail(form) {
     from: env('MAIL_FROM'),
     fromName: 'RecontactMe',
     to: receivers.filter(({ lang }) => lang === 'fr').map(({ email }) => email),
-    subject: '[RecontactMe] Il y a du nouveau sur le site !',
+    subject: '[RecontactMe] Il y a du nouveau sur le site&nbsp!',
     template: templateFr,
   }
   const optionsEn = {
     from: env('MAIL_FROM'),
     fromName: 'RecontactMe',
     to: receivers.filter(({ lang }) => lang !== 'fr').map(({ email }) => email),
-    subject: '[RecontactMe] Some news on the website !',
+    subject: '[RecontactMe] Some news on the website&nbsp!',
     template: templateEn,
   }
   return Promise.all([mailJet.sendEmail(optionsFr), mailJet.sendEmail(optionsEn)])
@@ -96,7 +96,7 @@ function _sendMailToSupport(error) {
     from: env('MAIL_FROM'),
     fromName: 'RecontactMe',
     to: [env('MAIL_SUPPORT')],
-    subject: '[RecontactMe] Il y a des erreurs sur le site !',
+    subject: '[RecontactMe] Il y a des erreurs sur le site&nbsp!',
     template: `<p>${JSON.stringify(error)}</p>`,
   }
   return mailJet.sendEmail(optionsFr)
