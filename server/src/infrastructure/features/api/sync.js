@@ -11,7 +11,7 @@ router.patch('/', (req, res) => SynchronizeArticles.synchronizeArticles()
   .catch(err => {
     console.error('Synchronization failed.')
     console.error(err)
-    res.status(500).json('Synchronization failed :', err)
+    res.status(500).json(err)
   }))
 
 module.exports = router
