@@ -23,20 +23,17 @@ describe('Integration | Routes | index route', () => {
       })
   })
 
-  // TODO fix that test
-  it.skip('should be 500', done => {
+  it('should be 500', done => {
     // Given
-    sinon.stub(SynchronizeArticles, 'synchronizeArticles').rejects(new Error('Some error'))
+    const error = { err: 'Some error' }
+    sinon.stub(SynchronizeArticles, 'synchronizeArticles').rejects(error)
     // When
     request(app)
       .patch('/api/sync')
       .end((err, response) => {
         // Then
-        if (err) {
-          expect(response.status).to.equal(500)
-          expect(response.body).to.equal('Synchronization failed :', err)
-          done(err)
-        }
+        expect(response.status).to.equal(500)
+        expect(response.body).to.deep.equal(error)
         done()
       })
   })
