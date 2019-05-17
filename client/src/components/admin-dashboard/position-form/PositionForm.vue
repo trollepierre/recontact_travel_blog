@@ -24,8 +24,9 @@
       class="position__input position__time"
       placeholder="le 1er mai 2018">
     <button
+      type="submit"
       class="position__button position__action--send"
-      @click="updateLastPosition">
+      @click.prevent="updateLastPosition">
       {{ $t("confirm") }}
     </button>
   </form>
