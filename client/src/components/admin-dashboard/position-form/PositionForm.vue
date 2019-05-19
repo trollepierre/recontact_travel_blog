@@ -32,8 +32,7 @@
   </form>
 </template>
 <script>
-  import articlesApi from '../../../api/articles';
-  import positionsApi from '../../../api/positions';
+  import positionsApi from '../../../api/positions'
 
   export default {
     name: 'PositionForm',
@@ -41,26 +40,26 @@
       return {
         place: null,
         time: null,
-      };
+      }
     },
     methods: {
       submit(e) {
         console.log('submit')
-        e.preventDefault();
-        this.updateLastPosition();
+        e.preventDefault()
+        this.updateLastPosition()
       },
       updateLastPosition() {
         console.log('updateLastPosition')
         const position = {
           place: this.place,
           time: this.time,
-        };
+        }
         positionsApi.add(position)
-          .then(this.updateLastPositionData);
+          .then(this.updateLastPositionData)
       },
       updateLastPositionData() {
         console.log('updateLastPositionData')
-        this.$emit('updateLastPositionData', { place, time });
+        this.$emit('updateLastPositionData', { place: this.place, time: this.time })
       },
 
     },
@@ -82,8 +81,8 @@
           lastKnownPosition: 'Last known position:',
         },
       },
-    }
-  };
+    },
+  }
 </script>
 <style scoped>
   .position__input {

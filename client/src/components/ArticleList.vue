@@ -17,14 +17,14 @@
             </span>
           </p>
           <template v-if="adminMode">
-            <AdminDashboard @updateLastPositionData="updateLastPositionData"/>
+            <admin-dashboard @updateLastPositionData="updateLastPositionData"/>
           </template>
           <ul class="article-results__list">
             <li
               v-for="article in articles"
               :key="article.dropboxId"
               class="article-results__item">
-              <ArticleCard
+              <article-card
                 :article="article"
                 :admin-mode="adminMode"/>
             </li>
@@ -36,11 +36,11 @@
 </template>
 
 <script>
-  import ArticleCard from './ArticleCard.vue';
-  import AdminDashboard from './admin-dashboard/AdminDashboard';
-  import articlesApi from '../api/articles';
-  import positionsApi from '../api/positions';
-  import articlesSorter from '../services/articlesSorter';
+  import ArticleCard from './ArticleCard.vue'
+  import AdminDashboard from './admin-dashboard/AdminDashboard.vue'
+  import articlesApi from '../api/articles'
+  import positionsApi from '../api/positions'
+  import articlesSorter from '../services/articlesSorter'
 
   export default {
     name: 'ArticleList',
