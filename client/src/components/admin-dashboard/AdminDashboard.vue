@@ -28,13 +28,14 @@
       {{ $t("deleteAndSyncAllArticles") }}
     </button>
     <br>
-    <PositionForm @updateLastPositionData="updateLastPositionData"/>
+    <position-form @updateLastPositionData="updateLastPositionData"/>
   </div>
 </template>
 <script>
-  import notificationsService from '../../services/notifications';
-  import syncApi from '../../api/sync';
-  import PositionForm from './position-form/PositionForm';
+  import notificationsService from '../../services/notifications'
+  import syncApi from '../../api/sync'
+  import PositionForm from './position-form/PositionForm.vue'
+  import articlesApi from '../../api/articles'
 
   export default {
     name: 'AdminDashboard',
@@ -42,70 +43,70 @@
     data() {
       return {
         isClickedSync: false,
-      };
+      }
     },
     methods: {
       updateLastPositionData(position) {
         console.log('admin dashboard update l p d')
-        this.$emit('updateLastPositionData', position);
+        this.$emit('updateLastPositionData', position)
       },
 
       disableButton() {
-        this.isClickedSync = true;
+        this.isClickedSync = true
       },
 
       enableButton() {
-        this.isClickedSync = false;
+        this.isClickedSync = false
       },
 
       synchronise() {
-        this.trackEvent();
-        this.disableButton();
-        notificationsService.information(this, this.$t('syncLaunched'));
+        this.trackEvent()
+        this.disableButton()
+        notificationsService.information(this, this.$t('syncLaunched'))
         syncApi.launch()
           .then(() => {
-            notificationsService.removeInformation(this);
-            notificationsService.success(this, this.$t('syncDone'));
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch(err => {
-            notificationsService.removeInformation(this);
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
-          });
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+          })
       },
 
       deleteAll() {
-        this.disableButton();
-        notificationsService.information(this, this.$t('syncLaunched'));
+        this.disableButton()
+        notificationsService.information(this, this.$t('syncLaunched'))
         articlesApi.deleteAll()
           .then(() => {
-            notificationsService.removeInformation(this);
-            notificationsService.success(this, this.$t('syncDone'));
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch(err => {
-            notificationsService.removeInformation(this);
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
-          });
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+          })
       },
 
       deleteAndSyncAll() {
-        this.disableButton();
-        notificationsService.information(this, this.$t('syncLaunched'));
+        this.disableButton()
+        notificationsService.information(this, this.$t('syncLaunched'))
         articlesApi.deleteAndSyncAll()
           .then(() => {
-            notificationsService.removeInformation(this);
-            notificationsService.success(this, this.$t('syncDone'));
+            notificationsService.removeInformation(this)
+            notificationsService.success(this, this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch(err => {
-            notificationsService.removeInformation(this);
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`);
-          });
+            notificationsService.removeInformation(this)
+            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+          })
       },
 
       goToSubscriptions() {
-        this.$router.push('/subscriptions');
+        this.$router.push('/subscriptions')
       },
 
       trackEvent() {
@@ -113,12 +114,12 @@
           eventCategory: 'Article List',
           eventAction: 'synchronise',
           eventLabel: 'All articles have been synchronised',
-        });
+        })
       },
 
       goToHome() {
-        this.enableButton();
-        this.$router.push('/');
+        this.enableButton()
+        this.$router.push('/')
       },
     },
     i18n: {
@@ -142,8 +143,8 @@
           syncError: 'Error during the synchronisation:',
         },
       },
-    }
-  };
+    },
+  }
 </script>
 <style scoped>
   .dashboard__buttons {
