@@ -21,7 +21,9 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
       <p
         class="chapter__position"
       >
+        
         82
+      
       </p>
     </header>
      
@@ -73,7 +75,9 @@ exports[`Component | ChapterCard.vue template should match snapshot when imgLink
       <p
         class="chapter__position"
       >
+        
         82
+      
       </p>
     </header>
      
