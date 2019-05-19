@@ -5,7 +5,9 @@
         <h2 class="chapter__title">
           {{ chapterTitle }}
         </h2>
-        <p class="chapter__position">{{ chapter.position }}</p>
+        <p class="chapter__position">
+          {{ chapter.position }}
+        </p>
       </header>
       <div class="chapter__content">
         <img

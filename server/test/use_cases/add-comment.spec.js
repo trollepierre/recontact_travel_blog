@@ -1,4 +1,4 @@
-import lolex from 'lolex'
+// import lolex from 'lolex'
 import { expect, sinon } from '../test-helper'
 import AddComment from '../../src/use_cases/add-comment'
 import CommentRepository from '../../src/domain/repositories/comment-repository'
@@ -10,8 +10,8 @@ describe('Unit | AddComment | addComment', () => {
   const datetime = 'some date without in a string'
   const comment = { text, author }
   const persistedComment = { id: 1, text, datetime, author }
-  let clock
-  const now = '2018-10-20'
+  // let clock
+  // const now = '2018-10-20'
   const dropboxId = '48'
 
   beforeEach(() => {
