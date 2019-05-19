@@ -92,9 +92,9 @@
         fr: {
           fixWebsite: 'Réparer le site',
           theArticlesOfTheTrip: 'Blog de voyage de Pierre Trollé et Benoît Lefebvre après un tour du monde et d’autres aventures',
-          lastPosition: 'Dernière position :',
+          lastPosition: 'Dernière position&nbsp:',
           subtitle: 'Pierre en voyage',
-          lastKnownPosition: 'Dernière position connue :',
+          lastKnownPosition: 'Dernière position connue&nbsp:',
         },
         en: {
           fixWebsite: 'Fix the website',

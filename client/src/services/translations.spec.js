@@ -80,7 +80,7 @@ describe('Unit | services | translations', () => {
     it('should return enTitle by default', () => {
       navigatorLanguage.mockReturnValue('en-en')
       const frText = [
-        'Rassemblant trois valeureux compagnons :',
+        'Rassemblant trois valeureux compagnons&nbsp:',
       ]
       const enText = [
         'Gathering 3 glorious people',
@@ -102,7 +102,7 @@ describe('Unit | services | translations', () => {
       navigatorLanguage.mockReturnValue('fr-Fr')
 
       const frText = [
-        'Rassemblant trois valeureux compagnons :',
+        'Rassemblant trois valeureux compagnons&nbsp:',
       ]
       const enText = [
         'Gathering 3 glorious people',
