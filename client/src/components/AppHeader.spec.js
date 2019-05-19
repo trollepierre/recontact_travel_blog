@@ -86,18 +86,18 @@ describe('Component | AppHeader.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(AppHeader.i18n.messages.fr)
 
-        it('contains 5 locales', () => {
-          expect(locales).toHaveLength(5)
-          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home'])
+        it('contains 6 locales', () => {
+          expect(locales).toHaveLength(6)
+          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home', 'logo'])
         })
       })
 
       describe('en', () => {
         const locales = Object.keys(AppHeader.i18n.messages.en)
 
-        it('contains 5 locales', () => {
-          expect(locales).toHaveLength(5)
-          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home'])
+        it('contains 6 locales', () => {
+          expect(locales).toHaveLength(6)
+          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home', 'logo'])
         })
       })
     })

@@ -306,6 +306,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           // given
           const chaptersToSave = [
             {
+              position: 1,
               dropboxId: idNewArticle1,
               imgLink: 'db.com/call4.jpg?raw=1',
               frText: 'Rassemblant trois valeureux compagnons :' +
@@ -324,7 +325,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
 
             },
-{
+            {
+              position: 2,
               dropboxId: idNewArticle1,
               imgLink: 'db.com/call5.jpg?raw=1',
               frText: 'La région de Kangding' +
@@ -345,6 +347,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               enTitle: 'Le programme',
             },
             {
+              position: 1,
               dropboxId: idNewArticle2,
               imgLink: 'db.com/call6.jpg?raw=1',
               frText: 'Rassemblant trois valeureux compagnons :' +
@@ -362,7 +365,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               frTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
               enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
             },
-{
+            {
+              position: 2,
               dropboxId: idNewArticle2,
               imgLink: 'db.com/call7.jpg?raw=1',
               frText: 'La région de Kangding' +

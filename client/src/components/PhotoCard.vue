@@ -3,7 +3,9 @@
     <article class="photo">
       <div class="photo__content">
         <div ref="container">
-          <img v-lazy="imgLink">
+          <img
+            v-lazy="imgLink"
+            :alt="image">
           <div v-lazy:background-image="imgLink"/>
         </div>
       </div>
@@ -22,9 +24,22 @@
         const { imgLink } = this.photo
         return !imgLink ? false : imgLink
       },
+      image() {
+        return this.$t('alt')
+      },
     },
     mounted() {
       this.$Lazyload.lazyLoadHandler()
+    },
+    i18n: {
+      messages: {
+        fr: {
+          alt: 'Une image',
+        },
+        en: {
+          alt: 'An image',
+        },
+      },
     },
   }
 </script>

@@ -1,24 +1,26 @@
-import { Chapter } from '../models/index'
+import { Newchapter } from '../models/index'
+import { sortByAscendingNumber } from '../utils/ramda-utils'
 
 function createArticleChapters(chapters) {
-  return Chapter
+  return Newchapter
     .bulkCreate(chapters)
 }
 
 function getChaptersOfArticle(dropboxId) {
-  return Chapter.findAll({
+  return Newchapter.findAll({
     where: { dropboxId },
   })
+    .then(chapters => sortByAscendingNumber(chapters, 'position'))
 }
 
 function deleteChaptersOfArticle(dropboxId) {
-  return Chapter.destroy({
+  return Newchapter.destroy({
     where: { dropboxId },
   })
 }
 
 function deleteAll() {
-  return Chapter.destroy({ where: {} })
+  return Newchapter.destroy({ where: {} })
 }
 
 export default {

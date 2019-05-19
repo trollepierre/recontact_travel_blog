@@ -1,5 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Chapter = sequelize.define('Chapter', {
+  const Newchapter = sequelize.define('Newchapter', {
+    position: DataTypes.INTEGER,
     dropboxId: DataTypes.STRING,
     enTitle: DataTypes.STRING,
     frTitle: DataTypes.STRING,
@@ -8,6 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     frText: DataTypes.TEXT,
   })
 
-  return Chapter
+  return Newchapter
 }
 
