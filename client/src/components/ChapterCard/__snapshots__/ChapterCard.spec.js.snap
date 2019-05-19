@@ -29,7 +29,7 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
       class="chapter__content"
     >
       <img
-        alt="one text"
+        alt="altComplementone text"
         class="chapter__image"
         src="webf"
       />
