@@ -15,6 +15,7 @@
         @click.prevent.once="viewArticle">
         <img
           :src="article.imgLink"
+          :alt="articleTitle"
           class="article__image"
           width="200">
       </div>

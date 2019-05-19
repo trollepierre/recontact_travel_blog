@@ -41,6 +41,7 @@
                 href="http://worldtour.recontact.me">
                 <img
                   class="tdm__image"
+                  :alt="logo"
                   src="/static/tdm.jpg">
               </a>
             </li>
@@ -60,6 +61,9 @@
       home() {
         return this.$t('home')
       },
+      logo() {
+        return this.$t('logo')
+      },
     },
     methods: {
       displaySubscribeModal() {
@@ -78,6 +82,7 @@
           problem: 'Un problème ?',
           tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
           home: 'Page d’accueil',
+          logo: 'Logo du site',
         },
         en: {
           subscribe: 'Subscribe',
@@ -85,6 +90,7 @@
           problem: 'A problem?',
           tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
           home: 'Home page',
+          logo: 'Logo of the site',
         },
       },
     },

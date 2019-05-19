@@ -27,6 +27,7 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
       class="article__content"
     >
       <img
+        alt="Pierre somewhere"
         class="article__image"
         src="webf"
         width="200"

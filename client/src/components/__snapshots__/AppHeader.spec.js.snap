@@ -75,6 +75,7 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
               title="tdm"
             >
               <img
+                alt="logo"
                 class="tdm__image"
                 src="/static/tdm.jpg"
               />

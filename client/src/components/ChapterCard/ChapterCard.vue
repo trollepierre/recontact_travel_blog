@@ -5,11 +5,13 @@
         <h2 class="chapter__title">
           {{ chapterTitle }}
         </h2>
+        <p class="chapter__position">{{ chapter.position }}</p>
       </header>
       <div class="chapter__content">
         <img
           v-if="imgLink"
           :src="imgLink"
+          :alt="chapterAlt"
           class="chapter__image">
         <span v-else>
           {{ $t("missingImage") }}
@@ -38,7 +40,7 @@
 </template>
 
 <script>
-  import translationsService from '../services/translations'
+  import translationsService from '../../services/translations'
 
   export default {
     name: 'ChapterCard',
@@ -53,26 +55,34 @@
       chapterTitle() {
         return translationsService.getChapterTitle(this.chapter)
       },
+      chapterAlt() {
+        return this.$t('altComplement') + this.chapterText[0].text
+      },
       chapterText() {
         const chapterText = translationsService.getChapterText(this.chapter)
-        return chapterText.map(paragraph => {
-          let isLink = false
-          /* eslint-disable no-useless-escape */
-          const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?')
-          if (urlRegExp.test(paragraph)) {
-            isLink = true
-          }
-          return { isLink, text: paragraph }
-        })
+
+        return chapterText
+          .filter(paragraph => !!paragraph)
+          .map(paragraph => {
+            let isLink = false
+            /* eslint-disable no-useless-escape */
+            const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?')
+            if (urlRegExp.test(paragraph)) {
+              isLink = true
+            }
+            return { isLink, text: paragraph }
+          })
       },
     },
     i18n: {
       messages: {
         fr: {
           missingImage: 'Image manquante',
+          altComplement: 'Une image montrant ',
         },
         en: {
           missingImage: 'Missing image',
+          altComplement: 'An image showing ',
         },
       },
     },
@@ -123,6 +133,10 @@
     color: #07c;
     margin: 0;
     overflow-wrap: break-word;
+  }
+
+  .chapter__position {
+    color: #FFF;
   }
 
   .chapter__content {
