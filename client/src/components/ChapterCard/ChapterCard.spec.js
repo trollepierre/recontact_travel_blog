@@ -84,10 +84,11 @@ describe('Component | ChapterCard.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ChapterCard.i18n.messages.fr)
 
-        it('contains 1 locale', () => {
-          expect(locales).toHaveLength(1)
+        it('contains 2 locales', () => {
+          expect(locales).toHaveLength(2)
           expect(locales).toEqual([
             'missingImage',
+            'altComplement',
           ])
         })
       })
@@ -95,10 +96,11 @@ describe('Component | ChapterCard.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ChapterCard.i18n.messages.en)
 
-        it('contains 1 locale', () => {
-          expect(locales).toHaveLength(1)
+        it('contains 2 locales', () => {
+          expect(locales).toHaveLength(2)
           expect(locales).toEqual([
             'missingImage',
+            'altComplement',
           ])
         })
       })
