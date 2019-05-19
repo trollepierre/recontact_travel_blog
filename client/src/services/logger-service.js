@@ -1,6 +1,6 @@
-const error = ({ message }) => {
+const error = err => {
 // eslint-disable-next-line no-console
-  console.error(message)
+  console.error(err)
 }
 
 export default {
