@@ -68,11 +68,11 @@
     i18n: {
       messages: {
         fr: {
-          place: 'Position :',
-          time: 'Date :',
-          lastPosition: 'Nouvelle position :',
+          place: 'Position&nbsp:',
+          time: 'Date&nbsp:',
+          lastPosition: 'Nouvelle position&nbsp:',
           confirm: 'Envoyer',
-          lastKnownPosition: 'Dernière position connue :',
+          lastKnownPosition: 'Dernière position connue&nbsp:',
         },
         en: {
           place: 'Position:',
