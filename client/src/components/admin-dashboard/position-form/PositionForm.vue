@@ -49,13 +49,17 @@
         this.updateLastPosition()
       },
       updateLastPosition() {
-        const position = {
-          place: this.place,
-          time: this.time,
+        if (this.place === null || this.time === null) {
+          this.displayErrorMessage()
+        } else {
+          const position = {
+            place: this.place,
+            time: this.time,
+          }
+          positionsApi.add(position)
+            .then(this.updateLastPositionData)
+            .then(this.displaySuccessMessage)
         }
-        positionsApi.add(position)
-          .then(this.updateLastPositionData)
-          .then(() => notificationsService.success(this, this.$t('positionUpdated')))
       },
       updateLastPositionData() {
         this.$emit('updateLastPositionData', { place: this.place, time: this.time })
@@ -64,6 +68,12 @@
       resetPosition() {
         this.place = null
         this.time = null
+      },
+      displayErrorMessage() {
+        notificationsService.error(this, this.$t('positionNotUpdated'))
+      },
+      displaySuccessMessage() {
+        notificationsService.success(this, this.$t('positionUpdated'))
       },
     },
 
@@ -76,6 +86,7 @@
           confirm: 'Envoyer',
           lastKnownPosition: 'Dernière position connue&nbsp:',
           positionUpdated: 'Position mise-à-jour',
+          positionNotUpdated: 'Renseigne toutes les informations. La position n\'a pas été mise-à-jour',
         },
         en: {
           place: 'Position:',
@@ -84,6 +95,7 @@
           confirm: 'Confirm',
           lastKnownPosition: 'Last known position:',
           positionUpdated: 'Position updated',
+          positionNotUpdated: 'Fill all the informations. Position was not updated',
         },
       },
     },
