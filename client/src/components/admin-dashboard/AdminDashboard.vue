@@ -47,7 +47,6 @@
     },
     methods: {
       updateLastPositionData(position) {
-        console.log('admin dashboard update l p d')
         this.$emit('updateLastPositionData', position)
       },
 
