@@ -13,6 +13,14 @@
     "^.+\\.js$": "babel-jest",
     ".*\\.(vue)$": "vue-jest"
   },
+  "coverageThreshold": {
+    "global": {
+      "branches": 60,
+      "functions": 60,
+      "lines": 60,
+      "statements": 60
+    }
+  },
   "snapshotSerializers": ["<rootDir>/node_modules/jest-serializer-vue"],
   "setupTestFrameworkScriptFile": "<rootDir>/config/jest.setup.js",
   "collectCoverageFrom": [
