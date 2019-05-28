@@ -1,131 +1,188 @@
-<template>
-  <form class="position__form">
-    <p class="position__text">
-      {{ $t("lastPosition") }}
-    </p>
-    <label
-      class="position__label"
-      for="position-place">
-      {{ $t("place") }}
-    </label>
-    <input
-      id="position-place"
-      v-model="place"
-      class="position__input position__place"
-      placeholder="Paris">
-    <label
-      class="position__label"
-      for="position-time">
-      {{ $t("time") }}
-    </label>
-    <input
-      id="position-time"
-      v-model="time"
-      class="position__input position__time"
-      placeholder="le 1er mai 2018">
-    <button
-      type="submit"
-      class="position__button position__action--send"
-      @click.prevent="updateLastPosition">
-      {{ $t("confirm") }}
-    </button>
-  </form>
-</template>
-<script>
-  import positionsApi from '../../../api/positions'
-  import notificationsService from '../../../services/notifications';
+import Vue from 'vue'
+import VueI18n from 'vue-i18n'
+import PositionForm from './PositionForm.vue'
+import positionsApi from '../../../api/positions'
+import notificationsService from '../../../services/notifications'
 
-  export default {
-    name: 'PositionForm',
-    data() {
-      return {
-        place: null,
-        time: null,
-      }
-    },
-    methods: {
-      submit(e) {
-        console.log('submit')
-        e.preventDefault()
-        this.updateLastPosition()
-      },
-      updateLastPosition() {
-        console.log('updateLastPosition')
-        const position = {
-          place: this.place,
-          time: this.time,
-        }
-        positionsApi.add(position)
-          .then(this.updateLastPositionData)
-          .then(() => notificationsService.success(this, this.$t('positionUpdated')))
-      },
-      updateLastPositionData() {
-        console.log('updateLastPositionData')
-        this.$emit('updateLastPositionData', { place: this.place, time: this.time })
-        this.resetPosition()
-      },
-      resetPosition() {
-        this.place = null
-        this.time = null
-      },
-    },
+describe('Component | PositionForm.vue', () => {
+  let localVue
+  let wrapper
 
-    i18n: {
-      messages: {
-        fr: {
-          place: 'Position&nbsp:',
-          time: 'Date&nbsp:',
-          lastPosition: 'Nouvelle position&nbsp:',
-          confirm: 'Envoyer',
-          lastKnownPosition: 'Dernière position connue&nbsp:',
-          positionUpdated: 'Position mise-à-jour',
-        },
-        en: {
-          place: 'Position:',
-          time: 'Date:',
-          lastPosition: 'New position:',
-          confirm: 'Confirm',
-          lastKnownPosition: 'Last known position:',
-          positionUpdated: 'Position updated',
-        },
-      },
-    },
-  }
-</script>
-<style scoped>
-  .position__input {
-    background: #ffffff;
-    border: 1px solid cadetblue;
-    padding: 15px 10px;
-    border-radius: 4px;
-    width: 230px;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
+  beforeEach(() => {
+    console.warn = jest.fn()
 
-  .position__button {
-    text-transform: uppercase;
-    color: #f76252;
-    background: #ffffff;
-    border: 1px solid #d14800;
-    cursor: pointer;
-    padding: 15px 30px;
-    border-radius: 4px;
-    width: 230px;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
+    localVue = createLocalVue()
+    localVue.use(VueI18n)
+  })
 
-  .position__button:hover {
-    background: #d14800;
-    color: #ffffff;
-  }
+  it('should be named "PositionForm"', () => {
+    wrapper = shallowMount(PositionForm, { localVue })
 
-  .position__button:disabled {
-    background: #BDBDBD;
-    border-color: #616161;
-    color: #FAFAFA;
-    cursor: auto;
-  }
+    expect(wrapper.name()).toEqual('PositionForm')
+  })
 
-</style>
+  describe('template', () => {
+    it('should match snapshot', () => {
+      wrapper = shallowMount(PositionForm, { localVue })
+
+      expect(wrapper.element).toMatchSnapshot()
+    })
+  })
+
+  describe('methods', () => {
+    let currentPosition
+
+    beforeEach(() => {
+      wrapper = shallowMount(PositionForm, { localVue })
+      currentPosition = { place: 'place', time: 'time' }
+      wrapper.setData(currentPosition)
+    })
+
+    describe('#submit', () => {
+      it('should prevent default', () => {
+        const event = { preventDefault: jest.fn() }
+
+        wrapper.vm.submit(event)
+
+        expect(event.preventDefault).toHaveBeenCalledWith()
+      })
+
+      it('should update last position', () => {
+        positionsApi.add = jest.fn()
+        positionsApi.add.mockResolvedValue()
+        notificationsService.success = jest.fn()
+        const event = { preventDefault: jest.fn() }
+
+        wrapper.vm.submit(event)
+
+        expect(positionsApi.add).toHaveBeenCalledWith(currentPosition)
+      })
+    })
+
+    describe('#updateLastPosition', () => {
+      it('should add current position to api', () => {
+        positionsApi.add = jest.fn()
+        positionsApi.add.mockResolvedValue()
+        notificationsService.success = jest.fn()
+
+        wrapper.vm.updateLastPosition()
+
+        expect(positionsApi.add).toHaveBeenCalledWith(currentPosition)
+      })
+
+      it('should emit current position', async () => {
+        positionsApi.add = jest.fn()
+        positionsApi.add.mockResolvedValue('tot')
+
+        await wrapper.vm.updateLastPosition()
+
+        expect(wrapper).toEmit('updateLastPositionData', currentPosition)
+      })
+
+      it('should reset position', async () => {
+        positionsApi.add = jest.fn()
+        positionsApi.add.mockResolvedValue()
+        notificationsService.success = jest.fn()
+
+        await wrapper.vm.updateLastPosition()
+
+        expect(wrapper.vm.place).toEqual(null)
+        expect(wrapper.vm.time).toEqual(null)
+      })
+
+      it('should send success notifications', async () => {
+        positionsApi.add = jest.fn()
+        positionsApi.add.mockResolvedValue()
+        notificationsService.success = jest.fn()
+        notificationsService.success.mockResolvedValue()
+
+        await wrapper.vm.updateLastPosition()
+
+        const message = 'positionUpdated'
+        return Vue.nextTick().then(() => {
+          expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+        })
+      })
+    })
+
+    describe('#updateLastPositionData', () => {
+      it('should emit last position', () => {
+        wrapper.vm.updateLastPositionData()
+
+        expect(wrapper).toEmit('updateLastPositionData', currentPosition)
+      })
+
+      it('should reset position', () => {
+        wrapper.vm.updateLastPositionData()
+
+        expect(wrapper.vm.place).toEqual(null)
+        expect(wrapper.vm.time).toEqual(null)
+      })
+    })
+
+    describe('#resetPosition', () => {
+      it('should set position values to null', () => {
+        wrapper.vm.resetPosition()
+
+        expect(wrapper.vm.place).toEqual(null)
+        expect(wrapper.vm.time).toEqual(null)
+      })
+    })
+  })
+
+  describe('events', () => {
+    describe('clicking on button "Envoyer"', () => {
+      it('should call updateLastPosition', () => {
+        wrapper = shallowMount(PositionForm, { localVue })
+        wrapper.vm.updateLastPosition = jest.fn()
+
+        wrapper.find('button').trigger('click')
+
+        expect(wrapper.vm.updateLastPosition).toHaveBeenCalled()
+      })
+    })
+  })
+
+  describe('locales', () => {
+    const languages = Object.keys(PositionForm.i18n.messages)
+
+    it('contains 2 languages', () => {
+      expect(languages).toHaveLength(2)
+      expect(languages).toEqual(['fr', 'en'])
+    })
+
+    describe('each language', () => {
+      describe('fr', () => {
+        const locales = Object.keys(PositionForm.i18n.messages.fr)
+
+        it('contains 6 locales', () => {
+          expect(locales).toHaveLength(6)
+          expect(locales).toEqual([
+            'place',
+            'time',
+            'lastPosition',
+            'confirm',
+            'lastKnownPosition',
+            'positionUpdated',
+          ])
+        })
+      })
+
+      describe('en', () => {
+        const locales = Object.keys(PositionForm.i18n.messages.en)
+
+        it('contains 6 locales', () => {
+          expect(locales).toHaveLength(6)
+          expect(locales).toEqual([
+            'place',
+            'time',
+            'lastPosition',
+            'confirm',
+            'lastKnownPosition',
+            'positionUpdated',
+          ])
+        })
+      })
+    })
+  })
+})

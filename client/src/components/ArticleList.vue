@@ -75,9 +75,6 @@
       },
 
       updateLastPositionData({ place, time }) {
-        console.log('article list update l p d')
-        console.log(place)
-        console.log(time)
         this.lastPosition = `${place}, ${time}`
       },
 
