@@ -33,6 +33,7 @@
 </template>
 <script>
   import positionsApi from '../../../api/positions'
+  import notificationsService from '../../../services/notifications'
 
   export default {
     name: 'PositionForm',
@@ -44,24 +45,26 @@
     },
     methods: {
       submit(e) {
-        console.log('submit')
         e.preventDefault()
         this.updateLastPosition()
       },
       updateLastPosition() {
-        console.log('updateLastPosition')
         const position = {
           place: this.place,
           time: this.time,
         }
         positionsApi.add(position)
           .then(this.updateLastPositionData)
+          .then(() => notificationsService.success(this, this.$t('positionUpdated')))
       },
       updateLastPositionData() {
-        console.log('updateLastPositionData')
         this.$emit('updateLastPositionData', { place: this.place, time: this.time })
+        this.resetPosition()
       },
-
+      resetPosition() {
+        this.place = null
+        this.time = null
+      },
     },
 
     i18n: {
@@ -72,6 +75,7 @@
           lastPosition: 'Nouvelle position&nbsp:',
           confirm: 'Envoyer',
           lastKnownPosition: 'Dernière position connue&nbsp:',
+          positionUpdated: 'Position mise-à-jour',
         },
         en: {
           place: 'Position:',
@@ -79,6 +83,7 @@
           lastPosition: 'New position:',
           confirm: 'Confirm',
           lastKnownPosition: 'Last known position:',
+          positionUpdated: 'Position updated',
         },
       },
     },
