@@ -138,7 +138,7 @@
   }
 
   .chapter__position {
-    color: #FFF;
+    display: none;
   }
 
   .chapter__content {
