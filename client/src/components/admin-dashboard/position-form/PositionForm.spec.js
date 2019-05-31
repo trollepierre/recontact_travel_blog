@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
+import VueAnalytics from 'vue-analytics'
 import PositionForm from './PositionForm.vue'
 import positionsApi from '../../../api/positions'
 import notificationsService from '../../../services/notifications'
@@ -12,6 +13,7 @@ describe('Component | PositionForm.vue', () => {
     console.warn = jest.fn()
 
     localVue = createLocalVue()
+    localVue.use(VueAnalytics, { id: '12' })
     localVue.use(VueI18n)
   })
 

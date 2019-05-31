@@ -33,6 +33,7 @@
 </template>
 <script>
   import notificationsService from '../../services/notifications'
+  import analyticsService from '../../services/analytics-service'
   import syncApi from '../../api/sync'
   import PositionForm from './position-form/PositionForm.vue'
   import articlesApi from '../../api/articles'
@@ -109,11 +110,7 @@
       },
 
       trackEvent() {
-        this.$ga.event({
-          eventCategory: 'Article List',
-          eventAction: 'synchronise',
-          eventLabel: 'All articles have been synchronised',
-        })
+        analyticsService.sendAnalytics(this, 'Article List', 'synchronise', 'All articles have been synchronised')
       },
 
       goToHome() {
