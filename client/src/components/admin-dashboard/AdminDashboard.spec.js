@@ -1,18 +1,22 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
+import VueRouter from 'vue-router'
 import AdminDashboard from './AdminDashboard.vue'
 import syncApi from '../../api/sync'
-// import articlesApi from '../../api/articles'
+import articlesApi from '../../api/articles'
 import notificationsService from '../../services/notifications'
+import analyticsService from '../../services/analytics-service'
 
 describe('Component | AdminDashboard.vue', () => {
   let localVue
   let wrapper
 
   beforeEach(() => {
+    analyticsService.sendAnalytics = jest.fn()
     console.warn = jest.fn()
 
     localVue = createLocalVue()
+    localVue.use(VueRouter)
     localVue.use(VueI18n)
   })
 
@@ -30,127 +34,298 @@ describe('Component | AdminDashboard.vue', () => {
     })
   })
 
-  describe.skip('methods', () => {
+  describe('methods', () => {
     let currentPosition
+    const router = {
+      init: jest.fn(),
+      push: jest.fn(),
+      history: {},
+    }
 
     beforeEach(() => {
-      wrapper = shallowMount(AdminDashboard, { localVue })
-      currentPosition = { place: 'place', time: 'time' }
-      wrapper.setData(currentPosition)
-      syncApi.add = jest.fn()
-      syncApi.add.mockResolvedValue()
+      wrapper = shallowMount(AdminDashboard, { localVue, router })
+      notificationsService.information = jest.fn()
       notificationsService.success = jest.fn()
-      notificationsService.error = jest.fn()
-    })
-
-    describe('#submit', () => {
-      it('should prevent default', () => {
-        const event = { preventDefault: jest.fn() }
-
-        wrapper.vm.submit(event)
-
-        expect(event.preventDefault).toHaveBeenCalledWith()
-      })
-
-      it('should update last position', () => {
-        const event = { preventDefault: jest.fn() }
-
-        wrapper.vm.submit(event)
-
-        expect(syncApi.add).toHaveBeenCalledWith(currentPosition)
-      })
-    })
-
-    describe('#updateLastPosition', () => {
-      describe('when position is null', () => {
-        beforeEach(() => {
-          currentPosition = { place: null, time: 'time' }
-          wrapper.setData(currentPosition)
-        })
-
-        it('should not add position', () => {
-          wrapper.vm.updateLastPosition()
-
-          expect(syncApi.add).not.toHaveBeenCalled()
-        })
-
-        it('should send error notification', () => {
-          wrapper.vm.updateLastPosition()
-
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'positionNotUpdated')
-        })
-      })
-
-      describe('when time is null', () => {
-        beforeEach(() => {
-          currentPosition = { place: 'place', time: null }
-          wrapper.setData(currentPosition)
-        })
-
-        it('should not add position', () => {
-          wrapper.vm.updateLastPosition()
-
-          expect(syncApi.add).not.toHaveBeenCalled()
-        })
-
-        it('should send error notification', () => {
-          wrapper.vm.updateLastPosition()
-
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'positionNotUpdated')
-        })
-      })
-
-      it('should add current position to api', () => {
-        wrapper.vm.updateLastPosition()
-
-        expect(syncApi.add).toHaveBeenCalledWith(currentPosition)
-      })
-
-      it('should emit current position', async () => {
-        await wrapper.vm.updateLastPosition()
-
-        expect(wrapper).toEmit('updateLastPositionData', currentPosition)
-      })
-
-      it('should reset position', async () => {
-        await wrapper.vm.updateLastPosition()
-
-        expect(wrapper.vm.place).toEqual(null)
-        expect(wrapper.vm.time).toEqual(null)
-      })
-
-      it('should send success notifications', async () => {
-        notificationsService.success.mockResolvedValue()
-
-        await wrapper.vm.updateLastPosition()
-
-        return Vue.nextTick().then(() => {
-          expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), 'positionUpdated')
-        })
-      })
+      notificationsService.success.mockResolvedValue({})
+      notificationsService.removeInformation = jest.fn()
+      notificationsService.removeInformation.mockResolvedValue({})
+      currentPosition = { place: 'place', time: 'time' }
     })
 
     describe('#updateLastPositionData', () => {
-      it('should emit last position', () => {
-        wrapper.vm.updateLastPositionData()
+      it('should emit updateLastPositionData with current position', () => {
+        wrapper.vm.updateLastPositionData(currentPosition)
 
         expect(wrapper).toEmit('updateLastPositionData', currentPosition)
       })
+    })
 
-      it('should reset position', () => {
-        wrapper.vm.updateLastPositionData()
+    describe('#disableButton', () => {
+      it('should set isClickSync to true', () => {
+        wrapper.vm.disableButton()
 
-        expect(wrapper.vm.place).toEqual(null)
-        expect(wrapper.vm.time).toEqual(null)
+        expect(wrapper.vm.isClickedSync).toEqual(true)
       })
     })
 
-    describe('#resetPosition', () => {
-      it('should set position values to null', () => {
-        wrapper.vm.resetPosition()
+    describe('#enableButton', () => {
+      it('should set isClickSync to false', () => {
+        wrapper.setData({ isClickedSync: true })
 
-        expect(wrapper.vm.place).toEqual(null)
-        expect(wrapper.vm.time).toEqual(null)
+        wrapper.vm.enableButton()
+
+        expect(wrapper.vm.isClickedSync).toEqual(false)
+      })
+    })
+
+    describe('#synchronise', () => {
+      beforeEach(() => {
+        syncApi.launch = jest.fn()
+        syncApi.launch.mockResolvedValue({})
+      })
+
+      it('should track event', () => {
+        wrapper.vm.synchronise()
+
+        expect(analyticsService.sendAnalytics).toHaveBeenCalledWith(expect.anything(), 'Article List', 'synchronise', 'All articles have been synchronised')
+      })
+
+      it('should set isClickSync to true', () => {
+        wrapper.vm.synchronise()
+
+        expect(wrapper.vm.isClickedSync).toEqual(true)
+      })
+
+      it('should display success toast notification before synchronisation calls', () => {
+        wrapper.vm.synchronise()
+
+        const message = 'syncLaunched'
+        expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
+      })
+
+      it('should call syncApi', () => {
+        wrapper.vm.synchronise()
+
+        expect(syncApi.launch).toHaveBeenCalledWith()
+      })
+
+      it('should display success toast notification when synchronisation succeeds', async () => {
+        await wrapper.vm.synchronise()
+
+        expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
+        const message = 'syncDone'
+        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+      })
+
+      it('should enable button', async () => {
+        wrapper.setData({ isClickedSync: true })
+
+        await wrapper.vm.synchronise()
+
+        return Vue.nextTick().then(() => {
+          expect(wrapper.vm.isClickedSync).toEqual(false)
+        })
+      })
+
+      it('should redirect to homepage', async () => {
+        await wrapper.vm.synchronise()
+
+        return Vue.nextTick().then(() => {
+          expect(router.push).toHaveBeenCalledWith('/')
+        })
+      })
+
+      it('should remove information and show error', async () => {
+        jest.resetAllMocks()
+        syncApi.launch = jest.fn()
+        syncApi.launch.mockRejectedValue('message')
+
+        notificationsService.removeInformation = jest.fn()
+        notificationsService.removeInformation.mockResolvedValue({})
+        notificationsService.error = jest.fn()
+
+        await wrapper.vm.synchronise()
+
+        return Vue.nextTick().then(() => {
+          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
+          expect(notificationsService.success).not.toHaveBeenCalled()
+          expect(router.push).not.toHaveBeenCalled()
+          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'syncError message')
+        })
+      })
+    })
+
+    describe('#deleteAll', () => {
+      beforeEach(() => {
+        articlesApi.deleteAll = jest.fn()
+        articlesApi.deleteAll.mockResolvedValue({})
+      })
+
+      it('should set isClickSync to true', () => {
+        wrapper.vm.deleteAll()
+
+        expect(wrapper.vm.isClickedSync).toEqual(true)
+      })
+
+      it('should display success toast notification before synchronisation calls', () => {
+        wrapper.vm.deleteAll()
+
+        const message = 'syncLaunched'
+        expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
+      })
+
+      it('should call syncApi', () => {
+        wrapper.vm.deleteAll()
+
+        expect(articlesApi.deleteAll).toHaveBeenCalledWith()
+      })
+
+      it('should display success toast notification when synchronisation succeeds', async () => {
+        await wrapper.vm.deleteAll()
+
+        expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
+        const message = 'syncDone'
+        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+      })
+
+      it('should enable button', async () => {
+        wrapper.setData({ isClickedSync: true })
+
+        await wrapper.vm.deleteAll()
+
+        return Vue.nextTick().then(() => {
+          expect(wrapper.vm.isClickedSync).toEqual(false)
+        })
+      })
+
+      it('should redirect to homepage', async () => {
+        await wrapper.vm.deleteAll()
+
+        return Vue.nextTick().then(() => {
+          expect(router.push).toHaveBeenCalledWith('/')
+        })
+      })
+
+      it('should remove information and show error', async () => {
+        jest.resetAllMocks()
+        articlesApi.deleteAll = jest.fn()
+        articlesApi.deleteAll.mockRejectedValue('message')
+
+        notificationsService.removeInformation = jest.fn()
+        notificationsService.removeInformation.mockResolvedValue({})
+        notificationsService.error = jest.fn()
+
+        await wrapper.vm.deleteAll()
+
+        return Vue.nextTick().then(() => {
+          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
+          expect(notificationsService.success).not.toHaveBeenCalled()
+          expect(router.push).not.toHaveBeenCalled()
+          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'syncError message')
+        })
+      })
+    })
+
+    describe('#deleteAndSyncAll', () => {
+      beforeEach(() => {
+        articlesApi.deleteAndSyncAll = jest.fn()
+        articlesApi.deleteAndSyncAll.mockResolvedValue({})
+      })
+
+      it('should set isClickSync to true', () => {
+        wrapper.vm.deleteAndSyncAll()
+
+        expect(wrapper.vm.isClickedSync).toEqual(true)
+      })
+
+      it('should display success toast notification before synchronisation calls', () => {
+        wrapper.vm.deleteAndSyncAll()
+
+        const message = 'syncLaunched'
+        expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
+      })
+
+      it('should call syncApi', () => {
+        wrapper.vm.deleteAndSyncAll()
+
+        expect(articlesApi.deleteAndSyncAll).toHaveBeenCalledWith()
+      })
+
+      it('should display success toast notification when synchronisation succeeds', async () => {
+        await wrapper.vm.deleteAndSyncAll()
+
+        expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
+        const message = 'syncDone'
+        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+      })
+
+      it('should enable button', async () => {
+        wrapper.setData({ isClickedSync: true })
+
+        await wrapper.vm.deleteAndSyncAll()
+
+        return Vue.nextTick().then(() => {
+          expect(wrapper.vm.isClickedSync).toEqual(false)
+        })
+      })
+
+      it('should redirect to homepage', async () => {
+        await wrapper.vm.deleteAndSyncAll()
+
+        return Vue.nextTick().then(() => {
+          expect(router.push).toHaveBeenCalledWith('/')
+        })
+      })
+
+      it('should remove information and show error', async () => {
+        jest.resetAllMocks()
+        articlesApi.deleteAndSyncAll = jest.fn()
+        articlesApi.deleteAndSyncAll.mockRejectedValue('message')
+
+        notificationsService.removeInformation = jest.fn()
+        notificationsService.removeInformation.mockResolvedValue({})
+        notificationsService.error = jest.fn()
+
+        await wrapper.vm.deleteAndSyncAll()
+
+        return Vue.nextTick().then(() => {
+          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
+          expect(notificationsService.success).not.toHaveBeenCalled()
+          expect(router.push).not.toHaveBeenCalled()
+          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'syncError message')
+        })
+      })
+    })
+
+    describe('#goToSubscriptions', () => {
+      it('should ', () => {
+        wrapper.vm.goToSubscriptions()
+
+        expect(router.push).toHaveBeenCalledWith('/subscriptions')
+      })
+    })
+
+    describe('#trackEvent', () => {
+      it('should call send analytics service', () => {
+        wrapper.vm.trackEvent()
+
+        expect(analyticsService.sendAnalytics).toHaveBeenCalledWith(expect.anything(), 'Article List', 'synchronise', 'All articles have been synchronised')
+      })
+    })
+
+    describe('#goToHome', () => {
+      it('should enable button', () => {
+        wrapper.setData({ isClickedSync: true })
+
+        wrapper.vm.goToHome()
+
+        expect(wrapper.vm.isClickedSync).toEqual(false)
+      })
+
+      it('should redirect to homepage', () => {
+        wrapper.vm.goToHome()
+
+        expect(router.push).toHaveBeenCalledWith('/')
       })
     })
   })
