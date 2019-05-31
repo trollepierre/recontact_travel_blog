@@ -126,8 +126,8 @@
           deleteAndSyncAllArticles: 'Supprimer & synchro tous les articles',
           getSubscribers: 'Récupérer les abonnés de Recontact.me',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
-          syncDone: 'La synchronisation s’est effectuée sans problème&nbsp!',
-          syncError: 'Erreur : Problème durant la synchronisation&nbsp:',
+          syncDone: 'La synchronisation s’est effectuée sans problème  !',
+          syncError: 'Erreur : Problème durant la synchronisation  :',
         },
         en: {
           getNewArticles: 'Synchronise the new articles',

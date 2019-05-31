@@ -181,9 +181,9 @@
       messages: {
         fr: {
           suggest: 'Laisser un message',
-          content: 'Contenu du message&nbsp:',
+          content: 'Contenu du message  :',
           placeholder: 'Votre message ici',
-          email: 'Email&nbsp:',
+          email: 'Email  :',
           send: 'Envoyer',
           cancel: 'Annuler',
           emailError: 'Vous devez saisir un email valide. (ex. : nom@exemple.fr)',

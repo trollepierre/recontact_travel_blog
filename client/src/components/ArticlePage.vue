@@ -132,7 +132,7 @@
     i18n: {
       messages: {
         fr: {
-          hereTheGallery: 'Voici la galerie photo de cet article&nbsp!',
+          hereTheGallery: 'Voici la galerie photo de cet article  !',
           goToPreviousArticle: 'Voir l’article précédent',
           goToNextArticle: 'Voir l’article suivant',
           goToHomePage: 'Retour à la page d’accueil',

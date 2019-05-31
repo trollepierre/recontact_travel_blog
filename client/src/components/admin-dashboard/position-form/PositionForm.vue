@@ -80,11 +80,11 @@
     i18n: {
       messages: {
         fr: {
-          place: 'Position&nbsp:',
-          time: 'Date&nbsp:',
-          lastPosition: 'Nouvelle position&nbsp:',
+          place: 'Position  :',
+          time: 'Date  :',
+          lastPosition: 'Nouvelle position  :',
           confirm: 'Envoyer',
-          lastKnownPosition: 'Dernière position connue&nbsp:',
+          lastKnownPosition: 'Dernière position connue  :',
           positionUpdated: 'Position mise-à-jour',
           positionNotUpdated: 'Renseigne toutes les informations. La position n\'a pas été mise-à-jour',
         },
