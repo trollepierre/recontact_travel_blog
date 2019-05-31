@@ -148,8 +148,8 @@
       messages: {
         fr: {
           subscribe: 'S’abonner',
-          modalText: 'Recevoir un email à chaque nouvel article du voyage&nbsp!',
-          email: 'Email&nbsp:',
+          modalText: 'Recevoir un email à chaque nouvel article du voyage  !',
+          email: 'Email  :',
           confirm: 'Confirmer',
           cancel: 'Annuler',
           emailError: 'Vous devez saisir un email valide. (ex. : nom@exemple.fr)',

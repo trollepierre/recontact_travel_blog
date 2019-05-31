@@ -99,7 +99,7 @@
           commentError: 'Erreur lors de la prise en compte de ton commentaire.',
           commentSuccess: 'Ton commentaire a été pris en compte.',
           anonymous: 'Anonyme',
-          textPlaceholder: 'N\'hésitez pas à ajouter des commentaires&nbsp!',
+          textPlaceholder: 'N\'hésitez pas à ajouter des commentaires  !',
           send: 'Envoyer',
           text: 'Votre message',
         },

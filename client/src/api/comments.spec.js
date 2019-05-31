@@ -57,12 +57,12 @@ xdescribe('Unit | API | comments api', () => {
     let data
     const idArticle = 59
     const comment = {
-      text: 'Tu es trop fort, Pierre&nbsp!',
+      text: 'Tu es trop fort, Pierre  !',
     }
 
     beforeEach(() => {
       data = {
-        text: 'Tu es trop fort, Pierre&nbsp!',
+        text: 'Tu es trop fort, Pierre  !',
       }
       const stubbedResponse = {
         status: 200,
