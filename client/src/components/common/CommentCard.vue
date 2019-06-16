@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import { formatDateWithLongEndianLongFormat } from '../../utils/date-utils'
+  import { formatDateWithLongEndianLongFormat } from '../../utils/date/date-utils'
   import translationService from '../../services/translations'
 
   export default {
