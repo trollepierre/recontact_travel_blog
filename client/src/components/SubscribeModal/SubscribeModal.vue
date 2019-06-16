@@ -1,6 +1,7 @@
 <template>
   <div class="subscribe-modal-wrapper">
     <modal
+      :width="widthModal"
       :height="315"
       class="subscribe-modal"
       name="subscribe-modal"
@@ -61,6 +62,7 @@
 <script>
   import notificationsService from '../../services/notifications'
   import subscriptionsApi from '../../api/subscriptions'
+  import { screenWidth, PHONE_PORTRAIT_TO_LANDSCAPE } from '../../utils/screen/screen-utils'
 
   export default {
     name: 'SubscribeModal',
@@ -69,6 +71,14 @@
         email: null,
         error: null,
       }
+    },
+    computed: {
+      widthModal() {
+        if (screenWidth < PHONE_PORTRAIT_TO_LANDSCAPE) {
+          return 300
+        }
+        return undefined
+      },
     },
     methods: {
       beforeOpen() {
