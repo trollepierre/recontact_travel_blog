@@ -126,6 +126,7 @@
 
   .logo-link__recontact {
     color: #07c;
+    padding-left: 10px;
   }
 
   .logo-link__me {
@@ -148,7 +149,7 @@
     outline: -webkit-focus-ring-color auto 5px;
   }
 
-  .navigation {
+  .navbar-action__suggestion, .navbar-action__tdm {
     display: none;
   }
 
@@ -179,8 +180,13 @@
       justify-content: space-between;
     }
 
-    .app-header__navigation {
+    .navbar-action__suggestion, .navbar-action__tdm {
       display: inline-block;
+    }
+
+    .logo-link__recontact {
+      color: #07c;
+      padding-left: 0;
     }
   }
 </style>
