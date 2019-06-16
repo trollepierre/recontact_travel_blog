@@ -3,26 +3,30 @@
     <p class="position__text">
       {{ $t("lastPosition") }}
     </p>
-    <label
-      class="position__label"
-      for="position-place">
-      {{ $t("place") }}
-    </label>
-    <input
-      id="position-place"
-      v-model="place"
-      class="position__input position__place"
-      placeholder="Paris">
-    <label
-      class="position__label"
-      for="position-time">
-      {{ $t("time") }}
-    </label>
-    <input
-      id="position-time"
-      v-model="time"
-      class="position__input position__time"
-      placeholder="le 1er mai 2018">
+    <span class="form-group">
+      <label
+        class="position__label"
+        for="position-place">
+        {{ $t("place") }}
+      </label>
+      <input
+        id="position-place"
+        v-model="place"
+        class="position__input position__place"
+        placeholder="Paris">
+    </span>
+    <span class="form-group">
+      <label
+        class="position__label"
+        for="position-time">
+        {{ $t("time") }}
+      </label>
+      <input
+        id="position-time"
+        v-model="time"
+        class="position__input position__time"
+        placeholder="le 1er mai 2018">
+    </span>
     <button
       type="submit"
       class="position__button position__action--send"
@@ -102,6 +106,12 @@
   }
 </script>
 <style scoped>
+  .form-group {
+    text-align: right;
+    margin-right: 30px;
+    float: right;
+  }
+
   .position__input {
     background: #ffffff;
     border: 1px solid cadetblue;
@@ -137,4 +147,16 @@
     cursor: auto;
   }
 
+  @media only screen and (min-width: 640px) {
+    .form-group {
+      text-align: left;
+      float: left;
+    }
+  }
+
+  @media only screen and (min-width: 540px) and (max-width: 992px){
+    .position__form {
+      margin-bottom: 60px;
+    }
+  }
 </style>
