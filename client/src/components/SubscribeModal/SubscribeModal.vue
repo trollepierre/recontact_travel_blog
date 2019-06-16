@@ -2,7 +2,7 @@
   <div class="subscribe-modal-wrapper">
     <modal
       :width="widthModal"
-      :height="315"
+      :height="heightModal"
       class="subscribe-modal"
       name="subscribe-modal"
       @before-open="beforeOpen"
@@ -78,6 +78,12 @@
           return 300
         }
         return undefined
+      },
+      heightModal() {
+        if (screenWidth < PHONE_PORTRAIT_TO_LANDSCAPE) {
+          return undefined
+        }
+        return 315
       },
     },
     methods: {
@@ -191,7 +197,7 @@
   }
 
   .subscribe-modal__body {
-    padding: 25px 20px;
+    padding: 5px 20px;
     background: #fff;
     height: 125px;
   }
@@ -231,7 +237,6 @@
     width: 100%;
     resize: none;
     overflow: auto;
-    height: 30px;
     font-size: 16px;
     box-sizing: border-box;
     padding: 5px;
@@ -278,5 +283,11 @@
 
   .subscribe-modal__action--cancel:hover {
     box-shadow: 0 0 3px 0 #d8dde6;
+  }
+
+  @media only screen and (min-width: 640px) {
+    .subscribe-modal__body {
+      padding: 25px 20px;
+    }
   }
 </style>
