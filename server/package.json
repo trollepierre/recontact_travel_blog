@@ -24,7 +24,7 @@
   "dependencies": {
     "connect-history-api-fallback": "1.6.0",
     "dotenv-extended": "2.4.0",
-    "dropbox": "2.5.13",
+    "dropbox": "4.0.27",
     "express": "4.17.1",
     "lodash": "4.17.11",
     "node-mailjet": "3.3.1",
