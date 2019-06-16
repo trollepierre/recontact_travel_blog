@@ -3,8 +3,8 @@ import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import SubscribeModal from './SubscribeModal.vue'
-import subscriptionsApi from '../api/subscriptions'
-import notificationsService from '../services/notifications'
+import subscriptionsApi from '../../api/subscriptions'
+import notificationsService from '../../services/notifications'
 
 describe('Component | SubscribeModal.vue', () => {
   let wrapper
