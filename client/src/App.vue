@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import AppHeader from './components/AppHeader.vue'
+  import AppHeader from './components/AppHeader/AppHeader.vue'
   import FeedbackModal from './components/FeedbackModal.vue'
   import SubscribeModal from './components/SubscribeModal.vue'
 
