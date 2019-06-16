@@ -44,7 +44,7 @@
 
   @media only screen and (min-width: 640px) {
     .page__container {
-      max-width: 544px;
+      max-width: 600px;
     }
   }
 

@@ -141,6 +141,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
   }
 
   .article-results__item {
