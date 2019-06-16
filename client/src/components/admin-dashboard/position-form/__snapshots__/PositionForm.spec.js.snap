@@ -12,35 +12,43 @@ exports[`Component | PositionForm.vue template should match snapshot 1`] = `
   
   </p>
    
-  <label
-    class="position__label"
-    for="position-place"
+  <span
+    class="form-group"
   >
+    <label
+      class="position__label"
+      for="position-place"
+    >
+      
+      place
     
-    place
-  
-  </label>
+    </label>
+     
+    <input
+      class="position__input position__place"
+      id="position-place"
+      placeholder="Paris"
+    />
+  </span>
    
-  <input
-    class="position__input position__place"
-    id="position-place"
-    placeholder="Paris"
-  />
-   
-  <label
-    class="position__label"
-    for="position-time"
+  <span
+    class="form-group"
   >
+    <label
+      class="position__label"
+      for="position-time"
+    >
+      
+      time
     
-    time
-  
-  </label>
-   
-  <input
-    class="position__input position__time"
-    id="position-time"
-    placeholder="le 1er mai 2018"
-  />
+    </label>
+     
+    <input
+      class="position__input position__time"
+      id="position-time"
+      placeholder="le 1er mai 2018"
+    />
+  </span>
    
   <button
     class="position__button position__action--send"
