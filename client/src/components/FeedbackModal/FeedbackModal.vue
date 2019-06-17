@@ -84,7 +84,10 @@
     },
     computed: {
       heightMessage() {
-        return screenHeight < PHONE_PORTRAIT_TO_LANDSCAPE ? undefined : '152px'
+        if (screenHeight > PHONE_PORTRAIT_TO_LANDSCAPE) {
+          return this.error ? '90px' : '152px'
+        }
+        return undefined
       },
       heightModal() {
         return screenHeight < PHONE_PORTRAIT_TO_LANDSCAPE ? 280 : 415
@@ -94,7 +97,6 @@
       beforeOpen() {
         this._resetFeedback()
         this._resetEmail()
-        this._resetHeight()
         this._removeError()
       },
 
@@ -123,12 +125,10 @@
         const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$')
         if (!regex.exec(this.email)) {
           this.error = this.$t('emailError')
-          this._setErrorHeight()
           return
         }
         if (!this.feedback || this.feedback.trim().length === 0) {
           this.error = this.$t('feedbackError')
-          this._setErrorHeight()
           return
         }
         feedbacksApi.sendFeedback(this.feedback, this.email)
@@ -162,14 +162,6 @@
 
       _resetEmail() {
         this.email = null
-      },
-
-      _resetHeight() {
-        this.heightMessage = '152px'
-      },
-
-      _setErrorHeight() {
-        this.heightMessage = '90px'
       },
 
       _removeError() {
