@@ -32,5 +32,41 @@ describe('Component | FeedbackModal.vue', () => {
     it('should match snapshot', () => {
       expect(wrapper.element).toMatchSnapshot()
     })
+    it('should have message with height to 152px', () => {
+      expect(wrapper.vm.heightMessage).toEqual('152px')
+    })
+    it('should have message with height to 90px when wrapper in error', () => {
+      wrapper = shallowMount(FeedbackModal, {
+        localVue,
+        data() {
+          return {
+            feedback,
+            email,
+            error: 'non null',
+          }
+        },
+      })
+
+      expect(wrapper.vm.heightMessage).toEqual('90px')
+    })
+  })
+
+  describe('beforeOpen', () => {
+    it('should reset height', () => {
+      wrapper = shallowMount(FeedbackModal, {
+        localVue,
+        data() {
+          return {
+            feedback,
+            email,
+            error: 'non null',
+          }
+        },
+      })
+
+      wrapper.vm.beforeOpen()
+
+      expect(wrapper.vm.heightMessage).toEqual('152px')
+    })
   })
 })

@@ -57,8 +57,8 @@ describe('Component | FeedbackModal.vue', () => {
     expect(wrapper.vm.error).toEqual(null)
   })
 
-  xit('should have message with height to 152px', () => {
-    expect(wrapper.vm.heightMessage).toEqual('152px')
+  it('should have message with height to 152px', () => {
+    expect(wrapper.vm.heightMessage).toBeUndefined()
   })
 
   /*xdescribe('rendering', () => {
@@ -88,12 +88,10 @@ describe('Component | FeedbackModal.vue', () => {
       expect(wrapper.vm.email).toEqual(null)
     })
 
-    xit('should reset height', () => {
-      wrapper.vm.heightMessage = '34px'
-
+    it('should reset height', () => {
       wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.heightMessage).toEqual('152px')
+      expect(wrapper.vm.heightMessage).toBeUndefined()
     })
 
     it('should remove error', () => {
