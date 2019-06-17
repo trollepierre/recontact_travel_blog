@@ -74,16 +74,10 @@
     },
     computed: {
       widthModal() {
-        if (screenWidth < PHONE_PORTRAIT_TO_LANDSCAPE) {
-          return 300
-        }
-        return undefined
+        return screenWidth < PHONE_PORTRAIT_TO_LANDSCAPE ? 300 : undefined
       },
       heightModal() {
-        if (screenWidth < PHONE_PORTRAIT_TO_LANDSCAPE) {
-          return undefined
-        }
-        return 315
+        return screenWidth < PHONE_PORTRAIT_TO_LANDSCAPE ? undefined : 315
       },
     },
     methods: {
