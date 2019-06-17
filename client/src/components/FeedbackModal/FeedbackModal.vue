@@ -79,13 +79,15 @@
         email: null,
         feedback: null,
         error: null,
-        heightMessage: '152px',
         placeholder: this.$t('placeholder'),
       }
     },
     computed: {
+      heightMessage() {
+        return screenHeight < PHONE_PORTRAIT_TO_LANDSCAPE ? undefined : '152px'
+      },
       heightModal() {
-        return screenHeight < PHONE_PORTRAIT_TO_LANDSCAPE ? screenHeight - 80 : 415
+        return screenHeight < PHONE_PORTRAIT_TO_LANDSCAPE ? 280 : 415
       },
     },
     methods: {
@@ -99,10 +101,11 @@
       opened() {
         this.trackEvent()
         this._focusOnInput()
-        this._closeOnEscapeKey()
+        this._closeOnEscapeKeyOrOrientationChange()
       },
 
-      _closeOnEscapeKey() {
+      _closeOnEscapeKeyOrOrientationChange() {
+        window.addEventListener('orientationchange', this._closeModal)
         document.addEventListener('keydown', e => {
           if (e.keyCode === 27) {
             this._closeModal()
@@ -226,7 +229,7 @@
   .feedback-modal__body {
     padding: 10px 20px;
     background: #fff;
-    height: 245px;
+    height: 135px;
   }
 
   .feedback-modal__form {
@@ -312,5 +315,11 @@
 
   .feedback-modal__action--cancel:hover {
     box-shadow: 0 0 3px 0 #d8dde6;
+  }
+
+  @media only screen and (min-height: 640px) {
+    .feedback-modal__body {
+      height: 245px;
+    }
   }
 </style>
