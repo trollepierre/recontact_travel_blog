@@ -5,6 +5,7 @@ module.exports = {
       {
         modules: false,
         useBuiltIns: 'usage',
+        corejs: '3.0.0',
         targets: {
           browsers: [
             '> 1%',
