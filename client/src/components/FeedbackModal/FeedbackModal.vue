@@ -1,7 +1,7 @@
 <template>
   <div class="feedback-modal-wrapper">
     <modal
-      :height="415"
+      :height="heightModal"
       class="feedback-modal"
       name="feedback-modal"
       @before-open="beforeOpen"
@@ -68,8 +68,9 @@
 </template>
 
 <script>
-  import feedbacksApi from '../api/feedbacks'
-  import notificationsService from '../services/notifications'
+  import feedbacksApi from '../../api/feedbacks'
+  import notificationsService from '../../services/notifications'
+  import { PHONE_PORTRAIT_TO_LANDSCAPE, screenHeight } from '../../utils/screen/screen-utils'
 
   export default {
     name: 'FeedbackModal',
@@ -81,6 +82,11 @@
         heightMessage: '152px',
         placeholder: this.$t('placeholder'),
       }
+    },
+    computed: {
+      heightModal() {
+        return screenHeight < PHONE_PORTRAIT_TO_LANDSCAPE ? screenHeight - 80 : 415
+      },
     },
     methods: {
       beforeOpen() {
@@ -218,9 +224,9 @@
   }
 
   .feedback-modal__body {
-    padding: 25px 20px;
+    padding: 10px 20px;
     background: #fff;
-    height: 216px;
+    height: 245px;
   }
 
   .feedback-modal__form {

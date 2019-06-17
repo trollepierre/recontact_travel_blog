@@ -1,13 +1,14 @@
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
-import VueAnalytics from 'vue-analytics'
 import VueModal from 'vue-js-modal'
-import SubscribeModal from './SubscribeModal.vue'
+import VueAnalytics from 'vue-analytics'
+import FeedbackModal from './FeedbackModal.vue'
 
-describe('Component | SubscribeModal.vue', () => {
+describe('Component | FeedbackModal.vue', () => {
   let wrapper
   const email = 'pierre@recontact.me'
   let localVue
+  const feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?'
 
   beforeEach(() => {
     console.warn = jest.fn()
@@ -16,10 +17,11 @@ describe('Component | SubscribeModal.vue', () => {
     localVue.use(VueRouter)
     localVue.use(VueModal)
     localVue.use(VueAnalytics, { id: '12' })
-    wrapper = shallowMount(SubscribeModal, {
+    wrapper = shallowMount(FeedbackModal, {
       localVue,
       data() {
         return {
+          feedback,
           email,
         }
       },

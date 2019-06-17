@@ -4,10 +4,21 @@ exports[`Component | FeedbackModal.vue template should match snapshot 1`] = `
 <div
   class="feedback-modal-wrapper"
 >
-  <modal
+  <modal-stub
     class="feedback-modal"
+    classes="v--modal"
+    clicktoclose="true"
+    delay="0"
     height="415"
+    maxheight="Infinity"
+    maxwidth="Infinity"
+    minheight="0"
+    minwidth="0"
     name="feedback-modal"
+    overlaytransition="overlay-fade"
+    pivotx="0.5"
+    pivoty="0.5"
+    width="600"
   >
     <div
       class="feedback-modal__header"
@@ -85,6 +96,6 @@ exports[`Component | FeedbackModal.vue template should match snapshot 1`] = `
         </button>
       </div>
     </div>
-  </modal>
+  </modal-stub>
 </div>
 `;
