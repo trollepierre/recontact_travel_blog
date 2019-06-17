@@ -10,13 +10,14 @@ jest.mock('../../utils/screen/screen-utils', () => ({ screenHeight: 200, PHONE_P
 
 describe('Component | FeedbackModal.vue', () => {
   let wrapper
+  let localVue
 
   const feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?'
   const email = 'pierre@recontact.me'
 
   beforeEach(() => {
     console.warn = jest.fn()
-    const localVue = createLocalVue()
+    localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueModal)
@@ -44,6 +45,15 @@ describe('Component | FeedbackModal.vue', () => {
   })
 
   it('should have empty error', () => {
+    wrapper = shallowMount(FeedbackModal, {
+      localVue,
+      data() {
+        return {
+          feedback,
+          email,
+        }
+      },
+    })
     expect(wrapper.vm.error).toEqual(null)
   })
 
