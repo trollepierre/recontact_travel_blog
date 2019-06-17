@@ -2,7 +2,7 @@
   <div class="subscribe-modal-wrapper">
     <modal
       :width="widthModal"
-      :height="heightModal"
+      :height="315"
       class="subscribe-modal"
       name="subscribe-modal"
       @before-open="beforeOpen"
@@ -75,9 +75,6 @@
     computed: {
       widthModal() {
         return screenWidth < PHONE_PORTRAIT_TO_LANDSCAPE ? 300 : undefined
-      },
-      heightModal() {
-        return screenWidth < PHONE_PORTRAIT_TO_LANDSCAPE ? undefined : 315
       },
     },
     methods: {
@@ -214,7 +211,7 @@
     color: white;
     border-radius: 3px;
     padding: 10px;
-    margin: 0 0 20px;
+    margin: 0;
   }
 
   .subscribe-modal__label {
@@ -237,7 +234,8 @@
   }
 
   .subscribe-modal__footer {
-    padding: 20px;
+    padding-right: 20px;
+    margin-top: 75px;
     background: #fff;
     text-align: right;
   }
@@ -277,11 +275,5 @@
 
   .subscribe-modal__action--cancel:hover {
     box-shadow: 0 0 3px 0 #d8dde6;
-  }
-
-  @media only screen and (min-width: 640px) {
-    .subscribe-modal__body {
-      padding: 25px 20px;
-    }
   }
 </style>
