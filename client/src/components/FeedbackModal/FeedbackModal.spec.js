@@ -1,9 +1,12 @@
 import VueRouter from 'vue-router'
+import VueModal from 'vue-js-modal'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import FeedbackModal from './FeedbackModal.vue'
 // import feedbacksApi from '../api/feedbacks'
 // import notificationsService from '../services/notifications'
+
+jest.mock('../../utils/screen/screen-utils', () => ({ screenHeight: 200, PHONE_PORTRAIT_TO_LANDSCAPE: 600 }))
 
 describe('Component | FeedbackModal.vue', () => {
   let wrapper
@@ -12,9 +15,11 @@ describe('Component | FeedbackModal.vue', () => {
   const email = 'pierre@recontact.me'
 
   beforeEach(() => {
+    console.warn = jest.fn()
     const localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
+    localVue.use(VueModal)
     localVue.use(VueAnalytics, { id: '12' })
     wrapper = shallowMount(FeedbackModal, {
       localVue,
@@ -22,6 +27,7 @@ describe('Component | FeedbackModal.vue', () => {
         return {
           feedback,
           email,
+          error: 'error message',
         }
       },
     })

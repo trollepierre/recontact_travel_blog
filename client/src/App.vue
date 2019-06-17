@@ -9,7 +9,7 @@
 
 <script>
   import AppHeader from './components/AppHeader/AppHeader.vue'
-  import FeedbackModal from './components/FeedbackModal.vue'
+  import FeedbackModal from './components/FeedbackModal/FeedbackModal.vue'
   import SubscribeModal from './components/SubscribeModal/SubscribeModal.vue'
 
   export default {
