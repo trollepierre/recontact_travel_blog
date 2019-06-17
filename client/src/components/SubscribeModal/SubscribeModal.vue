@@ -222,6 +222,7 @@
   .subscribe-modal__email {
     width: 250px;
     font-size: 16px;
+    border-color: #424547;
   }
 
   .subscribe-modal__text {
