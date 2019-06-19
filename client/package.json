@@ -12,6 +12,7 @@
     "lint:fix": "yarn lint --fix",
     "start": "webpack-dev-server --progress --config build/webpack.config.dev.js",
     "test": "yarn test:unit --coverage",
+    "test:ci": "yarn test:unit --coverage -w 1",
     "test:unit": "env TZ=\"Europe/Paris\" jest --config config/jest.config.json",
     "test:watch": "yarn test:unit --watch"
   },
