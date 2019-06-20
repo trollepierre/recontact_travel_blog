@@ -57,7 +57,7 @@
     "eslint-import-resolver-webpack": "0.11.1",
     "eslint-loader": "2.1.2",
     "eslint-plugin-import": "2.17.3",
-    "eslint-plugin-jest": "22.6.4",
+    "eslint-plugin-jest": "22.7.0",
     "eslint-plugin-vue": "5.2.2",
     "file-loader": "4.0.0",
     "friendly-errors-webpack-plugin": "1.7.0",
