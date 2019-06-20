@@ -83,7 +83,7 @@
     "vue-template-compiler": "2.6.10",
     "webpack-bundle-analyzer": "3.3.2",
     "webpack-cli": "3.3.4",
-    "webpack-dev-server": "3.7.1"
+    "webpack-dev-server": "3.7.2"
   },
   "engines": {
     "yarn": ">=1.13.0",
