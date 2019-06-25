@@ -13,6 +13,17 @@
             Me
           </span>
         </a>
+        <a
+          :title="home"
+          class="logo-link"
+          href="/admin">
+          <span class="logo-link__recontact">
+            Ad
+          </span>
+          <span class="logo-link__me">
+            Min
+          </span>
+        </a>
         <nav
           class="app-header__navigation navigation"
           role="navigation"

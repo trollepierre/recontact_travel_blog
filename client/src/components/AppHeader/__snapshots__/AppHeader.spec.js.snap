@@ -32,6 +32,28 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
         </span>
       </a>
        
+      <a
+        class="logo-link"
+        href="/admin"
+        title="home"
+      >
+        <span
+          class="logo-link__recontact"
+        >
+          
+          Ad
+        
+        </span>
+         
+        <span
+          class="logo-link__me"
+        >
+          
+          Min
+        
+        </span>
+      </a>
+       
       <nav
         aria-label="site navigation"
         class="app-header__navigation navigation"
