@@ -3,7 +3,7 @@ export default {
     const { addedArticles } = model
 
     let template = '<p>Bonjour,</p>'
-    template += '<p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>'
+    template += '<p>Il y a du nouveau du côté de <a href="https://www.recontact.me/#">Recontact Me</a>.</p>'
     template += '<p>'
     if (addedArticles.length === 1) {
       template += 'Un nouvel article : '
@@ -12,7 +12,7 @@ export default {
     }
     addedArticles.sort((a, b) => a.dropboxId - b.dropboxId)
     addedArticles.forEach(article => {
-      template += `<a href="http://www.recontact.me/articles/${article.dropboxId}">${article.frTitle}</a>`
+      template += `<a href="https://www.recontact.me/articles/${article.dropboxId}">${article.frTitle}</a>`
     })
     template += '</p>'
     return template
