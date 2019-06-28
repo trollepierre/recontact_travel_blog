@@ -23,7 +23,7 @@ describe('Unit | API | subscriptions api', () => {
 
       const expectedUrl = `${env('API_URL')}api/subscriptions`
       const expectedBody = { email, lang: 'en' }
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = api.subscribe(email)
 

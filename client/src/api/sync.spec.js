@@ -16,7 +16,7 @@ describe('Unit | API | sync api', () => {
 
     it('should launch API with the good params', () => {
       const expectedUrl = `${env('API_URL')}api/sync/`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = syncApi.launch()
 

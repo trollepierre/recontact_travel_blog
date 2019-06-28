@@ -23,7 +23,7 @@ describe('Unit | API | photos api', () => {
 
     it('should fetch API with the good params', () => {
       const expectedUrl = `${env('API_URL')}api/articles/${idArticle}/photos`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = photosApi.fetch(idArticle)
 
