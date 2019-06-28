@@ -18,7 +18,7 @@ git pull origin master
 
 echo "Merge and push branch dev on master"
 git checkout master
-git merge -X theirs dev
+git merge -X theirs dev  --no-edit
 git push origin master
 
 echo "Rebase dev on master"
