@@ -407,10 +407,10 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
               subject: '[RecontactMe] Il y a du nouveau sur le site !',
-              template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
+              template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="https://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>2 nouveaux articles : ' +
-                '<a href="http://www.recontact.me/articles/5">59. Perdus autour du mont Gongga</a>' +
-                '<a href="http://www.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
+                '<a href="https://www.recontact.me/articles/5">59. Perdus autour du mont Gongga</a>' +
+                '<a href="https://www.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
                 '</p>',
             })
             expect(mailJet.sendEmail).to.have.been.calledWith({
@@ -418,10 +418,10 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
               subject: '[RecontactMe] Some news on the website !',
-              template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
+              template: '<p>Hello,</p><p>There are some news on <a href="https://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>2 new articles: ' +
-                '<a href="http://www.recontact.me/articles/5">59. Lost autour du mont Gongga</a>' +
-                '<a href="http://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +
+                '<a href="https://www.recontact.me/articles/5">59. Lost autour du mont Gongga</a>' +
+                '<a href="https://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +
                 '</p>',
             })
           })
@@ -444,9 +444,9 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
               subject: '[RecontactMe] Il y a du nouveau sur le site !',
-              template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
+              template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="https://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>Un nouvel article : ' +
-                '<a href="http://www.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
+                '<a href="https://www.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
                 '</p>',
             })
             expect(mailJet.sendEmail).to.have.been.calledWith({
@@ -454,9 +454,9 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
               subject: '[RecontactMe] Some news on the website !',
-              template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
+              template: '<p>Hello,</p><p>There are some news on <a href="https://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>One new article: ' +
-                '<a href="http://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +
+                '<a href="https://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +
                 '</p>',
             })
           })
