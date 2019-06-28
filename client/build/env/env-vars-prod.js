@@ -8,4 +8,5 @@ window.env = {
   NODE_ENV: 'production',
   API_URL: 'https://recontact-branch.herokuapp.com/',
   ANALYTICS_KEY: 'UA-110218257-1',
+  TEST: 'pierre'
 }
