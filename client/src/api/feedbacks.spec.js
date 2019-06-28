@@ -21,7 +21,7 @@ describe('Unit | API | feedbacks api', () => {
 
       const expectedUrl = `${env('API_URL')}api/feedbacks`
       const expectedBody = { feedback, email }
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = api.sendFeedback(feedback, email)
 

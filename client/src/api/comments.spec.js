@@ -23,7 +23,7 @@ xdescribe('Unit | API | comments api', () => {
 
     it('should fetch API with the good params', () => {
       const expectedUrl = `${env('API_URL')}api/articles/${idArticle}/comments`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = commentsApi.fetch(idArticle)
 
@@ -74,7 +74,7 @@ xdescribe('Unit | API | comments api', () => {
 
     it('should send comment to API with the good params', () => {
       const expectedUrl = `${env('API_URL')}api/articles/${idArticle}/comments`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = commentsApi.send(idArticle, comment)
 
