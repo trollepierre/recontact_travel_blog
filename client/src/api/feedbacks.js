@@ -9,7 +9,7 @@ const FeedbacksApi = {
       feedback,
       email,
     }
-    const options = { headers: { 'Content-Type': 'application/json' } }
+    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
     return axios.post(url, body, options)
   },

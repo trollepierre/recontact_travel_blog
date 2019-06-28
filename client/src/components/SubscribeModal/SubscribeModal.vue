@@ -1,6 +1,7 @@
 <template>
   <div class="subscribe-modal-wrapper">
     <modal
+      :width="widthModal"
       :height="315"
       class="subscribe-modal"
       name="subscribe-modal"
@@ -59,8 +60,9 @@
 </template>
 
 <script>
-  import notificationsService from '../services/notifications'
-  import subscriptionsApi from '../api/subscriptions'
+  import notificationsService from '../../services/notifications'
+  import subscriptionsApi from '../../api/subscriptions'
+  import { screenWidth, PHONE_PORTRAIT_TO_LANDSCAPE } from '../../utils/screen/screen-utils'
 
   export default {
     name: 'SubscribeModal',
@@ -69,6 +71,11 @@
         email: null,
         error: null,
       }
+    },
+    computed: {
+      widthModal() {
+        return screenWidth < PHONE_PORTRAIT_TO_LANDSCAPE ? 300 : undefined
+      },
     },
     methods: {
       beforeOpen() {
@@ -148,8 +155,8 @@
       messages: {
         fr: {
           subscribe: 'S’abonner',
-          modalText: 'Recevoir un email à chaque nouvel article du voyage !',
-          email: 'Email :',
+          modalText: 'Recevoir un email à chaque nouvel article du voyage  !',
+          email: 'Email  :',
           confirm: 'Confirmer',
           cancel: 'Annuler',
           emailError: 'Vous devez saisir un email valide. (ex. : nom@exemple.fr)',
@@ -181,7 +188,7 @@
   }
 
   .subscribe-modal__body {
-    padding: 25px 20px;
+    padding: 5px 20px;
     background: #fff;
     height: 125px;
   }
@@ -204,7 +211,7 @@
     color: white;
     border-radius: 3px;
     padding: 10px;
-    margin: 0 0 20px;
+    margin: 0;
   }
 
   .subscribe-modal__label {
@@ -215,20 +222,21 @@
   .subscribe-modal__email {
     width: 250px;
     font-size: 16px;
+    border-color: #424547;
   }
 
   .subscribe-modal__text {
     width: 100%;
     resize: none;
     overflow: auto;
-    height: 30px;
     font-size: 16px;
     box-sizing: border-box;
     padding: 5px;
   }
 
   .subscribe-modal__footer {
-    padding: 20px;
+    padding-right: 20px;
+    margin-top: 75px;
     background: #fff;
     text-align: right;
   }

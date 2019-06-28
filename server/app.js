@@ -11,7 +11,6 @@ import sync from './src/infrastructure/features/api/sync'
 import subscriptions from './src/infrastructure/features/api/subscriptions'
 import feedbacks from './src/infrastructure/features/api/feedbacks'
 import positions from './src/infrastructure/features/api/positions'
-import comments from './src/infrastructure/features/api/comments'
 import optimisation from './src/infrastructure/features/api/optimisation'
 
 import robots from './src/infrastructure/seo/robots'

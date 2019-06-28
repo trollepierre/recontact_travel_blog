@@ -14,18 +14,12 @@
 </template>
 
 <script>
-  import { formatDateWithLongEndianLongFormat } from '../../utils/date-utils'
+  import { formatDateWithLongEndianLongFormat } from '../../utils/date/date-utils'
   import translationService from '../../services/translations'
 
   export default {
     name: 'CommentCard',
-    props: {
-      comment: {
-        type: Object,
-        default: () => {
-        },
-      },
-    },
+    props: { comment: { type: Object, default: () => {} } },
     computed: {
       commentAuthor() {
         const date = formatDateWithLongEndianLongFormat(new Date(this.comment.createdAt))

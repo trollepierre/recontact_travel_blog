@@ -15,7 +15,7 @@ describe('Unit | API | articles api', () => {
 
     it('should fetch API with the good params', () => {
       const expectedUrl = `${env('API_URL')}api/articles`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = articlesApi.fetchAll()
 
@@ -53,7 +53,7 @@ describe('Unit | API | articles api', () => {
 
     it('should patch API with the good params', () => {
       const expectedUrl = `${env('API_URL')}api/admin/articles/${id}`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = articlesApi.update(id)
 

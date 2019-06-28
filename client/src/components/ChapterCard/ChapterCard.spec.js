@@ -1,6 +1,6 @@
 import VueI18n from 'vue-i18n'
 import ChapterCard from './ChapterCard.vue'
-import translationsService from '../services/translations'
+import translationsService from '../../services/translations'
 
 describe('Component | ChapterCard.vue', () => {
   let wrapper
@@ -13,6 +13,7 @@ describe('Component | ChapterCard.vue', () => {
     translationsService.getChapterText = jest.fn()
     translationsService.getChapterText.mockReturnValue(['one text'])
     chapter = {
+      position: 82,
       frTitle: 'Titre du premier paragraphe',
       enTitle: 'Title of the first paragraph',
       imgLink: 'webf',
@@ -36,6 +37,7 @@ describe('Component | ChapterCard.vue', () => {
 
     it('should match snapshot when imgLink is not set', () => {
       chapter = {
+        position: 82,
         frTitle: 'Titre du premier paragraphe',
         enTitle: 'Title of the first paragraph',
         imgLink: '',
@@ -82,10 +84,11 @@ describe('Component | ChapterCard.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ChapterCard.i18n.messages.fr)
 
-        it('contains 1 locale', () => {
-          expect(locales).toHaveLength(1)
+        it('contains 2 locales', () => {
+          expect(locales).toHaveLength(2)
           expect(locales).toEqual([
             'missingImage',
+            'altComplement',
           ])
         })
       })
@@ -93,10 +96,11 @@ describe('Component | ChapterCard.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ChapterCard.i18n.messages.en)
 
-        it('contains 1 locale', () => {
-          expect(locales).toHaveLength(1)
+        it('contains 2 locales', () => {
+          expect(locales).toHaveLength(2)
           expect(locales).toEqual([
             'missingImage',
+            'altComplement',
           ])
         })
       })

@@ -133,6 +133,7 @@ async function sync(dropboxId) {
       const frTitle = buildFullTitle(frenchTitle, frenchSubtitle)
       const enTitle = buildFullTitle(englishTitle, englishSubtitle)
       chapters[i - 1] = {
+        position: i,
         dropboxId,
         frTitle,
         enTitle,

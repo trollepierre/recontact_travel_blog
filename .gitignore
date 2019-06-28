@@ -62,3 +62,10 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Webstorm
+.idea/
+
+# dist
+client/dist
+server/dist

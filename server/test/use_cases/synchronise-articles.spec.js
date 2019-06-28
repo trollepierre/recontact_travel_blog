@@ -40,7 +40,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           from: 'contact@recontact.me',
           fromName: 'RecontactMe',
           to: ['support@recontact.me'],
-          subject: '[RecontactMe] Il y a des erreurs sur le site !',
+          subject: '[RecontactMe] Il y a des erreurs sur le site !',
           template: '<p>{}</p>',
         })
         done()
@@ -306,6 +306,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           // given
           const chaptersToSave = [
             {
+              position: 1,
               dropboxId: idNewArticle1,
               imgLink: 'db.com/call4.jpg?raw=1',
               frText: 'Rassemblant trois valeureux compagnons :' +
@@ -324,7 +325,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
 
             },
-{
+            {
+              position: 2,
               dropboxId: idNewArticle1,
               imgLink: 'db.com/call5.jpg?raw=1',
               frText: 'La région de Kangding' +
@@ -345,6 +347,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               enTitle: 'Le programme',
             },
             {
+              position: 1,
               dropboxId: idNewArticle2,
               imgLink: 'db.com/call6.jpg?raw=1',
               frText: 'Rassemblant trois valeureux compagnons :' +
@@ -362,7 +365,8 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               frTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
               enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
             },
-{
+            {
+              position: 2,
               dropboxId: idNewArticle2,
               imgLink: 'db.com/call7.jpg?raw=1',
               frText: 'La région de Kangding' +
@@ -402,7 +406,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               from: 'contact@recontact.me',
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
-              subject: '[RecontactMe] Il y a du nouveau sur le site !',
+              subject: '[RecontactMe] Il y a du nouveau sur le site !',
               template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>2 nouveaux articles : ' +
                 '<a href="http://www.recontact.me/articles/5">59. Perdus autour du mont Gongga</a>' +
@@ -413,7 +417,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               from: 'contact@recontact.me',
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
-              subject: '[RecontactMe] Some news on the website !',
+              subject: '[RecontactMe] Some news on the website !',
               template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>2 new articles: ' +
                 '<a href="http://www.recontact.me/articles/5">59. Lost autour du mont Gongga</a>' +
@@ -439,7 +443,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               from: 'contact@recontact.me',
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
-              subject: '[RecontactMe] Il y a du nouveau sur le site !',
+              subject: '[RecontactMe] Il y a du nouveau sur le site !',
               template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>Un nouvel article : ' +
                 '<a href="http://www.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
@@ -449,7 +453,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               from: 'contact@recontact.me',
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
-              subject: '[RecontactMe] Some news on the website !',
+              subject: '[RecontactMe] Some news on the website !',
               template: '<p>Hello,</p><p>There are some news on <a href="http://www.recontact.me/#">Recontact Me</a>.</p>' +
                 '<p>One new article: ' +
                 '<a href="http://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +

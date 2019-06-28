@@ -13,7 +13,7 @@ function deleteById(subscriptionId) {
 }
 
 function getAll() {
-  return Subscription.all()
+  return Subscription.findAll()
 }
 
 export default {

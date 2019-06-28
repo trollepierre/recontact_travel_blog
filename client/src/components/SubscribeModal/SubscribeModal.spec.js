@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueModal from 'vue-js-modal'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import SubscribeModal from './SubscribeModal.vue'
-import subscriptionsApi from '../api/subscriptions'
-import notificationsService from '../services/notifications'
+import subscriptionsApi from '../../api/subscriptions'
+import notificationsService from '../../services/notifications'
+
+jest.mock('../../utils/screen/screen-utils', () => ({ screenWidth: 200, PHONE_PORTRAIT_TO_LANDSCAPE: 600 }))
 
 describe('Component | SubscribeModal.vue', () => {
   let wrapper
@@ -12,7 +15,9 @@ describe('Component | SubscribeModal.vue', () => {
   let localVue
 
   beforeEach(() => {
+    console.warn = jest.fn()
     localVue = createLocalVue()
+    localVue.use(VueModal)
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
@@ -21,6 +26,7 @@ describe('Component | SubscribeModal.vue', () => {
       data() {
         return {
           email,
+          error: 'error message',
         }
       },
     })

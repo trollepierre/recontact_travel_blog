@@ -8,9 +8,9 @@
 </template>
 
 <script>
-  import AppHeader from './components/AppHeader.vue'
-  import FeedbackModal from './components/FeedbackModal.vue'
-  import SubscribeModal from './components/SubscribeModal.vue'
+  import AppHeader from './components/AppHeader/AppHeader.vue'
+  import FeedbackModal from './components/FeedbackModal/FeedbackModal.vue'
+  import SubscribeModal from './components/SubscribeModal/SubscribeModal.vue'
 
   export default {
     name: 'App',
@@ -44,7 +44,7 @@
 
   @media only screen and (min-width: 640px) {
     .page__container {
-      max-width: 544px;
+      max-width: 600px;
     }
   }
 

@@ -13,6 +13,17 @@
             Me
           </span>
         </a>
+        <a
+          :title="home"
+          class="logo-link"
+          href="/admin">
+          <span class="logo-link__recontact">
+            Ad
+          </span>
+          <span class="logo-link__me">
+            Min
+          </span>
+        </a>
         <nav
           class="app-header__navigation navigation"
           role="navigation"
@@ -41,6 +52,7 @@
                 href="http://worldtour.recontact.me">
                 <img
                   class="tdm__image"
+                  :alt="logo"
                   src="/static/tdm.jpg">
               </a>
             </li>
@@ -60,6 +72,9 @@
       home() {
         return this.$t('home')
       },
+      logo() {
+        return this.$t('logo')
+      },
     },
     methods: {
       displaySubscribeModal() {
@@ -78,6 +93,7 @@
           problem: 'Un problème ?',
           tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
           home: 'Page d’accueil',
+          logo: 'Logo du site',
         },
         en: {
           subscribe: 'Subscribe',
@@ -85,6 +101,7 @@
           problem: 'A problem?',
           tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
           home: 'Home page',
+          logo: 'Logo of the site',
         },
       },
     },
@@ -103,7 +120,7 @@
 
   .page__header--container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   .logo-link {
@@ -120,6 +137,7 @@
 
   .logo-link__recontact {
     color: #07c;
+    padding-left: 10px;
   }
 
   .logo-link__me {
@@ -142,7 +160,7 @@
     outline: -webkit-focus-ring-color auto 5px;
   }
 
-  .navigation {
+  .navbar-action__suggestion, .navbar-action__tdm {
     display: none;
   }
 
@@ -173,8 +191,13 @@
       justify-content: space-between;
     }
 
-    .app-header__navigation {
+    .navbar-action__suggestion, .navbar-action__tdm {
       display: inline-block;
+    }
+
+    .logo-link__recontact {
+      color: #07c;
+      padding-left: 0;
     }
   }
 </style>

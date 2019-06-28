@@ -1,7 +1,7 @@
 import { Position } from '../models/index'
 
 function getAll() {
-  return Position.all()
+  return Position.findAll()
 }
 
 function create(position) {

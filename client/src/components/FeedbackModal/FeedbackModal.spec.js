@@ -1,20 +1,26 @@
 import VueRouter from 'vue-router'
+import VueModal from 'vue-js-modal'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import FeedbackModal from './FeedbackModal.vue'
 // import feedbacksApi from '../api/feedbacks'
 // import notificationsService from '../services/notifications'
 
+jest.mock('../../utils/screen/screen-utils', () => ({ screenHeight: 200, PHONE_PORTRAIT_TO_LANDSCAPE: 600 }))
+
 describe('Component | FeedbackModal.vue', () => {
   let wrapper
+  let localVue
 
   const feedback = 'Dis-moi petit, as-tu déjà dansé avec le diable au clair de lune ?'
   const email = 'pierre@recontact.me'
 
   beforeEach(() => {
-    const localVue = createLocalVue()
+    console.warn = jest.fn()
+    localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
+    localVue.use(VueModal)
     localVue.use(VueAnalytics, { id: '12' })
     wrapper = shallowMount(FeedbackModal, {
       localVue,
@@ -22,6 +28,7 @@ describe('Component | FeedbackModal.vue', () => {
         return {
           feedback,
           email,
+          error: 'error message',
         }
       },
     })
@@ -38,11 +45,20 @@ describe('Component | FeedbackModal.vue', () => {
   })
 
   it('should have empty error', () => {
+    wrapper = shallowMount(FeedbackModal, {
+      localVue,
+      data() {
+        return {
+          feedback,
+          email,
+        }
+      },
+    })
     expect(wrapper.vm.error).toEqual(null)
   })
 
   it('should have message with height to 152px', () => {
-    expect(wrapper.vm.heightMessage).toEqual('152px')
+    expect(wrapper.vm.heightMessage).toBeUndefined()
   })
 
   /*xdescribe('rendering', () => {
@@ -73,11 +89,9 @@ describe('Component | FeedbackModal.vue', () => {
     })
 
     it('should reset height', () => {
-      wrapper.vm.heightMessage = '34px'
-
       wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.heightMessage).toEqual('152px')
+      expect(wrapper.vm.heightMessage).toBeUndefined()
     })
 
     it('should remove error', () => {

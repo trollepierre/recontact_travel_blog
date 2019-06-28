@@ -9,15 +9,16 @@
     "install": "yarn install:client && yarn install:server",
     "build:client": "(cd client && yarn build)",
     "build:server": "(cd server && yarn build)",
-    "build": "yarn build:client && yarn build:server",
+    "build": "yarn build:server && yarn build:client",
     "clean:client": "(cd client && yarn clean)",
     "clean:server": "(cd server && yarn clean)",
     "clean": "yarn clean:client && yarn clean:server",
     "start:client": "(cd client && yarn start)",
     "start:dev": "(cd server && yarn start:dev)",
     "start": "(cd server && yarn start)",
-    "test:client": "(cd client && npm test)",
-    "test:server": "(cd server && npm test)",
+    "test:client:ci": "(cd client && yarn test:ci)",
+    "test:client": "(cd client && yarn test)",
+    "test:server": "(cd server && yarn test)",
     "test": "yarn test:client && yarn test:server",
     "lint:client": "(cd client && yarn lint)",
     "lintfix:client": "(cd client && yarn lint:fix)",
@@ -39,10 +40,7 @@
   },
   "homepage": "https://github.com/trollepierre/recontact_travel_blog#readme",
   "engines": {
-    "yarn": ">=1.10.1",
-    "node": ">=10.13.0"
-  },
-  "dependencies": {
-    "babel-plugin-date-fns": "^0.2.1"
+    "yarn": ">=1.13.0",
+    "node": ">=10.16.0"
   }
 }

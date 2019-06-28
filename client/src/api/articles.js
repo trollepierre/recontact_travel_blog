@@ -5,32 +5,32 @@ const ArticlesApi = {
 
   fetchAll() {
     const url = `${env('API_URL')}api/articles`
-    const options = { headers: { 'Content-Type': 'application/json' } }
+    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
     return axios.get(url, options)
       .then(response => response.data)
   },
 
   update(id) {
     const url = `${env('API_URL')}api/admin/articles/${id}`
-    const options = { headers: { 'Content-Type': 'application/json' } }
+    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
     return axios.patch(url, {}, options)
   },
 
   delete(id) {
     const url = `${env('API_URL')}apo/art/del/${id}`
-    const options = { headers: { 'Content-Type': 'application/json' } }
+    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
     return axios.get(url, {}, options)
   },
 
   deleteAll() {
     const url = `${env('API_URL')}apo/art/del`
-    const options = { headers: { 'Content-Type': 'application/json' } }
+    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
     return axios.get(url, options)
   },
 
   deleteAndSyncAll() {
     const url = `${env('API_URL')}apo/art/delsyn`
-    const options = { headers: { 'Content-Type': 'application/json' } }
+    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
     return axios.get(url, options)
       .then(response => response.data)
   },

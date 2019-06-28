@@ -1,5 +1,6 @@
 module.exports = () => ({
   id: 77,
+  position: 33,
   dropboxId: '59',
   frTitle: 'Quelques mots de Vincent',
   enTitle: 'Some words of Vincent',

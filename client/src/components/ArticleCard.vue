@@ -15,6 +15,7 @@
         @click.prevent.once="viewArticle">
         <img
           :src="article.imgLink"
+          :alt="articleTitle"
           class="article__image"
           width="200">
       </div>
@@ -142,11 +143,11 @@
           goToArticle: 'Voir l’article',
           viewGallery: 'Voir les photos',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
-          syncDone: 'La synchronisation s’est effectuée sans problème !',
-          syncError: 'Erreur : Problème durant la synchronisation :',
+          syncDone: 'La synchronisation s’est effectuée sans problème  !',
+          syncError: 'Erreur : Problème durant la synchronisation  :',
           deleteLaunched: 'La suppression est lancée ! Patientez quelques secondes...',
-          deleteDone: 'La suppression s’est effectuée sans problème !',
-          deleteError: 'Erreur : Problème durant la suppression :',
+          deleteDone: 'La suppression s’est effectuée sans problème  !',
+          deleteError: 'Erreur : Problème durant la suppression  :',
         },
         en: {
           repairArticle: 'Repair the article',

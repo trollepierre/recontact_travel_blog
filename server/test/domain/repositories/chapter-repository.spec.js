@@ -1,37 +1,39 @@
 import { expect, sinon } from '../../test-helper'
 import chapterRepository from '../../../src/domain/repositories/chapter-repository'
-import { Chapter } from '../../../src/domain/models/index'
+import { Newchapter } from '../../../src/domain/models/index'
 import chapterOfArticleSaved from '../../fixtures/chapterOfArticleSaved'
 import chapterOfArticleToSave from '../../fixtures/chapterOfArticleToSave'
 
 describe('Unit | Repository | chapter-repository', () => {
   let chaptersOfArticleToSave
   let savedChaptersOfArticle
+  let sortedChaptersOfArticle
 
   beforeEach(() => {
     chaptersOfArticleToSave = [chapterOfArticleToSave(), chapterOfArticleToSave()]
-    savedChaptersOfArticle = [chapterOfArticleSaved(), chapterOfArticleSaved()]
+    savedChaptersOfArticle = [chapterOfArticleSaved(99), chapterOfArticleSaved(1)]
+    sortedChaptersOfArticle = [chapterOfArticleSaved(1), chapterOfArticleSaved(99)]
   })
 
   describe('#createArticleChapters', () => {
     beforeEach(() => {
-      sinon.stub(Chapter, 'bulkCreate')
+      sinon.stub(Newchapter, 'bulkCreate')
     })
 
     afterEach(() => {
-      Chapter.bulkCreate.restore()
+      Newchapter.bulkCreate.restore()
     })
 
     it('should call Sequelize Model#bulkCreate', () => {
       // given
-      Chapter.bulkCreate.resolves(savedChaptersOfArticle)
+      Newchapter.bulkCreate.resolves(savedChaptersOfArticle)
 
       // when
       const promise = chapterRepository.createArticleChapters(chaptersOfArticleToSave)
 
       // then
       return promise.then(res => {
-        expect(Chapter.bulkCreate).to.have.been.called
+        expect(Newchapter.bulkCreate).to.have.been.called
         expect(res).to.deep.equal(savedChaptersOfArticle)
       })
     })
@@ -41,21 +43,21 @@ describe('Unit | Repository | chapter-repository', () => {
     const dropboxId = 47
 
     beforeEach(() => {
-      sinon.stub(Chapter, 'findAll').resolves(savedChaptersOfArticle)
+      sinon.stub(Newchapter, 'findAll').resolves(savedChaptersOfArticle)
     })
 
     afterEach(() => {
-      Chapter.findAll.restore()
+      Newchapter.findAll.restore()
     })
 
-    it('should call Sequelize Model#all', () => {
+    it('should call Sequelize Model#findAll', () => {
       // when
       const promise = chapterRepository.getChaptersOfArticle(dropboxId)
 
       // then
       return promise.then(res => {
-        expect(Chapter.findAll).to.have.been.calledWith({ where: { dropboxId } })
-        expect(res).to.deep.equal(savedChaptersOfArticle)
+        expect(Newchapter.findAll).to.have.been.calledWith({ where: { dropboxId } })
+        expect(res).to.deep.equal(sortedChaptersOfArticle)
       })
     })
   })
@@ -64,11 +66,11 @@ describe('Unit | Repository | chapter-repository', () => {
     const dropboxId = 47
 
     beforeEach(() => {
-      sinon.stub(Chapter, 'destroy').resolves()
+      sinon.stub(Newchapter, 'destroy').resolves()
     })
 
     afterEach(() => {
-      Chapter.destroy.restore()
+      Newchapter.destroy.restore()
     })
 
     it('should call Sequelize Model#destroy', () => {
@@ -77,7 +79,7 @@ describe('Unit | Repository | chapter-repository', () => {
 
       // then
       return promise.then(() => {
-        expect(Chapter.destroy).to.have.been.calledWith({ where: { dropboxId } })
+        expect(Newchapter.destroy).to.have.been.calledWith({ where: { dropboxId } })
       })
     })
   })

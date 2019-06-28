@@ -1,7 +1,7 @@
 <template>
   <div class="feedback-modal-wrapper">
     <modal
-      :height="415"
+      :height="heightModal"
       class="feedback-modal"
       name="feedback-modal"
       @before-open="beforeOpen"
@@ -68,8 +68,9 @@
 </template>
 
 <script>
-  import feedbacksApi from '../api/feedbacks'
-  import notificationsService from '../services/notifications'
+  import feedbacksApi from '../../api/feedbacks'
+  import notificationsService from '../../services/notifications'
+  import { PHONE_PORTRAIT_TO_LANDSCAPE, screenHeight } from '../../utils/screen/screen-utils'
 
   export default {
     name: 'FeedbackModal',
@@ -78,25 +79,35 @@
         email: null,
         feedback: null,
         error: null,
-        heightMessage: '152px',
         placeholder: this.$t('placeholder'),
       }
+    },
+    computed: {
+      heightMessage() {
+        if (screenHeight > PHONE_PORTRAIT_TO_LANDSCAPE) {
+          return this.error ? '90px' : '152px'
+        }
+        return undefined
+      },
+      heightModal() {
+        return screenHeight < PHONE_PORTRAIT_TO_LANDSCAPE ? 280 : 415
+      },
     },
     methods: {
       beforeOpen() {
         this._resetFeedback()
         this._resetEmail()
-        this._resetHeight()
         this._removeError()
       },
 
       opened() {
         this.trackEvent()
         this._focusOnInput()
-        this._closeOnEscapeKey()
+        this._closeOnEscapeKeyOrOrientationChange()
       },
 
-      _closeOnEscapeKey() {
+      _closeOnEscapeKeyOrOrientationChange() {
+        window.addEventListener('orientationchange', this._closeModal)
         document.addEventListener('keydown', e => {
           if (e.keyCode === 27) {
             this._closeModal()
@@ -114,12 +125,10 @@
         const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$')
         if (!regex.exec(this.email)) {
           this.error = this.$t('emailError')
-          this._setErrorHeight()
           return
         }
         if (!this.feedback || this.feedback.trim().length === 0) {
           this.error = this.$t('feedbackError')
-          this._setErrorHeight()
           return
         }
         feedbacksApi.sendFeedback(this.feedback, this.email)
@@ -155,14 +164,6 @@
         this.email = null
       },
 
-      _resetHeight() {
-        this.heightMessage = '152px'
-      },
-
-      _setErrorHeight() {
-        this.heightMessage = '90px'
-      },
-
       _removeError() {
         this.error = null
       },
@@ -181,9 +182,9 @@
       messages: {
         fr: {
           suggest: 'Laisser un message',
-          content: 'Contenu du message :',
+          content: 'Contenu du message  :',
           placeholder: 'Votre message ici',
-          email: 'Email :',
+          email: 'Email  :',
           send: 'Envoyer',
           cancel: 'Annuler',
           emailError: 'Vous devez saisir un email valide. (ex. : nom@exemple.fr)',
@@ -218,9 +219,9 @@
   }
 
   .feedback-modal__body {
-    padding: 25px 20px;
+    padding: 10px 20px;
     background: #fff;
-    height: 216px;
+    height: 135px;
   }
 
   .feedback-modal__form {
@@ -306,5 +307,11 @@
 
   .feedback-modal__action--cancel:hover {
     box-shadow: 0 0 3px 0 #d8dde6;
+  }
+
+  @media only screen and (min-height: 640px) {
+    .feedback-modal__body {
+      height: 245px;
+    }
   }
 </style>

@@ -23,7 +23,7 @@ xdescribe('Unit | API | comments api', () => {
 
     it('should fetch API with the good params', () => {
       const expectedUrl = `${env('API_URL')}api/articles/${idArticle}/comments`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = commentsApi.fetch(idArticle)
 
@@ -57,12 +57,12 @@ xdescribe('Unit | API | comments api', () => {
     let data
     const idArticle = 59
     const comment = {
-      text: 'Tu es trop fort, Pierre !',
+      text: 'Tu es trop fort, Pierre  !',
     }
 
     beforeEach(() => {
       data = {
-        text: 'Tu es trop fort, Pierre !',
+        text: 'Tu es trop fort, Pierre  !',
       }
       const stubbedResponse = {
         status: 200,
@@ -74,7 +74,7 @@ xdescribe('Unit | API | comments api', () => {
 
     it('should send comment to API with the good params', () => {
       const expectedUrl = `${env('API_URL')}api/articles/${idArticle}/comments`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = commentsApi.send(idArticle, comment)
 

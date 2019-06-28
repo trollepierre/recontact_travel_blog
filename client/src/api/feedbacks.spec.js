@@ -17,11 +17,11 @@ describe('Unit | API | feedbacks api', () => {
 
     it('should post feedback to API with the feedback and email', () => {
       const email = 'pierre@recontact.me'
-      const feedback = 'Vive le Tour de France !'
+      const feedback = 'Vive le Tour de France  !'
 
       const expectedUrl = `${env('API_URL')}api/feedbacks`
       const expectedBody = { feedback, email }
-      const expectedOptions = { headers: { 'Content-Type': 'application/json' } }
+      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = api.sendFeedback(feedback, email)
 
