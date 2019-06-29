@@ -124,6 +124,6 @@ module.exports = {
       chunkFilename: "static/css/[name].[chunkhash].css"
     }),
     new VueLoaderPlugin(),
-    new CopyWebpackPlugin([{ from: 'static', to: 'static' }], {})
+    new CopyWebpackPlugin([{ from: 'static', to: 'static' }, { from: 'public', to: '.' }], {})
   ]
 }
