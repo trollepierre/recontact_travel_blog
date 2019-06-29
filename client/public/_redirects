@@ -2,4 +2,4 @@
 # Redirects from what the browser requests to what we serve
 # /a/*             /articles/:splat
 # /admin           https://recontact.herokuapp.com/admin      303
-/*               /
+/*                 /index
