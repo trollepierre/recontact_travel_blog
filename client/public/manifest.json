@@ -1,0 +1,38 @@
+{
+    "name": "Recontact Me",
+    "icons": [
+        {
+            "src": "/static/android-chrome-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/apple-touch-icon",
+            "sizes": "19x19",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/favicon-16x16",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/favicon-32x32",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/mstile-150x150",
+            "sizes": "150x150",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/favicon.ico",
+            "sizes": "48x48",
+            "type": "image/ico"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}
