@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "my-node-server-project",
+  "builds": [
+    { "src": "api/**/*.js", "use": "@now/node-server" },
+    { "src": "index.js", "use": "@now/node-server" }
+  ]
+}

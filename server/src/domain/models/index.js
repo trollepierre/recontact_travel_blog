@@ -9,7 +9,7 @@ const config = dbConfig()
 
 let sequelize
 if (isProduction()) {
-  sequelize = new Sequelize(env('DATABASE_URL'))
+  sequelize = new Sequelize({ dialect: 'pg', dialectModule: require('pg')})
 } else {
   sequelize = new Sequelize(env('DATABASE_NAME'), config.username, config.password, config)
 }
