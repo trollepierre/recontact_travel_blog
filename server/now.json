@@ -1,7 +1,16 @@
 {
   "version": 2,
-  "name": "my-node-server-project",
+  "name": "recontact-back",
   "builds": [
-    { "src": "index.js", "use": "@now/node-server" }
-  ]
+    {
+      "src": "dist/index.js",
+      "use": "@now/node-server@canary",
+      "config": { "bundle": false, "maxLambdaSize": "50mb" }
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "mongodb://pierre:1password@ds247439.mlab.com:47439/heroku_v00pvx2c",
+    
+    "DATABASE_URL": "postgres://iusbtmujfnmnci:f5236100c1308fe59d749275d24be3bb9a8cd52e77c9ef8b8378586f621f5132@ec2-54-247-189-141.eu-west-1.compute.amazonaws.com:5432/d89q9k1srod5j3"
+  }
 }

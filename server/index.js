@@ -1,5 +1,5 @@
+var pg = require('pg')
 import '@babel/polyfill'
-
 /**
  * Module dependencies.
  */

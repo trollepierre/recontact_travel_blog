@@ -7,12 +7,7 @@ import { isProduction } from '../../infrastructure/env/process'
 
 const config = dbConfig()
 
-let sequelize
-if (isProduction()) {
-  sequelize = new Sequelize({ dialect: 'pg', dialectModule: require('pg')})
-} else {
-  sequelize = new Sequelize(env('DATABASE_NAME'), config.username, config.password, config)
-}
+let sequelize = new Sequelize(env('DATABASE_URL'))
 
 const basename = path.basename(__filename)
 const db = {}
