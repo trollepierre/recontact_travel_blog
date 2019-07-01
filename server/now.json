@@ -3,7 +3,7 @@
   "name": "recontact-back",
   "builds": [
     {
-      "src": "dist/index.js",
+      "src": "dist/**/*.js",
       "use": "@now/node-server@canary",
       "config": { "bundle": false, "maxLambdaSize": "50mb" }
     }

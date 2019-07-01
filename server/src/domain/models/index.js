@@ -7,7 +7,13 @@ import { isProduction } from '../../infrastructure/env/process'
 
 const config = dbConfig()
 
-let sequelize = new Sequelize(env('DATABASE_URL'))
+let sequelize = new Sequelize(env('DATABASE_URL'), {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: true
+  }
+}
+)
 
 const basename = path.basename(__filename)
 const db = {}
