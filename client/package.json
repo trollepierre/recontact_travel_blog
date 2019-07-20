@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "7.4.4",
-    "@babel/runtime": "7.4.5",
+    "@babel/runtime": "7.5.5",
     "core-js": "3.1.4",
     "date-fns": "2.0.0-alpha.36",
     "ramda": "0.25.0",
@@ -31,10 +31,10 @@
     "whatwg-fetch": "3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.4.5",
+    "@babel/core": "7.5.5",
     "@babel/plugin-syntax-jsx": "7.2.0",
-    "@babel/plugin-transform-runtime": "7.4.4",
-    "@babel/preset-env": "7.4.5",
+    "@babel/plugin-transform-runtime": "7.5.5",
+    "@babel/preset-env": "7.5.5",
     "@vue/test-utils": "1.0.0-beta.29",
     "autoprefixer": "9.6.0",
     "axios": "0.19.0",
