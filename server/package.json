@@ -62,7 +62,7 @@
     "chai-as-promised": "7.1.1",
     "eslint": "5.16.0",
     "eslint-config-airbnb-base": "13.2.0",
-    "eslint-plugin-import": "2.17.3",
+    "eslint-plugin-import": "2.18.2",
     "lolex": "4.1.0",
     "mocha": "6.1.4",
     "nodemon": "1.19.1",
