@@ -27,7 +27,7 @@
     "vue-lazyload": "1.2.6",
     "vue-router": "3.0.6",
     "vue-toastr": "2.0.16",
-    "webpack": "4.35.0",
+    "webpack": "^4.36.1",
     "whatwg-fetch": "3.0.0"
   },
   "devDependencies": {
