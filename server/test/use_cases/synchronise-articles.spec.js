@@ -37,9 +37,9 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
       // then
       promise.catch(() => {
         expect(mailJet.sendEmail).to.have.been.calledWith({
-          from: 'contact@recontact.me',
+          from: 'contact-localhost@recontact.me',
           fromName: 'RecontactMe',
-          to: ['support@recontact.me'],
+          to: ['support-localhost@recontact.me'],
           subject: '[RecontactMe] Il y a des erreurs sur le site !',
           template: '<p>{}</p>',
         })
@@ -403,7 +403,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           // then
           return promise.then(() => {
             expect(mailJet.sendEmail).to.have.been.calledWith({
-              from: 'contact@recontact.me',
+              from: 'contact-localhost@recontact.me',
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
               subject: '[RecontactMe] Il y a du nouveau sur le site !',
@@ -414,7 +414,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
                 '</p>',
             })
             expect(mailJet.sendEmail).to.have.been.calledWith({
-              from: 'contact@recontact.me',
+              from: 'contact-localhost@recontact.me',
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
               subject: '[RecontactMe] Some news on the website !',
@@ -440,7 +440,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           // then
           return promise.then(() => {
             expect(mailJet.sendEmail).to.have.been.calledWith({
-              from: 'contact@recontact.me',
+              from: 'contact-localhost@recontact.me',
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
               subject: '[RecontactMe] Il y a du nouveau sur le site !',
@@ -450,7 +450,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
                 '</p>',
             })
             expect(mailJet.sendEmail).to.have.been.calledWith({
-              from: 'contact@recontact.me',
+              from: 'contact-localhost@recontact.me',
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
               subject: '[RecontactMe] Some news on the website !',

@@ -105,13 +105,13 @@ describe('Unit | AddComment | addComment', () => {
 
     // then
     expect(mailJet.sendEmail).to.have.been.calledWith({
-      from: 'contact@recontact.me',
+      from: 'contact-localhost@recontact.me',
       fromName: 'RecontactMe',
       subject: '[RecontactMe] Un nouveau commentaire a été publié par moi!',
       template: `<p>Voici le message :</p>
 <p>comment-1</p>
 <p>Article concerné : 65</p>`,
-      to: ['contact@recontact.me'],
+      to: ['contact-localhost@recontact.me'],
     })
   })
 })
