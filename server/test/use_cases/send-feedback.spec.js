@@ -1,9 +1,9 @@
 import { expect, sinon } from '../test-helper'
 
 import mailJet from '../../src/infrastructure/mailing/mailjet'
-import mailService from '../../src/use_cases/send-feedback'
+import sendFeedback from '../../src/use_cases/send-feedback'
 
-describe('Unit | Service | MailService', () => {
+describe('Unit | Service | SendFeedback', () => {
   beforeEach(() => {
     sinon.stub(mailJet, 'sendEmail')
   })
@@ -22,13 +22,13 @@ describe('Unit | Service | MailService', () => {
       }
 
       // when
-      const promise = mailService.sendFeedbackEmail(form)
+      const promise = sendFeedback.sendFeedbackEmail(form)
 
       // then
       return promise.then(() => {
         expect(mailJet.sendEmail).to.have.been.calledWithExactly({
-          from: 'contact@recontact.me',
-          to: 'contact@recontact.me',
+          from: 'contact-localhost@recontact.me',
+          to: 'contact-localhost@recontact.me',
           fromName: 'RecontactMe - Ne pas répondre',
           subject: '[RecontactMe] [Support] mail@recontact.me a émis un message',
           template: 'Long ago in a distant land...',
@@ -45,7 +45,7 @@ describe('Unit | Service | MailService', () => {
       }
 
       // when
-      const promise = mailService.sendFeedbackEmail(form)
+      const promise = sendFeedback.sendFeedbackEmail(form)
 
       // then
       return promise.catch(err => {
