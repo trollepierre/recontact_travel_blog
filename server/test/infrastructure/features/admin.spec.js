@@ -1,6 +1,7 @@
 import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
 import UpdateArticle from '../../../src/use_cases/update-article'
+import UpdateArticles from '../../../src/use_cases/update-articles'
 
 describe('Integration | Routes | admin route', () => {
   describe('/admin/articles/:id', () => {
@@ -22,6 +23,31 @@ describe('Integration | Routes | admin route', () => {
         .end((err, response) => {
           // Then
           expect(UpdateArticle.sync).to.have.been.calledWith(stringIdArticle)
+          expect(response.status).to.deep.equal(204)
+          if (err) {
+            done(err)
+          }
+          done()
+        })
+    })
+  })
+
+  describe('/admin/articles/', () => {
+    beforeEach(() => {
+      sinon.stub(UpdateArticles, 'sync').resolves()
+    })
+
+    afterEach(() => {
+      UpdateArticles.sync.restore()
+    })
+
+    it('should call delete article and send 204', done => {
+      // When
+      request(app)
+        .patch('/api/admin/articles')
+        .end((err, response) => {
+          // Then
+          expect(UpdateArticles.sync).to.have.been.calledWith()
           expect(response.status).to.deep.equal(204)
           if (err) {
             done(err)
