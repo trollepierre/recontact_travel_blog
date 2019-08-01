@@ -13,7 +13,7 @@ function sync(limits) {
   const { min, max } = sanitizeLimits(limits)
   const articlesToUpdate = []
   for (let dropboxId = min; dropboxId <= max; dropboxId++ ) {
-    const promise = () => UpdateArticle.sync(dropboxId)
+    const promise = () => UpdateArticle.sync(`${dropboxId}`)
     articlesToUpdate.push(promise())
   }
   return Promise.all(articlesToUpdate)
