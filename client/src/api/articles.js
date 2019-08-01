@@ -19,7 +19,14 @@ const ArticlesApi = {
   delete(id) {
     const url = `${env('API_URL')}apo/art/del/${id}`
     const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
-    return axios.get(url, {}, options)
+    return axios.get(url, options)
+  },
+
+  updateAll(min, max) {
+    const data = { min, max }
+    const url = `${env('API_URL')}api/admin/articles`
+    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
+    return axios.patch(url, data, options)
   },
 
   deleteAll() {
