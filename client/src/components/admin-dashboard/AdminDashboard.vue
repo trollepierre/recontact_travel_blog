@@ -17,21 +17,6 @@
       :disabled="isClickedSync"
       class="dashboard__buttons dashboard__sync_hidden"
       type="button"
-      @click.prevent="updateAll">
-      {{ $t("updateAllArticles") }}
-    </button>
-    <input
-      id="min"
-      v-model="min"
-      :placeholder="1">
-    <input
-      id="max"
-      v-model="max"
-      :placeholder="87">
-    <button
-      :disabled="isClickedSync"
-      class="dashboard__buttons dashboard__sync_hidden"
-      type="button"
       @click.prevent="deleteAll">
       {{ $t("deleteAllArticles") }}
     </button>
@@ -59,8 +44,6 @@
     data() {
       return {
         isClickedSync: false,
-        min: 1,
-        max: 87,
       }
     },
     methods: {
@@ -81,21 +64,6 @@
         this.disableButton()
         notificationsService.information(this, this.$t('syncLaunched'))
         syncApi.launch()
-          .then(() => {
-            notificationsService.removeInformation(this)
-            notificationsService.success(this, this.$t('syncDone'))
-          })
-          .then(() => this.goToHome())
-          .catch(err => {
-            notificationsService.removeInformation(this)
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
-          })
-      },
-
-      updateAll() {
-        this.disableButton()
-        notificationsService.information(this, this.$t('syncLaunched'))
-        articlesApi.updateAll(this.min, this.max)
           .then(() => {
             notificationsService.removeInformation(this)
             notificationsService.success(this, this.$t('syncDone'))
@@ -155,7 +123,6 @@
         fr: {
           getNewArticles: 'Récupérer les nouveaux articles',
           deleteAllArticles: 'Supprimer tous les articles',
-          updateAllArticles: 'Réparer tous les articles',
           deleteAndSyncAllArticles: 'Supprimer & synchro tous les articles',
           getSubscribers: 'Récupérer les abonnés de Recontact.me',
           syncLaunched: 'La synchronisation est lancée ! Patientez quelques secondes...',
@@ -165,7 +132,6 @@
         en: {
           getNewArticles: 'Synchronise the new articles',
           deleteAllArticles: 'Delete all articles',
-          updateAllArticles: 'Repare all articles',
           deleteAndSyncAllArticles: 'Delete and synchronise all articles',
           getSubscribers: 'Get the subscribers',
           syncLaunched: 'The synchronisation is launched! Please wait...',
