@@ -1,12 +1,11 @@
 import axios from 'axios'
 import logger from './logger-service'
 import apiService from './api-service'
-import env from '../env/env'
 
 jest.mock('axios')
-jest.mock('../env/env')
+jest.mock('../env/env', () => () => 'http://localhost:9100/')
 
-xdescribe('apiService', () => {
+describe('apiService', () => {
   const API_URL = 'http://localhost:9100/api/'
 
   beforeEach(() => {
@@ -20,7 +19,6 @@ xdescribe('apiService', () => {
       const data = { hello: 'world' }
 
       beforeEach(() => {
-        env.mockReturnValue(API_URL)
         axios.get.mockResolvedValue({ data })
       })
 
@@ -58,10 +56,12 @@ xdescribe('apiService', () => {
         expect.assertions(3)
 
         // When
-        await apiService.get(path)
-
-        // Then
-        expect(logger.error).toHaveBeenCalledOnceWith('Async error')
+        try {
+          await apiService.get(path)
+        } catch (err) {
+          // Then
+          expect(logger.error).toHaveBeenCalledOnceWith('Async error')
+        }
       })
     })
   })
@@ -73,7 +73,6 @@ xdescribe('apiService', () => {
       const data = { hello: 'world' }
 
       beforeEach(() => {
-        env.mockReturnValue(API_URL)
         axios.post.mockResolvedValue({ data })
       })
 
@@ -111,10 +110,12 @@ xdescribe('apiService', () => {
         expect.assertions(3)
 
         // When
-        await apiService.post(path)
-
-        // Then
-        expect(logger.error).toHaveBeenCalledOnceWith('Async error')
+        try {
+          await apiService.post(path)
+        } catch (err) {
+          // Then
+          expect(logger.error).toHaveBeenCalledOnceWith('Async error')
+        }
       })
     })
   })
@@ -126,7 +127,6 @@ xdescribe('apiService', () => {
       const data = { hello: 'world' }
 
       beforeEach(() => {
-        env.mockReturnValue(API_URL)
         axios.patch.mockResolvedValue({ data })
       })
 
@@ -164,10 +164,12 @@ xdescribe('apiService', () => {
         expect.assertions(3)
 
         // When
+        try {
         await apiService.put(path)
-
-        // Then
-        expect(logger.error).toHaveBeenCalledOnceWith('Async error')
+        } catch (err) {
+          // Then
+          expect(logger.error).toHaveBeenCalledOnceWith('Async error')
+        }
       })
     })
   })
@@ -179,7 +181,6 @@ xdescribe('apiService', () => {
       const data = { hello: 'world' }
 
       beforeEach(() => {
-        env.mockReturnValue(API_URL)
         axios.delete.mockResolvedValue({ data })
       })
 
@@ -217,10 +218,12 @@ xdescribe('apiService', () => {
         expect.assertions(3)
 
         // When
+        try {
         await apiService.delete(path)
-
-        // Then
-        expect(logger.error).toHaveBeenCalledOnceWith('Async error')
+        } catch (err) {
+          // Then
+          expect(logger.error).toHaveBeenCalledOnceWith('Async error')
+        }
       })
     })
   })
