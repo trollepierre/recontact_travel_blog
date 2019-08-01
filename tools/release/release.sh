@@ -9,6 +9,7 @@ if [[ $(git status --porcelain) ]]; then
 fi
 
 echo "Fetch and pull branch dev on origin host"
+git branch -D dev
 git fetch origin dev
 git pull origin dev
 
@@ -17,6 +18,7 @@ git fetch origin master
 git pull origin master
 
 echo "Merge and push branch dev on master"
+git branch -D master
 git checkout master
 git merge -X theirs dev  --no-edit
 git push origin master
