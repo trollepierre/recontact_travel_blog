@@ -152,7 +152,7 @@ jobs:
       - run:
           name: Deploy dev to Heroku staging
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git dev:master --force
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git dev:master
 
   deploy_master:
     <<: *common_properties
