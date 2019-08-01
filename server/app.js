@@ -42,6 +42,7 @@ app.use('/api/subscriptions', subscriptions)
 app.use('/api/feedbacks', feedbacks)
 app.use('/api/positions', positions)
 app.use('/apo', optimisation)
+app.use('/api/apo', optimisation)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
