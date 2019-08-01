@@ -17,7 +17,7 @@ describe('Unit | UpdateArticles | sync', () => {
 
     // Then
     promise.then(() => {
-      expect(UpdateArticle.sync).to.have.been.calledWith("1")
+      expect(UpdateArticle.sync).to.have.been.calledWith('1')
     })
   })
 
@@ -28,8 +28,8 @@ describe('Unit | UpdateArticles | sync', () => {
     // Then
     promise.then(() => {
       expect(UpdateArticle.sync).to.have.been.callCount(2)
-      expect(UpdateArticle.sync).to.have.been.calledWith("1")
-      expect(UpdateArticle.sync).to.have.been.calledWith("2")
+      expect(UpdateArticle.sync).to.have.been.calledWith('1')
+      expect(UpdateArticle.sync).to.have.been.calledWith('2')
     })
   })
 
@@ -40,9 +40,9 @@ describe('Unit | UpdateArticles | sync', () => {
     // Then
     promise.then(() => {
       expect(UpdateArticle.sync).to.have.been.callCount(3)
-      expect(UpdateArticle.sync).to.have.been.calledWith("87")
-      expect(UpdateArticle.sync).to.have.been.calledWith("86")
-      expect(UpdateArticle.sync).to.have.been.calledWith("85")
+      expect(UpdateArticle.sync).to.have.been.calledWith('87')
+      expect(UpdateArticle.sync).to.have.been.calledWith('86')
+      expect(UpdateArticle.sync).to.have.been.calledWith('85')
     })
   })
 })
