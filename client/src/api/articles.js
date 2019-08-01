@@ -1,45 +1,30 @@
-import axios from 'axios'
-import env from '../env/env'
+import apiService from '../services/api-service'
 
 const ArticlesApi = {
 
   fetchAll() {
-    const url = `${env('API_URL')}api/articles`
-    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
-    return axios.get(url, options)
-      .then(response => response.data)
+    return apiService.get('articles')
   },
 
   update(id) {
-    const url = `${env('API_URL')}api/admin/articles/${id}`
-    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
-    return axios.patch(url, {}, options)
+    return apiService.put(`admin/articles/${id}`, {})
   },
 
   delete(id) {
-    const url = `${env('API_URL')}apo/art/del/${id}`
-    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
-    return axios.get(url, options)
+    return apiService.get(`apo/art/del/${id}`)
   },
 
   updateAll(min, max) {
     const data = { min, max }
-    const url = `${env('API_URL')}api/admin/articles`
-    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
-    return axios.patch(url, data, options)
+    return apiService.put('admin/articles', data)
   },
 
   deleteAll() {
-    const url = `${env('API_URL')}apo/art/del`
-    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
-    return axios.get(url, options)
+    return apiService.get('apo/art/del')
   },
 
   deleteAndSyncAll() {
-    const url = `${env('API_URL')}apo/art/delsyn`
-    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
-    return axios.get(url, options)
-      .then(response => response.data)
+    return apiService.get('apo/art/delsyn')
   },
 }
 
