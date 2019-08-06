@@ -33,7 +33,7 @@ describe('Unit | UpdateArticles | sync', () => {
     })
   })
 
-  it('should call update article with 1 as min when 0 setted', () => {
+  it('should call update article with 87 as min when min > max setted', () => {
     // When
     const promise = UpdateArticles.sync({ min: 85, max: 3 })
 
