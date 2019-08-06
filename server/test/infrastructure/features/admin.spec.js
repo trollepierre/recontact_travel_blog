@@ -13,7 +13,7 @@ describe('Integration | Routes | admin route', () => {
       UpdateArticle.sync.restore()
     })
 
-    it('should call delete article and send 204', done => {
+    it('should call update article and send 204', done => {
       // Given
       const stringIdArticle = '59'
 
@@ -41,7 +41,7 @@ describe('Integration | Routes | admin route', () => {
       UpdateArticles.sync.restore()
     })
 
-    it('should call delete article and send 204', done => {
+    it('should call update articles and send 204', done => {
       // When
       request(app)
         .patch('/api/admin/articles')

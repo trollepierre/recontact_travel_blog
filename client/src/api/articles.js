@@ -7,7 +7,7 @@ const ArticlesApi = {
   },
 
   update(id) {
-    return apiService.put(`admin/articles/${id}`, {})
+    return apiService.put(`admin/articles/${id}`)
   },
 
   delete(id) {

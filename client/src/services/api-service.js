@@ -27,7 +27,7 @@ const post = async (path, data) => {
   }
 }
 
-const put = async (path, data) => {
+const put = async (path, data = {}) => {
   try {
     const url = `${apiPath}${path}`
     const response = await axios.patch(url, { ...data, json: true })
