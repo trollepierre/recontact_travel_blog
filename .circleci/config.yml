@@ -1,6 +1,6 @@
 common_properties: &common_properties
   docker:
-    - image: circleci/node:10.16.0-browsers
+    - image: circleci/node:10.16.1-browsers
   working_directory: ~/trollepierre/recontact_travel_blog
 
 version: 2
