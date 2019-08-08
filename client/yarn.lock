@@ -9604,10 +9604,10 @@ vue-template-es2015-compiler@^1.6.0, vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue-toastr@2.0.16:
-  version "2.0.16"
-  resolved "https://registry.yarnpkg.com/vue-toastr/-/vue-toastr-2.0.16.tgz#82eedd94a936057697d90be5d7622f1df4a16881"
-  integrity sha512-61YaHW9PftqLfZBI6YyH8ZkshpZcjGD5mcU5uCaLwnS+UbV9iqKIE4z9XHE5lGQC9tzHEFZBEnKvjbAoOsyPVw==
+vue-toastr@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/vue-toastr/-/vue-toastr-2.1.2.tgz#5bcbef8f85f043ca4d411e19e402bb170259527a"
+  integrity sha512-OomiRJ641K5Zl1/QEwUFg/lBcP7XeVKL044loVtBkGm9oXkm02h3dx13XNcbSXYL/hsqWPO/et5fB0ciU3oaCQ==
 
 vue@2.6.10:
   version "2.6.10"
