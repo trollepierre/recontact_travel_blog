@@ -11,6 +11,6 @@
     "eslint-config-airbnb-base": "13.2.0",
     "eslint-plugin-import": "2.18.2",
     "jest": "24.9.0",
-    "lighthouse": "5.2.0"
+    "lighthouse": "5.4.0"
   }
 }
