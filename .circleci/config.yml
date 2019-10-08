@@ -27,7 +27,7 @@ jobs:
             - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
       - run:
           name: Install front
-          command: yarn install:client
+          command: cd client && yarn install --frozen
       - save_cache:
           key: v1-front-dependencies-{{ checksum "client/yarn.lock" }}
           paths:
@@ -45,7 +45,7 @@ jobs:
             - v1-back-dependencies-{{ checksum "server/yarn.lock" }}
       - run:
           name: Install back
-          command: yarn install:server
+          command: cd server && yarn install --frozen
       - save_cache:
           key: v1-back-dependencies-{{ checksum "server/yarn.lock" }}
           paths:
