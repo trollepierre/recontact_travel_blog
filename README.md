@@ -1,5 +1,6 @@
 # Recontact - Travel blog
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/56d6576e-c95a-41b4-999f-9e0bab48d768/deploy-status)](https://app.netlify.com/sites/inspiring-bardeen-ca64f5/deploys)
 [![CircleCI](https://circleci.com/gh/trollepierre/recontact_travel_blog/tree/master.svg?style=svg)](https://circleci.com/gh/trollepierre/recontact_travel_blog/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/trollepierre/recontact_travel_blog/badge.svg)](https://coveralls.io/github/trollepierre/recontact_travel_blog)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5f37552833dea8b9ae48/maintainability)](https://codeclimate.com/github/trollepierre/recontact_travel_blog/maintainability)
