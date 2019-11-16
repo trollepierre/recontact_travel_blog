@@ -10,7 +10,7 @@
 
 ``` bash
 # install Yarn
-npm install -g yarn@1.10.1
+npm install -g yarn@latest
 
 # get project sources
 git clone git@github.com:trollepierre/recontact_travel_blog.git
