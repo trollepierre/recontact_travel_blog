@@ -12,12 +12,12 @@ CAN USE NUXT IN PROD
 CRITIC
 -
 - [ ] add sitemap and robots.txt
-- [ ] add english
+- [x] add english
 
 
 BUG TO FIX ASAP
 -
-- [ ] manage a way not to push on master every time
+- [x] manage a way not to push on master every time
 - [ ] add https://nuxtjs.org/api/pages-head
 - [ ] add test
 - [ ] toaster à remove
