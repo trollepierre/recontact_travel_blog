@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | AppHeader.vue template should match snapshot 1`] = `
+<div
+  class="app-header"
+>
+  <header
+    class="page__header"
+  >
+    <div
+      class="page__container page__header--container"
+    >
+      <a
+        class="logo-link"
+        href="/"
+        title="home"
+      >
+        <span
+          class="logo-link__recontact"
+        >
+          
+          Recontact
+        
+        </span>
+         
+        <span
+          class="logo-link__me"
+        >
+          
+          Me
+        
+        </span>
+      </a>
+       
+      <nav
+        aria-label="site navigation"
+        class="app-header__navigation navigation"
+        role="navigation"
+      >
+        <ol
+          class="navigation__links"
+        >
+          <li
+            class="navigation__link"
+          >
+            <button
+              class="navbar-action navbar-action__subscribe"
+              type="button"
+            >
+              
+              subscribe
+            
+            </button>
+          </li>
+           
+          <li
+            class="navigation__link"
+          >
+            <button
+              class="navbar-action navbar-action__suggestion"
+              type="button"
+            >
+              
+              suggestion
+            
+            </button>
+          </li>
+           
+          <li
+            class="navigation__link tdm"
+          >
+            <a
+              class="navbar-action navbar-action__tdm"
+              href="http://worldtour.recontact.me"
+              title="tdm"
+            >
+              <img
+                alt="logo"
+                class="tdm__image"
+                src="/static/tdm.jpg"
+              />
+            </a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </header>
+</div>
+`;
