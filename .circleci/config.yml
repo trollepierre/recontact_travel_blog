@@ -24,14 +24,14 @@ jobs:
             - v1-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
+            - v1-front-dependencies-{{ checksum "rec-nuxt/yarn.lock" }}
       - run:
           name: Install front
-          command: yarn install:client
+          command: yarn install:rec-nuxt
       - save_cache:
-          key: v1-front-dependencies-{{ checksum "client/yarn.lock" }}
+          key: v1-front-dependencies-{{ checksum "rec-nuxt/yarn.lock" }}
           paths:
-            - ./client/node_modules
+            - ./rec-nuxt/node_modules
 
   install_back:
     <<: *common_properties
@@ -60,13 +60,13 @@ jobs:
             - v1-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
+            - v1-front-dependencies-{{ checksum "rec-nuxt/yarn.lock" }}
       - run:
           name: Lint front
-          command: yarn lint:client
+          command: yarn lint:rec-nuxt
       - run:
           name: Test front
-          command: yarn test:client:ci
+          command: yarn test:rec-nuxt:ci
       - store_test_results:
           path: /tmp/circleci-test-results/front
 
@@ -98,8 +98,8 @@ jobs:
             - v1-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v1-front-dependencies-{{ checksum "client/yarn.lock" }}
-      - run: yarn build:client
+            - v1-front-dependencies-{{ checksum "rec-nuxt/yarn.lock" }}
+      - run: yarn build:rec-nuxt
 
   build_back:
     <<: *common_properties
