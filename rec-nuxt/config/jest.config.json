@@ -1,0 +1,37 @@
+{
+  "rootDir": "..",
+  "resetMocks": true,
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "vue"
+  ],
+  "watchman": false,
+  "moduleNameMapper": {
+    "^~/(.*)$": "<rootDir>/$1",
+    "^~~/(.*)$": "<rootDir>/$1",
+    "^@/(.*)$": "<rootDir>/$1"
+  },
+  "transform": {
+    "^.+\\.js$": "babel-jest",
+    ".*\\.(vue)$": "vue-jest"
+  },
+  "coverageThreshold": {
+    "global": {
+      "branches": 70,
+      "functions": 70,
+      "lines": 70,
+      "statements": 70
+    }
+  },
+  "snapshotSerializers": [
+    "<rootDir>/node_modules/jest-serializer-vue"
+  ],
+  "setupFilesAfterEnv": [
+    "<rootDir>/config/jest.setup.js"
+  ],
+  "collectCoverageFrom": [
+    "<rootDir>/components/**/*.vue",
+    "<rootDir>/pages/*.vue"
+  ]
+}

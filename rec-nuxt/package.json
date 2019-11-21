@@ -14,7 +14,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:fix": "yarn lint --fix",
     "precommit": "yarn lint:fix",
-    "test": "jest",
+    "test": "env TZ=\"Europe/Paris\" jest --config config/jest.config.json",
     "test:e2e": "ava --serial --verbose"
   },
   "dependencies": {
@@ -30,15 +30,22 @@
     "vue-toastr": "2.0.16"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@vue/test-utils": "^1.0.0-beta.29",
     "ava": "^2.1.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.9.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-jest": "22.7.0",
     "eslint-plugin-vue": "^5.2.3",
-    "jest": "^24.8.0",
-    "jsdom": "^15.1.1"
+    "jest": "^24.9.0",
+    "jest-serializer-vue": "^2.0.2",
+    "jsdom": "^15.1.1",
+    "vue-jest": "^3.0.5"
   }
 }
