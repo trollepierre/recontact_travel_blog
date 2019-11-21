@@ -22,7 +22,7 @@ const post = async (path, data) => {
     const response = await axios.post(url, { ...data, json: true })
     return prop('data', response)
   } catch (error) {
-    logger.error(error)
+    logger.error(error.message)
     throw error
   }
 }
