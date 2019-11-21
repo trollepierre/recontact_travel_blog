@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | PhotoCard.vue template should match snapshot 1`] = `
+<div
+  class="photo-card"
+>
+  <article
+    class="photo"
+  >
+    <div
+      class="photo__content"
+    >
+      <div>
+        <img
+          alt="alt"
+          data-src="webf"
+          lazy="loading"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        />
+         
+        <div
+          data-src="webf"
+          lazy="loading"
+          style="background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);"
+        />
+      </div>
+    </div>
+  </article>
+</div>
+`;
