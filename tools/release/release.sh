@@ -8,24 +8,28 @@ if [[ $(git status --porcelain) ]]; then
   exit 1
 fi
 
+echo "Initial Condition"
+git checkout master
+
 echo "Fetch and pull branch dev on origin host"
-git branch -D dev
 git fetch origin dev
 git pull origin dev
+git branch -D dev
+git checkout dev
 
 echo "Fetch and pull branch master on origin host"
 git fetch origin master
 git pull origin master
-
-echo "Merge and push branch dev on master"
 git branch -D master
 git checkout master
-git merge -X theirs dev  --no-edit
+
+echo "Merge and push branch dev on master"
+git merge --strategy-option=theirs dev --no-edit
 git push origin master
 
 echo "Rebase dev on master"
 git checkout dev
 git rebase origin/master
-git push
+git push origin dev
 
 exit 0
