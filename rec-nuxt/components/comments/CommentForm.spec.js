@@ -2,14 +2,14 @@ import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import CommentForm from './CommentForm.vue'
-import router from '../../router/router'
-import photosApi from '../../api/photos'
-import chaptersApi from '../../api/chapters'
-import commentsApi from '../../api/comments'
-import translationsService from '../../services/translations'
-import notificationsService from '../../services/notifications'
+// import router from '../../router/router'
+// import photosApi from '../../api/photos'
+// import chaptersApi from '../../api/chapters'
+import commentsApi from '../../services/api/comments'
+import notificationsService from '../../services/services/notifications'
+// import translationsService from '../../services/translations'
 
-describe('Component | CommentForm.vue', () => {
+xdescribe('Component | CommentForm.vue', () => {
   let localVue
   let wrapper
   let chapters

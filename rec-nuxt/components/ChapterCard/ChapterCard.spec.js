@@ -1,6 +1,6 @@
 import VueI18n from 'vue-i18n'
 import ChapterCard from './ChapterCard.vue'
-import translationsService from '../../services/translations'
+import translationsService from '../../services/services/translations'
 
 describe('Component | ChapterCard.vue', () => {
   let wrapper

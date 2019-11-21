@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import CommentList from './CommentList.vue'
-import router from '../../router/router'
+// import router from '../../router/router'
 import commentsApi from '../../services/api/comments'
 
 xdescribe('Component | CommentList.vue', () => {
