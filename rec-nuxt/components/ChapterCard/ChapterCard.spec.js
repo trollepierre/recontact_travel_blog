@@ -1,4 +1,5 @@
 import VueI18n from 'vue-i18n'
+import Vuex from 'vuex'
 import ChapterCard from './ChapterCard.vue'
 import translationsService from '../../services/services/translations'
 
@@ -6,6 +7,7 @@ describe('Component | ChapterCard.vue', () => {
   let wrapper
   let chapter
   let localVue
+  let store
 
   beforeEach(() => {
     translationsService.getChapterTitle = jest.fn()
@@ -22,8 +24,10 @@ describe('Component | ChapterCard.vue', () => {
     }
     localVue = createLocalVue()
     localVue.use(VueI18n)
+    localVue.use(Vuex)
     const propsData = { chapter }
-    wrapper = shallowMount(ChapterCard, { localVue, propsData })
+    store = new Vuex.Store({state: {locale: 'en'}})
+    wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
   })
 
   it('should be named "ChapterCard"', () => {
@@ -47,7 +51,7 @@ describe('Component | ChapterCard.vue', () => {
       const propsData = {
         chapter,
       }
-      wrapper = shallowMount(ChapterCard, { localVue, propsData })
+      wrapper = shallowMount(ChapterCard, { localVue, propsData,store })
       expect(wrapper.element).toMatchSnapshot()
     })
   })
@@ -57,7 +61,7 @@ describe('Component | ChapterCard.vue', () => {
       chapter.imgLink = 'dropbox.com/img0.jpg'
       const propsData = { chapter }
 
-      wrapper = shallowMount(ChapterCard, { localVue, propsData })
+      wrapper = shallowMount(ChapterCard, { localVue, propsData,store })
 
       expect(wrapper.vm.imgLink).toEqual('dropbox.com/img0.jpg')
     })
@@ -66,7 +70,7 @@ describe('Component | ChapterCard.vue', () => {
       chapter.imgLink = ''
       const propsData = { chapter }
 
-      wrapper = shallowMount(ChapterCard, { localVue, propsData })
+      wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
 
       expect(wrapper.vm.imgLink).toEqual(false)
     })

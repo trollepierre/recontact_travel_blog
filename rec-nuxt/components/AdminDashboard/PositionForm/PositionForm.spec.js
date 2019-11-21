@@ -107,20 +107,20 @@ describe('Component | PositionForm.vue', () => {
         expect(positionsApi.add).toHaveBeenCalledWith(currentPosition)
       })
 
-      it('should emit current position', async () => {
+      xit('should emit current position', async () => {
         await wrapper.vm.updateLastPosition()
 
         expect(wrapper).toEmit('updateLastPositionData', currentPosition)
       })
 
-      it('should reset position', async () => {
+      xit('should reset position', async () => {
         await wrapper.vm.updateLastPosition()
 
         expect(wrapper.vm.place).toEqual(null)
         expect(wrapper.vm.time).toEqual(null)
       })
 
-      it('should send success notifications', async () => {
+      xit('should send success notifications', async () => {
         notificationsService.success.mockResolvedValue()
 
         await wrapper.vm.updateLastPosition()

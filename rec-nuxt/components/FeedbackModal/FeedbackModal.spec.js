@@ -6,7 +6,7 @@ import FeedbackModal from './FeedbackModal.vue'
 // import feedbacksApi from '../api/feedbacks'
 // import notificationsService from '../services/notifications'
 
-jest.mock('../../utils/screen/screen-utils', () => ({ screenHeight: 200, PHONE_PORTRAIT_TO_LANDSCAPE: 600 }))
+jest.mock('../../services/utils/screen/screen-utils', () => ({ screenHeight: 200, PHONE_PORTRAIT_TO_LANDSCAPE: 600 }))
 
 describe('Component | FeedbackModal.vue', () => {
   let wrapper
