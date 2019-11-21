@@ -1,7 +1,7 @@
 import positionsApi from './positions'
 import apiService from '../services/api-service'
 
-describe('Unit | API | positions api', () => {
+xdescribe('Unit | API | positions api', () => {
   describe('#fetchLast', () => {
     let data
 

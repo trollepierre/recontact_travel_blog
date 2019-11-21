@@ -7,7 +7,7 @@ import SubscribeModal from './SubscribeModal.vue'
 import notificationsService from '../../services/services/notifications'
 import subscriptionsApi from '../../services/api/subscriptions'
 
-jest.mock('../../utils/screen/screen-utils', () => ({ screenWidth: 200, PHONE_PORTRAIT_TO_LANDSCAPE: 600 }))
+jest.mock('../../services/utils/screen/screen-utils', () => ({ screenWidth: 200, PHONE_PORTRAIT_TO_LANDSCAPE: 600 }))
 
 describe('Component | SubscribeModal.vue', () => {
   let wrapper

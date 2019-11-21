@@ -35,14 +35,13 @@ describe('Unit | services | translations', () => {
     })
 
     it('should return frTitle when navigator language is French', () => {
-      navigatorLanguage.mockReturnValue('fr-Fr')
       const article = {
         dropboxId: 59,
         frTitle: 'Le titre',
         enTitle: 'The title',
       }
 
-      const title = translationsService.getTitle(article)
+      const title = translationsService.getTitle(article, 'fr')
 
       expect(title).toEqual('Le titre')
     })
@@ -50,7 +49,7 @@ describe('Unit | services | translations', () => {
 
   describe('#getChapterTitle', () => {
     it('should return enTitle by default', () => {
-      navigatorLanguage.mockReturnValue('en-en')
+      navigatorLanguage.mockReturnValue('en')
       const chapter = {
         dropboxId: 59,
         frTitle: 'Le titre',
@@ -63,14 +62,14 @@ describe('Unit | services | translations', () => {
     })
 
     it('should return frTitle when navigator language is French', () => {
-      navigatorLanguage.mockReturnValue('fr-Fr')
+      navigatorLanguage.mockReturnValue('fr')
       const chapter = {
         dropboxId: 59,
         frTitle: 'Le titre',
         enTitle: 'The title',
       }
 
-      const title = translationsService.getChapterTitle(chapter)
+      const title = translationsService.getChapterTitle(chapter, 'fr')
 
       expect(title).toEqual('Le titre')
     })
@@ -78,7 +77,7 @@ describe('Unit | services | translations', () => {
 
   describe('#getChapterText', () => {
     it('should return enTitle by default', () => {
-      navigatorLanguage.mockReturnValue('en-en')
+      navigatorLanguage.mockReturnValue('en')
       const frText = [
         'Rassemblant trois valeureux compagnons  :',
       ]
@@ -99,7 +98,7 @@ describe('Unit | services | translations', () => {
     })
 
     it('should return frTitle when navigator language starts by French', () => {
-      navigatorLanguage.mockReturnValue('fr-Fr')
+      navigatorLanguage.mockReturnValue('fr')
 
       const frText = [
         'Rassemblant trois valeureux compagnons  :',
@@ -115,7 +114,7 @@ describe('Unit | services | translations', () => {
         enText,
       }
 
-      const title = translationsService.getChapterText(chapter)
+      const title = translationsService.getChapterText(chapter, 'fr')
 
       expect(title).toEqual(frText)
     })
