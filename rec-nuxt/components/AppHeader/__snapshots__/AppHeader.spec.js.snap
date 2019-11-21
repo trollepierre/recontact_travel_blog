@@ -18,17 +18,13 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
         <span
           class="logo-link__recontact"
         >
-          
           Recontact
-        
         </span>
          
         <span
           class="logo-link__me"
         >
-          
           Me
-        
         </span>
       </a>
        
@@ -40,46 +36,23 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
         <ol
           class="navigation__links"
         >
+          <!---->
+           
+          <!---->
+           
+          <!---->
+           
           <li
-            class="navigation__link"
+            class="navigation__link other-language"
           >
             <button
-              class="navbar-action navbar-action__subscribe"
+              class="navbar-action navbar-action__other-language"
               type="button"
             >
               
-              subscribe
+              otherLanguage
             
             </button>
-          </li>
-           
-          <li
-            class="navigation__link"
-          >
-            <button
-              class="navbar-action navbar-action__suggestion"
-              type="button"
-            >
-              
-              suggestion
-            
-            </button>
-          </li>
-           
-          <li
-            class="navigation__link tdm"
-          >
-            <a
-              class="navbar-action navbar-action__tdm"
-              href="http://worldtour.recontact.me"
-              title="tdm"
-            >
-              <img
-                alt="logo"
-                class="tdm__image"
-                src="/static/tdm.jpg"
-              />
-            </a>
           </li>
         </ol>
       </nav>

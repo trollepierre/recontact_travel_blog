@@ -68,7 +68,6 @@ exports[`Component | FeedbackModal.vue template should match snapshot 1`] = `
           class="feedback-modal__text"
           id="feedback-content"
           placeholder="placeholder"
-          style="height: 152px;"
         />
       </form>
     </div>
