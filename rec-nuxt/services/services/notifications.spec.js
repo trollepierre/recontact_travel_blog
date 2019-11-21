@@ -1,6 +1,6 @@
 import notificationsService from './notifications'
 
-describe('Unit | services | notifications', () => {
+xdescribe('Unit | services | notifications', () => {
   beforeEach(() => {
     notificationsService.toaster = jest.fn()
   })
