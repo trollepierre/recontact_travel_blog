@@ -4,8 +4,8 @@ import VueModal from 'vue-js-modal'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import SubscribeModal from './SubscribeModal.vue'
-import subscriptionsApi from '../../api/subscriptions'
-import notificationsService from '../../services/notifications'
+import notificationsService from '../../services/services/notifications'
+import subscriptionsApi from '../../services/api/subscriptions'
 
 jest.mock('../../utils/screen/screen-utils', () => ({ screenWidth: 200, PHONE_PORTRAIT_TO_LANDSCAPE: 600 }))
 

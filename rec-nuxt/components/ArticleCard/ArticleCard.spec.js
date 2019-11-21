@@ -5,9 +5,9 @@ import VueI18n from 'vue-i18n'
 
 import ArticleCard from './ArticleCard.vue'
 
-import notificationsService from '../services/notifications'
-import translationsService from '../services/translations'
-import articlesApi from '../api/articles'
+import articlesApi from '../../services/api/articles'
+import notificationsService from '../../services/services/notifications'
+import translationsService from '../../services/services/translations'
 
 describe('Component | ArticleCard.vue', () => {
   let localVue

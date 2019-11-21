@@ -2,10 +2,10 @@ import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 
-import articlesApi from '../api/articles'
 import ArticleList from './ArticleList.vue'
-import positionsApi from '../api/positions'
-import articlesSorter from '../services/articlesSorter'
+import articlesApi from '../../services/api/articles'
+import positionsApi from '../../services/api/positions'
+import articlesSorter from '../../services/services/articlesSorter'
 
 describe('Component | ArticleList.vue', () => {
   let localVue

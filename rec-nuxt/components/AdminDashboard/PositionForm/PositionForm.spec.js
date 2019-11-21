@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import PositionForm from './PositionForm.vue'
-import positionsApi from '../../../api/positions'
-import notificationsService from '../../../services/notifications'
+import positionsApi from '../../../services/api/positions'
+import notificationsService from '../../../services/services/notifications'
 
 describe('Component | PositionForm.vue', () => {
   let localVue

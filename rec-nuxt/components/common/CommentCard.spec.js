@@ -1,5 +1,5 @@
 import CommentCard from './CommentCard.vue'
-import { formatDateWithLongEndianLongFormat } from '../../utils/date/date-utils'
+import { formatDateWithLongEndianLongFormat } from '../../services/utils/date/date-utils'
 
 jest.mock('../../utils/date/date-utils')
 
