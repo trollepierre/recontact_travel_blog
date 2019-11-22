@@ -5,7 +5,6 @@ module.exports = {
   },
   env: {
     browser: true,
-    node: true,
     'jest/globals': true
   },
   globals: {
@@ -15,7 +14,7 @@ module.exports = {
     'RouterLinkStub': false,
   },
   extends: [
-    // '../.eslintrc.js', // TODO remettre
+    '../.eslintrc.js',
     'plugin:vue/recommended',
   ],
   plugins: [
@@ -60,6 +59,11 @@ module.exports = {
     }],
 
     // PERSO
-    'vue/require-prop-types': 'error'
+    'vue/require-prop-types': 'error',
+    'no-unused-vars': 'warn',
+    'no-shadow': 'warn',
+    'no-undef': 'warn',
+    'import/no-extraneous-dependencies': 'warn',
+    'import/no-unresolved': 'warn'
   }
 };

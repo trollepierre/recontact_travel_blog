@@ -18,9 +18,9 @@ const headEn = {
     { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' },
     { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png' },
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    { rel: 'manifest',  href: '/manifest.json' }
-  ]
-};
+    { rel: 'manifest', href: '/manifest.json' },
+  ],
+}
 
 const headFr = {
   title: 'Recontact.Me - Blog de Voyage',
@@ -38,8 +38,8 @@ const headFr = {
     { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' },
     { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png' },
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    { rel: 'manifest',  href: '/manifest.json' }
-  ]
+    { rel: 'manifest', href: '/manifest.json' },
+  ],
 }
 
 const articleRoutes = [...Array(100).keys()]
@@ -64,14 +64,14 @@ module.exports = {
     '~/plugins/i18n.js',
     '~/plugins/lazyload.js',
     // '~/plugins/modal.js',
-    '~/plugins/notification.js'
+    '~/plugins/notification.js',
   ],
   generate: {
     routes: [
       '/',
       '/admin',
       ...articleRoutes,
-    ]
+    ],
   },
 
   /*
@@ -81,20 +81,20 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    extend (config, { isDev, isClient }) {
+    extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: /(node_modules)/,
         })
       }
-    }
+    },
   },
 
   modules: [
     '@nuxtjs/dotenv',
-  ]
-};
+  ],
+}
 

@@ -15,6 +15,7 @@
     "lint:fix": "yarn lint --fix",
     "precommit": "yarn lint:fix",
     "test": "env TZ=\"Europe/Paris\" jest --config config/jest.config.json",
+    "test:coverage": "yarn test --coverageyl",
     "test:e2e": "ava --serial --verbose"
   },
   "dependencies": {
@@ -41,6 +42,7 @@
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "22.7.0",
     "eslint-plugin-vue": "^5.2.3",
     "jest": "^24.9.0",

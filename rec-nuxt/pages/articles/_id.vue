@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import ArticlePage from '../../components/ArticlePage/ArticlePage';
+  import ArticlePage from '../../components/ArticlePage/ArticlePage'
 
   export default {
     components: {
@@ -13,7 +13,7 @@
     },
     validate({ params }) {
       // TODO Doit être un nombre
-      return /^\d+$/.test(params.id);
+      return /^\d+$/.test(params.id)
     },
-  };
+  }
 </script>

@@ -16,7 +16,7 @@
     "start:rec-nuxt": "(cd rec-nuxt && yarn start)",
     "start:dev": "(cd server && yarn start:dev)",
     "start": "(cd server && yarn start)",
-    "test:rec-nuxt:ci": "(cd rec-nuxt && yarn test:ci)",
+    "test:rec-nuxt:ci": "(cd rec-nuxt && yarn test:coverage)",
     "test:rec-nuxt": "(cd rec-nuxt && yarn test)",
     "test:server": "(cd server && yarn test)",
     "test": "yarn test:rec-nuxt && yarn test:server",
