@@ -4,24 +4,24 @@ export default {
   // },
 
   success(component, message) {
-    console.log('Success');
-    console.log(message);
+    console.log('Success')
+    console.log(message)
   },
 
   error(component, message) {
-    console.log('Error');
-    console.log(message);
+    console.log('Error')
+    console.log(message)
   },
 
   information(component, message) {
-    console.log('Information');
-    console.log(message);
+    console.log('Information')
+    console.log(message)
   },
 
   removeInformation(component) {
-    console.log('Information removed');
+    console.log('Information removed')
   },
-};
+}
 
 // export default {
 //   toaster(component) {

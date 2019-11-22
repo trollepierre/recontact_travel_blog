@@ -26,7 +26,7 @@ describe('Component | ChapterCard.vue', () => {
     localVue.use(VueI18n)
     localVue.use(Vuex)
     const propsData = { chapter }
-    store = new Vuex.Store({state: {locale: 'en'}})
+    store = new Vuex.Store({ state: { locale: 'en' } })
     wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
   })
 
@@ -51,7 +51,7 @@ describe('Component | ChapterCard.vue', () => {
       const propsData = {
         chapter,
       }
-      wrapper = shallowMount(ChapterCard, { localVue, propsData,store })
+      wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
       expect(wrapper.element).toMatchSnapshot()
     })
   })
@@ -61,7 +61,7 @@ describe('Component | ChapterCard.vue', () => {
       chapter.imgLink = 'dropbox.com/img0.jpg'
       const propsData = { chapter }
 
-      wrapper = shallowMount(ChapterCard, { localVue, propsData,store })
+      wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
 
       expect(wrapper.vm.imgLink).toEqual('dropbox.com/img0.jpg')
     })

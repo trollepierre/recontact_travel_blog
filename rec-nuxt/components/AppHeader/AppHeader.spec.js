@@ -88,7 +88,7 @@ describe('Component | AppHeader.vue', () => {
 
         it('contains 8 locales', () => {
           expect(locales).toHaveLength(8)
-          expect(locales).toEqual(["subscribe", "suggestion", "problem", "tdm", "home", "logo", "otherLanguage", "otherUrl"])
+          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home', 'logo', 'otherLanguage', 'otherUrl'])
         })
       })
 
@@ -97,7 +97,7 @@ describe('Component | AppHeader.vue', () => {
 
         it('contains 8 locales', () => {
           expect(locales).toHaveLength(8)
-          expect(locales).toEqual(["subscribe", "suggestion", "problem", "tdm", "home", "logo", "otherLanguage", "otherUrl"])
+          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home', 'logo', 'otherLanguage', 'otherUrl'])
         })
       })
     })

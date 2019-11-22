@@ -41,7 +41,7 @@ describe('Component | ArticleCard.vue', () => {
     propsData = {
       article,
     }
-    store = new Vuex.Store({ actions: {}, state: {locale: 'en'}})
+    store = new Vuex.Store({ actions: {}, state: { locale: 'en' } })
     wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
   })
 

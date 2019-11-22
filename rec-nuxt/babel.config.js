@@ -1,16 +1,16 @@
-module.exports = function(api) {
-  api.cache(true);
+module.exports = function (api) {
+  api.cache(true)
 
   const presets = [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
-        modules: "commonjs"
-      }
-    ]
-  ];
+        modules: 'commonjs',
+      },
+    ],
+  ]
 
   return {
-    presets
-  };
-};
+    presets,
+  }
+}

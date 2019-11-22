@@ -59,7 +59,7 @@
   import { isEmpty } from 'ramda'
   import ChapterCard from '../ChapterCard/ChapterCard.vue'
   import PhotoCard from '../PhotoCard/PhotoCard.vue'
-  import Comments from './../comments/Comments.vue'
+  import Comments from '../comments/Comments.vue'
   import chaptersApi from '../../services/api/chapters'
   import photosApi from '../../services/api/photos'
   import translationsService from '../../services/services/translations'
@@ -95,13 +95,12 @@
         this.getPhotos()
       },
       async getChapters() {
-
-        this.trackEvent();
+        this.trackEvent()
         await chaptersApi.fetch(this.dropboxId)
           .then(article => {
-            this.chapters = article.chapters;
+            this.chapters = article.chapters
             const language = this.$store.state.locale
-            this.title = translationsService.getTitle(article, language);
+            this.title = translationsService.getTitle(article, language)
           })
       },
       getPhotos() {

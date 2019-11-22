@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 export default function ({ isHMR, app, store, route, params, error, redirect }) {
-  console.log('inside middleware i18n');
+  console.log('inside middleware i18n')
 
   const defaultLocale = app.i18n.fallbackLocale
   // If middleware is called from hot module replacement, ignore it
@@ -15,8 +15,8 @@ export default function ({ isHMR, app, store, route, params, error, redirect }) 
   store.commit('SET_LANG', locale)
   app.i18n.locale = store.state.locale
   // If route is /<defaultLocale>/... -> redirect to /...
-  if (locale === defaultLocale && route.fullPath.indexOf('/' + defaultLocale) === 0) {
-    const toReplace = '^/' + defaultLocale + (route.fullPath.indexOf('/' + defaultLocale + '/') === 0 ? '/' : '')
+  if (locale === defaultLocale && route.fullPath.indexOf(`/${ defaultLocale}`) === 0) {
+    const toReplace = `^/${ defaultLocale }${route.fullPath.indexOf(`/${ defaultLocale }/`) === 0 ? '/' : ''}`
     const re = new RegExp(toReplace)
     return redirect(
       route.fullPath.replace(re, '/')
