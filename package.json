@@ -7,7 +7,7 @@
     "install:rec-nuxt": "(cd rec-nuxt && yarn)",
     "install:server": "(cd server && yarn)",
     "install": "yarn install:rec-nuxt && yarn install:server",
-    "build:rec-nuxt": "(cd rec-nuxt && yarn build)",
+    "build:rec-nuxt": "(cd rec-nuxt && yarn generate:en)",
     "build:server": "(cd server && yarn build)",
     "build": "yarn build:server && yarn build:rec-nuxt",
     "clean:rec-nuxt": "(cd rec-nuxt && yarn clean)",
