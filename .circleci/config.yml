@@ -66,7 +66,7 @@ jobs:
           command: yarn lint:rec-nuxt
       - run:
           name: Test front
-          command: yarn test:rec-nuxt
+          command: yarn test:rec-nuxt:ci
       - store_test_results:
           path: /tmp/circleci-test-results/front
 
