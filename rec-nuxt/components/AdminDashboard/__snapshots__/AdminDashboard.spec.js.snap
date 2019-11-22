@@ -27,6 +27,37 @@ exports[`Component | AdminDashboard.vue template should match snapshot 1`] = `
     type="button"
   >
     
+    updateAllArticles
+  
+  </button>
+   
+  <label
+    for="min"
+  >
+    min
+  </label>
+   
+  <input
+    id="min"
+    placeholder="1"
+  />
+   
+  <label
+    for="max"
+  >
+    max
+  </label>
+   
+  <input
+    id="max"
+    placeholder="87"
+  />
+   
+  <button
+    class="dashboard__buttons dashboard__sync_hidden"
+    type="button"
+  >
+    
     deleteAllArticles
   
   </button>
