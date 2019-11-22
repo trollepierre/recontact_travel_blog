@@ -15,7 +15,7 @@
     "lint:fix": "yarn lint --fix",
     "precommit": "yarn lint:fix",
     "test": "env TZ=\"Europe/Paris\" jest --config config/jest.config.json",
-    "test:coverage": "yarn test --coverageyl",
+    "test:coverage": "yarn test --coverage",
     "test:e2e": "ava --serial --verbose"
   },
   "dependencies": {
