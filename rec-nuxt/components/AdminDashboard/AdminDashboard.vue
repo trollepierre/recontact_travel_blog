@@ -62,7 +62,7 @@
       return {
         isClickedSync: false,
         min: 1,
-        max: 88
+        max: 88,
       }
     },
     methods: {

@@ -178,7 +178,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should call syncApi with default value', () => {
         wrapper.vm.updateAll()
 
-        expect(articlesApi.updateAll).toHaveBeenCalledWith(1, 87)
+        expect(articlesApi.updateAll).toHaveBeenCalledWith(1, 88)
       })
 
       it('should call syncApi with updated min and max', () => {
