@@ -32,7 +32,7 @@ app.use('/sitemap.xml', sitemap)
 app.use(history)
 
 if (env('NODE_ENV') !== 'test') {
-  app.use(express.static(path.join(__dirname, '..', '..', 'rec-nuxt', 'dist')))
+  app.use(express.static(path.join(__dirname, '..', '..', 'front', 'dist')))
 }
 
 app.use('/api/sync', sync)

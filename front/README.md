@@ -1,8 +1,6 @@
-// TODO
+# recontact_travel_blog
 
-# rec-nuxt
-
-> Recontact.me en Nuxt
+> Travel blog of Pierre Trollé
 
 ## Build Setup
 
