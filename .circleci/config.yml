@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - save_cache:
-          key: v1-code-{{ checksum ".circle-cache-key" }}
+          key: v2-code-{{ checksum ".circle-cache-key" }}
           paths:
             - ~/trollepierre/recontact_travel_blog
 
@@ -21,15 +21,15 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v1-front-dependencies-{{ checksum "front/yarn.lock" }}
+            - v2-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run:
           name: Install front
           command: yarn install:front
       - save_cache:
-          key: v1-front-dependencies-{{ checksum "front/yarn.lock" }}
+          key: v2-front-dependencies-{{ checksum "front/yarn.lock" }}
           paths:
             - ./front/node_modules
 
@@ -39,15 +39,15 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v1-back-dependencies-{{ checksum "back/yarn.lock" }}
+            - v2-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run:
           name: Install back
           command: yarn install:back
       - save_cache:
-          key: v1-back-dependencies-{{ checksum "back/yarn.lock" }}
+          key: v2-back-dependencies-{{ checksum "back/yarn.lock" }}
           paths:
             - ./back/node_modules
 
@@ -57,10 +57,10 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v1-front-dependencies-{{ checksum "front/yarn.lock" }}
+            - v2-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run:
           name: Lint front
           command: yarn lint:front
@@ -76,10 +76,10 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v1-back-dependencies-{{ checksum "back/yarn.lock" }}
+            - v2-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run:
           name: Lint back
           command: yarn lint:back
@@ -95,10 +95,10 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v1-front-dependencies-{{ checksum "front/yarn.lock" }}
+            - v2-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run: yarn build:front
 
   build_back:
@@ -107,10 +107,10 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v1-back-dependencies-{{ checksum "back/yarn.lock" }}
+            - v2-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run: yarn build:back
 
   deploy_branch:
@@ -120,7 +120,7 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - run:
           name: Deploy branch to Heroku branch
           command: |
@@ -138,7 +138,7 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - run: yarn lighthouse
 
   deploy_staging:
@@ -148,7 +148,7 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - run:
           name: Deploy dev to Heroku staging
           command: |
@@ -161,7 +161,7 @@ jobs:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
-            - v1-code-{{ checksum ".circle-cache-key" }}
+            - v2-code-{{ checksum ".circle-cache-key" }}
       - run:
           name: Deploy master to Heroku
           command: |
