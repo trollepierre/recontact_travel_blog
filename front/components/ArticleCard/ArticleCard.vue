@@ -106,11 +106,11 @@
       },
 
       trackEvent() {
-        this.$ga.event({
-          eventCategory: 'Article Card',
-          eventAction: 'update',
-          eventLabel: `article ${this.article.dropboxId} is updated`,
-        })
+        // this.$ga.event({
+        //   eventCategory: 'Article Card',
+        //   eventAction: 'update',
+        //   eventLabel: `article ${this.article.dropboxId} is updated`,
+        // })
       },
 
       deleteArticle() {

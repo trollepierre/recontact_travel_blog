@@ -85,10 +85,10 @@ describe('Component | AdminDashboard.vue', () => {
         syncApi.launch.mockResolvedValue({})
       })
 
-      it('should track event', () => {
+      it('should not track event', () => {
         wrapper.vm.synchronise()
 
-        expect(analyticsService.sendAnalytics).toHaveBeenCalledWith(expect.anything(), 'Article List', 'synchronise', 'All articles have been synchronised')
+        expect(analyticsService.sendAnalytics).not.toHaveBeenCalled()
       })
 
       it('should set isClickSync to true', () => {
@@ -390,7 +390,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should call send analytics service', () => {
         wrapper.vm.trackEvent()
 
-        expect(analyticsService.sendAnalytics).toHaveBeenCalledWith(expect.anything(), 'Article List', 'synchronise', 'All articles have been synchronised')
+        expect(analyticsService.sendAnalytics).not.toHaveBeenCalled()
       })
     })
 
