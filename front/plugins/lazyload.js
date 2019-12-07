@@ -3,5 +3,6 @@ import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload, {
   error: '',
-  loading: '/static/loader.gif',
+  loading: '/loader.gif',
 })
+
