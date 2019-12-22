@@ -21,7 +21,7 @@
     "@babel/runtime": "7.7.4",
     "@nuxtjs/dotenv": "1.4.0",
     "axios": "0.19.0",
-    "date-fns": "2.0.0-alpha.36",
+    "date-fns": "2.8.1",
     "nuxt": "2.8.1",
     "ramda": "0.26.1",
     "vue-analytics": "5.17.0",
