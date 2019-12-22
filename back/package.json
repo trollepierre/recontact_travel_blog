@@ -68,7 +68,7 @@
     "serve-favicon": "2.5.0",
     "sinon": "7.5.0",
     "sinon-chai": "3.3.0",
-    "sqlite3": "4.1.0",
+    "sqlite3": "4.1.1",
     "supertest": "4.0.2"
   },
   "engines": {
