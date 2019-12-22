@@ -56,7 +56,7 @@
     "eslint-plugin-import": "2.18.2",
     "fs": "0.0.2",
     "http": "0.0.0",
-    "lolex": "4.2.0",
+    "lolex": "5.1.2",
     "mkdirp": "0.5.1",
     "mocha": "6.2.2",
     "nodemon": "1.19.4",
