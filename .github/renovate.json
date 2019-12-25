@@ -1,0 +1,10 @@
+{
+  "enabled": false,
+  "extends": [
+    "config:base"
+  ],
+  "prConcurrentLimit": 1,
+  "prHourlyLimit": 1,
+  "schedule": ["after 10pm and before 5am on every weekday", "every weekend"],
+  "prCreation": "not-pending"
+}

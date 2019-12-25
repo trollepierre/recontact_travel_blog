@@ -1,7 +1,0 @@
-{
-  "extends": [
-    "config:base"
-  ],
-  "prConcurrentLimit": 1,
-  "prCreation": "not-pending"
-}
