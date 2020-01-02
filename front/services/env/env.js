@@ -1,5 +1,6 @@
-import { prop } from 'ramda'
-
-import * as window from './window'
-
-export default key => prop(key, window.get('env'))
+export default key => {
+  if (key === 'API_URL') {
+    return `${process.env.NUXT_ENV_API_URL }/`
+  }
+  return process.env[key]
+}
