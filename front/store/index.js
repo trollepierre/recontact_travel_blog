@@ -1,7 +1,7 @@
 export const state = () => {
   return {
     locales: ['en', 'fr'],
-    locale: process.env.LANGUAGE ? process.env.LANGUAGE : 'fr',
+    locale: process.env.NUXT_ENV_LANGUAGE ? process.env.NUXT_ENV_LANGUAGE : 'fr',
   }
 }
 
