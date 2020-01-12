@@ -8,6 +8,7 @@ import cors from 'cors'
 import articles from './src/infrastructure/features/api/articles'
 import admin from './src/infrastructure/features/api/admin'
 import sync from './src/infrastructure/features/api/sync'
+import status from './src/infrastructure/features/api/status'
 import subscriptions from './src/infrastructure/features/api/subscriptions'
 import feedbacks from './src/infrastructure/features/api/feedbacks'
 import positions from './src/infrastructure/features/api/positions'
@@ -35,7 +36,9 @@ if (env('NODE_ENV') !== 'test') {
   app.use(express.static(path.join(__dirname, '..', '..', 'front', 'dist')))
 }
 
+app.use('/status', status)
 app.use('/api/sync', sync)
+app.use('/api/status', status)
 app.use('/api/articles', articles)
 app.use('/api/admin', admin)
 app.use('/api/subscriptions', subscriptions)
