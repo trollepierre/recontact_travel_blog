@@ -85,6 +85,16 @@ describe('Unit | Utils | date-utils', () => {
       // Then
       expect(formattedDate).toEqual('')
     })
+
+    it('should handle comments from CommentCard', () => {
+      // Given
+      const date = new Date('2020-01-15T12:26:45.887Z')
+      // When
+      const formattedDate = formatDateWithLongEndianLongFormat(date)
+
+      // Then
+      expect(formattedDate).toEqual('15/01/2020 13:26')
+    })
   })
 
   describe('#formatDateWithInternationalLongDateTimeFormat', () => {
