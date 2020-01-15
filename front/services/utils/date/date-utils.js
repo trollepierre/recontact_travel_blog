@@ -10,7 +10,7 @@ const subDays = require('date-fns/fp/subDays')
 const addYears = require('date-fns/fp/addYears')
 const { parse, isValid } = require('date-fns')
 
-const fr = require('date-fns/locale/fr')
+const { fr } = require('date-fns/locale')
 const { ifElse, isNil } = require('ramda')
 
 const options = { locale: fr }
