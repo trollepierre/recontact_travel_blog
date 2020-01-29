@@ -4,7 +4,7 @@
       <div class="page__container">
         <section class="article-page">
           <h1 class="article-page__title">
-            {{ title }}
+            {{ title || $t("title") }}
           </h1>
           <ul class="chapter__list">
             <li
@@ -73,7 +73,14 @@
     },
     data() {
       return {
-        chapters: [],
+        chapters: [{
+            position: 1,
+            frTitle: 'Article en cours de chargement',
+            enTitle: 'Loading article',
+            imgLink: 'loading',
+            frText: ['Veuillez patienter quelques secondes'],
+            enText: ['Please wait just a second'],
+          }],
         photos: [],
         title: '',
         dropboxId: parseInt(this.$route.params.id, 10),
@@ -138,12 +145,14 @@
           goToPreviousArticle: 'Voir l’article précédent',
           goToNextArticle: 'Voir l’article suivant',
           goToHomePage: 'Retour à la page d’accueil',
+          title: 'Titre de l’article',
         },
         en: {
           hereTheGallery: 'Here is the photo gallery of this article',
           goToPreviousArticle: 'Read the previous article',
           goToNextArticle: 'Read the next article',
           goToHomePage: 'Go to Home Page',
+          title: 'Title of the article',
         },
       },
     },
