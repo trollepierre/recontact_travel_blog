@@ -2,13 +2,13 @@ import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import ArticlePage from './ArticlePage.vue'
-// import router from '../router/router'
-// import commentsApi from '../api/comments'
+import router from '../../router/router'
+import commentsApi from '../../services/api/comments'
 import chaptersApi from '../../services/api/chapters'
 import photosApi from '../../services/api/photos'
 import translationsService from '../../services/services/translations'
 
-xdescribe('Component | ArticlePage.vue', () => {
+describe('Component | ArticlePage.vue', () => {
   let localVue
   let wrapper
   let chapters
