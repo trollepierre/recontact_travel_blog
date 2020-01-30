@@ -18,10 +18,10 @@
   },
   "coverageThreshold": {
     "global": {
-      "branches": 50,
-      "functions": 50,
-      "lines": 50,
-      "statements": 50
+      "branches": 54,
+      "functions": 62,
+      "lines": 69,
+      "statements": 69
     }
   },
   "snapshotSerializers": [
