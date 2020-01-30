@@ -27,20 +27,19 @@ describe('Component | ArticlePage.vue', () => {
         title: '60 : Pierre avec les webf',
         imgLink: '../assets/toto.jpg',
         text: ['some text'],
-      }, {
+      },
+      {
         title: '61 : Pierre au Koezio',
         imgLink: '/assets/tata.jpg',
         text: ['some text'],
-      }, {
+      },
+      {
         title: '62 : Pierre au Koezio',
         imgLink: '/assets/titi.jpg',
         text: ['some text'],
       },
     ]
-    photos = [
-      { imgLink: 'url/photo1' },
-      { imgLink: 'url/photo2' },
-    ]
+    photos = [{ imgLink: 'url/photo1' }, { imgLink: 'url/photo2' }]
     photosApi.fetch = jest.fn()
     photosApi.fetch.mockResolvedValue(photos)
     chaptersApi.fetch = jest.fn()
@@ -52,7 +51,11 @@ describe('Component | ArticlePage.vue', () => {
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
-    wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId }) })
+    wrapper = shallowMount(ArticlePage, {
+      localVue,
+      router,
+      data: () => ({ dropboxId }),
+    })
   })
 
   it('should be named "ArticlePage"', () => {
@@ -91,32 +94,56 @@ describe('Component | ArticlePage.vue', () => {
       expect(languages).toEqual(['fr', 'en'])
     })
 
-    describe('each language', () => {
+    describe('each languag' + 'e', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.fr)
 
-        it('contains 4 locales', () => {
-          expect(locales).toHaveLength(4)
-          expect(locales).toEqual([
-            'hereTheGallery',
-            'goToPreviousArticle',
-            'goToNextArticle',
-            'goToHomePage',
-          ])
+        it('contains 5 locales', () => {
+          expect(locales).toHaveLength(5)
+          expect(locales).toMatchInlineSnapshot(
+            [
+              'hereTheGallery',
+              'goToPreviousArticle',
+              'goToNextArticle',
+              'goToHomePage',
+              'title',
+            ],
+            `
+            Object {
+              "0": "hereTheGallery",
+              "1": "goToPreviousArticle",
+              "2": "goToNextArticle",
+              "3": "goToHomePage",
+              "4": "title",
+            }
+          `
+          )
         })
       })
 
       describe('en', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.en)
 
-        it('contains 4 locales', () => {
-          expect(locales).toHaveLength(4)
-          expect(locales).toEqual([
-            'hereTheGallery',
-            'goToPreviousArticle',
-            'goToNextArticle',
-            'goToHomePage',
-          ])
+        it('contains 5 locales', () => {
+          expect(locales).toHaveLength(5)
+          expect(locales).toMatchInlineSnapshot(
+            [
+              'hereTheGallery',
+              'goToPreviousArticle',
+              'goToNextArticle',
+              'goToHomePage',
+              'title',
+            ],
+            `
+            Object {
+              "0": "hereTheGallery",
+              "1": "goToPreviousArticle",
+              "2": "goToNextArticle",
+              "3": "goToHomePage",
+              "4": "title",
+            }
+          `
+          )
         })
       })
     })
