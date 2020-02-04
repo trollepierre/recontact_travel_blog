@@ -193,7 +193,6 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_RECONTACT_API_KEY@git.heroku.com/recontact-api.git master
 
-
 workflows:
   version: 2
   recontact-workflow:
@@ -254,9 +253,7 @@ workflows:
               only: master
       - deploy_recontact_api:
           requires:
-           # - deploy_master
-            - checkout_code
+            - deploy_master
       - deploy_cecile:
           requires:
-           # - deploy_master
-            - checkout_code
+            - deploy_master
