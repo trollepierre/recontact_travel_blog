@@ -139,6 +139,7 @@
       isEmpty,
     },
     i18n: {
+      silentTranslationWarn: true,
       messages: {
         fr: {
           hereTheGallery: 'Voici la galerie photo de cet article  !',

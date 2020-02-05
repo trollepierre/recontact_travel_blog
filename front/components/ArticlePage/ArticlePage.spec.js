@@ -1,18 +1,21 @@
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
+import Vuex from 'vuex'
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import ArticlePage from './ArticlePage.vue'
-import router from '../../router/router'
+import router from '../../test/router/router'
 import commentsApi from '../../services/api/comments'
 import chaptersApi from '../../services/api/chapters'
 import photosApi from '../../services/api/photos'
 import translationsService from '../../services/services/translations'
+import ArticleCard from '../ArticleCard/ArticleCard';
 
 describe('Component | ArticlePage.vue', () => {
   let localVue
   let wrapper
   let chapters
   let photos
+  let store
   const dropboxId = '8'
   const title = 'Pierre au pays des'
   const commentsFromApi = [{ text: 'comment1' }]
@@ -48,12 +51,15 @@ describe('Component | ArticlePage.vue', () => {
     commentsApi.fetch.mockResolvedValue(commentsFromApi)
 
     localVue = createLocalVue()
+    localVue.use(Vuex)
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
+    store = new Vuex.Store({ actions: {}, state: { locale: 'en' } })
     wrapper = shallowMount(ArticlePage, {
       localVue,
       router,
+      store,
       data: () => ({ dropboxId }),
     })
   })
@@ -69,13 +75,13 @@ describe('Component | ArticlePage.vue', () => {
   })
 
   describe('mounted', () => {
-    // xit('should call chapters api to fetch chapters', () => {
-    //   expect(chaptersApi.fetch).toHaveBeenCalledWith(idArticle)
-    // })
-    //
-    // xit('should call photos api to fetch photos', () => {
-    //   expect(photosApi.fetch).toHaveBeenCalledWith(idArticle)
-    // })
+    it('should call chapters api to fetch chapters', () => {
+      expect(chaptersApi.fetch).toHaveBeenCalledWith(dropboxId)
+    })
+
+    it('should call photos api to fetch photos', () => {
+      expect(photosApi.fetch).toHaveBeenCalledWith(dropboxId)
+    })
 
     it('should save chapters from api in data chapters', () => {
       expect(wrapper.vm.chapters).toEqual(chapters)
@@ -94,7 +100,7 @@ describe('Component | ArticlePage.vue', () => {
       expect(languages).toEqual(['fr', 'en'])
     })
 
-    describe('each languag' + 'e', () => {
+    describe('each language', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticlePage.i18n.messages.fr)
 
