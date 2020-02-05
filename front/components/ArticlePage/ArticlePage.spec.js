@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
-import Vuex from 'vuex'
+import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import ArticlePage from './ArticlePage.vue'
@@ -8,7 +8,6 @@ import commentsApi from '../../services/api/comments'
 import chaptersApi from '../../services/api/chapters'
 import photosApi from '../../services/api/photos'
 import translationsService from '../../services/services/translations'
-import ArticleCard from '../ArticleCard/ArticleCard';
 
 describe('Component | ArticlePage.vue', () => {
   let localVue
@@ -71,6 +70,30 @@ describe('Component | ArticlePage.vue', () => {
   describe('template', () => {
     it('should match snapshot', () => {
       expect(wrapper.element).toMatchSnapshot()
+    })
+
+    it('should match snapshot when chapter not fetched', () => {
+      chaptersApi.fetch.mockRejectedValue()
+
+      wrapper = shallowMount(ArticlePage, {
+        localVue,
+        router,
+        store,
+        data: () => ({ dropboxId }),
+      })
+
+      expect(wrapper.element).toMatchSnapshot()
+    })
+
+    it('should add title when defined', () => {
+      wrapper = shallowMount(ArticlePage, {
+        localVue,
+        router,
+        store,
+        data: () => ({ title: 'toto' }),
+      })
+
+      expect(wrapper.find('.article-page__title').text()).toEqual('toto')
     })
   })
 
