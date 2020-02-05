@@ -1,6 +1,6 @@
 import Router from 'vue-router'
 import Vue from 'vue'
-import ArticlePage from '../components/ArticlePage/ArticlePage.vue'
+import ArticlePage from '../../components/ArticlePage/ArticlePage.vue'
 
 Vue.use(Router)
 
