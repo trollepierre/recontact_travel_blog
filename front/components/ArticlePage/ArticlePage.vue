@@ -63,6 +63,7 @@
   import chaptersApi from '../../services/api/chapters'
   import photosApi from '../../services/api/photos'
   import translationsService from '../../services/services/translations'
+  import logger from '../../services/services/logger-service'
 
   export default {
     name: 'ArticlePage',
@@ -74,13 +75,13 @@
     data() {
       return {
         chapters: [{
-            position: 1,
-            frTitle: 'Article en cours de chargement',
-            enTitle: 'Loading article',
-            imgLink: 'loading',
-            frText: ['Veuillez patienter quelques secondes'],
-            enText: ['Please wait just a second'],
-          }],
+          position: 1,
+          frTitle: 'Article en cours de chargement',
+          enTitle: 'Loading article',
+          imgLink: 'loading',
+          frText: ['Veuillez patienter quelques secondes'],
+          enText: ['Please wait just a second'],
+        }],
         photos: [],
         title: '',
         dropboxId: parseInt(this.$route.params.id, 10),
@@ -108,6 +109,9 @@
             this.chapters = article.chapters
             const language = this.$store.state.locale
             this.title = translationsService.getTitle(article, language)
+          })
+          .catch(error => {
+            logger.error(error.message)
           })
       },
       getPhotos() {

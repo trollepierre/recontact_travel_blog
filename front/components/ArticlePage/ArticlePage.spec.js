@@ -2,12 +2,15 @@ import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-d
 import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
+import Vue from 'vue'
 import ArticlePage from './ArticlePage.vue'
 import router from '../../test/router/router'
 import commentsApi from '../../services/api/comments'
 import chaptersApi from '../../services/api/chapters'
 import photosApi from '../../services/api/photos'
 import translationsService from '../../services/services/translations'
+import ChapterCard from '../ChapterCard/ChapterCard.vue'
+import logger from '../../services/services/logger-service'
 
 describe('Component | ArticlePage.vue', () => {
   let localVue
@@ -44,8 +47,6 @@ describe('Component | ArticlePage.vue', () => {
     photos = [{ imgLink: 'url/photo1' }, { imgLink: 'url/photo2' }]
     photosApi.fetch = jest.fn()
     photosApi.fetch.mockResolvedValue(photos)
-    chaptersApi.fetch = jest.fn()
-    chaptersApi.fetch.mockResolvedValue({ title, chapters })
     commentsApi.fetch = jest.fn()
     commentsApi.fetch.mockResolvedValue(commentsFromApi)
 
@@ -55,49 +56,92 @@ describe('Component | ArticlePage.vue', () => {
     localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
     store = new Vuex.Store({ actions: {}, state: { locale: 'en' } })
+  })
+
+  it('should be named "ArticlePage"', () => {
     wrapper = shallowMount(ArticlePage, {
       localVue,
       router,
       store,
       data: () => ({ dropboxId }),
     })
-  })
-
-  it('should be named "ArticlePage"', () => {
     expect(wrapper.name()).toEqual('ArticlePage')
   })
 
   describe('template', () => {
-    it('should match snapshot', () => {
-      expect(wrapper.element).toMatchSnapshot()
+    describe('when chapters are fetched', () => {
+      beforeEach(() => {
+        chaptersApi.fetch = jest.fn()
+        chaptersApi.fetch.mockResolvedValue({ title, chapters })
+        wrapper = shallowMount(ArticlePage, {
+          localVue,
+          router,
+          store,
+          data: () => ({ dropboxId }),
+        })
+      })
+
+      it('should match snapshot', () => {
+        expect(wrapper.element).toMatchSnapshot()
+      })
+
+      it('should add title when defined', () => {
+        wrapper = shallowMount(ArticlePage, {
+          localVue,
+          router,
+          store,
+          data: () => ({ title: 'toto' }),
+        })
+
+        expect(wrapper.find('.article-page__title').text()).toEqual('toto')
+      })
     })
 
-    it('should match snapshot when chapter not fetched', () => {
-      chaptersApi.fetch.mockRejectedValue()
+    describe('when chapters are not fetched', () => {
+      beforeEach(() => {
+        chaptersApi.fetch = jest.fn()
+        chaptersApi.fetch.mockRejectedValue(new Error('error-message'))
+        logger.error = jest.fn()
+        wrapper = shallowMount(ArticlePage, {
+          localVue,
+          router,
+          store,
+          data: () => ({ dropboxId }),
+        })
+      })
+      it('should match snapshot when chapter not fetched', () => {
+        expect(wrapper.element).toMatchSnapshot()
+      })
 
+      it('should contain default chapter when chapter not fetched', () => {
+        expect(wrapper.find(ChapterCard).props().chapter).toEqual({
+          position: 1,
+          frTitle: 'Article en cours de chargement',
+          enTitle: 'Loading article',
+          imgLink: 'loading',
+          frText: ['Veuillez patienter quelques secondes'],
+          enText: ['Please wait just a second'],
+        })
+      })
+
+      it('should log error when chapter not fetched', () => {
+        expect(logger.error).toHaveBeenCalledOnceWith('error-message')
+      })
+    })
+  })
+
+  describe('mounted', () => {
+    beforeEach(() => {
+      chaptersApi.fetch = jest.fn()
+      chaptersApi.fetch.mockResolvedValue({ title, chapters })
       wrapper = shallowMount(ArticlePage, {
         localVue,
         router,
         store,
         data: () => ({ dropboxId }),
       })
-
-      expect(wrapper.element).toMatchSnapshot()
     })
 
-    it('should add title when defined', () => {
-      wrapper = shallowMount(ArticlePage, {
-        localVue,
-        router,
-        store,
-        data: () => ({ title: 'toto' }),
-      })
-
-      expect(wrapper.find('.article-page__title').text()).toEqual('toto')
-    })
-  })
-
-  describe('mounted', () => {
     it('should call chapters api to fetch chapters', () => {
       expect(chaptersApi.fetch).toHaveBeenCalledWith(dropboxId)
     })
