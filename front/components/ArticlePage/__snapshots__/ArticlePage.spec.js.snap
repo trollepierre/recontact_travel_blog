@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
+exports[`Component | ArticlePage.vue template when chapters are fetched should match snapshot 1`] = `
 <div
   class="page"
 >
@@ -117,7 +117,7 @@ exports[`Component | ArticlePage.vue template should match snapshot 1`] = `
 </div>
 `;
 
-exports[`Component | ArticlePage.vue template should match snapshot when chapter not fetched 1`] = `
+exports[`Component | ArticlePage.vue template when chapters are not fetched should match snapshot when chapter not fetched 1`] = `
 <div
   class="page"
 >
@@ -157,7 +157,36 @@ exports[`Component | ArticlePage.vue template should match snapshot when chapter
         <comments-stub />
       </section>
        
-      <!---->
+      <section
+        class="article-page__photo-gallery photo-gallery"
+      >
+        <h2
+          class="photo-gallery__title"
+        >
+          
+          hereTheGallery
+        
+        </h2>
+         
+        <ul
+          class="photo-gallery__list"
+        >
+          <li
+            class="photo__item"
+          >
+            <photo-card-stub
+              photo="[object Object]"
+            />
+          </li>
+          <li
+            class="photo__item"
+          >
+            <photo-card-stub
+              photo="[object Object]"
+            />
+          </li>
+        </ul>
+      </section>
        
       <footer
         class="article-page__footer footer-article"
