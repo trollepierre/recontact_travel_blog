@@ -4,7 +4,7 @@
       <div class="page__container">
         <section class="article-page">
           <h1 class="article-page__title">
-            {{ title }}
+            {{ title || $t("title") }}
           </h1>
           <ul class="chapter__list">
             <li
@@ -63,6 +63,7 @@
   import chaptersApi from '../../services/api/chapters'
   import photosApi from '../../services/api/photos'
   import translationsService from '../../services/services/translations'
+  import logger from '../../services/services/logger-service'
 
   export default {
     name: 'ArticlePage',
@@ -73,7 +74,14 @@
     },
     data() {
       return {
-        chapters: [],
+        chapters: [{
+          position: 1,
+          frTitle: 'Article en cours de chargement',
+          enTitle: 'Loading article',
+          imgLink: 'loading',
+          frText: ['Veuillez patienter quelques secondes'],
+          enText: ['Please wait just a second'],
+        }],
         photos: [],
         title: '',
         dropboxId: parseInt(this.$route.params.id, 10),
@@ -101,6 +109,9 @@
             this.chapters = article.chapters
             const language = this.$store.state.locale
             this.title = translationsService.getTitle(article, language)
+          })
+          .catch(error => {
+            logger.error(error.message)
           })
       },
       getPhotos() {
@@ -132,18 +143,21 @@
       isEmpty,
     },
     i18n: {
+      silentTranslationWarn: true,
       messages: {
         fr: {
           hereTheGallery: 'Voici la galerie photo de cet article  !',
           goToPreviousArticle: 'Voir l’article précédent',
           goToNextArticle: 'Voir l’article suivant',
           goToHomePage: 'Retour à la page d’accueil',
+          title: 'Titre de l’article',
         },
         en: {
           hereTheGallery: 'Here is the photo gallery of this article',
           goToPreviousArticle: 'Read the previous article',
           goToNextArticle: 'Read the next article',
           goToHomePage: 'Go to Home Page',
+          title: 'Title of the article',
         },
       },
     },

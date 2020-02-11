@@ -167,6 +167,32 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact.git master
 
+  deploy_cecile:
+    <<: *common_properties
+    shell: /bin/bash --login
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v2-code-{{ checksum ".circle-cache-key" }}
+      - run:
+          name: Deploy master to Heroku
+          command: |
+            git push https://heroku:$HEROKU_CECILE_API_KEY@git.heroku.com/recontact-cecile.git master
+
+  deploy_recontact_api:
+    <<: *common_properties
+    shell: /bin/bash --login
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v2-code-{{ checksum ".circle-cache-key" }}
+      - run:
+          name: Deploy master to Heroku
+          command: |
+            git push https://heroku:$HEROKU_RECONTACT_API_KEY@git.heroku.com/recontact-api.git master
+
 workflows:
   version: 2
   recontact-workflow:
@@ -225,3 +251,9 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy_recontact_api:
+          requires:
+            - deploy_master
+      - deploy_cecile:
+          requires:
+            - deploy_master

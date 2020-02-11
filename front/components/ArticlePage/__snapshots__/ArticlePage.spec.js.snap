@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | ArticlePage.vue template when chapters are fetched should match snapshot 1`] = `
+<div
+  class="page"
+>
+  <main
+    class="page__body"
+  >
+    <div
+      class="page__container"
+    >
+      <section
+        class="article-page"
+      >
+        <h1
+          class="article-page__title"
+        >
+          
+          title
+        
+        </h1>
+         
+        <ul
+          class="chapter__list"
+        >
+          <li
+            class="chapter__item"
+          >
+            <chapter-card-stub
+              chapter="[object Object]"
+            />
+          </li>
+          <li
+            class="chapter__item"
+          >
+            <chapter-card-stub
+              chapter="[object Object]"
+            />
+          </li>
+          <li
+            class="chapter__item"
+          >
+            <chapter-card-stub
+              chapter="[object Object]"
+            />
+          </li>
+        </ul>
+      </section>
+       
+      <section
+        class="article-page__forum forum"
+      >
+        <comments-stub />
+      </section>
+       
+      <section
+        class="article-page__photo-gallery photo-gallery"
+      >
+        <h2
+          class="photo-gallery__title"
+        >
+          
+          hereTheGallery
+        
+        </h2>
+         
+        <ul
+          class="photo-gallery__list"
+        >
+          <li
+            class="photo__item"
+          >
+            <photo-card-stub
+              photo="[object Object]"
+            />
+          </li>
+          <li
+            class="photo__item"
+          >
+            <photo-card-stub
+              photo="[object Object]"
+            />
+          </li>
+        </ul>
+      </section>
+       
+      <footer
+        class="article-page__footer footer-article"
+      >
+        <button
+          class="footer-article__home"
+        >
+          
+          goToHomePage
+        
+        </button>
+         
+        <button
+          class="footer-article__previous"
+        >
+          
+          goToPreviousArticle
+        
+        </button>
+         
+        <button
+          class="footer-article__next"
+        >
+          
+          goToNextArticle
+        
+        </button>
+      </footer>
+    </div>
+  </main>
+</div>
+`;
+
+exports[`Component | ArticlePage.vue template when chapters are not fetched should match snapshot when chapter not fetched 1`] = `
+<div
+  class="page"
+>
+  <main
+    class="page__body"
+  >
+    <div
+      class="page__container"
+    >
+      <section
+        class="article-page"
+      >
+        <h1
+          class="article-page__title"
+        >
+          
+          title
+        
+        </h1>
+         
+        <ul
+          class="chapter__list"
+        >
+          <li
+            class="chapter__item"
+          >
+            <chapter-card-stub
+              chapter="[object Object]"
+            />
+          </li>
+        </ul>
+      </section>
+       
+      <section
+        class="article-page__forum forum"
+      >
+        <comments-stub />
+      </section>
+       
+      <section
+        class="article-page__photo-gallery photo-gallery"
+      >
+        <h2
+          class="photo-gallery__title"
+        >
+          
+          hereTheGallery
+        
+        </h2>
+         
+        <ul
+          class="photo-gallery__list"
+        >
+          <li
+            class="photo__item"
+          >
+            <photo-card-stub
+              photo="[object Object]"
+            />
+          </li>
+          <li
+            class="photo__item"
+          >
+            <photo-card-stub
+              photo="[object Object]"
+            />
+          </li>
+        </ul>
+      </section>
+       
+      <footer
+        class="article-page__footer footer-article"
+      >
+        <button
+          class="footer-article__home"
+        >
+          
+          goToHomePage
+        
+        </button>
+         
+        <button
+          class="footer-article__previous"
+        >
+          
+          goToPreviousArticle
+        
+        </button>
+         
+        <button
+          class="footer-article__next"
+        >
+          
+          goToNextArticle
+        
+        </button>
+      </footer>
+    </div>
+  </main>
+</div>
+`;
