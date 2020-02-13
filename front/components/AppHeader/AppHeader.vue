@@ -62,6 +62,8 @@
   </div>
 </template>
 <script>
+  import { isWww } from '../../services'
+
   export default {
     name: 'AppHeader',
     data: () => ({ showNavBarButton: false, otherUrl: '' }),
@@ -80,7 +82,7 @@
       },
     },
     mounted() {
-      if (navigator.language.substring(0, 2) === 'fr' && window.location.host === 'www.recontact.me') {
+      if (navigator.language.substring(0, 2) === 'fr' && isWww()) {
         alert('La version française du blog est désormais disponible sur https://fr.recontact.me, cliquez sur le lien en haut à droite pour retrouver le blog en français.')
       }
     },
@@ -98,6 +100,7 @@
       },
     },
     i18n: {
+      silentTranslationWarn: true,
       messages: {
         fr: {
           subscribe: 'S’abonner',

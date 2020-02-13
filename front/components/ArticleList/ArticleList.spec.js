@@ -1,4 +1,4 @@
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 
@@ -6,6 +6,9 @@ import ArticleList from './ArticleList.vue'
 import articlesApi from '../../services/api/articles'
 import positionsApi from '../../services/api/positions'
 import articlesSorter from '../../services/services/articlesSorter'
+import { isCecile } from '../../services'
+
+jest.mock('../../services')
 
 describe('Component | ArticleList.vue', () => {
   let localVue
@@ -51,6 +54,17 @@ describe('Component | ArticleList.vue', () => {
     it('should match snapshot', () => {
       expect(wrapper.element).toMatchSnapshot()
     })
+
+    it('should remove last position when cecile website', () => {
+      // Given
+      isCecile.mockImplementation(() => true)
+
+      // When
+      wrapper = shallowMount(ArticleList, { localVue, router })
+
+      // Then
+      expect(wrapper.find('.article-results__title.h3').element).toBeUndefined()
+    })
   })
 
   describe('mounted', () => {
@@ -77,13 +91,43 @@ describe('Component | ArticleList.vue', () => {
 
       wrapper = shallowMount(ArticleList, { localVue, router, propsData })
 
-      expect(wrapper.vm.title).toEqual('fixWebsite')
+      expect(wrapper.vm.hiddenTitle).toEqual('fixWebsite')
     })
 
     it('should return "Les articles du voyage" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue, router })
 
-      expect(wrapper.vm.title).toEqual('theArticlesOfTheTrip')
+      expect(wrapper.vm.hiddenTitle).toEqual('theArticlesOfTheTrip')
+    })
+
+    it('should return "mon cadeau de saint val" when site is cecile', () => {
+      isCecile.mockImplementation(() => true)
+
+      wrapper = shallowMount(ArticleList, { localVue, router })
+
+      expect(wrapper.vm.title).toEqual('Mon petit Cadeau de Saint Valentin')
+    })
+
+    it('should return "title" by default', () => {
+      wrapper = shallowMount(ArticleList, { localVue, router })
+
+      expect(wrapper.vm.title).toEqual('title')
+    })
+
+    it('should return "recharge site" when site is in cecile', () => {
+      isCecile.mockImplementation(() => true)
+
+      wrapper = shallowMount(ArticleList, { localVue, router })
+
+      expect(wrapper.vm.subtitle).toEqual(
+        'recharge le site si jamais l’article ne s’est pas chargé'
+      )
+    })
+
+    it('should return "lastKnownPosition" by default', () => {
+      wrapper = shallowMount(ArticleList, { localVue, router })
+
+      expect(wrapper.vm.subtitle).toEqual('lastKnownPosition')
     })
   })
 
@@ -116,13 +160,15 @@ describe('Component | ArticleList.vue', () => {
 
         it('contains 5 locales', () => {
           expect(locales).toHaveLength(5)
-          expect(locales).toEqual([
-            'fixWebsite',
-            'theArticlesOfTheTrip',
-            'lastPosition',
-            'subtitle',
-            'lastKnownPosition',
-          ])
+          expect(locales).toMatchInlineSnapshot(`
+            Array [
+              "fixWebsite",
+              "theArticlesOfTheTrip",
+              "lastPosition",
+              "title",
+              "lastKnownPosition",
+            ]
+          `)
         })
       })
 
@@ -131,13 +177,15 @@ describe('Component | ArticleList.vue', () => {
 
         it('contains 5 locales', () => {
           expect(locales).toHaveLength(5)
-          expect(locales).toEqual([
-            'fixWebsite',
-            'theArticlesOfTheTrip',
-            'lastPosition',
-            'subtitle',
-            'lastKnownPosition',
-          ])
+          expect(locales).toMatchInlineSnapshot(`
+            Array [
+              "fixWebsite",
+              "theArticlesOfTheTrip",
+              "lastPosition",
+              "title",
+              "lastKnownPosition",
+            ]
+          `)
         })
       })
     })

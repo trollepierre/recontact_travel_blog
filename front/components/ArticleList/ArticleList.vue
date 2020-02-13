@@ -4,14 +4,16 @@
       <div class="page__container">
         <section class="article-results">
           <h1 class="article-results__title hidden">
-            {{ title }}
+            {{ hiddenTitle }}
           </h1>
           <p class="article-results__title h1">
-            {{ $t("subtitle") }}
+            {{ title }}
           </p>
           <p class="article-results__title h2">
-            {{ $t("lastKnownPosition") }}
-            <span class="article-results__title h3">
+            {{ subtitle }}
+            <span
+              v-if="!isCecile"
+              class="article-results__title h3">
               {{ lastPosition }}
             </span>
           </p>
@@ -40,6 +42,7 @@
   import articlesApi from '../../services/api/articles'
   import positionsApi from '../../services/api/positions'
   import articlesSorter from '../../services/services/articlesSorter'
+  import { isCecile } from '../../services'
 
   export default {
     name: 'ArticleList',
@@ -57,8 +60,17 @@
       }
     },
     computed: {
-      title() {
+      hiddenTitle() {
         return this.adminMode ? this.$t('fixWebsite') : this.$t('theArticlesOfTheTrip')
+      },
+      title() {
+        return isCecile() ? 'Mon petit Cadeau de Saint Valentin' : this.$t('title')
+      },
+      subtitle() {
+        return isCecile() ? 'recharge le site si jamais l’article ne s’est pas chargé' : this.$t('lastKnownPosition')
+      },
+      isCecile() {
+        return isCecile()
       },
     },
     mounted() {
@@ -84,19 +96,20 @@
     },
 
     i18n: {
+      silentTranslationWarn: true,
       messages: {
         fr: {
           fixWebsite: 'Réparer le site',
           theArticlesOfTheTrip: 'Blog de voyage de Pierre Trollé et Benoît Lefebvre après un tour du monde et d’autres aventures',
           lastPosition: 'Dernière position  :',
-          subtitle: 'Pierre en voyage',
+          title: 'Pierre en voyage',
           lastKnownPosition: 'Dernière position connue  :',
         },
         en: {
           fixWebsite: 'Fix the website',
           theArticlesOfTheTrip: 'Travel blog of Pierre Trollé and Benoît Lefebvre after a world trip and other adventures',
           lastPosition: 'Last position:',
-          subtitle: 'Traveling Pierre',
+          title: 'Traveling Pierre',
           lastKnownPosition: 'Last known position:',
         },
       },
