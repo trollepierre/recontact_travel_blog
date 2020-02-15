@@ -9866,10 +9866,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
 
-vue-analytics@5.20.1:
-  version "5.20.1"
-  resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.20.1.tgz#39e3d45d7cb3fddf76da7c519b4fe7da95744ad4"
-  integrity sha512-szxk1OuiGqm2AowYAfS+AeWO7t4t9whZzSvmDG4yktNIpsbM+R0EXDZaeLKg26XWayjrt1InycBe153QUIYF4w==
+vue-analytics@5.22.1:
+  version "5.22.1"
+  resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.22.1.tgz#9d6b32da56daee1b9dfb23a267b50349a03f710f"
+  integrity sha512-HPKQMN7gfcUqS5SxoO0VxqLRRSPkG1H1FqglsHccz6BatBatNtm/Vyy8brApktZxNCfnAkrSVDpxg3/FNDeOgQ==
 
 vue-client-only@^2.0.0:
   version "2.0.0"
