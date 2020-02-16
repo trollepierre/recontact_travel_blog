@@ -64,6 +64,7 @@ module.exports = {
     'no-shadow': 'warn',
     'no-undef': 'warn',
     'import/no-extraneous-dependencies': 'warn',
-    'import/no-unresolved': 'warn'
+    'import/no-unresolved': 'warn',
+    'import/extensions': 'warn'
   }
 };
