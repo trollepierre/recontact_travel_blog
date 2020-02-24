@@ -22,19 +22,19 @@ describe('Unit | API | subscriptions api', () => {
       const email = 'pierre@recontact.me'
 
       const expectedUrl = `${env('API_URL')}api/subscriptions`
-      const expectedBody = { email, lang: 'en' }
-      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
+      const expectedBody = { email, lang: 'en', json: true }
 
       const promise = api.subscribe(email)
 
       return promise.then(() => {
-        expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedBody, expectedOptions)
+        expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedBody)
       })
     })
 
     it('should return a rejected promise when an error is thrown', done => {
       axios.post.mockRejectedValue(new Error('some error'))
       const email = 'pierre@recontact.me'
+      console.error = jest.fn()
 
       const promise = api.subscribe(email)
 
