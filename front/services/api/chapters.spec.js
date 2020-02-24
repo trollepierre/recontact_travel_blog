@@ -23,7 +23,7 @@ describe('Unit | API | chapters api', () => {
 
     it('should fetch API with the good params', () => {
       const expectedUrl = `${env('API_URL')}api/articles/${idArticle}`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
+      const expectedOptions = { json: true }
 
       const promise = chaptersApi.fetch(idArticle)
 
@@ -43,6 +43,7 @@ describe('Unit | API | chapters api', () => {
     it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
       axios.get.mockRejectedValue(new Error('some error'))
+      console.error = jest.fn()
 
       const promise = chaptersApi.fetch(accessToken)
 
