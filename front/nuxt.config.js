@@ -54,8 +54,8 @@ const headFr = {
   ],
 }
 
-const articleRoutes = [...Array(100).keys()]
-  .map((val, index) => `/articles/${index}`)
+const articleRoutes = [...Array(92).keys()]
+  .map((val, index) => `/articles/${index + 1}`)
 
 module.exports = {
   env: { NUXT_ENV_API_URL: process.env.NUXT_ENV_API_URL || 'https://recontact.herokuapp.com' },
