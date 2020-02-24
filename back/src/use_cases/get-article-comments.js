@@ -1,7 +1,12 @@
 import commentRepository from '../domain/repositories/comment-repository'
+import { formatDateWithLongEndianLongFormat } from '../domain/utils/date/date-utils'
 
-const getComments = dropboxId => {
-  return commentRepository.getAllById(dropboxId)
+const getComments = async dropboxId => {
+  const comments = await commentRepository.getAllById(dropboxId)
+  return comments.map(comment => ({
+    ...comment,
+    createdAt: formatDateWithLongEndianLongFormat(new Date(comment.createdAt)),
+  }))
 }
 
 export default {

@@ -14,7 +14,6 @@
 </template>
 
 <script>
-  import { formatDateWithLongEndianLongFormat } from '../../services/utils/date/date-utils'
   import translationService from '../../services/services/translations'
 
   export default {
@@ -22,7 +21,7 @@
     props: { comment: { type: Object, default: () => {} } },
     computed: {
       commentAuthor() {
-        const date = formatDateWithLongEndianLongFormat(new Date(this.comment.createdAt))
+        const date = this.comment.createdAt
         if (translationService.isFrancophone()) {
           return `De ${this.comment.author} - ${date}`
         }
