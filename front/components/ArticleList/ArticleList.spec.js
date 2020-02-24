@@ -1,4 +1,3 @@
-import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 
@@ -13,12 +12,6 @@ jest.mock('../../services')
 describe('Component | ArticleList.vue', () => {
   let localVue
   let wrapper
-  const router = {
-    init: jest.fn(),
-    push: jest.fn(),
-    history: {},
-  }
-
   const article = (dropboxId = 59) => ({
     dropboxId,
     frTitle: 'Le titre',
@@ -40,10 +33,9 @@ describe('Component | ArticleList.vue', () => {
     articlesApi.fetchAll.mockResolvedValue(fetchedArticles)
     localVue = createLocalVue()
     localVue.use(VueI18n)
-    localVue.use(VueRouter)
     localVue.use(VueAnalytics, { id: '12' })
     const propsData = { adminMode: true }
-    wrapper = shallowMount(ArticleList, { localVue, router, propsData })
+    wrapper = shallowMount(ArticleList, { localVue, propsData })
   })
 
   it('should be named "ArticleList"', () => {
@@ -60,7 +52,7 @@ describe('Component | ArticleList.vue', () => {
       isCecile.mockImplementation(() => true)
 
       // When
-      wrapper = shallowMount(ArticleList, { localVue, router })
+      wrapper = shallowMount(ArticleList, { localVue })
 
       // Then
       expect(wrapper.find('.article-results__title.h3').element).toBeUndefined()
@@ -89,13 +81,13 @@ describe('Component | ArticleList.vue', () => {
     it('should return "Réparer le site" when site is in adminMode', () => {
       const propsData = { adminMode: true }
 
-      wrapper = shallowMount(ArticleList, { localVue, router, propsData })
+      wrapper = shallowMount(ArticleList, { localVue, propsData })
 
       expect(wrapper.vm.hiddenTitle).toEqual('fixWebsite')
     })
 
     it('should return "Les articles du voyage" by default', () => {
-      wrapper = shallowMount(ArticleList, { localVue, router })
+      wrapper = shallowMount(ArticleList, { localVue })
 
       expect(wrapper.vm.hiddenTitle).toEqual('theArticlesOfTheTrip')
     })
@@ -103,13 +95,13 @@ describe('Component | ArticleList.vue', () => {
     it('should return "mon cadeau de saint val" when site is cecile', () => {
       isCecile.mockImplementation(() => true)
 
-      wrapper = shallowMount(ArticleList, { localVue, router })
+      wrapper = shallowMount(ArticleList, { localVue })
 
       expect(wrapper.vm.title).toEqual('Mon petit Cadeau de Saint Valentin')
     })
 
     it('should return "title" by default', () => {
-      wrapper = shallowMount(ArticleList, { localVue, router })
+      wrapper = shallowMount(ArticleList, { localVue })
 
       expect(wrapper.vm.title).toEqual('title')
     })
@@ -117,7 +109,7 @@ describe('Component | ArticleList.vue', () => {
     it('should return "recharge site" when site is in cecile', () => {
       isCecile.mockImplementation(() => true)
 
-      wrapper = shallowMount(ArticleList, { localVue, router })
+      wrapper = shallowMount(ArticleList, { localVue })
 
       expect(wrapper.vm.subtitle).toEqual(
         'recharge le site si jamais l’article ne s’est pas chargé'
@@ -125,7 +117,7 @@ describe('Component | ArticleList.vue', () => {
     })
 
     it('should return "lastKnownPosition" by default', () => {
-      wrapper = shallowMount(ArticleList, { localVue, router })
+      wrapper = shallowMount(ArticleList, { localVue })
 
       expect(wrapper.vm.subtitle).toEqual('lastKnownPosition')
     })

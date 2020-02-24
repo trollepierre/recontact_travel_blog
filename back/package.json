@@ -4,9 +4,9 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn clean:dist && babel src --out-dir dist/src && babel app.js index.js --out-dir dist",
-    "clean": "yarn clean:dependencies && yarn clean:db  && yarn clean:dist",
-    "clean:db": "rm src/db/data.development.sqlite",
-    "clean:dependencies": "rm -rf node_modules",
+    "clean": "yarn clean:dependencies && yarn clean:db && yarn clean:dist",
+    "clean:db": "rimraf src/db/data.development.sqlite",
+    "clean:dependencies": "rimraf node_modules",
     "clean:dist": "rimraf dist && mkdirp dist",
     "configure": "./tools/setup/setup.sh",
     "db": "./node_modules/.bin/sequelize",

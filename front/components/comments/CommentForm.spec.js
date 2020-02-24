@@ -1,28 +1,21 @@
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
 import CommentForm from './CommentForm.vue'
-// import router from '../../router/router'
-// import photosApi from '../../api/photos'
-// import chaptersApi from '../../api/chapters'
+import router from '../../test/router/router'
 import commentsApi from '../../services/api/comments'
 import notificationsService from '../../services/services/notifications'
-// import translationsService from '../../services/translations'
 
-xdescribe('Component | CommentForm.vue', () => {
+describe('Component | CommentForm.vue', () => {
   let localVue
   let wrapper
   let chapters
   let photos
+
   const dropboxId = '8'
-  const title = 'Pierre au pays des'
   const commentsFromApi = [{ text: 'comment1' }]
 
   beforeEach(() => {
-    translationsService.getChapterTitle = jest.fn()
-    translationsService.getChapterTitle.mockReturnValue('My title')
-    translationsService.getChapterText = jest.fn()
-    translationsService.getChapterText.mockReturnValue(['one text'])
     chapters = [
       {
         title: '60 : Pierre avec les webf',
@@ -42,10 +35,6 @@ xdescribe('Component | CommentForm.vue', () => {
       { imgLink: 'url/photo1' },
       { imgLink: 'url/photo2' },
     ]
-    photosApi.fetch = jest.fn()
-    photosApi.fetch.mockResolvedValue(photos)
-    chaptersApi.fetch = jest.fn()
-    chaptersApi.fetch.mockResolvedValue({ title, chapters })
     commentsApi.fetch = jest.fn()
     commentsApi.fetch.mockResolvedValue(commentsFromApi)
 
