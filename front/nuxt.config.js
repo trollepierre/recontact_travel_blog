@@ -1,6 +1,9 @@
 require('dotenv').config()
 
 const headEn = {
+  htmlAttrs: {
+    lang: 'en',
+  },
   title: 'Recontact.Me - Travelling Blog',
   meta: [
     { charset: 'utf-8' },
@@ -25,6 +28,9 @@ const headEn = {
 }
 
 const headFr = {
+  htmlAttrs: {
+    lang: 'fr',
+  },
   title: 'Recontact.Me - Blog de Voyage',
   meta: [
     { charset: 'utf-8' },
