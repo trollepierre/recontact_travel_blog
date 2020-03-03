@@ -13,8 +13,16 @@
       <div
         class="article__content"
         @click.prevent.once="viewArticle">
+        <template v-if="lazy">
+          <img
+            v-lazy="article.imgLink"
+            :alt="articleTitle"
+            class="article__image"
+            width="200">
+          <div v-lazy:background-image="article.imgLink"/>
+        </template>
         <img
-          loading="lazy"
+          v-else
           :src="article.imgLink"
           :alt="articleTitle"
           class="article__image"
@@ -65,6 +73,7 @@
     props: {
       adminMode: { type: Boolean, default: () => false },
       article: { type: Object, default: () => {} },
+      lazy: { type: Boolean, default: () => true },
     },
     data() {
       return {
@@ -138,6 +147,7 @@
     },
 
     i18n: {
+      silentTranslationWarn: true,
       messages: {
         fr: {
           repairArticle: 'Réparer l’article',
