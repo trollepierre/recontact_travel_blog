@@ -27,6 +27,7 @@
               class="article-results__item">
               <article-card
                 :article="article"
+                :lazy="isLazyArticle(article.dropboxId)"
                 :admin-mode="adminMode"/>
             </li>
           </ul>
@@ -37,12 +38,12 @@
 </template>
 
 <script>
-  import ArticleCard from '../ArticleCard/ArticleCard.vue'
-  import AdminDashboard from '../AdminDashboard/AdminDashboard.vue'
-  import articlesApi from '../../services/api/articles'
-  import positionsApi from '../../services/api/positions'
-  import articlesSorter from '../../services/services/articlesSorter'
-  import { isCecile } from '../../services'
+  import ArticleCard from '../ArticleCard/ArticleCard.vue';
+  import AdminDashboard from '../AdminDashboard/AdminDashboard.vue';
+  import articlesApi from '../../services/api/articles';
+  import positionsApi from '../../services/api/positions';
+  import articlesSorter from '../../services/services/articlesSorter';
+  import { isCecile } from '../../services';
 
   export default {
     name: 'ArticleList',
@@ -71,6 +72,9 @@
       },
       isCecile() {
         return isCecile()
+      },
+      isLazyArticle(id) {
+        return id < this.articles.length - 8
       },
     },
     mounted() {
