@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
-import VueAnalytics from 'vue-analytics'
+import VueLazyload from 'vue-lazyload'
 import VueI18n from 'vue-i18n'
 
 import ArticleCard from './ArticleCard.vue'
@@ -27,8 +27,8 @@ describe('Component | ArticleCard.vue', () => {
   beforeEach(() => {
     localVue = createLocalVue()
     localVue.use(VueI18n)
+    localVue.use(VueLazyload)
     localVue.use(VueRouter)
-    localVue.use(VueAnalytics, { id: '12' })
     localVue.use(Vuex)
 
     article = {
@@ -58,6 +58,15 @@ describe('Component | ArticleCard.vue', () => {
 
     describe('template', () => {
       it('should match snapshot', () => {
+        expect(wrapper.element).toMatchSnapshot()
+      })
+
+      it('should match snapshot when lazy is false', () => {
+        propsData = {
+          article,
+          lazy: false,
+        }
+        wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
         expect(wrapper.element).toMatchSnapshot()
       })
 
@@ -157,6 +166,12 @@ describe('Component | ArticleCard.vue', () => {
         })
 
         it('should redirect to /article/id', () => {
+          localVue = createLocalVue()
+          localVue.use(VueI18n)
+          localVue.use(VueRouter)
+          localVue.use(Vuex)
+          const consoleError = console.error
+          console.error = jest.fn()
           articlesApi.update.mockResolvedValue({})
           wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
 
@@ -164,6 +179,8 @@ describe('Component | ArticleCard.vue', () => {
 
           return Vue.nextTick().then(() => {
             expect(router.push).toHaveBeenCalledWith('/articles/58')
+
+            console.error = consoleError
           })
         })
 
