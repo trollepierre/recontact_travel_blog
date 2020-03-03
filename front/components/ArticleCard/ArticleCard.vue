@@ -14,6 +14,7 @@
         class="article__content"
         @click.prevent.once="viewArticle">
         <img
+          loading="lazy"
           :src="article.imgLink"
           :alt="articleTitle"
           class="article__image"
