@@ -1,11 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import VueRouter from 'vue-router'
 import VueLazyload from 'vue-lazyload'
 import VueI18n from 'vue-i18n'
 
 import ArticleCard from './ArticleCard.vue'
-
 import articlesApi from '../../services/api/articles'
 import notificationsService from '../../services/services/notifications'
 import translationsService from '../../services/services/translations'

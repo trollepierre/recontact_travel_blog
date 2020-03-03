@@ -1,12 +1,11 @@
 import VueI18n from 'vue-i18n'
-import VueAnalytics from 'vue-analytics'
 
 import ArticleList from './ArticleList.vue'
 import articlesApi from '../../services/api/articles'
 import positionsApi from '../../services/api/positions'
 import articlesSorter from '../../services/services/articlesSorter'
 import { isCecile } from '../../services'
-import ArticleCard from '../ArticleCard/ArticleCard'
+import ArticleCard from '../ArticleCard/ArticleCard.vue'
 
 jest.mock('../../services')
 
@@ -34,7 +33,6 @@ describe('Component | ArticleList.vue', () => {
     articlesApi.fetchAll.mockResolvedValue(fetchedArticles)
     localVue = createLocalVue()
     localVue.use(VueI18n)
-    localVue.use(VueAnalytics, { id: '12' })
     const propsData = { adminMode: true }
     wrapper = shallowMount(ArticleList, { localVue, propsData })
   })
