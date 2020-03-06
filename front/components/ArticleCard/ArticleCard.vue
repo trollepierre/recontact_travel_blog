@@ -27,7 +27,7 @@
           v-else
           :src="article.imgLink"
           :alt="articleTitle"
-          class="article__image"
+          class="article__image important"
           width="200">
       </div>
       <footer class="article__footer">
@@ -181,7 +181,7 @@
 </script>
 
 <style scoped>
-  .article__image[lazy="loaded"] {
+  .article__image[lazy="loaded"], .important {
     max-width: 100%;
     max-height: 40vw;
     width: 200px;
@@ -189,7 +189,7 @@
   }
 
   @media only screen and (max-width: 640px) {
-    .article__image[lazy="loaded"] {
+    .article__image[lazy="loaded"], .important {
       max-height: 100%;
       width: 200px;
       height: 150px;
