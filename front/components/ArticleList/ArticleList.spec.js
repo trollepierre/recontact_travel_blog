@@ -56,7 +56,7 @@ describe('Component | ArticleList.vue', () => {
       ]
 
       // When
-      wrapper = await shallowMount(ArticleList, { localVue, router, data(){ return { articles }} })
+      wrapper = await shallowMount(ArticleList, { localVue, data(){ return { articles }} })
 
       expect(wrapper.findAll(ArticleCard).at(7).props().lazy).toEqual(false)
       expect(wrapper.findAll(ArticleCard).at(8).props().lazy).toEqual(true)
