@@ -1,11 +1,11 @@
 import VueI18n from 'vue-i18n'
-import VueAnalytics from 'vue-analytics'
 
 import ArticleList from './ArticleList.vue'
 import articlesApi from '../../services/api/articles'
 import positionsApi from '../../services/api/positions'
 import articlesSorter from '../../services/services/articlesSorter'
 import { isCecile } from '../../services'
+import ArticleCard from '../ArticleCard/ArticleCard.vue'
 
 jest.mock('../../services')
 
@@ -33,7 +33,6 @@ describe('Component | ArticleList.vue', () => {
     articlesApi.fetchAll.mockResolvedValue(fetchedArticles)
     localVue = createLocalVue()
     localVue.use(VueI18n)
-    localVue.use(VueAnalytics, { id: '12' })
     const propsData = { adminMode: true }
     wrapper = shallowMount(ArticleList, { localVue, propsData })
   })
@@ -45,6 +44,22 @@ describe('Component | ArticleList.vue', () => {
   describe('template', () => {
     it('should match snapshot', () => {
       expect(wrapper.element).toMatchSnapshot()
+    })
+
+    it('should contain lazy when more than 9 articles', async () => {
+      // Given
+      const articles = [ article('9'),
+        article('8'), article('7'),
+        article('6'), article('5'),
+        article('4'), article('3'),
+        article('2'), article('1'),
+      ]
+
+      // When
+      wrapper = await shallowMount(ArticleList, { localVue, data(){ return { articles }} })
+
+      expect(wrapper.findAll(ArticleCard).at(7).props().lazy).toEqual(false)
+      expect(wrapper.findAll(ArticleCard).at(8).props().lazy).toEqual(true)
     })
 
     it('should remove last position when cecile website', () => {

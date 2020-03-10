@@ -11,6 +11,80 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
       class="article__header"
     >
       <a
+        class="article__link"
+        href="/articles/58"
+      >
+        <h2
+          class="article__title"
+        >
+          
+          Pierre somewhere
+        
+        </h2>
+      </a>
+    </header>
+     
+    <div
+      class="article__content"
+    >
+      <div>
+        <img
+          alt="Pierre somewhere"
+          class="article__image"
+          data-src="webf"
+          lazy="loading"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        />
+         
+        <div
+          data-src="webf"
+          lazy="loading"
+          style="background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);"
+        />
+      </div>
+    </div>
+     
+    <footer
+      class="article__footer"
+    >
+      <button
+        class="article__view-button article__footer__button"
+      >
+        
+          goToArticle
+        
+      </button>
+       
+      <a
+        class="article__dropbox"
+        href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0"
+        target="_blank"
+      >
+        <button
+          class="article__dropbox-button article__footer__button"
+        >
+          
+            viewGallery
+          
+        </button>
+      </a>
+    </footer>
+  </article>
+</div>
+`;
+
+exports[`Component | ArticleCard.vue when adminMode is not defined template should match snapshot when lazy is false 1`] = `
+<div
+  class="article-card"
+>
+  <article
+    class="article"
+  >
+    <header
+      class="article__header"
+    >
+      <a
+        class="article__link"
         href="/articles/58"
       >
         <h2
@@ -28,7 +102,7 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
     >
       <img
         alt="Pierre somewhere"
-        class="article__image"
+        class="article__image important"
         src="webf"
         width="200"
       />
@@ -38,7 +112,7 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
       class="article__footer"
     >
       <button
-        class="article__view-button"
+        class="article__view-button article__footer__button"
       >
         
           goToArticle
@@ -51,7 +125,7 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
         target="_blank"
       >
         <button
-          class="article__dropbox-button"
+          class="article__dropbox-button article__footer__button"
         >
           
             viewGallery

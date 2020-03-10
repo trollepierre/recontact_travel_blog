@@ -1,10 +1,16 @@
 import { createLocalVue, shallowMount, mount, RouterLinkStub } from '@vue/test-utils'
+import Vue from 'vue' // eslint-disable-line import/no-extraneous-dependencies
+import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
+import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 
 // Export vue-test-utils methods globally
 global.RouterLinkStub = RouterLinkStub
 global.createLocalVue = createLocalVue
 global.shallowMount = shallowMount
 global.mount = mount
+global.Vue = Vue
+global.Vuex = Vuex
+global.VueRouter = VueRouter
 
 expect.extend({
   toHaveBeenDispatchedToStoreWith(received, argument) {

@@ -27,6 +27,7 @@
               class="article-results__item">
               <article-card
                 :article="article"
+                :lazy="isLazyArticle(article.dropboxId)"
                 :admin-mode="adminMode"/>
             </li>
           </ul>
@@ -92,6 +93,9 @@
       getLastPosition() {
         positionsApi.fetchLast()
           .then(this.updateLastPositionData)
+      },
+      isLazyArticle(id) {
+        return id < this.articles.length - 7
       },
     },
 

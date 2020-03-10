@@ -1,9 +1,10 @@
-<template>
+<template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <div class="article-card">
     <article class="article">
       <header class="article__header">
         <a
           :href="articleUrl"
+          class="article__link"
           @click.prevent.once="viewArticle">
           <h2 class="article__title">
             {{ articleTitle }}
@@ -13,30 +14,40 @@
       <div
         class="article__content"
         @click.prevent.once="viewArticle">
+        <template v-if="lazy">
+          <div ref="container">
+            <img
+              v-lazy="article.imgLink"
+              :alt="articleTitle"
+              class="article__image">
+            <div v-lazy:background-image="article.imgLink"/>
+          </div>
+        </template>
         <img
+          v-else
           :src="article.imgLink"
           :alt="articleTitle"
-          class="article__image"
+          class="article__image important"
           width="200">
       </div>
       <footer class="article__footer">
         <template v-if="adminMode">
           <button
             :disabled="isUpdateClicked"
-            class="article__update-button"
+            class="article__update-button article__footer__button"
             @click.prevent.once="updateArticle">
             {{ $t("repairArticle") }}
           </button>
           <button
             :disabled="isDeleteClicked"
-            class="article__delete-button article__footer_hidden"
+            class="article__delete-button article__footer_hidden article__footer__button"
             @click.prevent.once="deleteArticle">
             {{ $t("deleteArticle") }}
           </button>
         </template>
         <template v-else>
           <button
-            class="article__view-button"
+            class="article__view-button article__footer__button"
             @click.prevent.once="viewArticle">
             {{ $t("goToArticle") }}
           </button>
@@ -44,7 +55,7 @@
             :href="article.galleryLink"
             target="_blank"
             class="article__dropbox">
-            <button class="article__dropbox-button">
+            <button class="article__dropbox-button article__footer__button">
               {{ $t("viewGallery") }}
             </button>
           </a>
@@ -64,6 +75,7 @@
     props: {
       adminMode: { type: Boolean, default: () => false },
       article: { type: Object, default: () => {} },
+      lazy: { type: Boolean, default: () => true },
     },
     data() {
       return {
@@ -137,6 +149,7 @@
     },
 
     i18n: {
+      silentTranslationWarn: true,
       messages: {
         fr: {
           repairArticle: 'Réparer l’article',
@@ -168,38 +181,26 @@
 </script>
 
 <style scoped>
-  h2 {
-    font-weight: normal;
-  }
-
-  img.article__image {
+  .article__image[lazy="loaded"], .important {
     max-width: 100%;
     max-height: 40vw;
+    width: 200px;
+    height: 150px;
   }
 
   @media only screen and (max-width: 640px) {
-    img.article__image {
+    .article__image[lazy="loaded"], .important {
       max-height: 100%;
+      width: 200px;
+      height: 150px;
     }
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-    display: block;
   }
 
   .article {
     min-width: 260px;
     max-width: 260px;
     background: #ffffff;
-    border-radius: 4px !important;
+    border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
     border: 1px solid rgba(0, 0, 0, .09);
     display: flex;
@@ -215,7 +216,7 @@
     justify-content: space-between;
   }
 
-  .article__header a {
+  .article__link {
     margin: auto;
   }
 
@@ -239,10 +240,7 @@
     display: flex;
     align-content: center;
     justify-content: center;
-  }
-
-  .article__content > p {
-    margin-top: 0;
+    align-items: center;
   }
 
   .article__footer {
@@ -251,7 +249,7 @@
     border-top: 1px solid #e6e6e6;
   }
 
-  .article__footer button {
+  .article__footer__button {
     text-transform: uppercase;
     color: #d14800;
     background: #ffffff;
@@ -264,17 +262,17 @@
     font-weight: 700;
   }
 
-  .article__footer button.article__footer_hidden {
+  .article__footer_hidden {
     color: #f7b5a9;
   }
 
-  .article__footer button:hover {
+  .article__footer__button:hover {
     background: #d14800;
     color: #ffffff;
   }
 
-  .article__footer button:disabled,
-  .article__footer button:active {
+  .article__footer__button:disabled,
+  .article__footer__button:active {
     background: #BDBDBD;
     border-color: #616161;
     color: #FAFAFA;
