@@ -5,6 +5,7 @@
         <div ref="container">
           <img
             v-lazy="imgLink"
+            rel="noreferrer"
             :alt="image">
           <div v-lazy:background-image="imgLink"/>
         </div>
