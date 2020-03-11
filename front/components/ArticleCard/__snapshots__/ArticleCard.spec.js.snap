@@ -33,6 +33,7 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
           class="article__image"
           data-src="webf"
           lazy="loading"
+          rel="noreferrer"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
         />
          

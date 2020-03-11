@@ -14,6 +14,7 @@
           v-if="imgLink"
           :src="imgLink"
           :alt="chapterAlt"
+          rel="noreferrer"
           class="chapter__image">
         <span v-else>
           {{ $t("missingImage") }}

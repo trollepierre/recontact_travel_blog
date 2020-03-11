@@ -33,6 +33,7 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
       <img
         alt="altComplementone text"
         class="chapter__image"
+        rel="noreferrer"
         src="webf"
       />
     </div>

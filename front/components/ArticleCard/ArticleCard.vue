@@ -19,6 +19,7 @@
             <img
               v-lazy="article.imgLink"
               :alt="articleTitle"
+              rel="noreferrer"
               class="article__image">
             <div v-lazy:background-image="article.imgLink"/>
           </div>
