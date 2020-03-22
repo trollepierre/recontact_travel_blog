@@ -31,7 +31,6 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
       <nav
         aria-label="site navigation"
         class="app-header__navigation navigation"
-        role="navigation"
       >
         <ol
           class="navigation__links"

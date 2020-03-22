@@ -11,7 +11,6 @@
         </a>
         <nav
           class="app-header__navigation navigation"
-          role="navigation"
           aria-label="site navigation">
           <ol class="navigation__links">
             <li
