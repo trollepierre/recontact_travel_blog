@@ -1,9 +1,8 @@
-import '@babel/polyfill'
-
 /**
  * Module dependencies.
  */
-
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import debug from 'debug'
 import http from 'http'
 import app from './app'
