@@ -10,12 +10,16 @@
         </p>
       </header>
       <div class="chapter__content">
-        <img
-          v-if="imgLink"
-          :src="imgLink"
-          :alt="chapterAlt"
-          rel="noreferrer"
-          class="chapter__image">
+        <picture v-if="imgLink">
+          <source
+            type="image/webp"
+            :srcset="webpId()">
+          <img
+            :src="imgLink"
+            :alt="chapterAlt"
+            rel="noreferrer"
+            class="chapter__image">
+        </picture>
         <span v-else>
           {{ $t("missingImage") }}
         </span>
@@ -77,6 +81,15 @@
             }
             return { isLink, text: paragraph }
           })
+      },
+    },
+    methods: {
+      webpId() {
+        if (this.imgLink === 'https://www.dropbox.com/s/c1by9r4x1go9533/img5.jpg?raw=1') {return '/maeh-50.webp'}
+        if (this.imgLink === 'https://www.dropbox.com/s/y9sgxzgck9ao197/img4.jpg?raw=1') {return '/maeh-60.webp'}
+        if (this.imgLink === 'https://www.dropbox.com/s/azin0467vwjg82s/img3.jpg?raw=1') {return '/maeh-70.webp'}
+        if (this.imgLink === 'https://www.dropbox.com/s/b8n3rf90m2i49zd/img2.jpg?raw=1') {return '/maeh-80.webp'}
+        return '/maeh-100.webp'
       },
     },
     i18n: {

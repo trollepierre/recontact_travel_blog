@@ -24,12 +24,19 @@
             <div v-lazy:background-image="article.imgLink"/>
           </div>
         </template>
-        <img
-          v-else
-          :src="article.imgLink"
-          :alt="articleTitle"
-          class="article__image important"
-          width="200">
+        <picture v-else>
+          <source
+            type="image/webp"
+            :srcset="webpId(article)">
+          <source
+            type="image/jpeg"
+            :srcset="article.imgLink">
+          <img
+            :src="article.imgLink"
+            :alt="articleTitle"
+            class="article__image important"
+            width="200">
+        </picture>
       </div>
       <footer class="article__footer">
         <template v-if="adminMode">
@@ -94,6 +101,13 @@
       },
     },
     methods: {
+      webpId(article) {
+        if (article.dropboxId === '89') {return '/iran-10.webp'}
+        if (article.dropboxId === '88') {return '/iran-8.webp'}
+        if (article.dropboxId === '87') {return '/iran-5.webp'}
+        return '/iran-3.webp'
+      },
+
       viewArticle() {
         this.goToArticle()
       },
