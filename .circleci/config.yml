@@ -271,6 +271,5 @@ workflows:
           requires:
             - deploy_master
       - deploy_recontact_blog:
-          filters:
-            branches:
-              only: pierre-blog-heroku
+          requires:
+            - deploy_master
