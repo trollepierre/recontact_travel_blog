@@ -26,17 +26,18 @@
           :key="paragraph.text"
           class="chapter__footer_text">
           <template v-if="paragraph">
-              <iframe
-                v-if="paragraph.isEmbedYoutubeLink"
-                width="560"
-                height="315"
-                data-explanation="to-remove?"
-                :src="paragraph.text"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen/>
+            <iframe
+              v-if="paragraph.isEmbedYoutubeLink"
+              :width="youtubeWidth"
+              :height="youtubeHeight"
+              data-explanation="to-remove?"
+              :src="paragraph.text"
+              frameborder="0"
+              class="youtube-iframe"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen/>
             <a
-              v-if="paragraph.isLink"
+              v-else-if="paragraph.isLink"
               :href="paragraph.text"
               target="_blank">
               {{ paragraph.text }}
@@ -54,17 +55,37 @@
 <script>
   import translationsService from '../../services/services/translations'
   import { urlTester, youtubeEmbedUrlTester } from './urlTester'
+  import {
+    PHONE_LANDSCAPE_TO_TABLET,
+    PHONE_PORTRAIT_TO_LANDSCAPE,
+    screenWidth
+  } from '../../services/utils/screen/screen-utils'
 
   export default {
     name: 'ChapterCard',
-    props: { chapter: { type: Object, default: () => {} } },
+    props: {
+      chapter: {
+        type: Object,
+        default: () => {
+        },
+      },
+    },
     computed: {
+      youtubeWidth() {
+        if (screenWidth() > PHONE_LANDSCAPE_TO_TABLET) {
+          return screenWidth() / 2
+        }
+        if (screenWidth() > PHONE_PORTRAIT_TO_LANDSCAPE) {
+          return screenWidth() * 60 / 100
+        }
+        return screenWidth() * 90 / 100
+      },
+      youtubeHeight() {
+        return this.youtubeWidth * 315 / 560
+      },
       imgLink() {
         const { imgLink } = this.chapter
         return !imgLink ? false : imgLink
-      },
-      isVideoLink() {
-        return this.imgLink.includes('youtu')
       },
       chapterTitle() {
         const language = this.$store.state.locale
@@ -189,6 +210,11 @@
     border-color: #616161;
     color: #FAFAFA;
     cursor: auto;
+  }
+
+  .youtube-iframe {
+    margin-bottom: 30px;
+    margin-top: 30px;
   }
 
 </style>
