@@ -11,20 +11,11 @@
       </header>
       <div class="chapter__content">
         <img
-          v-if="isImgLink()"
+          v-if="imgLink"
           :src="imgLink"
           :alt="chapterAlt"
           rel="noreferrer"
           class="chapter__image">
-        <span v-else-if="isVideoLink()" class="chapter__image">
-          <iframe
-            width="560" height="315" data-explanation="to-remove?"
-                  :src="getVideoLink()" frameborder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen>
-
-          </iframe>
-        </span>
         <span v-else>
           {{ $t("missingImage") }}
         </span>
@@ -35,6 +26,15 @@
           :key="paragraph.text"
           class="chapter__footer_text">
           <template v-if="paragraph">
+              <iframe
+                v-if="paragraph.isEmbedYoutubeLink"
+                width="560"
+                height="315"
+                data-explanation="to-remove?"
+                :src="paragraph.text"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen/>
             <a
               v-if="paragraph.isLink"
               :href="paragraph.text"
@@ -52,62 +52,38 @@
 </template>
 
 <script>
-  import translationsService from '../../services/services/translations';
+  import translationsService from '../../services/services/translations'
+  import { urlTester, youtubeEmbedUrlTester } from './urlTester'
 
   export default {
     name: 'ChapterCard',
-    props: {
-      chapter: {
-        type: Object, default: () => {
-        }
-      },
-    },
+    props: { chapter: { type: Object, default: () => {} } },
     computed: {
       imgLink() {
-        const { imgLink } = this.chapter;
-        // return 'https://youtu.be/tgbNymZ7vqY'
-        return 'https://www.youtube.com/embed/-18AYp_7iW0';
-        return 'https://youtu.be/embed/-18AYp_7iW0';
-        // return !imgLink ? false : imgLink
+        const { imgLink } = this.chapter
+        return !imgLink ? false : imgLink
+      },
+      isVideoLink() {
+        return this.imgLink.includes('youtu')
       },
       chapterTitle() {
-        const language = this.$store.state.locale;
-        return translationsService.getChapterTitle(this.chapter, language);
+        const language = this.$store.state.locale
+        return translationsService.getChapterTitle(this.chapter, language)
       },
       chapterAlt() {
-        return this.$t('altComplement') + this.chapterText[0].text;
+        return this.$t('altComplement') + this.chapterText[0].text
       },
       chapterText() {
-        const language = this.$store.state.locale;
-        const chapterText = translationsService.getChapterText(this.chapter, language);
+        const language = this.$store.state.locale
+        const chapterText = translationsService.getChapterText(this.chapter, language)
 
         return chapterText
           .filter(paragraph => !!paragraph)
-          .map(paragraph => {
-            let isLink = false;
-            /* eslint-disable no-useless-escape */
-            const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?');
-            if (urlRegExp.test(paragraph)) {
-              isLink = true;
-            }
-            return { isLink, text: paragraph };
-          });
-      },
-    },
-    methods: {
-      isImgLink() {
-        return !this.isVideoLink();
-      },
-      isVideoLink() {
-        return this.imgLink.includes('youtu');
-      },
-      getVideoLink() {
-        // https://youtu.be/embed/-18AYp_7iW0
-        // https://www.youtube.com/embed/-18AYp_7iW0"
-        // https://youtu.be/-18AYp_7iW0
-        const arrays = this.imgLink.split('/');
-        const youtubeId = arrays[arrays.length - 1];
-        return `https://www.youtube.com/embed/${youtubeId}`;
+          .map(paragraph => ({
+            isLink: urlTester(paragraph),
+            isEmbedYoutubeLink: youtubeEmbedUrlTester(paragraph),
+            text: paragraph,
+          }))
       },
     },
     i18n: {
@@ -122,7 +98,7 @@
         },
       },
     },
-  };
+  }
 </script>
 
 <style scoped>
