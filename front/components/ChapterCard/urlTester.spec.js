@@ -11,6 +11,9 @@ describe('urlTester', () => {
       'https://youtu.be',
       'https://youtu.be/toto',
       'http://youtube.com/',
+      'www.recontact.me',
+      'www.rec.me',
+      'www.recontact.me/articles/84',
     ]
 
     // When
@@ -23,7 +26,6 @@ describe('urlTester', () => {
   it('should return false whatever is not a link', () => {
     // Given
     const texts = [
-      'www.recontact.me',
       'ssh://www.rec.me',
       'ftp://recontact.me',
       '&é"((§è!ç',

@@ -1,5 +1,5 @@
 export const urlTester = text => {
-  const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?') /* eslint-disable-line no-useless-escape */
+  const urlRegExp = new RegExp('^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?') /* eslint-disable-line no-useless-escape */
   return urlRegExp.test(text)
 }
 
