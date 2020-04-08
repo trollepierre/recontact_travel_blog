@@ -58,7 +58,7 @@
   import {
     PHONE_LANDSCAPE_TO_TABLET,
     PHONE_PORTRAIT_TO_LANDSCAPE,
-    screenWidth
+    screenWidth,
   } from '../../services/utils/screen/screen-utils'
 
   export default {
