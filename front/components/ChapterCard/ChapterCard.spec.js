@@ -36,7 +36,7 @@ describe('Component | ChapterCard.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it('should match snapshot when imgLink is not set', () => {
@@ -52,7 +52,7 @@ describe('Component | ChapterCard.vue', () => {
         chapter,
       }
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 

@@ -26,7 +26,7 @@ xdescribe('Component | CommentList.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 

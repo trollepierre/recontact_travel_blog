@@ -1,53 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
-<div
-  class="chapter-card"
->
-  <article
-    class="chapter"
-  >
-    <header
-      class="chapter__header"
-    >
-      <h2
-        class="chapter__title"
-      >
-        
+<div class="chapter-card">
+  <article class="chapter">
+    <header class="chapter__header">
+      <h2 class="chapter__title">
         My title
-      
       </h2>
-       
-      <p
-        class="chapter__position"
-      >
-        
+      <p class="chapter__position">
         82
-      
       </p>
     </header>
-     
-    <div
-      class="chapter__content"
-    >
-      <img
-        alt="altComplementone text"
-        class="chapter__image"
-        rel="noreferrer"
-        src="webf"
-      />
-    </div>
-     
-    <footer
-      class="chapter__footer"
-    >
-      <div
-        class="chapter__footer_text"
-      >
+    <div class="chapter__content"><img src="webf" alt="altComplementone text" rel="noreferrer" class="chapter__image"></div>
+    <footer class="chapter__footer">
+      <div class="chapter__footer_text">
         <p>
-          
-            one text
-          
+          one text
         </p>
       </div>
     </footer>
@@ -56,52 +24,23 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
 `;
 
 exports[`Component | ChapterCard.vue template should match snapshot when imgLink is not set 1`] = `
-<div
-  class="chapter-card"
->
-  <article
-    class="chapter"
-  >
-    <header
-      class="chapter__header"
-    >
-      <h2
-        class="chapter__title"
-      >
-        
+<div class="chapter-card">
+  <article class="chapter">
+    <header class="chapter__header">
+      <h2 class="chapter__title">
         My title
-      
       </h2>
-       
-      <p
-        class="chapter__position"
-      >
-        
+      <p class="chapter__position">
         82
-      
       </p>
     </header>
-     
-    <div
-      class="chapter__content"
-    >
-      <span>
-        
+    <div class="chapter__content"><span>
         missingImage
-      
-      </span>
-    </div>
-     
-    <footer
-      class="chapter__footer"
-    >
-      <div
-        class="chapter__footer_text"
-      >
+      </span></div>
+    <footer class="chapter__footer">
+      <div class="chapter__footer_text">
         <p>
-          
-            one text
-          
+          one text
         </p>
       </div>
     </footer>

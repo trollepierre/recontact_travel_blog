@@ -31,7 +31,7 @@ describe('Component | AdminDashboard.vue', () => {
     it('should match snapshot', () => {
       wrapper = shallowMount(AdminDashboard, { localVue })
 
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 

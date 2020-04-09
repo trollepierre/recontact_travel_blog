@@ -51,7 +51,7 @@ describe('Component | CommentForm.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 

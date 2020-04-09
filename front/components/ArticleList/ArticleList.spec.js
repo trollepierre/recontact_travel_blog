@@ -43,7 +43,7 @@ describe('Component | ArticleList.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it('should contain lazy when more than 9 articles', async () => {
