@@ -30,9 +30,7 @@
               v-if="paragraph.isEmbedYoutubeLink"
               :width="youtubeWidth"
               :height="youtubeHeight"
-              data-explanation="to-remove?"
               :src="paragraph.text"
-              frameborder="0"
               class="youtube-iframe"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen/>
@@ -63,13 +61,7 @@
 
   export default {
     name: 'ChapterCard',
-    props: {
-      chapter: {
-        type: Object,
-        default: () => {
-        },
-      },
-    },
+    props: { chapter: { type: Object, default: () => {} } },
     computed: {
       youtubeWidth() {
         if (screenWidth() > PHONE_LANDSCAPE_TO_TABLET) {
@@ -215,6 +207,7 @@
   .youtube-iframe {
     margin-bottom: 30px;
     margin-top: 30px;
+    border:none;
   }
 
 </style>
