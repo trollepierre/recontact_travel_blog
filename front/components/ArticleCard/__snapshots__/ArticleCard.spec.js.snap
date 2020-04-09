@@ -1,139 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | ArticleCard.vue when adminMode is not defined template should match snapshot 1`] = `
-<div
-  class="article-card"
->
-  <article
-    class="article"
-  >
-    <header
-      class="article__header"
-    >
-      <a
-        class="article__link"
-        href="/articles/58"
-      >
-        <h2
-          class="article__title"
-        >
-          
+<div class="article-card">
+  <article class="article">
+    <header class="article__header"><a href="/articles/58" class="article__link">
+        <h2 class="article__title">
           Pierre somewhere
-        
         </h2>
-      </a>
-    </header>
-     
-    <div
-      class="article__content"
-    >
-      <div>
-        <img
-          alt="Pierre somewhere"
-          class="article__image"
-          data-src="webf"
-          lazy="loading"
-          rel="noreferrer"
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        />
-         
-        <div
-          data-src="webf"
-          lazy="loading"
-          style="background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);"
-        />
+      </a></header>
+    <div class="article__content">
+      <div><img alt="Pierre somewhere" rel="noreferrer" class="article__image" data-src="webf" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" lazy="loading">
+        <div data-src="webf" style="background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);" lazy="loading"></div>
       </div>
     </div>
-     
-    <footer
-      class="article__footer"
-    >
-      <button
-        class="article__view-button article__footer__button"
-      >
-        
-          goToArticle
-        
-      </button>
-       
-      <a
-        class="article__dropbox"
-        href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0"
-        target="_blank"
-      >
-        <button
-          class="article__dropbox-button article__footer__button"
-        >
-          
-            viewGallery
-          
-        </button>
-      </a>
-    </footer>
+    <footer class="article__footer"><button class="article__view-button article__footer__button">
+        goToArticle
+      </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" class="article__dropbox"><button class="article__dropbox-button article__footer__button">
+          viewGallery
+        </button></a></footer>
   </article>
 </div>
 `;
 
 exports[`Component | ArticleCard.vue when adminMode is not defined template should match snapshot when lazy is false 1`] = `
-<div
-  class="article-card"
->
-  <article
-    class="article"
-  >
-    <header
-      class="article__header"
-    >
-      <a
-        class="article__link"
-        href="/articles/58"
-      >
-        <h2
-          class="article__title"
-        >
-          
+<div class="article-card">
+  <article class="article">
+    <header class="article__header"><a href="/articles/58" class="article__link">
+        <h2 class="article__title">
           Pierre somewhere
-        
         </h2>
-      </a>
-    </header>
-     
-    <div
-      class="article__content"
-    >
-      <img
-        alt="Pierre somewhere"
-        class="article__image important"
-        src="webf"
-        width="200"
-      />
-    </div>
-     
-    <footer
-      class="article__footer"
-    >
-      <button
-        class="article__view-button article__footer__button"
-      >
-        
-          goToArticle
-        
-      </button>
-       
-      <a
-        class="article__dropbox"
-        href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0"
-        target="_blank"
-      >
-        <button
-          class="article__dropbox-button article__footer__button"
-        >
-          
-            viewGallery
-          
-        </button>
-      </a>
-    </footer>
+      </a></header>
+    <div class="article__content"><img src="webf" alt="Pierre somewhere" width="200" class="article__image important"></div>
+    <footer class="article__footer"><button class="article__view-button article__footer__button">
+        goToArticle
+      </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" class="article__dropbox"><button class="article__dropbox-button article__footer__button">
+          viewGallery
+        </button></a></footer>
   </article>
 </div>
 `;

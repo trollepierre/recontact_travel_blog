@@ -1,78 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | AdminDashboard.vue template should match snapshot 1`] = `
-<div
-  class="admin-dashboard"
->
-  <button
-    class="dashboard__buttons dashboard__sync_hidden"
-    type="button"
-  >
-    
+<div class="admin-dashboard"><button type="button" class="dashboard__buttons dashboard__sync_hidden">
     getSubscribers
-  
-  </button>
-   
-  <button
-    class="dashboard__buttons"
-    type="button"
-  >
-    
+  </button> <button type="button" class="dashboard__buttons">
     getNewArticles
-  
-  </button>
-   
-  <button
-    class="dashboard__buttons dashboard__sync_hidden"
-    type="button"
-  >
-    
+  </button> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
     updateAllArticles
-  
-  </button>
-   
-  <label
-    for="min"
-  >
-    min
-  </label>
-   
-  <input
-    id="min"
-    placeholder="1"
-  />
-   
-  <label
-    for="max"
-  >
-    max
-  </label>
-   
-  <input
-    id="max"
-    placeholder="87"
-  />
-   
-  <button
-    class="dashboard__buttons dashboard__sync_hidden"
-    type="button"
-  >
-    
+  </button> <label for="min">min</label> <input id="min" placeholder="1"> <label for="max">max</label> <input id="max" placeholder="87"> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
     deleteAllArticles
-  
-  </button>
-   
-  <button
-    class="dashboard__buttons dashboard__sync_hidden"
-    type="button"
-  >
-    
+  </button> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
     deleteAndSyncAllArticles
-  
-  </button>
-   
-  <br />
-   
-  <position-form-stub />
+  </button> <br>
+  <position-form-stub></position-form-stub>
 </div>
 `;

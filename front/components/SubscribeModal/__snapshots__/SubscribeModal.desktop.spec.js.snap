@@ -1,92 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
-<div
-  class="subscribe-modal-wrapper"
->
-  <modal-stub
-    class="subscribe-modal"
-    classes="v--modal"
-    clicktoclose="true"
-    delay="0"
-    height="315"
-    maxheight="Infinity"
-    maxwidth="Infinity"
-    minheight="0"
-    minwidth="0"
-    name="subscribe-modal"
-    overlaytransition="overlay-fade"
-    pivotx="0.5"
-    pivoty="0.5"
-    width="600"
-  >
-    <div
-      class="subscribe-modal__header"
-    >
-      <h2
-        class="subscribe-modal__title"
-      >
-        
+<div class="subscribe-modal-wrapper">
+  <modal-stub name="subscribe-modal" delay="0" overlaytransition="overlay-fade" clicktoclose="true" classes="v--modal" minwidth="0" minheight="0" maxwidth="Infinity" maxheight="Infinity" width="600" height="315" pivotx="0.5" pivoty="0.5" class="subscribe-modal">
+    <div class="subscribe-modal__header">
+      <h2 class="subscribe-modal__title">
         subscribe
-      
       </h2>
     </div>
-     
-    <div
-      class="subscribe-modal__body"
-    >
-      <form
-        class="subscribe-modal__form"
-      >
+    <div class="subscribe-modal__body">
+      <form class="subscribe-modal__form">
         <!---->
-         
-        <p
-          class="subscribe-modal__text"
-        >
-          
+        <p class="subscribe-modal__text">
           modalText
-        
-        </p>
-         
-        <label
-          class="subscribe-modal__label"
-          for="subscribe-content"
-        >
-          
+        </p> <label for="subscribe-content" class="subscribe-modal__label">
           email
-        
-        </label>
-         
-        <input
-          class="subscribe-modal__email"
-          id="subscribe-content"
-          placeholder="pierre@recontact.me"
-        />
+        </label> <input id="subscribe-content" placeholder="pierre@recontact.me" class="subscribe-modal__email">
       </form>
     </div>
-     
-    <div
-      class="subscribe-modal__footer"
-    >
-      <div
-        class="subscribe-modal__actions"
-      >
-        <button
-          class="subscribe-modal__action subscribe-modal__action--send"
-        >
-          
+    <div class="subscribe-modal__footer">
+      <div class="subscribe-modal__actions"><button class="subscribe-modal__action subscribe-modal__action--send">
           confirm
-        
-        </button>
-         
-        <button
-          class="subscribe-modal__action subscribe-modal__action--cancel"
-        >
-          
+        </button> <button class="subscribe-modal__action subscribe-modal__action--cancel">
           cancel
-        
-        </button>
-      </div>
+        </button></div>
     </div>
   </modal-stub>
 </div>

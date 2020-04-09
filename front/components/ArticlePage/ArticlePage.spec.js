@@ -82,7 +82,7 @@ describe('Component | ArticlePage.vue', () => {
       })
 
       it('should match snapshot', () => {
-        expect(wrapper.element).toMatchSnapshot()
+        expect(wrapper).toMatchSnapshot()
       })
 
       it('should add title when defined', () => {
@@ -110,7 +110,7 @@ describe('Component | ArticlePage.vue', () => {
         })
       })
       it('should match snapshot when chapter not fetched', () => {
-        expect(wrapper.element).toMatchSnapshot()
+        expect(wrapper).toMatchSnapshot()
       })
 
       it('should contain default chapter when chapter not fetched', () => {
