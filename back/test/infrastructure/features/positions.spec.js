@@ -20,7 +20,7 @@ describe('Integration | Routes | positions route', () => {
       // when
       request(app)
         .get('/api/positions/last')
-        .send()
+        .send() // DELETE ME?
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
           // then
