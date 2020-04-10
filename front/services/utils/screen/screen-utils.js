@@ -1,12 +1,14 @@
+const isBrowser = typeof window !== 'undefined'
+
 const screenWidth = () => {
-  if (!window) {return '1000'}
+  if (!isBrowser) {return '1000'}
   return window.innerWidth
     || document.documentElement.clientWidth
     || document.body.clientWidth
 }
 
 const screenHeight = () => {
-  if (!window) {
+  if (!isBrowser) {
     return '600'
   } else {
     return window.innerHeight

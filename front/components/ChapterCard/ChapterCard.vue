@@ -28,11 +28,11 @@
           <template v-if="paragraph">
             <iframe
               v-if="paragraph.isEmbedYoutubeLink"
-              :width="youtubeWidth"
-              :height="youtubeHeight"
-              :src="paragraph.text"
+              :width="dimensions.width"
+              :height="dimensions.height"
+              :src="`${paragraph.text}?rel=0&modestbranding=1`"
               class="youtube-iframe"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; encrypted-media; gyroscope;"
               allowfullscreen/>
             <a
               v-else-if="paragraph.isLink"
@@ -53,28 +53,15 @@
 <script>
   import translationsService from '../../services/services/translations'
   import { urlTester, youtubeEmbedUrlTester } from './urlTester'
-  import {
-    PHONE_LANDSCAPE_TO_TABLET,
-    PHONE_PORTRAIT_TO_LANDSCAPE,
-    screenWidth,
-  } from '../../services/utils/screen/screen-utils'
+  import { iframeDimensions } from '../../services'
 
   export default {
     name: 'ChapterCard',
     props: { chapter: { type: Object, default: () => {} } },
+    data: () => ({
+      dimensions: iframeDimensions(),
+    }),
     computed: {
-      youtubeWidth() {
-        if (screenWidth() > PHONE_LANDSCAPE_TO_TABLET) {
-          return screenWidth() / 2
-        }
-        if (screenWidth() > PHONE_PORTRAIT_TO_LANDSCAPE) {
-          return screenWidth() * 60 / 100
-        }
-        return screenWidth() * 90 / 100
-      },
-      youtubeHeight() {
-        return this.youtubeWidth * 315 / 560
-      },
       imgLink() {
         const { imgLink } = this.chapter
         return !imgLink ? false : imgLink
@@ -205,8 +192,7 @@
   }
 
   .youtube-iframe {
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin: 30px 0;
     border:none;
   }
 
