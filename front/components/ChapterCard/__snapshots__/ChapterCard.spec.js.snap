@@ -26,7 +26,7 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
           url
         </p>
       </div>
-      <div class="chapter__footer_text"><iframe width="512" height="288" src="https://www.youtube.com/embed/-18AYp_7iW0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></div>
+      <div class="chapter__footer_text"><iframe width="512" height="288" src="https://www.youtube.com/embed/-18AYp_7iW0?rel=0&amp;modestbranding=1" allow="accelerometer; encrypted-media; gyroscope;" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></div>
     </footer>
   </article>
 </div>
@@ -60,7 +60,7 @@ exports[`Component | ChapterCard.vue template should match snapshot when imgLink
           url
         </p>
       </div>
-      <div class="chapter__footer_text"><iframe width="512" height="288" src="https://www.youtube.com/embed/-18AYp_7iW0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></div>
+      <div class="chapter__footer_text"><iframe width="512" height="288" src="https://www.youtube.com/embed/-18AYp_7iW0?rel=0&amp;modestbranding=1" allow="accelerometer; encrypted-media; gyroscope;" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></div>
     </footer>
   </article>
 </div>
