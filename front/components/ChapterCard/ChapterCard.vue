@@ -27,18 +27,18 @@
           class="chapter__footer_text">
           <template v-if="paragraph">
             <iframe
-              v-if="paragraph.isEmbedYoutubeLink"
+              v-if="paragraph.iframeSrc"
               :width="dimensions.width"
               :height="dimensions.height"
-              :src="`${paragraph.text}?rel=0&modestbranding=1`"
+              :src="paragraph.iframeSrc"
               class="youtube-iframe"
               allow="accelerometer; encrypted-media; gyroscope;"
               allowfullscreen/>
             <a
-              v-else-if="paragraph.isLink"
-              :href="paragraph.text"
+              v-else-if="paragraph.link"
+              :href="paragraph.link"
               target="_blank">
-              {{ paragraph.text }}
+              {{ paragraph.link }}
             </a>
             <p v-else>
               {{ paragraph.text }}
@@ -52,7 +52,7 @@
 
 <script>
   import translationsService from '../../services/services/translations'
-  import { urlTester, youtubeEmbedUrlTester } from './urlTester'
+  import { generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester } from './paragraph-link-utils'
   import { iframeDimensions } from '../../services'
 
   export default {
@@ -79,11 +79,16 @@
 
         return chapterText
           .filter(paragraph => !!paragraph)
-          .map(paragraph => ({
-            isLink: urlTester(paragraph),
-            isEmbedYoutubeLink: youtubeEmbedUrlTester(paragraph),
-            text: paragraph,
-          }))
+          .map(this.enhanceParagraph)
+      },
+    },
+    methods: {
+      enhanceParagraph(paragraph) {
+        return {
+          iframeSrc: youtubeEmbedUrlTester(paragraph) ? generateIframeLink(paragraph) : undefined,
+          link: urlTester(paragraph) ? generateCleanUrlLink(paragraph) : undefined,
+          text: paragraph,
+        }
       },
     },
     i18n: {
@@ -193,7 +198,7 @@
 
   .youtube-iframe {
     margin: 30px 0;
-    border:none;
+    border: none;
   }
 
 </style>
