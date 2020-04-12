@@ -10,7 +10,7 @@
     "clean:dependencies": "rm -rf node_modules",
     "clean:dist": "rm -rf dist",
     "dev": "nuxt",
-    "start": "nuxt",
+    "start": "yarn dev",
     "build": "nuxt build",
     "start-nuxt": "nuxt start",
     "generate": "nuxt generate",
@@ -33,7 +33,7 @@
     "vue-js-modal": "1.3.31",
     "vue-lazyload": "1.3.3",
     "vue-toastr": "2.0.16",
-    "vuex": "^3.1.3"
+    "vuex": "3.1.3"
   },
   "devDependencies": {
     "@babel/core": "7.8.7",
