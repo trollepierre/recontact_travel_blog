@@ -170,7 +170,6 @@
 
 .navbar-action:hover {
   text-decoration: underline;
-  outline: -webkit-focus-ring-color auto 5px;
 }
 
 .navbar-action__suggestion,

@@ -284,7 +284,6 @@
     background: #008a00;
     outline: none;
     border: none;
-    -webkit-border-radius: 3px;
     border-radius: 3px;
     height: 34px;
     font-weight: 500;
