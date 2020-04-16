@@ -13,7 +13,7 @@
     "clean:front": "(cd front && yarn clean)",
     "clean:back": "(cd back && yarn clean)",
     "clean": "yarn clean:front && yarn clean:back",
-    "start:front": "(cd front && yarn dev)",
+    "start:front": "(cd front && yarn start)",
     "start:dev": "(cd back && yarn start:dev)",
     "start": "(cd back && yarn start)",
     "test:front:ci": "(cd front && yarn test:coverage --maxWorkers=50%)",
@@ -42,6 +42,6 @@
   "homepage": "https://github.com/trollepierre/recontact_travel_blog#readme",
   "engines": {
     "yarn": ">=1.17.0",
-    "node": ">=10.19.0"
+    "node": "=12"
   }
 }
