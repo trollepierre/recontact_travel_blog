@@ -108,7 +108,7 @@ describe('Integration | Routes | articles route', () => {
       GetArticleComments.getArticleComments.restore()
     })
 
-    it('should call GetArticlePhotos to getArticleComments before sending json', done => {
+    it('should call GetArticleComments to getArticleComments before sending json', done => {
       // Given
       const stringIdArticle = '59'
 
