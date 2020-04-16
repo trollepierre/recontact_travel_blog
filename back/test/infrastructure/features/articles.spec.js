@@ -6,6 +6,7 @@ import GetArticle from '../../../src/use_cases/get-article'
 import article from '../../fixtures/articleSaved'
 import chapter from '../../fixtures/chapterWithParagraphs'
 import photo from '../../fixtures/photo'
+import GetArticleComments from '../../../src/use_cases/get-article-comments'
 
 describe('Integration | Routes | articles route', () => {
   describe('/articles', () => {
@@ -89,6 +90,36 @@ describe('Integration | Routes | articles route', () => {
           // Then
           expect(GetPhotosOfArticle.getArticlePhotos).to.have.been.calledWith(stringIdArticle)
           expect(response.body).to.deep.equal(photos)
+          if (err) {
+            done(err)
+          }
+          done()
+        })
+    })
+  })
+
+  describe('/articles/:id/comments', () => {
+    const comments = [{ author: 'name', date: '2019' }]
+    beforeEach(() => {
+      sinon.stub(GetArticleComments, 'getArticleComments').resolves(comments)
+    })
+
+    afterEach(() => {
+      GetArticleComments.getArticleComments.restore()
+    })
+
+    it('should call GetArticlePhotos to getArticleComments before sending json', done => {
+      // Given
+      const stringIdArticle = '59'
+
+      // When
+      request(app)
+        .get(`/api/articles/${stringIdArticle}/comments`)
+        .expect('Content-Type', /json/)
+        .end((err, response) => {
+          // Then
+          expect(GetArticleComments.getArticleComments).to.have.been.calledWith(stringIdArticle)
+          expect(response.body).to.deep.equal(comments)
           if (err) {
             done(err)
           }
