@@ -1,16 +1,24 @@
 import nodeMailjet from 'node-mailjet'
 import { expect, sinon } from '../../test-helper'
 import Mailjet from '../../../src/infrastructure/mailing/mailjet'
+import * as process from '../../../src/infrastructure/env/process'
 
 describe('Unit | Infrastructure | Mailing | Mailjet', () => {
   let mailJetConnectStub
+  let isProductionMock
+  let consoleLog
 
   beforeEach(() => {
     mailJetConnectStub = sinon.stub(nodeMailjet, 'connect')
+    isProductionMock = sinon.stub(process, 'isProduction')
+    isProductionMock.returns(true)
+    consoleLog = sinon.stub(console, 'log')
   })
 
   afterEach(() => {
     mailJetConnectStub.restore()
+    isProductionMock.restore()
+    consoleLog.restore()
   })
 
   describe('#sendEmail', () => {
@@ -24,6 +32,18 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
         template: 'Corps du mail',
         to: 'contact@recontact.me',
       }
+    })
+
+    it('should not send mail when not in production', () => {
+      // Given
+      isProductionMock.returns(false)
+
+      // When
+      Mailjet.sendEmail(options)
+
+      // Then
+      sinon.assert.notCalled(mailJetConnectStub)
+      sinon.assert.called(consoleLog)
     })
 
     it('should create an instance of mailJet', () => {

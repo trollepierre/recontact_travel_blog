@@ -22,7 +22,7 @@ router.get('/:id/comments', (req, res) => GetArticleComments.getArticleComments(
 router.post('/:id/comments', (req, res) => {
   AddComment.addComment(req.body, req.params.id)
     .then(comment => res.json(comment))
-    .catch(() => res.status(400).send())
+    .catch(error => res.status(400).send(error))
 })
 
 module.exports = router

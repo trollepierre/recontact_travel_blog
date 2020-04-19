@@ -8,7 +8,6 @@ function createComment(comment, dropboxId) {
     if (isEmptyPlus(comment.author)) {
       comment.author = 'Anonyme'
     }
-    // return commentRepository.create({ ...comment, dropboxId, datetime: new Date() });
     return commentRepository.create({ ...comment, dropboxId })
   } else {
     throw new Error('Empty comment')
