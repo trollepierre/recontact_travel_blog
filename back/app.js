@@ -18,6 +18,7 @@ import robots from './src/infrastructure/seo/robots'
 import sitemap from './src/infrastructure/seo/sitemap'
 import history from './src/infrastructure/seo/history'
 import env from './src/infrastructure/env/env'
+import corsOptions from './src/infrastructure/cors/cors'
 
 const app = express()
 
@@ -25,7 +26,7 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use('/robots.txt', robots)
 app.use('/sitemap.xml', sitemap)
