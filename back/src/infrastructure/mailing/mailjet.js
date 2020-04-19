@@ -1,6 +1,8 @@
 import nodeMailjet from 'node-mailjet'
-import { isEmpty } from 'lodash'
+import isEmpty from 'lodash/isEmpty'
+import chalk from 'chalk'
 import env from '../env/env'
+import { isProduction } from '../env/process'
 
 function _formatRecipients(recipients) {
   if (!recipients) {
@@ -23,6 +25,10 @@ function _formatPayload(options) {
 }
 
 function sendEmail(options) {
+  if (!isProduction()) {
+    console.log(chalk.yellow('>>>No mails are sent in development environment'))
+    return Promise.resolve()
+  }
   if (!isEmpty(options.to)) {
     const mailjet = nodeMailjet.connect(env('MAILJET_PUBLIC_KEY'), env('MAILJET_SECRET_KEY'))
     return mailjet
