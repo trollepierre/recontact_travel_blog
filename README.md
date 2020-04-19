@@ -44,3 +44,7 @@ yarn release
 
 SQLite is recommended for local development. To fix bug in production, it is better to use PostgreSQL
 https://www.postgresql.org/download/
+
+## Spot a bug
+
+Fill a bug and provide me this information please https://mybrowser.fyi

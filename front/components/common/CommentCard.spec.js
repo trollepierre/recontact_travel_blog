@@ -19,7 +19,7 @@ describe('Component | CommentCard.vue', () => {
     it('should match snapshot', () => {
       wrapper = shallowMount(CommentCard, { localVue, propsData })
 
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 })

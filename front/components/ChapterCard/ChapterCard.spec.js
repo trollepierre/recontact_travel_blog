@@ -5,23 +5,23 @@ import translationsService from '../../services/services/translations'
 
 describe('Component | ChapterCard.vue', () => {
   let wrapper
-  let chapter
+  const chapter = {
+    position: 82,
+    frTitle: 'Titre du premier paragraphe',
+    enTitle: 'Title of the first paragraph',
+    imgLink: 'webf',
+    frText: 'du blabla',
+    enText: 'some blabla',
+  }
   let localVue
   let store
 
   beforeEach(() => {
+    console.warn = jest.fn()
     translationsService.getChapterTitle = jest.fn()
     translationsService.getChapterTitle.mockReturnValue('My title')
     translationsService.getChapterText = jest.fn()
-    translationsService.getChapterText.mockReturnValue(['one text'])
-    chapter = {
-      position: 82,
-      frTitle: 'Titre du premier paragraphe',
-      enTitle: 'Title of the first paragraph',
-      imgLink: 'webf',
-      frText: 'du blabla',
-      enText: 'some blabla',
-    }
+    translationsService.getChapterText.mockReturnValue(['Title of the first paragraph', 'https://github.com/trollepierre', 'url', 'https://www.youtube.com/embed/-18AYp_7iW0'])
     localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(Vuex)
@@ -36,23 +36,16 @@ describe('Component | ChapterCard.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
 
     it('should match snapshot when imgLink is not set', () => {
-      chapter = {
-        position: 82,
-        frTitle: 'Titre du premier paragraphe',
-        enTitle: 'Title of the first paragraph',
-        imgLink: '',
-        frText: 'du blabla',
-        enText: 'some blabla',
-      }
+      chapter.imgLink = ''
       const propsData = {
         chapter,
       }
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 

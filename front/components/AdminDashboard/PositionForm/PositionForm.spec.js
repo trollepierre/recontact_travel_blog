@@ -27,7 +27,7 @@ describe('Component | PositionForm.vue', () => {
     it('should match snapshot', () => {
       wrapper = shallowMount(PositionForm, { localVue })
 
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 

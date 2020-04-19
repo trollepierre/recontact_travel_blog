@@ -1,58 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | AppHeader.vue template should match snapshot 1`] = `
-<div
-  class="app-header"
->
-  <header
-    class="page__header"
-  >
-    <div
-      class="page__container page__header--container"
-    >
-      <a
-        class="logo-link"
-        href="/"
-        title="home"
-      >
-        <span
-          class="logo-link__recontact"
-        >
-          Recontact
-        </span>
-         
-        <span
-          class="logo-link__me"
-        >
-          Me
-        </span>
-      </a>
-       
-      <nav
-        aria-label="site navigation"
-        class="app-header__navigation navigation"
-      >
-        <ol
-          class="navigation__links"
-        >
+<div class="app-header">
+  <header class="page__header">
+    <div class="page__container page__header--container"><a title="home" href="/" class="logo-link"><span class="logo-link__recontact">Recontact</span> <span class="logo-link__me">Me</span></a>
+      <nav aria-label="site navigation" class="app-header__navigation navigation">
+        <ol class="navigation__links">
           <!---->
-           
           <!---->
-           
           <!---->
-           
-          <li
-            class="navigation__link other-language"
-          >
-            <button
-              class="navbar-action navbar-action__other-language"
-              type="button"
-            >
-              
+          <li class="navigation__link other-language"><button type="button" class="navbar-action navbar-action__other-language">
               otherLanguage
-            
-            </button>
-          </li>
+            </button></li>
         </ol>
       </nav>
     </div>

@@ -148,10 +148,6 @@
   padding: 15px 0;
 }
 
-.logo-link:hover {
-  outline: -webkit-focus-ring-color auto 5px;
-}
-
 .logo-link__recontact {
   color: #07c;
   padding-left: 10px;
@@ -174,7 +170,6 @@
 
 .navbar-action:hover {
   text-decoration: underline;
-  outline: -webkit-focus-ring-color auto 5px;
 }
 
 .navbar-action__suggestion,

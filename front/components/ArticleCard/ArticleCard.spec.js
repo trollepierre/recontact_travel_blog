@@ -54,7 +54,7 @@ describe('Component | ArticleCard.vue', () => {
 
     describe('template', () => {
       it('should match snapshot', () => {
-        expect(wrapper.element).toMatchSnapshot()
+        expect(wrapper).toMatchSnapshot()
       })
 
       it('should match snapshot when lazy is false', () => {
@@ -63,7 +63,7 @@ describe('Component | ArticleCard.vue', () => {
           lazy: false,
         }
         wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
-        expect(wrapper.element).toMatchSnapshot()
+        expect(wrapper).toMatchSnapshot()
       })
 
       it('should have enabled article button', () => {

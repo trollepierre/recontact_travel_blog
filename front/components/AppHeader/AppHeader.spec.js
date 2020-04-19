@@ -21,7 +21,7 @@ describe('Component | AppHeader.vue', () => {
     it('should match snapshot', () => {
       wrapper = shallowMount(AppHeader, { localVue })
 
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 

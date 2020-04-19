@@ -14,6 +14,8 @@ describe('Component | PhotoCard.vue', () => {
       imgLink: 'webf',
       dropboxId: '45',
     }
+    console.warn = jest.fn()
+
     localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
@@ -28,7 +30,7 @@ describe('Component | PhotoCard.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 

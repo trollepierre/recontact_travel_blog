@@ -26,11 +26,19 @@
           :key="paragraph.text"
           class="chapter__footer_text">
           <template v-if="paragraph">
+            <iframe
+              v-if="paragraph.iframeSrc"
+              :width="dimensions.width"
+              :height="dimensions.height"
+              :src="paragraph.iframeSrc"
+              class="youtube-iframe"
+              allow="accelerometer; encrypted-media; gyroscope;"
+              allowfullscreen/>
             <a
-              v-if="paragraph.isLink"
-              :href="paragraph.text"
+              v-else-if="paragraph.link"
+              :href="paragraph.link"
               target="_blank">
-              {{ paragraph.text }}
+              {{ paragraph.link }}
             </a>
             <p v-else>
               {{ paragraph.text }}
@@ -44,12 +52,15 @@
 
 <script>
   import translationsService from '../../services/services/translations'
+  import { generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester } from './paragraph-link-utils'
+  import { iframeDimensions } from '../../services'
 
   export default {
     name: 'ChapterCard',
-    props: {
-      chapter: { type: Object, default: () => {} },
-    },
+    props: { chapter: { type: Object, default: () => {} } },
+    data: () => ({
+      dimensions: iframeDimensions(),
+    }),
     computed: {
       imgLink() {
         const { imgLink } = this.chapter
@@ -68,15 +79,16 @@
 
         return chapterText
           .filter(paragraph => !!paragraph)
-          .map(paragraph => {
-            let isLink = false
-            /* eslint-disable no-useless-escape */
-            const urlRegExp = new RegExp('^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?')
-            if (urlRegExp.test(paragraph)) {
-              isLink = true
-            }
-            return { isLink, text: paragraph }
-          })
+          .map(this.enhanceParagraph)
+      },
+    },
+    methods: {
+      enhanceParagraph(paragraph) {
+        return {
+          iframeSrc: youtubeEmbedUrlTester(paragraph) ? generateIframeLink(paragraph) : undefined,
+          link: urlTester(paragraph) ? generateCleanUrlLink(paragraph) : undefined,
+          text: paragraph,
+        }
       },
     },
     i18n: {
@@ -182,6 +194,11 @@
     border-color: #616161;
     color: #FAFAFA;
     cursor: auto;
+  }
+
+  .youtube-iframe {
+    margin: 30px 0;
+    border: none;
   }
 
 </style>

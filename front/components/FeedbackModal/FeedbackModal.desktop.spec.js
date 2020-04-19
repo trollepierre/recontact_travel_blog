@@ -30,7 +30,7 @@ describe('Component | FeedbackModal.vue', () => {
 
   describe('template', () => {
     it('should match snapshot', () => {
-      expect(wrapper.element).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
     xit('should have message with height to 152px', () => {
       expect(wrapper.vm.heightMessage).toEqual('152px')
