@@ -7,9 +7,11 @@ import article from '../../fixtures/articleSaved'
 import chapter from '../../fixtures/chapterWithParagraphs'
 import photo from '../../fixtures/photo'
 import GetArticleComments from '../../../src/use_cases/get-article-comments'
+import AddComment from '../../../src/use_cases/add-comment'
+import { commentForFront } from '../../fixtures/comments/commentForFront'
 
 describe('Integration | Routes | articles route', () => {
-  describe('/articles', () => {
+  describe('GET /articles', () => {
     let articles
 
     beforeEach(() => {
@@ -38,7 +40,7 @@ describe('Integration | Routes | articles route', () => {
     })
   })
 
-  describe('/articles/:id', () => {
+  describe('GET /articles/:id', () => {
     const chapters = [chapter(), chapter()]
     beforeEach(() => {
       sinon.stub(GetArticle, 'getArticle').resolves(chapters)
@@ -68,7 +70,7 @@ describe('Integration | Routes | articles route', () => {
     })
   })
 
-  describe('/articles/:id/photos', () => {
+  describe('GET /articles/:id/photos', () => {
     const photos = [photo(), photo()]
     beforeEach(() => {
       sinon.stub(GetPhotosOfArticle, 'getArticlePhotos').resolves(photos)
@@ -98,7 +100,7 @@ describe('Integration | Routes | articles route', () => {
     })
   })
 
-  describe('/articles/:id/comments', () => {
+  describe('GET /articles/:id/comments', () => {
     const comments = [{ author: 'name', date: '2019' }]
     beforeEach(() => {
       sinon.stub(GetArticleComments, 'getArticleComments').resolves(comments)
@@ -120,6 +122,58 @@ describe('Integration | Routes | articles route', () => {
           // Then
           expect(GetArticleComments.getArticleComments).to.have.been.calledWith(stringIdArticle)
           expect(response.body).to.deep.equal(comments)
+          if (err) {
+            done(err)
+          }
+          done()
+        })
+    })
+  })
+
+  describe('POST /articles/:id/comments', () => {
+    const createdComment = commentForFront()
+
+    afterEach(() => {
+      AddComment.addComment.restore()
+    })
+
+    it('should call AddComment to addComment before sending json', done => {
+      // Given
+      sinon.stub(AddComment, 'addComment').resolves(createdComment)
+      const stringIdArticle = '59'
+      const body = { author: 'name', text: 'comment' }
+
+      // When
+      request(app)
+        .post(`/api/articles/${stringIdArticle}/comments`)
+        .send(body)
+        .expect('Content-Type', /json/)
+        .end((err, response) => {
+          // Then
+          expect(AddComment.addComment).to.have.been.calledWith(body, stringIdArticle)
+          expect(response.body).to.deep.equal(createdComment)
+          if (err) {
+            done(err)
+          }
+          done()
+        })
+    })
+
+    it('should handle error', done => {
+      // Given
+      sinon.stub(AddComment, 'addComment').rejects('error')
+      const stringIdArticle = '59'
+      const body = { author: 'name', text: 'comment' }
+
+      // When
+      request(app)
+        .post(`/api/articles/${stringIdArticle}/comments`)
+        .send(body)
+        .expect('Content-Type', /json/)
+        .end((err, response) => {
+          // Then
+          expect(response.status).to.equal(400)
+          expect(response.body).to.deep.equal({ name: 'error' })
           if (err) {
             done(err)
           }
