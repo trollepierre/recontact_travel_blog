@@ -6,10 +6,6 @@ describe('env', () => {
     god: 'damnit',
     holy: 'fuck',
   }
-  const dotenvVars = {
-    holy: 'shit',
-    jesus: 'christ',
-  }
 
   let varEnv
 
@@ -38,12 +34,6 @@ describe('env', () => {
   describe('when asking for a overriden process key', () => {
     it('should return the original value (not overridden)', () => {
       expect(varEnv('holy')).to.equal(processVars.holy)
-    })
-  })
-
-  describe.skip('when asking for an unknown process key, defined only in dotenv', () => {
-    it('should return the corresponding value', () => {
-      expect(varEnv('jesus')).to.equal(dotenvVars.jesus)
     })
   })
 })
