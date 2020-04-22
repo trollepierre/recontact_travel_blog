@@ -20,7 +20,7 @@ describe('Unit | UpdateArticle | sync', () => {
   beforeEach(() => {
     sinon.stub(PhotoRepository, 'deletePhotosOfArticle').resolves()
     sinon.stub(ChapterRepository, 'deleteChaptersOfArticle').resolves()
-    sinon.stub(ArticleRepository, 'deleteArticle').resolves()
+    sinon.stub(ArticleRepository, 'deleteByDropboxId').resolves()
     const subscriptions = [{ email: 'abonne@recontact.me' }]
     const oldArticles = [savedArticle('46')]
     sinon.stub(SubscriptionRepository, 'getAll').resolves(subscriptions)
@@ -57,7 +57,7 @@ describe('Unit | UpdateArticle | sync', () => {
     mailJet.sendEmail.restore()
     PhotoRepository.deletePhotosOfArticle.restore()
     ChapterRepository.deleteChaptersOfArticle.restore()
-    ArticleRepository.deleteArticle.restore()
+    ArticleRepository.deleteByDropboxId.restore()
   })
 
   it('should call ChapterRepository to delete the Chapters Of the Article', () => {
@@ -81,7 +81,7 @@ describe('Unit | UpdateArticle | sync', () => {
     UpdateArticle.sync(dropboxId)
 
     // then
-    expect(ArticleRepository.deleteArticle).to.have.been.calledWith(dropboxId)
+    expect(ArticleRepository.deleteByDropboxId).to.have.been.calledWith(dropboxId)
   })
 
   describe('when Dropbox can create shared link', () => {

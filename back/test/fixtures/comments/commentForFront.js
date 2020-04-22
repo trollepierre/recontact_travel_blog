@@ -1,4 +1,5 @@
 const commentForFront = comment => ({
+  id: 1,
   dropboxId: '85',
   text: 'sdcf',
   author: 'bala',

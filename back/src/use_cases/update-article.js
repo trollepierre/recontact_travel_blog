@@ -180,7 +180,7 @@ async function sync(dropboxId) {
   }
 
   await Promise.all([
-    articleRepository.deleteArticle(dropboxId),
+    articleRepository.deleteByDropboxId(dropboxId),
     chapterRepository.deleteChaptersOfArticle(dropboxId),
     photoRepository.deletePhotosOfArticle(dropboxId),
   ])

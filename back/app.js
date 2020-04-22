@@ -7,6 +7,7 @@ import cors from 'cors'
 
 import articles from './src/infrastructure/features/api/articles'
 import admin from './src/infrastructure/features/api/admin'
+import comments from './src/infrastructure/features/api/comments'
 import sync from './src/infrastructure/features/api/sync'
 import status from './src/infrastructure/features/api/status'
 import subscriptions from './src/infrastructure/features/api/subscriptions'
@@ -40,6 +41,7 @@ app.use('/status', status)
 app.use('/api/sync', sync)
 app.use('/api/status', status)
 app.use('/api/articles', articles)
+app.use('/api/admin/comments', comments)
 app.use('/api/admin', admin)
 app.use('/api/subscriptions', subscriptions)
 app.use('/api/feedbacks', feedbacks)

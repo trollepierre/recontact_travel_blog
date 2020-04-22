@@ -11,7 +11,7 @@ router.get('/', (req, res) => GetAllArticles.getAllArticles()
   .then(articles => res.json(articles)))
 
 router.get('/:id', (req, res) => GetArticle.getArticle(req.params.id)
-  .then(chapters => res.json(chapters)))
+  .then(article => res.json(article)))
 
 router.get('/:id/photos', (req, res) => GetArticlePhotos.getArticlePhotos(req.params.id)
   .then(photos => res.json(photos)))
