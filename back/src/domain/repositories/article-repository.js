@@ -16,7 +16,7 @@ function update(titleToUpdate, dropboxId) {
   return Article.update(titleToUpdate, { where: { dropboxId } })
 }
 
-function deleteArticle(dropboxId) {
+function deleteByDropboxId(dropboxId) {
   return Article.destroy({ where: { dropboxId } })
 }
 
@@ -28,7 +28,7 @@ export default {
   create,
   getAll,
   get,
-  deleteArticle,
+  deleteByDropboxId,
   update,
   deleteAll,
 }

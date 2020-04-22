@@ -96,7 +96,7 @@ describe('Unit | Repository | article-repository', () => {
     })
   })
 
-  describe('#deleteArticle', () => {
+  describe('#deleteByDropboxId', () => {
     const dropboxId = 47
 
     beforeEach(() => {
@@ -109,7 +109,7 @@ describe('Unit | Repository | article-repository', () => {
 
     it('should call Sequelize Model#destroy', () => {
       // when
-      const promise = articleRepository.deleteArticle(dropboxId)
+      const promise = articleRepository.deleteByDropboxId(dropboxId)
 
       // then
       return promise.then(() => {

@@ -30,7 +30,7 @@ describe('Integration | Routes | articles route', () => {
         .expect('Content-Type', /json/)
         .end((err, response) => {
           // Then
-          expect(GetAllArticles.getAllArticles).to.have.been.called
+          expect(GetAllArticles.getAllArticles).to.have.been.calledWith()
           expect(response.body).to.deep.equal(articles)
           if (err) {
             done(err)
