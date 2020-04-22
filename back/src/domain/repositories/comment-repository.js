@@ -1,13 +1,15 @@
 import { Comment } from '../models/index'
+import { enhanceComment } from '../entities/comment-entity'
 
 function getAllById(dropboxId) {
   return Comment.findAll({
     where: { dropboxId },
-  })
+  }).then(comments => comments.map(enhanceComment))
 }
 
 function getCreatedComment({ text, author }) {
   return Comment.findOne({ where: { text, author } })
+    .then(enhanceComment)
 }
 
 async function create(comment) {

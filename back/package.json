@@ -16,13 +16,14 @@
     "lint": "./node_modules/.bin/eslint --ext .js src test",
     "lint:fix": "./node_modules/.bin/eslint --fix --ext .js src test",
     "start": "node dist/index.js",
-    "start:dev": "nodemon --exec babel-node ./index.js",
+    "start:dev": "NODE_ENV=development nodemon --exec babel-node ./index.js",
     "test": "env TZ=\"Europe/Paris\" NODE_ENV=test nyc mocha --require @babel/register --recursive",
     "test:unit": "NODE_ENV=test mocha --require @babel/register --recursive",
     "test:watch": "yarn test:unit --watch"
   },
   "dependencies": {
     "body-parser": "1.19.0",
+    "chalk": "^4.0.0",
     "connect-history-api-fallback": "1.6.0",
     "cookie-parser": "1.4.4",
     "core-js": "^3.6.4",

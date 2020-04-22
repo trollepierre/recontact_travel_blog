@@ -30,7 +30,7 @@ yarn start:back
 yarn start:front
 ```
 
-You can run the API server independently from the client's development one.
+You can run the API server independently of the client's development one.
 
 ## Release to production
 
@@ -43,6 +43,7 @@ yarn release
 ## PostgreSQL
 
 SQLite is recommended for local development. To fix bug in production, it is better to use PostgreSQL
+
 https://www.postgresql.org/download/
 
 ## Spot a bug
