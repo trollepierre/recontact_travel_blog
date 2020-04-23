@@ -11,7 +11,7 @@ describe('Unit | DeleteComment | deleteComment', () => {
     CommentRepository.deleteById.restore()
   })
 
-  it('should call CommentRepository to deleteById and to return', () => {
+  it('should call CommentRepository to deleteById and return empty', () => {
     // when
     const promise = DeleteComment.deleteComment()
 

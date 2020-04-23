@@ -11,7 +11,7 @@ describe('Unit | DeleteArticle | deleteArticle', () => {
     ArticleRepository.deleteByDropboxId.restore()
   })
 
-  it('should call ArticleRepository to deleteByDropboxId and to return', () => {
+  it('should call ArticleRepository to deleteByDropboxId and return empty', () => {
     // when
     const promise = DeleteArticle.deleteArticle()
 
