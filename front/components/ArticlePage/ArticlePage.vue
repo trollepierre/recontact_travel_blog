@@ -197,7 +197,7 @@
     list-style-type: none;
     padding: 0;
     width: 100%;
-    margin: 5px;
+    margin: 5px 0 5px 0;
   }
 
   .footer-article {
@@ -237,6 +237,10 @@
     .chapter__list, .photo-gallery__list {
       flex-direction: row;
       flex-wrap: wrap;
+    }
+
+    .chapter__item, .photo__item {
+      margin: 5px;
     }
   }
 

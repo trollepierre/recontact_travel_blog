@@ -113,7 +113,7 @@
           fixWebsite: 'Fix the website',
           theArticlesOfTheTrip: 'Travel blog of Pierre Trollé and Benoît Lefebvre after a world trip and other adventures',
           lastPosition: 'Last position:',
-          title: 'Traveling Pierre',
+          title: 'Discover the world with us!',
           lastKnownPosition: 'Last known position:',
         },
       },
