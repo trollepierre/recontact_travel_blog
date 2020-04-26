@@ -212,7 +212,7 @@
   .article__header {
     border-bottom: 1px solid #e6e6e6;
     height: 34px;
-    padding: 15px;
+    padding: 12px;
     display: flex;
     justify-content: space-between;
   }
@@ -229,7 +229,7 @@
     margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 200px;
+    max-width: 235px;
   }
 
   .article__content {

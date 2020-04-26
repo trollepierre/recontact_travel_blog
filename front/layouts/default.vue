@@ -29,7 +29,7 @@
   }
 
   #app {
-    font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+    font-family: "cursive";
     text-align: center;
     color: #2c3e50;
   }
