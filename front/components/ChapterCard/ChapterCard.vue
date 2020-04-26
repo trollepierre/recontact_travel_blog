@@ -57,7 +57,13 @@
 
   export default {
     name: 'ChapterCard',
-    props: { chapter: { type: Object, default: () => {} } },
+    props: {
+      chapter: {
+        type: Object,
+        default: () => {
+        },
+      },
+    },
     data: () => ({
       dimensions: iframeDimensions(),
     }),
@@ -107,10 +113,6 @@
 </script>
 
 <style scoped>
-  h2 {
-    font-weight: normal;
-  }
-
   img.chapter__image {
     max-width: 100%;
     max-height: 40vw;
@@ -166,7 +168,7 @@
 
   .chapter__footer {
     text-align: center;
-    padding: 15px;
+    padding: 0 15px 0 15px;
     border-top: 1px solid #e6e6e6;
   }
 
@@ -203,5 +205,11 @@
 
   .chapter__footer_text {
     font-size: 18px;
+  }
+
+  @media only screen and (min-width: 640px) {
+    .chapter__footer_text {
+      font-weight: lighter;
+    }
   }
 </style>
