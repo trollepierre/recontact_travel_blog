@@ -144,7 +144,7 @@
   }
 
   .chapter__title {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 17px;
     color: #07c;
@@ -201,4 +201,7 @@
     border: none;
   }
 
+  .chapter__footer_text {
+    font-size: 18px;
+  }
 </style>

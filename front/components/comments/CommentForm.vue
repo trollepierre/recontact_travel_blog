@@ -149,6 +149,7 @@
   }
 
   .forum__comment-box {
+    font-family: "cursive" !important;
     font-size: 16px;
     font-weight: 400;
     margin: 0;
