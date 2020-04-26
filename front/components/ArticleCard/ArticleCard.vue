@@ -222,14 +222,14 @@
   }
 
   .article__title {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 17px;
     color: #07c;
     margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 235px;
+    max-width: 300px;
   }
 
   .article__content {
@@ -283,6 +283,13 @@
   @media only screen and (max-width: 640px) {
     .article {
       max-width: inherit;
+    }
+  }
+
+  @media only screen and (min-width: 640px) {
+    .article__title {
+      font-size: 18px;
+      max-width: 235px;
     }
   }
 </style>
