@@ -107,7 +107,7 @@
           theArticlesOfTheTrip: 'Blog de voyage de Pierre Trollé et Benoît Lefebvre après un tour du monde et d’autres aventures',
           lastPosition: 'Dernière position  :',
           title: 'Pierre en voyage',
-          lastKnownPosition: 'Dernière position connue  :',
+          lastKnownPosition: 'Dernière position connue :',
         },
         en: {
           fixWebsite: 'Fix the website',
@@ -145,11 +145,12 @@
   }
 
   .h2 {
-    font-size: 16px;
+    font-size: 18px;
+    color: gray;
   }
 
   .h3 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
   }
 

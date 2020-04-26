@@ -1,64 +1,60 @@
 <template>
-  <div class="app-header">
-    <header class="page__header">
-      <div class="page__container page__header--container">
-        <a
-          :title="home"
-          class="logo-link"
-          href="/">
-          <span class="logo-link__recontact">Recontact</span>
-          <span class="logo-link__me">Me</span>
-        </a>
-        <nav
-          class="app-header__navigation navigation"
-          aria-label="site navigation">
-          <ol class="navigation__links">
-            <li
-              v-if="showNavBarButton"
-              class="navigation__link">
-              <button
-                class="navbar-action navbar-action__subscribe"
-                type="button"
-                @click.prevent="displaySubscribeModal">
-                {{ $t("subscribe") }}
-              </button>
-            </li>
-            <li
-              v-if="showNavBarButton"
-              class="navigation__link">
-              <button
-                class="navbar-action navbar-action__suggestion"
-                type="button"
-                @click.prevent="displayFeedbackModal">
-                {{ $t("suggestion") }}
-              </button>
-            </li>
-            <li
-              v-if="showNavBarButton"
-              class="navigation__link tdm">
-              <a
-                :title="tdm"
-                class="navbar-action navbar-action__tdm"
-                href="http://worldtour.recontact.me">
-                <img
-                  :alt="logo"
-                  class="tdm__image"
-                  src="/static/tdm.jpg">
-              </a>
-            </li>
-            <li class="navigation__link other-language">
-              <button
-                class="navbar-action navbar-action__other-language"
-                type="button"
-                @click.prevent="switchLanguage">
-                {{ $t("otherLanguage") }}
-              </button>
-            </li>
-          </ol>
-        </nav>
-      </div>
-    </header>
-  </div>
+  <header class="page__header">
+    <div class="page__container">
+      <a
+        :title="home"
+        class="logo-link"
+        href="/">
+        <span class="logo-link__recontact">Recontact</span>
+        <span class="logo-link__me">Me</span>
+      </a>
+      <nav aria-label="site navigation">
+        <ol class="navigation__links">
+          <li
+            v-if="showNavBarButton"
+            class="navigation__link">
+            <button
+              class="navbar-action navbar-action__subscribe"
+              type="button"
+              @click.prevent="displaySubscribeModal">
+              {{ $t("subscribe") }}
+            </button>
+          </li>
+          <li
+            v-if="showNavBarButton"
+            class="navigation__link">
+            <button
+              class="navbar-action navbar-action__suggestion"
+              type="button"
+              @click.prevent="displayFeedbackModal">
+              {{ $t("suggestion") }}
+            </button>
+          </li>
+          <li
+            v-if="showNavBarButton"
+            class="navigation__link tdm">
+            <a
+              :title="tdm"
+              class="navbar-action navbar-action__tdm"
+              href="http://worldtour.recontact.me">
+              <img
+                :alt="logo"
+                class="tdm__image"
+                src="/static/tdm.jpg">
+            </a>
+          </li>
+          <li class="navigation__link other-language">
+            <button
+              class="navbar-action navbar-action__other-language"
+              type="button"
+              @click.prevent="switchLanguage">
+              {{ $t("otherLanguage") }}
+            </button>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </header>
 </template>
 <script>
   import { isWww } from '../../services'
@@ -91,11 +87,11 @@
       },
 
       displaySubscribeModal() {
-      // this.$modal.show('subscribe-modal')
+        // this.$modal.show('subscribe-modal')
       },
 
       displayFeedbackModal() {
-      // this.$modal.show('feedback-modal')
+        // this.$modal.show('feedback-modal')
       },
     },
     i18n: {
@@ -127,102 +123,105 @@
 </script>
 
 <style scoped>
-.page__header {
-  height: 60px;
-  background: #ffffff;
-  border-bottom: 1px solid #e6e6e6;
-  width: 100%;
-  padding-left: 0;
-}
-
-.page__header--container {
-  display: flex;
-  justify-content: center;
-}
-
-.logo-link {
-  text-decoration: none;
-  font-size: 26px;
-  font-weight: 900;
-  display: inline-block;
-  padding: 15px 0;
-}
-
-.logo-link__recontact {
-  color: #07c;
-  padding-left: 10px;
-}
-
-.logo-link__me {
-  color: #F48024;
-}
-
-.navbar-action {
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border: none;
-  padding: 16px 0;
-  line-height: 28px;
-  color: #333333;
-  display: inline-block;
-}
-
-.navbar-action:hover {
-  text-decoration: underline;
-}
-
-.navbar-action__suggestion,
-.navbar-action__tdm {
-  display: none;
-}
-
-.navigation__links {
-  list-style: none;
-  margin: 0;
-  display: inline-flex;
-}
-
-.navigation__link {
-  margin-left: 25px;
-}
-
-.page__container {
-  margin: 0 auto;
-}
-
-.tdm {
-  display: inline-flex;
-}
-
-.navbar-action__other-language {
-  color: #F48024;
-  text-decoration: unset;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-.navbar-action__tdm {
-  padding: 10px;
-}
-
-@media only screen and (min-width: 640px) {
-  .page__header--container {
-    justify-content: space-between;
+  .page__header {
+    height: 60px;
+    background: #ffffff;
+    border-bottom: 1px solid #e6e6e6;
+    width: 100%;
+    padding-left: 0;
   }
 
-  .navbar-action__suggestion,
-  .navbar-action__tdm {
+  .page__container {
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-around;
+  }
+
+  .logo-link {
+    text-decoration: none;
+    font-size: 26px;
+    font-weight: 900;
     display: inline-block;
+    padding: 10px 0;
   }
 
   .logo-link__recontact {
     color: #07c;
-    padding-left: 0;
+    padding-left: 10px;
+  }
+
+  .logo-link__me {
+    color: #F48024;
+  }
+
+  .navbar-action {
+    cursor: pointer;
+    background: transparent;
+    font-size: 16px;
+    border: none;
+    padding: 16px 0;
+    line-height: 28px;
+    color: #333333;
+    display: inline-block;
+  }
+
+  .navbar-action:hover {
+    text-decoration: underline;
+  }
+
+  .navbar-action__suggestion,
+  .navbar-action__tdm {
+    display: none;
+  }
+
+  .navigation__links {
+    list-style: none;
+    margin: 0;
+    display: inline-flex;
+  }
+
+  .tdm {
+    display: inline-flex;
   }
 
   .navbar-action__other-language {
-    font-size: 20px;
+    color: #F48024;
+    text-decoration: unset;
+    text-transform: uppercase;
+    font-size: 14px;
   }
-}
+
+  .navbar-action__tdm {
+    padding: 10px;
+  }
+
+  .navigation__links {
+    padding-left: 0;
+  }
+
+  @media only screen and (min-width: 640px) {
+    .page__container {
+      justify-content: space-between;
+    }
+
+    .navbar-action__suggestion,
+    .navbar-action__tdm {
+      display: inline-block;
+    }
+
+    .navigation__link {
+      margin-left: 25px;
+    }
+
+    .logo-link__recontact {
+      color: #07c;
+      padding-left: 0;
+    }
+
+    .navbar-action__other-language {
+      font-size: 20px;
+      padding-right: 0;
+    }
+  }
 </style>
