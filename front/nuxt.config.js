@@ -58,6 +58,10 @@ const articleRoutes = [...Array(92).keys()]
   .map((val, index) => `/articles/${index + 1}`)
 
 module.exports = {
+  css: [
+    '~/assets/fonts/apple-chancery.css',
+    '~/assets/css/styles.css',
+  ],
   env: { NUXT_ENV_API_URL: process.env.NUXT_ENV_API_URL || 'https://recontact.herokuapp.com' },
   head: process.env.NUXT_ENV_LANGUAGE === 'en' ? headEn : headFr, // Headers of the page
   loading: { color: '#3B8070' }, // Customize the progress bar color

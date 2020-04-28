@@ -29,7 +29,6 @@
   }
 
   #app {
-    font-family: cursive;
     font-weight: bold;
     text-align: center;
     color: #2c3e50;
