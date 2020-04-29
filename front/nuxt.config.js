@@ -59,7 +59,7 @@ const articleRoutes = [...Array(92).keys()]
 
 module.exports = {
   css: [
-    '~/assets/fonts/apple-chancery.css',
+    '~/assets/fonts/font.css',
     '~/assets/css/styles.css',
   ],
   env: { NUXT_ENV_API_URL: process.env.NUXT_ENV_API_URL || 'https://recontact.herokuapp.com' },
