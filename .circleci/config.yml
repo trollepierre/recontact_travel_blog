@@ -245,7 +245,7 @@ workflows:
             - deploy_branch
       - lighthouse:
           requires:
-            - deploy_branch
+            - deploy_staging
       - deploy_staging:
           requires:
             - test_front
