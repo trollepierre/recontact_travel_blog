@@ -209,7 +209,7 @@ describe('Component | ArticleCard.vue', () => {
     describe('events', () => {
       describe('clicking on button "Voir l\'article"', () => {
         it('should redirect to /article/id', () => {
-          wrapper.find('button.article__view-button').trigger('click')
+          wrapper.findAll('.article__footer__button').at(0).trigger('click')
 
           expect(router.push).toHaveBeenCalledWith('/articles/58')
         })

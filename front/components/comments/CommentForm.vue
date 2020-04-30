@@ -122,6 +122,7 @@
   .form__title {
     font-size: 1.5em;
     font-weight: bold;
+    font-family: serif;
   }
 
   .form {
@@ -149,7 +150,7 @@
   }
 
   .forum__comment-box {
-    font-family: "cursive" !important;
+    font-family: serif !important;
     font-size: 16px;
     font-weight: 400;
     margin: 0;
@@ -177,6 +178,7 @@
   .form__label {
     font-size: 16px;
     font-weight: 700;
+    font-family: serif;
     color: #07c;
     margin: 0;
     overflow-wrap: break-word;
@@ -196,7 +198,7 @@
     border-top: 1px solid #e6e6e6;
   }
 
-  button.form-button {
+  .form-button {
     text-transform: uppercase;
     color: #d14800;
     background: #ffffff;
@@ -208,6 +210,11 @@
     margin-bottom: 10px;
     font-weight: 700;
     max-width: 300px;
+  }
+
+  .form-button:hover {
+    background: #d14800;
+    color: #ffffff;
   }
 
   @media only screen and (max-width: 1000px) {

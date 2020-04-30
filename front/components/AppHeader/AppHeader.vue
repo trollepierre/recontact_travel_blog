@@ -5,8 +5,8 @@
         :title="home"
         class="logo-link"
         href="/">
-        <span class="logo-link__recontact">Recontact</span>
-        <span class="logo-link__me">Me</span>
+        <span class="recontact">Recontact</span>
+        <span class="me">Me</span>
       </a>
       <nav aria-label="site navigation">
         <ol class="navigation__links">
@@ -142,16 +142,23 @@
     text-decoration: none;
     font-size: 26px;
     font-weight: 900;
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 0;
+    font-family: serif;
+
   }
 
-  .logo-link__recontact {
+  .recontact {
     color: #07c;
-    padding-left: 10px;
+    padding: 5px 5px 0;
+    align-self: center;
   }
 
-  .logo-link__me {
+  .me {
+    align-self: center;
+    padding: 5px 5px 0;
     color: #F48024;
   }
 
@@ -167,7 +174,8 @@
   }
 
   .navbar-action:hover {
-    text-decoration: underline;
+    background: #d14800;
+    color: #ffffff;
   }
 
   .navbar-action__suggestion,
@@ -188,16 +196,31 @@
   .navbar-action__other-language {
     color: #F48024;
     text-decoration: unset;
-    text-transform: uppercase;
     font-size: 14px;
+    font-family: serif;
+    text-transform: uppercase;
+    background: #ffffff;
+    border: 1px solid #F48024;
+    cursor: pointer;
+    padding: 5px 15px 3px;
+    border-radius: 4px;
+    width: 100%;
+    font-weight: 700;
   }
 
   .navbar-action__tdm {
     padding: 10px;
   }
 
+  .other-language {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .navigation__links {
     padding-left: 0;
+    height: 100%;
   }
 
   @media only screen and (min-width: 640px) {
@@ -214,14 +237,27 @@
       margin-left: 25px;
     }
 
-    .logo-link__recontact {
+    .recontact {
       color: #07c;
       padding-left: 0;
     }
+  }
 
-    .navbar-action__other-language {
-      font-size: 20px;
-      padding-right: 0;
+  @media only screen and (min-width: 640px) {
+    .page__container {
+      max-width: 500px;
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .page__container {
+      max-width: 716px;
+    }
+  }
+
+  @media only screen and (min-width: 1200px) {
+    .page__container {
+      max-width: 888px;
     }
   }
 </style>

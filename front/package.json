@@ -10,7 +10,7 @@
     "clean:dependencies": "rm -rf node_modules",
     "clean:dist": "rm -rf dist",
     "dev": "nuxt",
-    "start": "NUXT_ENV_LANGUAGE=en yarn dev",
+    "start": "yarn dev",
     "build": "nuxt build",
     "start-nuxt": "nuxt start",
     "generate": "nuxt generate",
