@@ -48,7 +48,7 @@
         </template>
         <template v-else>
           <button
-            class="article__view-button article__footer__button"
+            class="article__footer__button"
             @click.prevent.once="viewArticle">
             {{ $t("goToArticle") }}
           </button>
@@ -246,7 +246,7 @@
 
   .article__footer {
     text-align: center;
-    padding: 15px;
+    padding: 15px 15px 5px;
     border-top: 1px solid #e6e6e6;
   }
 
@@ -256,11 +256,13 @@
     background: #ffffff;
     border: 1px solid #d14800;
     cursor: pointer;
-    padding: 15px 30px;
+    padding: 12px 30px;
     border-radius: 4px;
     width: 100%;
     margin-bottom: 10px;
     font-weight: 700;
+    font-family: serif;
+    font-size: 12px;
   }
 
   .article__footer_hidden {

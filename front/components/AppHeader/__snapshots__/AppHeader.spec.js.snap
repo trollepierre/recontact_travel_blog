@@ -2,7 +2,7 @@
 
 exports[`Component | AppHeader.vue template should match snapshot 1`] = `
 <header class="page__header">
-  <div class="page__container"><a title="home" href="/" class="logo-link"><span class="logo-link__recontact">Recontact</span> <span class="logo-link__me">Me</span></a>
+  <div class="page__container"><a title="home" href="/" class="logo-link"><span class="recontact">Recontact</span> <span class="me">Me</span></a>
     <nav aria-label="site navigation">
       <ol class="navigation__links">
         <!---->
