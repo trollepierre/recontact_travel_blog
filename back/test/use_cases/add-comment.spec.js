@@ -9,7 +9,9 @@ describe('Unit | AddComment | addComment', () => {
   const author = 'moi'
   const datetime = 'some date without in a string'
   const comment = { text, author }
-  const persistedComment = { id: 1, text, datetime, author }
+  const persistedComment = {
+    id: 1, text, datetime, author,
+  }
   // let clock
   // const now = '2018-10-20'
   const dropboxId = '48'

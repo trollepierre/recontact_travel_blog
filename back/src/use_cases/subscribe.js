@@ -3,9 +3,9 @@ import subscriptionRepository from '../domain/repositories/subscription-reposito
 
 function subscribe(subscriptionForm) {
   return _findSubscription(subscriptionForm.email)
-    .then(subscription => (!isEmpty(subscription) ?
-      { subscription, created: false } :
-      _createSubscription(subscriptionForm)
+    .then(subscription => (!isEmpty(subscription)
+      ? { subscription, created: false }
+      : _createSubscription(subscriptionForm)
         .then(createdSubscription => ({ subscription: createdSubscription, created: true }))))
 }
 

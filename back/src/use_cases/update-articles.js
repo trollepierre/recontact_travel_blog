@@ -12,7 +12,7 @@ function sanitizeLimits(limits) {
 function sync(limits) {
   const { min, max } = sanitizeLimits(limits)
   const articlesToUpdate = []
-  for (let dropboxId = min; dropboxId <= max; dropboxId++ ) {
+  for (let dropboxId = min; dropboxId <= max; dropboxId++) { // eslint-disable-line no-plusplus
     const promise = () => UpdateArticle.sync(`${dropboxId}`)
     articlesToUpdate.push(promise())
   }

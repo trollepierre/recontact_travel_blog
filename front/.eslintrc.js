@@ -1,4 +1,5 @@
 module.exports = {
+
   root: true,
   parserOptions: {
     parser: 'babel-eslint'
@@ -14,6 +15,10 @@ module.exports = {
     'RouterLinkStub': false,
   },
   extends: [
+    'airbnb-base',
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
     '../.eslintrc.js',
     'plugin:vue/recommended',
   ],
