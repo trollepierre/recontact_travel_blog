@@ -1,20 +1,22 @@
 <template>
-  <header class="page__header">
-    <div class="page__container">
+  <header class="header">
+    <div class="container">
       <a
         :title="home"
-        class="logo-link"
+        class="logo"
         href="/">
         <span class="recontact">Recontact</span>
         <span class="me">Me</span>
       </a>
-      <nav aria-label="site navigation">
-        <ol class="navigation__links">
+      <nav
+        aria-label="navigation"
+        role="navigation">
+        <ul class="navigation">
           <li
             v-if="showNavBarButton"
-            class="navigation__link">
+            class="link">
             <button
-              class="navbar-action navbar-action__subscribe"
+              class="button subscribe"
               type="button"
               @click.prevent="displaySubscribeModal">
               {{ $t("subscribe") }}
@@ -22,9 +24,9 @@
           </li>
           <li
             v-if="showNavBarButton"
-            class="navigation__link">
+            class="link">
             <button
-              class="navbar-action navbar-action__suggestion"
+              class="button suggestion"
               type="button"
               @click.prevent="displayFeedbackModal">
               {{ $t("suggestion") }}
@@ -32,10 +34,10 @@
           </li>
           <li
             v-if="showNavBarButton"
-            class="navigation__link tdm">
+            class="link tdm">
             <a
               :title="tdm"
-              class="navbar-action navbar-action__tdm"
+              class="button tdm"
               href="http://worldtour.recontact.me">
               <img
                 :alt="logo"
@@ -43,15 +45,15 @@
                 src="/static/tdm.jpg">
             </a>
           </li>
-          <li class="navigation__link other-language">
+          <li class="link other-language">
             <button
-              class="navbar-action navbar-action__other-language"
+              class="button other-language"
               type="button"
               @click.prevent="switchLanguage">
               {{ $t("otherLanguage") }}
             </button>
           </li>
-        </ol>
+        </ul>
       </nav>
     </div>
   </header>
@@ -123,7 +125,7 @@
 </script>
 
 <style scoped>
-  .page__header {
+  .header {
     height: 60px;
     background: #ffffff;
     border-bottom: 1px solid #e6e6e6;
@@ -131,14 +133,14 @@
     padding-left: 0;
   }
 
-  .page__container {
+  .container {
     height: 100%;
     display: flex;
     margin: 0 auto;
     justify-content: space-around;
   }
 
-  .logo-link {
+  .logo {
     text-decoration: none;
     font-size: 26px;
     font-weight: 900;
@@ -162,7 +164,7 @@
     color: #F48024;
   }
 
-  .navbar-action {
+  .button {
     cursor: pointer;
     background: transparent;
     font-size: 16px;
@@ -173,20 +175,22 @@
     display: inline-block;
   }
 
-  .navbar-action:hover {
+  .button:hover {
     background: #d14800;
     color: #ffffff;
   }
 
-  .navbar-action__suggestion,
-  .navbar-action__tdm {
-    display: none;
-  }
-
-  .navigation__links {
+  .navigation {
     list-style: none;
     margin: 0;
     display: inline-flex;
+    padding-left: 0;
+    height: 100%;
+  }
+
+  .suggestion,
+  .tdm {
+    display: none;
   }
 
   .tdm {
@@ -197,7 +201,7 @@
     color: darkgrey;
   }
 
-  .navbar-action__other-language {
+  .button.other-language {
     color: #F48024;
     text-decoration: unset;
     font-size: 14px;
@@ -212,7 +216,7 @@
     font-weight: 700;
   }
 
-  .navbar-action__tdm {
+  .tdm {
     padding: 10px;
   }
 
@@ -222,22 +226,18 @@
     justify-content: center;
   }
 
-  .navigation__links {
-    padding-left: 0;
-    height: 100%;
-  }
-
   @media only screen and (min-width: 640px) {
-    .page__container {
+    .container {
+      max-width: 500px;
       justify-content: space-between;
     }
 
-    .navbar-action__suggestion,
-    .navbar-action__tdm {
+    .suggestion,
+    .tdm {
       display: inline-block;
     }
 
-    .navigation__link {
+    .link {
       margin-left: 25px;
     }
 
@@ -247,20 +247,14 @@
     }
   }
 
-  @media only screen and (min-width: 640px) {
-    .page__container {
-      max-width: 500px;
-    }
-  }
-
   @media only screen and (min-width: 992px) {
-    .page__container {
+    .container {
       max-width: 716px;
     }
   }
 
   @media only screen and (min-width: 1200px) {
-    .page__container {
+    .container {
       max-width: 888px;
     }
   }
