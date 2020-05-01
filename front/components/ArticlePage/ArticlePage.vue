@@ -204,14 +204,14 @@
   .footer-article {
     text-align: center;
     padding: 15px;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #E6E6E6;
   }
 
   .footer-article button {
     text-transform: uppercase;
-    color: #d14800;
-    background: #ffffff;
-    border: 1px solid #d14800;
+    color: #D14800;
+    background: #FFFFFF;
+    border: 1px solid #D14800;
     cursor: pointer;
     padding: 15px 30px;
     border-radius: 4px;
@@ -222,8 +222,8 @@
   }
 
   .footer-article button:hover {
-    background: #d14800;
-    color: #ffffff;
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   .footer-article button:disabled,

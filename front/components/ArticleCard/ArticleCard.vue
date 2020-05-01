@@ -201,7 +201,7 @@
   .article {
     min-width: 260px;
     max-width: 260px;
-    background: #ffffff;
+    background: #FFFFFF;
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
     border: 1px solid rgba(0, 0, 0, .09);
@@ -211,7 +211,7 @@
   }
 
   .article__header {
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #E6E6E6;
     height: 34px;
     padding: 12px;
     display: flex;
@@ -226,7 +226,7 @@
     font-size: 20px;
     font-weight: 700;
     line-height: 17px;
-    color: #07c;
+    color: #07C;
     margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -248,14 +248,14 @@
   .article__footer {
     text-align: center;
     padding: 15px 15px 5px;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #E6E6E6;
   }
 
   .article__footer__button {
     text-transform: uppercase;
-    color: #d14800;
-    background: #ffffff;
-    border: 1px solid #d14800;
+    color: #D14800;
+    background: #FFFFFF;
+    border: 1px solid #D14800;
     cursor: pointer;
     padding: 12px 30px;
     border-radius: 4px;
@@ -271,8 +271,8 @@
   }
 
   .article__footer__button:hover {
-    background: #d14800;
-    color: #ffffff;
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   .article__footer__button:disabled,

@@ -13,7 +13,7 @@ const headEn = {
       name: 'description',
       content: 'Articles of the world trip of Pierre and Benoît - South America, Oceania, Asia, Europa, Central America',
     },
-    { name: 'theme-color', content: '#ffffff' },
+    { name: 'theme-color', content: '#FFFFFF' },
   ],
   link: [
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -40,7 +40,7 @@ const headFr = {
       name: 'description',
       content: 'Articles du tour du monde de Pierre et Benoît - Amérique du Sud, Océanie, Asie, Europe, Amérique centrale',
     },
-    { name: 'theme-color', content: '#ffffff' },
+    { name: 'theme-color', content: '#FFFFFF' },
   ],
   link: [
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

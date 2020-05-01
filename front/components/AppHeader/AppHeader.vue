@@ -127,8 +127,8 @@
 <style scoped>
   .header {
     height: 60px;
-    background: #ffffff;
-    border-bottom: 1px solid #e6e6e6;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E6E6E6;
     width: 100%;
     padding-left: 0;
   }
@@ -153,7 +153,7 @@
   }
 
   .recontact {
-    color: #07c;
+    color: #07C;
     padding: 5px 5px 0;
     align-self: center;
   }
@@ -176,8 +176,8 @@
   }
 
   .button:hover {
-    background: #d14800;
-    color: #ffffff;
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   .navigation {
@@ -207,7 +207,7 @@
     font-size: 14px;
     font-family: serif;
     text-transform: uppercase;
-    background: #ffffff;
+    background: #FFFFFF;
     border: 1px solid #F48024;
     cursor: pointer;
     padding: 5px 15px 3px;
@@ -242,7 +242,6 @@
     }
 
     .recontact {
-      color: #07c;
       padding-left: 0;
     }
   }

@@ -127,7 +127,7 @@
 
   .form {
     min-width: 260px;
-    background: #ffffff;
+    background: #FFFFFF;
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
     border: 1px solid rgba(0, 0, 0, .09);
@@ -141,7 +141,7 @@
   }
 
   .form__header, .form__content {
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #E6E6E6;
     padding: 15px;
     height: auto;
     display: flex;
@@ -179,7 +179,7 @@
     font-size: 16px;
     font-weight: 700;
     font-family: serif;
-    color: #07c;
+    color: #07C;
     margin: 0;
     overflow-wrap: break-word;
     padding-bottom: 10px;
@@ -195,14 +195,14 @@
   .form__footer {
     text-align: center;
     padding: 15px;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #E6E6E6;
   }
 
   .form-button {
     text-transform: uppercase;
-    color: #d14800;
-    background: #ffffff;
-    border: 1px solid #d14800;
+    color: #D14800;
+    background: #FFFFFF;
+    border: 1px solid #D14800;
     cursor: pointer;
     padding: 15px 30px;
     border-radius: 4px;
@@ -213,8 +213,8 @@
   }
 
   .form-button:hover {
-    background: #d14800;
-    color: #ffffff;
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   @media only screen and (max-width: 1000px) {
