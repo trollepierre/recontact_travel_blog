@@ -6,12 +6,11 @@ import mailJet from '../infrastructure/mailing/mailjet'
 function createComment(comment, dropboxId) {
   if (comment && !isEmptyPlus(comment.text)) {
     if (isEmptyPlus(comment.author)) {
-      comment.author = 'Anonyme'
+      comment.author = 'Anonyme' // eslint-disable-line no-param-reassign
     }
     return commentRepository.create({ ...comment, dropboxId })
-  } else {
-    throw new Error('Empty comment')
   }
+  throw new Error('Empty comment')
 }
 
 async function sendMailWithComment(comment, dropboxId) {

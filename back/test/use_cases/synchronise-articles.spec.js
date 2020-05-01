@@ -309,18 +309,18 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               position: 1,
               dropboxId: idNewArticle1,
               imgLink: 'db.com/call4.jpg?raw=1',
-              frText: 'Rassemblant trois valeureux compagnons :' +
-                '\r\n# - Pierre, l\'expérimenté' +
-                '\r\n# - Franzi, la photographe' +
-                '\r\n# - Vincent, le guide à la carte' +
-                '\r\n##' +
-                '\r\nCe trek avait sur le papier, tout d\'un long fleuve tranquille... Le destin en a décidé autrement...',
-              enText: 'Gathering trois valeureux compagnons :' +
-                '\r\n# - Pierre, l\'expérimenté' +
-                '\r\n# - Franzi, la photographe' +
-                '\r\n# - Vincent, le guide à la carte' +
-                '\r\n##' +
-                '\r\nCe trek avait sur le papier, tout d\'un long fleuve tranquille... Le destin en a décidé autrement...',
+              frText: 'Rassemblant trois valeureux compagnons :'
+                + '\r\n# - Pierre, l\'expérimenté'
+                + '\r\n# - Franzi, la photographe'
+                + '\r\n# - Vincent, le guide à la carte'
+                + '\r\n##'
+                + '\r\nCe trek avait sur le papier, tout d\'un long fleuve tranquille... Le destin en a décidé autrement...',
+              enText: 'Gathering trois valeureux compagnons :'
+                + '\r\n# - Pierre, l\'expérimenté'
+                + '\r\n# - Franzi, la photographe'
+                + '\r\n# - Vincent, le guide à la carte'
+                + '\r\n##'
+                + '\r\nCe trek avait sur le papier, tout d\'un long fleuve tranquille... Le destin en a décidé autrement...',
               frTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
               enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
 
@@ -329,20 +329,20 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               position: 2,
               dropboxId: idNewArticle1,
               imgLink: 'db.com/call5.jpg?raw=1',
-              frText: 'La région de Kangding' +
-                '\r\n#' +
-                '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".' +
-                '\r\n##' +
-                '\r\nLe mont Gongga (Minya Konka) pointe à 7556m d\'altitude, mais nous le longerons et ne passerons qu\'un col à 4800m. Départ à 3500m, le col à passer le troisième jour, et deux jours pour traverser une chaîne de vallées creusée par les énormes rivières Riwuqie et Moxi Gou. Cela paraît un beau programme !' +
-                '\r\n#' +
-                '\r\nLe trek est de difficulté moyenne, nous anticipons la nourriture pour six jours au cas où.',
-              enText: 'La région de Kangding' +
-                '\r\n#' +
-                '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".' +
-                '\r\n##' +
-                '\r\nLe mont Gongga (Minya Konka) pointe à 7556m d\'altitude, mais nous le longerons et ne passerons qu\'un col à 4800m. Départ à 3500m, le col à passer le troisième jour, et deux jours pour traverser une chaîne de vallées creusée par les énormes rivières Riwuqie et Moxi Gou. Cela paraît un beau programme !' +
-                '\r\n#' +
-                '\r\nLe trek est de difficulté moyenne, nous anticipons la nourriture pour six jours au cas où.',
+              frText: 'La région de Kangding'
+                + '\r\n#'
+                + '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".'
+                + '\r\n##'
+                + '\r\nLe mont Gongga (Minya Konka) pointe à 7556m d\'altitude, mais nous le longerons et ne passerons qu\'un col à 4800m. Départ à 3500m, le col à passer le troisième jour, et deux jours pour traverser une chaîne de vallées creusée par les énormes rivières Riwuqie et Moxi Gou. Cela paraît un beau programme !'
+                + '\r\n#'
+                + '\r\nLe trek est de difficulté moyenne, nous anticipons la nourriture pour six jours au cas où.',
+              enText: 'La région de Kangding'
+                + '\r\n#'
+                + '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".'
+                + '\r\n##'
+                + '\r\nLe mont Gongga (Minya Konka) pointe à 7556m d\'altitude, mais nous le longerons et ne passerons qu\'un col à 4800m. Départ à 3500m, le col à passer le troisième jour, et deux jours pour traverser une chaîne de vallées creusée par les énormes rivières Riwuqie et Moxi Gou. Cela paraît un beau programme !'
+                + '\r\n#'
+                + '\r\nLe trek est de difficulté moyenne, nous anticipons la nourriture pour six jours au cas où.',
               frTitle: 'Le programme',
               enTitle: 'Le programme',
             },
@@ -350,18 +350,18 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               position: 1,
               dropboxId: idNewArticle2,
               imgLink: 'db.com/call6.jpg?raw=1',
-              frText: 'Rassemblant trois valeureux compagnons :' +
-                '\r\n# - Pierre, l\'expérimenté' +
-                '\r\n# - Franzi, la photographe' +
-                '\r\n# - Vincent, le guide à la carte' +
-                '\r\n##' +
-                '\r\nCe trek avait sur le papier, tout d\'un long fleuve tranquille... Le destin en a décidé autrement...',
-              enText: 'Gathering trois valeureux compagnons :' +
-                '\r\n# - Pierre, l\'expérimenté' +
-                '\r\n# - Franzi, la photographe' +
-                '\r\n# - Vincent, le guide à la carte' +
-                '\r\n##' +
-                '\r\nCe trek avait sur le papier, tout d\'un long fleuve tranquille... Le destin en a décidé autrement...',
+              frText: 'Rassemblant trois valeureux compagnons :'
+                + '\r\n# - Pierre, l\'expérimenté'
+                + '\r\n# - Franzi, la photographe'
+                + '\r\n# - Vincent, le guide à la carte'
+                + '\r\n##'
+                + '\r\nCe trek avait sur le papier, tout d\'un long fleuve tranquille... Le destin en a décidé autrement...',
+              enText: 'Gathering trois valeureux compagnons :'
+                + '\r\n# - Pierre, l\'expérimenté'
+                + '\r\n# - Franzi, la photographe'
+                + '\r\n# - Vincent, le guide à la carte'
+                + '\r\n##'
+                + '\r\nCe trek avait sur le papier, tout d\'un long fleuve tranquille... Le destin en a décidé autrement...',
               frTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
               enTitle: 'Le trek incroyable autour du mont Gongga - Par Pierre avec Vincent et Franzi',
             },
@@ -369,20 +369,20 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               position: 2,
               dropboxId: idNewArticle2,
               imgLink: 'db.com/call7.jpg?raw=1',
-              frText: 'La région de Kangding' +
-                '\r\n#' +
-                '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".' +
-                '\r\n##' +
-                '\r\nLe mont Gongga (Minya Konka) pointe à 7556m d\'altitude, mais nous le longerons et ne passerons qu\'un col à 4800m. Départ à 3500m, le col à passer le troisième jour, et deux jours pour traverser une chaîne de vallées creusée par les énormes rivières Riwuqie et Moxi Gou. Cela paraît un beau programme !' +
-                '\r\n#' +
-                '\r\nLe trek est de difficulté moyenne, nous anticipons la nourriture pour six jours au cas où.',
-              enText: 'La région de Kangding' +
-                '\r\n#' +
-                '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".' +
-                '\r\n##' +
-                '\r\nLe mont Gongga (Minya Konka) pointe à 7556m d\'altitude, mais nous le longerons et ne passerons qu\'un col à 4800m. Départ à 3500m, le col à passer le troisième jour, et deux jours pour traverser une chaîne de vallées creusée par les énormes rivières Riwuqie et Moxi Gou. Cela paraît un beau programme !' +
-                '\r\n#' +
-                '\r\nLe trek est de difficulté moyenne, nous anticipons la nourriture pour six jours au cas où.',
+              frText: 'La région de Kangding'
+                + '\r\n#'
+                + '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".'
+                + '\r\n##'
+                + '\r\nLe mont Gongga (Minya Konka) pointe à 7556m d\'altitude, mais nous le longerons et ne passerons qu\'un col à 4800m. Départ à 3500m, le col à passer le troisième jour, et deux jours pour traverser une chaîne de vallées creusée par les énormes rivières Riwuqie et Moxi Gou. Cela paraît un beau programme !'
+                + '\r\n#'
+                + '\r\nLe trek est de difficulté moyenne, nous anticipons la nourriture pour six jours au cas où.',
+              enText: 'La région de Kangding'
+                + '\r\n#'
+                + '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".'
+                + '\r\n##'
+                + '\r\nLe mont Gongga (Minya Konka) pointe à 7556m d\'altitude, mais nous le longerons et ne passerons qu\'un col à 4800m. Départ à 3500m, le col à passer le troisième jour, et deux jours pour traverser une chaîne de vallées creusée par les énormes rivières Riwuqie et Moxi Gou. Cela paraît un beau programme !'
+                + '\r\n#'
+                + '\r\nLe trek est de difficulté moyenne, nous anticipons la nourriture pour six jours au cas où.',
               frTitle: 'Le programme',
               enTitle: 'Le programme',
             }]
@@ -407,22 +407,22 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
               subject: '[RecontactMe] Il y a du nouveau sur le site !',
-              template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="https://fr.recontact.me/#">Recontact Me</a>.</p>' +
-                '<p>2 nouveaux articles : ' +
-                '<a href="https://fr.recontact.me/articles/5">59. Perdus autour du mont Gongga</a>' +
-                '<a href="https://fr.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
-                '</p>',
+              template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="https://fr.recontact.me/#">Recontact Me</a>.</p>'
+                + '<p>2 nouveaux articles : '
+                + '<a href="https://fr.recontact.me/articles/5">59. Perdus autour du mont Gongga</a>'
+                + '<a href="https://fr.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>'
+                + '</p>',
             })
             expect(mailJet.sendEmail).to.have.been.calledWith({
               from: 'contact-localhost@recontact.me',
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
               subject: '[RecontactMe] Some news on the website !',
-              template: '<p>Hello,</p><p>There are some news on <a href="https://www.recontact.me/#">Recontact Me</a>.</p>' +
-                '<p>2 new articles: ' +
-                '<a href="https://www.recontact.me/articles/5">59. Lost autour du mont Gongga</a>' +
-                '<a href="https://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +
-                '</p>',
+              template: '<p>Hello,</p><p>There are some news on <a href="https://www.recontact.me/#">Recontact Me</a>.</p>'
+                + '<p>2 new articles: '
+                + '<a href="https://www.recontact.me/articles/5">59. Lost autour du mont Gongga</a>'
+                + '<a href="https://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>'
+                + '</p>',
             })
           })
         })
@@ -444,20 +444,20 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
               fromName: 'RecontactMe',
               to: ['abonne@recontact.me'],
               subject: '[RecontactMe] Il y a du nouveau sur le site !',
-              template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="https://fr.recontact.me/#">Recontact Me</a>.</p>' +
-                '<p>Un nouvel article : ' +
-                '<a href="https://fr.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>' +
-                '</p>',
+              template: '<p>Bonjour,</p><p>Il y a du nouveau du côté de <a href="https://fr.recontact.me/#">Recontact Me</a>.</p>'
+                + '<p>Un nouvel article : '
+                + '<a href="https://fr.recontact.me/articles/47">59. Perdus autour du mont Gongga</a>'
+                + '</p>',
             })
             expect(mailJet.sendEmail).to.have.been.calledWith({
               from: 'contact-localhost@recontact.me',
               fromName: 'RecontactMe',
               to: ['subscriber@recontact.me'],
               subject: '[RecontactMe] Some news on the website !',
-              template: '<p>Hello,</p><p>There are some news on <a href="https://www.recontact.me/#">Recontact Me</a>.</p>' +
-                '<p>One new article: ' +
-                '<a href="https://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>' +
-                '</p>',
+              template: '<p>Hello,</p><p>There are some news on <a href="https://www.recontact.me/#">Recontact Me</a>.</p>'
+                + '<p>One new article: '
+                + '<a href="https://www.recontact.me/articles/47">59. Lost autour du mont Gongga</a>'
+                + '</p>',
             })
           })
         })

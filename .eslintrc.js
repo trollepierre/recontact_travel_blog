@@ -1,10 +1,4 @@
 module.exports = {
-  extends: [
-    'airbnb-base',
-    'eslint:recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings'
-  ],
   rules: {
     /* shared custom rules */
     // 'array-element-newline': ['error', 'consistent'],
@@ -50,5 +44,8 @@ module.exports = {
     'no-tabs': 2,
     'no-unused-vars': 'error',
     'no-underscore-dangle': 0,
+
+    // es6
+    'no-confusing-arrow': "off"
   },
 };
