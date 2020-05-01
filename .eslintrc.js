@@ -46,6 +46,7 @@ module.exports = {
     'no-underscore-dangle': 0,
 
     // es6
-    'no-confusing-arrow': "off"
+    'no-confusing-arrow': "off",
+    'no-mixed-operators': "off"
   },
 };

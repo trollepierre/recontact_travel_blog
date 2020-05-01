@@ -1,7 +1,7 @@
 const isBrowser = typeof window !== 'undefined'
 
 const screenWidth = () => {
-  if (!isBrowser) {return '1000'}
+  if (!isBrowser) { return '1000' }
   return window.innerWidth
     || document.documentElement.clientWidth
     || document.body.clientWidth
@@ -10,11 +10,10 @@ const screenWidth = () => {
 const screenHeight = () => {
   if (!isBrowser) {
     return '600'
-  } else {
-    return window.innerHeight
+  }
+  return window.innerHeight
       || document.documentElement.clientHeight
       || document.body.clientHeight
-  }
 }
 
 const PHONE_PORTRAIT_TO_LANDSCAPE = 640

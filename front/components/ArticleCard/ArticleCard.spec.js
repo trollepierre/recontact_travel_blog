@@ -38,7 +38,9 @@ describe('Component | ArticleCard.vue', () => {
       article,
     }
     store = new Vuex.Store({ actions: {}, state: { locale: 'en' } })
-    wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
+    wrapper = shallowMount(ArticleCard, {
+      localVue, propsData, router, store,
+    })
   })
 
   it('should be named "ArticleCard"', () => {
@@ -49,7 +51,9 @@ describe('Component | ArticleCard.vue', () => {
     beforeEach(() => {
       translationsService.getTitle = jest.fn()
       translationsService.getTitle.mockReturnValue('Pierre somewhere')
-      wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
+      wrapper = shallowMount(ArticleCard, {
+        localVue, propsData, router, store,
+      })
     })
 
     describe('template', () => {
@@ -62,7 +66,9 @@ describe('Component | ArticleCard.vue', () => {
           article,
           lazy: false,
         }
-        wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
+        wrapper = shallowMount(ArticleCard, {
+          localVue, propsData, router, store,
+        })
         expect(wrapper).toMatchSnapshot()
       })
 
@@ -109,7 +115,9 @@ describe('Component | ArticleCard.vue', () => {
 
       describe('#viewArticle', () => {
         it('should redirect to /articles/:articleId', () => {
-          wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
+          wrapper = shallowMount(ArticleCard, {
+            localVue, propsData, router, store,
+          })
 
           wrapper.vm.viewArticle()
 
@@ -119,7 +127,9 @@ describe('Component | ArticleCard.vue', () => {
 
       describe('#goToArticle', () => {
         it('should redirect to /articles/:articleId', () => {
-          wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
+          wrapper = shallowMount(ArticleCard, {
+            localVue, propsData, router, store,
+          })
 
           wrapper.vm.goToArticle()
 
@@ -169,7 +179,9 @@ describe('Component | ArticleCard.vue', () => {
           const consoleError = console.error
           console.error = jest.fn()
           articlesApi.update.mockResolvedValue({})
-          wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
+          wrapper = shallowMount(ArticleCard, {
+            localVue, propsData, router, store,
+          })
 
           wrapper.vm.updateArticle()
 
@@ -241,7 +253,9 @@ describe('Component | ArticleCard.vue', () => {
         article,
         adminMode: true,
       }
-      wrapper = shallowMount(ArticleCard, { localVue, propsData, router, store })
+      wrapper = shallowMount(ArticleCard, {
+        localVue, propsData, router, store,
+      })
     })
 
     describe('clicking on button "reparer l\'article"', () => {

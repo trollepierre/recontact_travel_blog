@@ -144,11 +144,11 @@
       },
 
       trackEvent() {
-        // this.$ga.event({
-        //   eventCategory: 'Subscribe Modal',
-        //   eventAction: 'open',
-        //   eventLabel: 'Subscribe modal is opened',
-        // })
+      // this.$ga.event({
+      //   eventCategory: 'Subscribe Modal',
+      //   eventAction: 'open',
+      //   eventLabel: 'Subscribe modal is opened',
+      // })
       },
     },
     i18n: {

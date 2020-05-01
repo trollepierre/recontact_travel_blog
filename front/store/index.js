@@ -1,9 +1,7 @@
-export const state = () => {
-  return {
-    locales: ['en', 'fr'],
-    locale: process.env.NUXT_ENV_LANGUAGE ? process.env.NUXT_ENV_LANGUAGE : 'fr',
-  }
-}
+export const state = () => ({
+  locales: ['en', 'fr'],
+  locale: process.env.NUXT_ENV_LANGUAGE ? process.env.NUXT_ENV_LANGUAGE : 'fr',
+})
 
 export const mutations = {
   SET_LANG(state, locale) {
@@ -13,4 +11,3 @@ export const mutations = {
     }
   },
 }
-

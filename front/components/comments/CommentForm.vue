@@ -76,6 +76,7 @@
             .then(this.displaySuccessNotification)
             .catch(this.displayErrorNotification)
         }
+        return true
       },
       reloadComments() {
         this.$emit('reload')

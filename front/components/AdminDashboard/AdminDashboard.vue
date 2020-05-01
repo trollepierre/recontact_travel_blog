@@ -144,7 +144,7 @@
       },
 
       trackEvent() {
-        //analyticsService.sendAnalytics(this, 'Article List', 'synchronise', 'All articles have been synchronised')
+      // analyticsService.sendAnalytics(this, 'Article List', 'synchronise', 'All articles have been synchronised')
       },
 
       goToHome() {

@@ -189,7 +189,7 @@ describe('Component | ArticlePage.vue', () => {
               "3": "goToHomePage",
               "4": "title",
             }
-          `
+          `,
           )
         })
       })
@@ -215,7 +215,7 @@ describe('Component | ArticlePage.vue', () => {
               "3": "goToHomePage",
               "4": "title",
             }
-          `
+          `,
           )
         })
       })

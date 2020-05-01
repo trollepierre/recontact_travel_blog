@@ -17,9 +17,7 @@ const iframeWidth = () => {
   return screenWidth() * PHONE_IFRAME_RATIO
 }
 
-const iframeHeight = () => {
-  return iframeWidth() * YOUTUBE_IFRAME_HEIGHT / YOUTUBE_IFRAME_WIDTH
-}
+const iframeHeight = () => iframeWidth() * YOUTUBE_IFRAME_HEIGHT / YOUTUBE_IFRAME_WIDTH
 
 const iframeDimensions = () => ({
   width: iframeWidth(),
