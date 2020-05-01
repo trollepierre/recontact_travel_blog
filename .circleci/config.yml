@@ -27,7 +27,7 @@ jobs:
             - v2-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run:
           name: Install front
-          command: yarn install:front
+          command: yarn install:front --frozen-lockfile
       - save_cache:
           key: v2-front-dependencies-{{ checksum "front/yarn.lock" }}
           paths:
@@ -45,7 +45,7 @@ jobs:
             - v2-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run:
           name: Install back
-          command: yarn install:back
+          command: yarn install:back --frozen-lockfile
       - save_cache:
           key: v2-back-dependencies-{{ checksum "back/yarn.lock" }}
           paths:
