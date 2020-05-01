@@ -187,6 +187,7 @@
     max-height: 40vw;
     width: 200px;
     height: 150px;
+    color: darkgrey;
   }
 
   @media only screen and (max-width: 640px) {

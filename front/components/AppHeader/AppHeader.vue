@@ -193,6 +193,10 @@
     display: inline-flex;
   }
 
+  .tdm__image {
+    color: darkgrey;
+  }
+
   .navbar-action__other-language {
     color: #F48024;
     text-decoration: unset;
