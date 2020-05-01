@@ -113,7 +113,7 @@
   }
 
   .position__input {
-    background: #ffffff;
+    background: #FFFFFF;
     border: 1px solid cadetblue;
     padding: 15px 10px;
     border-radius: 4px;
@@ -125,8 +125,8 @@
   .position__button {
     text-transform: uppercase;
     color: #f76252;
-    background: #ffffff;
-    border: 1px solid #d14800;
+    background: #FFFFFF;
+    border: 1px solid #D14800;
     cursor: pointer;
     padding: 15px 30px;
     border-radius: 4px;
@@ -136,8 +136,8 @@
   }
 
   .position__button:hover {
-    background: #d14800;
-    color: #ffffff;
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   .position__button:disabled {
