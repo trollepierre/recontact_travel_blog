@@ -113,20 +113,20 @@
 </script>
 
 <style scoped>
-  img.chapter__image {
+  .chapter__image {
+    color: darkgrey;
     max-width: 100%;
     max-height: 40vw;
   }
 
   @media only screen and (max-width: 640px) {
-    img.chapter__image {
+    .chapter__image {
       max-height: 100%;
     }
   }
 
   .chapter {
     min-width: 260px;
-    /*max-width: 260px;*/
     background: #ffffff;
     border-radius: 4px !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);

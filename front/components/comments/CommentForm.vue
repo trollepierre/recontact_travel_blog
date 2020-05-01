@@ -128,7 +128,7 @@
   .form {
     min-width: 260px;
     background: #ffffff;
-    border-radius: 4px !important;
+    border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
     border: 1px solid rgba(0, 0, 0, .09);
     display: flex;
@@ -150,7 +150,7 @@
   }
 
   .forum__comment-box {
-    font-family: serif !important;
+    font-family: serif;
     font-size: 16px;
     font-weight: 400;
     margin: 0;

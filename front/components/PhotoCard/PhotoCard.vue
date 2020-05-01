@@ -5,6 +5,7 @@
         <div ref="container">
           <img
             v-lazy="imgLink"
+            class="img"
             rel="noreferrer"
             :alt="image">
           <div v-lazy:background-image="imgLink"/>
@@ -46,13 +47,13 @@
 </script>
 
 <style scoped>
-  img {
+  .img {
     max-width: 100%;
     max-height: 40vw;
   }
 
   @media only screen and (max-width: 640px) {
-    img {
+    .img {
       max-height: 100%;
     }
   }
