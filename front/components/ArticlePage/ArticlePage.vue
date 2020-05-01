@@ -198,7 +198,7 @@
     list-style-type: none;
     padding: 0;
     width: 100%;
-    margin: 5px 0 5px 0;
+    margin: 5px 0;
   }
 
   .footer-article {
