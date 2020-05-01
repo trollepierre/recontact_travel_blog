@@ -37,4 +37,3 @@ describe('iframe dimension', () => {
     expect(dimensions).toEqual({ width: 450, height: 253.125 })
   })
 })
-

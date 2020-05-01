@@ -9,4 +9,3 @@ const sendAnalytics = (component, eventCategory, eventAction, eventLabel) => {
 export default {
   sendAnalytics,
 }
-

@@ -1,4 +1,6 @@
-import { generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester } from './paragraph-link-utils'
+import {
+  generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester,
+} from './paragraph-link-utils'
 
 describe('paragraph-link-utils', () => {
   describe('urlTester', () => {

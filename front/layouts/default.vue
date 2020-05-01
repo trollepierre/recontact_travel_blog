@@ -15,8 +15,8 @@
   export default {
     components: {
       'app-header': AppHeader,
-      // 'feedback-modal': FeedbackModal,
-      // 'subscribe-modal': SubscribeModal,
+    // 'feedback-modal': FeedbackModal,
+    // 'subscribe-modal': SubscribeModal,
     },
   }
 </script>

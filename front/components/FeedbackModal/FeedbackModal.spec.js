@@ -61,7 +61,7 @@ describe('Component | FeedbackModal.vue', () => {
     expect(wrapper.vm.heightMessage).toBeUndefined()
   })
 
-  /*xdescribe('rendering', () => {
+  /* xdescribe('rendering', () => {
     it('should display the modal', () => {
       wrapper.vm.$modal.show('feedback-modal')
 
@@ -152,7 +152,7 @@ describe('Component | FeedbackModal.vue', () => {
   })
 */
 
-  /*xdescribe('#sendFeedback', () => {
+  /* xdescribe('#sendFeedback', () => {
     beforeEach(() => {
       feedbacksApi.sendFeedback = jest.fn()
       feedbacksApi.sendFeedback.mockResolvedValue({})
@@ -329,7 +329,7 @@ describe('Component | FeedbackModal.vue', () => {
     })*!/
   })
 */
-  /*xdescribe('#cancelFeedback', () => {
+  /* xdescribe('#cancelFeedback', () => {
     it('should close modal', () => {
       wrapper.vm.$modal.show('feedback-modal')
 
@@ -339,9 +339,9 @@ describe('Component | FeedbackModal.vue', () => {
         expect(wrapper.find('.feedback-modal')).not.to.exist
       })
     })
-  })*/
+  }) */
 
-  /*it.skip('should sendFeedback on click on "send" button', () => {
+  /* it.skip('should sendFeedback on click on "send" button', () => {
     wrapper.vm.$modal.show('feedback-modal')
     sinon.stub(component, 'sendFeedback')
 
@@ -352,9 +352,9 @@ describe('Component | FeedbackModal.vue', () => {
 
       expect(wrapper.vm.sendFeedback).toHaveBeenCalled
     })
-  })*/
+  }) */
 
-  /*it.skip('should cancelFeedback on click on "cancel" button', () => {
+  /* it.skip('should cancelFeedback on click on "cancel" button', () => {
     wrapper.vm.$modal.show('feedback-modal')
     sinon.stub(component, 'cancelFeedback')
 
@@ -365,7 +365,7 @@ describe('Component | FeedbackModal.vue', () => {
 
       expect(wrapper.vm.cancelFeedback).toHaveBeenCalled
     })
-  })*/
+  }) */
 
   describe('locales', () => {
     const languages = Object.keys(FeedbackModal.i18n.messages)

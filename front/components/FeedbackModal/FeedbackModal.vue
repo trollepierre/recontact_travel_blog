@@ -141,11 +141,11 @@
       },
 
       trackEvent() {
-        // this.$ga.event({
-        //   eventCategory: 'Feedback Modal',
-        //   eventAction: 'open',
-        //   eventLabel: 'Feedback modal is opened',
-        // })
+      // this.$ga.event({
+      //   eventCategory: 'Feedback Modal',
+      //   eventAction: 'open',
+      //   eventLabel: 'Feedback modal is opened',
+      // })
       },
 
       cancelFeedback() {

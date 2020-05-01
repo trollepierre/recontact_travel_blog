@@ -34,4 +34,3 @@ export const conf = {
 }
 
 export default new Router(conf)
-

@@ -12,4 +12,3 @@ const CommentsApi = {
 }
 
 export default CommentsApi
-

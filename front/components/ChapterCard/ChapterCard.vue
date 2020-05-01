@@ -52,7 +52,9 @@
 
 <script>
   import translationsService from '../../services/services/translations'
-  import { generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester } from './paragraph-link-utils'
+  import {
+    generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester,
+  } from './paragraph-link-utils'
   import { iframeDimensions } from '../../services'
 
   export default {
