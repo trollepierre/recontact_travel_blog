@@ -57,16 +57,8 @@
 
   export default {
     name: 'ChapterCard',
-    props: {
-      chapter: {
-        type: Object,
-        default: () => {
-        },
-      },
-    },
-    data: () => ({
-      dimensions: iframeDimensions(),
-    }),
+    props: { chapter: { type: Object, default: () => {} } },
+    data: () => ({ dimensions: iframeDimensions() }),
     computed: {
       imgLink() {
         const { imgLink } = this.chapter
@@ -168,7 +160,7 @@
 
   .chapter__footer {
     text-align: center;
-    padding: 0 15px 0 15px;
+    padding: 0 15px;
     border-top: 1px solid #E6E6E6;
   }
 
