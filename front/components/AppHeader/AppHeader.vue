@@ -7,6 +7,10 @@
         href="/">
         <span class="recontact">Recontact</span>
         <span class="me">Me</span>
+        <img
+          :alt="logo"
+          class="icon"
+          src="../../static/mstile-150x150.png">
       </a>
       <nav aria-label="navigation">
         <ul class="navigation">
@@ -40,7 +44,7 @@
               <img
                 :alt="logo"
                 class="tdm__image"
-                src="/static/tdm.jpg">
+                src="../../static/tdm.jpg">
             </a>
           </li>
           <li class="link other-language">
@@ -142,7 +146,6 @@
     align-items: center;
     padding: 10px 0;
     font-family: serif;
-
   }
 
   .recontact {
@@ -155,6 +158,10 @@
     align-self: center;
     padding: 5px 5px 0;
     color: #F48024;
+  }
+
+  .icon {
+    display: none;
   }
 
   .navigation {
@@ -213,6 +220,12 @@
     .container {
       max-width: 500px;
       justify-content: space-between;
+    }
+
+    .icon {
+      display: block;
+      height: 75px;
+      padding-top: 10px;
     }
 
     .suggestion,
