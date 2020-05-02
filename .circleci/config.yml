@@ -131,6 +131,15 @@ jobs:
     steps:
       - run: yarn add html5-validator
       - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/
+      - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/articles/85
+
+  validate_accessibility_html5v_staging:
+    <<: *common_properties
+    steps:
+      - run: yarn add html5-validator
+      - run: ./node_modules/.bin/html5v https://french-test.recontact.me/
+      - run: ./node_modules/.bin/html5v https://english-test.recontact.me/articles/85
+      - run: ./node_modules/.bin/html5v https://www.manomano.fr/
 
   lighthouse:
     <<: *common_properties
@@ -241,6 +250,9 @@ workflows:
                 - dev
                 - master
       - validate_accessibility_html5v:
+          requires:
+            - deploy_branch
+      - validate_accessibility_html5v_staging:
           requires:
             - deploy_branch
       - lighthouse:
