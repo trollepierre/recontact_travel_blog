@@ -78,11 +78,6 @@
         return this.$t('otherLanguage')
       },
     },
-    mounted() {
-      if (navigator.language.substring(0, 2) === 'fr' && isWww()) {
-        alert('La version française du blog est désormais disponible sur https://fr.recontact.me, cliquez sur le lien en haut à droite pour retrouver le blog en français.')
-      }
-    },
     methods: {
       switchLanguage() {
         window.location = this.$t('otherUrl') + window.location.pathname
