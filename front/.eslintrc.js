@@ -1,5 +1,4 @@
 module.exports = {
-
   root: true,
   parserOptions: {
     parser: 'babel-eslint'
@@ -27,7 +26,6 @@ module.exports = {
     'jest'
   ],
   rules: {
-
     // 'jest/no-disabled-tests': 'error',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
