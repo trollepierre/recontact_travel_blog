@@ -55,6 +55,7 @@
           <a
             :href="article.galleryLink"
             target="_blank"
+            rel="noreferrer"
             class="article__dropbox">
             <button class="article__dropbox-button article__footer__button">
               {{ $t("viewGallery") }}

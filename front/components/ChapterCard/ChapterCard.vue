@@ -36,6 +36,7 @@
           <a
             v-else-if="paragraph.link"
             :href="paragraph.link"
+            rel="noreferrer"
             target="_blank">
             {{ paragraph.link }}
           </a>
