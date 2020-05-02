@@ -164,22 +164,6 @@
     color: #F48024;
   }
 
-  .button {
-    cursor: pointer;
-    background: transparent;
-    font-size: 16px;
-    border: none;
-    padding: 16px 0;
-    line-height: 28px;
-    color: #333333;
-    display: inline-block;
-  }
-
-  .button:hover {
-    background: #D14800;
-    color: #FFFFFF;
-  }
-
   .navigation {
     list-style: none;
     margin: 0;
@@ -202,6 +186,7 @@
   }
 
   .button.other-language {
+    line-height: 28px;
     color: #F48024;
     text-decoration: unset;
     font-size: 14px;
@@ -214,6 +199,11 @@
     border-radius: 4px;
     width: 100%;
     font-weight: 700;
+  }
+
+  .button.other-language:hover {
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   .tdm {
