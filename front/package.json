@@ -16,7 +16,7 @@
     "generate": "nuxt generate",
     "generate:en": "NUXT_ENV_LANGUAGE=en nuxt generate",
     "generate:fr": "NUXT_ENV_LANGUAGE=fr nuxt generate",
-    "lint": "eslint --fix --ext .js,.vue config components middleware plugins pages layouts services test store",
+    "lint": "eslint --ext .js,.vue .",
     "lint:fix": "yarn lint --fix",
     "precommit": "yarn lint:fix",
     "test": "env TZ=\"Europe/Paris\" jest --config config/jest.config.json",
