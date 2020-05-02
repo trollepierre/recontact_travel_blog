@@ -1,6 +1,12 @@
 module.exports = {
+  extends: [
+    'airbnb-base',
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    '../.eslintrc.js',
+  ],
   root: true,
-  extends: '../.eslintrc.js',
   env: {
     node: true,
     es6: true,
@@ -12,5 +18,7 @@ module.exports = {
   },
   rules: {
     'func-style': ['off', 'expression'],
+    'no-unused-expressions': 'off',
+    'no-use-before-define': 'off',
   }
 }

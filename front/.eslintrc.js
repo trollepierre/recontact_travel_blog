@@ -14,18 +14,18 @@ module.exports = {
     'RouterLinkStub': false,
   },
   extends: [
-    '../.eslintrc.js',
+    'airbnb-base',
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
     'plugin:vue/recommended',
+    '../.eslintrc.js',
   ],
   plugins: [
     'vue',
     'jest'
   ],
   rules: {
-    // 'import/no-extraneous-dependencies': ['error', {
-    //   'optionalDependencies': ['test/unit/index.js']
-    // }],
-
     // 'jest/no-disabled-tests': 'error',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
@@ -65,6 +65,9 @@ module.exports = {
     'no-undef': 'warn',
     'import/no-extraneous-dependencies': 'warn',
     'import/no-unresolved': 'warn',
-    'import/extensions': 'warn'
+    'import/extensions': 'warn',
+
+    'indent': 'off',
+    'array-callback-return': 'off',
   }
 };

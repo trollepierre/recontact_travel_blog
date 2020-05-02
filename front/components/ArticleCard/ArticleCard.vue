@@ -48,7 +48,7 @@
         </template>
         <template v-else>
           <button
-            class="article__view-button article__footer__button"
+            class="article__footer__button"
             @click.prevent.once="viewArticle">
             {{ $t("goToArticle") }}
           </button>
@@ -119,11 +119,11 @@
       },
 
       trackEvent() {
-        // this.$ga.event({
-        //   eventCategory: 'Article Card',
-        //   eventAction: 'update',
-        //   eventLabel: `article ${this.article.dropboxId} is updated`,
-        // })
+      // this.$ga.event({
+      //   eventCategory: 'Article Card',
+      //   eventAction: 'update',
+      //   eventLabel: `article ${this.article.dropboxId} is updated`,
+      // })
       },
 
       deleteArticle() {
@@ -187,6 +187,7 @@
     max-height: 40vw;
     width: 200px;
     height: 150px;
+    color: darkgrey;
   }
 
   @media only screen and (max-width: 640px) {
@@ -200,7 +201,7 @@
   .article {
     min-width: 260px;
     max-width: 260px;
-    background: #ffffff;
+    background: #FFFFFF;
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
     border: 1px solid rgba(0, 0, 0, .09);
@@ -210,9 +211,9 @@
   }
 
   .article__header {
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #E6E6E6;
     height: 34px;
-    padding: 15px;
+    padding: 12px;
     display: flex;
     justify-content: space-between;
   }
@@ -222,14 +223,14 @@
   }
 
   .article__title {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 17px;
-    color: #07c;
+    color: #07C;
     margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 200px;
+    max-width: 300px;
   }
 
   .article__content {
@@ -246,21 +247,23 @@
 
   .article__footer {
     text-align: center;
-    padding: 15px;
-    border-top: 1px solid #e6e6e6;
+    padding: 15px 15px 5px;
+    border-top: 1px solid #E6E6E6;
   }
 
   .article__footer__button {
     text-transform: uppercase;
-    color: #d14800;
-    background: #ffffff;
-    border: 1px solid #d14800;
+    color: #D14800;
+    background: #FFFFFF;
+    border: 1px solid #D14800;
     cursor: pointer;
-    padding: 15px 30px;
+    padding: 12px 30px;
     border-radius: 4px;
     width: 100%;
     margin-bottom: 10px;
     font-weight: 700;
+    font-family: serif;
+    font-size: 12px;
   }
 
   .article__footer_hidden {
@@ -268,8 +271,8 @@
   }
 
   .article__footer__button:hover {
-    background: #d14800;
-    color: #ffffff;
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   .article__footer__button:disabled,
@@ -283,6 +286,13 @@
   @media only screen and (max-width: 640px) {
     .article {
       max-width: inherit;
+    }
+  }
+
+  @media only screen and (min-width: 640px) {
+    .article__title {
+      font-size: 18px;
+      max-width: 235px;
     }
   }
 </style>

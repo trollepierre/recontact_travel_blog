@@ -133,12 +133,12 @@
         this.$router.push(`/articles/${idArticle}`)
       },
       trackEvent() {
-        // this.$ga.event({
-        //   eventCategory: 'Article Page',
-        //   eventAction: 'read',
-        //   eventLabel: `article ${this.$route.params.id} is read`,
-        // })
-        // TODO fix trackEvent
+      // this.$ga.event({
+      //   eventCategory: 'Article Page',
+      //   eventAction: 'read',
+      //   eventLabel: `article ${this.$route.params.id} is read`,
+      // })
+      // TODO fix trackEvent
       },
       isEmpty,
     },
@@ -181,7 +181,8 @@
 
   .article-page__title {
     font-weight: 300;
-    font-size: 24px;
+    font-size: 32px;
+    text-decoration: underline;
     margin: 0 0 15px;
     max-width: 80%;
   }
@@ -197,20 +198,20 @@
     list-style-type: none;
     padding: 0;
     width: 100%;
-    margin: 5px;
+    margin: 5px 0;
   }
 
   .footer-article {
     text-align: center;
     padding: 15px;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #E6E6E6;
   }
 
   .footer-article button {
     text-transform: uppercase;
-    color: #d14800;
-    background: #ffffff;
-    border: 1px solid #d14800;
+    color: #D14800;
+    background: #FFFFFF;
+    border: 1px solid #D14800;
     cursor: pointer;
     padding: 15px 30px;
     border-radius: 4px;
@@ -221,8 +222,8 @@
   }
 
   .footer-article button:hover {
-    background: #d14800;
-    color: #ffffff;
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   .footer-article button:disabled,
@@ -237,6 +238,10 @@
     .chapter__list, .photo-gallery__list {
       flex-direction: row;
       flex-wrap: wrap;
+    }
+
+    .chapter__item, .photo__item {
+      margin: 5px;
     }
   }
 

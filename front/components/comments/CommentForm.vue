@@ -76,6 +76,7 @@
             .then(this.displaySuccessNotification)
             .catch(this.displayErrorNotification)
         }
+        return true
       },
       reloadComments() {
         this.$emit('reload')
@@ -122,12 +123,13 @@
   .form__title {
     font-size: 1.5em;
     font-weight: bold;
+    font-family: serif;
   }
 
   .form {
     min-width: 260px;
-    background: #ffffff;
-    border-radius: 4px !important;
+    background: #FFFFFF;
+    border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
     border: 1px solid rgba(0, 0, 0, .09);
     display: flex;
@@ -140,7 +142,7 @@
   }
 
   .form__header, .form__content {
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #E6E6E6;
     padding: 15px;
     height: auto;
     display: flex;
@@ -149,6 +151,7 @@
   }
 
   .forum__comment-box {
+    font-family: serif;
     font-size: 16px;
     font-weight: 400;
     margin: 0;
@@ -176,7 +179,8 @@
   .form__label {
     font-size: 16px;
     font-weight: 700;
-    color: #07c;
+    font-family: serif;
+    color: #07C;
     margin: 0;
     overflow-wrap: break-word;
     padding-bottom: 10px;
@@ -192,14 +196,14 @@
   .form__footer {
     text-align: center;
     padding: 15px;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #E6E6E6;
   }
 
-  button.form-button {
+  .form-button {
     text-transform: uppercase;
-    color: #d14800;
-    background: #ffffff;
-    border: 1px solid #d14800;
+    color: #D14800;
+    background: #FFFFFF;
+    border: 1px solid #D14800;
     cursor: pointer;
     padding: 15px 30px;
     border-radius: 4px;
@@ -207,6 +211,11 @@
     margin-bottom: 10px;
     font-weight: 700;
     max-width: 300px;
+  }
+
+  .form-button:hover {
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   @media only screen and (max-width: 1000px) {

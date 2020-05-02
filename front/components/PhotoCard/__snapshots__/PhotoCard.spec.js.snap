@@ -4,7 +4,7 @@ exports[`Component | PhotoCard.vue template should match snapshot 1`] = `
 <div class="photo-card">
   <article class="photo">
     <div class="photo__content">
-      <div><img rel="noreferrer" alt="alt" data-src="webf" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" lazy="loading">
+      <div><img rel="noreferrer" alt="alt" class="img" data-src="webf" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" lazy="loading">
         <div data-src="webf" style="background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);" lazy="loading"></div>
       </div>
     </div>

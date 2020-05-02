@@ -5,14 +5,17 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import articles from './src/infrastructure/features/api/articles'
-import admin from './src/infrastructure/features/api/admin'
-import sync from './src/infrastructure/features/api/sync'
-import status from './src/infrastructure/features/api/status'
-import subscriptions from './src/infrastructure/features/api/subscriptions'
-import feedbacks from './src/infrastructure/features/api/feedbacks'
-import positions from './src/infrastructure/features/api/positions'
-import optimisation from './src/infrastructure/features/api/optimisation'
+import {
+  articles,
+  admin,
+  comments,
+  sync,
+  status,
+  subscriptions,
+  feedbacks,
+  positions,
+  optimisation,
+} from './src/infrastructure/features/api'
 
 import robots from './src/infrastructure/seo/robots'
 import sitemap from './src/infrastructure/seo/sitemap'
@@ -40,6 +43,7 @@ app.use('/status', status)
 app.use('/api/sync', sync)
 app.use('/api/status', status)
 app.use('/api/articles', articles)
+app.use('/api/admin/comments', comments)
 app.use('/api/admin', admin)
 app.use('/api/subscriptions', subscriptions)
 app.use('/api/feedbacks', feedbacks)

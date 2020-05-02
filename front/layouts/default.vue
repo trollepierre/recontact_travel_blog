@@ -15,8 +15,8 @@
   export default {
     components: {
       'app-header': AppHeader,
-      // 'feedback-modal': FeedbackModal,
-      // 'subscribe-modal': SubscribeModal,
+    // 'feedback-modal': FeedbackModal,
+    // 'subscribe-modal': SubscribeModal,
     },
   }
 </script>
@@ -29,7 +29,7 @@
   }
 
   #app {
-    font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+    font-weight: bold;
     text-align: center;
     color: #2c3e50;
   }

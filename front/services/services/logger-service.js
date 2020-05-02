@@ -6,4 +6,3 @@ const error = err => {
 export default {
   error,
 }
-

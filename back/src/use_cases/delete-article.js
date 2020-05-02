@@ -1,7 +1,7 @@
 import articleRepository from '../domain/repositories/article-repository'
 
-function deleteArticle(id) {
-  return articleRepository.deleteArticle(id)
+function deleteArticle(dropboxId) {
+  return articleRepository.deleteByDropboxId(dropboxId)
 }
 
 export default {

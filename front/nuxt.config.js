@@ -13,7 +13,7 @@ const headEn = {
       name: 'description',
       content: 'Articles of the world trip of Pierre and Benoît - South America, Oceania, Asia, Europa, Central America',
     },
-    { name: 'theme-color', content: '#ffffff' },
+    { name: 'theme-color', content: '#FFFFFF' },
   ],
   link: [
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -40,7 +40,7 @@ const headFr = {
       name: 'description',
       content: 'Articles du tour du monde de Pierre et Benoît - Amérique du Sud, Océanie, Asie, Europe, Amérique centrale',
     },
-    { name: 'theme-color', content: '#ffffff' },
+    { name: 'theme-color', content: '#FFFFFF' },
   ],
   link: [
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -58,6 +58,10 @@ const articleRoutes = [...Array(92).keys()]
   .map((val, index) => `/articles/${index + 1}`)
 
 module.exports = {
+  css: [
+    '~/assets/fonts/font.css',
+    '~/assets/css/styles.css',
+  ],
   env: { NUXT_ENV_API_URL: process.env.NUXT_ENV_API_URL || 'https://recontact.herokuapp.com' },
   head: process.env.NUXT_ENV_LANGUAGE === 'en' ? headEn : headFr, // Headers of the page
   loading: { color: '#3B8070' }, // Customize the progress bar color

@@ -3,7 +3,7 @@ import { prop } from 'ramda'
 import env from '../env/env'
 import logger from './logger-service'
 
-const apiPath = `${env('API_URL') }api/`
+const apiPath = `${env('API_URL')}api/`
 
 const getAll = async path => {
   try {

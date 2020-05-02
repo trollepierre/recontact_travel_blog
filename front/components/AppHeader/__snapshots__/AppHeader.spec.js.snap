@@ -1,20 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | AppHeader.vue template should match snapshot 1`] = `
-<div class="app-header">
-  <header class="page__header">
-    <div class="page__container page__header--container"><a title="home" href="/" class="logo-link"><span class="logo-link__recontact">Recontact</span> <span class="logo-link__me">Me</span></a>
-      <nav aria-label="site navigation" class="app-header__navigation navigation">
-        <ol class="navigation__links">
-          <!---->
-          <!---->
-          <!---->
-          <li class="navigation__link other-language"><button type="button" class="navbar-action navbar-action__other-language">
-              otherLanguage
-            </button></li>
-        </ol>
-      </nav>
-    </div>
-  </header>
-</div>
+<header class="header">
+  <div class="container"><a title="home" href="/" class="logo"><span class="recontact">Recontact</span> <span class="me">Me</span></a>
+    <nav aria-label="navigation" role="navigation">
+      <ul class="navigation">
+        <!---->
+        <!---->
+        <!---->
+        <li class="link other-language"><button type="button" class="button other-language">
+            otherLanguage
+          </button></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 `;

@@ -52,15 +52,15 @@
 
 <script>
   import translationsService from '../../services/services/translations'
-  import { generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester } from './paragraph-link-utils'
+  import {
+    generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester,
+  } from './paragraph-link-utils'
   import { iframeDimensions } from '../../services'
 
   export default {
     name: 'ChapterCard',
     props: { chapter: { type: Object, default: () => {} } },
-    data: () => ({
-      dimensions: iframeDimensions(),
-    }),
+    data: () => ({ dimensions: iframeDimensions() }),
     computed: {
       imgLink() {
         const { imgLink } = this.chapter
@@ -107,25 +107,21 @@
 </script>
 
 <style scoped>
-  h2 {
-    font-weight: normal;
-  }
-
-  img.chapter__image {
+  .chapter__image {
+    color: darkgrey;
     max-width: 100%;
     max-height: 40vw;
   }
 
   @media only screen and (max-width: 640px) {
-    img.chapter__image {
+    .chapter__image {
       max-height: 100%;
     }
   }
 
   .chapter {
     min-width: 260px;
-    /*max-width: 260px;*/
-    background: #ffffff;
+    background: #FFFFFF;
     border-radius: 4px !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
     border: 1px solid rgba(0, 0, 0, .09);
@@ -135,7 +131,7 @@
   }
 
   .chapter__header {
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #E6E6E6;
     padding: 15px;
     height: 34px;
     display: flex;
@@ -144,10 +140,10 @@
   }
 
   .chapter__title {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 17px;
-    color: #07c;
+    color: #07C;
     margin: 0;
     overflow-wrap: break-word;
   }
@@ -166,15 +162,15 @@
 
   .chapter__footer {
     text-align: center;
-    padding: 15px;
-    border-top: 1px solid #e6e6e6;
+    padding: 0 15px;
+    border-top: 1px solid #E6E6E6;
   }
 
   .chapter__footer button {
     text-transform: uppercase;
-    color: #d14800;
-    background: #ffffff;
-    border: 1px solid #d14800;
+    color: #D14800;
+    background: #FFFFFF;
+    border: 1px solid #D14800;
     cursor: pointer;
     padding: 15px 30px;
     border-radius: 4px;
@@ -184,8 +180,8 @@
   }
 
   .chapter__footer button:hover {
-    background: #d14800;
-    color: #ffffff;
+    background: #D14800;
+    color: #FFFFFF;
   }
 
   .chapter__footer button:disabled,
@@ -201,4 +197,13 @@
     border: none;
   }
 
+  .chapter__footer_text {
+    font-size: 18px;
+  }
+
+  @media only screen and (min-width: 640px) {
+    .chapter__footer_text {
+      font-weight: lighter;
+    }
+  }
 </style>
