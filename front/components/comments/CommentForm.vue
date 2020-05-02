@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-  import { isEmpty } from 'ramda'
+  import { isEmptyPlus as isEmpty } from '../../services'
   import commentsApi from '../../services/api/comments'
   import notificationsService from '../../services/services/notifications'
 

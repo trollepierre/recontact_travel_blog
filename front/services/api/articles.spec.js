@@ -81,7 +81,14 @@ describe('Unit | API | articles api', () => {
 
   describe('#delete', () => {
     it('should call api service with the good url', async () => {
+      const stubbedResponse = {
+        status: 200,
+        data: {
+          foo: 'bar',
+        },
+      }
       axios.get = jest.fn()
+      axios.get.mockResolvedValue(stubbedResponse)
       const expectedUrl = `${env('API_URL')}api/apo/art/del/33`
 
       await articlesApi.delete('33')
@@ -92,7 +99,14 @@ describe('Unit | API | articles api', () => {
 
   describe('#updateAll', () => {
     it('should call api service with the good url', async () => {
+      const stubbedResponse = {
+        status: 200,
+        data: {
+          foo: 'bar',
+        },
+      }
       axios.patch = jest.fn()
+      axios.patch.mockResolvedValue(stubbedResponse)
       const expectedUrl = `${env('API_URL')}api/admin/articles`
 
       await articlesApi.updateAll(33, 35)
@@ -103,7 +117,14 @@ describe('Unit | API | articles api', () => {
 
   describe('#deleteAll', () => {
     it('should call api service with the good url', async () => {
+      const stubbedResponse = {
+        status: 200,
+        data: {
+          foo: 'bar',
+        },
+      }
       axios.get = jest.fn()
+      axios.get.mockResolvedValue(stubbedResponse)
       const expectedUrl = `${env('API_URL')}api/apo/art/del`
 
       await articlesApi.deleteAll()
@@ -114,7 +135,14 @@ describe('Unit | API | articles api', () => {
 
   describe('#deleteAndSyncAll', () => {
     it('should call api service with the good url', async () => {
+      const stubbedResponse = {
+        status: 200,
+        data: {
+          foo: 'bar',
+        },
+      }
       axios.get = jest.fn()
+      axios.get.mockResolvedValue(stubbedResponse)
       const expectedUrl = `${env('API_URL')}api/apo/art/delsyn`
 
       await articlesApi.deleteAndSyncAll()

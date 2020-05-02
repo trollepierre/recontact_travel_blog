@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import { isEmpty } from 'ramda'
+  import { isEmptyPlus as isEmpty } from '../../services'
   import ChapterCard from '../ChapterCard/ChapterCard.vue'
   import PhotoCard from '../PhotoCard/PhotoCard.vue'
   import Comments from '../comments/Comments.vue'
