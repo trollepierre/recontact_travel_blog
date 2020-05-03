@@ -10,11 +10,11 @@ exports[`Component | CommentForm.vue template should match snapshot 1`] = `
       <div class="input-group author">
         <!----> <input id="author" placeholder="name" class="forum__comment-box author"></div>
     </header>
-    <main class="form__content">
+    <div class="form__content">
       <div class="input-group comment"><label for="comment" class="form__label comment">
           text
         </label> <textarea id="comment" placeholder="textPlaceholder" class="forum__comment-box text"></textarea></div>
-    </main>
+    </div>
     <footer class="form__footer"><button type="submit" class="form-button">
         send
       </button></footer>

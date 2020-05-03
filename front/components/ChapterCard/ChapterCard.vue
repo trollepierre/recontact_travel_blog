@@ -1,53 +1,51 @@
 <template>
-  <div class="chapter-card">
-    <article class="chapter">
-      <header class="chapter__header">
-        <h2 class="chapter__title">
-          {{ chapterTitle }}
-        </h2>
-        <p class="chapter__position">
-          {{ chapter.position }}
-        </p>
-      </header>
-      <div class="chapter__content">
-        <img
-          v-if="imgLink"
-          :src="imgLink"
-          :alt="chapterAlt"
-          rel="noreferrer"
-          class="chapter__image">
-        <span v-else>
+  <article class="chapter">
+    <header class="chapter__header">
+      <h2 class="chapter__title">
+        {{ chapterTitle }}
+      </h2>
+      <p class="chapter__position">
+        {{ chapter.position }}
+      </p>
+    </header>
+    <div class="chapter__content">
+      <img
+        v-if="imgLink"
+        :src="imgLink"
+        :alt="chapterAlt"
+        rel="noreferrer"
+        class="chapter__image">
+      <span v-else>
           {{ $t("missingImage") }}
         </span>
+    </div>
+    <footer class="chapter__footer">
+      <div
+        v-for="paragraph in chapterText"
+        :key="paragraph.text"
+        class="chapter__footer_text">
+        <template v-if="paragraph">
+          <iframe
+            v-if="paragraph.iframeSrc"
+            :width="dimensions.width"
+            :height="dimensions.height"
+            :src="paragraph.iframeSrc"
+            class="youtube-iframe"
+            allow="accelerometer; encrypted-media; gyroscope;"
+            allowfullscreen/>
+          <a
+            v-else-if="paragraph.link"
+            :href="paragraph.link"
+            target="_blank">
+            {{ paragraph.link }}
+          </a>
+          <p v-else>
+            {{ paragraph.text }}
+          </p>
+        </template>
       </div>
-      <footer class="chapter__footer">
-        <div
-          v-for="paragraph in chapterText"
-          :key="paragraph.text"
-          class="chapter__footer_text">
-          <template v-if="paragraph">
-            <iframe
-              v-if="paragraph.iframeSrc"
-              :width="dimensions.width"
-              :height="dimensions.height"
-              :src="paragraph.iframeSrc"
-              class="youtube-iframe"
-              allow="accelerometer; encrypted-media; gyroscope;"
-              allowfullscreen/>
-            <a
-              v-else-if="paragraph.link"
-              :href="paragraph.link"
-              target="_blank">
-              {{ paragraph.link }}
-            </a>
-            <p v-else>
-              {{ paragraph.text }}
-            </p>
-          </template>
-        </div>
-      </footer>
-    </article>
-  </div>
+    </footer>
+  </article>
 </template>
 
 <script>
@@ -59,7 +57,12 @@
 
   export default {
     name: 'ChapterCard',
-    props: { chapter: { type: Object, default: () => {} } },
+    props: {
+      chapter: {
+        type: Object, default: () => {
+        }
+      }
+    },
     data: () => ({ dimensions: iframeDimensions() }),
     computed: {
       imgLink() {
