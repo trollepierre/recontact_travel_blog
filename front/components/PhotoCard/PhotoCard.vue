@@ -1,25 +1,27 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
-  <div class="photo-card">
-    <article class="photo">
-      <div class="photo__content">
-        <div ref="container">
-          <img
-            v-lazy="imgLink"
-            class="img"
-            rel="noreferrer"
-            :alt="image">
-          <div v-lazy:background-image="imgLink"/>
-        </div>
-      </div>
-    </article>
-  </div>
+  <article class="photo">
+    <div
+      ref="container"
+      class="photo__content">
+      <img
+        v-lazy="imgLink"
+        class="img"
+        rel="noreferrer"
+        :alt="image">
+      <div v-lazy:background-image="imgLink"/>
+    </div>
+  </article>
 </template>
 
 <script>
   export default {
     name: 'PhotoCard',
     props: {
-      photo: { type: Object, default: () => {} },
+      photo: {
+        type: Object,
+        default: () => {
+        },
+      },
     },
     computed: {
       imgLink() {

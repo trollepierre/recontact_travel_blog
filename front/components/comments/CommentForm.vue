@@ -1,5 +1,5 @@
 <template>
-  <aside class="comment__form">
+  <div class="comment__form">
     <p class="form__title">
       {{ $t("addComment") }}
     </p>
@@ -43,7 +43,7 @@
         </button>
       </footer>
     </form>
-  </aside>
+  </div>
 </template>
 <script>
   import { isEmpty } from 'ramda'

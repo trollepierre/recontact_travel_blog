@@ -1,58 +1,54 @@
 <template>
-  <div class="page">
-    <main class="page__body">
-      <div class="page__container">
-        <section class="article-page">
-          <h1 class="article-page__title">
-            {{ title || $t("title") }}
-          </h1>
-          <ul class="chapter__list">
-            <li
-              v-for="chapter in chapters"
-              :key="chapter.imgLink"
-              class="chapter__item">
-              <chapter-card :chapter="chapter"/>
-            </li>
-          </ul>
-        </section>
-        <section class="article-page__forum forum">
-          <comments/>
-        </section>
-        <section
-          v-if="!isEmpty(photos)"
-          class="article-page__photo-gallery photo-gallery">
-          <h2 class="photo-gallery__title">
-            {{ $t("hereTheGallery") }}
-          </h2>
-          <ul class="photo-gallery__list">
-            <li
-              v-for="photo in photos"
-              :key="photo.imgLink"
-              class="photo__item">
-              <photo-card :photo="photo"/>
-            </li>
-          </ul>
-        </section>
-        <footer class="article-page__footer footer-article">
-          <button
-            class="footer-article__home"
-            @click="goToHomePage">
-            {{ $t("goToHomePage") }}
-          </button>
-          <button
-            class="footer-article__previous"
-            @click="viewPreviousArticle">
-            {{ $t("goToPreviousArticle") }}
-          </button>
-          <button
-            class="footer-article__next"
-            @click="viewNextArticle">
-            {{ $t("goToNextArticle") }}
-          </button>
-        </footer>
-      </div>
-    </main>
-  </div>
+  <main class="page">
+    <section class="article-page">
+      <h1 class="article-page__title">
+        {{ title || $t("title") }}
+      </h1>
+      <ul class="chapter__list">
+        <li
+          v-for="chapter in chapters"
+          :key="chapter.imgLink"
+          class="chapter__item">
+          <chapter-card :chapter="chapter"/>
+        </li>
+      </ul>
+    </section>
+    <section class="article-page__forum forum">
+      <comments/>
+    </section>
+    <section
+      v-if="!isEmpty(photos)"
+      class="article-page__photo-gallery photo-gallery">
+      <p class="photo-gallery__title">
+        {{ $t("hereTheGallery") }}
+      </p>
+      <ul class="photo-gallery__list">
+        <li
+          v-for="photo in photos"
+          :key="photo.imgLink"
+          class="photo__item">
+          <photo-card :photo="photo"/>
+        </li>
+      </ul>
+    </section>
+    <footer class="article-page__footer footer-article">
+      <button
+        class="footer-article__home"
+        @click="goToHomePage">
+        {{ $t("goToHomePage") }}
+      </button>
+      <button
+        class="footer-article__previous"
+        @click="viewPreviousArticle">
+        {{ $t("goToPreviousArticle") }}
+      </button>
+      <button
+        class="footer-article__next"
+        @click="viewNextArticle">
+        {{ $t("goToNextArticle") }}
+      </button>
+    </footer>
+  </main>
 </template>
 
 <script>
@@ -133,12 +129,12 @@
         this.$router.push(`/articles/${idArticle}`)
       },
       trackEvent() {
-      // this.$ga.event({
-      //   eventCategory: 'Article Page',
-      //   eventAction: 'read',
-      //   eventLabel: `article ${this.$route.params.id} is read`,
-      // })
-      // TODO fix trackEvent
+        // this.$ga.event({
+        //   eventCategory: 'Article Page',
+        //   eventAction: 'read',
+        //   eventLabel: `article ${this.$route.params.id} is read`,
+        // })
+        // TODO fix trackEvent
       },
       isEmpty,
     },
@@ -165,11 +161,10 @@
 </script>
 
 <style scoped>
-  .page__body {
-    display: flex;
+  .page {
     width: 100%;
-    padding: 20px 0;
-    justify-content: center;
+    padding-top: 20px;
+    margin: auto;
   }
 
   .article-page {
@@ -246,19 +241,19 @@
   }
 
   @media only screen and (min-width: 640px) {
-    .page__container {
+    .page {
       max-width: 544px;
     }
   }
 
   @media only screen and (min-width: 992px) {
-    .page__container {
+    .page {
       max-width: 816px;
     }
   }
 
   @media only screen and (min-width: 1200px) {
-    .page__container {
+    .page {
       max-width: 1088px;
     }
   }
