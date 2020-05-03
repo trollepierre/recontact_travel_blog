@@ -16,8 +16,8 @@
         rel="noreferrer"
         class="chapter__image">
       <span v-else>
-          {{ $t("missingImage") }}
-        </span>
+        {{ $t("missingImage") }}
+      </span>
     </div>
     <footer class="chapter__footer">
       <div
@@ -59,9 +59,10 @@
     name: 'ChapterCard',
     props: {
       chapter: {
-        type: Object, default: () => {
-        }
-      }
+        type: Object,
+        default: () => {
+        },
+      },
     },
     data: () => ({ dimensions: iframeDimensions() }),
     computed: {
