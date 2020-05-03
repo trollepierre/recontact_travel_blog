@@ -139,7 +139,6 @@ jobs:
       - run: yarn add html5-validator
       - run: ./node_modules/.bin/html5v https://french-test.recontact.me/
       - run: ./node_modules/.bin/html5v https://english-test.recontact.me/articles/85
-      - run: ./node_modules/.bin/html5v https://www.manomano.fr/
 
   lighthouse:
     <<: *common_properties
