@@ -126,13 +126,6 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-branch.git $CIRCLE_BRANCH:master --force
 
-  validate_accessibility_html5v:
-    <<: *common_properties
-    steps:
-      - run: yarn add html5-validator
-      - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/
-      - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/articles/85
-
   validate_accessibility_html5v_staging:
     <<: *common_properties
     steps:
@@ -248,12 +241,9 @@ workflows:
               ignore:
                 - dev
                 - master
-      - validate_accessibility_html5v:
-          requires:
-            - deploy_branch
       - validate_accessibility_html5v_staging:
           requires:
-            - deploy_branch
+            - deploy_staging
       - lighthouse:
           requires:
             - deploy_branch
