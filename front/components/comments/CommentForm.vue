@@ -1,5 +1,5 @@
 <template>
-  <div class="comment__form">
+  <aside class="comment__form">
     <p class="form__title">
       {{ $t("addComment") }}
     </p>
@@ -21,7 +21,7 @@
             class="forum__comment-box author">
         </div>
       </header>
-      <main class="form__content">
+      <div class="form__content">
         <div class="input-group comment">
           <label
             class="form__label comment"
@@ -34,7 +34,7 @@
             :placeholder="textPlaceholder"
             class="forum__comment-box text"/>
         </div>
-      </main>
+      </div>
       <footer class="form__footer">
         <button
           type="submit"
@@ -43,7 +43,7 @@
         </button>
       </footer>
     </form>
-  </div>
+  </aside>
 </template>
 <script>
   import { isEmpty } from 'ramda'

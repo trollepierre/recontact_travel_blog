@@ -8,9 +8,7 @@
         <span class="recontact">Recontact</span>
         <span class="me">Me</span>
       </a>
-      <nav
-        aria-label="navigation"
-        role="navigation">
+      <nav aria-label="navigation">
         <ul class="navigation">
           <li
             v-if="showNavBarButton"
