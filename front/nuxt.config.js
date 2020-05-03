@@ -15,16 +15,15 @@ const headEn = {
       content: 'Articles of the world trip of Pierre and Benoît - South America, Oceania, Asia, Europa, Central America',
     },
     { name: 'theme-color', content: '#FFFFFF' },
+    { name: 'msapplication-TileColor', content: '#DA532C' },
   ],
   link: [
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     { rel: 'canonical', href: 'https://www.recontact.me' },
-    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' },
-    { rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
-    { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' },
-    { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png' },
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
     { rel: 'manifest', href: '/manifest.json' },
+    { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
   ],
 }
 
@@ -45,13 +44,11 @@ const headFr = {
     { name: 'msapplication-TileColor', content: '#DA532C' },
   ],
   link: [
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     { rel: 'canonical', href: 'https://fr.recontact.me' },
     { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
     { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
     { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    { rel: 'manifest', href: '/site.webmanifest' },
+    { rel: 'manifest', href: '/manifest.json' },
     { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
 ],
 }
