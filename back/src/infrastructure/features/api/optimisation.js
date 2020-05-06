@@ -20,8 +20,8 @@ router.get('/art/del', (req, res) => DeleteAllArticles.deleteAllArticles()
   .then(() => res.status(204).send()))
 
 router.get('/art/del/:id', (req, res) => {
-  const articleId = parseInt(req.params.id, 10)
-  return DeleteArticle.deleteArticle(articleId)
+  const idArticle = parseInt(req.params.id, 10)
+  return DeleteArticle.deleteArticle(idArticle)
     .then(() => res.status(204).send())
 })
 
