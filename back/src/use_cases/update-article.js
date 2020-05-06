@@ -1,4 +1,5 @@
-import { flatten, isEmpty } from 'lodash'
+import flatten from 'lodash/flatten'
+import isEmpty from 'lodash/isEmpty'
 import chapterRepository from '../domain/repositories/chapter-repository'
 import articleRepository from '../domain/repositories/article-repository'
 import photoRepository from '../domain/repositories/photo-repository'
