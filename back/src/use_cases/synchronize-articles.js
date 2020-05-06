@@ -1,4 +1,5 @@
-import { flatten, isEmpty } from 'lodash'
+import flatten from 'lodash/flatten'
+import isEmpty from 'lodash/isEmpty'
 import DropboxClient from '../infrastructure/external_services/dropbox-client'
 import FileReader from '../infrastructure/external_services/file-reader'
 import articleRepository from '../domain/repositories/article-repository'
