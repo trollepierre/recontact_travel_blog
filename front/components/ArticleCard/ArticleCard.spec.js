@@ -114,7 +114,7 @@ describe('Component | ArticleCard.vue', () => {
       })
 
       describe('#viewArticle', () => {
-        it('should redirect to /articles/:articleId', () => {
+        it('should redirect to /articles/:idArticle', () => {
           wrapper = shallowMount(ArticleCard, {
             localVue, propsData, router, store,
           })
@@ -126,7 +126,7 @@ describe('Component | ArticleCard.vue', () => {
       })
 
       describe('#goToArticle', () => {
-        it('should redirect to /articles/:articleId', () => {
+        it('should redirect to /articles/:idArticle', () => {
           wrapper = shallowMount(ArticleCard, {
             localVue, propsData, router, store,
           })
