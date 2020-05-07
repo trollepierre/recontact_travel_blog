@@ -100,6 +100,10 @@ jobs:
           keys:
             - v2-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run: yarn build:front
+      - save_cache:
+          key: v2-front-build-{{ checksum "front/yarn.lock" }}
+          paths:
+            - ./front/dist
 
   build_back:
     <<: *common_properties
@@ -148,6 +152,18 @@ jobs:
           keys:
             - v2-code-{{ checksum ".circle-cache-key" }}
       - run: yarn lighthouse
+
+  bundlesize:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v2-code-{{ checksum ".circle-cache-key" }}
+      - restore_cache:
+          keys:
+            - v2-front-build-{{ checksum "front/yarn.lock" }}
+      - run: yarn bundlesize
 
   deploy_staging:
     <<: *common_properties
@@ -255,6 +271,9 @@ workflows:
           requires:
             - deploy_staging
       - lighthouse:
+          requires:
+            - deploy_staging
+      - bundlesize:
           requires:
             - deploy_staging
       - deploy_staging:

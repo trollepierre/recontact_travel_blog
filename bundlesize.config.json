@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "path": "./front/dist/index.html",
+      "maxSize": "5 kB"
+    },
+    {
+      "path": "./front/dist/articles/*/index.html",
+      "maxSize": "6 kB"
+    },
+    {
+      "path": "./front/dist/**/*.png",
+      "maxSize": "26 kB"
+    },
+    {
+      "path": "./front/dist/_nuxt/*.js",
+      "maxSize": "56 kB"
+    },
+    {
+      "path": "./front/dist/_nuxt/fonts/*.*",
+      "maxSize": "37 kB"
+    },
+    {
+      "path": "./front/dist/_nuxt/img/*.*",
+      "maxSize": "4 kB"
+    }
+  ]
+}
