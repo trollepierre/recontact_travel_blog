@@ -29,6 +29,7 @@
     "lint:fix": "yarn lintfix:front && yarn lintfix:back",
     "release": "./tools/release/release.sh",
     "lighthouse": "(cd tools/lighthouse && yarn) && (cd tools/lighthouse && yarn test)",
+    "bundlesize": "npx bundlesize",
     "heroku-postbuild": "yarn build"
   },
   "repository": {
