@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint --ext .js lighthouse.spec.js",
+    "lint:fix": "yarn lint --fix",
+    "test": "jest"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "gtmetrix": "^1.3.0",
+    "jest": "^26.0.1"
+  }
+}

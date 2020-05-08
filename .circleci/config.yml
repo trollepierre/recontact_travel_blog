@@ -140,6 +140,15 @@ jobs:
       - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/
       - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/articles/85
 
+  gtmetrix:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v2-code-{{ checksum ".circle-cache-key" }}
+      - run: yarn gtmetrix
+
   lighthouse:
     <<: *common_properties
     steps:
@@ -254,6 +263,9 @@ workflows:
       - validate_html5v:
           requires:
             - deploy_staging
+      - gtmetrix:
+          requires:
+            - deploy_branch
       - lighthouse:
           requires:
             - deploy_staging
