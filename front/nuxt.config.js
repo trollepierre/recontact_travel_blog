@@ -50,7 +50,7 @@ const headFr = {
     { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
     { rel: 'manifest', href: '/manifest.json' },
     { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
-],
+  ],
 }
 
 const articleRoutes = [...Array(92).keys()]
@@ -64,7 +64,7 @@ module.exports = {
   env: { NUXT_ENV_API_URL: process.env.NUXT_ENV_API_URL || 'https://recontact.herokuapp.com' },
   head: process.env.NUXT_ENV_LANGUAGE === 'en' ? headEn : headFr, // Headers of the page
   loading: { color: '#3B8070' }, // Customize the progress bar color
-  router: {}, // middleware: 'i18n'
+  router: {},
   plugins: [
     // '~/plugins/analytics.js',
     '~/plugins/i18n.js',
@@ -77,6 +77,7 @@ module.exports = {
       '/',
       '/admin',
       ...articleRoutes,
+      { path: '/:id', redirect: '/articles/:id' },
     ],
   },
   modules: ['@nuxtjs/dotenv'],
