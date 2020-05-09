@@ -3,8 +3,7 @@ import VueI18n from 'vue-i18n'
 import ArticleList from './ArticleList.vue'
 import articlesApi from '../../services/api/articles'
 import positionsApi from '../../services/api/positions'
-import articlesSorter from '../../services/services/articlesSorter'
-import { isCecile } from '../../services'
+import { isCecile, sortByDropboxId } from '../../services'
 import ArticleCard from '../ArticleCard/ArticleCard.vue'
 
 jest.mock('../../services')
@@ -25,8 +24,7 @@ describe('Component | ArticleList.vue', () => {
   beforeEach(() => {
     console.warn = jest.fn()
 
-    articlesSorter.sortByDropboxId = jest.fn()
-    articlesSorter.sortByDropboxId.mockReturnValue(sortedArticles)
+    sortByDropboxId.mockReturnValue(sortedArticles)
     positionsApi.fetchLast = jest.fn()
     positionsApi.fetchLast.mockResolvedValue(lastPosition)
     articlesApi.fetchAll = jest.fn()

@@ -1,4 +1,4 @@
-import articlesSorter from './articlesSorter'
+import { sortByDropboxId } from './articlesSorter'
 
 describe('Unit | services | articlesSorter', () => {
   describe('#sortByDropboxId', () => {
@@ -10,7 +10,7 @@ describe('Unit | services | articlesSorter', () => {
       })
       const articles = [article('2'), article('11'), article(3)]
 
-      const sortedArticles = articlesSorter.sortByDropboxId(articles)
+      const sortedArticles = sortByDropboxId(articles)
 
       expect(sortedArticles).toEqual([article('11'), article(3), article('2')])
     })
