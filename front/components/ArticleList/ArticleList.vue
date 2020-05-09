@@ -42,8 +42,7 @@
   import AdminDashboard from '../AdminDashboard/AdminDashboard.vue'
   import articlesApi from '../../services/api/articles'
   import positionsApi from '../../services/api/positions'
-  import articlesSorter from '../../services/services/articlesSorter'
-  import { isCecile } from '../../services'
+  import { isCecile, sortByDropboxId } from '../../services'
 
   export default {
     name: 'ArticleList',
@@ -82,7 +81,7 @@
       getArticles() {
         articlesApi.fetchAll()
           .then(articles => {
-            this.articles = articlesSorter.sortByDropboxId(articles)
+            this.articles = sortByDropboxId(articles)
           })
       },
 
