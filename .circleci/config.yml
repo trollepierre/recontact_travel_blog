@@ -165,6 +165,17 @@ jobs:
             - v2-front-build-{{ checksum "front/yarn.lock" }}
       - run: yarn bundlesize
 
+  webpagetest:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v2-code-{{ checksum ".circle-cache-key" }}
+      - run: yarn add webpagetest
+      - run: ./node_modules/.bin/webpagetest test https://french-test.recontact.me/ --first --poll --specs tools/webpagetest-threshold.json -k $WEBPAGETEST_API_KEY
+      - run: ./node_modules/.bin/webpagetest test https://english-test.recontact.me/articles/85 --first --poll --specs tools/webpagetest-article-threshold.json -k $WEBPAGETEST_API_KEY
+
   deploy_staging:
     <<: *common_properties
     shell: /bin/bash --login
@@ -271,6 +282,9 @@ workflows:
           requires:
             - deploy_staging
       - lighthouse:
+          requires:
+            - deploy_staging
+      - webpagetest:
           requires:
             - deploy_staging
       - bundlesize:
