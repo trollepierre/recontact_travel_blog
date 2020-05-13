@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`error layout should return error occured not found when not 404 1`] = `
+<div class="container">
+  <h1>
+    An error occurred
+  </h1>
+  <nuxt-link to="/">
+    Home page
+  </nuxt-link>
+</div>
+`;
+
+exports[`error layout should return page not found when 404 1`] = `
+<div class="container">
+  <h1>
+    Page not found
+  </h1>
+  <nuxt-link to="/">
+    Home page
+  </nuxt-link>
+</div>
+`;
