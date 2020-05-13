@@ -77,7 +77,6 @@ module.exports = {
       '/',
       '/admin',
       ...articleRoutes,
-      { path: '/:id', redirect: '/articles/:id' },
     ],
   },
   modules: ['@nuxtjs/dotenv'],
