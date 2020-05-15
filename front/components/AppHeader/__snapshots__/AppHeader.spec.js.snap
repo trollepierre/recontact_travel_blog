@@ -2,8 +2,8 @@
 
 exports[`Component | AppHeader.vue template should match snapshot 1`] = `
 <header class="header">
-  <div class="container"><a title="home" href="/" class="logo"><span class="recontact">Recontact</span> <span class="me">Me</span></a>
-    <nav aria-label="navigation" role="navigation">
+  <div class="container"><a title="home" href="/" class="logo"><span class="recontact">Recontact</span> <span class="me">Me</span> <img alt="logo" src="../../static/mstile-150x150.png" class="icon"></a>
+    <nav aria-label="navigation">
       <ul class="navigation">
         <!---->
         <!---->

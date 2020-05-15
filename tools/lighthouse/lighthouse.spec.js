@@ -29,16 +29,31 @@ const buildLighthouseReport = results => {
   return { lighthouseScore, categories }
 }
 
-test('Meaningful first paint score', () =>
-  launchChromeAndRunLighthouse('https://recontact-branch.herokuapp.com/')
+test('Article 85 : Meaningful first paint score', () =>
+  launchChromeAndRunLighthouse('https://french-test.recontact.me/articles/85')
     .then(buildLighthouseReport)
     .then(report => {
       const { categories, lighthouseScore } = report
 
-      expect(lighthouseScore).toBeGreaterThanOrEqual(75) // 77.8 - 75 - 78,
-      expect(categories.performance.score * 100).toBeGreaterThanOrEqual(60) // 65 - 66 - 67 - 68 - 55 - 72
-      expect(categories.pwa.score * 100).toBeGreaterThanOrEqual(52) // 52
-      expect(categories.accessibility.score * 100).toBeGreaterThanOrEqual(95) // 95
-      expect(categories['best-practices'].score * 100).toBeGreaterThanOrEqual(79) // 79
-      expect(categories.seo.score * 100).toBeGreaterThanOrEqual(92) // 92
+      expect(lighthouseScore).toBeGreaterThanOrEqual(75) // 78
+      expect(categories.performance.score * 100).toBeGreaterThanOrEqual(60) // 34, 64, 65, 64 (-4 just in case)
+      expect(categories.accessibility.score * 100).toBeGreaterThanOrEqual(84) // 84
+      expect(categories['best-practices'].score * 100).toBeGreaterThanOrEqual(93) // 93
+      expect(categories.seo.score * 100).toBeGreaterThanOrEqual(100) // 100
+      expect(categories.pwa.score * 100).toBeGreaterThanOrEqual(56) // 56
     }))
+
+test('HomePage : Meaningful first paint score', () =>
+  launchChromeAndRunLighthouse('https://english-test.recontact.me')
+    .then(buildLighthouseReport)
+    .then(report => {
+      const { categories, lighthouseScore } = report
+
+      expect(lighthouseScore).toBeGreaterThanOrEqual(83) // 86
+      expect(categories.performance.score * 100).toBeGreaterThanOrEqual(85) // 94, 93, 95, 90 (-10 just in case)
+      expect(categories.accessibility.score * 100).toBeGreaterThanOrEqual(96) // 96
+      expect(categories['best-practices'].score * 100).toBeGreaterThanOrEqual(93) // 93
+      expect(categories.seo.score * 100).toBeGreaterThanOrEqual(100) // 100
+      expect(categories.pwa.score * 100).toBeGreaterThanOrEqual(59) // 59
+    }))
+

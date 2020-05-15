@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash'
+import isEmpty from 'lodash/isEmpty'
 import subscriptionRepository from '../domain/repositories/subscription-repository'
 
 function subscribe(subscriptionForm) {

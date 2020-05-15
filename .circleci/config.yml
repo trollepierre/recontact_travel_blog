@@ -100,6 +100,10 @@ jobs:
           keys:
             - v2-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run: yarn build:front
+      - save_cache:
+          key: v2-front-build-{{ checksum "front/yarn.lock" }}
+          paths:
+            - ./front/dist
 
   build_back:
     <<: *common_properties
@@ -126,11 +130,19 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-branch.git $CIRCLE_BRANCH:master --force
 
-  validate_accessibility_html5v:
+  validate_html5v:
+    <<: *common_properties
+    steps:
+      - run: yarn add html5-validator
+      - run: ./node_modules/.bin/html5v https://french-test.recontact.me/
+      - run: ./node_modules/.bin/html5v https://english-test.recontact.me/articles/85
+
+  validate_html5v_branch:
     <<: *common_properties
     steps:
       - run: yarn add html5-validator
       - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/
+      - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/articles/85
 
   lighthouse:
     <<: *common_properties
@@ -140,6 +152,29 @@ jobs:
           keys:
             - v2-code-{{ checksum ".circle-cache-key" }}
       - run: yarn lighthouse
+
+  bundlesize:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v2-code-{{ checksum ".circle-cache-key" }}
+      - restore_cache:
+          keys:
+            - v2-front-build-{{ checksum "front/yarn.lock" }}
+      - run: yarn bundlesize
+
+  webpagetest:
+    <<: *common_properties
+    steps:
+      - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
+      - restore_cache:
+          keys:
+            - v2-code-{{ checksum ".circle-cache-key" }}
+      - run: yarn add webpagetest
+      - run: ./node_modules/.bin/webpagetest test https://french-test.recontact.me/ --first --poll --specs tools/webpagetest-threshold.json -k $WEBPAGETEST_API_KEY
+      - run: ./node_modules/.bin/webpagetest test https://english-test.recontact.me/articles/85 --first --poll --specs tools/webpagetest-article-threshold.json -k $WEBPAGETEST_API_KEY
 
   deploy_staging:
     <<: *common_properties
@@ -240,12 +275,21 @@ workflows:
               ignore:
                 - dev
                 - master
-      - validate_accessibility_html5v:
+      - validate_html5v_branch:
           requires:
             - deploy_branch
+      - validate_html5v:
+          requires:
+            - deploy_staging
       - lighthouse:
           requires:
-            - deploy_branch
+            - deploy_staging
+      - webpagetest:
+          requires:
+            - deploy_staging
+      - bundlesize:
+          requires:
+            - deploy_staging
       - deploy_staging:
           requires:
             - test_front

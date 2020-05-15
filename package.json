@@ -20,7 +20,7 @@
     "test:front": "cd front && yarn test",
     "test:back": "cd back && yarn test",
     "test:back:ci": "cd back && yarn test",
-    "test": "yarn test:front && yarn test:back",
+    "test": "yarn test:back && yarn test:front",
     "lint:front": "cd front && yarn lint",
     "lintfix:front": "cd front && yarn lint:fix",
     "lint:back": "cd back && yarn lint",
@@ -29,6 +29,7 @@
     "lint:fix": "yarn lintfix:front && yarn lintfix:back",
     "release": "./tools/release/release.sh",
     "lighthouse": "(cd tools/lighthouse && yarn) && (cd tools/lighthouse && yarn test)",
+    "bundlesize": "npx bundlesize",
     "heroku-postbuild": "yarn build"
   },
   "repository": {

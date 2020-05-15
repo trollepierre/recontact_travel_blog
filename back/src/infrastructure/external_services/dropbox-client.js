@@ -1,4 +1,5 @@
-import { flatten } from 'lodash'
+import flatten from 'lodash/flatten'
+
 import Dropbox from 'dropbox'
 import env from '../env/env'
 

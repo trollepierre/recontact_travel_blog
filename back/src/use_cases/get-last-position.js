@@ -1,4 +1,4 @@
-import { maxBy } from 'lodash'
+import maxBy from 'lodash/maxBy'
 
 import positionRepository from '../domain/repositories/position-repository'
 

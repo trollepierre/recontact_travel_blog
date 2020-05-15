@@ -1,0 +1,5 @@
+/* TEAM */
+  Name: Pierre
+
+/* SITE */
+  Software: Nuxt.js, Vue.js, Node.js

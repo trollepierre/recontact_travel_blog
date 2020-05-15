@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 require('dotenv').config()
 
 const headEn = {
@@ -14,16 +15,15 @@ const headEn = {
       content: 'Articles of the world trip of Pierre and Benoît - South America, Oceania, Asia, Europa, Central America',
     },
     { name: 'theme-color', content: '#FFFFFF' },
+    { name: 'msapplication-TileColor', content: '#DA532C' },
   ],
   link: [
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     { rel: 'canonical', href: 'https://www.recontact.me' },
-    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' },
-    { rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
-    { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' },
-    { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png' },
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
     { rel: 'manifest', href: '/manifest.json' },
+    { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
   ],
 }
 
@@ -41,16 +41,15 @@ const headFr = {
       content: 'Articles du tour du monde de Pierre et Benoît - Amérique du Sud, Océanie, Asie, Europe, Amérique centrale',
     },
     { name: 'theme-color', content: '#FFFFFF' },
+    { name: 'msapplication-TileColor', content: '#DA532C' },
   ],
   link: [
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     { rel: 'canonical', href: 'https://fr.recontact.me' },
-    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' },
-    { rel: 'apple-touch-icon', sizes: '120x120', href: '/apple-touch-icon.png' },
-    { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' },
-    { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png' },
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
     { rel: 'manifest', href: '/manifest.json' },
+    { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
   ],
 }
 
@@ -65,7 +64,7 @@ module.exports = {
   env: { NUXT_ENV_API_URL: process.env.NUXT_ENV_API_URL || 'https://recontact.herokuapp.com' },
   head: process.env.NUXT_ENV_LANGUAGE === 'en' ? headEn : headFr, // Headers of the page
   loading: { color: '#3B8070' }, // Customize the progress bar color
-  router: {}, // middleware: 'i18n'
+  router: {},
   plugins: [
     // '~/plugins/analytics.js',
     '~/plugins/i18n.js',

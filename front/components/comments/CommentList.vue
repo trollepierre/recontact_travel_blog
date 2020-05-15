@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { isEmpty } from 'ramda'
+  import { isEmptyPlus as isEmpty } from '../../services'
   import CommentCard from '../common/CommentCard.vue'
   import commentsApi from '../../services/api/comments'
 

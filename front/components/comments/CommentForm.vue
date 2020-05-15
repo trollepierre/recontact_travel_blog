@@ -21,7 +21,7 @@
             class="forum__comment-box author">
         </div>
       </header>
-      <main class="form__content">
+      <div class="form__content">
         <div class="input-group comment">
           <label
             class="form__label comment"
@@ -34,7 +34,7 @@
             :placeholder="textPlaceholder"
             class="forum__comment-box text"/>
         </div>
-      </main>
+      </div>
       <footer class="form__footer">
         <button
           type="submit"
@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-  import { isEmpty } from 'ramda'
+  import { isEmptyPlus as isEmpty } from '../../services'
   import commentsApi from '../../services/api/comments'
   import notificationsService from '../../services/services/notifications'
 

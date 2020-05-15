@@ -15,7 +15,7 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
     </div>
     <footer class="article__footer"><button class="article__footer__button">
         goToArticle
-      </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" class="article__dropbox"><button class="article__dropbox-button article__footer__button">
+      </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="article__dropbox"><button class="article__dropbox-button article__footer__button">
           viewGallery
         </button></a></footer>
   </article>
@@ -33,7 +33,7 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
     <div class="article__content"><img src="webf" alt="Pierre somewhere" width="200" class="article__image important"></div>
     <footer class="article__footer"><button class="article__footer__button">
         goToArticle
-      </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" class="article__dropbox"><button class="article__dropbox-button article__footer__button">
+      </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="article__dropbox"><button class="article__dropbox-button article__footer__button">
           viewGallery
         </button></a></footer>
   </article>
