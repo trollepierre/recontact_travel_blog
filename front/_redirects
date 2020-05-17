@@ -1,4 +1,7 @@
 # Redirects from what the browser requests to what we serve
-/apple-touch-icon-*.png                               /apple-touch-icon.png
+/apple-touch-icon-*.png                           /apple-touch-icon.png
 /apple-touch-icon-precomposed.png                 /apple-touch-icon.png
 /apple-touch-icon-57x57-precomposed.png           /apple-touch-icon.png
+/.env                                             https://www.youtube.com/watch?v=dQw4w9WgXcQ
+/wp-admin                                         https://www.youtube.com/watch?v=dQw4w9WgXcQ
+/wp-login.php                                     https://www.youtube.com/watch?v=dQw4w9WgXcQ
