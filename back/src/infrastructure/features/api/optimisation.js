@@ -8,7 +8,8 @@ import SynchronizeArticles from '../../../use_cases/synchronize-articles'
 const router = express.Router()
 
 router.get('/sub', (req, res) => GetAllSubscriptions.getAllSubscriptions()
-  .then(subscriptions => res.status(200).json(subscriptions)))
+  .then(() => res.status(200).json([])))
+// .then(subscriptions => res.status(200).json([subscriptions])))
 
 router.get('/sub/del/:id', (req, res) => {
   const subscriptionId = parseInt(req.params.id, 10)
