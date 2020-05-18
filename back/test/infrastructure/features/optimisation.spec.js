@@ -48,7 +48,8 @@ describe('Integration | Routes | optimisation route', () => {
         .expect(200, (err, res) => {
           // then
           expect(GetAllSubscriptions.getAllSubscriptions).to.have.been.calledWith()
-          expect(res.body).to.deep.equal(persistedSubscriptions)
+          expect(res.body).not.to.deep.equal(persistedSubscriptions)
+          expect(res.body).to.deep.equal([])
           done()
         })
     })
@@ -98,7 +99,8 @@ describe('Integration | Routes | optimisation route', () => {
         .expect(200, (err, res) => {
           // then
           expect(GetAllSubscriptions.getAllSubscriptions).to.have.been.calledWith()
-          expect(res.body).to.deep.equal(persistedSubscriptions)
+          expect(res.body).not.to.deep.equal(persistedSubscriptions)
+          expect(res.body).to.deep.equal([])
           done()
         })
     })
