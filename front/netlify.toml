@@ -2,3 +2,23 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "/apple-touch-icon-57x57-precomposed.png"
+  to = "/apple-touch-icon.png"
+  status = 301
+
+[[redirects]]
+  from = "/apple-touch-icon-precomposed.png"
+  to = "/apple-touch-icon.png"
+  status = 301
+
+[[redirects]]
+  from = "/.env"
+  to = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  status = 301
+
+[[redirects]]
+  from = "/wp-admin"
+  to = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  status = 301
