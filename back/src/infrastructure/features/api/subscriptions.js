@@ -7,9 +7,9 @@ router.post('/', (req, res) => {
   Subscribe.subscribe(req.body)
     .then(({ subscription, created }) => {
       if (created) {
-        res.status(201)
+        res.status(201).json(subscription)
       }
-      res.json(subscription)
+      res.status(200).json(subscription)
     })
     .catch(() => {
       res.status(403).send()
