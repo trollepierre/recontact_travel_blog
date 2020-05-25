@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import ArticleList from '../components/ArticleList/ArticleList'
+  import ArticleList from '../components/ArticleList/ArticleList.vue'
 
   export default {
     components: {

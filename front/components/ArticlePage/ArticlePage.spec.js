@@ -2,7 +2,6 @@ import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-d
 import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 import VueAnalytics from 'vue-analytics'
-import Vue from 'vue'
 import ArticlePage from './ArticlePage.vue'
 import router from '../../test/router/router'
 import commentsApi from '../../services/api/comments'

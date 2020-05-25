@@ -1,4 +1,4 @@
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 import VueModal from 'vue-js-modal'
 import VueAnalytics from 'vue-analytics'

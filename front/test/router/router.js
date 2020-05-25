@@ -1,4 +1,4 @@
-import Router from 'vue-router'
+import Router from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import Vue from 'vue'
 import ArticlePage from '../../components/ArticlePage/ArticlePage.vue'
 

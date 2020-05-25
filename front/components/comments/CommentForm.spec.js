@@ -9,32 +9,11 @@ import notificationsService from '../../services/services/notifications'
 describe('Component | CommentForm.vue', () => {
   let localVue
   let wrapper
-  let chapters
-  let photos
 
   const dropboxId = '8'
   const commentsFromApi = [{ text: 'comment1' }]
 
   beforeEach(() => {
-    chapters = [
-      {
-        title: '60 : Pierre avec les webf',
-        imgLink: '../assets/toto.jpg',
-        text: ['some text'],
-      }, {
-        title: '61 : Pierre au Koezio',
-        imgLink: '/assets/tata.jpg',
-        text: ['some text'],
-      }, {
-        title: '62 : Pierre au Koezio',
-        imgLink: '/assets/titi.jpg',
-        text: ['some text'],
-      },
-    ]
-    photos = [
-      { imgLink: 'url/photo1' },
-      { imgLink: 'url/photo2' },
-    ]
     commentsApi.fetch = jest.fn()
     commentsApi.fetch.mockResolvedValue(commentsFromApi)
     console.warn = jest.fn()

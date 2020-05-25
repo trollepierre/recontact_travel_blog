@@ -1,11 +1,10 @@
+/* eslint-disable max-lines */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import AdminDashboard from './AdminDashboard.vue'
 import notificationsService from '../../services/services/notifications'
-import analyticsService from '../../services/services/analytics-service'
 import syncApi from '../../services/api/sync'
-import PositionForm from './PositionForm/PositionForm.vue'
 import articlesApi from '../../services/api/articles'
 
 describe('Component | AdminDashboard.vue', () => {
@@ -13,7 +12,6 @@ describe('Component | AdminDashboard.vue', () => {
   let wrapper
 
   beforeEach(() => {
-    analyticsService.sendAnalytics = jest.fn()
     console.warn = jest.fn()
 
     localVue = createLocalVue()
@@ -79,16 +77,10 @@ describe('Component | AdminDashboard.vue', () => {
       })
     })
 
-    describe('#synchronise', () => {
+    xdescribe('#synchronise', () => {
       beforeEach(() => {
         syncApi.launch = jest.fn()
         syncApi.launch.mockResolvedValue({})
-      })
-
-      it('should not track event', () => {
-        wrapper.vm.synchronise()
-
-        expect(analyticsService.sendAnalytics).not.toHaveBeenCalled()
       })
 
       it('should set isClickSync to true', () => {
@@ -383,14 +375,6 @@ describe('Component | AdminDashboard.vue', () => {
         wrapper.vm.goToSubscriptions()
 
         expect(router.push).toHaveBeenCalledWith('/subscriptions')
-      })
-    })
-
-    describe('#trackEvent', () => {
-      it('should call send analytics service', () => {
-        wrapper.vm.trackEvent()
-
-        expect(analyticsService.sendAnalytics).not.toHaveBeenCalled()
       })
     })
 

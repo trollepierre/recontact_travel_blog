@@ -1,4 +1,4 @@
-import error from './error'
+import error from './error.vue'
 
 describe('error layout', () => {
   it('should return page not found when 404', () => {
