@@ -66,11 +66,10 @@ module.exports = {
   loading: { color: '#3B8070' }, // Customize the progress bar color
   router: {},
   plugins: [
-    // '~/plugins/analytics.js',
     '~/plugins/i18n.js',
     '~/plugins/lazyload.js',
     // '~/plugins/modal.js',
-    '~/plugins/notification.js',
+    // '~/plugins/notification.js',
   ],
   generate: {
     routes: [

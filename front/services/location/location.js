@@ -5,14 +5,6 @@ const isCecile = () => {
   return false
 }
 
-const isWww = () => {
-  if (process.client) {
-    return window.location.host === 'www.recontact.me'
-  }
-  return false
-}
-
 export {
   isCecile,
-  isWww,
 }

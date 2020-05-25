@@ -61,8 +61,6 @@
   </header>
 </template>
 <script>
-  import { isWww } from '../../services'
-
   export default {
     name: 'AppHeader',
     data: () => ({ showNavBarButton: false, otherUrl: '' }),

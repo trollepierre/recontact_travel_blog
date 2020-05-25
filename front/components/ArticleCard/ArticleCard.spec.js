@@ -1,5 +1,8 @@
+import Vue from 'vue'
 import VueLazyload from 'vue-lazyload'
 import VueI18n from 'vue-i18n'
+import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
+import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 
 import ArticleCard from './ArticleCard.vue'
 import articlesApi from '../../services/api/articles'

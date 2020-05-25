@@ -50,7 +50,6 @@
 </template>
 <script>
   import notificationsService from '../../services/services/notifications'
-  import analyticsService from '../../services/services/analytics-service'
   import syncApi from '../../services/api/sync'
   import PositionForm from './PositionForm/PositionForm.vue'
   import articlesApi from '../../services/api/articles'
@@ -141,10 +140,6 @@
 
       goToSubscriptions() {
         this.$router.push('/subscriptions')
-      },
-
-      trackEvent() {
-      // analyticsService.sendAnalytics(this, 'Article List', 'synchronise', 'All articles have been synchronised')
       },
 
       goToHome() {
