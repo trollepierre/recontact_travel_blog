@@ -9,7 +9,7 @@ router.get('/last', (req, res) => GetLastPosition.getLastPosition()
 
 router.post('/', (req, res) => {
   AddPosition.addPosition(req.body)
-    .then(position => res.status(200).json(position))
+    .then(position => res.status(201).json(position))
     .catch(() => res.status(403).send())
 })
 
