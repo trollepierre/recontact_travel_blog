@@ -21,7 +21,7 @@ router.get('/:id/comments', (req, res) => GetArticleComments.getArticleComments(
 
 router.post('/:id/comments', (req, res) => {
   AddComment.addComment(req.body, req.params.id)
-    .then(comment => res.status(200).json(comment))
+    .then(comment => res.status(201).json(comment))
     .catch(error => res.status(400).send(error))
 })
 
