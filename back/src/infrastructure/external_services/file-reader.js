@@ -1,20 +1,10 @@
-import request from 'request'
+import axios from 'axios'
 
 const FileReader = {
 
-  read(filePath) {
-    return new Promise((resolve, reject) => {
-      const options = {
-        url: filePath,
-      }
-
-      request.get(options, (err, response) => {
-        if (err) {
-          reject(err)
-        }
-        resolve(response.body)
-      })
-    })
+  async read(filePath) {
+    const response = await axios.get(filePath)
+    return response.data
   },
 }
 

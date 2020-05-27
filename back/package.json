@@ -21,6 +21,7 @@
     "test:watch": "yarn test:unit --watch"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "body-parser": "1.19.0",
     "chalk": "^4.0.0",
     "connect-history-api-fallback": "1.6.0",
@@ -37,7 +38,6 @@
     "node-schedule": "1.3.2",
     "ramda": "0.27.0",
     "regenerator-runtime": "^0.13.5",
-    "request": "2.88.2",
     "sequelize": "5.21.7"
   },
   "devDependencies": {
