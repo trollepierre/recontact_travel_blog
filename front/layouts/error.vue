@@ -15,5 +15,10 @@
 <script>
   export default {
     props: { error: { type: Object, default: () => {} } },
+    mounted() {
+      if (this.$route.params.id && this.$route.params.id.substring(0, 17) === '/apple-touch-icon-') {
+        this.$router.go('/apple-touch-icon.png')
+      }
+    },
   }
 </script>
