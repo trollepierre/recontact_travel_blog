@@ -24,7 +24,7 @@
             {{ $t("previousArticle") }}
           </button>
         </li>
-          <li class="article"><p>Article {{ articleId }}</p></li>
+          <li class="article-text"><p>Article {{ articleId }}</p></li>
         <li class="next article">
           <button
             class="button next article"
@@ -268,10 +268,14 @@
     color: darkgrey;
   }
 
-  .article {
+  .article, .article-text {
     font-family: serif;
     padding-left: 10px;
     color: #F48024;
+  }
+
+  .button.article {
+    padding: 0 10px;
   }
 
   .button {
@@ -305,7 +309,7 @@
     padding: 10px;
   }
 
-  .other-language, .article {
+  .other-language, .article, .article-text {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -359,7 +363,7 @@
       border-radius: 0;
     }
 
-    .article {
+    .article, .article-text {
       font-size: 18px;
     }
 
@@ -369,10 +373,7 @@
     }
 
     .button.other-language {
-      padding-top: 5px;
-      padding-bottom: 0;
-      padding-left: 8px;
-      padding-right: 8px;
+      padding: 5px 8px 0;
     }
   }
 
