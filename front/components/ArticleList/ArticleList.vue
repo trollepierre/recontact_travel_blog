@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <app-header/>
     <main class="page__body">
       <div class="page__container">
         <section class="article-results">
@@ -43,12 +44,14 @@
   import articlesApi from '../../services/api/articles'
   import positionsApi from '../../services/api/positions'
   import { isCecile, sortByDropboxId } from '../../services'
+  import AppHeader from '../AppHeader/AppHeader'
   import translationService from '../../services/services/translations'
 
   export default {
     name: 'ArticleList',
     components: {
       AdminDashboard,
+      AppHeader,
       ArticleCard,
     },
     props: {

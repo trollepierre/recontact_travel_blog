@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <app-header/>
     <!--    <subscribe-modal/>-->
     <!--    <feedback-modal/>-->
     <nuxt/>

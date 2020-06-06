@@ -1,53 +1,56 @@
 <template>
-  <main class="page">
-    <section class="article-page">
-      <h1 class="article-page__title">
-        {{ title || $t("title") }}
-      </h1>
-      <ul class="chapter__list">
-        <li
-          v-for="chapter in chapters"
-          :key="chapter.imgLink"
-          class="chapter__item">
-          <chapter-card :chapter="chapter"/>
-        </li>
-      </ul>
-    </section>
-    <section class="article-page__forum forum">
-      <comments/>
-    </section>
-    <section
-      v-if="!isEmpty(photos)"
-      class="article-page__photo-gallery photo-gallery">
-      <p class="photo-gallery__title">
-        {{ $t("hereTheGallery") }}
-      </p>
-      <ul class="photo-gallery__list">
-        <li
-          v-for="photo in photos"
-          :key="photo.imgLink"
-          class="photo__item">
-          <photo-card :photo="photo"/>
-        </li>
-      </ul>
-    </section>
-    <footer class="article-page__footer footer-article">
-      <button
-        class="footer-article__home"
-        @click="goToHomePage">
-        {{ $t("goToHomePage") }}
-      </button>
-      <button
-        class="footer-article__previous"
-        @click="viewPreviousArticle">
-        {{ $t("goToPreviousArticle") }}
-      </button>
-      <button
-        class="footer-article__next"
-        @click="viewNextArticle">
-        {{ $t("goToNextArticle") }}
-      </button>
-    </footer>
+  <main>
+    <app-header/>
+    <div class="page">
+      <section class="article-page">
+        <h1 class="article-page__title">
+          {{ title || $t("title") }}
+        </h1>
+        <ul class="chapter__list">
+          <li
+            v-for="chapter in chapters"
+            :key="chapter.imgLink"
+            class="chapter__item">
+            <chapter-card :chapter="chapter"/>
+          </li>
+        </ul>
+      </section>
+      <section class="article-page__forum forum">
+        <comments/>
+      </section>
+      <section
+        v-if="!isEmpty(photos)"
+        class="article-page__photo-gallery photo-gallery">
+        <p class="photo-gallery__title">
+          {{ $t("hereTheGallery") }}
+        </p>
+        <ul class="photo-gallery__list">
+          <li
+            v-for="photo in photos"
+            :key="photo.imgLink"
+            class="photo__item">
+            <photo-card :photo="photo"/>
+          </li>
+        </ul>
+      </section>
+      <footer class="article-page__footer footer-article">
+        <button
+          class="footer-article__home"
+          @click="goToHomePage">
+          {{ $t("goToHomePage") }}
+        </button>
+        <button
+          class="footer-article__previous"
+          @click="viewPreviousArticle">
+          {{ $t("goToPreviousArticle") }}
+        </button>
+        <button
+          class="footer-article__next"
+          @click="viewNextArticle">
+          {{ $t("goToNextArticle") }}
+        </button>
+      </footer>
+    </div>
   </main>
 </template>
 
@@ -60,6 +63,7 @@
   import photosApi from '../../services/api/photos'
   import translationsService from '../../services/services/translations'
   import logger from '../../services/services/logger-service'
+  import AppHeader from '../AppHeader/AppHeader'
 
   export default {
     name: 'ArticlePage',
@@ -67,6 +71,7 @@
       ChapterCard,
       Comments,
       PhotoCard,
+      AppHeader,
     },
     data() {
       return {
@@ -163,7 +168,7 @@
 <style scoped>
   .page {
     width: 100%;
-    padding-top: 20px;
+    padding-top: 70px;
     margin: auto;
   }
 
