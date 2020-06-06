@@ -14,6 +14,27 @@
           class="icon"
           src="../../static/mstile-150x150.png">
       </a>
+      <nav aria-label="navigation" v-if="isArticlePage">
+        <ul class="navigation">
+        <li class="previous article">
+          <button
+            class="button previous article"
+            type="button"
+            @click.prevent="viewPreviousArticle">
+            {{ $t("previousArticle") }}
+          </button>
+        </li>
+          <li class="article"><p>Article {{ articleId }}</p></li>
+        <li class="next article">
+          <button
+            class="button next article"
+            type="button"
+            @click.prevent="viewNextArticle">
+            {{ $t("nextArticle") }}
+          </button>
+        </li>
+        </ul>
+      </nav>
       <nav aria-label="navigation">
         <ul class="navigation">
           <li
@@ -72,6 +93,12 @@
       lastScrollPosition: 0,
     }),
     computed: {
+      isArticlePage() {
+        return process.client ? window.location.pathname.includes('/articles/') : false
+      },
+      articleId() {
+        return this.isArticlePage ? window.location.pathname.split('/articles/')[1] : null
+      },
       tdm() {
         return this.$t('tdm')
       },
@@ -92,6 +119,18 @@
       window.removeEventListener('scroll', this.onScroll)
     },
     methods: {
+      viewPreviousArticle() {
+        this.goToArticle(this.articleId - 1)
+      },
+      viewNextArticle() {
+        this.goToArticle(this.articleId - 1 + 2)
+      },
+      goToHomePage() {
+        this.$router.push('/')
+      },
+      goToArticle(idArticle) {
+        this.$router.push(`/articles/${idArticle}`)
+      },
       onScroll() {
         // Get the current scroll position
         const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop // Because of momentum scrolling on mobiles, we shouldn't continue if it is less than zero
@@ -129,8 +168,11 @@
           tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
           home: 'Page d’accueil',
           logo: 'Logo du site',
-          otherLanguage: 'English Blog',
+          otherLanguage: '🇬🇧',
           otherUrl: 'https://www.recontact.me',
+          previousArticle: '<',
+          nextArticle: '>',
+          article: 'Article',
         },
         en: {
           subscribe: 'Subscribe',
@@ -139,8 +181,12 @@
           tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
           home: 'Home page',
           logo: 'Logo of the site',
-          otherLanguage: 'Blog en Français',
+          otherLanguage: '🇫🇷',
           otherUrl: 'https://fr.recontact.me',
+          previousArticle: '<',
+          nextArticle: '>',
+          article: 'Article',
+
         },
       },
     },
@@ -170,13 +216,19 @@
 
   .logo {
     text-decoration: none;
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 900;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
     font-family: serif;
+  }
+
+  .logo {
+    padding: 0;
+    margin: 10px 0;
+    border: 1px solid #F48024;
+    border-radius: 4px;
   }
 
   .recontact {
@@ -216,20 +268,32 @@
     color: darkgrey;
   }
 
-  .button.other-language {
+  .article {
+    font-family: serif;
+    padding-left: 10px;
+    color: #F48024;
+  }
+
+  .button {
     line-height: 28px;
     color: #F48024;
     text-decoration: unset;
-    font-size: 14px;
+    font-size: 11px;
     font-family: serif;
     text-transform: uppercase;
     background: #FFFFFF;
     border: 1px solid #F48024;
     cursor: pointer;
-    padding: 5px 15px 3px;
+    padding: 3px 5px;
     border-radius: 4px;
     width: 100%;
     font-weight: 700;
+  }
+
+  .button.other-language {
+    font-size: 24px;
+    padding-top: 5px;
+    padding-bottom: 0;
   }
 
   .button.other-language:hover {
@@ -241,7 +305,7 @@
     padding: 10px;
   }
 
-  .other-language {
+  .other-language, .article {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -282,6 +346,33 @@
   @media only screen and (min-width: 992px) {
     .container {
       max-width: 716px;
+    }
+
+    .logo {
+      font-size: 26px;
+    }
+
+    .logo {
+      padding: 10px 0;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+    }
+
+    .article {
+      font-size: 18px;
+    }
+
+    .button {
+      font-size: 14px;
+      padding: 5px 15px 3px;
+    }
+
+    .button.other-language {
+      padding-top: 5px;
+      padding-bottom: 0;
+      padding-left: 8px;
+      padding-right: 8px;
     }
   }
 
