@@ -63,7 +63,7 @@
   import photosApi from '../../services/api/photos'
   import translationsService from '../../services/services/translations'
   import logger from '../../services/services/logger-service'
-  import AppHeader from '../AppHeader/AppHeader'
+  import AppHeader from '../AppHeader/AppHeader.vue'
 
   export default {
     name: 'ArticlePage',

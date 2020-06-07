@@ -14,25 +14,29 @@
           class="icon"
           src="../../static/mstile-150x150.png">
       </a>
-      <nav aria-label="navigation" v-if="isArticlePage">
+      <nav
+        v-if="isArticlePage"
+        aria-label="navigation">
         <ul class="navigation">
-        <li class="previous article">
-          <button
-            class="button previous article"
-            type="button"
-            @click.prevent="viewPreviousArticle">
-            {{ $t("previousArticle") }}
-          </button>
-        </li>
-          <li class="article-text"><p>Article {{ articleId }}</p></li>
-        <li class="next article">
-          <button
-            class="button next article"
-            type="button"
-            @click.prevent="viewNextArticle">
-            {{ $t("nextArticle") }}
-          </button>
-        </li>
+          <li class="previous article">
+            <button
+              class="button previous article"
+              type="button"
+              @click.prevent="viewPreviousArticle">
+              {{ $t("previousArticle") }}
+            </button>
+          </li>
+          <li class="article-text">
+            <p>Article {{ articleId }}</p>
+          </li>
+          <li class="next article">
+            <button
+              class="button next article"
+              type="button"
+              @click.prevent="viewNextArticle">
+              {{ $t("nextArticle") }}
+            </button>
+          </li>
         </ul>
       </nav>
       <nav aria-label="navigation">

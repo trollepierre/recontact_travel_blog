@@ -44,7 +44,7 @@
   import articlesApi from '../../services/api/articles'
   import positionsApi from '../../services/api/positions'
   import { isCecile, sortByDropboxId } from '../../services'
-  import AppHeader from '../AppHeader/AppHeader'
+  import AppHeader from '../AppHeader/AppHeader.vue'
   import translationService from '../../services/services/translations'
 
   export default {

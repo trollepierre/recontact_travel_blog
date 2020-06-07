@@ -57,7 +57,9 @@ describe('Component | AppHeader.vue', () => {
       it('should call displayFeedbackModal', () => {
         wrapper.vm.displayFeedbackModal = jest.fn()
 
-        wrapper.find('button.navbar-action.navbar-action__suggestion').trigger('click')
+        wrapper
+          .find('button.navbar-action.navbar-action__suggestion')
+          .trigger('click')
 
         expect(wrapper.vm.displayFeedbackModal).toHaveBeenCalled()
       })
@@ -67,7 +69,9 @@ describe('Component | AppHeader.vue', () => {
       it('should call displaySubscribeModal', () => {
         wrapper.vm.displaySubscribeModal = jest.fn()
 
-        wrapper.find('button.navbar-action.navbar-action__subscribe').trigger('click')
+        wrapper
+          .find('button.navbar-action.navbar-action__subscribe')
+          .trigger('click')
 
         expect(wrapper.vm.displaySubscribeModal).toHaveBeenCalled()
       })
@@ -83,22 +87,42 @@ describe('Component | AppHeader.vue', () => {
     })
 
     describe('each language', () => {
-      describe('fr', () => {
+      it('contains fr locales', () => {
         const locales = Object.keys(AppHeader.i18n.messages.fr)
-
-        it('contains 8 locales', () => {
-          expect(locales).toHaveLength(8)
-          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home', 'logo', 'otherLanguage', 'otherUrl'])
-        })
+        expect(locales).toMatchInlineSnapshot(`
+          Array [
+            "subscribe",
+            "suggestion",
+            "problem",
+            "tdm",
+            "home",
+            "logo",
+            "otherLanguage",
+            "otherUrl",
+            "previousArticle",
+            "nextArticle",
+            "article",
+          ]
+        `)
       })
 
-      describe('en', () => {
+      it('contains en locales', () => {
         const locales = Object.keys(AppHeader.i18n.messages.en)
-
-        it('contains 8 locales', () => {
-          expect(locales).toHaveLength(8)
-          expect(locales).toEqual(['subscribe', 'suggestion', 'problem', 'tdm', 'home', 'logo', 'otherLanguage', 'otherUrl'])
-        })
+        expect(locales).toMatchInlineSnapshot(`
+          Array [
+            "subscribe",
+            "suggestion",
+            "problem",
+            "tdm",
+            "home",
+            "logo",
+            "otherLanguage",
+            "otherUrl",
+            "previousArticle",
+            "nextArticle",
+            "article",
+          ]
+        `)
       })
     })
   })

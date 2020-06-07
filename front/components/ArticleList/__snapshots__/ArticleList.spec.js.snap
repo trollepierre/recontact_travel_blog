@@ -2,6 +2,7 @@
 
 exports[`Component | ArticleList.vue template should match snapshot 1`] = `
 <div class="page">
+  <app-header-stub></app-header-stub>
   <main class="page__body">
     <div class="page__container">
       <section class="article-results">

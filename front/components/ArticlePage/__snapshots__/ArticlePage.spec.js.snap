@@ -1,83 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | ArticlePage.vue template when chapters are fetched should match snapshot 1`] = `
-<main class="page">
-  <section class="article-page">
-    <h1 class="article-page__title">
-      Title of the article
-    </h1>
-    <ul class="chapter__list">
-      <li class="chapter__item">
-        <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
-      </li>
-      <li class="chapter__item">
-        <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
-      </li>
-      <li class="chapter__item">
-        <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
-      </li>
-    </ul>
-  </section>
-  <section class="article-page__forum forum">
-    <comments-stub></comments-stub>
-  </section>
-  <section class="article-page__photo-gallery photo-gallery">
-    <p class="photo-gallery__title">
-      Here is the photo gallery of this article
-    </p>
-    <ul class="photo-gallery__list">
-      <li class="photo__item">
-        <photo-card-stub photo="[object Object]"></photo-card-stub>
-      </li>
-      <li class="photo__item">
-        <photo-card-stub photo="[object Object]"></photo-card-stub>
-      </li>
-    </ul>
-  </section>
-  <footer class="article-page__footer footer-article"><button class="footer-article__home">
-      Go to Home Page
-    </button> <button class="footer-article__previous">
-      Read the previous article
-    </button> <button class="footer-article__next">
-      Read the next article
-    </button></footer>
+<main>
+  <app-header-stub></app-header-stub>
+  <div class="page">
+    <section class="article-page">
+      <h1 class="article-page__title">
+        Title of the article
+      </h1>
+      <ul class="chapter__list">
+        <li class="chapter__item">
+          <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
+        </li>
+        <li class="chapter__item">
+          <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
+        </li>
+        <li class="chapter__item">
+          <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
+        </li>
+      </ul>
+    </section>
+    <section class="article-page__forum forum">
+      <comments-stub></comments-stub>
+    </section>
+    <section class="article-page__photo-gallery photo-gallery">
+      <p class="photo-gallery__title">
+        Here is the photo gallery of this article
+      </p>
+      <ul class="photo-gallery__list">
+        <li class="photo__item">
+          <photo-card-stub photo="[object Object]"></photo-card-stub>
+        </li>
+        <li class="photo__item">
+          <photo-card-stub photo="[object Object]"></photo-card-stub>
+        </li>
+      </ul>
+    </section>
+    <footer class="article-page__footer footer-article"><button class="footer-article__home">
+        Go to Home Page
+      </button> <button class="footer-article__previous">
+        Read the previous article
+      </button> <button class="footer-article__next">
+        Read the next article
+      </button></footer>
+  </div>
 </main>
 `;
 
 exports[`Component | ArticlePage.vue template when chapters are not fetched should match snapshot when chapter not fetched 1`] = `
-<main class="page">
-  <section class="article-page">
-    <h1 class="article-page__title">
-      Title of the article
-    </h1>
-    <ul class="chapter__list">
-      <li class="chapter__item">
-        <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
-      </li>
-    </ul>
-  </section>
-  <section class="article-page__forum forum">
-    <comments-stub></comments-stub>
-  </section>
-  <section class="article-page__photo-gallery photo-gallery">
-    <p class="photo-gallery__title">
-      Here is the photo gallery of this article
-    </p>
-    <ul class="photo-gallery__list">
-      <li class="photo__item">
-        <photo-card-stub photo="[object Object]"></photo-card-stub>
-      </li>
-      <li class="photo__item">
-        <photo-card-stub photo="[object Object]"></photo-card-stub>
-      </li>
-    </ul>
-  </section>
-  <footer class="article-page__footer footer-article"><button class="footer-article__home">
-      Go to Home Page
-    </button> <button class="footer-article__previous">
-      Read the previous article
-    </button> <button class="footer-article__next">
-      Read the next article
-    </button></footer>
+<main>
+  <app-header-stub></app-header-stub>
+  <div class="page">
+    <section class="article-page">
+      <h1 class="article-page__title">
+        Title of the article
+      </h1>
+      <ul class="chapter__list">
+        <li class="chapter__item">
+          <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
+        </li>
+      </ul>
+    </section>
+    <section class="article-page__forum forum">
+      <comments-stub></comments-stub>
+    </section>
+    <section class="article-page__photo-gallery photo-gallery">
+      <p class="photo-gallery__title">
+        Here is the photo gallery of this article
+      </p>
+      <ul class="photo-gallery__list">
+        <li class="photo__item">
+          <photo-card-stub photo="[object Object]"></photo-card-stub>
+        </li>
+        <li class="photo__item">
+          <photo-card-stub photo="[object Object]"></photo-card-stub>
+        </li>
+      </ul>
+    </section>
+    <footer class="article-page__footer footer-article"><button class="footer-article__home">
+        Go to Home Page
+      </button> <button class="footer-article__previous">
+        Read the previous article
+      </button> <button class="footer-article__next">
+        Read the next article
+      </button></footer>
+  </div>
 </main>
 `;
