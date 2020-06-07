@@ -78,6 +78,9 @@ module.exports = {
       ...articleRoutes,
     ],
   },
-  modules: ['@nuxtjs/dotenv'],
+  modules: [
+    '@nuxtjs/dotenv',
+    '@nuxtjs/pwa',
+  ],
 }
 
