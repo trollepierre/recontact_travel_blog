@@ -46,15 +46,25 @@ describe('Component | ArticleList.vue', () => {
 
     it('should contain lazy when more than 9 articles', async () => {
       // Given
-      const articles = [article('9'),
-        article('8'), article('7'),
-        article('6'), article('5'),
-        article('4'), article('3'),
-        article('2'), article('1'),
+      const articles = [
+        article('9'),
+        article('8'),
+        article('7'),
+        article('6'),
+        article('5'),
+        article('4'),
+        article('3'),
+        article('2'),
+        article('1'),
       ]
 
       // When
-      wrapper = await shallowMount(ArticleList, { localVue, data() { return { articles } } })
+      wrapper = await shallowMount(ArticleList, {
+        localVue,
+data() {
+          return { articles }
+        },
+      })
 
       expect(wrapper.findAll(ArticleCard).at(7).props().lazy).toEqual(false)
       expect(wrapper.findAll(ArticleCard).at(8).props().lazy).toEqual(true)
