@@ -2,6 +2,8 @@
 
 [![CircleCI](https://circleci.com/gh/trollepierre/recontact_travel_blog/tree/master.svg?style=svg)](https://circleci.com/gh/trollepierre/recontact_travel_blog/tree/master)
 [![Known Vulnerabilities](https://snyk.io/test/github/trollepierre/recontact_travel_blog/badge.svg)](https://snyk.io/test/github/trollepierre/recontact_travel_blog)
+[![Netlify Status EN](https://api.netlify.com/api/v1/badges/56d6576e-c95a-41b4-999f-9e0bab48d768/deploy-status)](https://app.netlify.com/sites/en-recontact/deploys)
+[![Netlify Status FR](https://api.netlify.com/api/v1/badges/cbcec67a-0c04-46cb-b5d0-5a165183c6e6/deploy-status)](https://app.netlify.com/sites/fr-recontact/deploys)
 
 ## Getting started
 
