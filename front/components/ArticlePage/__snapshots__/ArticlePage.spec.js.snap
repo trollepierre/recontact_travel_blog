@@ -4,7 +4,7 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
 <main class="page">
   <section class="article-page">
     <h1 class="article-page__title">
-      title
+      Title of the article
     </h1>
     <ul class="chapter__list">
       <li class="chapter__item">
@@ -23,7 +23,7 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
   </section>
   <section class="article-page__photo-gallery photo-gallery">
     <p class="photo-gallery__title">
-      hereTheGallery
+      Here is the photo gallery of this article
     </p>
     <ul class="photo-gallery__list">
       <li class="photo__item">
@@ -35,11 +35,11 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
     </ul>
   </section>
   <footer class="article-page__footer footer-article"><button class="footer-article__home">
-      goToHomePage
+      Go to Home Page
     </button> <button class="footer-article__previous">
-      goToPreviousArticle
+      Read the previous article
     </button> <button class="footer-article__next">
-      goToNextArticle
+      Read the next article
     </button></footer>
 </main>
 `;
@@ -48,7 +48,7 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
 <main class="page">
   <section class="article-page">
     <h1 class="article-page__title">
-      title
+      Title of the article
     </h1>
     <ul class="chapter__list">
       <li class="chapter__item">
@@ -61,7 +61,7 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
   </section>
   <section class="article-page__photo-gallery photo-gallery">
     <p class="photo-gallery__title">
-      hereTheGallery
+      Here is the photo gallery of this article
     </p>
     <ul class="photo-gallery__list">
       <li class="photo__item">
@@ -73,11 +73,11 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
     </ul>
   </section>
   <footer class="article-page__footer footer-article"><button class="footer-article__home">
-      goToHomePage
+      Go to Home Page
     </button> <button class="footer-article__previous">
-      goToPreviousArticle
+      Read the previous article
     </button> <button class="footer-article__next">
-      goToNextArticle
+      Read the next article
     </button></footer>
 </main>
 `;

@@ -6,13 +6,13 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
     <div class="page__container">
       <section class="article-results">
         <h1 class="article-results__title hidden">
-          fixWebsite
+          Fix the website
         </h1>
         <p class="article-results__title h1">
-          title
+          Discover the world with us!
         </p>
         <p class="article-results__title h2">
-          lastKnownPosition
+          Last known position:
           <span class="article-results__title h3">
             Mexico, 1er mai 2019
           </span></p>

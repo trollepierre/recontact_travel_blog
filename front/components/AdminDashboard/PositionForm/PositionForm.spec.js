@@ -78,7 +78,7 @@ describe('Component | PositionForm.vue', () => {
         it('should send error notification', () => {
           wrapper.vm.updateLastPosition()
 
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'positionNotUpdated')
+          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'Fill all the informations. Position was not updated')
         })
       })
 
@@ -97,7 +97,7 @@ describe('Component | PositionForm.vue', () => {
         it('should send error notification', () => {
           wrapper.vm.updateLastPosition()
 
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'positionNotUpdated')
+          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'Fill all the informations. Position was not updated')
         })
       })
 

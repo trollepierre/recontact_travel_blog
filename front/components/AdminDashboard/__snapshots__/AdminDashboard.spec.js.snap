@@ -2,15 +2,15 @@
 
 exports[`Component | AdminDashboard.vue template should match snapshot 1`] = `
 <div class="admin-dashboard"><button type="button" class="dashboard__buttons dashboard__sync_hidden">
-    getSubscribers
+    Get the subscribers
   </button> <button type="button" class="dashboard__buttons">
-    getNewArticles
+    Synchronise the new articles
   </button> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
-    updateAllArticles
+    Repare all articles
   </button> <label for="min">min</label> <input id="min" placeholder="1"> <label for="max">max</label> <input id="max" placeholder="87"> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
-    deleteAllArticles
+    Delete all articles
   </button> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
-    deleteAndSyncAllArticles
+    Delete and synchronise all articles
   </button> <br>
   <position-form-stub></position-form-stub>
 </div>
