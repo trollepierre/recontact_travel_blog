@@ -8,7 +8,7 @@ import FeedbackModal from './FeedbackModal.vue'
 
 jest.mock('../../services/utils/screen/screen-utils', () => ({ screenHeight: 200, PHONE_PORTRAIT_TO_LANDSCAPE: 600 }))
 
-describe('Component | FeedbackModal.vue', () => {
+describe.skip('Component | FeedbackModal.vue', () => {
   let wrapper
   let localVue
 
