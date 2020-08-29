@@ -170,7 +170,7 @@ describe('Component | ArticleCard.vue', () => {
 
           wrapper.vm.updateArticle()
 
-          const message = 'syncLaunched'
+          const message = 'The synchronisation is launched! Please wait...'
           expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
         })
 
@@ -202,7 +202,7 @@ describe('Component | ArticleCard.vue', () => {
 
           return Vue.nextTick().then(() => {
             expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
-            const message = 'syncDone'
+            const message = 'The synchronisation succeeds!'
             expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
           })
         })

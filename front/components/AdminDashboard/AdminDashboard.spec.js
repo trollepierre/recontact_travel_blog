@@ -163,7 +163,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should display success toast notification before synchronisation calls', () => {
         wrapper.vm.updateAll()
 
-        const message = 'syncLaunched'
+        const message = 'The synchronisation is launched! Please wait...'
         expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
       })
 
@@ -186,7 +186,7 @@ describe('Component | AdminDashboard.vue', () => {
         await wrapper.vm.updateAll()
 
         expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
-        const message = 'syncDone'
+        const message = 'The synchronisation succeeds!'
         expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
       })
 
@@ -223,7 +223,7 @@ describe('Component | AdminDashboard.vue', () => {
           expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
           expect(notificationsService.success).not.toHaveBeenCalled()
           expect(router.push).not.toHaveBeenCalled()
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'syncError message')
+          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'Error during the synchronisation: message')
         })
       })
     })
@@ -243,7 +243,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should display success toast notification before synchronisation calls', () => {
         wrapper.vm.deleteAll()
 
-        const message = 'syncLaunched'
+        const message = 'The synchronisation is launched! Please wait...'
         expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
       })
 
@@ -314,7 +314,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should display success toast notification before synchronisation calls', () => {
         wrapper.vm.deleteAndSyncAll()
 
-        const message = 'syncLaunched'
+        const message = 'The synchronisation is launched! Please wait...'
         expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
       })
 

@@ -10,7 +10,7 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
       82
     </p>
   </header>
-  <div class="chapter__content"><img src="webf" alt="altComplementTitle of the first paragraph" rel="noreferrer" class="chapter__image"></div>
+  <div class="chapter__content"><img src="webf" alt="An image showing Title of the first paragraph" rel="noreferrer" class="chapter__image"></div>
   <footer class="chapter__footer">
     <div class="chapter__footer_text">
       <p>
@@ -41,7 +41,7 @@ exports[`Component | ChapterCard.vue template should match snapshot when imgLink
     </p>
   </header>
   <div class="chapter__content"><span>
-      missingImage
+      Missing image
     </span></div>
   <footer class="chapter__footer">
     <div class="chapter__footer_text">

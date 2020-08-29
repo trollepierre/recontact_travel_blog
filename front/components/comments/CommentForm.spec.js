@@ -65,7 +65,7 @@ describe('Component | CommentForm.vue', () => {
         await wrapper.vm.submitComment({ preventDefault: jest.fn() })
 
         // Then
-        expect(notificationsService.success).toHaveBeenNotifiedOnceWith('commentSuccess')
+        expect(notificationsService.success).toHaveBeenNotifiedOnceWith('Your comment has been taken into consideration.')
       })
 
       describe('when api throws error', () => {
@@ -78,7 +78,7 @@ describe('Component | CommentForm.vue', () => {
           await wrapper.vm.submitComment({ preventDefault: jest.fn() })
 
           // Then
-          expect(notificationsService.error).toHaveBeenNotifiedOnceWith('commentError')
+          expect(notificationsService.error).toHaveBeenNotifiedOnceWith('Error when adding the comment.')
         })
       })
 

@@ -106,13 +106,13 @@ data() {
 
       wrapper = shallowMount(ArticleList, { localVue, propsData })
 
-      expect(wrapper.vm.hiddenTitle).toEqual('fixWebsite')
+      expect(wrapper.vm.hiddenTitle).toEqual('Fix the website')
     })
 
     it('should return "Les articles du voyage" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue })
 
-      expect(wrapper.vm.hiddenTitle).toEqual('theArticlesOfTheTrip')
+      expect(wrapper.vm.hiddenTitle).toEqual('Travel blog of Pierre Trollé and Benoît Lefebvre after a world trip and other adventures')
     })
 
     it('should return "mon cadeau de saint val" when site is cecile', () => {
@@ -126,7 +126,7 @@ data() {
     it('should return "title" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue })
 
-      expect(wrapper.vm.title).toEqual('title')
+      expect(wrapper.vm.title).toEqual('Discover the world with us!')
     })
 
     it('should return "recharge site" when site is in cecile', () => {
@@ -142,7 +142,7 @@ data() {
     it('should return "lastKnownPosition" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue })
 
-      expect(wrapper.vm.subtitle).toEqual('lastKnownPosition')
+      expect(wrapper.vm.subtitle).toEqual('Last known position:')
     })
   })
 

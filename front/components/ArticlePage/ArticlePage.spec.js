@@ -181,13 +181,13 @@ describe('Component | ArticlePage.vue', () => {
               'title',
             ],
             `
-            Object {
-              "0": "hereTheGallery",
-              "1": "goToPreviousArticle",
-              "2": "goToNextArticle",
-              "3": "goToHomePage",
-              "4": "title",
-            }
+            Array [
+              "hereTheGallery",
+              "goToPreviousArticle",
+              "goToNextArticle",
+              "goToHomePage",
+              "title",
+            ]
           `,
           )
         })
@@ -207,13 +207,13 @@ describe('Component | ArticlePage.vue', () => {
               'title',
             ],
             `
-            Object {
-              "0": "hereTheGallery",
-              "1": "goToPreviousArticle",
-              "2": "goToNextArticle",
-              "3": "goToHomePage",
-              "4": "title",
-            }
+            Array [
+              "hereTheGallery",
+              "goToPreviousArticle",
+              "goToNextArticle",
+              "goToHomePage",
+              "title",
+            ]
           `,
           )
         })
