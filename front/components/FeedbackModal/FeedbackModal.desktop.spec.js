@@ -4,7 +4,7 @@ import VueModal from 'vue-js-modal'
 import VueAnalytics from 'vue-analytics'
 import FeedbackModal from './FeedbackModal.vue'
 
-describe('Component | FeedbackModal.vue', () => {
+describe.skip('Component | FeedbackModal.vue', () => {
   let wrapper
   const email = 'pierre@recontact.me'
   let localVue
