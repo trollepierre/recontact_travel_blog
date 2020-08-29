@@ -4,18 +4,16 @@ export default {
   // },
 
   success(component, message) {
-    console.log('Success')
     console.log(message)
   },
 
   error(component, message) {
-    console.log('Error')
-    console.log(message)
+    console.error(message)
+    window.alert(message)
   },
 
   information(component, message) {
-    console.log('Information')
-    console.log(message)
+    console.warn(message)
   },
 
   removeInformation() {
