@@ -119,7 +119,7 @@
       },
 
       displaySuccessNotification() {
-        notificationsService.success(this, this.$t('subscriptionSuccess'))
+        notificationsService.information(this.$t('subscriptionSuccess'))
       },
 
       cancelSubscription() {

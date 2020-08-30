@@ -153,7 +153,7 @@
       },
 
       displaySuccessNotification() {
-        notificationsService.success(this, this.$t('sendingSuccess'))
+        notificationsService.information(this.$t('sendingSuccess'))
       },
 
       _resetFeedback() {

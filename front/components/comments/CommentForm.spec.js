@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
-import VueAnalytics from 'vue-analytics'
+
 import CommentForm from './CommentForm.vue'
 import router from '../../test/router/router'
 import commentsApi from '../../services/api/comments'
@@ -21,7 +21,7 @@ describe('Component | CommentForm.vue', () => {
     localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
-    localVue.use(VueAnalytics, { id: '12' })
+
     wrapper = shallowMount(CommentForm, { localVue, router, data: () => ({ dropboxId }) })
   })
 
@@ -40,7 +40,7 @@ describe('Component | CommentForm.vue', () => {
       const newComment = 'my text'
       beforeEach(() => {
         commentsApi.send = jest.fn()
-        notificationsService.success = jest.fn()
+        notificationsService.information = jest.fn()
         notificationsService.error = jest.fn()
       })
 
@@ -65,7 +65,7 @@ describe('Component | CommentForm.vue', () => {
         await wrapper.vm.submitComment({ preventDefault: jest.fn() })
 
         // Then
-        expect(notificationsService.success).toHaveBeenNotifiedOnceWith('Your comment has been taken into consideration.')
+        expect(notificationsService.information).toHaveBeenCalledOnceWith('Your comment has been taken into consideration.')
       })
 
       describe('when api throws error', () => {
@@ -78,7 +78,7 @@ describe('Component | CommentForm.vue', () => {
           await wrapper.vm.submitComment({ preventDefault: jest.fn() })
 
           // Then
-          expect(notificationsService.error).toHaveBeenNotifiedOnceWith('Error when adding the comment.')
+          expect(notificationsService.error).toHaveBeenCalledOnceWith('Error when adding the comment.')
         })
       })
 

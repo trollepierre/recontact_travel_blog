@@ -102,16 +102,14 @@
       updateArticle() {
         this.trackEvent()
         this.disableUpdateButton()
-        notificationsService.information(this, this.$t('syncLaunched'))
+        notificationsService.warn(this.$t('syncLaunched'))
         articlesApi.update(this.article.dropboxId)
           .then(() => {
-            notificationsService.removeInformation(this)
-            notificationsService.success(this, this.$t('syncDone'))
+            notificationsService.information(this.$t('syncDone'))
           })
           .then(() => this.goToArticle())
           .catch(err => {
-            notificationsService.removeInformation(this)
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+            notificationsService.error(`${this.$t('syncError')} ${err}`)
           })
       },
 
@@ -129,15 +127,13 @@
 
       deleteArticle() {
         this.disableDeleteButton()
-        notificationsService.information(this, this.$t('deleteLaunched'))
+        notificationsService.warn(this.$t('deleteLaunched'))
         articlesApi.delete(this.article.dropboxId)
           .then(() => {
-            notificationsService.removeInformation(this)
-            notificationsService.success(this, this.$t('deleteDone'))
+            notificationsService.information(this.$t('deleteDone'))
           })
           .catch(err => {
-            notificationsService.removeInformation(this)
-            notificationsService.error(this, `${this.$t('deleteError')} ${err}`)
+            notificationsService.error(`${this.$t('deleteError')} ${err}`)
           })
       },
 
