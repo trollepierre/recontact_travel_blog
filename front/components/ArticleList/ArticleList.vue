@@ -43,6 +43,7 @@
   import articlesApi from '../../services/api/articles'
   import positionsApi from '../../services/api/positions'
   import { isCecile, sortByDropboxId } from '../../services'
+  import translationService from '../../services/services/translations'
 
   export default {
     name: 'ArticleList',
@@ -85,8 +86,15 @@
           })
       },
 
-      updateLastPositionData({ place, time }) {
-        this.lastPosition = `${place}, ${time}`
+      updateLastPositionData({
+                               place, time, placeEn, timeEn,
+                             }) {
+        const language = this.$store.state.locale
+        if (translationService.isFrancophone(language)) {
+          this.lastPosition = `${place}, ${time}`
+        } else {
+          this.lastPosition = `${placeEn}, ${timeEn}`
+        }
       },
 
       getLastPosition() {

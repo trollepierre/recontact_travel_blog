@@ -22,7 +22,8 @@
     computed: {
       commentAuthor() {
         const date = this.comment.createdAt
-        if (translationService.isFrancophone()) {
+        const language = this.$store.state.locale
+        if (translationService.isFrancophone(language)) {
           return `De ${this.comment.author} - ${date}`
         }
         return `From ${this.comment.author} - ${date}`
