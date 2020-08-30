@@ -85,10 +85,10 @@
         this.newComment = ''
       },
       displaySuccessNotification() {
-        notificationsService.success(this, this.$t('commentSuccess'))
+        notificationsService.information(this.$t('commentSuccess'))
       },
       displayErrorNotification() {
-        notificationsService.error(this, this.$t('commentError'))
+        notificationsService.error(this.$t('commentError'))
       },
       isEmpty,
     },

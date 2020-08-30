@@ -143,9 +143,9 @@ describe('Component | ArticleCard.vue', () => {
       describe('#updateArticle', () => {
         beforeEach(() => {
           articlesApi.update = jest.fn()
-          notificationsService.success = jest.fn()
           notificationsService.information = jest.fn()
-          notificationsService.removeInformation = jest.fn()
+          notificationsService.warn = jest.fn()
+
           notificationsService.error = jest.fn()
         })
 
@@ -171,7 +171,7 @@ describe('Component | ArticleCard.vue', () => {
           wrapper.vm.updateArticle()
 
           const message = 'The synchronisation is launched! Please wait...'
-          expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
+          expect(notificationsService.warn).toHaveBeenCalledWith(message)
         })
 
         it('should redirect to /article/id', () => {
@@ -201,9 +201,8 @@ describe('Component | ArticleCard.vue', () => {
           wrapper.vm.updateArticle()
 
           return Vue.nextTick().then(() => {
-            expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
             const message = 'The synchronisation succeeds!'
-            expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+            expect(notificationsService.information).toHaveBeenCalledWith(message)
           })
         })
 
@@ -213,9 +212,9 @@ describe('Component | ArticleCard.vue', () => {
         //   wrapper.vm.updateArticle()
         //
         //   return Vue.nextTick().then(() => {
-        //     expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
+        //
         //     const message = 'syncError Error: Expected error'
-        //     expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), message)
+        //     expect(notificationsService.error).toHaveBeenCalledWith(message)
         //   })
         // })
       })
@@ -265,9 +264,9 @@ describe('Component | ArticleCard.vue', () => {
       beforeEach(() => {
         articlesApi.update = jest.fn()
         articlesApi.update.mockResolvedValue({})
-        notificationsService.success = jest.fn()
         notificationsService.information = jest.fn()
-        notificationsService.removeInformation = jest.fn()
+        notificationsService.warn = jest.fn()
+
         notificationsService.error = jest.fn()
       })
 

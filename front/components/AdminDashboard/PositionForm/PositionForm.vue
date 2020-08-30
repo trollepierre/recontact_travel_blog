@@ -111,10 +111,10 @@
         this.timeEn = null
       },
       displayErrorMessage() {
-        notificationsService.error(this, this.$t('positionNotUpdated'))
+        notificationsService.error(this.$t('positionNotUpdated'))
       },
       displaySuccessMessage() {
-        notificationsService.success(this, this.$t('positionUpdated'))
+        notificationsService.information(this.$t('positionUpdated'))
       },
     },
 
@@ -152,7 +152,6 @@
     flex-direction: column;
     align-items: center;
   }
-
 
   .form-group {
     text-align: right;

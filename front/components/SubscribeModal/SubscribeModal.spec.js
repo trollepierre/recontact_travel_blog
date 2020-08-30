@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import VueModal from 'vue-js-modal'
 import VueI18n from 'vue-i18n'
-import VueAnalytics from 'vue-analytics'
+
 import SubscribeModal from './SubscribeModal.vue'
 import notificationsService from '../../services/services/notifications'
 import subscriptionsApi from '../../services/api/subscriptions'
@@ -20,7 +20,7 @@ describe.skip('Component | SubscribeModal.vue', () => {
     localVue.use(VueModal)
     localVue.use(VueI18n)
     localVue.use(VueRouter)
-    localVue.use(VueAnalytics, { id: '12' })
+
     wrapper = shallowMount(SubscribeModal, {
       localVue,
       data() {
@@ -124,7 +124,7 @@ describe.skip('Component | SubscribeModal.vue', () => {
   describe('#sendSubscription', () => {
     beforeEach(() => {
       subscriptionsApi.subscribe = jest.fn()
-      notificationsService.success = jest.fn()
+      notificationsService.information = jest.fn()
       subscriptionsApi.subscribe.mockResolvedValue({})
     })
 
@@ -179,13 +179,13 @@ describe.skip('Component | SubscribeModal.vue', () => {
     })
 
     it('should display success notification', () => {
-      notificationsService.success.mockResolvedValue({})
+      notificationsService.information.mockResolvedValue({})
 
       wrapper.vm.sendSubscription()
 
       return Vue.nextTick().then(() => {
         const message = 'subscriptionSuccess'
-        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+        expect(notificationsService.information).toHaveBeenCalledWith(message)
       })
     })
 

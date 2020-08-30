@@ -1,15 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | PositionForm.vue template should match snapshot 1`] = `
-<form class="position__form">
-  <p class="position__text">
-    New position:
-  </p> <span class="form-group"><label for="position-place" class="position__label">
-      Position:
-    </label> <input id="position-place" placeholder="Paris" class="position__input position__place"></span> <span class="form-group"><label for="position-time" class="position__label">
-      Date:
-    </label> <input id="position-time" placeholder="le 1er mai 2018" class="position__input position__time"></span> <button type="submit" class="position__button position__action--send">
+<form class="position__form"><span class="position__language"><p class="positionFr__text">
+      Nouvelle position FR:
+    </p> <span class="form-group"><label for="positionFr-place" class="position__label">
+        Position&nbsp;FR&nbsp;:
+      </label> <input id="positionFr-place" placeholder="Paris" class="position__input position__place"></span> <span class="form-group"><label for="positionFr-time" class="position__label">
+        Date FR :
+      </label> <input id="positionFr-time" placeholder="le 1er mai 2018" class="position__input position__time"></span></span> <span class="position__language"><p class="positionEn__text">
+      New position EN:
+    </p> <span class="form-group"><label for="positionEn-place" class="position__label">
+        Position EN:
+      </label> <input id="positionEn-place" placeholder="London" class="position__input position__place"></span> <span class="form-group"><label for="positionEn-time" class="position__label">
+        Date EN:
+      </label> <input id="positionEn-time" placeholder="29th August 2020" class="position__input position__time"></span></span> <button type="submit" class="position__button position__action--send">
     Confirm
-  </button>
-</form>
+  </button></form>
 `;
