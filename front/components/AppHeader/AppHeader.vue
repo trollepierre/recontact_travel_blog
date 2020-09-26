@@ -214,6 +214,12 @@
     justify-content: center;
   }
 
+  @media only screen and (max-width: 340px) {
+    .button.other-language {
+      font-size: 10px;
+    }
+  }
+
   @media only screen and (min-width: 640px) {
     .container {
       max-width: 500px;
