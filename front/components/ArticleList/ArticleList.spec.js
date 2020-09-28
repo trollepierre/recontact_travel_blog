@@ -46,15 +46,25 @@ describe('Component | ArticleList.vue', () => {
 
     it('should contain lazy when more than 9 articles', async () => {
       // Given
-      const articles = [article('9'),
-        article('8'), article('7'),
-        article('6'), article('5'),
-        article('4'), article('3'),
-        article('2'), article('1'),
+      const articles = [
+        article('9'),
+        article('8'),
+        article('7'),
+        article('6'),
+        article('5'),
+        article('4'),
+        article('3'),
+        article('2'),
+        article('1'),
       ]
 
       // When
-      wrapper = await shallowMount(ArticleList, { localVue, data() { return { articles } } })
+      wrapper = await shallowMount(ArticleList, {
+        localVue,
+data() {
+          return { articles }
+        },
+      })
 
       expect(wrapper.findAll(ArticleCard).at(7).props().lazy).toEqual(false)
       expect(wrapper.findAll(ArticleCard).at(8).props().lazy).toEqual(true)
@@ -96,13 +106,13 @@ describe('Component | ArticleList.vue', () => {
 
       wrapper = shallowMount(ArticleList, { localVue, propsData })
 
-      expect(wrapper.vm.hiddenTitle).toEqual('fixWebsite')
+      expect(wrapper.vm.hiddenTitle).toEqual('Fix the website')
     })
 
     it('should return "Les articles du voyage" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue })
 
-      expect(wrapper.vm.hiddenTitle).toEqual('theArticlesOfTheTrip')
+      expect(wrapper.vm.hiddenTitle).toEqual('Travel blog of Pierre Trollé and Benoît Lefebvre after a world trip and other adventures')
     })
 
     it('should return "mon cadeau de saint val" when site is cecile', () => {
@@ -116,7 +126,7 @@ describe('Component | ArticleList.vue', () => {
     it('should return "title" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue })
 
-      expect(wrapper.vm.title).toEqual('title')
+      expect(wrapper.vm.title).toEqual('Discover the world with us!')
     })
 
     it('should return "recharge site" when site is in cecile', () => {
@@ -132,7 +142,7 @@ describe('Component | ArticleList.vue', () => {
     it('should return "lastKnownPosition" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue })
 
-      expect(wrapper.vm.subtitle).toEqual('lastKnownPosition')
+      expect(wrapper.vm.subtitle).toEqual('Last known position:')
     })
   })
 

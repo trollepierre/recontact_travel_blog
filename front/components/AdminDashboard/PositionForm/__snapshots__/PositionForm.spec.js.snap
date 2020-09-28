@@ -3,13 +3,13 @@
 exports[`Component | PositionForm.vue template should match snapshot 1`] = `
 <form class="position__form">
   <p class="position__text">
-    lastPosition
+    New position:
   </p> <span class="form-group"><label for="position-place" class="position__label">
-      place
+      Position:
     </label> <input id="position-place" placeholder="Paris" class="position__input position__place"></span> <span class="form-group"><label for="position-time" class="position__label">
-      time
+      Date:
     </label> <input id="position-time" placeholder="le 1er mai 2018" class="position__input position__time"></span> <button type="submit" class="position__button position__action--send">
-    confirm
+    Confirm
   </button>
 </form>
 `;

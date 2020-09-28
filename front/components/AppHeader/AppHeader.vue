@@ -61,8 +61,6 @@
   </header>
 </template>
 <script>
-  import { isWww } from '../../services'
-
   export default {
     name: 'AppHeader',
     data: () => ({ showNavBarButton: false, otherUrl: '' }),
@@ -214,6 +212,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  @media only screen and (max-width: 340px) {
+    .button.other-language {
+      font-size: 10px;
+    }
   }
 
   @media only screen and (min-width: 640px) {

@@ -18,10 +18,10 @@
   },
   "coverageThreshold": {
     "global": {
-      "branches": 56,
-      "functions": 62,
-      "lines": 70,
-      "statements": 70
+      "branches": 80,
+      "functions": 65,
+      "lines": 75,
+      "statements": 75
     }
   },
   "snapshotSerializers": [
@@ -32,6 +32,8 @@
   ],
   "collectCoverageFrom": [
     "<rootDir>/components/**/*.vue",
-    "<rootDir>/pages/*.vue"
+    "<rootDir>/pages/*.vue",
+    "!<rootDir>/components/FeedbackModal/*.vue",
+    "!<rootDir>/components/SubscribeModal/*.vue"
   ]
 }

@@ -18,7 +18,7 @@ export default {
     console.log(message)
   },
 
-  removeInformation(component) {
+  removeInformation() {
     console.log('Information removed')
   },
 }

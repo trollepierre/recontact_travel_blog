@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable global-require  */
+/* eslint-disable import/no-unresolved */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 

@@ -1,7 +1,7 @@
 module.exports = {
   rules: {
     /* shared custom rules */
-    // 'array-element-newline': ['error', 'consistent'],
+    'array-element-newline': ['error', 'consistent'],
     'arrow-parens': ['error', 'as-needed'],
     'comma-dangle': ['error', 'always-multiline'],
     'comma-spacing': 'error',

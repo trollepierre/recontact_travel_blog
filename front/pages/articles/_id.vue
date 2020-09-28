@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import ArticlePage from '../../components/ArticlePage/ArticlePage'
+  import ArticlePage from '../../components/ArticlePage/ArticlePage.vue'
 
   export default {
     components: {

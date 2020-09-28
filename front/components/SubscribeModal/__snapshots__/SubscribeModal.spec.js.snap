@@ -5,7 +5,7 @@ exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
   <modal-stub name="subscribe-modal" delay="0" overlaytransition="overlay-fade" clicktoclose="true" classes="v--modal" minwidth="0" minheight="0" maxwidth="Infinity" maxheight="Infinity" width="300" height="315" pivotx="0.5" pivoty="0.5" class="subscribe-modal">
     <div class="subscribe-modal__header">
       <h2 class="subscribe-modal__title">
-        subscribe
+        Subscribe
       </h2>
     </div>
     <div class="subscribe-modal__body">
@@ -14,17 +14,17 @@ exports[`Component | SubscribeModal.vue template should match snapshot 1`] = `
           error message
         </p>
         <p class="subscribe-modal__text">
-          modalText
+          Receive one email for each new article.
         </p> <label for="subscribe-content" class="subscribe-modal__label">
-          email
+          Email:
         </label> <input id="subscribe-content" placeholder="pierre@recontact.me" class="subscribe-modal__email">
       </form>
     </div>
     <div class="subscribe-modal__footer">
       <div class="subscribe-modal__actions"><button class="subscribe-modal__action subscribe-modal__action--send">
-          confirm
+          Confirm
         </button> <button class="subscribe-modal__action subscribe-modal__action--cancel">
-          cancel
+          Cancel
         </button></div>
     </div>
   </modal-stub>

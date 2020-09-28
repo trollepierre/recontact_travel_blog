@@ -1,17 +1,17 @@
 module.exports = {
   root: true,
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: 'babel-eslint',
   },
   env: {
     browser: true,
-    'jest/globals': true
+    'jest/globals': true,
   },
   globals: {
-    'createLocalVue': false,
-    'shallowMount': false,
-    'mount': false,
-    'RouterLinkStub': false,
+    createLocalVue: false,
+    shallowMount: false,
+    mount: false,
+    RouterLinkStub: false,
   },
   extends: [
     'airbnb-base',
@@ -23,7 +23,7 @@ module.exports = {
   ],
   plugins: [
     'vue',
-    'jest'
+    'jest',
   ],
   rules: {
     // 'jest/no-disabled-tests': 'error',
@@ -40,22 +40,22 @@ module.exports = {
       ignorePropertyModificationsFor: [
         'state',
         'acc',
-        'e'
-      ]
+        'e',
+      ],
     }],
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     /* shared custom rules */
-    "vue/component-name-in-template-casing": ["error", "kebab-case"],
+    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     'vue/html-closing-bracket-spacing': ['error', {
-      'selfClosingTag': 'never',
+      selfClosingTag: 'never',
     }],
     'vue/html-closing-bracket-newline': ['error', {
-      'multiline': 'never',
+      multiline: 'never',
     }],
-    "vue/script-indent": ["warn", 2, {
-      "baseIndent": 1,
-      "switchCase": 1,
+    'vue/script-indent': ['warn', 2, {
+      baseIndent: 1,
+      switchCase: 1,
     }],
 
     // PERSO
@@ -67,7 +67,7 @@ module.exports = {
     'import/no-unresolved': 'warn',
     'import/extensions': 'warn',
 
-    'indent': 'off',
+    indent: 'off',
     'array-callback-return': 'off',
-  }
-};
+  },
+}

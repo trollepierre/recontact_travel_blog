@@ -3,4 +3,7 @@ module.exports = {
   env: {
     mocha: true,
   },
-};
+  rules: {
+    'max-lines': 'off',
+  },
+}
