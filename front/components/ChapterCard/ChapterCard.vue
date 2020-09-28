@@ -204,6 +204,7 @@
 
   .chapter__footer_text {
     font-size: 18px;
+    word-spacing: 1px;
   }
 
   @media only screen and (min-width: 640px) {
