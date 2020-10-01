@@ -33,13 +33,14 @@
             class="youtube-iframe"
             allow="accelerometer; encrypted-media; gyroscope;"
             allowfullscreen/>
-          <a
-            v-else-if="paragraph.link"
-            :href="paragraph.link"
-            rel="noreferrer"
-            target="_blank">
-            {{ paragraph.link }}
-          </a>
+          <p v-else-if="paragraph.link">
+            <a
+              :href="paragraph.link"
+              rel="noreferrer"
+              target="_blank">
+              {{ paragraph.link }}
+            </a>
+          </p>
           <p v-else>
             {{ paragraph.text }}
           </p>
