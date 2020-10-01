@@ -17,9 +17,11 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
         Title of the first paragraph
       </p>
     </div>
-    <div class="chapter__footer_text"><a href="https://github.com/trollepierre" rel="noreferrer" target="_blank">
-        https://github.com/trollepierre
-      </a></div>
+    <div class="chapter__footer_text">
+      <p><a href="https://github.com/trollepierre" rel="noreferrer" target="_blank">
+          https://github.com/trollepierre
+        </a></p>
+    </div>
     <div class="chapter__footer_text">
       <p>
         url
@@ -49,9 +51,11 @@ exports[`Component | ChapterCard.vue template should match snapshot when imgLink
         Title of the first paragraph
       </p>
     </div>
-    <div class="chapter__footer_text"><a href="https://github.com/trollepierre" rel="noreferrer" target="_blank">
-        https://github.com/trollepierre
-      </a></div>
+    <div class="chapter__footer_text">
+      <p><a href="https://github.com/trollepierre" rel="noreferrer" target="_blank">
+          https://github.com/trollepierre
+        </a></p>
+    </div>
     <div class="chapter__footer_text">
       <p>
         url
