@@ -1,5 +1,5 @@
 import {
-  generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester,
+  generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester, youtubePlaylistEmbedUrlTester,
 } from './paragraph-link-utils'
 
 describe('paragraph-link-utils', () => {
@@ -80,6 +80,45 @@ describe('paragraph-link-utils', () => {
     })
   })
 
+  describe('youtubePlaylistEmbedUrlTester', () => {
+    it('should return true whatever the link from youtube EMBEDDED playlist', () => {
+      // Given
+      const youtubeLinks = [
+        'https://www.youtube.com/embed/videoseries?list=PLpkaK0yJ22OymU7yePr4hbIQrp8Eg8mzQ',
+      ]
+
+      // When
+      youtubeLinks.map(text => {
+        // Then
+        expect(youtubePlaylistEmbedUrlTester(text)).toBe(true)
+      })
+    })
+
+    it('should return false whatever is not a link', () => {
+      // Given
+      const texts = [
+        'https://www.youtube.com/embed/b03ffclCkIM', // not a playlist
+        'https://www.youtube.com/embed/-18AYp_7iW0',
+        'https://youtu.be/-18AYp_7iW0',
+        'https://wwww.youtube.com/watch?v=-18AYp_7iW0',
+        'http://www.recontact.me',
+        'https://www.recontact.me',
+        'https://www.rec.me',
+        'https://recontact.me',
+        'www.recontact.me',
+        'ssh://www.rec.me',
+        'ftp://recontact.me',
+        '&é"((§è!ç',
+      ]
+
+      // When
+      texts.map(text => {
+        // Then
+        expect(youtubePlaylistEmbedUrlTester(text)).toBe(false)
+      })
+    })
+  })
+
   describe('generateIframeLink', () => {
     it('should add my own channel video as next + remove youtube branding', () => {
       // When
@@ -87,6 +126,14 @@ describe('paragraph-link-utils', () => {
 
       // Then
       expect(iframeSrc).toEqual('https://www.youtube.com/embed/b03ffclCkIM?rel=0&modestbranding=1')
+    })
+
+    it('should not change the playlist embedded', () => {
+      // When
+      const iframeSrc = generateIframeLink('https://www.youtube.com/embed/videoseries?list=PLpkaK0yJ22OymU7yePr4hbIQrp8Eg8mzQ')
+
+      // Then
+      expect(iframeSrc).toEqual('https://www.youtube.com/embed/videoseries?list=PLpkaK0yJ22OymU7yePr4hbIQrp8Eg8mzQ')
     })
   })
 
