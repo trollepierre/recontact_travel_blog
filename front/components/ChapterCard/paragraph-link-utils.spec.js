@@ -43,10 +43,11 @@ describe('paragraph-link-utils', () => {
   })
 
   describe('youtubeEmbedUrlTester', () => {
-    it('should return true whatever the link from youtube', () => {
+    it('should return true whatever the link from youtube EMBEDDED videos', () => {
       // Given
       const youtubeLinks = [
         'https://www.youtube.com/embed/-18AYp_7iW0',
+        'https://www.youtube.com/embed/videoseries?list=PLpkaK0yJ22OymU7yePr4hbIQrp8Eg8mzQ',
       ]
 
       // When
@@ -59,7 +60,7 @@ describe('paragraph-link-utils', () => {
     it('should return false whatever is not a link', () => {
       // Given
       const texts = [
-        'https://youtu.be/-18AYp_7iW0',
+        'https://youtu.be/-18AYp_7iW0', // not embedded
         'https://wwww.youtube.com/watch?v=-18AYp_7iW0',
         'http://www.recontact.me',
         'https://www.recontact.me',
