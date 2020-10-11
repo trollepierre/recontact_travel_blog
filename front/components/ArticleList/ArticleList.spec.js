@@ -1,12 +1,12 @@
 import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 
+import Vue from 'vue'
 import ArticleList from './ArticleList.vue'
 import articlesApi from '../../services/api/articles'
 import positionsApi from '../../services/api/positions'
 import { isCecile, sortByDropboxId } from '../../services'
 import ArticleCard from '../ArticleCard/ArticleCard.vue'
-import Vue from 'vue'
 
 jest.mock('../../services')
 
@@ -51,7 +51,7 @@ describe('Component | ArticleList.vue', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it('should handle English language on last position',  done => {
+    it('should handle English language on last position', done => {
       store = new Vuex.Store({ state: { locale: 'en' } })
       const propsData = { adminMode: true }
 
