@@ -87,8 +87,8 @@
       },
 
       updateLastPositionData({
-                               place, time, placeEn, timeEn,
-                             }) {
+        place, time, placeEn, timeEn,
+      }) {
         const language = this.$store.state.locale
         if (translationService.isFrancophone(language)) {
           this.lastPosition = `${place}, ${time}`
