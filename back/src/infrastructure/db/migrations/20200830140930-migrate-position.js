@@ -1,38 +1,38 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const transaction = await queryInterface.sequelize.transaction();
+    const transaction = await queryInterface.sequelize.transaction()
     try {
       await queryInterface.addColumn(
         'Positions',
         'placeEn',
         {
-          type: Sequelize.DataTypes.STRING,
+          type: Sequelize.STRING,
         },
-        { transaction }
-      );
+        { transaction },
+      )
       await queryInterface.addColumn(
         'Positions',
         'timeEn',
         {
-          type: Sequelize.DataTypes.STRING,
+          type: Sequelize.STRING,
         },
-        { transaction }
-      );
-      await transaction.commit();
+        { transaction },
+      )
+      await transaction.commit()
     } catch (err) {
-      await transaction.rollback();
-      throw err;
+      await transaction.rollback()
+      throw err
     }
   },
-  async down(queryInterface, Sequelize) {
-    const transaction = await queryInterface.sequelize.transaction();
+  async down(queryInterface) {
+    const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.removeColumn('Positions', 'placeEn', { transaction });
-      await queryInterface.removeColumn('Positions', 'timeEn', { transaction });
-      await transaction.commit();
+      await queryInterface.removeColumn('Positions', 'placeEn', { transaction })
+      await queryInterface.removeColumn('Positions', 'timeEn', { transaction })
+      await transaction.commit()
     } catch (err) {
-      await transaction.rollback();
-      throw err;
+      await transaction.rollback()
+      throw err
     }
-  }
-};
+  },
+}
