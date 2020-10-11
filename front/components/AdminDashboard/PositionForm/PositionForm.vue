@@ -101,7 +101,9 @@
         }
       },
       updateLastPositionData() {
-        this.$emit('updateLastPositionData', { place: this.placeFr, time: this.timeFr })
+        this.$emit('updateLastPositionData', {
+          place: this.placeFr, time: this.timeFr, placeEn: this.placeEn, timeEn: this.timeEn,
+        })
         this.resetPosition()
       },
       resetPosition() {

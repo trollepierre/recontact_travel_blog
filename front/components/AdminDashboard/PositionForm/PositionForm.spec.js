@@ -158,6 +158,8 @@ describe('Component | PositionForm.vue', () => {
         expect(wrapper).toEmit('updateLastPositionData', {
           place: 'placeFr',
           time: 'timeFr',
+          placeEn: 'placeEn',
+          timeEn: 'timeEn',
         })
       })
 
