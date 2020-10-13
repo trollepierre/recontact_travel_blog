@@ -58,7 +58,7 @@ describe('Component | ArticleList.vue', () => {
       wrapper = shallowMount(ArticleList, { localVue, propsData, store })
 
       return Vue.nextTick().then(() => {
-        expect(wrapper.find('.h3').text()).toContain(',')
+        expect(wrapper.find('.h3').text()).toEqual('London, 11th October 2019')
         done()
       })
     })
