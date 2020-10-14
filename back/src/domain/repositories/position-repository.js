@@ -1,11 +1,11 @@
-import { Position } from '../models/index'
+import { Newposition } from '../models/index'
 
 function getAll() {
-  return Position.findAll()
+  return Newposition.findAll()
 }
 
 function create(position) {
-  return Position.create(position)
+  return Newposition.create(position)
 }
 
 export default {

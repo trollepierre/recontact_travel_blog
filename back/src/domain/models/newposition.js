@@ -1,11 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
-  const Position = sequelize.define('Position', {
+  const Newposition = sequelize.define('Newposition', {
     place: DataTypes.STRING,
     time: DataTypes.STRING,
     placeEn: DataTypes.STRING,
     timeEn: DataTypes.STRING,
   })
 
-  return Position
+  return Newposition
 }
 

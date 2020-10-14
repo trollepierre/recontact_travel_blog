@@ -1,25 +1,25 @@
 import { expect, sinon } from '../../test-helper'
 import positionRepository from '../../../src/domain/repositories/position-repository'
-import { Position } from '../../../src/domain/models/index'
+import { Newposition } from '../../../src/domain/models/index'
 
 describe('Unit | Repository | position-repository', () => {
   const position = {
-    lastPosition: 'Mexico',
+    lastNewposition: 'Mexico',
     id: 1,
   }
 
   describe('#create', () => {
     beforeEach(() => {
-      sinon.stub(Position, 'create')
+      sinon.stub(Newposition, 'create')
     })
 
     afterEach(() => {
-      Position.create.restore()
+      Newposition.create.restore()
     })
 
     it('should call Sequelize Model#create', () => {
       // given
-      Position.create.resolves(position)
+      Newposition.create.resolves(position)
       const positionToCreate = { place: 'Mexico', time: '4 October 1999' }
 
       // when
@@ -27,7 +27,7 @@ describe('Unit | Repository | position-repository', () => {
 
       // then
       return promise.then(res => {
-        expect(Position.create).to.have.been.calledWith(positionToCreate)
+        expect(Newposition.create).to.have.been.calledWith(positionToCreate)
         expect(res).to.deep.equal(position)
       })
     })
@@ -37,11 +37,11 @@ describe('Unit | Repository | position-repository', () => {
     const positions = [position]
 
     beforeEach(() => {
-      sinon.stub(Position, 'findAll').resolves(positions)
+      sinon.stub(Newposition, 'findAll').resolves(positions)
     })
 
     afterEach(() => {
-      Position.findAll.restore()
+      Newposition.findAll.restore()
     })
 
     it('should call Sequelize Model#findAll', () => {
@@ -50,7 +50,7 @@ describe('Unit | Repository | position-repository', () => {
 
       // then
       return promise.then(res => {
-        expect(Position.findAll).to.have.been.calledWith()
+        expect(Newposition.findAll).to.have.been.calledWith()
         expect(res).to.deep.equal(positions)
       })
     })
