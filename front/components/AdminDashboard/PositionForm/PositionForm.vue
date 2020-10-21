@@ -1,31 +1,62 @@
 <template>
   <form class="position__form">
-    <p class="position__text">
-      {{ $t("lastPosition") }}
-    </p>
-    <span class="form-group">
-      <label
-        class="position__label"
-        for="position-place">
-        {{ $t("place") }}
-      </label>
-      <input
-        id="position-place"
-        v-model="place"
-        class="position__input position__place"
-        placeholder="Paris">
+    <span class="position__language">
+      <p class="positionFr__text">
+        {{ $t("lastPositionFr") }}
+      </p>
+      <span class="form-group">
+        <label
+          class="position__label"
+          for="positionFr-place">
+          {{ $t("placeFr") }}
+        </label>
+        <input
+          id="positionFr-place"
+          v-model="placeFr"
+          class="position__input position__place"
+          placeholder="Paris">
+      </span>
+      <span class="form-group">
+        <label
+          class="position__label"
+          for="positionFr-time">
+          {{ $t("timeFr") }}
+        </label>
+        <input
+          id="positionFr-time"
+          v-model="timeFr"
+          class="position__input position__time"
+          placeholder="le 1er mai 2018">
+      </span>
     </span>
-    <span class="form-group">
-      <label
-        class="position__label"
-        for="position-time">
-        {{ $t("time") }}
-      </label>
-      <input
-        id="position-time"
-        v-model="time"
-        class="position__input position__time"
-        placeholder="le 1er mai 2018">
+    <span class="position__language">
+      <p class="positionEn__text">
+        {{ $t("lastPositionEn") }}
+      </p>
+      <span class="form-group">
+        <label
+          class="position__label"
+          for="positionEn-place">
+          {{ $t("placeEn") }}
+        </label>
+        <input
+          id="positionEn-place"
+          v-model="placeEn"
+          class="position__input position__place"
+          placeholder="London">
+      </span>
+      <span class="form-group">
+        <label
+          class="position__label"
+          for="positionEn-time">
+          {{ $t("timeEn") }}
+        </label>
+        <input
+          id="positionEn-time"
+          v-model="timeEn"
+          class="position__input position__time"
+          placeholder="29th August 2020">
+      </span>
     </span>
     <button
       type="submit"
@@ -43,8 +74,10 @@
     name: 'PositionForm',
     data() {
       return {
-        place: null,
-        time: null,
+        placeFr: null,
+        placeEn: null,
+        timeFr: null,
+        timeEn: null,
       }
     },
     methods: {
@@ -53,12 +86,14 @@
         this.updateLastPosition()
       },
       updateLastPosition() {
-        if (this.place === null || this.time === null) {
+        if (this.placeFr === null || this.timeFr === null || this.placeEn === null || this.timeEn === null) {
           this.displayErrorMessage()
         } else {
           const position = {
-            place: this.place,
-            time: this.time,
+            place: this.placeFr,
+            time: this.timeFr,
+            placeEn: this.placeEn,
+            timeEn: this.timeEn,
           }
           positionsApi.add(position)
             .then(this.updateLastPositionData)
@@ -66,38 +101,46 @@
         }
       },
       updateLastPositionData() {
-        this.$emit('updateLastPositionData', { place: this.place, time: this.time })
+        this.$emit('updateLastPositionData', {
+          place: this.placeFr, time: this.timeFr, placeEn: this.placeEn, timeEn: this.timeEn,
+        })
         this.resetPosition()
       },
       resetPosition() {
-        this.place = null
-        this.time = null
+        this.placeFr = null
+        this.placeEn = null
+        this.timeFr = null
+        this.timeEn = null
       },
       displayErrorMessage() {
-        notificationsService.error(this, this.$t('positionNotUpdated'))
+        notificationsService.error(this.$t('positionNotUpdated'))
       },
       displaySuccessMessage() {
-        notificationsService.success(this, this.$t('positionUpdated'))
+        notificationsService.information(this.$t('positionUpdated'))
       },
     },
 
     i18n: {
       messages: {
         fr: {
-          place: 'Position  :',
-          time: 'Date  :',
-          lastPosition: 'Nouvelle position  :',
+          placeFr: 'Position:',
+          placeEn: 'Position:',
+          timeFr: 'Date:',
+          timeEn: 'Date:',
+          lastPositionFr: 'Nouvelle position FR :',
+          lastPositionEn: 'New position EN :',
           confirm: 'Envoyer',
-          lastKnownPosition: 'Dernière position connue  :',
           positionUpdated: 'Position mise-à-jour',
           positionNotUpdated: 'Renseigne toutes les informations. La position n\'a pas été mise-à-jour',
         },
         en: {
-          place: 'Position:',
-          time: 'Date:',
-          lastPosition: 'New position:',
+          placeFr: 'Position FR :',
+          placeEn: 'Position EN:',
+          timeFr: 'Date FR :',
+          timeEn: 'Date EN:',
+          lastPositionFr: 'Nouvelle position FR:',
+          lastPositionEn: 'New position EN:',
           confirm: 'Confirm',
-          lastKnownPosition: 'Last known position:',
           positionUpdated: 'Position updated',
           positionNotUpdated: 'Fill all the informations. Position was not updated',
         },
@@ -106,6 +149,12 @@
   }
 </script>
 <style scoped>
+  .position__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .form-group {
     text-align: right;
     margin-right: 30px;
@@ -154,7 +203,7 @@
     }
   }
 
-  @media only screen and (min-width: 540px) and (max-width: 992px){
+  @media only screen and (min-width: 540px) and (max-width: 992px) {
     .position__form {
       margin-bottom: 60px;
     }

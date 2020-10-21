@@ -80,61 +80,53 @@
       synchronise() {
         this.trackEvent()
         this.disableButton()
-        notificationsService.information(this, this.$t('syncLaunched'))
+        notificationsService.warn(this.$t('syncLaunched'))
         syncApi.launch()
           .then(() => {
-            notificationsService.removeInformation(this)
-            notificationsService.success(this, this.$t('syncDone'))
+            notificationsService.information(this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch(err => {
-            notificationsService.removeInformation(this)
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+            notificationsService.error(`${this.$t('syncError')} ${err}`)
           })
       },
 
       updateAll() {
         this.disableButton()
-        notificationsService.information(this, this.$t('syncLaunched'))
+        notificationsService.warn(this.$t('syncLaunched'))
         articlesApi.updateAll(this.min, this.max)
           .then(() => {
-            notificationsService.removeInformation(this)
-            notificationsService.success(this, this.$t('syncDone'))
+            notificationsService.information(this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch(err => {
-            notificationsService.removeInformation(this)
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+            notificationsService.error(`${this.$t('syncError')} ${err}`)
           })
       },
 
       deleteAll() {
         this.disableButton()
-        notificationsService.information(this, this.$t('syncLaunched'))
+        notificationsService.warn(this.$t('syncLaunched'))
         articlesApi.deleteAll()
           .then(() => {
-            notificationsService.removeInformation(this)
-            notificationsService.success(this, this.$t('syncDone'))
+            notificationsService.information(this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch(err => {
-            notificationsService.removeInformation(this)
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+            notificationsService.error(`${this.$t('syncError')} ${err}`)
           })
       },
 
       deleteAndSyncAll() {
         this.disableButton()
-        notificationsService.information(this, this.$t('syncLaunched'))
+        notificationsService.warn(this.$t('syncLaunched'))
         articlesApi.deleteAndSyncAll()
           .then(() => {
-            notificationsService.removeInformation(this)
-            notificationsService.success(this, this.$t('syncDone'))
+            notificationsService.information(this.$t('syncDone'))
           })
           .then(() => this.goToHome())
           .catch(err => {
-            notificationsService.removeInformation(this)
-            notificationsService.error(this, `${this.$t('syncError')} ${err}`)
+            notificationsService.error(`${this.$t('syncError')} ${err}`)
           })
       },
 

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import VueAnalytics from 'vue-analytics'
 import PositionForm from './PositionForm.vue'
 import positionsApi from '../../../services/api/positions'
 import notificationsService from '../../../services/services/notifications'
@@ -11,9 +10,7 @@ describe('Component | PositionForm.vue', () => {
 
   beforeEach(() => {
     console.warn = jest.fn()
-
     localVue = createLocalVue()
-    localVue.use(VueAnalytics, { id: '12' })
     localVue.use(VueI18n)
   })
 
@@ -33,14 +30,26 @@ describe('Component | PositionForm.vue', () => {
 
   describe('methods', () => {
     let currentPosition
+    let currentPositionForApi
 
     beforeEach(() => {
       wrapper = shallowMount(PositionForm, { localVue })
-      currentPosition = { place: 'place', time: 'time' }
+      currentPosition = {
+        placeFr: 'placeFr',
+        timeFr: 'timeFr',
+        placeEn: 'placeEn',
+        timeEn: 'timeEn',
+      }
+      currentPositionForApi = {
+        place: 'placeFr',
+        time: 'timeFr',
+        placeEn: 'placeEn',
+        timeEn: 'timeEn',
+      }
       wrapper.setData(currentPosition)
       positionsApi.add = jest.fn()
       positionsApi.add.mockResolvedValue()
-      notificationsService.success = jest.fn()
+      notificationsService.information = jest.fn()
       notificationsService.error = jest.fn()
     })
 
@@ -58,14 +67,19 @@ describe('Component | PositionForm.vue', () => {
 
         wrapper.vm.submit(event)
 
-        expect(positionsApi.add).toHaveBeenCalledWith(currentPosition)
+        expect(positionsApi.add).toHaveBeenCalledWith({
+          place: 'placeFr',
+          time: 'timeFr',
+          placeEn: 'placeEn',
+          timeEn: 'timeEn',
+        })
       })
     })
 
     describe('#updateLastPosition', () => {
       describe('when position is null', () => {
         beforeEach(() => {
-          currentPosition = { place: null, time: 'time' }
+          currentPosition = { placeFr: null, timeFr: 'time' }
           wrapper.setData(currentPosition)
         })
 
@@ -78,13 +92,15 @@ describe('Component | PositionForm.vue', () => {
         it('should send error notification', () => {
           wrapper.vm.updateLastPosition()
 
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'Fill all the informations. Position was not updated')
+          expect(notificationsService.error).toHaveBeenCalledWith(
+            'Fill all the informations. Position was not updated',
+          )
         })
       })
 
       describe('when time is null', () => {
         beforeEach(() => {
-          currentPosition = { place: 'place', time: null }
+          currentPosition = { placeFr: 'place', timeFr: null }
           wrapper.setData(currentPosition)
         })
 
@@ -97,14 +113,16 @@ describe('Component | PositionForm.vue', () => {
         it('should send error notification', () => {
           wrapper.vm.updateLastPosition()
 
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'Fill all the informations. Position was not updated')
+          expect(notificationsService.error).toHaveBeenCalledWith(
+            'Fill all the informations. Position was not updated',
+          )
         })
       })
 
       it('should add current position to api', () => {
         wrapper.vm.updateLastPosition()
 
-        expect(positionsApi.add).toHaveBeenCalledWith(currentPosition)
+        expect(positionsApi.add).toHaveBeenCalledWith(currentPositionForApi)
       })
 
       xit('should emit current position', async () => {
@@ -120,13 +138,15 @@ describe('Component | PositionForm.vue', () => {
         expect(wrapper.vm.time).toEqual(null)
       })
 
-      xit('should send success notifications', async () => {
-        notificationsService.success.mockResolvedValue()
+      it('should send success notifications', async () => {
+        notificationsService.information.mockResolvedValue()
 
         await wrapper.vm.updateLastPosition()
 
         return Vue.nextTick().then(() => {
-          expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), 'positionUpdated')
+          expect(notificationsService.information).toHaveBeenCalledWith(
+            'Position updated',
+          )
         })
       })
     })
@@ -135,14 +155,21 @@ describe('Component | PositionForm.vue', () => {
       it('should emit last position', () => {
         wrapper.vm.updateLastPositionData()
 
-        expect(wrapper).toEmit('updateLastPositionData', currentPosition)
+        expect(wrapper).toEmit('updateLastPositionData', {
+          place: 'placeFr',
+          time: 'timeFr',
+          placeEn: 'placeEn',
+          timeEn: 'timeEn',
+        })
       })
 
       it('should reset position', () => {
         wrapper.vm.updateLastPositionData()
 
-        expect(wrapper.vm.place).toEqual(null)
-        expect(wrapper.vm.time).toEqual(null)
+        expect(wrapper.vm.placeFr).toEqual(null)
+        expect(wrapper.vm.timeFr).toEqual(null)
+        expect(wrapper.vm.placeEn).toEqual(null)
+        expect(wrapper.vm.timeEn).toEqual(null)
       })
     })
 
@@ -150,8 +177,10 @@ describe('Component | PositionForm.vue', () => {
       it('should set position values to null', () => {
         wrapper.vm.resetPosition()
 
-        expect(wrapper.vm.place).toEqual(null)
-        expect(wrapper.vm.time).toEqual(null)
+        expect(wrapper.vm.placeFr).toEqual(null)
+        expect(wrapper.vm.timeFr).toEqual(null)
+        expect(wrapper.vm.placeEn).toEqual(null)
+        expect(wrapper.vm.timeEn).toEqual(null)
       })
     })
   })
@@ -181,34 +210,42 @@ describe('Component | PositionForm.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(PositionForm.i18n.messages.fr)
 
-        it('contains 7 locales', () => {
-          expect(locales).toHaveLength(7)
-          expect(locales).toEqual([
-            'place',
-            'time',
-            'lastPosition',
-            'confirm',
-            'lastKnownPosition',
-            'positionUpdated',
-            'positionNotUpdated',
-          ])
+        it('contains 9 locales', () => {
+          expect(locales).toHaveLength(9)
+          expect(locales).toMatchInlineSnapshot(`
+            Array [
+              "placeFr",
+              "placeEn",
+              "timeFr",
+              "timeEn",
+              "lastPositionFr",
+              "lastPositionEn",
+              "confirm",
+              "positionUpdated",
+              "positionNotUpdated",
+            ]
+          `)
         })
       })
 
       describe('en', () => {
         const locales = Object.keys(PositionForm.i18n.messages.en)
 
-        it('contains 7 locales', () => {
-          expect(locales).toHaveLength(7)
-          expect(locales).toEqual([
-            'place',
-            'time',
-            'lastPosition',
-            'confirm',
-            'lastKnownPosition',
-            'positionUpdated',
-            'positionNotUpdated',
-          ])
+        it('contains 9 locales', () => {
+          expect(locales).toHaveLength(9)
+          expect(locales).toMatchInlineSnapshot(`
+            Array [
+              "placeFr",
+              "placeEn",
+              "timeFr",
+              "timeEn",
+              "lastPositionFr",
+              "lastPositionEn",
+              "confirm",
+              "positionUpdated",
+              "positionNotUpdated",
+            ]
+          `)
         })
       })
     })

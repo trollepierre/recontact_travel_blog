@@ -43,11 +43,10 @@ describe('Component | AdminDashboard.vue', () => {
 
     beforeEach(() => {
       wrapper = shallowMount(AdminDashboard, { localVue, router })
+      notificationsService.warn = jest.fn()
       notificationsService.information = jest.fn()
-      notificationsService.success = jest.fn()
-      notificationsService.success.mockResolvedValue({})
-      notificationsService.removeInformation = jest.fn()
-      notificationsService.removeInformation.mockResolvedValue({})
+      notificationsService.information.mockResolvedValue({})
+
       currentPosition = { place: 'place', time: 'time' }
     })
 
@@ -93,7 +92,7 @@ describe('Component | AdminDashboard.vue', () => {
         wrapper.vm.synchronise()
 
         const message = 'syncLaunched'
-        expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
+        expect(notificationsService.warn).toHaveBeenCalledWith(message)
       })
 
       it('should call syncApi', () => {
@@ -105,9 +104,8 @@ describe('Component | AdminDashboard.vue', () => {
       xit('should display success toast notification when synchronisation succeeds', async () => {
         await wrapper.vm.synchronise()
 
-        expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
         const message = 'syncDone'
-        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+        expect(notificationsService.information).toHaveBeenCalledWith(message)
       })
 
       xit('should enable button', async () => {
@@ -133,17 +131,14 @@ describe('Component | AdminDashboard.vue', () => {
         syncApi.launch = jest.fn()
         syncApi.launch.mockRejectedValue('message')
 
-        notificationsService.removeInformation = jest.fn()
-        notificationsService.removeInformation.mockResolvedValue({})
         notificationsService.error = jest.fn()
 
         await wrapper.vm.synchronise()
 
         return Vue.nextTick().then(() => {
-          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
-          expect(notificationsService.success).not.toHaveBeenCalled()
+          expect(notificationsService.information).not.toHaveBeenCalled()
           expect(router.push).not.toHaveBeenCalled()
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'syncError message')
+          expect(notificationsService.error).toHaveBeenCalledWith('syncError message')
         })
       })
     })
@@ -164,7 +159,7 @@ describe('Component | AdminDashboard.vue', () => {
         wrapper.vm.updateAll()
 
         const message = 'The synchronisation is launched! Please wait...'
-        expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
+        expect(notificationsService.warn).toHaveBeenCalledWith(message)
       })
 
       it('should call syncApi with default value', () => {
@@ -185,9 +180,8 @@ describe('Component | AdminDashboard.vue', () => {
       it('should display success toast notification when synchronisation succeeds', async () => {
         await wrapper.vm.updateAll()
 
-        expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
         const message = 'The synchronisation succeeds!'
-        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+        expect(notificationsService.information).toHaveBeenCalledWith(message)
       })
 
       it('should enable button', async () => {
@@ -213,17 +207,14 @@ describe('Component | AdminDashboard.vue', () => {
         articlesApi.updateAll = jest.fn()
         articlesApi.updateAll.mockRejectedValue('message')
 
-        notificationsService.removeInformation = jest.fn()
-        notificationsService.removeInformation.mockResolvedValue({})
         notificationsService.error = jest.fn()
 
         await wrapper.vm.updateAll()
 
         return Vue.nextTick().then(() => {
-          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
-          expect(notificationsService.success).not.toHaveBeenCalled()
+          expect(notificationsService.information).not.toHaveBeenCalled()
           expect(router.push).not.toHaveBeenCalled()
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'Error during the synchronisation: message')
+          expect(notificationsService.error).toHaveBeenCalledWith('Error during the synchronisation: message')
         })
       })
     })
@@ -244,7 +235,7 @@ describe('Component | AdminDashboard.vue', () => {
         wrapper.vm.deleteAll()
 
         const message = 'The synchronisation is launched! Please wait...'
-        expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
+        expect(notificationsService.warn).toHaveBeenCalledWith(message)
       })
 
       it('should call syncApi', () => {
@@ -256,9 +247,8 @@ describe('Component | AdminDashboard.vue', () => {
       xit('should display success toast notification when synchronisation succeeds', async () => {
         await wrapper.vm.deleteAll()
 
-        expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
         const message = 'syncDone'
-        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+        expect(notificationsService.information).toHaveBeenCalledWith(message)
       })
 
       xit('should enable button', async () => {
@@ -284,17 +274,14 @@ describe('Component | AdminDashboard.vue', () => {
         articlesApi.deleteAll = jest.fn()
         articlesApi.deleteAll.mockRejectedValue('message')
 
-        notificationsService.removeInformation = jest.fn()
-        notificationsService.removeInformation.mockResolvedValue({})
         notificationsService.error = jest.fn()
 
         await wrapper.vm.deleteAll()
 
         return Vue.nextTick().then(() => {
-          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
-          expect(notificationsService.success).not.toHaveBeenCalled()
+          expect(notificationsService.information).not.toHaveBeenCalled()
           expect(router.push).not.toHaveBeenCalled()
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'syncError message')
+          expect(notificationsService.error).toHaveBeenCalledWith('syncError message')
         })
       })
     })
@@ -315,7 +302,7 @@ describe('Component | AdminDashboard.vue', () => {
         wrapper.vm.deleteAndSyncAll()
 
         const message = 'The synchronisation is launched! Please wait...'
-        expect(notificationsService.information).toHaveBeenCalledWith(expect.anything(), message)
+        expect(notificationsService.warn).toHaveBeenCalledWith(message)
       })
 
       it('should call syncApi', () => {
@@ -327,9 +314,8 @@ describe('Component | AdminDashboard.vue', () => {
       xit('should display success toast notification when synchronisation succeeds', async () => {
         await wrapper.vm.deleteAndSyncAll()
 
-        expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
         const message = 'syncDone'
-        expect(notificationsService.success).toHaveBeenCalledWith(expect.anything(), message)
+        expect(notificationsService.information).toHaveBeenCalledWith(message)
       })
 
       xit('should enable button', async () => {
@@ -355,17 +341,14 @@ describe('Component | AdminDashboard.vue', () => {
         articlesApi.deleteAndSyncAll = jest.fn()
         articlesApi.deleteAndSyncAll.mockRejectedValue('message')
 
-        notificationsService.removeInformation = jest.fn()
-        notificationsService.removeInformation.mockResolvedValue({})
         notificationsService.error = jest.fn()
 
         await wrapper.vm.deleteAndSyncAll()
 
         return Vue.nextTick().then(() => {
-          expect(notificationsService.removeInformation).toHaveBeenCalledWith(expect.anything())
-          expect(notificationsService.success).not.toHaveBeenCalled()
+          expect(notificationsService.information).not.toHaveBeenCalled()
           expect(router.push).not.toHaveBeenCalled()
-          expect(notificationsService.error).toHaveBeenCalledWith(expect.anything(), 'syncError message')
+          expect(notificationsService.error).toHaveBeenCalledWith('syncError message')
         })
       })
     })

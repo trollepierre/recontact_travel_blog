@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import VueModal from 'vue-js-modal'
 import VueI18n from 'vue-i18n'
-import VueAnalytics from 'vue-analytics'
+
 import FeedbackModal from './FeedbackModal.vue'
 // import feedbacksApi from '../api/feedbacks'
 // import notificationsService from '../services/notifications'
@@ -21,7 +21,7 @@ describe.skip('Component | FeedbackModal.vue', () => {
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueModal)
-    localVue.use(VueAnalytics, { id: '12' })
+
     wrapper = shallowMount(FeedbackModal, {
       localVue,
       data() {
@@ -156,7 +156,7 @@ describe.skip('Component | FeedbackModal.vue', () => {
     beforeEach(() => {
       feedbacksApi.sendFeedback = jest.fn()
       feedbacksApi.sendFeedback.mockResolvedValue({})
-      notificationsService.success = jest.fn()
+      notificationsService.information = jest.fn()
     })
 
     it('should remove error', () => {
@@ -278,16 +278,16 @@ describe.skip('Component | FeedbackModal.vue', () => {
     })
 
     it('should display success notification', () => {
-      notificationsService.success.mockResolvedValue({})
+      notificationsService.information.mockResolvedValue({})
 
       wrapper.vm.sendFeedback()
 
         const message = 'sendingSuccess'
-        expect(notificationsService.success).toHaveBeenCalledWith(component, message)
+        expect(notificationsService.information).toHaveBeenCalledWith(component, message)
     })
 
     it('should close modal', () => {
-      notificationsService.success.mockResolvedValue({})
+      notificationsService.information.mockResolvedValue({})
       wrapper.vm.$modal.show('feedback-modal')
       wrapper.vm.email = 'email@recontact.me'
       wrapper.vm.feedback = 'Coucou'
