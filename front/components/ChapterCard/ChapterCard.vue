@@ -1,6 +1,8 @@
 <template>
   <article class="chapter">
-    <header class="chapter__header">
+    <header
+      v-if="chapterTitle !== '-'"
+      class="chapter__header">
       <h2 class="chapter__title">
         {{ chapterTitle }}
       </h2>
