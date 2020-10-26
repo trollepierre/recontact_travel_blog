@@ -124,7 +124,9 @@
     },
     methods: {
       viewPreviousArticle() {
-        this.goToArticle(this.articleId - 1)
+        if (this.articleId > 1) {
+          this.goToArticle(this.articleId - 1)
+        }
       },
       viewNextArticle() {
         this.goToArticle(this.articleId - 1 + 2)
