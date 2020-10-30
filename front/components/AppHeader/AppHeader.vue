@@ -7,12 +7,12 @@
         :title="home"
         class="logo"
         href="/">
-        <span class="recontact">Recontact</span>
-        <span class="me">Me</span>
         <img
           :alt="logo"
           class="icon"
           src="../../static/mstile-150x150.png">
+        <span class="recontact">Recontact</span>
+        <span class="me">Me</span>
       </a>
       <nav
         v-if="isArticlePage"
@@ -27,7 +27,7 @@
             </button>
           </li>
           <li class="article-text">
-            <p>Article {{ articleId }}</p>
+            <p class="id">Article {{ articleId }}</p>
           </li>
           <li class="next article">
             <button
@@ -131,9 +131,6 @@
       viewNextArticle() {
         this.goToArticle(this.articleId - 1 + 2)
       },
-      goToHomePage() {
-        this.$router.push('/')
-      },
       goToArticle(idArticle) {
         this.$router.push(`/articles/${idArticle}`)
       },
@@ -153,7 +150,7 @@
         this.lastScrollPosition = currentScrollPosition
       },
       switchLanguage() {
-        window.location = this.$t('otherUrl') + window.location.pathname
+        window.location.href = this.$t('otherUrl') + window.location.pathname
       },
 
       displaySubscribeModal() {
@@ -233,7 +230,6 @@
   .logo {
     padding: 0;
     margin: 10px 0;
-    border: 1px solid #F48024;
     border-radius: 4px;
   }
 
@@ -250,7 +246,10 @@
   }
 
   .icon {
-    display: none;
+    display: block;
+    height: 75px;
+    padding-top: 12px;
+    margin: -20px;
   }
 
   .navigation {
@@ -280,8 +279,17 @@
     color: #F48024;
   }
 
+  .button.article:hover {
+    background: #D14800;
+    color: #FFFFFF;
+  }
+
   .button.article {
     padding: 0 10px;
+  }
+
+  .id {
+    margin-top: 20px;
   }
 
   .button {
@@ -327,16 +335,32 @@
     }
   }
 
+  @media only screen and (max-width: 400px) {
+    .icon {
+      display: none;
+    }
+  }
+
   @media only screen and (min-width: 640px) {
     .container {
       max-width: 500px;
       justify-content: space-between;
     }
 
+    .logo:hover {
+      background: #D14800;
+      color: #FFFFFF;
+      padding-right: 5px;
+      border-radius: 4px;
+      margin-top: 7px;
+      margin-bottom: 7px;
+    }
+
     .icon {
       display: block;
       height: 75px;
       padding-top: 10px;
+      margin: -5px;
     }
 
     .suggestion,
