@@ -136,7 +136,7 @@
   .page__body {
     display: flex;
     width: 100%;
-    padding: 20px 0;
+    padding: 70px 0 20px;
     justify-content: center;
   }
 

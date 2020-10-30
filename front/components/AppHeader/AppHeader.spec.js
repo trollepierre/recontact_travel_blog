@@ -92,8 +92,66 @@ describe('Component | AppHeader.vue', () => {
       })
     })
 
-    xdescribe('#onScroll', () => {
-      it('should be tested in utils', () => {})
+    describe('switchLanguage', () => {
+      it('should reload page', () => {
+        // Given
+        console.error = jest.fn()
+        wrapper = shallowMount(AppHeader, { localVue, router })
+
+        // When
+        wrapper.vm.switchLanguage()
+
+        // Then
+        expect(window.location.href).toEqual('http://localhost/articles/1')
+      })
+    })
+
+    describe('onScroll', () => {
+      it('should update last scroll position', () => {
+        // Given
+        window.pageYOffset = 100
+        wrapper = shallowMount(AppHeader, { localVue, router })
+
+        // When
+        wrapper.vm.onScroll()
+        // Then
+        expect(wrapper.vm.showNavbar).toEqual(false)
+        expect(wrapper.vm.lastScrollPosition).toEqual(100)
+      })
+      it('should not change anything when offset is not enough', () => {
+        // Given
+        window.pageYOffset = 50
+        wrapper = shallowMount(AppHeader, { localVue, router })
+
+        // When
+        wrapper.vm.onScroll()
+        // Then
+        expect(wrapper.vm.showNavbar).toEqual(true)
+        expect(wrapper.vm.lastScrollPosition).toEqual(0)
+      })
+      it('should not change anything when offset < 0', () => {
+        // Given
+        window.pageYOffset = -100
+        wrapper = shallowMount(AppHeader, { localVue, router })
+
+        // When
+        wrapper.vm.onScroll()
+        // Then
+        expect(wrapper.vm.showNavbar).toEqual(true)
+        expect(wrapper.vm.lastScrollPosition).toEqual(0)
+      })
+      it('should use scrollTop when offSet not available', () => {
+        // Given
+        window.pageYOffset = undefined
+        document.documentElement.scrollTop = 100
+        wrapper = shallowMount(AppHeader, { localVue, router })
+
+        // When
+        wrapper.vm.onScroll()
+        // Then
+        expect(wrapper.vm.showNavbar).toEqual(false)
+        expect(wrapper.vm.lastScrollPosition).toEqual(100)
+      })
     })
 
     xdescribe('#displayFeedbackModal', () => {
