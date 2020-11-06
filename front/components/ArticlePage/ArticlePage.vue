@@ -182,7 +182,6 @@
   .article-page__title {
     font-weight: 300;
     font-size: 32px;
-    text-decoration: underline;
     margin: 0 0 15px;
     max-width: 80%;
   }

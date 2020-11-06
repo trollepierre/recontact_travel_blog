@@ -235,7 +235,9 @@
 
   .recontact {
     color: #07C;
-    padding: 5px 5px 0;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 0;
     align-self: center;
   }
 
@@ -250,6 +252,7 @@
     height: 75px;
     padding-top: 12px;
     margin: -20px;
+    padding-right: 10px;
   }
 
   .navigation {
@@ -310,8 +313,8 @@
 
   .button.other-language {
     font-size: 24px;
-    padding-top: 5px;
-    padding-bottom: 0;
+    margin-top: 0;
+    padding: 8px 6px 0 6px;
   }
 
   .button.other-language:hover {
