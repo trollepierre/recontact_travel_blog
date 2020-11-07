@@ -42,9 +42,11 @@ exports[`Component | ChapterCard.vue template should match snapshot when imgLink
       82
     </p>
   </header>
-  <div class="chapter__content"><span>
+  <div class="chapter__content">
+    <div class="missing-image" style="height: 288px;">
       Missing image
-    </span></div>
+    </div>
+  </div>
   <footer class="chapter__footer">
     <div class="chapter__footer_text">
       <p>

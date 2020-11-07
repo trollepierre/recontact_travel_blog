@@ -17,9 +17,12 @@
         :alt="chapterAlt"
         rel="noreferrer"
         class="chapter__image">
-      <span v-else>
+      <div
+        v-else
+        class="missing-image"
+        :style="styleMissing">
         {{ $t("missingImage") }}
-      </span>
+      </div>
     </div>
     <footer class="chapter__footer">
       <div
@@ -64,8 +67,7 @@
     props: {
       chapter: {
         type: Object,
-        default: () => {
-        },
+        default: () => {},
       },
     },
     data: () => ({ dimensions: iframeDimensions() }),
@@ -74,12 +76,15 @@
         const { imgLink } = this.chapter
         return !imgLink ? false : imgLink
       },
+      styleMissing() {
+        return `height: ${this.dimensions.height}px;"`
+      },
       chapterTitle() {
         const language = this.$store.state.locale
         return translationsService.getChapterTitle(this.chapter, language)
       },
       chapterAlt() {
-        return this.$t('altComplement') + this.chapterText[0].text
+        return this.$t('altComplement') + (this.chapterText[0] ? this.chapterText[0].text : '')
       },
       chapterText() {
         const language = this.$store.state.locale
@@ -208,6 +213,11 @@
   .chapter__footer_text {
     font-size: 18px;
     word-spacing: 1px;
+  }
+
+  .missing-image {
+    display: flex;
+    justify-content: center;
   }
 
   @media only screen and (min-width: 640px) {

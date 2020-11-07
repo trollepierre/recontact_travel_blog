@@ -4,7 +4,7 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
 <header class="header">
   <div class="container"><a title="Home page" href="/" class="logo"><img alt="Logo of the site" src="../../static/mstile-150x150.png" class="icon"> <span class="recontact">Recontact</span> <span class="me">Me</span></a>
     <!---->
-    <nav aria-label="navigation">
+    <nav>
       <ul class="navigation">
         <!---->
         <!---->
@@ -21,20 +21,26 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
 exports[`Component | AppHeader.vue template should match snapshot on article page 1`] = `
 <header class="header">
   <div class="container"><a title="Home page" href="/" class="logo"><img alt="Logo of the site" src="../../static/mstile-150x150.png" class="icon"> <span class="recontact">Recontact</span> <span class="me">Me</span></a>
-    <nav aria-label="navigation">
+    <nav>
       <ul class="navigation">
-        <li class="previous article"><button type="button" class="button previous article">
+        <li class="previous article">
+          <nuxtlink type="button" to="/articles/7" class="button previous article">
             &lt;
-          </button></li>
-        <li class="article-text">
-          <p class="id">Article </p>
+          </nuxtlink>
         </li>
-        <li class="next article"><button type="button" class="button next article">
+        <li class="article-text">
+          <p class="id">
+            Article 8
+          </p>
+        </li>
+        <li class="next article">
+          <nuxtlink type="button" to="/articles/9" class="button next article">
             &gt;
-          </button></li>
+          </nuxtlink>
+        </li>
       </ul>
     </nav>
-    <nav aria-label="navigation">
+    <nav>
       <ul class="navigation">
         <!---->
         <!---->

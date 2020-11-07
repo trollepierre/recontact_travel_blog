@@ -79,7 +79,7 @@
           position: 1,
           frTitle: 'Article en cours de chargement',
           enTitle: 'Loading article',
-          imgLink: 'loading',
+          imgLink: false,
           frText: ['Veuillez patienter quelques secondes'],
           enText: ['Please wait just a second'],
         }],
@@ -104,7 +104,6 @@
         this.getPhotos()
       },
       async getChapters() {
-        this.trackEvent()
         await chaptersApi.fetch(this.dropboxId)
           .then(article => {
             this.chapters = article.chapters
@@ -122,24 +121,16 @@
           })
       },
       viewPreviousArticle() {
-        this.goToArticle(this.dropboxId - 1)
+        if (this.dropboxId !== 1) { this.goToArticle(this.dropboxId - 1) }
       },
       viewNextArticle() {
-        this.goToArticle(this.dropboxId + 1)
+        this.goToArticle(this.dropboxId - 1 + 2)
       },
       goToHomePage() {
         this.$router.push('/')
       },
       goToArticle(idArticle) {
         this.$router.push(`/articles/${idArticle}`)
-      },
-      trackEvent() {
-        // this.$ga.event({
-        //   eventCategory: 'Article Page',
-        //   eventAction: 'read',
-        //   eventLabel: `article ${this.$route.params.id} is read`,
-        // })
-        // TODO fix trackEvent
       },
       isEmpty,
     },
