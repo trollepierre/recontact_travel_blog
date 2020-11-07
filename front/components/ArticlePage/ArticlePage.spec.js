@@ -22,6 +22,7 @@ describe('Component | ArticlePage.vue', () => {
   const commentsFromApi = [{ text: 'comment1' }]
 
   beforeEach(() => {
+    router.push = jest.fn()
     translationsService.getChapterTitle = jest.fn()
     translationsService.getChapterTitle.mockReturnValue('My title')
     translationsService.getChapterText = jest.fn()
@@ -117,7 +118,7 @@ describe('Component | ArticlePage.vue', () => {
           position: 1,
           frTitle: 'Article en cours de chargement',
           enTitle: 'Loading article',
-          imgLink: 'loading',
+          imgLink: false,
           frText: ['Veuillez patienter quelques secondes'],
           enText: ['Please wait just a second'],
         })
@@ -155,6 +156,50 @@ describe('Component | ArticlePage.vue', () => {
 
     it('should save photos from api in data photos', () => {
       expect(wrapper.vm.photos).toEqual(photos)
+    })
+  })
+
+  describe('methods', () => {
+    describe('#goToHomePage', () => {
+      it('should route to next article', () => {
+        wrapper = shallowMount(ArticlePage, {
+          localVue, router, data: () => ({ dropboxId }),
+        })
+
+        wrapper.vm.goToHomePage()
+
+        expect(router.push).toHaveBeenCalledWith('/')
+      })
+    })
+
+    describe('#viewNextArticle', () => {
+      it('should route to next article', () => {
+        wrapper = shallowMount(ArticlePage, {
+          localVue, router, data: () => ({ dropboxId }),
+        })
+
+        wrapper.vm.viewNextArticle()
+
+        expect(router.push).toHaveBeenCalledWith('/articles/9')
+      })
+    })
+
+    describe('#viewPreviousArticle', () => {
+      it('should route to previous article', () => {
+        wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId }) })
+
+        wrapper.vm.viewPreviousArticle()
+
+        expect(router.push).toHaveBeenCalledWith('/articles/7')
+      })
+
+      it('should not route to article id less than 1', () => {
+        wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId: 1 }) })
+
+        wrapper.vm.viewPreviousArticle()
+
+        expect(router.push).not.toHaveBeenCalled()
+      })
     })
   })
 

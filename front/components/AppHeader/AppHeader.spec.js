@@ -1,21 +1,15 @@
+import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import VueRouter from 'vue-router'
 import AppHeader from './AppHeader.vue'
 
 describe('Component | AppHeader.vue', () => {
   let localVue
   let wrapper
-  const router = {
-    init: jest.fn(),
-    push: jest.fn(),
-    history: {},
-  }
 
   beforeEach(() => {
     localVue = createLocalVue()
     localVue.use(VueI18n)
-    localVue.use(VueRouter)
   })
 
   it('should be named "AppHeader"', () => {
@@ -32,12 +26,15 @@ describe('Component | AppHeader.vue', () => {
     })
 
     it('should match snapshot on article page', () => {
+      console.error = jest.fn()
       process.client = jest.fn().mockReturnValue(true)
-      window.history.pushState({}, 'Page Title', '/articles/')
+      window.history.pushState({}, 'Page Title', '/articles/8/')
 
       wrapper = shallowMount(AppHeader, { localVue })
 
-      expect(wrapper).toMatchSnapshot()
+      return Vue.nextTick().then(() => {
+        expect(wrapper).toMatchSnapshot()
+      })
     })
   })
 
@@ -52,57 +49,50 @@ describe('Component | AppHeader.vue', () => {
       // Then
       expect(window.addEventListener).toHaveBeenCalledWith('scroll', wrapper.vm.onScroll)
     })
+
+    it('should not update article id by default', () => {
+      // When
+      window.history.pushState({}, 'Page Title', '/nope')
+
+      wrapper = shallowMount(AppHeader, { localVue })
+
+      // Then
+      expect(wrapper.vm.isArticlePage).toEqual(false)
+      expect(wrapper.vm.previousArticleId).toEqual(null)
+      expect(wrapper.vm.articleId).toEqual(null)
+      expect(wrapper.vm.nextArticleId).toEqual(null)
+    })
+
+    it('should update article id', () => {
+      // Given
+      console.error = jest.fn()
+      window.history.pushState({}, 'Page Title', '/articles/8/')
+
+      // When
+      wrapper = shallowMount(AppHeader, { localVue })
+
+      // Then
+      return Vue.nextTick().then(() => {
+        expect(wrapper.vm.isArticlePage).toEqual(true)
+        expect(wrapper.vm.previousArticleId).toEqual('/articles/7')
+        expect(wrapper.vm.articleId).toEqual('8')
+        expect(wrapper.vm.nextArticleId).toEqual('/articles/9')
+      })
+    })
   })
 
   describe('methods', () => {
-    describe('#viewNextArticle', () => {
-      it('should route to next article', () => {
-        const articleId = '43'
-        process.client = jest.fn().mockReturnValue(true)
-        window.history.pushState({}, 'Page Title', `/articles/${articleId}`)
-        wrapper = shallowMount(AppHeader, { localVue, router })
-
-        wrapper.vm.viewNextArticle()
-
-        expect(router.push).toHaveBeenCalledWith('/articles/44')
-      })
-    })
-
-    describe('#viewPreviousArticle', () => {
-      it('should route to previous article', () => {
-        const articleId = '43'
-        process.client = jest.fn().mockReturnValue(true)
-        window.history.pushState({}, 'Page Title', `/articles/${articleId}`)
-        wrapper = shallowMount(AppHeader, { localVue, router })
-
-        wrapper.vm.viewPreviousArticle()
-
-        expect(router.push).toHaveBeenCalledWith('/articles/42')
-      })
-
-      it('should not route to article id less than 1', () => {
-        const articleId = '1'
-        process.client = jest.fn().mockReturnValue(true)
-        window.history.pushState({}, 'Page Title', `/articles/${articleId}`)
-        wrapper = shallowMount(AppHeader, { localVue, router })
-
-        wrapper.vm.viewPreviousArticle()
-
-        expect(router.push).not.toHaveBeenCalled()
-      })
-    })
-
     describe('switchLanguage', () => {
       it('should reload page', () => {
         // Given
         console.error = jest.fn()
-        wrapper = shallowMount(AppHeader, { localVue, router })
+        wrapper = shallowMount(AppHeader, { localVue })
 
         // When
         wrapper.vm.switchLanguage()
 
         // Then
-        expect(window.location.href).toEqual('http://localhost/articles/1')
+        expect(window.location.href).toEqual('http://localhost/articles/8/')
       })
     })
 
@@ -110,7 +100,7 @@ describe('Component | AppHeader.vue', () => {
       it('should update last scroll position', () => {
         // Given
         window.pageYOffset = 100
-        wrapper = shallowMount(AppHeader, { localVue, router })
+        wrapper = shallowMount(AppHeader, { localVue })
 
         // When
         wrapper.vm.onScroll()
@@ -121,7 +111,7 @@ describe('Component | AppHeader.vue', () => {
       it('should not change anything when offset is not enough', () => {
         // Given
         window.pageYOffset = 50
-        wrapper = shallowMount(AppHeader, { localVue, router })
+        wrapper = shallowMount(AppHeader, { localVue })
 
         // When
         wrapper.vm.onScroll()
@@ -132,7 +122,7 @@ describe('Component | AppHeader.vue', () => {
       it('should not change anything when offset < 0', () => {
         // Given
         window.pageYOffset = -100
-        wrapper = shallowMount(AppHeader, { localVue, router })
+        wrapper = shallowMount(AppHeader, { localVue })
 
         // When
         wrapper.vm.onScroll()
@@ -144,7 +134,7 @@ describe('Component | AppHeader.vue', () => {
         // Given
         window.pageYOffset = undefined
         document.documentElement.scrollTop = 100
-        wrapper = shallowMount(AppHeader, { localVue, router })
+        wrapper = shallowMount(AppHeader, { localVue })
 
         // When
         wrapper.vm.onScroll()
@@ -171,64 +161,6 @@ describe('Component | AppHeader.vue', () => {
         wrapper.vm.displaySubscribeModal()
 
         expect(wrapper.vm.$modal.show).toHaveBeenCalledWith('subscribe-modal')
-      })
-    })
-  })
-
-  describe('events', () => {
-    describe('on click on previous button', () => {
-      it('should go to previous article', () => {
-        // Given
-        process.client = jest.fn().mockReturnValue(true)
-        window.history.pushState({}, 'Page Title', '/articles/46')
-        wrapper = shallowMount(AppHeader, { localVue })
-        wrapper.vm.viewPreviousArticle = jest.fn()
-
-        // When
-        wrapper.find('button.previous').trigger('click')
-
-        // Then
-        expect(wrapper.vm.viewPreviousArticle).toHaveBeenCalled()
-      })
-    })
-
-    describe('on click on next button', () => {
-      it('should go to next article', () => {
-        // Given
-        process.client = jest.fn().mockReturnValue(true)
-        window.history.pushState({}, 'Page Title', '/articles/')
-        wrapper = shallowMount(AppHeader, { localVue })
-        wrapper.vm.viewNextArticle = jest.fn()
-
-        // When
-        wrapper.find('button.next').trigger('click')
-
-        // Then
-        expect(wrapper.vm.viewNextArticle).toHaveBeenCalled()
-      })
-    })
-
-    xdescribe('clicking on button "Laisser un message"', () => {
-      it('should call displayFeedbackModal', () => {
-        wrapper.vm.displayFeedbackModal = jest.fn()
-
-        wrapper
-          .find('button.navbar-action.navbar-action__suggestion')
-          .trigger('click')
-
-        expect(wrapper.vm.displayFeedbackModal).toHaveBeenCalled()
-      })
-    })
-
-    xdescribe('clicking on button "S\'abonner"', () => {
-      it('should call displaySubscribeModal', () => {
-        wrapper.vm.displaySubscribeModal = jest.fn()
-
-        wrapper
-          .find('button.navbar-action.navbar-action__subscribe')
-          .trigger('click')
-
-        expect(wrapper.vm.displaySubscribeModal).toHaveBeenCalled()
       })
     })
   })

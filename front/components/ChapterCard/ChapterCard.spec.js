@@ -15,6 +15,7 @@ describe('Component | ChapterCard.vue', () => {
   }
   let localVue
   let store
+  let propsData
 
   beforeEach(() => {
     console.warn = jest.fn()
@@ -25,7 +26,7 @@ describe('Component | ChapterCard.vue', () => {
     localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(Vuex)
-    const propsData = { chapter }
+    propsData = { chapter }
     store = new Vuex.Store({ state: { locale: 'en' } })
     wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
   })
@@ -41,27 +42,33 @@ describe('Component | ChapterCard.vue', () => {
 
     it('should match snapshot when imgLink is not set', () => {
       chapter.imgLink = ''
-      const propsData = {
-        chapter,
-      }
+      propsData = { chapter }
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
       expect(wrapper).toMatchSnapshot()
     })
 
     it('should not contain header when chapterTitle is empty', () => {
       translationsService.getChapterTitle.mockReturnValue('-')
-      const propsData = {
-        chapter,
-      }
+      propsData = { chapter }
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
       expect(wrapper.find('.chapter__header').element).toBeUndefined()
+    })
+  })
+
+  describe('computed property #chapterAlt', () => {
+    it('should return chapterAlt hen defined', () => {
+      translationsService.getChapterText.mockReturnValue([])
+
+      wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
+
+      expect(wrapper.vm.chapterAlt).toEqual('An image showing ')
     })
   })
 
   describe('computed property #imgLink', () => {
     it('should return imgLink when defined', () => {
       chapter.imgLink = 'dropbox.com/img0.jpg'
-      const propsData = { chapter }
+      propsData = { chapter }
 
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
 
@@ -70,7 +77,7 @@ describe('Component | ChapterCard.vue', () => {
 
     it('should return false when chapter imglink is empty', () => {
       chapter.imgLink = ''
-      const propsData = { chapter }
+      propsData = { chapter }
 
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
 
