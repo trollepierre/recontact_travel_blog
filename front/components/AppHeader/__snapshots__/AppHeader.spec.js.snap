@@ -2,14 +2,45 @@
 
 exports[`Component | AppHeader.vue template should match snapshot 1`] = `
 <header class="header">
-  <div class="container"><a title="Home page" href="/" class="logo"><span class="recontact">Recontact</span> <span class="me">Me</span> <img alt="Logo of the site" src="../../static/mstile-150x150.png" class="icon"></a>
+  <div class="container"><a title="Home page" href="/" class="logo"><img alt="Logo of the site" src="../../static/mstile-150x150.png" class="icon"> <span class="recontact">Recontact</span> <span class="me">Me</span></a>
+    <!---->
     <nav aria-label="navigation">
       <ul class="navigation">
         <!---->
         <!---->
         <!---->
         <li class="link other-language"><button type="button" class="button other-language">
-            Blog en Français
+            🇫🇷
+          </button></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+`;
+
+exports[`Component | AppHeader.vue template should match snapshot on article page 1`] = `
+<header class="header">
+  <div class="container"><a title="Home page" href="/" class="logo"><img alt="Logo of the site" src="../../static/mstile-150x150.png" class="icon"> <span class="recontact">Recontact</span> <span class="me">Me</span></a>
+    <nav aria-label="navigation">
+      <ul class="navigation">
+        <li class="previous article"><button type="button" class="button previous article">
+            &lt;
+          </button></li>
+        <li class="article-text">
+          <p class="id">Article </p>
+        </li>
+        <li class="next article"><button type="button" class="button next article">
+            &gt;
+          </button></li>
+      </ul>
+    </nav>
+    <nav aria-label="navigation">
+      <ul class="navigation">
+        <!---->
+        <!---->
+        <!---->
+        <li class="link other-language"><button type="button" class="button other-language">
+            🇫🇷
           </button></li>
       </ul>
     </nav>

@@ -217,6 +217,11 @@
 
   .article__link {
     margin: auto;
+    text-decoration: none;
+  }
+
+  .article__link:hover {
+    text-decoration: underline;
   }
 
   .article__title {

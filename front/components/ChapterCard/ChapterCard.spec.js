@@ -47,6 +47,15 @@ describe('Component | ChapterCard.vue', () => {
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
       expect(wrapper).toMatchSnapshot()
     })
+
+    it('should not contain header when chapterTitle is empty', () => {
+      translationsService.getChapterTitle.mockReturnValue('-')
+      const propsData = {
+        chapter,
+      }
+      wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
+      expect(wrapper.find('.chapter__header').element).toBeUndefined()
+    })
   })
 
   describe('computed property #imgLink', () => {

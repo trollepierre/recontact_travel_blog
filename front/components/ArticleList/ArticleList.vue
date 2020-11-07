@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <app-header/>
     <main class="page__body">
       <div class="page__container">
         <section class="article-results">
@@ -43,12 +44,14 @@
   import articlesApi from '../../services/api/articles'
   import positionsApi from '../../services/api/positions'
   import { isCecile, sortByDropboxId } from '../../services'
+  import AppHeader from '../AppHeader/AppHeader.vue'
   import translationService from '../../services/services/translations'
 
   export default {
     name: 'ArticleList',
     components: {
       AdminDashboard,
+      AppHeader,
       ArticleCard,
     },
     props: {
@@ -133,7 +136,7 @@
   .page__body {
     display: flex;
     width: 100%;
-    padding: 20px 0;
+    padding: 70px 0 20px;
     justify-content: center;
   }
 
