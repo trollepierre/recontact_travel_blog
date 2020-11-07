@@ -154,7 +154,7 @@
 
   .chapter__title {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 17px;
     color: #07C;
     margin: 0;
