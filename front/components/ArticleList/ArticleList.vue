@@ -156,7 +156,6 @@
 
   .h2 {
     font-size: 18px;
-    color: gray;
   }
 
   .h3 {
