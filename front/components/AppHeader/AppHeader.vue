@@ -15,7 +15,8 @@
         <span class="me">Me</span>
       </a>
       <nav
-        v-if="isArticlePage">
+        v-if="isArticlePage"
+        aria-label="navigation">
         <ul class="navigation">
           <li class="previous article">
             <NuxtLink
@@ -41,7 +42,7 @@
           </li>
         </ul>
       </nav>
-      <nav>
+      <nav aria-label="navigation">
         <ul class="navigation">
           <li
             v-if="showNavBarButton"

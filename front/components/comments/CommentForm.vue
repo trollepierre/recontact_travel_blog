@@ -9,7 +9,6 @@
       <header class="form__header">
         <div class="input-group author">
           <label
-            v-if="!isEmpty(newAuthor)"
             class="form__label author"
             for="author">
             {{ $t("name") }}
@@ -57,7 +56,7 @@
         newComment: '',
         newAuthor: '',
         errorComment: '',
-        anonymous: this.$t('name'),
+        anonymous: this.$t('yourName'),
         textPlaceholder: this.$t('textPlaceholder'),
         dropboxId: parseInt(this.$route.params.id, 10),
       }
@@ -97,6 +96,7 @@
         fr: {
           addComment: 'Ajouter un commentaire',
           name: 'De la part de',
+          yourName: 'Ton nom',
           commentError: 'Erreur lors de la prise en compte de ton commentaire.',
           commentSuccess: 'Ton commentaire a été pris en compte.',
           anonymous: 'Anonyme',
@@ -107,6 +107,7 @@
         en: {
           addComment: 'Add a comment',
           name: 'From',
+          yourName: 'Your name',
           commentError: 'Error when adding the comment.',
           commentSuccess: 'Your comment has been taken into consideration.',
           anonymous: 'Anonymous',

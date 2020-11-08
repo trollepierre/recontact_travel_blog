@@ -35,6 +35,7 @@
             :width="dimensions.width"
             :height="dimensions.height"
             :src="paragraph.iframeSrc"
+            :title="chapterTitle"
             class="youtube-iframe"
             allow="accelerometer; encrypted-media; gyroscope;"
             allowfullscreen/>
