@@ -1,8 +1,8 @@
 <template>
   <div class="comment__form">
-    <p class="form__title">
+    <h2 class="form__title">
       {{ $t("addComment") }}
-    </p>
+    </h2>
     <form
       class="form"
       @submit="submitComment">

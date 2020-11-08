@@ -12,22 +12,30 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
   </header>
   <div class="chapter__content"><img src="webf" alt="An image showing Title of the first paragraph" rel="noreferrer" class="chapter__image"></div>
   <footer class="chapter__footer">
-    <div class="chapter__footer_text">
-      <p>
-        Title of the first paragraph
-      </p>
-    </div>
-    <div class="chapter__footer_text">
-      <p><a href="https://github.com/trollepierre" rel="noreferrer" target="_blank">
-          https://github.com/trollepierre
-        </a></p>
-    </div>
-    <div class="chapter__footer_text">
-      <p>
-        url
-      </p>
-    </div>
-    <div class="chapter__footer_text"><iframe width="512" height="288" src="https://www.youtube.com/embed/-18AYp_7iW0?rel=0&amp;modestbranding=1" allow="accelerometer; encrypted-media; gyroscope;" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></div>
+    <ul class="paragraph-container">
+      <li class="paragraph">
+        <h3 class="chapter__footer_text">
+          Title of the first paragraph
+        </h3>
+      </li>
+    </ul>
+    <ul class="paragraph-container">
+      <li class="paragraph">
+        <p class="chapter__footer_text"><a href="https://github.com/trollepierre" rel="noreferrer" target="_blank">
+            https://github.com/trollepierre
+          </a></p>
+      </li>
+    </ul>
+    <ul class="paragraph-container">
+      <li class="paragraph">
+        <h3 class="chapter__footer_text">
+          url
+        </h3>
+      </li>
+    </ul>
+    <ul class="paragraph-container">
+      <li class="paragraph"><iframe width="512" height="288" src="https://www.youtube.com/embed/-18AYp_7iW0?rel=0&amp;modestbranding=1" title="My title" allow="accelerometer; encrypted-media; gyroscope;" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></li>
+    </ul>
   </footer>
 </article>
 `;
@@ -48,22 +56,30 @@ exports[`Component | ChapterCard.vue template should match snapshot when imgLink
     </div>
   </div>
   <footer class="chapter__footer">
-    <div class="chapter__footer_text">
-      <p>
-        Title of the first paragraph
-      </p>
-    </div>
-    <div class="chapter__footer_text">
-      <p><a href="https://github.com/trollepierre" rel="noreferrer" target="_blank">
-          https://github.com/trollepierre
-        </a></p>
-    </div>
-    <div class="chapter__footer_text">
-      <p>
-        url
-      </p>
-    </div>
-    <div class="chapter__footer_text"><iframe width="512" height="288" src="https://www.youtube.com/embed/-18AYp_7iW0?rel=0&amp;modestbranding=1" allow="accelerometer; encrypted-media; gyroscope;" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></div>
+    <ul class="paragraph-container">
+      <li class="paragraph">
+        <h3 class="chapter__footer_text">
+          Title of the first paragraph
+        </h3>
+      </li>
+    </ul>
+    <ul class="paragraph-container">
+      <li class="paragraph">
+        <p class="chapter__footer_text"><a href="https://github.com/trollepierre" rel="noreferrer" target="_blank">
+            https://github.com/trollepierre
+          </a></p>
+      </li>
+    </ul>
+    <ul class="paragraph-container">
+      <li class="paragraph">
+        <h3 class="chapter__footer_text">
+          url
+        </h3>
+      </li>
+    </ul>
+    <ul class="paragraph-container">
+      <li class="paragraph"><iframe width="512" height="288" src="https://www.youtube.com/embed/-18AYp_7iW0?rel=0&amp;modestbranding=1" title="My title" allow="accelerometer; encrypted-media; gyroscope;" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></li>
+    </ul>
   </footer>
 </article>
 `;
