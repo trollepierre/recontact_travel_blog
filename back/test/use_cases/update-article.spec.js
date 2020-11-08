@@ -104,7 +104,7 @@ describe('Unit | UpdateArticle | sync', () => {
       const articlesToSave = [{
         dropboxId,
         galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=0',
-        imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
+        imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
       }]
 
       // when
@@ -167,15 +167,15 @@ describe('Unit | UpdateArticle | sync', () => {
       return promise.then(() => {
         expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
+          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
         },
         {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
+          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
         },
         {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
+          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
         },
         ])
       })
@@ -197,7 +197,7 @@ describe('Unit | UpdateArticle | sync', () => {
         {
           position: 1,
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
+          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
           frText: 'Gathering trois valeureux compagnons :'
           + '\r\n# - Pierre, l\'expérimenté'
           + '\r\n# - Franzi, la photographe'
@@ -216,7 +216,7 @@ describe('Unit | UpdateArticle | sync', () => {
         }, {
           position: 2,
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
+          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
           frText: 'La région de Kangding'
           + '\r\n#'
           + '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".'

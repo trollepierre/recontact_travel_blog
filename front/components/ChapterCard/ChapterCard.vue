@@ -25,11 +25,11 @@
       </div>
     </div>
     <footer class="chapter__footer">
-      <div
+      <ul
         v-for="paragraph in chapterText"
-        :key="paragraph.text"
-        class="chapter__footer_text">
-        <template v-if="paragraph">
+        class="paragraph-container"
+        :key="paragraph.text">
+        <li v-if="paragraph" class="paragraph">
           <iframe
             v-if="paragraph.iframeSrc"
             :width="dimensions.width"
@@ -39,7 +39,9 @@
             class="youtube-iframe"
             allow="accelerometer; encrypted-media; gyroscope;"
             allowfullscreen/>
-          <p v-else-if="paragraph.link">
+          <p
+            v-else-if="paragraph.link"
+            class="chapter__footer_text">
             <a
               :href="paragraph.link"
               rel="noreferrer"
@@ -47,11 +49,13 @@
               {{ paragraph.link }}
             </a>
           </p>
-          <p v-else>
+          <h3
+            v-else
+            class="chapter__footer_text">
             {{ paragraph.text }}
-          </p>
-        </template>
-      </div>
+          </h3>
+        </li>
+      </ul>
     </footer>
   </article>
 </template>
@@ -219,6 +223,14 @@
   .missing-image {
     display: flex;
     justify-content: center;
+  }
+
+  .paragraph {
+    list-style-type: none;
+  }
+
+  .paragraph-container {
+    padding: 0;
   }
 
   @media only screen and (min-width: 640px) {

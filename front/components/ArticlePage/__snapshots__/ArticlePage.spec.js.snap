@@ -24,9 +24,9 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
       <comments-stub></comments-stub>
     </section>
     <section class="article-page__photo-gallery photo-gallery">
-      <p class="photo-gallery__title">
+      <h2 class="photo-gallery__title">
         Here is the photo gallery of this article
-      </p>
+      </h2>
       <ul class="photo-gallery__list">
         <li class="photo__item">
           <photo-card-stub photo="[object Object]"></photo-card-stub>
@@ -65,9 +65,9 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
       <comments-stub></comments-stub>
     </section>
     <section class="article-page__photo-gallery photo-gallery">
-      <p class="photo-gallery__title">
+      <h2 class="photo-gallery__title">
         Here is the photo gallery of this article
-      </p>
+      </h2>
       <ul class="photo-gallery__list">
         <li class="photo__item">
           <photo-card-stub photo="[object Object]"></photo-card-stub>

@@ -21,9 +21,9 @@
       <section
         v-if="!isEmpty(photos)"
         class="article-page__photo-gallery photo-gallery">
-        <p class="photo-gallery__title">
+        <h2 class="photo-gallery__title">
           {{ $t("hereTheGallery") }}
-        </p>
+        </h2>
         <ul class="photo-gallery__list">
           <li
             v-for="photo in photos"
