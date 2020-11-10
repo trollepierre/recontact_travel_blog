@@ -231,7 +231,7 @@ describe('Component | ArticleCard.vue', () => {
 
       describe('clicking on title', () => {
         it('should redirect to /article/id', () => {
-          wrapper.find('.article__header a').trigger('click')
+          wrapper.find('.article__link').trigger('click')
 
           expect(router.push).toHaveBeenCalledWith('/articles/58')
         })
@@ -269,14 +269,6 @@ describe('Component | ArticleCard.vue', () => {
 
         notificationsService.error = jest.fn()
       })
-
-      // xit('should disable button', () => {
-      //   wrapper.find('button.article__update-button').trigger('click')
-      //
-      //   return Vue.nextTick().then(() => {
-      //     expect(wrapper.find('.article__update-button').disabled).toEqual(true)
-      //   })
-      // })
 
       it('should call articlesApi', () => {
         wrapper.find('button.article__update-button').trigger('click')
