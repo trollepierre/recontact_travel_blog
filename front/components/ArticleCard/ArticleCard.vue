@@ -1,70 +1,61 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
-  <div class="article-card">
-    <article class="article">
-      <header class="article__header">
-        <a
-          :href="articleUrl"
-          class="article__link"
-          @click.prevent.once="viewArticle">
-          <h2 class="article__title">
-            {{ articleTitle }}
-          </h2>
-        </a>
-      </header>
-      <div
-        class="article__content"
-        @click.prevent.once="viewArticle">
-        <template v-if="lazy">
-          <div ref="container">
-            <img
-              v-lazy="article.imgLink"
-              :alt="articleTitle"
-              rel="noreferrer"
-              class="article__image">
-            <div v-lazy:background-image="article.imgLink"/>
-          </div>
-        </template>
+  <article class="article">
+    <a
+      :href="articleUrl"
+      class="article__link"
+      @click.prevent.once="viewArticle">
+      <h2 class="article__title">
+        {{ articleTitle }}
+      </h2>
+    </a>
+    <div
+      class="article__content"
+      @click.prevent.once="viewArticle">
+      <template v-if="lazy">
         <img
-          v-else
-          :src="article.imgLink"
+          v-lazy="article.imgLink"
           :alt="articleTitle"
-          class="article__image important"
-          width="200">
-      </div>
-      <footer class="article__footer">
-        <template v-if="adminMode">
-          <button
-            :disabled="isUpdateClicked"
-            class="article__update-button article__footer__button"
-            @click.prevent.once="updateArticle">
-            {{ $t("repairArticle") }}
-          </button>
-          <button
-            :disabled="isDeleteClicked"
-            class="article__delete-button article__footer_hidden article__footer__button"
-            @click.prevent.once="deleteArticle">
-            {{ $t("deleteArticle") }}
-          </button>
-        </template>
-        <template v-else>
-          <button
-            class="article__footer__button"
-            @click.prevent.once="viewArticle">
-            {{ $t("goToArticle") }}
-          </button>
-          <a
-            :href="article.galleryLink"
-            target="_blank"
-            rel="noreferrer"
-            class="article__dropbox">
-            <button class="article__dropbox-button article__footer__button">
-              {{ $t("viewGallery") }}
-            </button>
-          </a>
-        </template>
-      </footer>
-    </article>
-  </div>
+          rel="noreferrer"
+          class="article__image">
+      </template>
+      <img
+        v-else
+        :src="article.imgLink"
+        :alt="articleTitle"
+        class="article__image important"
+        width="200">
+    </div>
+    <footer class="article__footer">
+      <template v-if="adminMode">
+        <button
+          :disabled="isUpdateClicked"
+          class="article__update-button article__footer__button"
+          @click.prevent.once="updateArticle">
+          {{ $t("repairArticle") }}
+        </button>
+        <button
+          :disabled="isDeleteClicked"
+          class="article__delete-button article__footer_hidden article__footer__button"
+          @click.prevent.once="deleteArticle">
+          {{ $t("deleteArticle") }}
+        </button>
+      </template>
+      <template v-else>
+        <button
+          class="article__footer__button"
+          @click.prevent.once="viewArticle">
+          {{ $t("goToArticle") }}
+        </button>
+        <a
+          :href="article.galleryLink"
+          target="_blank"
+          rel="noreferrer"
+          class="article__dropbox article__footer__button">
+            {{ $t("viewGallery") }}
+        </a>
+      </template>
+    </footer>
+  </article>
 </template>
 
 <script>
@@ -207,17 +198,15 @@
     color: #535a60;
   }
 
-  .article__header {
-    border-bottom: 1px solid #E6E6E6;
-    height: 34px;
-    padding: 12px;
-    display: flex;
-    justify-content: space-between;
-  }
-
   .article__link {
+    width: 100%;
+    padding: 12px 0;
     margin: auto;
     text-decoration: none;
+    border-bottom: 1px solid #E6E6E6;
+    height: 34px;
+    display: flex;
+    justify-content: space-between;
   }
 
   .article__link:hover {
@@ -226,8 +215,8 @@
 
   .article__title {
     font-size: 20px;
-    font-weight: 700;
-    line-height: 17px;
+    font-weight: 500;
+    line-height: 20px;
     color: #07C;
     margin: auto;
     overflow: hidden;
@@ -283,6 +272,12 @@
     border-color: #616161;
     color: #FAFAFA;
     cursor: auto;
+  }
+
+  .article__dropbox {
+    display: block;
+    width: inherit;
+    text-decoration: unset;
   }
 
   @media only screen and (max-width: 640px) {

@@ -1,41 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | ArticleCard.vue when adminMode is not defined template should match snapshot 1`] = `
-<div class="article-card">
-  <article class="article">
-    <header class="article__header"><a href="/articles/58" class="article__link">
-        <h2 class="article__title">
-          Pierre somewhere
-        </h2>
-      </a></header>
-    <div class="article__content">
-      <div><img alt="Pierre somewhere" rel="noreferrer" class="article__image" data-src="webf" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" lazy="loading">
-        <div data-src="webf" style="background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);" lazy="loading"></div>
-      </div>
-    </div>
-    <footer class="article__footer"><button class="article__footer__button">
-        Read the article
-      </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="article__dropbox"><button class="article__dropbox-button article__footer__button">
-          Discover the pictures
-        </button></a></footer>
-  </article>
-</div>
+<article class="article"><a href="/articles/58" class="article__link">
+    <h2 class="article__title">
+      Pierre somewhere
+    </h2>
+  </a>
+  <div class="article__content"><img alt="Pierre somewhere" rel="noreferrer" class="article__image" data-src="webf" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" lazy="loading"></div>
+  <footer class="article__footer"><button class="article__footer__button">
+      Read the article
+    </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="article__dropbox article__footer__button">
+      Discover the pictures
+    </a></footer>
+</article>
 `;
 
 exports[`Component | ArticleCard.vue when adminMode is not defined template should match snapshot when lazy is false 1`] = `
-<div class="article-card">
-  <article class="article">
-    <header class="article__header"><a href="/articles/58" class="article__link">
-        <h2 class="article__title">
-          Pierre somewhere
-        </h2>
-      </a></header>
-    <div class="article__content"><img src="webf" alt="Pierre somewhere" width="200" class="article__image important"></div>
-    <footer class="article__footer"><button class="article__footer__button">
-        Read the article
-      </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="article__dropbox"><button class="article__dropbox-button article__footer__button">
-          Discover the pictures
-        </button></a></footer>
-  </article>
-</div>
+<article class="article"><a href="/articles/58" class="article__link">
+    <h2 class="article__title">
+      Pierre somewhere
+    </h2>
+  </a>
+  <div class="article__content"><img src="webf" alt="Pierre somewhere" width="200" class="article__image important"></div>
+  <footer class="article__footer"><button class="article__footer__button">
+      Read the article
+    </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="article__dropbox article__footer__button">
+      Discover the pictures
+    </a></footer>
+</article>
 `;
