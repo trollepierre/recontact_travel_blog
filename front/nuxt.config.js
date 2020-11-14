@@ -82,5 +82,11 @@ module.exports = {
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
   ],
+  build: {
+    postcss: [
+      // eslint-disable-next-line global-require
+      require('autoprefixer'),
+    ],
+  },
 }
 
