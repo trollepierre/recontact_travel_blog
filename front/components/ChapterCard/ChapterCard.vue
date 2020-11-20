@@ -10,26 +10,23 @@
         {{ chapter.position }}
       </p>
     </header>
-    <div class="chapter__content">
+    <div
+      v-if="imgLink"
+      class="chapter__content">
       <img
-        v-if="imgLink"
         :src="imgLink"
         :alt="chapterAlt"
         rel="noreferrer"
         class="chapter__image">
-      <div
-        v-else
-        class="missing-image"
-        :style="styleMissing">
-        {{ $t("missingImage") }}
-      </div>
     </div>
     <footer class="chapter__footer">
       <ul
         v-for="paragraph in chapterText"
-        class="paragraph-container"
-        :key="paragraph.text">
-        <li v-if="paragraph" class="paragraph">
+        :key="paragraph.text"
+        class="paragraph-container">
+        <li
+          v-if="paragraph"
+          class="paragraph">
           <iframe
             v-if="paragraph.iframeSrc"
             :width="dimensions.width"
