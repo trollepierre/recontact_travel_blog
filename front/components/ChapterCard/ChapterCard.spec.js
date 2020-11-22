@@ -40,13 +40,6 @@ describe('Component | ChapterCard.vue', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it('should match snapshot when imgLink is not set', () => {
-      chapter.imgLink = ''
-      propsData = { chapter }
-      wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
-      expect(wrapper).toMatchSnapshot()
-    })
-
     it('should not contain header when chapterTitle is empty', () => {
       translationsService.getChapterTitle.mockReturnValue('-')
       propsData = { chapter }
@@ -56,7 +49,7 @@ describe('Component | ChapterCard.vue', () => {
   })
 
   describe('computed property #chapterAlt', () => {
-    it('should return chapterAlt hen defined', () => {
+    it('should return chapterAlt when defined', () => {
       translationsService.getChapterText.mockReturnValue([])
 
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
