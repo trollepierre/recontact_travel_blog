@@ -5,8 +5,12 @@ function _getChaptersOfArticle(dropboxId) {
   return chapterRepository.getChaptersOfArticle(dropboxId)
 }
 
+function addNonBreakingSpaces(text) {
+  return text.replace(/ (!|:|\?|…|;|»)/g, '\xa0$1').replace('« ', '«\xa0')
+}
+
 function _addParagraphsInOneText(text) {
-  return text.split('#').map(row => row.trim())
+  return text.split('#').map(row => row.trim()).map(row => addNonBreakingSpaces(row))
 }
 
 function _addParagraphsInAllChapters(chapters) {

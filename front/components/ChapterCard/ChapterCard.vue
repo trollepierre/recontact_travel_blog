@@ -66,12 +66,7 @@
 
   export default {
     name: 'ChapterCard',
-    props: {
-      chapter: {
-        type: Object,
-        default: () => {},
-      },
-    },
+    props: { chapter: { type: Object, default: () => {} } },
     data: () => ({ dimensions: iframeDimensions() }),
     computed: {
       imgLink() {
@@ -109,11 +104,9 @@
     i18n: {
       messages: {
         fr: {
-          missingImage: 'Image manquante',
           altComplement: 'Une image montrant ',
         },
         en: {
-          missingImage: 'Missing image',
           altComplement: 'An image showing ',
         },
       },
