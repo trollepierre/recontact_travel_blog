@@ -1,4 +1,6 @@
 import articles from './articles'
+import articlesMeta from './articles-meta'
+import articlesError from './articles-error'
 import admin from './admin'
 import comments from './comments'
 import sync from './sync'
@@ -10,6 +12,8 @@ import optimisation from './optimisation'
 
 export {
   articles,
+  articlesMeta,
+  articlesError,
   admin,
   comments,
   sync,

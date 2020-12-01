@@ -7,6 +7,8 @@ import cors from 'cors'
 
 import {
   articles,
+  articlesMeta,
+  articlesError,
   admin,
   comments,
   sync,
@@ -43,6 +45,8 @@ app.use('/status', status)
 app.use('/api/sync', sync)
 app.use('/api/status', status)
 app.use('/api/articles', articles)
+app.use('/api/articles-meta', articlesMeta)
+app.use('/api/articles-error', articlesError)
 app.use('/api/admin/comments', comments)
 app.use('/api/admin', admin)
 app.use('/api/subscriptions', subscriptions)
