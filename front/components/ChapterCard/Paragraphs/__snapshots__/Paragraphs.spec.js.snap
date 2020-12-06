@@ -24,7 +24,7 @@ exports[`Component | Paragraphs.vue template should match snapshot with text 1`]
 </footer>
 `;
 
-exports[`Component | Paragraphs.vue template should match snapshot with video 1`] = `
+exports[`Component | Paragraphs.vue template should match snapshot with video on click on loading button 1`] = `
 <footer class="chapter__footer">
   <ul class="paragraph-container">
     <li class="paragraph"><iframe width="512" height="288" src="https://www.youtu.be/embed/123?rel=0&amp;modestbranding=1" title="title" allow="accelerometer; encrypted-media; gyroscope;" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></li>

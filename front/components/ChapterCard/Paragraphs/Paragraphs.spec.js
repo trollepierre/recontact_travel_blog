@@ -1,11 +1,16 @@
+import VueI18n from 'vue-i18n'
 import Paragraphs from './Paragraphs.vue'
 
 describe('Component | Paragraphs.vue', () => {
   let wrapper
   let propsData
+  let localVue
 
   beforeEach(() => {
+    console.warn = jest.fn()
     propsData = { title: 'title', chapterText: ['voilà', ''] }
+    localVue = createLocalVue()
+    localVue.use(VueI18n)
   })
 
   describe('template', () => {
@@ -20,9 +25,10 @@ describe('Component | Paragraphs.vue', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it('should match snapshot with video', () => {
+    it('should match snapshot with video on click on loading button', async () => {
     propsData = { title: 'title', chapterText: ['https://www.youtu.be/embed/123'] }
-      wrapper = shallowMount(Paragraphs, { propsData })
+      wrapper = shallowMount(Paragraphs, { propsData, localVue })
+      await wrapper.find('button').trigger('click')
       expect(wrapper).toMatchSnapshot()
     })
   })

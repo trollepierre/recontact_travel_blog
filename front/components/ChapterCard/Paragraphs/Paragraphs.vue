@@ -7,8 +7,13 @@
       <li
         v-if="paragraph"
         class="paragraph">
+        <button
+          v-if="paragraph.iframeSrc && isIframeHidden"
+          @click="displayIframe">
+          {{ $t("displayIframe") }}
+        </button>
         <iframe
-          v-if="paragraph.iframeSrc"
+          v-else-if="paragraph.iframeSrc && !isIframeHidden"
           :width="dimensions.width"
           :height="dimensions.height"
           :src="paragraph.iframeSrc"
@@ -50,7 +55,7 @@
       chapterText: { type: Array, default: () => [] },
       title: { type: String, default: () => '' },
     },
-    data: () => ({ dimensions: iframeDimensions() }),
+    data: () => ({ dimensions: iframeDimensions(), isIframeHidden: true }),
     computed: {
       paragraphs() {
         return this.chapterText
@@ -65,6 +70,19 @@
           link: urlTester(paragraph) ? generateCleanUrlLink(paragraph) : undefined,
           text: paragraph,
         }
+      },
+      displayIframe() {
+        this.isIframeHidden = false
+      },
+    },
+    i18n: {
+      messages: {
+        fr: {
+          displayIframe: 'Voir la vidéo',
+        },
+        en: {
+          displayIframe: 'See the video',
+        },
       },
     },
   }

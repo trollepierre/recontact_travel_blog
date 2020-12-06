@@ -20,16 +20,16 @@
         class="chapter__image">
     </div>
     <paragraphs
-      :chapterText="chapterText"
+      :chapter-text="chapterText"
       :title="chapterTitle"/>
   </article>
 </template>
 
 <script>
-import translationsService from '../../services/services/translations'
-import Paragraphs from './Paragraphs/Paragraphs'
+  import translationsService from '../../services/services/translations'
+  import Paragraphs from './Paragraphs/Paragraphs'
 
-export default {
+  export default {
     name: 'ChapterCard',
     components: { Paragraphs },
     props: { chapter: { type: Object, default: () => {} } },
