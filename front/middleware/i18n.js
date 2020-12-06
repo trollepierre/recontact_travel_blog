@@ -1,13 +1,15 @@
 /* eslint-disable no-param-reassign */
 
-export default function ({
+export default ({
   isHMR, app, store, route, params, error, redirect,
-}) {
+}) => {
   console.log('inside middleware i18n')
 
   const defaultLocale = app.i18n.fallbackLocale
   // If middleware is called from hot module replacement, ignore it
-  if (isHMR) { return }
+  if (isHMR) {
+    return
+  }
   // Get locale from params
   const locale = params.lang || defaultLocale
   if (!store.state.locales.includes(locale)) {

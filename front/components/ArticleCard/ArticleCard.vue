@@ -51,7 +51,7 @@
           target="_blank"
           rel="noreferrer"
           class="article__dropbox article__footer__button">
-            {{ $t("viewGallery") }}
+          {{ $t("viewGallery") }}
         </a>
       </template>
     </footer>
