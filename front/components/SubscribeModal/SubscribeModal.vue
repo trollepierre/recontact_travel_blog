@@ -62,7 +62,8 @@
 <script>
   import notificationsService from '../../services/services/notifications'
   import subscriptionsApi from '../../services/api/subscriptions'
-  import { screenWidth, PHONE_PORTRAIT_TO_LANDSCAPE } from '../../services/utils/screen/screen-utils'
+  import { screenWidth } from '../../services/utils/screen/screen-utils'
+  import { PHONE_PORTRAIT_TO_LANDSCAPE } from '../../services/utils/responsive/responsive-utils'
 
   export default {
     name: 'SubscribeModal',

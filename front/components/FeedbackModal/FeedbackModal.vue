@@ -70,7 +70,8 @@
 <script>
   import feedbacksApi from '../../services/api/feedbacks'
   import notificationsService from '../../services/services/notifications'
-  import { PHONE_PORTRAIT_TO_LANDSCAPE, screenHeight } from '../../services/utils/screen/screen-utils'
+  import { screenHeight } from '../../services/utils/screen/screen-utils'
+  import { PHONE_PORTRAIT_TO_LANDSCAPE } from '../../services/utils/responsive/responsive-utils'
 
   export default {
     name: 'FeedbackModal',
