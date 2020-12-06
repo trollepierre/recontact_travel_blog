@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | Paragraphs.vue template should match snapshot with link 1`] = `
+<footer class="chapter__footer">
+  <ul class="paragraph-container">
+    <li class="paragraph">
+      <p class="chapter__footer_text"><a href="https://www.rec.me" rel="noreferrer" target="_blank">
+          https://www.rec.me
+        </a></p>
+    </li>
+  </ul>
+</footer>
+`;
+
+exports[`Component | Paragraphs.vue template should match snapshot with text 1`] = `
+<footer class="chapter__footer">
+  <ul class="paragraph-container">
+    <li class="paragraph">
+      <h3 class="chapter__footer_text">
+        voilà
+      </h3>
+    </li>
+  </ul>
+</footer>
+`;
+
+exports[`Component | Paragraphs.vue template should match snapshot with video 1`] = `
+<footer class="chapter__footer">
+  <ul class="paragraph-container">
+    <li class="paragraph"><iframe width="512" height="288" src="https://www.youtu.be/embed/123?rel=0&amp;modestbranding=1" title="title" allow="accelerometer; encrypted-media; gyroscope;" allowfullscreen="allowfullscreen" class="youtube-iframe"></iframe></li>
+  </ul>
+</footer>
+`;
