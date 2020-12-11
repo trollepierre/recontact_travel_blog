@@ -1,7 +1,6 @@
 import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 import VueModal from 'vue-js-modal'
-import VueAnalytics from 'vue-analytics'
 import FeedbackModal from './FeedbackModal.vue'
 
 describe.skip('Component | FeedbackModal.vue', () => {
@@ -16,7 +15,6 @@ describe.skip('Component | FeedbackModal.vue', () => {
     localVue.use(VueI18n)
     localVue.use(VueRouter)
     localVue.use(VueModal)
-    localVue.use(VueAnalytics, { id: '12' })
     wrapper = shallowMount(FeedbackModal, {
       localVue,
       data() {
