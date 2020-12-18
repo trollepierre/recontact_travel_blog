@@ -16,7 +16,6 @@
       <img
         :src="imgLink"
         :alt="chapterAlt"
-        rel="noreferrer"
         class="chapter__image">
     </div>
     <footer class="chapter__footer">
@@ -41,7 +40,7 @@
             class="chapter__footer_text">
             <a
               :href="paragraph.link"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               target="_blank">
               {{ paragraph.link }}
             </a>
