@@ -17,6 +17,8 @@
             id="author"
             v-model="newAuthor"
             :placeholder="anonymous"
+            autocomplete="off"
+            spellcheck="false"
             class="forum__comment-box author">
         </div>
       </header>
