@@ -84,7 +84,7 @@ module.exports = {
   ],
   build: {
     postcss: [
-      // eslint-disable-next-line global-require
+      // eslint-disable-next-line global-require, import/no-extraneous-dependencies
       require('autoprefixer'),
     ],
   },

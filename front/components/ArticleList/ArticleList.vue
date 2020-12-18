@@ -46,6 +46,7 @@
   import { isCecile, sortByDropboxId } from '../../services'
   import AppHeader from '../AppHeader/AppHeader.vue'
   import translationService from '../../services/services/translations'
+  import { IS_DESKTOP } from '../../services/utils/responsive/responsive-utils'
 
   export default {
     name: 'ArticleList',
@@ -105,7 +106,7 @@
           .then(this.updateLastPositionData)
       },
       isLazyArticle(id) {
-        return id < this.articles.length - 7
+        return IS_DESKTOP() ? id < this.articles.length - 7 : id < this.articles.length - 1
       },
     },
 
@@ -115,7 +116,7 @@
         fr: {
           fixWebsite: 'Réparer le site',
           theArticlesOfTheTrip: 'Blog de voyage de Pierre Trollé et Benoît Lefebvre après un tour du monde et d’autres aventures',
-          lastPosition: 'Dernière position  :',
+          lastPosition: 'Dernière position :',
           title: 'Pierre en voyage',
           lastKnownPosition: 'Dernière position connue :',
         },
