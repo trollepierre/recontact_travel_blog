@@ -10,7 +10,7 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
       82
     </p>
   </header>
-  <div class="chapter__content"><img src="webf" alt="An image showing Title of the first paragraph" rel="noreferrer" class="chapter__image"></div>
+  <div class="chapter__content"><img src="webf" alt="An image showing Title of the first paragraph" class="chapter__image"></div>
   <footer class="chapter__footer">
     <ul class="paragraph-container">
       <li class="paragraph">
@@ -21,7 +21,7 @@ exports[`Component | ChapterCard.vue template should match snapshot 1`] = `
     </ul>
     <ul class="paragraph-container">
       <li class="paragraph">
-        <p class="chapter__footer_text"><a href="https://github.com/trollepierre" rel="noreferrer" target="_blank">
+        <p class="chapter__footer_text"><a href="https://github.com/trollepierre" rel="noreferrer noopener" target="_blank">
             https://github.com/trollepierre
           </a></p>
       </li>
