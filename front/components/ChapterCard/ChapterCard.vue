@@ -19,86 +19,35 @@
         rel="noreferrer"
         class="chapter__image">
     </div>
-    <footer class="chapter__footer">
-      <ul
-        v-for="paragraph in chapterText"
-        :key="paragraph.text"
-        class="paragraph-container">
-        <li
-          v-if="paragraph"
-          class="paragraph">
-          <iframe
-            v-if="paragraph.iframeSrc"
-            :width="dimensions.width"
-            :height="dimensions.height"
-            :src="paragraph.iframeSrc"
-            :title="chapterTitle"
-            class="youtube-iframe"
-            allow="accelerometer; encrypted-media; gyroscope;"
-            allowfullscreen/>
-          <p
-            v-else-if="paragraph.link"
-            class="chapter__footer_text">
-            <a
-              :href="paragraph.link"
-              rel="noreferrer"
-              target="_blank">
-              {{ paragraph.link }}
-            </a>
-          </p>
-          <h3
-            v-else
-            class="chapter__footer_text">
-            {{ paragraph.text }}
-          </h3>
-        </li>
-      </ul>
-    </footer>
+    <paragraphs
+      :chapter-text="chapterText"
+      :title="chapterTitle"/>
   </article>
 </template>
 
 <script>
   import translationsService from '../../services/services/translations'
-  import {
-    generateCleanUrlLink, generateIframeLink, urlTester, youtubeEmbedUrlTester,
-  } from './paragraph-link-utils'
-  import { iframeDimensions } from '../../services'
+  import Paragraphs from './Paragraphs/Paragraphs'
 
   export default {
     name: 'ChapterCard',
+    components: { Paragraphs },
     props: { chapter: { type: Object, default: () => {} } },
-    data: () => ({ dimensions: iframeDimensions() }),
     computed: {
       imgLink() {
         const { imgLink } = this.chapter
         return !imgLink ? false : imgLink
-      },
-      styleMissing() {
-        return `height: ${this.dimensions.height}px;"`
       },
       chapterTitle() {
         const language = this.$store.state.locale
         return translationsService.getChapterTitle(this.chapter, language)
       },
       chapterAlt() {
-        return this.$t('altComplement') + (this.chapterText[0] ? this.chapterText[0].text : '')
+        return this.$t('altComplement') + (this.chapterText[0] ? this.chapterText[0] : '')
       },
       chapterText() {
         const language = this.$store.state.locale
-        const chapterText = translationsService.getChapterText(this.chapter, language)
-
-        return chapterText
-          .filter(paragraph => !!paragraph)
-          .map(this.enhanceParagraph)
-      },
-    },
-    methods: {
-      enhanceParagraph(paragraph) {
-        return {
-          iframeSrc: youtubeEmbedUrlTester(paragraph) ? generateIframeLink(paragraph) : undefined,
-          link: urlTester(paragraph) ? generateCleanUrlLink(paragraph) : undefined,
-          text: paragraph,
-        }
+        return translationsService.getChapterText(this.chapter, language)
       },
     },
     i18n: {
@@ -166,66 +115,5 @@
     display: block;
     color: #000;
     text-align: center;
-  }
-
-  .chapter__footer {
-    text-align: center;
-    padding: 0 15px;
-    border-top: 1px solid #E6E6E6;
-  }
-
-  .chapter__footer button {
-    text-transform: uppercase;
-    color: #D14800;
-    background: #FFFFFF;
-    border: 1px solid #D14800;
-    cursor: pointer;
-    padding: 15px 30px;
-    border-radius: 4px;
-    width: 100%;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
-
-  .chapter__footer button:hover {
-    background: #D14800;
-    color: #FFFFFF;
-  }
-
-  .chapter__footer button:disabled,
-  .chapter__footer button:active {
-    background: #BDBDBD;
-    border-color: #616161;
-    color: #FAFAFA;
-    cursor: auto;
-  }
-
-  .youtube-iframe {
-    margin: 30px 0;
-    border: none;
-  }
-
-  .chapter__footer_text {
-    font-size: 18px;
-    word-spacing: 1px;
-  }
-
-  .missing-image {
-    display: flex;
-    justify-content: center;
-  }
-
-  .paragraph {
-    list-style-type: none;
-  }
-
-  .paragraph-container {
-    padding: 0;
-  }
-
-  @media only screen and (min-width: 640px) {
-    .chapter__footer_text {
-      font-weight: lighter;
-    }
   }
 </style>
