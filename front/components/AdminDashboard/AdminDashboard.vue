@@ -78,7 +78,6 @@
       },
 
       synchronise() {
-        this.trackEvent()
         this.disableButton()
         notificationsService.warn(this.$t('syncLaunched'))
         syncApi.launch()
