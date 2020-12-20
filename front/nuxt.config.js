@@ -57,6 +57,7 @@ const articleRoutes = [...Array(92).keys()]
   .map((val, index) => `/articles/${index + 1}`)
 
 module.exports = {
+  target: 'static',
   css: [
     '~/assets/fonts/font.css',
     '~/assets/css/styles.css',
@@ -83,10 +84,21 @@ module.exports = {
     '@nuxtjs/pwa',
   ],
   build: {
-    postcss: [
-      // eslint-disable-next-line global-require, import/no-extraneous-dependencies
-      require('autoprefixer'),
-    ],
+    postcss: {
+      plugins: {
+        // I disabled all plugins by default, not necessary for now
+        // Disable a plugin by passing false as value
+        // 'postcss-url': false,
+        // 'postcss-nested': {},
+        // 'postcss-responsive-type': {},
+        // 'postcss-hexrgba': {}
+      },
+      preset: {
+        autoprefixer: {
+          grid: true,
+        },
+      },
+    },
   },
 }
 
