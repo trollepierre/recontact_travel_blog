@@ -9,7 +9,7 @@
     "clean:nuxt:files": "rm -rf .nuxt",
     "clean:dependencies": "rm -rf node_modules",
     "clean:dist": "rm -rf dist",
-    "dev": "nuxt",
+    "dev": "PORT=3333 nuxt",
     "start": "yarn dev",
     "build": "nuxt build",
     "start-nuxt": "nuxt start",
