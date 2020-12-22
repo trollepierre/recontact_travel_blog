@@ -32,6 +32,10 @@ yarn start:front
 
 You can run the API server independently of the client's development one.
 
+## Push and Skip CI
+
+Skipping pipeline is possible by passing either [ci skip] or [skip ci] tag in the first line of the body of the commit or the commit’s title as documented in [CircleCI docs](https://circleci.com/docs/2.0/skip-build/).
+
 ## Release to production
 
 The release to production process is as simple as running the command (from any branch):
