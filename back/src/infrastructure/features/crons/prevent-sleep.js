@@ -1,14 +1,17 @@
 import http from 'http'
 import env from '../../env/env'
 
-const EVERY_THENTY_MINUTES = 30 * 60 * 1000
+const wakeupPeriod = env('WAKE_UP_PERIOD') ? env('WAKE_UP_PERIOD') : 30 * 60 * 1000
 
 function preventSleep() {
-  setInterval(() => {
-    const url = `http://${env('HEROKU_APPNAME')}.herokuapp.com`
-    console.info(`Wake up Heroku on...${url}`)
-    http.get(url)
-  }, EVERY_THENTY_MINUTES)
+  const shouldPreventSleep = env('WAKE_UP') === 'true'
+  if (shouldPreventSleep) {
+    setInterval(() => {
+      const url = `http://${env('HEROKU_APPNAME')}.herokuapp.com`
+      console.info(`Wake up Heroku on...${url}`)
+      http.get(url)
+    }, wakeupPeriod)
+  }
 }
 
 module.exports = preventSleep()

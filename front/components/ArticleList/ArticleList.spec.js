@@ -2,6 +2,7 @@ import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 
 import Vue from 'vue'
+import { IS_DESKTOP } from '../../services/utils/responsive/responsive-utils'
 import ArticleList from './ArticleList.vue'
 import articlesApi from '../../services/api/articles'
 import positionsApi from '../../services/api/positions'
@@ -9,6 +10,7 @@ import { isCecile, sortByDropboxId } from '../../services'
 import ArticleCard from '../ArticleCard/ArticleCard.vue'
 
 jest.mock('../../services')
+jest.mock('@/services/utils/responsive/responsive-utils')
 
 describe('Component | ArticleList.vue', () => {
   let localVue
@@ -65,6 +67,7 @@ describe('Component | ArticleList.vue', () => {
 
     it('should contain lazy when more than 9 articles', async () => {
       // Given
+      IS_DESKTOP.mockReturnValue(true)
       const articles = [
         article('9'),
         article('8'),
@@ -88,6 +91,29 @@ describe('Component | ArticleList.vue', () => {
 
       expect(wrapper.findAll(ArticleCard).at(7).props().lazy).toEqual(false)
       expect(wrapper.findAll(ArticleCard).at(8).props().lazy).toEqual(true)
+    })
+
+    it('should contain lazy when more than 3 articles on MOBILE', async () => {
+      // Given
+      IS_DESKTOP.mockReturnValue(false)
+      const articles = [
+        article('3'),
+        article('2'),
+        article('1'),
+      ]
+
+      // When
+      wrapper = await shallowMount(ArticleList, {
+        localVue,
+        store,
+        data() {
+          return { articles }
+        },
+      })
+
+      expect(wrapper.findAll(ArticleCard).at(0).props().lazy).toEqual(false)
+      expect(wrapper.findAll(ArticleCard).at(1).props().lazy).toEqual(false)
+      expect(wrapper.findAll(ArticleCard).at(2).props().lazy).toEqual(true)
     })
 
     it('should remove last position when cecile website', () => {

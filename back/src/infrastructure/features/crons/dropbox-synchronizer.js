@@ -2,9 +2,9 @@
 import scheduler from 'node-schedule'
 import SynchronizeArticles from '../../../use_cases/synchronize-articles'
 
-const EVERY_15_MINUTES = '*/15 * * * *'
+const EVERY_30_DAYS = '0 0 * */1 *'
 
-scheduler.scheduleJob(EVERY_15_MINUTES, () => {
+scheduler.scheduleJob(EVERY_30_DAYS, () => {
   console.info('Synchronize Articles from Dropbox...')
 
   return SynchronizeArticles.synchronizeArticles()
