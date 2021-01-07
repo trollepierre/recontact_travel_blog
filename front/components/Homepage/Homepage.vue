@@ -2,7 +2,7 @@
   <div class="homepage">
     <app-header/>
     <main class="lol">
-      map
+      <h1 class="h1">Retrouvez nos articles à travers le monde :</h1>
       <world-map/>
     </main>
   </div>
@@ -22,11 +22,22 @@
 </script>
 
 <style scoped>
+.h1 {
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+
 .homepage {
   display: flex;
   justify-content: center;
 }
 .lol {
-  margin-top: 100px;
+  margin-top: 60px;
+}
+
+@media only screen and (min-width: 650px) {
+  .h1 {
+    font-size: 32px;
+  }
 }
 </style>

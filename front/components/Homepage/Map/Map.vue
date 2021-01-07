@@ -4,7 +4,7 @@
 
 <script>
   import mapboxgl from 'mapbox-gl'
-  import { articleLocation } from '@/components/Homepage/Map/article-location'
+  import { articleLocations } from '@/components/Homepage/Map/article-location'
   import translationService from '../../../services/services/translations'
 
   export default {
@@ -13,7 +13,7 @@
         selectedMarker: null,
         map: null,
         markers: [],
-        articleLocation,
+        articleLocations,
       }
     },
     mounted() {
@@ -23,19 +23,15 @@
       // https://www.mapbox.com/install/js/bundler-complete/
       // https://docs.mapbox.com/mapbox-gl-js/example/
 
-      const parisLocation = [2.213749, 46.227638]
-      const southernLocation = [-25, 40] // used to display Martinique on the mobile view
-
       this.map = new mapboxgl.Map({
         accessToken: process.env.NUXT_ENV_MAPBOX_API_TOKEN,
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11', // default style // V11 - V9 => to try
-        // center: window.innerWidth <= 1024 ? southernLocation : parisLocation,
-        center: southernLocation,
-        zoom: 1, // 1 = monde, 2 = europe, 3 = west europe, 4 = france,
+        center: window.innerWidth > 1024 ? [30, 0] : [30, 30], // mobile center to Lybia
+        zoom: window.innerWidth > 650 ? 1 : 0, // 1 = monde, 2 = europe, 3 = west europe, 4 = france,
       })
 
-      this.markers = this.articleLocation.map(articleLocation => {
+      this.markers = this.articleLocations.map(articleLocation => {
         const title = translationService.isFrancophone() ? articleLocation.frTitle : articleLocation.enTitle
         const popup = `<a href="${articleLocation.url}" class="font-bold">${title}</a>`
         // if (articleLocation.description) {
@@ -44,6 +40,8 @@
         // popup += `<p>${articleLocation.address}</p>`
         // popup += `<p>${articleLocation.city}</p>`
         // popup += `<br><p>${articleLocation.remark}</p>`
+
+        const LngLat = [articleLocation.location.lng, articleLocation.location.lat]
 
         const element = document.createElement('div')
         element.className = 'marker'
@@ -66,7 +64,6 @@
           }
         })
 
-        const LngLat = [articleLocation.location.lng, articleLocation.location.lat]
         const marker = new mapboxgl.Marker({ element, offset: [0, -10] })
           .setLngLat(LngLat)
           .setPopup(popupElement)
@@ -80,40 +77,30 @@
 </script>
 <style>
 #map {
-  background-color: blue;
-}
-
-.mapboxgl-canvas {
-  background-color: pink;
-}
-.mapboxgl-canvas-container {
-  background-color: green;
-}
-
-#map,
-.mapboxgl-canvas,
-.mapboxgl-canvas-container {
-  height: 400px;
-  width: 600px;
+  height: 256px;
+  width: 256px;
+  margin: auto;
 }
 
 .marker {
   background-image: url('Pin.svg');
   background-size: cover;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
 }
 
 @media only screen and (min-width: 650px) {
-  #map,
-  .mapboxgl-canvas {
+  #map {
+    height: 400px;
+    width: 600px;
   }
 }
 
 @media only screen and (min-width: 1024px) {
-  #map,
-  .mapboxgl-canvas {
+  #map {
+    height: 600px;
+    width: 900px;
   }
 }
 </style>

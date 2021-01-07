@@ -1,5 +1,5 @@
 // https://www.gps-longitude-latitude.net/
-export const articleLocation = [
+export const articleLocations = [
   {
     location: {
       lng: 5.8554983,
