@@ -1,6 +1,7 @@
 // https://www.gps-longitude-latitude.net/
 export const articleLocations = [
   {
+    color: 'blue',
     location: {
       lng: 5.8554983,
       lat: 45.3080823,
@@ -11,6 +12,7 @@ export const articleLocations = [
     enTitle: '93. Hiking on the Dent de Crolles',
   },
   {
+    color: 'blue',
     location: {
       lng: 121.774017,
       lat: 12.87972,
@@ -21,6 +23,7 @@ export const articleLocations = [
     enTitle: '89. Adventures in the Philippines',
   },
   {
+    color: 'blue',
     location: {
       lng: 53.688046,
       lat: 32.427908,
@@ -31,6 +34,7 @@ export const articleLocations = [
     enTitle: '88. Iranian cuisine',
   },
   {
+    color: 'blue',
     location: {
       lng: 51.6659656,
       lat: 32.6538966,
@@ -41,6 +45,7 @@ export const articleLocations = [
     enTitle: '87. The hidden splendours of Iran',
   },
   {
+    color: 'blue',
     location: {
       lng: 51.3889736,
       lat: 35.6891975,
@@ -51,6 +56,7 @@ export const articleLocations = [
     enTitle: '86. Big cultural shock in Iran',
   },
   {
+    color: 'blue',
     location: {
       lng: -90.5349087,
       lat: 19.8301251,
@@ -61,6 +67,7 @@ export const articleLocations = [
     enTitle: '85. Traveling in the south of Mexico 🇲🇽',
   },
   {
+    color: 'green',
     location: {
       lng: -88.1578978,
       lat: 21.5964824,
@@ -71,6 +78,7 @@ export const articleLocations = [
     enTitle: '84. The natural reserve in Rio Lagartos',
   },
   {
+    color: 'green',
     location: {
       lng: -91.9930466,
       lat: 17.5109792,
@@ -81,6 +89,7 @@ export const articleLocations = [
     enTitle: '83. L’héritage culturel au sud du Mexique',
   },
   {
+    color: 'green',
     location: {
       lng: -91.5229797,
       lat: 14.8452489,
@@ -91,6 +100,7 @@ export const articleLocations = [
     enTitle: '82. Guatemala : paradis naturel',
   },
   {
+    color: 'green',
     location: {
       lng: -91.5776539,
       lat: 16.0282842,
@@ -101,6 +111,7 @@ export const articleLocations = [
     enTitle: '81. Escapade autour des cenotes de Nenton et du lac Brava',
   },
   {
+    color: 'green',
     location: {
       lng: -91.4700222,
       lat: 15.320115,
@@ -111,6 +122,7 @@ export const articleLocations = [
     enTitle: '80. À la recherche du temps perdu dans la région de Huehuetenango',
   },
   {
+    color: 'green',
     location: {
       lng: -90.942653,
       lat: 14.5534448,
@@ -121,6 +133,7 @@ export const articleLocations = [
     enTitle: '79. At the top of the Fuego and Acatenango volcanoes',
   },
   {
+    color: 'green',
     location: {
       lng: -88.89653,
       lat: 13.794185,
@@ -131,6 +144,7 @@ export const articleLocations = [
     enTitle: '78. Discovering El Salvador',
   },
   {
+    color: 'green',
     location: {
       lng: -89.5639801,
       lat: 13.978048,
@@ -141,6 +155,7 @@ export const articleLocations = [
     enTitle: '77. Foule de curiosités autour de Santa Ana',
   },
   {
+    color: 'green',
     location: {
       lng: -89.6769193,
       lat: 13.9896097,
@@ -151,6 +166,7 @@ export const articleLocations = [
     enTitle: '76. L’héritage maya du Salvador',
   },
   {
+    color: 'green',
     location: {
       lng: -89.0249634,
       lat: 13.9327343,
@@ -161,6 +177,7 @@ export const articleLocations = [
     enTitle: '75. El Salvador, kingdom of flowers',
   },
   {
+    color: 'green',
     location: {
       lng: -88.4864616,
       lat: 13.5073224,
@@ -171,6 +188,7 @@ export const articleLocations = [
     enTitle: '74. Journées dans l’allégresse à Alegría',
   },
   {
+    color: 'green',
     location: {
       lng: -87.1627808,
       lat: 13.3201396,
@@ -181,6 +199,7 @@ export const articleLocations = [
     enTitle: '73. Passage de frontières du Nicaragua au El Salvador',
   },
   {
+    color: 'green',
     location: {
       lng: -86.3661868,
       lat: 12.9866595,
@@ -191,6 +210,7 @@ export const articleLocations = [
     enTitle: '72. The sculptures of Jalacate',
   },
   {
+    color: 'green',
     location: {
       lng: -85.012207,
       lat: 12.9296146,
@@ -201,6 +221,7 @@ export const articleLocations = [
     enTitle: '71. Séjour dans le paisible Nicaragua',
   },
   {
+    color: 'green',
     location: {
       lng: -87.5699615,
       lat: 12.9799695,
@@ -211,6 +232,7 @@ export const articleLocations = [
     enTitle: '70. Hommage à Benoît devant le Cosigüina',
   },
   {
+    color: 'green',
     location: {
       lng: -86.6675,
       lat: 12.4894444,
@@ -221,6 +243,7 @@ export const articleLocations = [
     enTitle: '69. Mais comment donc gravir le volcan El Hoyo ?',
   },
   {
+    color: 'green',
     location: {
       lng: -86.8422031,
       lat: 12.6058308,
@@ -231,6 +254,7 @@ export const articleLocations = [
     enTitle: '68. Nuit au sommet du volcan actif Telica',
   },
   {
+    color: 'green',
     location: {
       lng: -85.515,
       lat: 11.446,
@@ -241,6 +265,7 @@ export const articleLocations = [
     enTitle: '67. Maderas, un volcan dans une forêt de nuage',
   },
   {
+    color: 'green',
     location: {
       lng: -83.753428,
       lat: 9.748917,
@@ -251,6 +276,7 @@ export const articleLocations = [
     enTitle: '66. La Pura Vida au Costa Rica',
   },
   {
+    color: 'green',
     location: {
       lng: -84.9247333,
       lat: 9.7898319,
@@ -261,6 +287,7 @@ export const articleLocations = [
     enTitle: '65. The Curú National Park',
   },
   {
+    color: 'green',
     location: {
       lng: -83.503333,
       lat: 10.541667,
@@ -271,6 +298,7 @@ export const articleLocations = [
     enTitle: '64. Tortuguero: turtle paradise',
   },
   {
+    color: 'green',
     location: {
       lng: 2.3522219,
       lat: 48.856614,
@@ -281,6 +309,7 @@ export const articleLocations = [
     enTitle: '63. After the world tour with Benoît, Pierre keeps going in Central America',
   },
   {
+    color: 'red',
     location: {
       lng: 20.3302002,
       lat: 46.4179791,
@@ -291,6 +320,7 @@ export const articleLocations = [
     enTitle: '62. Europe by bicycle',
   },
   {
+    color: 'red',
     location: {
       lng: 83.856667,
       lat: 28.683333,
@@ -301,6 +331,7 @@ export const articleLocations = [
     enTitle: '61. Tilicho Lake',
   },
   {
+    color: 'red',
     location: {
       lng: 91.17211,
       lat: 29.652491,
@@ -311,6 +342,7 @@ export const articleLocations = [
     enTitle: '60. The remains of the Tibet',
   },
   {
+    color: 'red',
     location: {
       lng: 101.8766666,
       lat: 29.595,
@@ -321,6 +353,7 @@ export const articleLocations = [
     enTitle: '59. Lost around the mount Gongga',
   },
   {
+    color: 'red',
     location: {
       lng: 104.195397,
       lat: 35.86166,
@@ -331,6 +364,7 @@ export const articleLocations = [
     enTitle: '58. Guide for travelers in China',
   },
   {
+    color: 'red',
     location: {
       lng: 110.2534676,
       lat: 25.223112,
@@ -341,6 +375,7 @@ export const articleLocations = [
     enTitle: '57. The great marvels of China',
   },
   {
+    color: 'red',
     location: {
       lng: 116.5703749,
       lat: 40.4319077,
@@ -351,6 +386,7 @@ export const articleLocations = [
     enTitle: '56. China: a history of building and demolishing',
   },
   {
+    color: 'red',
     location: {
       lng: 102.495496,
       lat: 19.85627,
@@ -361,6 +397,7 @@ export const articleLocations = [
     enTitle: '55. Social time in Laos',
   },
   {
+    color: 'red',
     location: {
       lng: 105.8158493,
       lat: 15.1172044,
@@ -371,6 +408,7 @@ export const articleLocations = [
     enTitle: '54. Laos where time doesn\'t fly',
   },
   {
+    color: 'red',
     location: {
       lng: 105.9744536,
       lat: 20.2506149,
@@ -381,6 +419,7 @@ export const articleLocations = [
     enTitle: '53. Local experiences in Vietnam',
   },
   {
+    color: 'red',
     location: {
       lng: 107.5918579,
       lat: 16.4624268,
@@ -391,6 +430,7 @@ export const articleLocations = [
     enTitle: '52. Vietnam, as touristic as you wish',
   },
   {
+    color: 'red',
     location: {
       lng: 96.0891032,
       lat: 21.9588282,
@@ -401,6 +441,7 @@ export const articleLocations = [
     enTitle: '51. A long day in Mandalay',
   },
   {
+    color: 'red',
     location: {
       lng: 94.8585458,
       lat: 21.1717271,
@@ -411,6 +452,7 @@ export const articleLocations = [
     enTitle: '50. Temples of Bagan',
   },
   {
+    color: 'red',
     location: {
       lng: 104.990963,
       lat: 12.565679,
@@ -421,6 +463,7 @@ export const articleLocations = [
     enTitle: '49. Historical view of Cambodia',
   },
   {
+    color: 'red',
     location: {
       lng: 103.8669777,
       lat: 13.4124551,
@@ -431,6 +474,7 @@ export const articleLocations = [
     enTitle: '48. Angkor Wat, wonderful remains of the past',
   },
   {
+    color: 'red',
     location: {
       lng: 100.2658516,
       lat: 16.8211238,
@@ -441,6 +485,7 @@ export const articleLocations = [
     enTitle: '47. Elements of Thai culture',
   },
   {
+    color: 'red',
     location: {
       lng: 97.9650879,
       lat: 19.3020709,
@@ -451,6 +496,7 @@ export const articleLocations = [
     enTitle: '46. Biking in north Thailand',
   },
   {
+    color: 'red',
     location: {
       lng: 98.9931284,
       lat: 18.787747,
@@ -461,6 +507,7 @@ export const articleLocations = [
     enTitle: '45. Song Kran: New Year in Thailand',
   },
   {
+    color: 'red',
     location: {
       lng: 116.1132311,
       lat: 6.0862203,
@@ -471,6 +518,7 @@ export const articleLocations = [
     enTitle: '44. Borneo, the fruit of a multicultural synergy',
   },
   {
+    color: 'red',
     location: {
       lng: 112.6361033,
       lat: 2.0126371,
@@ -481,6 +529,7 @@ export const articleLocations = [
     enTitle: '43. At the sources of the Batang Rejang',
   },
   {
+    color: 'red',
     location: {
       lng: 100.3287506,
       lat: 5.4141307,
@@ -491,6 +540,7 @@ export const articleLocations = [
     enTitle: '42. Gorgeous Georgetown',
   },
   {
+    color: 'red',
     location: {
       lng: 102.2483826,
       lat: 2.1939827,
@@ -501,6 +551,7 @@ export const articleLocations = [
     enTitle: '41. Adventures on the peninsula of Asia',
   },
   {
+    color: 'red',
     location: {
       lng: 133.775136,
       lat: -25.274398,
@@ -511,6 +562,7 @@ export const articleLocations = [
     enTitle: '40. Australia in a nutshell',
   },
   {
+    color: 'red',
     location: {
       lng: 145.4,
       lat: -36.383333,
@@ -521,6 +573,7 @@ export const articleLocations = [
     enTitle: '39. Fruit picking in Australia',
   },
   {
+    color: 'red',
     location: {
       lng: 152.8981018,
       lat: -30.4522253,
@@ -531,6 +584,7 @@ export const articleLocations = [
     enTitle: '38. Australian road trip - from Sydney to Brisbane',
   },
   {
+    color: 'red',
     location: {
       lng: 149.9,
       lat: -37.066667,
@@ -541,6 +595,7 @@ export const articleLocations = [
     enTitle: '37. Australian road trip – from Sydney to Melbourne',
   },
   {
+    color: 'red',
     location: {
       lng: 150.4093014,
       lat: -33.8203277,
@@ -551,6 +606,7 @@ export const articleLocations = [
     enTitle: '36. Walk in the Blue Mountains',
   },
   {
+    color: 'red',
     location: {
       lng: 174.885971,
       lat: -40.900557,
@@ -561,6 +617,7 @@ export const articleLocations = [
     enTitle: '35. A drawing of New Zealand',
   },
   {
+    color: 'red',
     location: {
       lng: 168.62445,
       lat: -44.47595,
@@ -571,6 +628,7 @@ export const articleLocations = [
     enTitle: '34. Cascade Saddle',
   },
   {
+    color: 'red',
     location: {
       lng: 172.6316661,
       lat: -42.0075113,
@@ -581,6 +639,7 @@ export const articleLocations = [
     enTitle: '33. Nelson Lakes or the secret of a successful trek',
   },
   {
+    color: 'red',
     location: {
       lng: 177.152581,
       lat: -38.756466,
@@ -591,6 +650,7 @@ export const articleLocations = [
     enTitle: '32. Lake Waikaremoana',
   },
   {
+    color: 'red',
     location: {
       lng: -71.6126885,
       lat: -33.047238,
@@ -601,6 +661,7 @@ export const articleLocations = [
     enTitle: '31. A lovely day in Valparaiso',
   },
   {
+    color: 'red',
     location: {
       lng: -77.9238872,
       lat: -6.4170243,
@@ -611,6 +672,7 @@ export const articleLocations = [
     enTitle: '30. Inside Chachapoyas regions',
   },
   {
+    color: 'red',
     location: {
       lng: -72.0896229,
       lat: -15.6093293,
@@ -621,6 +683,7 @@ export const articleLocations = [
     enTitle: '29. Finding Benoît, an adventure in Colca Canyon',
   },
   {
+    color: 'red',
     location: {
       lng: -71.9674626,
       lat: -13.53195,
@@ -631,6 +694,7 @@ export const articleLocations = [
     enTitle: '28. The Inca civilisation',
   },
   {
+    color: 'red',
     location: {
       lng: -69.1779923,
       lat: -16.017232,
@@ -641,6 +705,7 @@ export const articleLocations = [
     enTitle: '27. Around the lake Titicaca',
   },
   {
+    color: 'red',
     location: {
       lng: -68.1192936,
       lat: -16.489689,
@@ -651,6 +716,7 @@ export const articleLocations = [
     enTitle: '26. Activities in La Paz',
   },
   {
+    color: 'red',
     location: {
       lng: -63.588653,
       lat: -16.290154,
@@ -661,6 +727,7 @@ export const articleLocations = [
     enTitle: '25. The life in Bolivia',
   },
   {
+    color: 'red',
     location: {
       lng: -63.588653,
       lat: -16.290154,
@@ -671,6 +738,7 @@ export const articleLocations = [
     enTitle: '24. Behind the steps of dinosaurs in Torotoro park',
   },
   {
+    color: 'red',
     location: {
       lng: -65.7550063,
       lat: -19.5722805,
@@ -681,6 +749,7 @@ export const articleLocations = [
     enTitle: '23. Silver mines in Potosi',
   },
   {
+    color: 'red',
     location: {
       lng: -67.8833333,
       lat: -22.8333333,
@@ -691,6 +760,7 @@ export const articleLocations = [
     enTitle: '22. The ascent of Licancabur volcano',
   },
   {
+    color: 'red',
     location: {
       lng: -67.4891345,
       lat: -20.1337772,
@@ -701,6 +771,7 @@ export const articleLocations = [
     enTitle: '21. Our "Tupiza-Uyuni tour"',
   },
   {
+    color: 'red',
     location: {
       lng: -65.2994767,
       lat: -24.1857864,
@@ -711,6 +782,7 @@ export const articleLocations = [
     enTitle: '20. Remains of precolombian civilisation in North Argentina',
   },
   {
+    color: 'red',
     location: {
       lng: -58.8304138,
       lat: -27.4692875,
@@ -721,6 +793,7 @@ export const articleLocations = [
     enTitle: '19. Crossing the North of Argentina',
   },
   {
+    color: 'red',
     location: {
       lng: -57.1728516,
       lat: -28.5362745,
@@ -731,6 +804,7 @@ export const articleLocations = [
     enTitle: '18. Ibera Wetlands',
   },
   {
+    color: 'red',
     location: {
       lng: -56.493791,
       lat: -28.4280021,
@@ -741,6 +815,7 @@ export const articleLocations = [
     enTitle: '17. On the road of Ibera Wetlands',
   },
   {
+    color: 'red',
     location: {
       lng: -55.7003403,
       lat: -27.1239243,
@@ -751,6 +826,7 @@ export const articleLocations = [
     enTitle: '16. Crossing Paraguay',
   },
   {
+    color: 'red',
     location: {
       lng: -54.441054,
       lat: -25.6911388,
@@ -761,6 +837,7 @@ export const articleLocations = [
     enTitle: '15. The Iguazu waterfalls',
   },
   {
+    color: 'red',
     location: {
       lng: -54.5533399,
       lat: -25.6129433,
@@ -771,6 +848,7 @@ export const articleLocations = [
     enTitle: '14. Ups and downs in Iguazu',
   },
   {
+    color: 'red',
     location: {
       lng: -46.6333094,
       lat: -23.5505199,
@@ -781,6 +859,7 @@ export const articleLocations = [
     enTitle: '13. São Paulo with Eduardo',
   },
   {
+    color: 'red',
     location: {
       lng: -44.7204287,
       lat: -23.2200382,
@@ -791,6 +870,7 @@ export const articleLocations = [
     enTitle: '12. Paraty, a touristic beach resort',
   },
   {
+    color: 'red',
     location: {
       lng: -44.2289441,
       lat: -23.1520839,
@@ -801,6 +881,7 @@ export const articleLocations = [
     enTitle: '11. Ilha Grande',
   },
   {
+    color: 'red',
     location: {
       lng: -43.1728965,
       lat: -22.9068467,
@@ -811,6 +892,7 @@ export const articleLocations = [
     enTitle: '10. Brazilian culture in Rio.',
   },
   {
+    color: 'red',
     location: {
       lng: -43.210516,
       lat: -22.9519125,
@@ -821,6 +903,7 @@ export const articleLocations = [
     enTitle: '9. Corcovado - Cristo Redemptor',
   },
   {
+    color: 'red',
     location: {
       lng: -43.2847223,
       lat: -22.9978723,
@@ -831,6 +914,7 @@ export const articleLocations = [
     enTitle: '8. Ascension of Pedra da Gavea',
   },
   {
+    color: 'red',
     location: {
       lng: -43.1545758,
       lat: -22.9492599,
@@ -841,6 +925,7 @@ export const articleLocations = [
     enTitle: '7. Rio pictures',
   },
   {
+    color: 'red',
     location: {
       lng: 2.5907692,
       lat: 49.0049612,
@@ -851,6 +936,7 @@ export const articleLocations = [
     enTitle: '6.\r\nDeparture',
   },
   {
+    color: 'red',
     location: {
       lng: 2.336217,
       lat: 50.381329,
@@ -861,6 +947,7 @@ export const articleLocations = [
     enTitle: '5. Newspaper',
   },
   {
+    color: 'red',
     location: {
       lng: 2.1297383,
       lat: 50.5163533,
@@ -871,6 +958,7 @@ export const articleLocations = [
     enTitle: '4. Why are we going?',
   },
   {
+    color: 'red',
     location: {
       lng: 2.0413878,
       lat: 50.4666649,
@@ -881,6 +969,7 @@ export const articleLocations = [
     enTitle: '3. Will I go or not?',
   },
   {
+    color: 'red',
     location: {
       lng: 2.056768,
       lat: 50.4471261,
@@ -891,6 +980,7 @@ export const articleLocations = [
     enTitle: '2. Origin of the trip',
   },
   {
+    color: 'red',
     location: {
       lng: 2.073131,
       lat: 50.4539788,

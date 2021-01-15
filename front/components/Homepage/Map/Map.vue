@@ -44,7 +44,7 @@
         const LngLat = [articleLocation.location.lng, articleLocation.location.lat]
 
         const element = document.createElement('div')
-        element.className = 'marker'
+        element.className = `marker ${articleLocation.color}`
         element.addEventListener('click', e => {
           // flyTo sometimes fails to trigger the close event on the popup
           if (this.selectedMarker) {
@@ -68,8 +68,8 @@
           .setLngLat(LngLat)
           .setPopup(popupElement)
           .addTo(this.map)
-
         marker.description = title
+
         return marker
       })
     },
@@ -88,6 +88,18 @@
   width: 40px;
   height: 40px;
   cursor: pointer;
+}
+
+.blue {
+  background-image: url('Pin-blue.svg');
+}
+
+.red {
+  background-image: url('Pin-red.svg');
+}
+
+.green {
+  background-image: url('Pin-green.svg');
 }
 
 @media only screen and (min-width: 650px) {
