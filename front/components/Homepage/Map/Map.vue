@@ -4,7 +4,7 @@
 
 <script>
   import mapboxgl from 'mapbox-gl'
-  import { articleLocations } from '@/components/Homepage/Map/article-location'
+  import { articleLocations } from './article-location'
   import translationService from '../../../services/services/translations'
 
   export default {
@@ -54,6 +54,7 @@
           this.selectedMarker.classList.add('hidden')
           this.map.flyTo({ center: LngLat, speed: 0.5 })
         })
+
         const popupElement = new mapboxgl.Popup({
           offset: 0,
           anchor: 'bottom',
