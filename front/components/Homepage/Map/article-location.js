@@ -56,7 +56,7 @@ export const articleLocations = [
     enTitle: '86. Big cultural shock in Iran',
   },
   {
-    color: 'blue',
+    color: 'green',
     location: {
       lng: -90.5349087,
       lat: 19.8301251,
