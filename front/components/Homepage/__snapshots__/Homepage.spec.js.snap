@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component | Homepage.vue template should match snapshot 1`] = `
+<div class="homepage">
+  <app-header-stub></app-header-stub>
+  <main class="main">
+    <h1 class="h1">
+      Retrieve our articles all around the world:
+    </h1>
+    <!---->
+  </main>
+</div>
+`;

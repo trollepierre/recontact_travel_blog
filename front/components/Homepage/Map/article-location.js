@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 // https://www.gps-longitude-latitude.net/
 export const articleLocations = [
   {

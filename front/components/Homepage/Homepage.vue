@@ -1,8 +1,10 @@
 <template>
   <div class="homepage">
     <app-header/>
-    <main class="lol">
-      <h1 class="h1">Retrouvez nos articles à travers le monde :</h1>
+    <main class="main">
+      <h1 class="h1">
+        {{  $t("mapHeadline") }}
+      </h1>
       <world-map/>
     </main>
   </div>
@@ -17,8 +19,18 @@
       AppHeader,
       WorldMap,
     },
+    i18n: {
+      silentTranslationWarn: true,
+      messages: {
+        fr: {
+          mapHeadline: 'Retrouvez nos articles à travers le monde :',
+        },
+        en: {
+          mapHeadline: 'Retrieve our articles all around the world:',
+        },
+      },
+    },
   }
-
 </script>
 
 <style scoped>
@@ -31,7 +43,8 @@
   display: flex;
   justify-content: center;
 }
-.lol {
+
+.main {
   margin-top: 60px;
 }
 
