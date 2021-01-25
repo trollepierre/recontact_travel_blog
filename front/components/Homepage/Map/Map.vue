@@ -31,8 +31,10 @@
         zoom: window.innerWidth > 650 ? 1 : 0, // 1 = monde, 2 = europe, 3 = west europe, 4 = france,
       })
 
+      const language = this.$store.state.locale
+
       this.markers = this.articleLocations.map(articleLocation => {
-        const title = translationService.isFrancophone() ? articleLocation.frTitle : articleLocation.enTitle
+        const title = translationService.isFrancophone(language) ? articleLocation.frTitle : articleLocation.enTitle
         const popup = `<a href="${articleLocation.url}" class="font-bold">${title}</a>`
         // if (articleLocation.description) {
         //   popup += `<p>${articleLocation.description}</p>`
