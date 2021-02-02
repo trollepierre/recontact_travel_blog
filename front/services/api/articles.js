@@ -2,8 +2,8 @@ import apiService from '../services/api-service'
 
 const ArticlesApi = {
 
-  fetchAll() {
-    return apiService.get('articles')
+  fetchAll(limit) {
+    return apiService.get(`articles?limit=${limit}`)
   },
 
   update(id) {

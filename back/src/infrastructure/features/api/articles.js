@@ -7,7 +7,7 @@ import AddComment from '../../../use_cases/add-comment'
 
 const router = express.Router()
 
-router.get('/', (req, res) => GetAllArticles.getAllArticles()
+router.get('/', (req, res) => GetAllArticles.getAllArticles(req.query.limit)
   .then(articles => res.status(200).json(articles)))
 
 router.get('/:id', (req, res) => GetArticle.getArticle(req.params.id)
