@@ -8,6 +8,10 @@ function getAll() {
   return Article.findAll()
 }
 
+// function getAllUntil(limit) {
+//   return Article.findAll({ limit, order: [ ['frTitle', 'DESC']] })
+// }
+
 function get(dropboxId) {
   return Article.findOne({ where: { dropboxId } })
 }
@@ -27,6 +31,7 @@ function deleteAll() {
 export default {
   create,
   getAll,
+  // getAllUntil,
   get,
   deleteByDropboxId,
   update,

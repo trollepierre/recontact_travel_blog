@@ -1,41 +1,38 @@
 <template>
-  <div class="page">
-    <app-header/>
-    <main class="page__body">
-      <div class="page__container">
-        <section class="article-results">
-          <h1 class="article-results__title hidden">
-            {{ hiddenTitle }}
-          </h1>
-          <p class="article-results__title h1">
-            {{ title }}
-          </p>
-          <p class="article-results__title h2">
-            {{ subtitle }}
-            <span
-              v-if="!isCecile"
-              class="article-results__title h3">
-              {{ lastPosition }}
-            </span>
-          </p>
-          <template v-if="adminMode">
-            <admin-dashboard @updateLastPositionData="updateLastPositionData"/>
-          </template>
-          <ul class="article-results__list">
-            <li
-              v-for="article in articles"
-              :key="article.dropboxId"
-              class="article-results__item">
-              <article-card
-                :article="article"
-                :lazy="isLazyArticle(article.dropboxId)"
-                :admin-mode="adminMode"/>
-            </li>
-          </ul>
-        </section>
-      </div>
-    </main>
-  </div>
+  <main class="page__body">
+    <div class="page__container">
+      <section class="article-results">
+        <h1 class="article-results__title hidden">
+          {{ hiddenTitle }}
+        </h1>
+        <p class="article-results__title h1">
+          {{ title }}
+        </p>
+        <p class="article-results__title h2">
+          {{ subtitle }}
+          <span
+            v-if="!isCecile"
+            class="article-results__title h3">
+            {{ lastPosition }}
+          </span>
+        </p>
+        <template v-if="adminMode">
+          <admin-dashboard @updateLastPositionData="updateLastPositionData"/>
+        </template>
+        <ul class="article-results__list">
+          <li
+            v-for="article in articles"
+            :key="article.dropboxId"
+            class="article-results__item">
+            <article-card
+              :article="article"
+              :lazy="isLazyArticle(article.dropboxId)"
+              :admin-mode="adminMode"/>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
 </template>
 
 <script>
@@ -44,7 +41,6 @@
   import articlesApi from '../../services/api/articles'
   import positionsApi from '../../services/api/positions'
   import { isCecile, sortByDropboxId } from '../../services'
-  import AppHeader from '../AppHeader/AppHeader.vue'
   import translationService from '../../services/services/translations'
   import { IS_DESKTOP } from '../../services/utils/responsive/responsive-utils'
 
@@ -52,11 +48,11 @@
     name: 'ArticleList',
     components: {
       AdminDashboard,
-      AppHeader,
       ArticleCard,
     },
     props: {
       adminMode: { type: Boolean, default: () => false },
+      articlesNumberLimit: { type: Number, default: () => 0 },
     },
     data() {
       return {
@@ -84,7 +80,7 @@
     },
     methods: {
       getArticles() {
-        articlesApi.fetchAll()
+        articlesApi.fetchAll(this.articlesNumberLimit)
           .then(articles => {
             this.articles = sortByDropboxId(articles)
           })

@@ -114,6 +114,7 @@
 
 @media only screen and (min-width: 1024px) {
   #map {
+    margin-left: 60px;
     height: 600px;
     width: 900px;
   }

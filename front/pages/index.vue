@@ -1,15 +1,15 @@
 <template>
   <div id="index">
-    <article-list/>
+    <homepage/>
   </div>
 </template>
 
 <script>
-  import ArticleList from '../components/ArticleList/ArticleList.vue'
+  import Homepage from '../components/Homepage/Homepage.vue'
 
   export default {
     components: {
-      ArticleList,
+      Homepage,
     },
   }
 </script>
