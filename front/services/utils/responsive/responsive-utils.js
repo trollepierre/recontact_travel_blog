@@ -2,6 +2,7 @@ import { screenWidth } from '../screen/screen-utils'
 
 const PHONE_PORTRAIT_TO_LANDSCAPE = 640
 const PHONE_LANDSCAPE_TO_TABLET = 1000
+export const LARGE_DESKTOP_LIMIT = 1240
 
 // https://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions
 

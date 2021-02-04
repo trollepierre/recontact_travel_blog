@@ -1,20 +1,20 @@
 <template>
-  <div id="index">
-    <div class="page">
-      <app-header/>
+  <div class="admin-page">
+    <app-header/>
+    <main>
       <article-list :admin-mode="true"/>
-    </div>
+    </main>
   </div>
 </template>
 
 <script>
-import ArticleList from '../components/ArticleList/ArticleList.vue'
-import AppHeader from '../components/AppHeader/AppHeader.vue'
+  import ArticleList from '../components/ArticleList/ArticleList.vue'
+  import AppHeader from '../components/AppHeader/AppHeader.vue'
 
-export default {
-  components: {
-    ArticleList,
-    AppHeader,
-  },
-}
+  export default {
+    components: {
+      ArticleList,
+      AppHeader,
+    },
+  }
 </script>
