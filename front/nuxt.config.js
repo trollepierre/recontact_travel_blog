@@ -67,7 +67,14 @@ module.exports = {
   css: [
     '~/assets/fonts/font.css',
     '~/assets/css/styles.css',
+    '@/assets/css/variables.scss',
   ],
+
+  // Global scss
+  styleResources: {
+    scss: ['./assets/css/*.scss'],
+  },
+
   env: { NUXT_ENV_API_URL: process.env.NUXT_ENV_API_URL || 'https://recontact.herokuapp.com' },
   head: process.env.NUXT_ENV_LANGUAGE === 'en' ? headEn : headFr, // Headers of the page
   loading: { color: '#3B8070' }, // Customize the progress bar color
@@ -88,6 +95,7 @@ module.exports = {
   modules: [
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
+    '@nuxtjs/style-resources',
   ],
   build: {
     postcss: {

@@ -63,7 +63,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .h1 {
   margin-bottom: 30px;
   font-size: 20px;
@@ -91,13 +91,13 @@
   max-width: 300px;
 }
 
-@media only screen and (min-width: 650px) {
+@media only screen and (min-width: $md-breakpoint) {
   .h1 {
     font-size: 32px;
   }
 }
 
-@media only screen and (min-width: 1240px) {
+@media only screen and (min-width: $xl-breakpoint) {
   .container {
     flex-direction: row;
   }
