@@ -1,7 +1,5 @@
 <template>
-  <div id="index">
-    <article-page/>
-  </div>
+  <article-page/>
 </template>
 
 <script>

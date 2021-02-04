@@ -1,7 +1,5 @@
 <template>
-  <div id="index">
     <homepage/>
-  </div>
 </template>
 
 <script>

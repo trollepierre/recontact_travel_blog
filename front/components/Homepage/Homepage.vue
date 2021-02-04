@@ -7,43 +7,38 @@
           {{ $t("mapHeadline") }}
         </h1>
         <world-map/>
-        <p class="see-more">{{ $t("seeMore") }}</p>
-        <button
-          type="button"
-          class="button see-articles"
-          @click.prevent.once="goToArticles">
-          {{ $t("seeArticles") }}
-        </button>
+        <p class="see-more">
+          {{ $t("seeMore") }}
+        </p>
+        <app-button
+          class="see-articles"
+          :text="$t('seeArticles')"
+          @click="goToArticles"/>
       </main>
-      <article-list
-        :articles-number-limit="articlesNumberLimit"/>
+      <aside>
+        <article-list
+          :articles-number-limit="articlesNumberLimit"/>
+      </aside>
     </div>
   </div>
 </template>
 
 <script>
   import ArticleList from '@/components/ArticleList/ArticleList'
-  import { screenWidth } from '@/services/utils/screen/screen-utils'
-  import { IS_DESKTOP } from '@/services/utils/responsive/responsive-utils'
   import WorldMap from './Map/Map.vue'
   import AppHeader from '../AppHeader/AppHeader.vue'
+  import { articlesNumberLimit } from '~/components/Homepage/Homepage.utils'
+  import AppButton from '~/components/AppButton/AppButton'
 
   export default {
     components: {
+      AppButton,
       ArticleList,
       AppHeader,
       WorldMap,
     },
     computed: {
-      articlesNumberLimit() {
-        if (!IS_DESKTOP()) {
-          return 4
-        }
-        if (screenWidth() <= 1240) {
-          return 3
-        }
-        return Math.floor((screenWidth() - 960) / 300) * 2
-      },
+      articlesNumberLimit,
     },
     methods: {
       goToArticles() {
@@ -90,27 +85,6 @@
 
 .see-more {
   margin: 20px;
-}
-
-.button {
-  line-height: 28px;
-  color: #F48024;
-  text-decoration: unset;
-  font-size: 11px;
-  font-family: serif;
-  text-transform: uppercase;
-  background: #FFFFFF;
-  border: 1px solid #F48024;
-  cursor: pointer;
-  padding: 3px 5px;
-  border-radius: 4px;
-  width: 100%;
-  font-weight: 700;
-}
-
-.button:hover {
-  background: #D14800;
-  color: #FFFFFF;
 }
 
 .see-articles {

@@ -1,38 +1,36 @@
 <template>
-  <main class="page__body">
-    <div class="page__container">
-      <section class="article-results">
-        <h1 class="article-results__title hidden">
-          {{ hiddenTitle }}
-        </h1>
-        <p class="article-results__title h1">
-          {{ title }}
-        </p>
-        <p class="article-results__title h2">
-          {{ subtitle }}
-          <span
-            v-if="!isCecile"
-            class="article-results__title h3">
-            {{ lastPosition }}
-          </span>
-        </p>
-        <template v-if="adminMode">
-          <admin-dashboard @updateLastPositionData="updateLastPositionData"/>
-        </template>
-        <ul class="article-results__list">
-          <li
-            v-for="article in articles"
-            :key="article.dropboxId"
-            class="article-results__item">
-            <article-card
-              :article="article"
-              :lazy="isLazyArticle(article.dropboxId)"
-              :admin-mode="adminMode"/>
-          </li>
-        </ul>
-      </section>
-    </div>
-  </main>
+  <div class="article-list">
+    <section class="article-results">
+      <h1 class="article-results__title hidden">
+        {{ hiddenTitle }}
+      </h1>
+      <p class="article-results__title h1">
+        {{ title }}
+      </p>
+      <p class="article-results__title h2">
+        {{ subtitle }}
+        <span
+          v-if="!isCecile"
+          class="article-results__title h3">
+          {{ lastPosition }}
+        </span>
+      </p>
+      <template v-if="adminMode">
+        <admin-dashboard @updateLastPositionData="updateLastPositionData"/>
+      </template>
+      <ul class="article-results__list">
+        <li
+          v-for="article in articles"
+          :key="article.dropboxId"
+          class="article-results__item">
+          <article-card
+            :article="article"
+            :lazy="isLazyArticle(article.dropboxId)"
+            :admin-mode="adminMode"/>
+        </li>
+      </ul>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -130,54 +128,54 @@
 </script>
 
 <style scoped>
-  .page__body {
-    display: flex;
-    width: 100%;
-    padding: 70px 0 20px;
-    justify-content: center;
-  }
+.article-list {
+  display: flex;
+  width: 100%;
+  padding: 70px 0 20px;
+  justify-content: center;
+}
 
-  .article-results {
-    margin-bottom: 60px;
-  }
+.article-results {
+  margin-bottom: 60px;
+}
 
-  .article-results__title {
-    font-weight: 300;
-    font-size: 24px;
-    margin: 0 0 15px;
-  }
+.article-results__title {
+  font-weight: 300;
+  font-size: 24px;
+  margin: 0 0 15px;
+}
 
-  .hidden {
-    display: none;
-  }
+.hidden {
+  display: none;
+}
 
-  .h2 {
-    font-size: 18px;
-  }
+.h2 {
+  font-size: 18px;
+}
 
-  .h3 {
-    font-size: 18px;
-    font-weight: 600;
-  }
+.h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
 
+.article-results__list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.article-results__item {
+  list-style-type: none;
+  padding: 0;
+  margin: 5px;
+}
+
+@media only screen and (min-width: 640px) {
   .article-results__list {
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-
-  .article-results__item {
-    list-style-type: none;
-    padding: 0;
-    margin: 5px;
-  }
-
-  @media only screen and (min-width: 640px) {
-    .article-results__list {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-  }
+}
 
 </style>
