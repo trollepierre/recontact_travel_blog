@@ -17,6 +17,8 @@ async function getAllArticles(limit) {
   // better would be to use findAll order, but dropboxId is a string!!
   const allArticles = await articleRepository.getAll(limit)
   const selectLastUntil = sortByDescendingNumberWithIntegerKey(allArticles, 'dropboxId')
+  console.log(selectLastUntil)
+
   return selectLastUntil.slice(0, limit)
 }
 

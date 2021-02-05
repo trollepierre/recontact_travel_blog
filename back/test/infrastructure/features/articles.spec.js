@@ -24,13 +24,16 @@ describe('Integration | Routes | articles route', () => {
     })
 
     it('should call GetAllArticles to getAllArticles before sending json', done => {
+      // Given
+      const limit = '5'
+
       // When
       request(app)
-        .get('/api/articles')
+        .get('/api/articles?limit=5')
         .expect('Content-Type', /json/)
         .end((err, response) => {
           // Then
-          expect(GetAllArticles.getAllArticles).to.have.been.calledWith()
+          expect(GetAllArticles.getAllArticles).to.have.been.calledWith(limit)
           expect(response.body).to.deep.equal(articles)
           if (err) {
             done(err)
