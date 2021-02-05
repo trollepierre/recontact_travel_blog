@@ -15,4 +15,17 @@ describe('Component | AppButton.vue', () => {
       expect(wrapper).toMatchSnapshot()
     })
   })
+
+  describe('methods', () => {
+    it('should handle click', () => {
+      // Given
+      wrapper = shallowMount(AppButton, { localVue })
+
+      // When
+      wrapper.find('button').trigger('click')
+
+      // Then
+      expect(wrapper).toEmit('click')
+    })
+  })
 })

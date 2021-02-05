@@ -19,10 +19,10 @@ describe('Unit | API | articles api', () => {
     })
 
     it('should fetch API with the good params', () => {
-      const expectedUrl = `${env('API_URL')}api/articles`
+      const expectedUrl = `${env('API_URL')}api/articles?limit=8`
       const expectedOptions = { json: true }
 
-      const promise = articlesApi.fetchAll()
+      const promise = articlesApi.fetchAll(8)
 
       return promise.then(() => {
         expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions)
