@@ -1,33 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | ArticleList.vue template should match snapshot 1`] = `
-<div class="page">
-  <app-header-stub></app-header-stub>
-  <main class="page__body">
-    <div class="page__container">
-      <section class="article-results">
-        <h1 class="article-results__title hidden">
-          Fix the website
-        </h1>
-        <p class="article-results__title h1">
-          Discover the world with us!
-        </p>
-        <p class="article-results__title h2">
-          Last known position:
-          <span class="article-results__title h3">
-            Mexico, 1er mai 2019
-          </span></p>
-        <admin-dashboard-stub></admin-dashboard-stub>
-        <ul class="article-results__list">
-          <li class="article-results__item">
-            <article-card-stub adminmode="true" article="[object Object]"></article-card-stub>
-          </li>
-          <li class="article-results__item">
-            <article-card-stub adminmode="true" article="[object Object]"></article-card-stub>
-          </li>
-        </ul>
-      </section>
-    </div>
-  </main>
+<div class="article-list">
+  <section class="article-results">
+    <h1 class="article-results__title hidden">
+      Fix the website
+    </h1>
+    <p class="article-results__title h1">
+      Discover the world with us!
+    </p>
+    <p class="article-results__title h2">
+      Last known position:
+      <span class="article-results__title h3">
+        Mexico, 1er mai 2019
+      </span></p>
+    <admin-dashboard-stub></admin-dashboard-stub>
+    <ul class="article-results__list">
+      <li class="article-results__item">
+        <article-card-stub adminmode="true" article="[object Object]"></article-card-stub>
+      </li>
+      <li class="article-results__item">
+        <article-card-stub adminmode="true" article="[object Object]"></article-card-stub>
+      </li>
+    </ul>
+  </section>
 </div>
 `;

@@ -1,5 +1,5 @@
-import { IS_DESKTOP, LARGE_DESKTOP_LIMIT } from '~/services/utils/responsive/responsive-utils';
-import { screenWidth } from '~/services/utils/screen/screen-utils';
+import { IS_DESKTOP, LARGE_DESKTOP_LIMIT } from '~/services/utils/responsive/responsive-utils'
+import { screenWidth } from '~/services/utils/screen/screen-utils'
 
 const LARGE_WIDTH_ARTICLE_CARDS_NUMBER = 4
 const SMALL_WIDTH_ARTICLE_CARDS_NUMBER = 3

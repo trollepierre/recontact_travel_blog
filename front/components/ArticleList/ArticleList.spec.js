@@ -44,10 +44,6 @@ describe('Component | ArticleList.vue', () => {
     wrapper = shallowMount(ArticleList, { localVue, propsData, store })
   })
 
-  it('should be named "ArticleList"', () => {
-    expect(wrapper.name()).toEqual('ArticleList')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       expect(wrapper).toMatchSnapshot()
@@ -130,7 +126,15 @@ describe('Component | ArticleList.vue', () => {
 
   describe('mounted', () => {
     it('should call articles api to fetch articles', () => {
-      expect(articlesApi.fetchAll).toHaveBeenCalledWith()
+      expect(articlesApi.fetchAll).toHaveBeenCalledWith(0)
+    })
+
+    it('should call articles api to fetch articles with limit', () => {
+      const propsData = { articlesNumberLimit: 8 }
+
+      wrapper = shallowMount(ArticleList, { localVue, propsData, store })
+
+      expect(articlesApi.fetchAll).toHaveBeenCalledWith(8)
     })
 
     it('should save articles from api in data articles', () => {
