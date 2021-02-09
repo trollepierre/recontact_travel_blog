@@ -192,7 +192,7 @@
 <style scoped>
 .header {
   height: 60px;
-  background: #FFFFFF;
+  background: aliceblue;
   border-bottom: 1px solid #E6E6E6;
   width: 100%;
   padding-left: 0;
@@ -237,7 +237,7 @@
 .me {
   align-self: center;
   padding: 5px 5px 0;
-  color: #F48024;
+  color: #D14800;
 }
 
 .icon {
