@@ -192,7 +192,7 @@
 <style scoped>
 .header {
   height: 60px;
-  background: aliceblue;
+  background: #FFFFFF;
   border-bottom: 1px solid #E6E6E6;
   width: 100%;
   padding-left: 0;

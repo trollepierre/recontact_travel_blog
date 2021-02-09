@@ -1,26 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component | Homepage.vue template should match snapshot 1`] = `
-<div class="homepage">
-  <app-header-stub></app-header-stub>
-  <div class="container">
-    <main class="main">
-      <h1 class="h1">
-        Retrieve our articles all around the world:
-      </h1>
-      <!---->
-      <p class="see-more">
-        Want to see always more?
-      </p>
-      <app-button-stub text="See the full list of articles" class="see-articles"></app-button-stub>
-    </main>
-    <aside>
-      <article-list-stub articlesnumberlimit="3"></article-list-stub>
-    </aside>
-  </div>
-</div>
-`;
-
 exports[`Component | Homepage.vue template should match snapshot on desktop 1`] = `
 <div class="homepage">
   <app-header-stub></app-header-stub>
@@ -35,26 +14,9 @@ exports[`Component | Homepage.vue template should match snapshot on desktop 1`] 
       </p>
       <app-button-stub text="See the full list of articles" class="see-articles"></app-button-stub>
     </main>
-    <!---->
-  </div>
-</div>
-`;
-
-exports[`Component | Homepage.vue template should match snapshot on mobile 1`] = `
-<div class="homepage">
-  <app-header-stub></app-header-stub>
-  <div class="container">
-    <main class="main">
-      <h1 class="h1">
-        Retrieve our articles all around the world:
-      </h1>
-      <!---->
-      <p class="see-more">
-        Want to see always more?
-      </p>
-      <app-button-stub text="See the full list of articles" class="see-articles"></app-button-stub>
-    </main>
-    <!---->
+    <aside style="min-width: 270px;">
+      <article-list-stub articlesnumberlimit="3"></article-list-stub>
+    </aside>
   </div>
 </div>
 `;
