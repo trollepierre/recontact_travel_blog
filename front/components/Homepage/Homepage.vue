@@ -15,7 +15,7 @@
           :text="$t('seeArticles')"
           @click="goToArticles"/>
       </main>
-      <aside>
+      <aside v-if="hasArticles">
         <article-list
           :articles-number-limit="articlesNumberLimit"/>
       </aside>
@@ -25,6 +25,7 @@
 
 <script>
   import ArticleList from '@/components/ArticleList/ArticleList'
+  import { IS_DESKTOP } from '@/services/utils/responsive/responsive-utils'
   import WorldMap from './Map/Map.vue'
   import AppHeader from '../AppHeader/AppHeader.vue'
   import { articlesNumberLimit } from '~/components/Homepage/Homepage.utils'
@@ -37,10 +38,30 @@
       AppHeader,
       WorldMap,
     },
+    data() {
+      return {
+        hasArticles: false,
+      }
+    },
     computed: {
       articlesNumberLimit,
     },
+    beforeMount() {
+      window.addEventListener('touchstart', this.handleTouch)
+    },
+    beforeDestroy() {
+      window.removeEventListener('touchstart', this.handleTouch)
+    },
+    mounted() {
+      if (IS_DESKTOP()) {
+        this.hasArticles = true
+      }
+    },
     methods: {
+      handleTouch() {
+        this.hasArticles = true
+        window.removeEventListener('touchstart', this.handleTouch)
+      },
       goToArticles() {
         this.$router.push('/articles')
       },

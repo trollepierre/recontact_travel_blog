@@ -1,10 +1,12 @@
 import VueI18n from 'vue-i18n'
-import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AppButton from '@/components/AppButton/AppButton' // eslint-disable-line import/no-extraneous-dependencies
+import ArticleList from '@/components/ArticleList/ArticleList'
 import Homepage from './Homepage.vue'
+import { IS_DESKTOP } from '~/services/utils/responsive/responsive-utils'
 
 jest.mock('@/components/Homepage/Map/Map', () => () => '<div>Map</div>')
+jest.mock('~/services/utils/responsive/responsive-utils')
 
 describe('Component | Homepage.vue', () => {
   let localVue
@@ -19,24 +21,52 @@ describe('Component | Homepage.vue', () => {
     localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
-    wrapper = shallowMount(Homepage, { localVue, router })
   })
 
   describe('template', () => {
-    it('should match snapshot', () => {
+    it('should match snapshot on desktop', () => {
+      wrapper = shallowMount(Homepage, { localVue, router })
+
       expect(wrapper).toMatchSnapshot()
+    })
+
+    it('should remove article list on mobile', async () => {
+      IS_DESKTOP.mockReturnValue(false)
+
+      wrapper = await shallowMount(Homepage, { localVue, router })
+
+      expect(wrapper.findComponent(ArticleList).exists()).toEqual(false)
     })
   })
 
-  describe('methods', () => {
+  describe('mount', () => {
     it('should go to articles on click on app button', () => {
-      // Given
-
       // When
       wrapper.getComponent(AppButton).vm.$emit('click')
 
       // Then
       expect(router.push).toHaveBeenCalledWith('/articles')
+    })
+  })
+
+  describe('methods', () => {
+    it('should go to articles on click on app button', () => {
+      // When
+      wrapper.getComponent(AppButton).vm.$emit('click')
+
+      // Then
+      expect(router.push).toHaveBeenCalledWith('/articles')
+    })
+  })
+
+  describe('events', () => {
+    it('should show articles after touch on mobile', async () => {
+      IS_DESKTOP.mockReturnValue(false)
+      wrapper = await shallowMount(Homepage, { localVue, router })
+
+      await window.dispatchEvent(new Event('touchstart'))
+
+      expect(wrapper.findComponent(ArticleList).exists()).toEqual(true)
     })
   })
 })
