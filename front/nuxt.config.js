@@ -23,10 +23,6 @@ const headEn = {
     { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
     { rel: 'manifest', href: '/manifest.json' },
     { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
-    {
-      rel: 'stylesheet',
-      href: 'https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css',
-    },
   ],
 }
 
@@ -52,10 +48,6 @@ const headFr = {
     { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
     { rel: 'manifest', href: '/manifest.json' },
     { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
-    {
-      rel: 'stylesheet',
-      href: 'https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css',
-    },
   ],
 }
 
@@ -67,6 +59,7 @@ module.exports = {
   css: [
     '~/assets/fonts/font.css',
     '~/assets/css/styles.css',
+    '~/assets/css/mapbox-v2.0.1.css',
     '@/assets/css/variables.scss',
   ],
 
