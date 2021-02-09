@@ -24,8 +24,10 @@ describe('Component | Homepage.vue', () => {
   })
 
   describe('template', () => {
-    it('should match snapshot on desktop', () => {
-      wrapper = shallowMount(Homepage, { localVue, router })
+    it('should match snapshot on desktop', async () => {
+      IS_DESKTOP.mockReturnValue(true)
+
+      wrapper = await shallowMount(Homepage, { localVue, router })
 
       expect(wrapper).toMatchSnapshot()
     })

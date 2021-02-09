@@ -15,7 +15,9 @@
           :text="$t('seeArticles')"
           @click="goToArticles"/>
       </main>
-      <aside v-if="hasArticles">
+      <aside
+        v-if="hasArticles"
+        :style="{minWidth: `${minWidth}px`}">
         <article-list
           :articles-number-limit="articlesNumberLimit"/>
       </aside>
@@ -28,7 +30,7 @@
   import { IS_DESKTOP } from '@/services/utils/responsive/responsive-utils'
   import WorldMap from './Map/Map.vue'
   import AppHeader from '../AppHeader/AppHeader.vue'
-  import { articlesNumberLimit } from '~/components/Homepage/Homepage.utils'
+  import { articlesNumberLimit, minWidth } from '~/components/Homepage/Homepage.utils'
   import AppButton from '~/components/AppButton/AppButton'
 
   export default {
@@ -45,6 +47,7 @@
     },
     computed: {
       articlesNumberLimit,
+      minWidth,
     },
     beforeMount() {
       window.addEventListener('touchstart', this.handleTouch)
