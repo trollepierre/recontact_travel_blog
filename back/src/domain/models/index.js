@@ -9,7 +9,7 @@ const config = dbConfig()
 
 let sequelize
 if (isProduction()) {
-  sequelize = new Sequelize(env('DATABASE_URL'))
+  sequelize = new Sequelize(env('DATABASE_URL'), { dialect: 'postgres', dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } })
 } else {
   sequelize = new Sequelize(env('DATABASE_NAME'), config.username, config.password, config)
 }
