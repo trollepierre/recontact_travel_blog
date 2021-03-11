@@ -175,6 +175,7 @@ jobs:
       - run: yarn add webpagetest
       - run: ./node_modules/.bin/webpagetest test https://french-test.recontact.me/ --first --poll --specs tools/webpagetest-threshold.json -k $WEBPAGETEST_API_KEY
       - run: ./node_modules/.bin/webpagetest test https://english-test.recontact.me/articles/85 --first --poll --specs tools/webpagetest-article-threshold.json -k $WEBPAGETEST_API_KEY
+      - run: ./node_modules/.bin/webpagetest test https://english-test.recontact.me/articles --first --poll --specs tools/webpagetest-articles-threshold.json -k $WEBPAGETEST_API_KEY
 
   deploy_staging:
     <<: *common_properties

@@ -50,10 +50,27 @@ test('HomePage : Meaningful first paint score', () =>
       const { categories, lighthouseScore } = report
 
       expect(lighthouseScore).toBeGreaterThanOrEqual(83) // 86
+
+      expect(categories.performance.score * 100).toBeGreaterThanOrEqual(70) // 78, 75, 71 => 70
+
+
+      expect(categories.accessibility.score * 100).toBeGreaterThanOrEqual(98) // 96
+      expect(categories['best-practices'].score * 100).toBeGreaterThanOrEqual(93) // 93
+      expect(categories.seo.score * 100).toBeGreaterThanOrEqual(100) // 100
+      expect(categories.pwa.score * 100).toBeGreaterThanOrEqual(100) // 100
+    }))
+
+test('Articles : Meaningful first paint score', () =>
+  launchChromeAndRunLighthouse('https://english-test.recontact.me/articles')
+    .then(buildLighthouseReport)
+    .then(report => {
+      const { categories, lighthouseScore } = report
+
+      expect(lighthouseScore).toBeGreaterThanOrEqual(83) // 86
+
       expect(categories.performance.score * 100).toBeGreaterThanOrEqual(85) // 94, 93, 95, 90 (-10 just in case)
       expect(categories.accessibility.score * 100).toBeGreaterThanOrEqual(96) // 96
       expect(categories['best-practices'].score * 100).toBeGreaterThanOrEqual(100) // 100
       expect(categories.seo.score * 100).toBeGreaterThanOrEqual(100) // 100
       expect(categories.pwa.score * 100).toBeGreaterThanOrEqual(74) // 74
     }))
-
