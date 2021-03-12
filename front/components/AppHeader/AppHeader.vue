@@ -229,10 +229,18 @@
   align-self: center;
 }
 
+.logo:hover .recontact {
+  color: $header-bg;
+}
+
 .me {
   align-self: center;
   padding: 5px 5px 0;
   color: $logo-secondary;
+}
+
+.logo:hover .me {
+  color: $header-bg;
 }
 
 .icon {
@@ -310,8 +318,7 @@
   }
 
   .logo:hover {
-    background: #D14800;
-    color: #FFFFFF;
+    background: $logo-hover;
     padding-right: 5px;
     border-radius: 4px;
     margin-top: 7px;
