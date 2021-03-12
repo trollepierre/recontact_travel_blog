@@ -9,8 +9,8 @@ Dark mode TODO:
 Done:
 - extract app button from header
 - use app button to manage NuxtLink in header
+- fix hover on logo Recontact Me (red over red)
 
 Out-of-story:
 - fix hover on logo Recontact Me (glitch from 3px right)
 - integrate app-button everywhere
-- fix hover on logo Recontact Me (red over red)
