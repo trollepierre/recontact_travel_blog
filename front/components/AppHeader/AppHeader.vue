@@ -19,13 +19,13 @@
         aria-label="navigation">
         <ul class="navigation">
           <li class="previous article">
-            <NuxtLink
+            <app-button
               v-if="previousArticleId"
+              :id="previousArticleId"
+              :is-link="true"
               class="button previous article"
               type="button"
-              :to="previousArticleId">
-              {{ $t("previousArticle") }}
-            </NuxtLink>
+              :text="$t('previousArticle')"/>
           </li>
           <li class="article-text">
             <p class="id">
@@ -33,12 +33,13 @@
             </p>
           </li>
           <li class="next article">
-            <NuxtLink
-              class="button next article"
-              type="button"
-              :to="nextArticleId">
-              {{ $t("nextArticle") }}
-            </NuxtLink>
+            <app-button
+                v-if="previousArticleId"
+                :id="nextArticleId"
+                :is-link="true"
+                class="button next article"
+                type="button"
+                :text="$t('nextArticle')"/>
           </li>
         </ul>
       </nav>
@@ -275,18 +276,6 @@
 }
 
 .button.article {  // used in [<] Article 85 [>]
-  line-height: 28px;
-  color: #F48024;
-  text-decoration: unset;
-  font-size: 11px;
-  font-family: serif;
-  text-transform: uppercase;
-  background: #FFFFFF;
-  border: 1px solid #F48024;
-  cursor: pointer;
-  border-radius: 4px;
-  width: 100%;
-  font-weight: 700;
   padding: 0 10px;
 }
 
