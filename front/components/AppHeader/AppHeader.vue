@@ -47,29 +47,25 @@
           <li
             v-if="showNavBarButton"
             class="link">
-            <button
-              class="button subscribe"
-              type="button"
-              @click.prevent="displaySubscribeModal">
-              {{ $t("subscribe") }}
-            </button>
+            <app-button
+              class="subscribe"
+              :text="$t('subscribe')"
+              @click="displaySubscribeModal"/>
           </li>
           <li
             v-if="showNavBarButton"
             class="link">
-            <button
-              class="button suggestion"
-              type="button"
-              @click.prevent="displayFeedbackModal">
-              {{ $t("suggestion") }}
-            </button>
+            <app-button
+              class="suggestion"
+              :text="$t('suggestion')"
+              @click="displayFeedbackModal"/>
           </li>
           <li
             v-if="showNavBarButton"
             class="link tdm">
             <a
               :title="$t('tdm')"
-              class="button tdm"
+              class="tdm"
               href="http://worldtour.recontact.me">
               <img
                 :alt="logo"
@@ -78,12 +74,10 @@
             </a>
           </li>
           <li class="link other-language">
-            <button
-              class="button other-language"
-              type="button"
-              @click.prevent="switchLanguage">
-              {{ $t("otherLanguage") }}
-            </button>
+            <app-button
+              class="other-language"
+              :text="$t('otherLanguage')"
+              @click="switchLanguage"/>
           </li>
         </ul>
       </nav>
@@ -92,8 +86,11 @@
 </template>
 <script>
 /* eslint-disable  max-lines */
+  import AppButton from '~/components/AppButton/AppButton'
+
   export default {
     name: 'AppHeader',
+    components: { AppButton },
     data: () => ({
       showNavBarButton: false,
       otherUrl: '',
@@ -189,11 +186,11 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .header {
   height: 60px;
-  background: #FFFFFF;
-  border-bottom: 1px solid #E6E6E6;
+  background: $header-bg;
+  border-bottom: 1px solid $header-border;
   width: 100%;
   padding-left: 0;
   position: fixed;
@@ -218,16 +215,13 @@
   justify-content: space-between;
   align-items: center;
   font-family: serif;
-}
-
-.logo {
   padding: 0;
   margin: 10px 0;
   border-radius: 4px;
 }
 
 .recontact {
-  color: #07C;
+  color: $logo-primary;
   padding-top: 5px;
   padding-left: 5px;
   padding-bottom: 0;
@@ -237,7 +231,7 @@
 .me {
   align-self: center;
   padding: 5px 5px 0;
-  color: #D14800;
+  color: $logo-secondary;
 }
 
 .icon {
@@ -263,6 +257,7 @@
 
 .tdm {
   display: inline-flex;
+  padding: 10px;
 }
 
 .tdm__image {
@@ -272,23 +267,14 @@
 .article, .article-text {
   font-family: serif;
   padding-left: 10px;
-  color: #F48024;
-}
-
-.button.article:hover {
-  background: #D14800;
-  color: #FFFFFF;
-}
-
-.button.article {
-  padding: 0 10px;
+  color: $nav-color;
 }
 
 .id {
   margin-top: 20px;
 }
 
-.button {
+.button.article {  // used in [<] Article 85 [>]
   line-height: 28px;
   color: #F48024;
   text-decoration: unset;
@@ -298,25 +284,16 @@
   background: #FFFFFF;
   border: 1px solid #F48024;
   cursor: pointer;
-  padding: 3px 5px;
   border-radius: 4px;
   width: 100%;
   font-weight: 700;
+  padding: 0 10px;
 }
 
-.button.other-language {
+.button.other-language { // side effect
   font-size: 24px;
   margin-top: 0;
   padding: 8px 6px 0 6px;
-}
-
-.button.other-language:hover {
-  background: #D14800;
-  color: #FFFFFF;
-}
-
-.tdm {
-  padding: 10px;
 }
 
 .other-language, .article, .article-text {
@@ -393,9 +370,8 @@
     font-size: 18px;
   }
 
-  .button {
+  .button.article {
     font-size: 14px;
-    padding: 5px 15px 3px;
   }
 
   .button.other-language {
