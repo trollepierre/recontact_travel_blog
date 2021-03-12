@@ -1,16 +1,20 @@
 <template>
-  <button
+  <component
+    :is="isLink ? 'nuxt-link' : 'button'"
     type="button"
     class="button"
+    :to="id"
     @click.prevent.once="onClick">
     {{ text }}
-  </button>
+  </component>
 </template>
 <script>
   export default {
     name: 'AppButton',
     props: {
       text: { type: String, default: () => '' },
+      isLink: { type: Boolean, default: () => false },
+      id: { type: String, default: () => undefined },
     },
     methods: {
       onClick() {
