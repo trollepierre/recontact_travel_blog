@@ -61,6 +61,7 @@ module.exports = {
     '~/assets/css/styles.css',
     '~/assets/css/mapbox-v2.0.1.css',
     '@/assets/css/variables.scss',
+    '@/assets/css/colors.scss',
   ],
 
   // Global scss
