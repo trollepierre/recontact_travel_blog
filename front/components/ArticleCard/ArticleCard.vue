@@ -193,7 +193,7 @@
     padding: 12px 0;
     margin: auto;
     text-decoration: none;
-    border-bottom: 1px solid $card-border;
+    border-bottom: 1px solid $border;
     height: 34px;
     display: flex;
     justify-content: space-between;
