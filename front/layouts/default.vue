@@ -4,9 +4,9 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
   body {
-    background: aliceblue;
+    background: $bg;
     padding: 0;
     margin: 0;
   }
@@ -14,7 +14,7 @@
   #app {
     font-weight: bold;
     text-align: center;
-    color: #2c3e50;
+    color: $color;
   }
 
   .v--modal {
