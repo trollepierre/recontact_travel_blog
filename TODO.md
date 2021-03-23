@@ -14,8 +14,10 @@ Done:
 - create color palette
 - use colors.scss to set color in AppHeader
 - use colors.scss to set color in index.vue (homepage)
+- standardize colors to use them in all the pages (except Modal and Admin)
 
 Out-of-story:
 - fix hover on logo Recontact Me (glitch from 3px right on article page)
 - integrate app-button everywhere
 - use breakpoint from .scss file
+- fix on article 1, no arrow nav

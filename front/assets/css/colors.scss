@@ -1,5 +1,7 @@
 // Color palette definition
 // Naming from https://chir.ag/projects/name-that-color/#E6E6E6
+$aliceblue: aliceblue;
+$pickledBluewood: #2c3e50;
 $white: #FFFFFF;
 $mercury: #E6E6E6;
 $lochmara: #07C;
@@ -9,46 +11,128 @@ $darkgrey: darkgrey;
 $silver: #BDBDBD;
 $doveGray: #616161;
 $alabaster: #FAFAFA;
-
+$black: #000;
 $abbey: #535a60; // what?
-$black: #000; // what?
 $roseBud: #f7b5a9; // Admin
 
 // Border
 $border: $mercury;
 
+:root {
+  // Page
+  --bg: #{$aliceblue};
+  --color: #{$pickledBluewood};
+
+  // App Header
+  --logo-primary: #{$lochmara};
+  --header-bg: #{$white};
+  --logo-secondary: #{$grenadier};
+  --logo-hover: #{$grenadier};
+  --nav-color: #{$tango};
+  --tdm-color: #{$darkgrey};
+
+  // Button
+  --button-color: #{$tango};
+  --button-bg: #{$white};
+  --button-hover: #{$grenadier};
+
+  --button-disabled-bg: #{$silver};
+  --button-disabled-border: #{$doveGray};
+  --button-disabled-color: #{$alabaster};
+  --button-color-light: #{$roseBud}; // Admin
+
+  // Article Card + ChapterCard + PhotoCard
+  --card-text: #{$darkgrey};
+  --card-bg: #{$white};
+  --card-color-weird: #{$abbey}; // what?
+  --card-title: #{$lochmara};
+  --card-placeholder: #{$black}; // what?
+
+  // Comments
+  --comment-form-bg: #{$white};
+  --comment-form-color: #{$abbey};
+  --comment-form-label: #{$lochmara};
+  --comment-card-bg: #{$white};
+  --comment-card-color: #{$abbey};
+  --comment-card-label: #{$lochmara};
+}
+
+//:root,
+.dark-mode {
+  // Page
+  --bg: #{black};
+  --color: #{white};
+
+  // App Header
+  --logo-primary: #{$lochmara};
+  --header-bg: #{$black};
+  --logo-secondary: #{$grenadier};
+  --logo-hover: #{$grenadier};
+  --nav-color: #{$tango};
+  --tdm-color: #{$darkgrey};
+
+  // Button
+  --button-color: #{$tango};
+  --button-bg: #{$white};
+  --button-hover: #{$grenadier};
+
+  --button-disabled-bg: #{$silver};
+  --button-disabled-border: #{$doveGray};
+  --button-disabled-color: #{$alabaster};
+  --button-color-light: #{$roseBud}; // Admin
+
+  // Article Card + ChapterCard + PhotoCard
+  --card-text: #{$darkgrey};
+  --card-bg: #{$white};
+  --card-color-weird: #{$abbey}; // what?
+  --card-title: #{$lochmara};
+  --card-placeholder: #{$black}; // what?
+
+  // Comments
+  --comment-form-bg: #{$white};
+  --comment-form-color: #{$abbey};
+  --comment-form-label: #{$lochmara};
+  --comment-card-bg: #{$white};
+  --comment-card-color: #{$abbey};
+  --comment-card-label: #{$lochmara};
+}
+
+// Page
+$bg: var(--bg);
+$color: var(--color);
+
 // App Header
-$header-bg: $white;
-$logo-primary: $lochmara;
-$logo-secondary: $grenadier;
-$logo-hover: $grenadier;
-$nav-color: $tango;
-$tdm-color: $darkgrey;
+$header-bg: var(--header-bg);
+$logo-primary: var(--logo-primary);
+$logo-secondary: var(--logo-secondary);
+$logo-hover: var(--logo-hover);
+$nav-color: var(--nav-color);
+$tdm-color: var(--tdm-color);
 
 // Button
-$button-color: $tango;
-$button-bg: $white;
-$button-hover: $grenadier;
+$button-color: var(--button-color);
+$button-bg: var(--button-bg);
+$button-hover: var(--button-hover);
 
-$button-disabled-bg: $silver;
-$button-disabled-border: $doveGray;
-$button-disabled-color: $alabaster;
-$button-color-light: $roseBud; // Admin
+$button-disabled-bg: var(--button-disabled-bg);
+$button-disabled-border: var(--button-disabled-border);
+$button-disabled-color: var(--button-disabled-color);
+$button-color-light: var(--button-color-light); // Admin
 
 // Article Card + ChapterCard + PhotoCard
-$card-text: $darkgrey;
-$card-bg: $white;
-$card-color-weird: $abbey; // what?
-$card-title: $lochmara;
-$card-placeholder: $black; // what?
+$card-text: var(--card-text);
+$card-bg: var(--card-bg);
+$card-color-weird: var(--card-color-weird); // what?
+$card-title: var(--card-title);
+$card-placeholder: var(--card-placeholder); // what?
 
 // Comments
-$comment-form-bg: $white;
-$comment-form-color: $abbey;
-$comment-form-label: $lochmara;
-$comment-card-bg: $white;
-$comment-card-color: $abbey;
-$comment-card-label: $lochmara;
+$comment-form-bg: var(--comment-form-bg);
+$comment-form-color: var(--comment-form-color);
+$comment-form-label: var(--comment-form-label);
+$comment-card-bg: var(--comment-card-bg);
+$comment-card-color: var(--comment-card-color);
+$comment-card-label: var(--comment-card-label);
 
 // Pin Color
 // Pin-red: $tango + $lochmara
