@@ -189,7 +189,7 @@
 .header {
   height: 60px;
   background: $header-bg;
-  border-bottom: 1px solid $header-border;
+  border-bottom: 1px solid $border;
   width: 100%;
   padding-left: 0;
   position: fixed;

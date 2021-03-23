@@ -6,15 +6,17 @@ $lochmara: #07C;
 $grenadier: #D14800;
 $tango: #F48024;
 $darkgrey: darkgrey;
+$silver: #BDBDBD;
+$doveGray: #616161;
+$alabaster: #FAFAFA;
 
-$silver: #BDBDBD; // Admin
-$doveGray: #616161; // Admin
-$alabaster: #FAFAFA; // Admin
 $roseBud: #f7b5a9; // Admin
+
+// Border
+$border: $mercury;
 
 // App Header
 $header-bg: $white;
-$header-border: $mercury;
 $logo-primary: $lochmara;
 $logo-secondary: $grenadier;
 $logo-hover: $grenadier;
@@ -26,16 +28,15 @@ $button-color: $tango;
 $button-bg: $white;
 $button-hover: $grenadier;
 
-$button-disabled-bg: $silver; // Admin
-$button-disabled-border: $doveGray; // Admin
-$button-disabled-color: $alabaster; // Admin
+$button-disabled-bg: $silver;
+$button-disabled-border: $doveGray;
+$button-disabled-color: $alabaster;
 $button-color-light: $roseBud; // Admin
 
 // Article Card
 $card-text: $darkgrey;
 $card-bg: $white;
 $card-color-weird: #535a60; // what?
-$card-border: $mercury;
 $card-title: $lochmara;
 $card-content-color-weird: #000; // what?
 
