@@ -1,9 +1,9 @@
 <template>
   <component
-    :is="isLink ? 'nuxt-link' : 'button'"
+    :is="tag"
     type="button"
     class="button"
-    :to="id"
+    :to="to"
     @click.prevent.once="onClick">
     {{ text }}
   </component>
@@ -14,7 +14,8 @@
     props: {
       text: { type: String, default: () => '' },
       isLink: { type: Boolean, default: () => false },
-      id: { type: String, default: () => undefined },
+      to: { type: String, default: () => undefined },
+      tag: { type: String, default: () => 'button' },
     },
     methods: {
       onClick() {
@@ -24,16 +25,16 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .button {
   line-height: 28px;
-  color: #F48024;
+  color: $button-color;
   text-decoration: unset;
   font-size: 11px;
   font-family: serif;
   text-transform: uppercase;
-  background: #FFFFFF;
-  border: 1px solid #F48024;
+  background: $button-bg;
+  border: 1px solid $button-color;
   cursor: pointer;
   padding: 3px 5px;
   border-radius: 4px;
@@ -42,8 +43,8 @@
 }
 
 .button:hover {
-  background: #D14800;
-  color: #FFFFFF;
+  background: $button-hover;
+  color: $button-bg;
 }
 
 </style>

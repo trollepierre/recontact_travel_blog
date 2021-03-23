@@ -27,44 +27,43 @@
     </div>
     <footer class="article__footer">
       <template v-if="adminMode">
-        <button
+        <app-button
           :disabled="isUpdateClicked"
-          class="article__update-button article__footer__button"
-          @click.prevent.once="updateArticle">
-          {{ $t("repairArticle") }}
-        </button>
-        <button
+          class="app-button"
+          :text="$t('repairArticle')"
+          @click="updateArticle"/>
+        <app-button
           :disabled="isDeleteClicked"
-          class="article__delete-button article__footer_hidden article__footer__button"
-          @click.prevent.once="deleteArticle">
-          {{ $t("deleteArticle") }}
-        </button>
+          class="app-button light"
+          :text="$t('deleteArticle')"
+          @click="deleteArticle"/>
       </template>
       <template v-else>
-        <button
-          class="article__footer__button"
-          @click.prevent.once="viewArticle">
-          {{ $t("goToArticle") }}
-        </button>
-        <a
+        <app-button
+          class="app-button"
+          :text="$t('goToArticle')"
+          @click="viewArticle"/>
+        <app-button
+          class="app-button link"
+          :text="$t('viewGallery')"
           :href="article.galleryLink"
+          tag="a"
           target="_blank"
-          rel="noreferrer"
-          class="article__dropbox article__footer__button">
-          {{ $t("viewGallery") }}
-        </a>
+          rel="noreferrer"/>
       </template>
     </footer>
   </article>
 </template>
 
 <script>
+  import AppButton from '@/components/AppButton/AppButton'
   import articlesApi from '../../services/api/articles'
   import notificationsService from '../../services/services/notifications'
   import translationsService from '../../services/services/translations'
 
   export default {
     name: 'ArticleCard',
+    components: { AppButton },
     props: {
       adminMode: { type: Boolean, default: () => false },
       article: { type: Object, default: () => {} },
@@ -91,7 +90,6 @@
       },
 
       updateArticle() {
-        this.trackEvent()
         this.disableUpdateButton()
         notificationsService.warn(this.$t('syncLaunched'))
         articlesApi.update(this.article.dropboxId)
@@ -106,14 +104,6 @@
 
       disableUpdateButton() {
         this.isUpdateClicked = true
-      },
-
-      trackEvent() {
-      // this.$ga.event({
-      //   eventCategory: 'Article Card',
-      //   eventAction: 'update',
-      //   eventLabel: `article ${this.article.dropboxId} is updated`,
-      // })
       },
 
       deleteArticle() {
@@ -169,13 +159,13 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .article__image[lazy="loaded"], .important {
     max-width: 100%;
     max-height: 40vw;
     width: 200px;
     height: 150px;
-    color: darkgrey;
+    color: $card-text;
   }
 
   @media only screen and (max-width: 640px) {
@@ -189,13 +179,13 @@
   .article {
     min-width: 260px;
     max-width: 260px;
-    background: #FFFFFF;
+    background: $card-bg;
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
     border: 1px solid rgba(0, 0, 0, .09);
     display: flex;
     flex-direction: column;
-    color: #535a60;
+    color: $card-color-weird;
   }
 
   .article__link {
@@ -203,7 +193,7 @@
     padding: 12px 0;
     margin: auto;
     text-decoration: none;
-    border-bottom: 1px solid #E6E6E6;
+    border-bottom: 1px solid $card-border;
     height: 34px;
     display: flex;
     justify-content: space-between;
@@ -217,7 +207,7 @@
     font-size: 20px;
     font-weight: 500;
     line-height: 20px;
-    color: #07C;
+    color: $card-title;
     margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -228,7 +218,7 @@
     font-size: 15px;
     padding: 15px;
     height: 150px;
-    color: #000;
+    color: $card-content-color-weird;
     text-align: center;
     display: flex;
     align-content: center;
@@ -239,38 +229,29 @@
   .article__footer {
     text-align: center;
     padding: 15px 15px 5px;
-    border-top: 1px solid #E6E6E6;
+    border-top: 1px solid $card-border;
   }
 
-  .article__footer__button {
-    text-transform: uppercase;
-    color: #D14800;
-    background: #FFFFFF;
-    border: 1px solid #D14800;
-    cursor: pointer;
-    padding: 12px 30px;
-    border-radius: 4px;
-    width: 100%;
+  .app-button {
     margin-bottom: 10px;
-    font-weight: 700;
-    font-family: serif;
     font-size: 12px;
   }
 
-  .article__footer_hidden {
-    color: #f7b5a9;
+  .app-button.link {
+    display: block;
+    width: inherit;
+    text-decoration: unset;
   }
 
-  .article__footer__button:hover {
-    background: #D14800;
-    color: #FFFFFF;
+  .light {
+    color: $button-color-light;
   }
 
-  .article__footer__button:disabled,
-  .article__footer__button:active {
-    background: #BDBDBD;
-    border-color: #616161;
-    color: #FAFAFA;
+  .app-button:disabled,
+  .app-button:active {
+    background: $button-disabled-bg;
+    border-color: $button-disabled-border;
+    color: $button-disabled-color;
     cursor: auto;
   }
 

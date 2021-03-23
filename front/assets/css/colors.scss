@@ -5,11 +5,42 @@ $mercury: #E6E6E6;
 $lochmara: #07C;
 $grenadier: #D14800;
 $tango: #F48024;
+$darkgrey: darkgrey;
 
-// Match
+$silver: #BDBDBD; // Admin
+$doveGray: #616161; // Admin
+$alabaster: #FAFAFA; // Admin
+$roseBud: #f7b5a9; // Admin
+
+// App Header
 $header-bg: $white;
 $header-border: $mercury;
 $logo-primary: $lochmara;
 $logo-secondary: $grenadier;
 $logo-hover: $grenadier;
 $nav-color: $tango;
+$tdm-color: $darkgrey;
+
+// Button
+$button-color: $tango;
+$button-bg: $white;
+$button-hover: $grenadier;
+
+$button-disabled-bg: $silver; // Admin
+$button-disabled-border: $doveGray; // Admin
+$button-disabled-color: $alabaster; // Admin
+$button-color-light: $roseBud; // Admin
+
+// Article Card
+$card-text: $darkgrey;
+$card-bg: $white;
+$card-color-weird: #535a60; // what?
+$card-border: $mercury;
+$card-title: $lochmara;
+$card-content-color-weird: #000; // what?
+
+
+// Pin Color
+// Pin-red: $tango + $lochmara
+// Pin-green: green + $tango
+// Pin-bleu: $lochmara + $tango
