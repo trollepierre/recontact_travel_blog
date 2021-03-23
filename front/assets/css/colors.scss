@@ -10,6 +10,8 @@ $silver: #BDBDBD;
 $doveGray: #616161;
 $alabaster: #FAFAFA;
 
+$abbey: #535a60; // what?
+$black: #000; // what?
 $roseBud: #f7b5a9; // Admin
 
 // Border
@@ -36,10 +38,14 @@ $button-color-light: $roseBud; // Admin
 // Article Card + ChapterCard
 $card-text: $darkgrey;
 $card-bg: $white;
-$card-color-weird: #535a60; // what?
+$card-color-weird: $abbey; // what?
 $card-title: $lochmara;
-$card-content-color-weird: #000; // what?
+$card-content-color-weird: $black; // what?
 
+// Comments
+$comment-form-bg: $white;
+$comment-form-color: $abbey;
+$comment-form-label: $lochmara;
 
 // Pin Color
 // Pin-red: $tango + $lochmara
