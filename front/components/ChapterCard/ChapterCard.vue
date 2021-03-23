@@ -163,7 +163,7 @@
     font-size: 15px;
     padding: 15px;
     display: block;
-    color: $card-content-color-weird;
+    color: $card-placeholder;
     text-align: center;
   }
 

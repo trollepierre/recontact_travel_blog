@@ -3,6 +3,7 @@ Dark mode TODO:
 
 use colors.scss to set color in all pages :
 - Darkmode on AdminDashboard + PositionForm => use Button
+- Darkmode on modals
 
 
 Done:
