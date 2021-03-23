@@ -18,7 +18,8 @@
       tag: { type: String, default: () => 'button' },
     },
     methods: {
-      onClick() {
+      onClick(e) {
+        e.preventDefault()
         this.$emit('click')
       },
     },

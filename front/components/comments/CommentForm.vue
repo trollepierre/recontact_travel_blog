@@ -41,7 +41,7 @@
           type="submit"
           class="form-button"
           :text="$t('send')"
-          @click="submitComment"/>
+          @click="submitComment()"/>
       </footer>
     </form>
   </div>
@@ -66,8 +66,7 @@
       }
     },
     methods: {
-      submitComment(e) {
-        e.preventDefault()
+      submitComment() {
         if (this.newComment !== '') {
           const comment = {
             text: this.newComment,
@@ -204,7 +203,6 @@
   }
 
   .form-button {
-    padding: 15px 30px;
     max-width: 300px;
   }
 
