@@ -32,20 +32,19 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .comment {
     min-width: 260px;
-    background: #FFFFFF;
+    background: $comment-card-bg;
     border-radius: 4px !important;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
-    border: 1px solid rgba(0, 0, 0, .09);
+    box-shadow: 0 1px 1px $border;
+    border: 1px solid $border;
     display: flex;
     flex-direction: column;
-    color: #535a60;
+    color: $comment-card-color;
   }
 
   .comment__header {
-    border-bottom: 1px solid #E6E6E6;
     padding: 15px;
     height: 34px;
     display: flex;
@@ -57,7 +56,7 @@
     font-size: 16px;
     font-weight: 700;
     line-height: 17px;
-    color: #07C;
+    color: $comment-card-label;
     margin: 0;
     overflow-wrap: break-word;
   }
@@ -65,6 +64,6 @@
   .comment__footer {
     text-align: center;
     padding: 15px;
-    border-top: 1px solid #E6E6E6;
+    border-top: 1px solid $border;
   }
 </style>
