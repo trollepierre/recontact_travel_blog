@@ -229,7 +229,7 @@
   .article__footer {
     text-align: center;
     padding: 15px 15px 5px;
-    border-top: 1px solid $card-border;
+    border-top: 1px solid $border;
   }
 
   .app-button {
