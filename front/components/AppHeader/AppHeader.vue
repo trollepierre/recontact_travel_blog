@@ -21,10 +21,9 @@
           <li class="previous article">
             <app-button
               v-if="previousArticleId"
-              :id="previousArticleId"
-              :is-link="true"
+              :to="previousArticleId"
+              tag='nuxt-link'
               class="button previous article"
-              type="button"
               :text="$t('previousArticle')"/>
           </li>
           <li class="article-text">
@@ -34,12 +33,11 @@
           </li>
           <li class="next article">
             <app-button
-                v-if="previousArticleId"
-                :id="nextArticleId"
-                :is-link="true"
-                class="button next article"
-                type="button"
-                :text="$t('nextArticle')"/>
+              v-if="previousArticleId"
+              :to="nextArticleId"
+              tag='nuxt-link'
+              class="button next article"
+              :text="$t('nextArticle')"/>
           </li>
         </ul>
       </nav>
@@ -270,7 +268,7 @@
 }
 
 .tdm__image {
-  color: darkgrey;
+  color: $tdm-color;
 }
 
 .article, .article-text {
@@ -283,7 +281,7 @@
   margin-top: 20px;
 }
 
-.button.article {  // used in [<] Article 85 [>]
+.button.article { // used in [<] Article 85 [>]
   padding: 0 10px;
 }
 
