@@ -129,16 +129,15 @@
   .chapter {
     min-width: 260px;
     background: $card-bg;
-    border-radius: 4px !important;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
-    border: 1px solid rgba(0, 0, 0, .09);
+    border-radius: 4px;
+    border: 1px solid $border;
     display: flex;
     flex-direction: column;
     color: $card-color-weird
   }
 
   .chapter__header {
-    border-bottom: 1px solid $mercury;
+    border-bottom: 1px solid $border;
     padding: 15px;
     height: 34px;
     display: flex;

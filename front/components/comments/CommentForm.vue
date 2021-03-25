@@ -134,11 +134,9 @@
     min-width: 260px;
     background: $comment-form-bg;
     border-radius: 4px;
-    box-shadow: 0 1px 1px $border;
     border: 1px solid $border;
     display: flex;
     flex-direction: column;
-    color: $comment-form-color;
     width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -160,10 +158,10 @@
     margin: 0;
     overflow-wrap: break-word;
     padding-left: 10px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: gray;
-    border-image: initial;
+    border: 1px solid $border;
+    background-color: $comment-form-input-bg;
+    border-radius: 4px;
+    color: $comment-form-color;
   }
 
   .input-group {
