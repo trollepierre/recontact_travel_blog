@@ -15,26 +15,38 @@ $black: #000;
 $abbey: #535a60; // what?
 $roseBud: #f7b5a9; // Admin
 
-// Border
-$border: $mercury;
+// New proposal
+$ceramic: #f8fff0; // bg
+$punga: #53451a; // color (logo color,
+$raffia: #ebe2bb; // header-bg
+$norway: #a2ba96;
+$tussock: #bd8c3d;
+$pesto: #876c35; // logo
+$twine: #bf9d63;
+$laser: #d2b575; // border
+$chino: #c6c899;
+$swampGreen: #b8ba92;
+$continent: #8f713b;
 
 :root {
   // Page
-  --bg: #{$aliceblue};
-  --color: #{$pickledBluewood};
+  --bg: #{$ceramic};
+  --color: #{$punga};
+  --border: #{$laser};
 
   // App Header
-  --logo-primary: #{$lochmara};
-  --header-bg: #{$white};
-  --logo-secondary: #{$grenadier};
-  --logo-hover: #{$grenadier};
-  --nav-color: #{$tango};
-  --tdm-color: #{$darkgrey};
+  --header-bg: #{$raffia};
+  --logo-primary: #{$pesto};
+  --logo-secondary: #{$pesto};
+  --logo-hover: #{$pesto};
+  --logo-color: #{$punga};
+  --nav-color: #{$pesto};
+  --tdm-color: #{$darkgrey}; // osef
 
   // Button
-  --button-color: #{$tango};
-  --button-bg: #{$white};
-  --button-hover: #{$grenadier};
+  --button-color: #{$ceramic};
+  --button-bg: #{$tussock};
+  --button-hover: #{$ceramic};
 
   --button-disabled-bg: #{$silver};
   --button-disabled-border: #{$doveGray};
@@ -43,31 +55,33 @@ $border: $mercury;
 
   // Article Card + ChapterCard + PhotoCard
   --card-text: #{$darkgrey};
-  --card-bg: #{$white};
+  --card-bg: #{#E5E0CD};
   --card-color-weird: #{$abbey}; // what?
-  --card-title: #{$lochmara};
+  --card-title: #{$pesto};
   --card-placeholder: #{$black}; // what?
 
   // Comments
   --comment-form-bg: #{$white};
   --comment-form-color: #{$abbey};
-  --comment-form-label: #{$lochmara};
+  --comment-form-label: #{$pesto};
   --comment-card-bg: #{$white};
   --comment-card-color: #{$abbey};
-  --comment-card-label: #{$lochmara};
+  --comment-card-label: #{$pesto};
 }
 
 //:root,
 .dark-mode {
   // Page
-  --bg: #{black};
-  --color: #{white};
+  --bg: #{$black};
+  --color: #{$white};
+  --border: #{$mercury};
 
   // App Header
-  --logo-primary: #{$lochmara};
   --header-bg: #{$black};
+  --logo-primary: #{$lochmara};
   --logo-secondary: #{$grenadier};
   --logo-hover: #{$grenadier};
+  --logo-color: #{$black};
   --nav-color: #{$tango};
   --tdm-color: #{$darkgrey};
 
@@ -100,12 +114,14 @@ $border: $mercury;
 // Page
 $bg: var(--bg);
 $color: var(--color);
+$border: var(--border);
 
 // App Header
 $header-bg: var(--header-bg);
 $logo-primary: var(--logo-primary);
 $logo-secondary: var(--logo-secondary);
 $logo-hover: var(--logo-hover);
+$logo-color: var(--logo-color);
 $nav-color: var(--nav-color);
 $tdm-color: var(--tdm-color);
 

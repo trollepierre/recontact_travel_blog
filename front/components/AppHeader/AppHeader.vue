@@ -10,7 +10,9 @@
         <img
           :alt="logo"
           class="icon"
-          src="../../static/mstile-150x150.png">
+          width="38"
+          height="38"
+          src="../../static/velo.png">
         <span class="recontact">Recontact</span>
         <span class="me">Me</span>
       </a>
@@ -159,7 +161,7 @@
           problem: 'Un problème ?',
           tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
           home: 'Page d’accueil',
-          logo: 'Logo du site',
+          logo: 'Logo',
           otherLanguage: '🇬🇧',
           otherUrl: 'https://www.recontact.me',
           previousArticle: '<',
@@ -172,7 +174,7 @@
           problem: 'A problem?',
           tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
           home: 'Home page',
-          logo: 'Logo of the site',
+          logo: 'Logo',
           otherLanguage: '🇫🇷',
           otherUrl: 'https://fr.recontact.me',
           previousArticle: '<',
@@ -214,8 +216,6 @@
   justify-content: space-between;
   align-items: center;
   font-family: serif;
-  padding: 0;
-  margin: 10px 0;
   border-radius: 4px;
 }
 
@@ -227,26 +227,18 @@
   align-self: center;
 }
 
-.logo:hover .recontact {
-  color: $header-bg;
-}
-
 .me {
   align-self: center;
   padding: 5px 5px 0;
   color: $logo-secondary;
 }
 
-.logo:hover .me {
-  color: $header-bg;
-}
-
 .icon {
   display: block;
-  height: 75px;
-  padding-top: 12px;
-  margin: -20px;
-  padding-right: 10px;
+  height: 38px;
+  margin-left: -40px;
+  font-size: 8px;
+  color: $logo-color;
 }
 
 .navigation {
@@ -297,6 +289,13 @@
   justify-content: center;
 }
 
+.logo:hover {
+  border: 1px solid $logo-hover;
+  padding-left: 50px;
+  margin-left: -50px;
+  border-radius: 10px;
+}
+
 @media only screen and (max-width: 340px) {
   .button.other-language {
     font-size: 10px;
@@ -313,21 +312,6 @@
   .container {
     max-width: 500px;
     justify-content: space-between;
-  }
-
-  .logo:hover {
-    background: $logo-hover;
-    padding-right: 5px;
-    border-radius: 4px;
-    margin-top: 7px;
-    margin-bottom: 7px;
-  }
-
-  .icon {
-    display: block;
-    height: 75px;
-    padding-top: 10px;
-    margin: -5px;
   }
 
   .suggestion,
