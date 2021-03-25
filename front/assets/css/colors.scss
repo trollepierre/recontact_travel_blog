@@ -28,10 +28,15 @@ $chino: #c6c899;
 $swampGreen: #b8ba92;
 $continent: #8f713b;
 
+$white: #FFFFFF;
+$silver: #bdbdbd; // disabled button
+$doveGray: #616161; // disabled button
+
+
 :root {
   // Page
   --bg: #{$ceramic};
-  --color: #{$punga};
+  --color: #{$pesto};
   --border: #{$laser};
 
   // App Header
@@ -39,33 +44,36 @@ $continent: #8f713b;
   --logo-primary: #{$pesto};
   --logo-secondary: #{$pesto};
   --logo-hover: #{$pesto};
-  --logo-color: #{$punga};
+  --logo-color: #{$pesto};
   --nav-color: #{$pesto};
-  --tdm-color: #{$darkgrey}; // osef
+  --tdm-color: #{$pesto}; // osef
 
   // Button
-  --button-color: #{$ceramic};
-  --button-bg: #{$tussock};
-  --button-hover: #{$ceramic};
+  --button-color: #{$tussock};
+  --button-border: #{$tussock};
+  --button-bg: #{$ceramic};
+  --button-hover: #{$tussock};
 
   --button-disabled-bg: #{$silver};
   --button-disabled-border: #{$doveGray};
-  --button-disabled-color: #{$alabaster};
-  --button-color-light: #{$roseBud}; // Admin
+  --button-disabled-color: #{$white};
+  --button-color-light: #{$swampGreen}; // Admin
 
   // Article Card + ChapterCard + PhotoCard
-  --card-text: #{$darkgrey};
-  --card-bg: #{#E5E0CD};
-  --card-color-weird: #{$abbey}; // what?
+  --card-text: #{$punga};
+  --card-bg: #{$raffia};
+  --card-color-weird: #{$punga}; // what?
   --card-title: #{$pesto};
-  --card-placeholder: #{$black}; // what?
+  --card-placeholder: #{$punga}; // what?
 
   // Comments
-  --comment-form-bg: #{$white};
-  --comment-form-color: #{$abbey};
+  --comment-form-bg: #{$raffia};
+  --comment-form-input-bg: #{$ceramic};
+  --comment-form-color: #{$pesto};
   --comment-form-label: #{$pesto};
-  --comment-card-bg: #{$white};
-  --comment-card-color: #{$abbey};
+
+  --comment-card-bg: #{$raffia};
+  --comment-card-color: #{$pesto};
   --comment-card-label: #{$pesto};
 }
 
@@ -87,6 +95,7 @@ $continent: #8f713b;
 
   // Button
   --button-color: #{$tango};
+  --button-border: #{$tango};
   --button-bg: #{$white};
   --button-hover: #{$grenadier};
 
@@ -104,6 +113,7 @@ $continent: #8f713b;
 
   // Comments
   --comment-form-bg: #{$white};
+  --comment-form-input-bg: #{$white};
   --comment-form-color: #{$abbey};
   --comment-form-label: #{$lochmara};
   --comment-card-bg: #{$white};
@@ -127,6 +137,7 @@ $tdm-color: var(--tdm-color);
 
 // Button
 $button-color: var(--button-color);
+$button-border: var(--button-border);
 $button-bg: var(--button-bg);
 $button-hover: var(--button-hover);
 
@@ -144,6 +155,7 @@ $card-placeholder: var(--card-placeholder); // what?
 
 // Comments
 $comment-form-bg: var(--comment-form-bg);
+$comment-form-input-bg: var(--comment-form-input-bg);
 $comment-form-color: var(--comment-form-color);
 $comment-form-label: var(--comment-form-label);
 $comment-card-bg: var(--comment-card-bg);

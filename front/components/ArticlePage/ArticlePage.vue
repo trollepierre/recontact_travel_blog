@@ -193,7 +193,6 @@
   .footer-article {
     text-align: center;
     padding: 15px;
-    border-top: 1px solid $border;
   }
 
   .app-button {
