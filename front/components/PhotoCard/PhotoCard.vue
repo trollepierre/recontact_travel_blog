@@ -63,8 +63,7 @@
   .photo {
     min-width: 260px;
     background: $card-bg;
-    border-radius: 4px !important;
-    box-shadow: 0 1px 1px $border;
+    border-radius: 4px;
     border: 1px solid $border;
     display: flex;
     flex-direction: column;

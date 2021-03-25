@@ -195,6 +195,7 @@
   width: 100%;
   padding-left: 0;
   position: fixed;
+  z-index: 1;
 }
 
 .navbar-hidden {
@@ -277,10 +278,22 @@
   padding: 0 10px;
 }
 
+.button {
+  background-color: $header-bg;
+}
+
+.button:hover {
+  background-color: $button-hover;
+}
+
 .button.other-language { // side effect
   font-size: 24px;
   margin-top: 0;
   padding: 8px 6px 0 6px;
+}
+
+.button.other-language:hover {
+  background-color: $button-hover;
 }
 
 .other-language, .article, .article-text {
@@ -306,6 +319,11 @@
   .icon {
     display: none;
   }
+
+  .logo:hover {
+    padding-left: 0;
+    margin-left: 0;
+  }
 }
 
 @media only screen and (min-width: 640px) {
@@ -324,7 +342,11 @@
   }
 
   .recontact {
-    padding-left: 0;
+    padding-left: 8px;
+  }
+
+  .me {
+    padding-right: 10px;
   }
 }
 
