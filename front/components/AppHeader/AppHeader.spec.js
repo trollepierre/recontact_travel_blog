@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import AppHeader from './AppHeader.vue'
 
 describe('Component | AppHeader.vue', () => {
@@ -10,12 +9,6 @@ describe('Component | AppHeader.vue', () => {
   beforeEach(() => {
     localVue = createLocalVue()
     localVue.use(VueI18n)
-  })
-
-  it('should be named "AppHeader"', () => {
-    wrapper = shallowMount(AppHeader, { localVue })
-
-    expect(wrapper.name()).toEqual('AppHeader')
   })
 
   describe('template', () => {
@@ -82,20 +75,6 @@ describe('Component | AppHeader.vue', () => {
   })
 
   describe('methods', () => {
-    describe('switchLanguage', () => {
-      it('should reload page', () => {
-        // Given
-        console.error = jest.fn()
-        wrapper = shallowMount(AppHeader, { localVue })
-
-        // When
-        wrapper.vm.switchLanguage()
-
-        // Then
-        expect(window.location.href).toEqual('http://localhost/articles/8/')
-      })
-    })
-
     describe('onScroll', () => {
       it('should update last scroll position', () => {
         // Given
@@ -178,14 +157,8 @@ describe('Component | AppHeader.vue', () => {
         const locales = Object.keys(AppHeader.i18n.messages.fr)
         expect(locales).toMatchInlineSnapshot(`
           Array [
-            "subscribe",
-            "suggestion",
-            "problem",
-            "tdm",
             "home",
             "logo",
-            "otherLanguage",
-            "otherUrl",
             "previousArticle",
             "nextArticle",
             "article",
@@ -197,14 +170,8 @@ describe('Component | AppHeader.vue', () => {
         const locales = Object.keys(AppHeader.i18n.messages.en)
         expect(locales).toMatchInlineSnapshot(`
           Array [
-            "subscribe",
-            "suggestion",
-            "problem",
-            "tdm",
             "home",
             "logo",
-            "otherLanguage",
-            "otherUrl",
             "previousArticle",
             "nextArticle",
             "article",

@@ -4,11 +4,11 @@
     :class="{ 'navbar-hidden': !showNavbar }">
     <div class="container">
       <a
-        :title="home"
+        :title="$t('home')"
         class="logo"
         href="/">
         <img
-          :alt="logo"
+          :alt="$t('logo')"
           class="icon"
           width="38"
           height="38"
@@ -44,56 +44,20 @@
         </ul>
       </nav>
       <nav aria-label="navigation">
-        <ul class="navigation">
-          <li
-            v-if="showNavBarButton"
-            class="link">
-            <app-button
-              class="subscribe"
-              :text="$t('subscribe')"
-              @click="displaySubscribeModal"/>
-          </li>
-          <li
-            v-if="showNavBarButton"
-            class="link">
-            <app-button
-              class="suggestion"
-              :text="$t('suggestion')"
-              @click="displayFeedbackModal"/>
-          </li>
-          <li
-            v-if="showNavBarButton"
-            class="link tdm">
-            <a
-              :title="$t('tdm')"
-              class="tdm"
-              href="http://worldtour.recontact.me">
-              <img
-                :alt="logo"
-                class="tdm__image"
-                src="../../static/tdm.jpg">
-            </a>
-          </li>
-          <li class="link other-language">
-            <app-button
-              class="other-language"
-              :text="$t('otherLanguage')"
-              @click="switchLanguage"/>
-          </li>
-        </ul>
+        <NavControl />
       </nav>
     </div>
   </header>
 </template>
 <script>
 /* eslint-disable  max-lines */
-  import AppButton from '~/components/AppButton/AppButton'
+import AppButton from '@/components/AppButton/AppButton'
+import NavControl from '@/components/AppHeader/NavControl/NavControl'
 
-  export default {
+export default {
     name: 'AppHeader',
-    components: { AppButton },
+    components: { NavControl, AppButton },
     data: () => ({
-      showNavBarButton: false,
       otherUrl: '',
       showNavbar: true,
       lastScrollPosition: 0,
@@ -102,14 +66,6 @@
       previousArticleId: null,
       nextArticleId: null,
     }),
-    computed: {
-      home() {
-        return this.$t('home')
-      },
-      logo() {
-        return this.$t('logo')
-      },
-    },
     mounted() {
       window.addEventListener('scroll', this.onScroll)
       this.isArticlePage = window.location.pathname.includes('/articles/')
@@ -140,43 +96,20 @@
         this.showNavbar = currentScrollPosition < this.lastScrollPosition // Set the current scroll position as the last scroll position
         this.lastScrollPosition = currentScrollPosition
       },
-      switchLanguage() {
-        window.location.href = this.$t('otherUrl') + window.location.pathname
-      },
-
-      displaySubscribeModal() {
-      // this.$modal.show('subscribe-modal')
-      },
-
-      displayFeedbackModal() {
-      // this.$modal.show('feedback-modal')
-      },
     },
     i18n: {
       silentTranslationWarn: true,
       messages: {
         fr: {
-          subscribe: 'S’abonner',
-          suggestion: 'Laisser un message',
-          problem: 'Un problème ?',
-          tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
           home: 'Page d’accueil',
           logo: 'Logo',
-          otherLanguage: '🇬🇧',
-          otherUrl: 'https://www.recontact.me',
           previousArticle: '<',
           nextArticle: '>',
           article: 'Article',
         },
         en: {
-          subscribe: 'Subscribe',
-          suggestion: 'Leave a message',
-          problem: 'A problem?',
-          tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
           home: 'Home page',
           logo: 'Logo',
-          otherLanguage: '🇫🇷',
-          otherUrl: 'https://fr.recontact.me',
           previousArticle: '<',
           nextArticle: '>',
           article: 'Article',
@@ -250,20 +183,6 @@
   height: 100%;
 }
 
-.suggestion,
-.tdm {
-  display: none;
-}
-
-.tdm {
-  display: inline-flex;
-  padding: 10px;
-}
-
-.tdm__image {
-  color: $tdm-color;
-}
-
 .article, .article-text {
   font-family: serif;
   padding-left: 10px;
@@ -286,17 +205,7 @@
   background-color: $button-hover;
 }
 
-.button.other-language { // side effect
-  font-size: 24px;
-  margin-top: 0;
-  padding: 8px 6px 0 6px;
-}
-
-.button.other-language:hover {
-  background-color: $button-hover;
-}
-
-.other-language, .article, .article-text {
+.article, .article-text {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -307,12 +216,6 @@
   padding-left: 50px;
   margin-left: -50px;
   border-radius: 10px;
-}
-
-@media only screen and (max-width: 340px) {
-  .button.other-language {
-    font-size: 10px;
-  }
 }
 
 @media only screen and (max-width: 400px) {
@@ -330,15 +233,6 @@
   .container {
     max-width: 500px;
     justify-content: space-between;
-  }
-
-  .suggestion,
-  .tdm {
-    display: inline-block;
-  }
-
-  .link {
-    margin-left: 25px;
   }
 
   .recontact {
@@ -374,9 +268,6 @@
     font-size: 14px;
   }
 
-  .button.other-language {
-    padding: 5px 8px 0;
-  }
 }
 
 @media only screen and (min-width: 1200px) {
