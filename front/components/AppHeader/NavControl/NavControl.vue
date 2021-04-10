@@ -134,6 +134,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 5px;
 }
 
 @media only screen and (max-width: 340px) {
