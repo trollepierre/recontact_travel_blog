@@ -37,12 +37,14 @@ $doveGray: #616161; // disabled button
   // Page
   --bg: #{$aliceblue};
   --color: #{$pickledBluewood};
+  --border: #{$mercury};
 
   // App Header
-  --logo-primary: #{$lochmara};
   --header-bg: #{$white};
+  --logo-primary: #{$lochmara};
   --logo-secondary: #{$grenadier};
   --logo-hover: #{$grenadier};
+  --logo-color: #{$black}; // check me
   --nav-color: #{$tango};
   --tdm-color: #{$darkgrey};
 
@@ -123,19 +125,19 @@ $doveGray: #616161; // disabled button
   --border: #{$mercury};
 
   // App Header
-  --header-bg: #{$black};
-  --logo-primary: #{$lochmara};
-  --logo-secondary: #{$grenadier};
-  --logo-hover: #{$grenadier};
+  --header-bg: #{$abbey};
+  --logo-primary: #{$aliceblue};
+  --logo-secondary: #{$aliceblue};
+  --logo-hover: #{$aliceblue};
   --logo-color: #{$black};
-  --nav-color: #{$tango};
-  --tdm-color: #{$darkgrey};
+  --nav-color: #{$white};
+  --tdm-color: #{$abbey};
 
   // Button
-  --button-color: #{$tango};
-  --button-border: #{$tango};
-  --button-bg: #{$white};
-  --button-hover: #{$grenadier};
+  --button-color: #{$white};
+  --button-border: #{$white};
+  --button-bg: #{$silver};
+  --button-hover: #{$black};
 
   --button-disabled-bg: #{$silver};
   --button-disabled-border: #{$doveGray};
@@ -143,20 +145,20 @@ $doveGray: #616161; // disabled button
   --button-color-light: #{$roseBud}; // Admin
 
   // Article Card + ChapterCard + PhotoCard
-  --card-text: #{$darkgrey};
-  --card-bg: #{$white};
-  --card-color-weird: #{$abbey}; // what?
-  --card-title: #{$lochmara};
+  --card-text: #{$aliceblue};
+  --card-bg: #{$abbey};
+  --card-color-weird: #{$white}; // what?
+  --card-title: #{$white};
   --card-placeholder: #{$black}; // what?
 
   // Comments
-  --comment-form-bg: #{$white};
-  --comment-form-input-bg: #{$white};
-  --comment-form-color: #{$abbey};
-  --comment-form-label: #{$lochmara};
-  --comment-card-bg: #{$white};
-  --comment-card-color: #{$abbey};
-  --comment-card-label: #{$lochmara};
+  --comment-form-bg: #{$abbey};
+  --comment-form-input-bg: #{$abbey};
+  --comment-form-color: #{$white};
+  --comment-form-label: #{$white};
+  --comment-card-bg: #{$abbey};
+  --comment-card-color: #{white};
+  --comment-card-label: #{$white};
 }
 
 // Page

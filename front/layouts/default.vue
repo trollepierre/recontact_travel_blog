@@ -22,7 +22,6 @@
 
 <style lang="scss">
   body {
-    background: $bg;
     padding: 0;
     margin: 0;
   }
@@ -30,6 +29,7 @@
   #app {
     font-weight: bold;
     text-align: center;
+    background: $bg;
     color: $color;
   }
 
