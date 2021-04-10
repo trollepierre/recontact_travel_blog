@@ -4,7 +4,8 @@
     type="button"
     class="button"
     :to="to"
-    @click.prevent.once="onClick">
+    @click="(e) => allowMultipleClick ? onClick(e) : undefined"
+    @click.prevent.once="(e) => allowMultipleClick ? undefined : onClick(e)">
     {{ text }}
   </component>
 </template>
@@ -16,6 +17,7 @@
       isLink: { type: Boolean, default: () => false },
       to: { type: String, default: () => undefined },
       tag: { type: String, default: () => 'button' },
+      allowMultipleClick: { type: Boolean, default: () => false },
     },
     methods: {
       onClick(e) {

@@ -2,6 +2,7 @@
 export const state = () => ({
   locales: ['en', 'fr'],
   locale: process.env.NUXT_ENV_LANGUAGE ? process.env.NUXT_ENV_LANGUAGE : 'fr',
+  theme: 'light',
 })
 
 export const mutations = {
@@ -9,5 +10,8 @@ export const mutations = {
     if (state.locales.includes(locale)) {
       state.locale = locale
     }
+  },
+  SET_THEME_MODE(state, theme) {
+    state.theme = theme
   },
 }
