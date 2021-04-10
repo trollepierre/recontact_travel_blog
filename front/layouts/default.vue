@@ -1,8 +1,24 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+    :class="classDarkMode">
     <nuxt/>
   </div>
 </template>
+
+<script>
+  export default {
+    name: 'default Layout',
+    computed: {
+      classDarkMode() {
+        if (this.$store.state.theme === 'new') {
+          return 'new-mode'
+        }
+        return this.$store.state.theme === 'dark' ? 'dark-mode' : undefined
+      },
+    },
+  }
+</script>
 
 <style lang="scss">
   body {
