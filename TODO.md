@@ -1,12 +1,12 @@
 Dark mode TODO:
 - create dark mode with button them and...
 
-use colors.scss to set color in all pages :
-- Darkmode on AdminDashboard + PositionForm => use Button
-- Darkmode on modals
+- use colors.scss to set color in all pages :
+- allowMultipleClick on < Article 85 > of the header ?
 
 
 Done:
+- Darkmode on AdminDashboard + PositionForm => use Button
 - extract app button from header
 - use app button to manage NuxtLink in header
 - fix hover on logo Recontact Me (red over red)
@@ -21,3 +21,4 @@ Out-of-story:
 - integrate app-button everywhere
 - use breakpoint from .scss file
 - fix on article 1, no arrow nav
+- Darkmode on modals
