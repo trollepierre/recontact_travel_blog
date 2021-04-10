@@ -35,6 +35,45 @@ $doveGray: #616161; // disabled button
 
 :root {
   // Page
+  --bg: #{$aliceblue};
+  --color: #{$pickledBluewood};
+
+  // App Header
+  --logo-primary: #{$lochmara};
+  --header-bg: #{$white};
+  --logo-secondary: #{$grenadier};
+  --logo-hover: #{$grenadier};
+  --nav-color: #{$tango};
+  --tdm-color: #{$darkgrey};
+
+  // Button
+  --button-color: #{$tango};
+  --button-bg: #{$white};
+  --button-hover: #{$grenadier};
+
+  --button-disabled-bg: #{$silver};
+  --button-disabled-border: #{$doveGray};
+  --button-disabled-color: #{$alabaster};
+  --button-color-light: #{$roseBud}; // Admin
+
+  // Article Card + ChapterCard + PhotoCard
+  --card-text: #{$darkgrey};
+  --card-bg: #{$white};
+  --card-color-weird: #{$abbey}; // what?
+  --card-title: #{$lochmara};
+  --card-placeholder: #{$black}; // what?
+
+  // Comments
+  --comment-form-bg: #{$white};
+  --comment-form-color: #{$abbey};
+  --comment-form-label: #{$lochmara};
+  --comment-card-bg: #{$white};
+  --comment-card-color: #{$abbey};
+  --comment-card-label: #{$lochmara};
+}
+
+.new-mode {
+  // Page
   --bg: #{$ceramic};
   --color: #{$pesto};
   --border: #{$laser};
@@ -77,7 +116,6 @@ $doveGray: #616161; // disabled button
   --comment-card-label: #{$pesto};
 }
 
-//:root,
 .dark-mode {
   // Page
   --bg: #{$black};
