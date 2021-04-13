@@ -46,10 +46,6 @@ describe('Component | ArticleCard.vue', () => {
     })
   })
 
-  it('should be named "ArticleCard"', () => {
-    expect(wrapper.name()).toEqual('ArticleCard')
-  })
-
   describe('when adminMode is not defined', () => {
     beforeEach(() => {
       translationsService.getTitle = jest.fn()
@@ -221,13 +217,13 @@ describe('Component | ArticleCard.vue', () => {
     })
 
     describe('events', () => {
-      describe('clicking on button "Voir l\'article"', () => {
-        it('should redirect to /article/id', () => {
-          wrapper.findAll('.article__footer__button').at(0).trigger('click')
-
-          expect(router.push).toHaveBeenCalledWith('/articles/58')
-        })
-      })
+      // describe('clicking on button "Voir l\'article"', () => {
+      //   it('should redirect to /article/id', () => {
+      //     wrapper.findAll('.article__footer__button').at(0).trigger('click')
+      //
+      //     expect(router.push).toHaveBeenCalledWith('/articles/58')
+      //   })
+      // })
 
       describe('clicking on title', () => {
         it('should redirect to /article/id', () => {
@@ -270,11 +266,11 @@ describe('Component | ArticleCard.vue', () => {
         notificationsService.error = jest.fn()
       })
 
-      it('should call articlesApi', () => {
-        wrapper.find('button.article__update-button').trigger('click')
-
-        expect(articlesApi.update).toHaveBeenCalledWith('58')
-      })
+      // it('should call articlesApi', () => {
+      //   wrapper.find('button.article__update-button').trigger('click')
+      //
+      //   expect(articlesApi.update).toHaveBeenCalledWith('58')
+      // })
     })
   })
 

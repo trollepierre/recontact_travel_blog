@@ -7,11 +7,10 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
     </h2>
   </a>
   <div class="article__content"><img alt="Pierre somewhere" rel="noreferrer" class="article__image" data-src="webf" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" lazy="loading"></div>
-  <footer class="article__footer"><button class="article__footer__button">
-      Read the article
-    </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="article__dropbox article__footer__button">
-      Discover the pictures
-    </a></footer>
+  <footer class="article__footer">
+    <app-button-stub text="Read the article" tag="button" class="app-button"></app-button-stub>
+    <app-button-stub text="Discover the pictures" tag="a" href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="app-button link"></app-button-stub>
+  </footer>
 </article>
 `;
 
@@ -22,10 +21,9 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
     </h2>
   </a>
   <div class="article__content"><img src="webf" alt="Pierre somewhere" width="200" class="article__image important"></div>
-  <footer class="article__footer"><button class="article__footer__button">
-      Read the article
-    </button> <a href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="article__dropbox article__footer__button">
-      Discover the pictures
-    </a></footer>
+  <footer class="article__footer">
+    <app-button-stub text="Read the article" tag="button" class="app-button"></app-button-stub>
+    <app-button-stub text="Discover the pictures" tag="a" href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="app-button link"></app-button-stub>
+  </footer>
 </article>
 `;

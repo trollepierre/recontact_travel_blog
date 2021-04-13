@@ -2,6 +2,6 @@
   "check-coverage": true,
   "branches": 80,
   "lines": 90,
-  "functions": 90,
+  "functions": 88,
   "statements": 90
 }
