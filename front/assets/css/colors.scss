@@ -15,6 +15,10 @@ $black: #000;
 $abbey: #535a60; // what?
 $roseBud: #f7b5a9; // Admin
 
+$brightGray: #323844; // dark-mode
+$shuttleGray: #565c68; // dark-mode
+$merino: #f5eee2; // dark-mode
+
 // New proposal
 $ceramic: #f8fff0; // bg
 $punga: #53451a; // color (logo color,
@@ -121,44 +125,44 @@ $doveGray: #616161; // disabled button
 .dark-mode {
   // Page
   --bg: #{$black};
-  --color: #{$white};
+  --color: #{$merino};
   --border: #{$mercury};
 
   // App Header
-  --header-bg: #{$abbey};
+  --header-bg: #{$brightGray};
   --logo-primary: #{$aliceblue};
   --logo-secondary: #{$aliceblue};
   --logo-hover: #{$aliceblue};
   --logo-color: #{$black};
-  --nav-color: #{$white};
-  --tdm-color: #{$abbey};
+  --nav-color: #{$merino};
+  --tdm-color: #{$brightGray};
 
   // Button
-  --button-color: #{$white};
-  --button-border: #{$white};
-  --button-bg: #{$silver};
-  --button-hover: #{$black};
+  --button-color: #{$merino};
+  --button-border: #{$merino};
+  --button-bg: #{$shuttleGray};
+  --button-hover: #{$merino};
 
-  --button-disabled-bg: #{$silver};
+  --button-disabled-bg: #{$shuttleGray};
   --button-disabled-border: #{$doveGray};
   --button-disabled-color: #{$alabaster};
   --button-color-light: #{$roseBud}; // Admin
 
   // Article Card + ChapterCard + PhotoCard
   --card-text: #{$aliceblue};
-  --card-bg: #{$abbey};
-  --card-color-weird: #{$white}; // what?
-  --card-title: #{$white};
+  --card-bg: #{$brightGray};
+  --card-color-weird: #{$merino}; // what?
+  --card-title: #{$merino};
   --card-placeholder: #{$black}; // what?
 
   // Comments
-  --comment-form-bg: #{$abbey};
-  --comment-form-input-bg: #{$abbey};
-  --comment-form-color: #{$white};
-  --comment-form-label: #{$white};
-  --comment-card-bg: #{$abbey};
-  --comment-card-color: #{white};
-  --comment-card-label: #{$white};
+  --comment-form-bg: #{$brightGray};
+  --comment-form-input-bg: #{$brightGray};
+  --comment-form-color: #{$merino};
+  --comment-form-label: #{$merino};
+  --comment-card-bg: #{$brightGray};
+  --comment-card-color: #{$merino};
+  --comment-card-label: #{$merino};
 }
 
 // Page

@@ -14,7 +14,7 @@
     components: { AppButton },
     computed: {
       changeThemeIcon() {
-        return this.isNewMode ? '💙️' : '💛'
+        return this.isNewMode ? '🎨' : '🎨'
       },
       isNewMode() {
         return this.$store.state.theme === 'new'
