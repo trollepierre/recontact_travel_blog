@@ -6,8 +6,9 @@
     @click="toggleNewMode()"/>
 </template>
 <script>
-  import AppButton from '@/components/AppButton/AppButton'
   import { mapMutations } from 'vuex'
+  import AppButton from '@/components/AppButton/AppButton'
+  import ThemeApi from '@/services/api/theme'
 
   export default {
     name: 'NewModeToggle',
@@ -23,8 +24,10 @@
     methods: {
       toggleNewMode() {
         if (this.isNewMode) {
+          ThemeApi.send(this.$store.state.theme, 'light')
           this.SET_THEME_MODE('light')
         } else {
+          ThemeApi.send(this.$store.state.theme, 'new')
           this.SET_THEME_MODE('new')
         }
       },
