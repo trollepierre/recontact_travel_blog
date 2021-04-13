@@ -3,9 +3,9 @@ import {
   removeInLocalStorage,
   saveInLocalStorage,
   reloadPage,
-} from './window-service'
+} from './local-storage'
 
-describe('windowService', () => {
+describe('localStorage', () => {
   const key = 'key'
   const value = 'value'
 

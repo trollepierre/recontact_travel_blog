@@ -16,9 +16,9 @@ exports[`Component | CommentForm.vue template should match snapshot 1`] = `
           Your message
         </label> <textarea id="comment" placeholder="Add your comment here!" class="forum__comment-box text"></textarea></div>
     </div>
-    <footer class="form__footer"><button type="submit" class="form-button">
-        Send
-      </button></footer>
+    <footer class="form__footer">
+      <app-button-stub text="Send" tag="button" type="submit" class="form-button"></app-button-stub>
+    </footer>
   </form>
 </div>
 `;

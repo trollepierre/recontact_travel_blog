@@ -5,7 +5,7 @@ exports[`Component | AppHeader.vue template should match snapshot 1`] = `
   <div class="container"><a title="Home page" href="/" class="logo"><img alt="Logo" width="38" height="38" src="../../static/velo.png" class="icon"> <span class="recontact">Recontact</span> <span class="me">Me</span></a>
     <!---->
     <nav aria-label="navigation">
-      <navcontrol-stub></navcontrol-stub>
+      <nav-control-stub></nav-control-stub>
     </nav>
   </div>
 </header>
@@ -30,7 +30,7 @@ exports[`Component | AppHeader.vue template should match snapshot on article pag
       </ul>
     </nav>
     <nav aria-label="navigation">
-      <navcontrol-stub></navcontrol-stub>
+      <nav-control-stub></nav-control-stub>
     </nav>
   </div>
 </header>

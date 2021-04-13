@@ -1,9 +1,10 @@
 Dark mode TODO:
-- bug allowMultipleClick on < Article 85 > of the header ?
-- track clicks on button
 - add missing tests
+- add the out-of-story in github issue
 
 Done:
+- bug allowMultipleClick on < Article 85 > of the header ?
+- track clicks on button
 - dark mode should be beautiful
 - create dark mode with button them and...
 - use colors.scss to set color in all pages :

@@ -24,7 +24,7 @@
             <app-button
               v-if="previousArticleId"
               :to="previousArticleId"
-              tag='nuxt-link'
+              tag="nuxt-link"
               class="button previous article"
               :text="$t('previousArticle')"/>
           </li>
@@ -37,24 +37,24 @@
             <app-button
               v-if="previousArticleId"
               :to="nextArticleId"
-              tag='nuxt-link'
+              tag="nuxt-link"
               class="button next article"
               :text="$t('nextArticle')"/>
           </li>
         </ul>
       </nav>
       <nav aria-label="navigation">
-        <NavControl />
+        <nav-control/>
       </nav>
     </div>
   </header>
 </template>
 <script>
 /* eslint-disable  max-lines */
-import AppButton from '@/components/AppButton/AppButton'
-import NavControl from '@/components/AppHeader/NavControl/NavControl'
+  import AppButton from '@/components/AppButton/AppButton'
+  import NavControl from '@/components/AppHeader/NavControl/NavControl'
 
-export default {
+  export default {
     name: 'AppHeader',
     components: { NavControl, AppButton },
     data: () => ({

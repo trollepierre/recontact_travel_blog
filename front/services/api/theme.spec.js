@@ -13,7 +13,7 @@ describe('Unit | API | theme api', () => {
     it('should post to good API with the good params and return result', async () => {
       const result = await ThemeApi.send('light', 'dark')
 
-      expect(apiService.post).toHaveBeenCalledWith('theme', { previous: 'light', new: 'dark' })
+      expect(apiService.post).toHaveBeenCalledWith('theme', { previousTheme: 'light', newTheme: 'dark' })
       expect(result).toEqual(data)
     })
   })
