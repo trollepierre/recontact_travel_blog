@@ -6,8 +6,9 @@
     @click="toggleDarkMode()"/>
 </template>
 <script>
-  import AppButton from '@/components/AppButton/AppButton'
   import { mapMutations } from 'vuex'
+  import AppButton from '@/components/AppButton/AppButton'
+  import ThemeApi from '@/services/api/theme'
 
   export default {
     name: 'DarkModeToggle',
@@ -20,16 +21,22 @@
         return this.$store.state.theme === 'dark'
       },
     },
+    mounted() {
+      this.GET_THEME_MODE()
+    },
     methods: {
       toggleDarkMode() {
         if (this.isDarkMode) {
+          ThemeApi.send(this.$store.state.theme, 'light')
           this.SET_THEME_MODE('light')
         } else {
+          ThemeApi.send(this.$store.state.theme, 'dark')
           this.SET_THEME_MODE('dark')
         }
       },
       ...mapMutations({
         SET_THEME_MODE: 'SET_THEME_MODE',
+        GET_THEME_MODE: 'GET_THEME_MODE',
       }),
     },
   }
