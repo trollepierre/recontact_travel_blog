@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    name: 'default Layout',
+    name: 'DefaultLayout',
     computed: {
       classDarkMode() {
         if (this.$store.state.theme === 'new') {

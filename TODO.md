@@ -1,11 +1,12 @@
 Dark mode TODO:
-- create dark mode with button them and...
-
-- use colors.scss to set color in all pages :
-- allowMultipleClick on < Article 85 > of the header ?
-
+- bug allowMultipleClick on < Article 85 > of the header ?
+- track clicks on button
+- save in local storage
 
 Done:
+- dark mode should be beautiful
+- create dark mode with button them and...
+- use colors.scss to set color in all pages :
 - Darkmode on AdminDashboard + PositionForm => use Button
 - extract app button from header
 - use app button to manage NuxtLink in header
