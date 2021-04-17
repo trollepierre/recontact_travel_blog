@@ -18,6 +18,10 @@ export const mutations = {
     saveInLocalStorage('theme', theme)
   },
   GET_THEME_MODE(state) {
-    state.theme = getInLocalStorage('theme')
+    if (getInLocalStorage('theme')) {
+      state.theme = getInLocalStorage('theme')
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      state.theme = 'dark'
+    }
   },
 }
