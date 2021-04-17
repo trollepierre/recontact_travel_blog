@@ -2,7 +2,7 @@
   <component
     :is="tag"
     type="button"
-    class="button"
+    :class="hide ? 'hidden' : 'button'"
     :to="to"
     @click="(e) => allowMultipleClick ? onClick(e) : undefined"
     @click.prevent.once="(e) => allowMultipleClick ? undefined : onClick(e)">
@@ -18,6 +18,7 @@
       to: { type: String, default: () => undefined },
       tag: { type: String, default: () => 'button' },
       allowMultipleClick: { type: Boolean, default: () => false },
+      hide: { type: Boolean, default: () => false },
     },
     methods: {
       onClick(e) {
@@ -48,6 +49,10 @@
 .button:hover {
   background: $button-hover;
   color: $button-bg;
+}
+
+.hidden {
+  display: none;
 }
 
 </style>

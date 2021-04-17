@@ -14,7 +14,7 @@
         if (this.$store.state.theme === 'new') {
           return 'new-mode'
         }
-        return this.$store.state.theme === 'dark' ? 'dark-mode' : undefined
+        return this.$store.state.theme === 'dark' ? 'dark-mode' : 'aliceblue-mode'
       },
     },
   }
