@@ -38,28 +38,18 @@
   }
 </script>
 <style lang="scss" scoped>
-.button {
-  background-color: $header-bg;
-}
-
-.button:hover {
-  background-color: $button-hover;
-}
-
 .new-button { // side effect
+  background-color: $header-bg;
   font-size: 24px;
   margin-top: 0;
   padding: 8px 6px 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .new-button:hover {
   background-color: $button-hover;
-}
-
-.new-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 @media only screen and (max-width: 340px) {

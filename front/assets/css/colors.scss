@@ -1,46 +1,40 @@
 // Color palette definition
-// Naming from https://chir.ag/projects/name-that-color/#E6E6E6
+// Naming from https://chir.ag/projects/name-that-color/#e6e6e6
 $aliceblue: aliceblue;
-$pickledBluewood: #2c3e50;
-$white: #FFFFFF;
-$mercury: #E6E6E6;
-$lochmara: #07C;
-$grenadier: #D14800;
-$tango: #F48024;
+$pickledbluewood: #2c3e50;
+$white: #ffffff;
+$mercury: #e6e6e6;
+$lochmara: #07c;
+$grenadier: #d14800;
+$tango: #f48024;
 $darkgrey: darkgrey;
-$silver: #BDBDBD;
+$silver: #bdbdbd;
 $doveGray: #616161;
-$alabaster: #FAFAFA;
+$alabaster: #fafafa;
 $black: #000;
 $abbey: #535a60; // what?
-$roseBud: #f7b5a9; // Admin
-
-$brightGray: #323844; // dark-mode
-$shuttleGray: #565c68; // dark-mode
-$merino: #f5eee2; // dark-mode
-
-// New proposal
-$ceramic: #f8fff0; // bg
-$punga: #53451a; // color (logo color,
-$raffia: #ebe2bb; // header-bg
-$norway: #a2ba96;
-$tussock: #bd8c3d;
-$pesto: #876c35; // logo
-$twine: #bf9d63;
-$laser: #d2b575; // border
-$chino: #c6c899;
-$swampGreen: #b8ba92;
-$continent: #8f713b;
-
-$white: #FFFFFF;
+$rosebud: #f7b5a9; // Admin
 $silver: #bdbdbd; // disabled button
 $doveGray: #616161; // disabled button
 
+// Dark Mode Theme
+$brightGray: #323844;
+$shuttleGray: #565c68;
+$merino: #f5eee2;
 
-:root {
+// Ceramic Mode Theme
+$ceramic: #f8fff0; // bg
+$punga: #53451a; // color (logo color,
+$raffia: #ebe2bb; // header-bg
+$tussock: #bd8c3d;
+$pesto: #876c35; // logo
+$laser: #d2b575; // border
+$swampGreen: #b8ba92;
+
+.aliceblue-mode {
   // Page
   --bg: #{$aliceblue};
-  --color: #{$pickledBluewood};
+  --color: #{$pickledbluewood};
   --border: #{$mercury};
 
   // App Header
@@ -60,7 +54,7 @@ $doveGray: #616161; // disabled button
   --button-disabled-bg: #{$silver};
   --button-disabled-border: #{$doveGray};
   --button-disabled-color: #{$alabaster};
-  --button-color-light: #{$roseBud}; // Admin
+  --button-color-light: #{$rosebud}; // Admin
 
   // Article Card + ChapterCard + PhotoCard
   --card-text: #{$darkgrey};
@@ -146,7 +140,7 @@ $doveGray: #616161; // disabled button
   --button-disabled-bg: #{$shuttleGray};
   --button-disabled-border: #{$doveGray};
   --button-disabled-color: #{$alabaster};
-  --button-color-light: #{$roseBud}; // Admin
+  --button-color-light: #{$rosebud}; // Admin
 
   // Article Card + ChapterCard + PhotoCard
   --card-text: #{$aliceblue};

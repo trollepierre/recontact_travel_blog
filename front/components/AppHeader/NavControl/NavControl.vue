@@ -29,6 +29,7 @@
           src="../../../static/tdm.jpg">
       </a>
     </li>
+    <app-button :hide="true"></app-button>
     <li class="link new-link">
       <new-mode-toggle/>
     </li>
