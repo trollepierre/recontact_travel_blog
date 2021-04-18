@@ -267,7 +267,6 @@
   .button.article {
     font-size: 14px;
   }
-
 }
 
 @media only screen and (min-width: 1200px) {
