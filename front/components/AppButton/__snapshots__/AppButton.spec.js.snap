@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Component | AppButton.vue template should display anchor when tag is a 1`] = `
+<a class="button" href="http://rec.me">
+  anchor
+</a>
+`;
+
+exports[`Component | AppButton.vue template should display nuxt link when tag is nuxt link 1`] = `
+<nuxt-link to="http://rec.me" class="button">
+  link
+</nuxt-link>
+`;
+
 exports[`Component | AppButton.vue template should match snapshot 1`] = `
 <button type="button" class="button">
 

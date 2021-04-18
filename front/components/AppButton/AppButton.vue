@@ -1,11 +1,11 @@
 <template>
   <component
     :is="tag"
-    type="button"
+    :type="tag === 'button' ? 'button' : undefined"
     :class="hide ? 'hidden' : 'button'"
     :to="to"
-    @click="(e) => allowMultipleClick ? onClick(e) : undefined"
-    @click.prevent.once="(e) => allowMultipleClick ? undefined : onClick(e)">
+    @click="e => allowMultipleClick ? onClick(e) : undefined"
+    @click.prevent.once="e => allowMultipleClick ? undefined : onClick(e)">
     {{ text }}
   </component>
 </template>
@@ -14,7 +14,6 @@
     name: 'AppButton',
     props: {
       text: { type: String, default: () => '' },
-      isLink: { type: Boolean, default: () => false },
       to: { type: String, default: () => undefined },
       tag: { type: String, default: () => 'button' },
       allowMultipleClick: { type: Boolean, default: () => false },
