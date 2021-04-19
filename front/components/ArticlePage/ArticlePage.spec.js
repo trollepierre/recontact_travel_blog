@@ -48,6 +48,8 @@ describe('Component | ArticlePage.vue', () => {
     photosApi.fetch.mockResolvedValue(photos)
     commentsApi.fetch = jest.fn()
     commentsApi.fetch.mockResolvedValue(commentsFromApi)
+    chaptersApi.fetch = jest.fn()
+    chaptersApi.fetch.mockResolvedValue({ title, chapters })
 
     localVue = createLocalVue()
     localVue.use(Vuex)
@@ -59,8 +61,6 @@ describe('Component | ArticlePage.vue', () => {
   describe('template', () => {
     describe('when chapters are fetched', () => {
       beforeEach(() => {
-        chaptersApi.fetch = jest.fn()
-        chaptersApi.fetch.mockResolvedValue({ title, chapters })
         wrapper = shallowMount(ArticlePage, {
           localVue,
           router,
