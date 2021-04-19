@@ -102,8 +102,8 @@
         this.getChapters()
         this.getPhotos()
       },
-      async getChapters() {
-        await chaptersApi.fetch(this.dropboxId)
+       getChapters() {
+         chaptersApi.fetch(this.dropboxId)
           .then(article => {
             this.chapters = article.chapters
             const language = this.$store.state.locale
