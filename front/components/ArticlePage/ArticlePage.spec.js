@@ -56,16 +56,6 @@ describe('Component | ArticlePage.vue', () => {
     store = new Vuex.Store({ actions: {}, state: { locale: 'en' } })
   })
 
-  it('should be named "ArticlePage"', () => {
-    wrapper = shallowMount(ArticlePage, {
-      localVue,
-      router,
-      store,
-      data: () => ({ dropboxId }),
-    })
-    expect(wrapper.name()).toEqual('ArticlePage')
-  })
-
   describe('template', () => {
     describe('when chapters are fetched', () => {
       beforeEach(() => {

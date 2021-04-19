@@ -20,10 +20,6 @@ xdescribe('Component | CommentList.vue', () => {
     wrapper = shallowMount(CommentList, { localVue, data: () => ({ dropboxId }) })
   })
 
-  it('should be named "CommentList"', () => {
-    expect(wrapper.name()).toEqual('CommentList')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       expect(wrapper).toMatchSnapshot()

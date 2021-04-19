@@ -31,10 +31,6 @@ describe('Component | ChapterCard.vue', () => {
     wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
   })
 
-  it('should be named "ChapterCard"', () => {
-    expect(wrapper.name()).toEqual('ChapterCard')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       expect(wrapper).toMatchSnapshot()

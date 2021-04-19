@@ -34,10 +34,6 @@ describe.skip('Component | FeedbackModal.vue', () => {
     })
   })
 
-  it('should be named "FeedbackModal"', () => {
-    expect(wrapper.name()).toEqual('FeedbackModal')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       expect(wrapper).toMatchSnapshot()
