@@ -1,4 +1,5 @@
 import VueI18n from 'vue-i18n'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import VueRouter from 'vue-router'
 import AppButton from '@/components/AppButton/AppButton' // eslint-disable-line import/no-extraneous-dependencies
 import ArticleList from '@/components/ArticleList/ArticleList'

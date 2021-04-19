@@ -4,11 +4,11 @@ import VueI18n from 'vue-i18n'
 import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
 import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 
+import AppButton from '@/components/AppButton/AppButton'
 import ArticleCard from './ArticleCard.vue'
 import articlesApi from '../../services/api/articles'
 import notificationsService from '../../services/services/notifications'
 import translationsService from '../../services/services/translations'
-import AppButton from '@/components/AppButton/AppButton'
 
 describe('Component | ArticleCard.vue', () => {
   let localVue
@@ -268,7 +268,7 @@ describe('Component | ArticleCard.vue', () => {
       })
 
       it('should call articlesApi', () => {
-        wrapper.find('button.article__update-button').trigger('click')
+        wrapper.findAllComponents(AppButton).at(0).vm.$emit('click')
 
         expect(articlesApi.update).toHaveBeenCalledWith('58')
       })

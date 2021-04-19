@@ -42,10 +42,6 @@ describe('Unit | Service | NotifyTheme', () => {
     it('should throw error when mailJet rejects', () => {
       // given
       mailJet.sendEmail.rejects(new Error('error'))
-      const theme = {
-        email: 'mail@recontact.me',
-        feedback: 'Long ago in a distant land...',
-      }
 
       // when
       const promise = NotifyTheme.notifyTheme(theme)
