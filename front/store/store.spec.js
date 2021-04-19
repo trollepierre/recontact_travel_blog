@@ -1,4 +1,4 @@
-import { mutations, state } from '@/store/index'
+import { mutations, state } from '@/store'
 import { saveInLocalStorage, getInLocalStorage } from '@/services/localStorage/local-storage'
 
 jest.mock('@/services/localStorage/local-storage')
@@ -87,7 +87,7 @@ describe('store', () => {
       // Given
       const myState = state()
       getInLocalStorage.mockReturnValue(undefined)
-      window.matchMedia = jest.fn().mockReturnValue({ matches: true})
+      window.matchMedia = jest.fn().mockReturnValue({ matches: true })
 
       // When
       mutations.GET_THEME_MODE(myState)
