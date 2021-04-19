@@ -1,8 +1,8 @@
 Dark mode TODO:
-- add missing tests
 - add the out-of-story in github issue
 
 Done:
+- add missing tests
 - bug allowMultipleClick on < Article 85 > of the header ?
 - track clicks on button
 - dark mode should be beautiful
