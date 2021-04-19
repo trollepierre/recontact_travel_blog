@@ -32,10 +32,6 @@ describe.skip('Component | SubscribeModal.vue', () => {
     })
   })
 
-  it('should be named "SubscribeModal"', () => {
-    expect(wrapper.name()).toEqual('SubscribeModal')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       expect(wrapper).toMatchSnapshot()

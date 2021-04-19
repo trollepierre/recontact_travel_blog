@@ -29,10 +29,6 @@ describe('Component | CommentForm.vue', () => {
     })
   })
 
-  it('should be named "CommentForm"', () => {
-    expect(wrapper.name()).toEqual('CommentForm')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       expect(wrapper).toMatchSnapshot()

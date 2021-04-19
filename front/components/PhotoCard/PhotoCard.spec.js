@@ -24,10 +24,6 @@ describe('Component | PhotoCard.vue', () => {
     wrapper = shallowMount(PhotoCard, { localVue, propsData })
   })
 
-  it('should be named "PhotoCard"', () => {
-    expect(wrapper.name()).toEqual('PhotoCard')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       expect(wrapper).toMatchSnapshot()

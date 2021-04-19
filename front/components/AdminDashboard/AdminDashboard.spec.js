@@ -19,12 +19,6 @@ describe('Component | AdminDashboard.vue', () => {
     localVue.use(VueI18n)
   })
 
-  it('should be named "AdminDashboard"', () => {
-    wrapper = shallowMount(AdminDashboard, { localVue })
-
-    expect(wrapper.name()).toEqual('AdminDashboard')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       wrapper = shallowMount(AdminDashboard, { localVue })
