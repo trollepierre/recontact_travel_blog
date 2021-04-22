@@ -5,7 +5,9 @@ exports[`Component | NavControl.vue template should match snapshot 1`] = `
   <!---->
   <!---->
   <!---->
-  <app-button-stub text="" tag="button" hide="true"></app-button-stub>
+  <li>
+    <app-button-stub text="" tag="button" hide="true"></app-button-stub>
+  </li>
   <li class="link new-link">
     <new-mode-toggle-stub></new-mode-toggle-stub>
   </li>
