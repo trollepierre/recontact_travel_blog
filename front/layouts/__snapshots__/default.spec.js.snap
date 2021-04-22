@@ -1,13 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`default layout should return default layout 1`] = `
+exports[`default layout should return default layout with aliceblue by default 1`] = `
 <div id="app" class="aliceblue-mode">
-  <nuxt></nuxt>
-</div>
-`;
-
-exports[`default layout should return default layout with dark 1`] = `
-<div id="app" class="dark-mode">
   <nuxt></nuxt>
 </div>
 `;
