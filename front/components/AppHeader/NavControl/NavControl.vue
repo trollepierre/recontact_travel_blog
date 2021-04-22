@@ -47,49 +47,49 @@
   </ul>
 </template>
 <script>
-import AppButton from '@/components/AppButton/AppButton'
-import DarkModeToggle from '@/components/AppHeader/NavControl/DarkModeToggle/DarkModeToggle'
-import NewModeToggle from '@/components/AppHeader/NavControl/NewModeToggle/NewModeToggle'
+  import AppButton from '@/components/AppButton/AppButton'
+  import DarkModeToggle from '@/components/AppHeader/NavControl/DarkModeToggle/DarkModeToggle'
+  import NewModeToggle from '@/components/AppHeader/NavControl/NewModeToggle/NewModeToggle'
 
-export default {
-  name: 'NavControl',
-  components: { AppButton, DarkModeToggle, NewModeToggle },
-  data: () => ({
-    showNavBarButton: false,
-  }),
-  methods: {
-    switchLanguage() {
-      window.location.href = this.$t('otherUrl') + window.location.pathname
-    },
-    displaySubscribeModal() {
+  export default {
+    name: 'NavControl',
+    components: { AppButton, DarkModeToggle, NewModeToggle },
+    data: () => ({
+      showNavBarButton: false,
+    }),
+    methods: {
+      switchLanguage() {
+        window.location.href = this.$t('otherUrl') + window.location.pathname
+      },
+      displaySubscribeModal() {
       // this.$modal.show('subscribe-modal')
-    },
-    displayFeedbackModal() {
+      },
+      displayFeedbackModal() {
       // this.$modal.show('feedback-modal')
-    },
-  },
-  i18n: {
-    silentTranslationWarn: true,
-    messages: {
-      fr: {
-        subscribe: 'S’abonner',
-        suggestion: 'Laisser un message',
-        tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
-        logo: 'Logo',
-        otherLanguage: '🇬🇧',
-        otherUrl: 'https://www.recontact.me',
-      },
-      en: {
-        subscribe: 'Subscribe',
-        suggestion: 'Leave a message',
-        tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
-        logo: 'Logo',
-        otherLanguage: '🇫🇷',
-        otherUrl: 'https://fr.recontact.me',
       },
     },
-  },
-}
+    i18n: {
+      silentTranslationWarn: true,
+      messages: {
+        fr: {
+          subscribe: 'S’abonner',
+          suggestion: 'Laisser un message',
+          tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
+          logo: 'Logo',
+          otherLanguage: '🇬🇧',
+          otherUrl: 'https://www.recontact.me',
+        },
+        en: {
+          subscribe: 'Subscribe',
+          suggestion: 'Leave a message',
+          tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
+          logo: 'Logo',
+          otherLanguage: '🇫🇷',
+          otherUrl: 'https://fr.recontact.me',
+        },
+      },
+    },
+  }
 </script>
 <style lang="scss" scoped>
 
