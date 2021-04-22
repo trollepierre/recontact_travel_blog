@@ -48,7 +48,6 @@ describe('Integration | Routes | positions route', () => {
       // when
       request(app)
         .post('/api/positions')
-        .set('Authorization', 'Bearer access-token')
         .send({ lastPosition: 'Mexico' })
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
@@ -66,7 +65,6 @@ describe('Integration | Routes | positions route', () => {
       // when
       return request(app)
         .post('/api/positions')
-        .set('Authorization', 'Bearer access-token')
         .send()
         .expect(403)
     })

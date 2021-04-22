@@ -1,21 +1,24 @@
 // Color palette definition
 // Naming from https://chir.ag/projects/name-that-color/#e6e6e6
+
+// Universal
+$white: #ffffff;
+$black: #000;
+$doveGray: #616161; // disabled button
+$silver: #bdbdbd; // disabled button
+$rosebud: #f7b5a9; // Admin
+$alabaster: #fafafa;
+$silver: #bdbdbd;
+
+// Alice Theme
 $aliceblue: aliceblue;
 $pickledbluewood: #2c3e50;
-$white: #ffffff;
 $mercury: #e6e6e6;
 $lochmara: #07c;
 $grenadier: #d14800;
 $tango: #f48024;
 $darkgrey: darkgrey;
-$silver: #bdbdbd;
-$doveGray: #616161;
-$alabaster: #fafafa;
-$black: #000;
-$abbey: #535a60; // what?
-$rosebud: #f7b5a9; // Admin
-$silver: #bdbdbd; // disabled button
-$doveGray: #616161; // disabled button
+$abbey: #535a60;
 
 // Dark Mode Theme
 $brightGray: #323844;
@@ -24,7 +27,7 @@ $merino: #f5eee2;
 
 // Ceramic Mode Theme
 $ceramic: #f8fff0; // bg
-$punga: #53451a; // color (logo color,
+$punga: #53451a; // logo color
 $raffia: #ebe2bb; // header-bg
 $tussock: #bd8c3d;
 $pesto: #876c35; // logo
@@ -42,7 +45,7 @@ $swampGreen: #b8ba92;
   --logo-primary: #{$lochmara};
   --logo-secondary: #{$grenadier};
   --logo-hover: #{$grenadier};
-  --logo-color: #{$black}; // check me
+  --logo-color: #{$black};
   --nav-color: #{$tango};
   --tdm-color: #{$darkgrey};
 
@@ -54,14 +57,14 @@ $swampGreen: #b8ba92;
   --button-disabled-bg: #{$silver};
   --button-disabled-border: #{$doveGray};
   --button-disabled-color: #{$alabaster};
-  --button-color-light: #{$rosebud}; // Admin
+  --button-color-light: #{$rosebud};
 
   // Article Card + ChapterCard + PhotoCard
   --card-text: #{$darkgrey};
   --card-bg: #{$white};
-  --card-color-weird: #{$abbey}; // what?
+  --card-color-weird: #{$abbey};
   --card-title: #{$lochmara};
-  --card-placeholder: #{$black}; // what?
+  --card-placeholder: #{$black};
 
   // Comments
   --comment-form-bg: #{$white};
@@ -85,7 +88,7 @@ $swampGreen: #b8ba92;
   --logo-hover: #{$pesto};
   --logo-color: #{$pesto};
   --nav-color: #{$pesto};
-  --tdm-color: #{$pesto}; // osef
+  --tdm-color: #{$pesto};
 
   // Button
   --button-color: #{$tussock};
@@ -96,14 +99,14 @@ $swampGreen: #b8ba92;
   --button-disabled-bg: #{$silver};
   --button-disabled-border: #{$doveGray};
   --button-disabled-color: #{$white};
-  --button-color-light: #{$swampGreen}; // Admin
+  --button-color-light: #{$swampGreen};
 
   // Article Card + ChapterCard + PhotoCard
   --card-text: #{$punga};
   --card-bg: #{$raffia};
-  --card-color-weird: #{$punga}; // what?
+  --card-color-weird: #{$punga};
   --card-title: #{$pesto};
-  --card-placeholder: #{$punga}; // what?
+  --card-placeholder: #{$punga};
 
   // Comments
   --comment-form-bg: #{$raffia};
@@ -140,14 +143,14 @@ $swampGreen: #b8ba92;
   --button-disabled-bg: #{$shuttleGray};
   --button-disabled-border: #{$doveGray};
   --button-disabled-color: #{$alabaster};
-  --button-color-light: #{$rosebud}; // Admin
+  --button-color-light: #{$rosebud};
 
   // Article Card + ChapterCard + PhotoCard
   --card-text: #{$aliceblue};
   --card-bg: #{$brightGray};
-  --card-color-weird: #{$merino}; // what?
+  --card-color-weird: #{$merino};
   --card-title: #{$merino};
-  --card-placeholder: #{$black}; // what?
+  --card-placeholder: #{$black};
 
   // Comments
   --comment-form-bg: #{$brightGray};
@@ -182,14 +185,14 @@ $button-hover: var(--button-hover);
 $button-disabled-bg: var(--button-disabled-bg);
 $button-disabled-border: var(--button-disabled-border);
 $button-disabled-color: var(--button-disabled-color);
-$button-color-light: var(--button-color-light); // Admin
+$button-color-light: var(--button-color-light);
 
 // Article Card + ChapterCard + PhotoCard
 $card-text: var(--card-text);
 $card-bg: var(--card-bg);
-$card-color-weird: var(--card-color-weird); // what?
+$card-color-weird: var(--card-color-weird);
 $card-title: var(--card-title);
-$card-placeholder: var(--card-placeholder); // what?
+$card-placeholder: var(--card-placeholder);
 
 // Comments
 $comment-form-bg: var(--comment-form-bg);

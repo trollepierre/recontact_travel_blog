@@ -25,7 +25,7 @@
               v-if="previousArticleId"
               :to="previousArticleId"
               tag="nuxt-link"
-              class="button previous article"
+              class="previous article"
               :text="$t('previousArticle')"/>
           </li>
           <li class="article-text">
@@ -38,7 +38,7 @@
               v-if="previousArticleId"
               :to="nextArticleId"
               tag="nuxt-link"
-              class="button next article"
+              class="next article"
               :text="$t('nextArticle')"/>
           </li>
         </ul>

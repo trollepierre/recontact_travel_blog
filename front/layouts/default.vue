@@ -1,7 +1,7 @@
 <template>
   <div
     id="app"
-    :class="classDarkMode">
+    :class="theme">
     <nuxt/>
   </div>
 </template>
@@ -10,7 +10,7 @@
   export default {
     name: 'DefaultLayout',
     computed: {
-      classDarkMode() {
+      theme() {
         if (this.$store.state.theme === 'new') {
           return 'new-mode'
         }

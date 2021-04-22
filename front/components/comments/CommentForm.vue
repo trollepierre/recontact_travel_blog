@@ -41,7 +41,7 @@
           type="submit"
           class="form-button"
           :text="$t('send')"
-          @click="submitComment()"/>
+          @click="submitComment"/>
       </footer>
     </form>
   </div>

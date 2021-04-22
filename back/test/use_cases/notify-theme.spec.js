@@ -26,7 +26,8 @@ describe('Unit | Service | NotifyTheme', () => {
       const promise = NotifyTheme.notifyTheme(theme)
 
       // then
-      return promise.then(() => {
+      return promise.then(result => {
+        expect(result).to.equal(theme)
         expect(mailJet.sendEmail).to.have.been.calledWithExactly({
           from: 'contact-localhost@recontact.me',
           to: ['contact-localhost@recontact.me'],
