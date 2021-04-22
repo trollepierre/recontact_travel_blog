@@ -69,6 +69,5 @@ module.exports = {
 
     indent: 'off',
     'array-callback-return': 'off',
-
   },
 }

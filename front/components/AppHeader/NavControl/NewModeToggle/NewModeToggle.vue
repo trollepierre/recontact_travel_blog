@@ -3,7 +3,7 @@
     class="new-button"
     :text="changeThemeIcon"
     :allow-multiple-click="true"
-    @click="toggleNewMode()"/>
+    @click="toggleNewMode"/>
 </template>
 <script>
   import { mapMutations } from 'vuex'
@@ -38,7 +38,7 @@
   }
 </script>
 <style lang="scss" scoped>
-.new-button { // side effect
+.new-button {
   background-color: $header-bg;
   font-size: 24px;
   margin-top: 0;

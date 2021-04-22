@@ -3,7 +3,7 @@
     class="dark-button"
     :text="changeThemeIcon"
     :allow-multiple-click="true"
-    @click="toggleDarkMode()"/>
+    @click="toggleDarkMode"/>
 </template>
 <script>
   import { mapMutations } from 'vuex'
@@ -42,7 +42,7 @@
   }
 </script>
 <style lang="scss" scoped>
-.dark-button { // side effect
+.dark-button {
   background-color: $header-bg;
   font-size: 24px;
   margin-top: 0;

@@ -13,13 +13,9 @@ async function sendMailWithTheme(theme) {
 <p>C'est   : ${newTheme}</p>`,
   }
   await mailJet.sendEmail(optionsFr)
-  return 'ok'
-}
-
-function notifyTheme(body) {
-  return sendMailWithTheme(body)
+  return theme
 }
 
 export default {
-  notifyTheme,
+  notifyTheme: sendMailWithTheme,
 }

@@ -19,7 +19,7 @@ describe('Integration | Routes | feedbacks route', () => {
     request(app)
       .post('/api/feedbacks')
       .send({ email, feedback })
-      .set('Authorization', 'Bearer access-token')
+
       .expect('Content-Type', 'application/json; charset=utf-8')
       .expect(201, (err, res) => {
         // then
@@ -37,7 +37,7 @@ describe('Integration | Routes | feedbacks route', () => {
     request(app)
       .post('/api/feedbacks')
       .send({ email, feedback })
-      .set('Authorization', 'Bearer access-token')
+
       .expect('Content-Type', 'application/json; charset=utf-8')
       .expect(500, (err, res) => {
         if (err) {

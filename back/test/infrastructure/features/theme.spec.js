@@ -9,14 +9,18 @@ describe('Integration | Routes | theme route', () => {
 
   it('should return "Synchronization successful" message', done => {
     // Given
-    sinon.stub(NotifyTheme, 'notifyTheme').resolves('ok')
+    const theme = 'light'
+    sinon.stub(NotifyTheme, 'notifyTheme').resolves(theme)
+
     // When
     request(app)
       .post('/api/theme')
+      .send({ theme })
       .end((err, response) => {
         // Then
+        expect(NotifyTheme.notifyTheme).to.be.calledWith({ theme })
         expect(response.status).to.equal(201)
-        expect(response.body).to.equal('ok')
+        expect(response.body).to.equal(theme)
         if (err) {
           done(err)
         }
