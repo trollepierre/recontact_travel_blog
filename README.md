@@ -7,6 +7,7 @@
 
 ## Getting started
 
+The recommended Node version matching production is available in [.nvmrc](https://github.com/trollepierre/recontact_travel_blog/blob/dev/.nvmrc).
 
 ``` bash
 # install Yarn
@@ -49,7 +50,3 @@ yarn release
 SQLite is recommended for local development. To fix bug in production, it is better to use PostgreSQL
 
 https://www.postgresql.org/download/
-
-## Spot a bug
-
-Fill a bug and provide me this information please https://mybrowser.fyi
