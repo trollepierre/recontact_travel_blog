@@ -17,6 +17,7 @@ import {
   feedbacks,
   positions,
   optimisation,
+  theme,
 } from './src/infrastructure/features/api'
 
 import robots from './src/infrastructure/seo/robots'
@@ -52,6 +53,7 @@ app.use('/api/admin', admin)
 app.use('/api/subscriptions', subscriptions)
 app.use('/api/feedbacks', feedbacks)
 app.use('/api/positions', positions)
+app.use('/api/theme', theme)
 app.use('/apo', optimisation)
 app.use('/api/apo', optimisation)
 

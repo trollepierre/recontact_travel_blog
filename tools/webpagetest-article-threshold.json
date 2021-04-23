@@ -1,7 +1,7 @@
 {
   "median": {
     "firstView": {
-      "requests": 81,
+      "requests": 90,
       "render": 1200,
       "loadTime": 2000,
       "score_gzip": {

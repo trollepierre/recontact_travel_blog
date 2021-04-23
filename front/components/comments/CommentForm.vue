@@ -37,22 +37,24 @@
         </div>
       </div>
       <footer class="form__footer">
-        <button
+        <app-button
           type="submit"
-          class="form-button">
-          {{ $t("send") }}
-        </button>
+          class="form-button"
+          :text="$t('send')"
+          @click="submitComment"/>
       </footer>
     </form>
   </div>
 </template>
 <script>
+  import AppButton from '@/components/AppButton/AppButton'
   import { isEmptyPlus as isEmpty } from '../../services'
   import commentsApi from '../../services/api/comments'
   import notificationsService from '../../services/services/notifications'
 
   export default {
     name: 'CommentForm',
+    components: { AppButton },
     data() {
       return {
         newComment: '',
@@ -64,8 +66,7 @@
       }
     },
     methods: {
-      submitComment(e) {
-        e.preventDefault()
+      submitComment() {
         if (this.newComment !== '') {
           const comment = {
             text: this.newComment,
@@ -122,7 +123,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .form__title {
     font-size: 1.5em;
     font-weight: bold;
@@ -131,13 +132,11 @@
 
   .form {
     min-width: 260px;
-    background: #FFFFFF;
+    background: $comment-form-bg;
     border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
-    border: 1px solid rgba(0, 0, 0, .09);
+    border: 1px solid $border;
     display: flex;
     flex-direction: column;
-    color: #535a60;
     width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -145,7 +144,6 @@
   }
 
   .form__header, .form__content {
-    border-bottom: 1px solid #E6E6E6;
     padding: 15px;
     height: auto;
     display: flex;
@@ -160,10 +158,10 @@
     margin: 0;
     overflow-wrap: break-word;
     padding-left: 10px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: gray;
-    border-image: initial;
+    border: 1px solid $border;
+    background-color: $comment-form-input-bg;
+    border-radius: 4px;
+    color: $comment-form-color;
   }
 
   .input-group {
@@ -183,7 +181,7 @@
     font-size: 16px;
     font-weight: 700;
     font-family: serif;
-    color: #07C;
+    color: $comment-form-label;
     margin: 0;
     overflow-wrap: break-word;
     padding-bottom: 10px;
@@ -199,26 +197,11 @@
   .form__footer {
     text-align: center;
     padding: 15px;
-    border-top: 1px solid #E6E6E6;
+    border-top: 1px solid $border;
   }
 
   .form-button {
-    text-transform: uppercase;
-    color: #D14800;
-    background: #FFFFFF;
-    border: 1px solid #D14800;
-    cursor: pointer;
-    padding: 15px 30px;
-    border-radius: 4px;
-    width: 100%;
-    margin-bottom: 10px;
-    font-weight: 700;
     max-width: 300px;
-  }
-
-  .form-button:hover {
-    background: #D14800;
-    color: #FFFFFF;
   }
 
   @media only screen and (max-width: 1000px) {

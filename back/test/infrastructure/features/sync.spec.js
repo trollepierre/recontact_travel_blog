@@ -2,7 +2,7 @@ import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
 import SynchronizeArticles from '../../../src/use_cases/synchronize-articles'
 
-describe('Integration | Routes | index route', () => {
+describe('Integration | Routes | sync route', () => {
   afterEach(() => {
     SynchronizeArticles.synchronizeArticles.restore()
   })

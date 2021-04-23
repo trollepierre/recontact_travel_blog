@@ -48,6 +48,8 @@ describe('Component | ArticlePage.vue', () => {
     photosApi.fetch.mockResolvedValue(photos)
     commentsApi.fetch = jest.fn()
     commentsApi.fetch.mockResolvedValue(commentsFromApi)
+    chaptersApi.fetch = jest.fn()
+    chaptersApi.fetch.mockResolvedValue({ title, chapters })
 
     localVue = createLocalVue()
     localVue.use(Vuex)
@@ -56,21 +58,9 @@ describe('Component | ArticlePage.vue', () => {
     store = new Vuex.Store({ actions: {}, state: { locale: 'en' } })
   })
 
-  it('should be named "ArticlePage"', () => {
-    wrapper = shallowMount(ArticlePage, {
-      localVue,
-      router,
-      store,
-      data: () => ({ dropboxId }),
-    })
-    expect(wrapper.name()).toEqual('ArticlePage')
-  })
-
   describe('template', () => {
     describe('when chapters are fetched', () => {
       beforeEach(() => {
-        chaptersApi.fetch = jest.fn()
-        chaptersApi.fetch.mockResolvedValue({ title, chapters })
         wrapper = shallowMount(ArticlePage, {
           localVue,
           router,

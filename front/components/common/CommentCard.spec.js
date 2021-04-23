@@ -13,12 +13,6 @@ describe('Component | CommentCard.vue', () => {
     store = new Vuex.Store({ state: { locale: 'en' } })
   })
 
-  it('should be named "CommentCard"', () => {
-    wrapper = shallowMount(CommentCard, { localVue, propsData, store })
-
-    expect(wrapper.name()).toEqual('CommentCard')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       wrapper = shallowMount(CommentCard, { localVue, propsData, store })

@@ -9,6 +9,7 @@ import subscriptions from './subscriptions'
 import feedbacks from './feedbacks'
 import positions from './positions'
 import optimisation from './optimisation'
+import theme from './theme'
 
 export {
   articles,
@@ -22,4 +23,5 @@ export {
   feedbacks,
   positions,
   optimisation,
+  theme,
 }

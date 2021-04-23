@@ -63,9 +63,9 @@ module.exports = {
     'no-unused-vars': 'warn',
     'no-shadow': 'warn',
     'no-undef': 'warn',
-    'import/no-extraneous-dependencies': 'warn',
-    'import/no-unresolved': 'warn',
-    'import/extensions': 'warn',
+    'import/no-extraneous-dependencies': 'error',
+    'import/no-unresolved': 'off',
+    'import/extensions': 'off',
 
     indent: 'off',
     'array-callback-return': 'off',

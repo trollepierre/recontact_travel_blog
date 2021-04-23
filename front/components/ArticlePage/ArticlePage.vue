@@ -34,21 +34,18 @@
         </ul>
       </section>
       <footer class="article-page__footer footer-article">
-        <button
-          class="footer-article__home"
-          @click="goToHomePage">
-          {{ $t("goToHomePage") }}
-        </button>
-        <button
-          class="footer-article__previous"
-          @click="viewPreviousArticle">
-          {{ $t("goToPreviousArticle") }}
-        </button>
-        <button
-          class="footer-article__next"
-          @click="viewNextArticle">
-          {{ $t("goToNextArticle") }}
-        </button>
+        <app-button
+          class="app-button"
+          :text="$t('goToHomePage')"
+          @click="goToHomePage"/>
+        <app-button
+          class="app-button"
+          :text="$t('goToPreviousArticle')"
+          @click="viewPreviousArticle"/>
+        <app-button
+          class="app-button"
+          :text="$t('goToNextArticle')"
+          @click="viewNextArticle"/>
       </footer>
     </div>
   </main>
@@ -64,6 +61,7 @@
   import translationsService from '../../services/services/translations'
   import logger from '../../services/services/logger-service'
   import AppHeader from '../AppHeader/AppHeader.vue'
+  import AppButton from '../AppButton/AppButton.vue'
 
   export default {
     name: 'ArticlePage',
@@ -72,6 +70,7 @@
       Comments,
       PhotoCard,
       AppHeader,
+      AppButton,
     },
     data() {
       return {
@@ -103,8 +102,8 @@
         this.getChapters()
         this.getPhotos()
       },
-      async getChapters() {
-        await chaptersApi.fetch(this.dropboxId)
+      getChapters() {
+        chaptersApi.fetch(this.dropboxId)
           .then(article => {
             this.chapters = article.chapters
             const language = this.$store.state.locale
@@ -156,7 +155,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .page {
     width: 100%;
     padding-top: 70px;
@@ -194,33 +193,19 @@
   .footer-article {
     text-align: center;
     padding: 15px;
-    border-top: 1px solid #E6E6E6;
   }
 
-  .footer-article button {
-    text-transform: uppercase;
-    color: #D14800;
-    background: #FFFFFF;
-    border: 1px solid #D14800;
-    cursor: pointer;
-    padding: 15px 30px;
-    border-radius: 4px;
-    width: 100%;
+  .app-button {
     margin-bottom: 10px;
-    font-weight: 700;
     max-width: 300px;
+    padding: 8px 30px;
   }
 
-  .footer-article button:hover {
-    background: #D14800;
-    color: #FFFFFF;
-  }
-
-  .footer-article button:disabled,
-  .footer-article button:active {
-    background: #BDBDBD;
-    border-color: #616161;
-    color: #FAFAFA;
+  .app-button:disabled,
+  .app-button:active {
+    background: $button-disabled-bg;
+    border-color: $button-disabled-border;
+    color: $button-disabled-color;
     cursor: auto;
   }
 

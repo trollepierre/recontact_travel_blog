@@ -1,0 +1,209 @@
+// Color palette definition
+// Naming from https://chir.ag/projects/name-that-color/#e6e6e6
+
+// Universal
+$white: #ffffff;
+$black: #000;
+$doveGray: #616161; // disabled button
+$silver: #bdbdbd; // disabled button
+$rosebud: #f7b5a9; // Admin
+$alabaster: #fafafa;
+$silver: #bdbdbd;
+
+// Alice Theme
+$aliceblue: aliceblue;
+$pickledbluewood: #2c3e50;
+$mercury: #e6e6e6;
+$lochmara: #07c;
+$grenadier: #d14800;
+$tango: #f48024;
+$darkgrey: darkgrey;
+$abbey: #535a60;
+
+// Dark Mode Theme
+$brightGray: #323844;
+$shuttleGray: #565c68;
+$merino: #f5eee2;
+
+// Ceramic Mode Theme
+$ceramic: #f8fff0; // bg
+$punga: #53451a; // logo color
+$raffia: #ebe2bb; // header-bg
+$tussock: #bd8c3d;
+$pesto: #876c35; // logo
+$laser: #d2b575; // border
+$swampGreen: #b8ba92;
+
+.aliceblue-mode {
+  // Page
+  --bg: #{$aliceblue};
+  --color: #{$pickledbluewood};
+  --border: #{$mercury};
+
+  // App Header
+  --header-bg: #{$white};
+  --logo-primary: #{$lochmara};
+  --logo-secondary: #{$grenadier};
+  --logo-hover: #{$grenadier};
+  --logo-color: #{$black};
+  --nav-color: #{$tango};
+  --tdm-color: #{$darkgrey};
+
+  // Button
+  --button-color: #{$tango};
+  --button-bg: #{$white};
+  --button-hover: #{$grenadier};
+
+  --button-disabled-bg: #{$silver};
+  --button-disabled-border: #{$doveGray};
+  --button-disabled-color: #{$alabaster};
+  --button-color-light: #{$rosebud};
+
+  // Article Card + ChapterCard + PhotoCard
+  --card-text: #{$darkgrey};
+  --card-bg: #{$white};
+  --card-color-weird: #{$abbey};
+  --card-title: #{$lochmara};
+  --card-placeholder: #{$black};
+
+  // Comments
+  --comment-form-bg: #{$white};
+  --comment-form-color: #{$abbey};
+  --comment-form-label: #{$lochmara};
+  --comment-card-bg: #{$white};
+  --comment-card-color: #{$abbey};
+  --comment-card-label: #{$lochmara};
+}
+
+.new-mode {
+  // Page
+  --bg: #{$ceramic};
+  --color: #{$pesto};
+  --border: #{$laser};
+
+  // App Header
+  --header-bg: #{$raffia};
+  --logo-primary: #{$pesto};
+  --logo-secondary: #{$pesto};
+  --logo-hover: #{$pesto};
+  --logo-color: #{$pesto};
+  --nav-color: #{$pesto};
+  --tdm-color: #{$pesto};
+
+  // Button
+  --button-color: #{$tussock};
+  --button-border: #{$tussock};
+  --button-bg: #{$ceramic};
+  --button-hover: #{$tussock};
+
+  --button-disabled-bg: #{$silver};
+  --button-disabled-border: #{$doveGray};
+  --button-disabled-color: #{$white};
+  --button-color-light: #{$swampGreen};
+
+  // Article Card + ChapterCard + PhotoCard
+  --card-text: #{$punga};
+  --card-bg: #{$raffia};
+  --card-color-weird: #{$punga};
+  --card-title: #{$pesto};
+  --card-placeholder: #{$punga};
+
+  // Comments
+  --comment-form-bg: #{$raffia};
+  --comment-form-input-bg: #{$ceramic};
+  --comment-form-color: #{$pesto};
+  --comment-form-label: #{$pesto};
+
+  --comment-card-bg: #{$raffia};
+  --comment-card-color: #{$pesto};
+  --comment-card-label: #{$pesto};
+}
+
+.dark-mode {
+  // Page
+  --bg: #{$black};
+  --color: #{$merino};
+  --border: #{$mercury};
+
+  // App Header
+  --header-bg: #{$brightGray};
+  --logo-primary: #{$aliceblue};
+  --logo-secondary: #{$aliceblue};
+  --logo-hover: #{$aliceblue};
+  --logo-color: #{$black};
+  --nav-color: #{$merino};
+  --tdm-color: #{$brightGray};
+
+  // Button
+  --button-color: #{$merino};
+  --button-border: #{$merino};
+  --button-bg: #{$shuttleGray};
+  --button-hover: #{$merino};
+
+  --button-disabled-bg: #{$shuttleGray};
+  --button-disabled-border: #{$doveGray};
+  --button-disabled-color: #{$alabaster};
+  --button-color-light: #{$rosebud};
+
+  // Article Card + ChapterCard + PhotoCard
+  --card-text: #{$aliceblue};
+  --card-bg: #{$brightGray};
+  --card-color-weird: #{$merino};
+  --card-title: #{$merino};
+  --card-placeholder: #{$black};
+
+  // Comments
+  --comment-form-bg: #{$brightGray};
+  --comment-form-input-bg: #{$brightGray};
+  --comment-form-color: #{$merino};
+  --comment-form-label: #{$merino};
+  --comment-card-bg: #{$brightGray};
+  --comment-card-color: #{$merino};
+  --comment-card-label: #{$merino};
+}
+
+// Page
+$bg: var(--bg);
+$color: var(--color);
+$border: var(--border);
+
+// App Header
+$header-bg: var(--header-bg);
+$logo-primary: var(--logo-primary);
+$logo-secondary: var(--logo-secondary);
+$logo-hover: var(--logo-hover);
+$logo-color: var(--logo-color);
+$nav-color: var(--nav-color);
+$tdm-color: var(--tdm-color);
+
+// Button
+$button-color: var(--button-color);
+$button-border: var(--button-border);
+$button-bg: var(--button-bg);
+$button-hover: var(--button-hover);
+
+$button-disabled-bg: var(--button-disabled-bg);
+$button-disabled-border: var(--button-disabled-border);
+$button-disabled-color: var(--button-disabled-color);
+$button-color-light: var(--button-color-light);
+
+// Article Card + ChapterCard + PhotoCard
+$card-text: var(--card-text);
+$card-bg: var(--card-bg);
+$card-color-weird: var(--card-color-weird);
+$card-title: var(--card-title);
+$card-placeholder: var(--card-placeholder);
+
+// Comments
+$comment-form-bg: var(--comment-form-bg);
+$comment-form-input-bg: var(--comment-form-input-bg);
+$comment-form-color: var(--comment-form-color);
+$comment-form-label: var(--comment-form-label);
+$comment-card-bg: var(--comment-card-bg);
+$comment-card-color: var(--comment-card-color);
+$comment-card-label: var(--comment-card-label);
+
+// Pin Color
+// Pin-red: $tango + $lochmara
+// Pin-green: green + $tango
+// Pin-bleu: $lochmara + $tango

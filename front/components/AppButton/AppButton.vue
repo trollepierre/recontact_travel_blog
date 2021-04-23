@@ -1,35 +1,43 @@
 <template>
-  <button
-    type="button"
-    class="button"
-    @click.prevent.once="onClick">
+  <component
+    :is="tag"
+    :type="tag === 'button' ? 'button' : undefined"
+    :class="hide ? 'hidden' : 'button'"
+    :to="to"
+    @click="e => allowMultipleClick ? onClick(e) : undefined"
+    @click.prevent.once="e => allowMultipleClick ? undefined : onClick(e)">
     {{ text }}
-  </button>
+  </component>
 </template>
 <script>
   export default {
     name: 'AppButton',
     props: {
       text: { type: String, default: () => '' },
+      to: { type: String, default: () => undefined },
+      tag: { type: String, default: () => 'button' },
+      allowMultipleClick: { type: Boolean, default: () => false },
+      hide: { type: Boolean, default: () => false },
     },
     methods: {
-      onClick() {
+      onClick(e) {
+        e.preventDefault()
         this.$emit('click')
       },
     },
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .button {
   line-height: 28px;
-  color: #F48024;
+  color: $button-color;
   text-decoration: unset;
   font-size: 11px;
   font-family: serif;
   text-transform: uppercase;
-  background: #FFFFFF;
-  border: 1px solid #F48024;
+  background: $button-bg;
+  border: 1px solid $button-color;
   cursor: pointer;
   padding: 3px 5px;
   border-radius: 4px;
@@ -38,8 +46,12 @@
 }
 
 .button:hover {
-  background: #D14800;
-  color: #FFFFFF;
+  background: $button-hover;
+  color: $button-bg;
+}
+
+.hidden {
+  display: none;
 }
 
 </style>

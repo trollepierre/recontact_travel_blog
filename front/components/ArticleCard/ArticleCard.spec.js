@@ -4,6 +4,7 @@ import VueI18n from 'vue-i18n'
 import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
 import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 
+import AppButton from '@/components/AppButton/AppButton'
 import ArticleCard from './ArticleCard.vue'
 import articlesApi from '../../services/api/articles'
 import notificationsService from '../../services/services/notifications'
@@ -44,10 +45,6 @@ describe('Component | ArticleCard.vue', () => {
     wrapper = shallowMount(ArticleCard, {
       localVue, propsData, router, store,
     })
-  })
-
-  it('should be named "ArticleCard"', () => {
-    expect(wrapper.name()).toEqual('ArticleCard')
   })
 
   describe('when adminMode is not defined', () => {
@@ -223,7 +220,7 @@ describe('Component | ArticleCard.vue', () => {
     describe('events', () => {
       describe('clicking on button "Voir l\'article"', () => {
         it('should redirect to /article/id', () => {
-          wrapper.findAll('.article__footer__button').at(0).trigger('click')
+          wrapper.findAllComponents(AppButton).at(0).vm.$emit('click')
 
           expect(router.push).toHaveBeenCalledWith('/articles/58')
         })
@@ -271,7 +268,7 @@ describe('Component | ArticleCard.vue', () => {
       })
 
       it('should call articlesApi', () => {
-        wrapper.find('button.article__update-button').trigger('click')
+        wrapper.findAllComponents(AppButton).at(0).vm.$emit('click')
 
         expect(articlesApi.update).toHaveBeenCalledWith('58')
       })

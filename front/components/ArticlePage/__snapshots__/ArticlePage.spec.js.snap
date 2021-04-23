@@ -36,13 +36,11 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
         </li>
       </ul>
     </section>
-    <footer class="article-page__footer footer-article"><button class="footer-article__home">
-        Go to Home Page
-      </button> <button class="footer-article__previous">
-        Read the previous article
-      </button> <button class="footer-article__next">
-        Read the next article
-      </button></footer>
+    <footer class="article-page__footer footer-article">
+      <app-button-stub text="Go to Home Page" tag="button" class="app-button"></app-button-stub>
+      <app-button-stub text="Read the previous article" tag="button" class="app-button"></app-button-stub>
+      <app-button-stub text="Read the next article" tag="button" class="app-button"></app-button-stub>
+    </footer>
   </div>
 </main>
 `;
@@ -77,13 +75,11 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
         </li>
       </ul>
     </section>
-    <footer class="article-page__footer footer-article"><button class="footer-article__home">
-        Go to Home Page
-      </button> <button class="footer-article__previous">
-        Read the previous article
-      </button> <button class="footer-article__next">
-        Read the next article
-      </button></footer>
+    <footer class="article-page__footer footer-article">
+      <app-button-stub text="Go to Home Page" tag="button" class="app-button"></app-button-stub>
+      <app-button-stub text="Read the previous article" tag="button" class="app-button"></app-button-stub>
+      <app-button-stub text="Read the next article" tag="button" class="app-button"></app-button-stub>
+    </footer>
   </div>
 </main>
 `;

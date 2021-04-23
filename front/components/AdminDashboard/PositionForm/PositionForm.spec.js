@@ -14,12 +14,6 @@ describe('Component | PositionForm.vue', () => {
     localVue.use(VueI18n)
   })
 
-  it('should be named "PositionForm"', () => {
-    wrapper = shallowMount(PositionForm, { localVue })
-
-    expect(wrapper.name()).toEqual('PositionForm')
-  })
-
   describe('template', () => {
     it('should match snapshot', () => {
       wrapper = shallowMount(PositionForm, { localVue })

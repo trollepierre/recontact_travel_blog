@@ -22,7 +22,7 @@ describe('Integration | Routes | subscriptions route', () => {
       // when
       request(app)
         .post('/api/subscriptions')
-        .set('Authorization', 'Bearer access-token')
+
         .send({ email, lang: 'en' })
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200, (err, res) => {
@@ -40,7 +40,7 @@ describe('Integration | Routes | subscriptions route', () => {
       // when
       return request(app)
         .post('/api/subscriptions')
-        .set('Authorization', 'Bearer access-token')
+
         .send({ email })
         .expect(200)
     })
@@ -52,7 +52,7 @@ describe('Integration | Routes | subscriptions route', () => {
       // when
       return request(app)
         .post('/api/subscriptions')
-        .set('Authorization', 'Bearer access-token')
+
         .send()
         .expect(201)
     })
@@ -64,7 +64,7 @@ describe('Integration | Routes | subscriptions route', () => {
       // when
       return request(app)
         .post('/api/subscriptions')
-        .set('Authorization', 'Bearer access-token')
+
         .send()
         .expect(403)
     })

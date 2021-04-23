@@ -113,9 +113,9 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .chapter__image {
-    color: darkgrey;
+    color: $card-text;
     max-width: 100%;
     max-height: 40vw;
   }
@@ -128,17 +128,16 @@
 
   .chapter {
     min-width: 260px;
-    background: #FFFFFF;
-    border-radius: 4px !important;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
-    border: 1px solid rgba(0, 0, 0, .09);
+    background: $card-bg;
+    border-radius: 4px;
+    border: 1px solid $border;
     display: flex;
     flex-direction: column;
-    color: #535a60;
+    color: $card-color-weird
   }
 
   .chapter__header {
-    border-bottom: 1px solid #E6E6E6;
+    border-bottom: 1px solid $border;
     padding: 15px;
     height: 34px;
     display: flex;
@@ -150,7 +149,7 @@
     font-size: 20px;
     font-weight: 500;
     line-height: 17px;
-    color: #07C;
+    color: $card-title;
     margin: 0;
     overflow-wrap: break-word;
   }
@@ -163,40 +162,14 @@
     font-size: 15px;
     padding: 15px;
     display: block;
-    color: #000;
+    color: $card-placeholder;
     text-align: center;
   }
 
   .chapter__footer {
     text-align: center;
     padding: 0 15px;
-    border-top: 1px solid #E6E6E6;
-  }
-
-  .chapter__footer button {
-    text-transform: uppercase;
-    color: #D14800;
-    background: #FFFFFF;
-    border: 1px solid #D14800;
-    cursor: pointer;
-    padding: 15px 30px;
-    border-radius: 4px;
-    width: 100%;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
-
-  .chapter__footer button:hover {
-    background: #D14800;
-    color: #FFFFFF;
-  }
-
-  .chapter__footer button:disabled,
-  .chapter__footer button:active {
-    background: #BDBDBD;
-    border-color: #616161;
-    color: #FAFAFA;
-    cursor: auto;
+    border-top: 1px solid $border;
   }
 
   .youtube-iframe {

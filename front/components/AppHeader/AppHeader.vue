@@ -4,13 +4,15 @@
     :class="{ 'navbar-hidden': !showNavbar }">
     <div class="container">
       <a
-        :title="home"
+        :title="$t('home')"
         class="logo"
         href="/">
         <img
-          :alt="logo"
+          :alt="$t('logo')"
           class="icon"
-          src="../../static/mstile-150x150.png">
+          width="38"
+          height="38"
+          src="../../static/velo.png">
         <span class="recontact">Recontact</span>
         <span class="me">Me</span>
       </a>
@@ -19,13 +21,12 @@
         aria-label="navigation">
         <ul class="navigation">
           <li class="previous article">
-            <NuxtLink
+            <app-button
               v-if="previousArticleId"
-              class="button previous article"
-              type="button"
-              :to="previousArticleId">
-              {{ $t("previousArticle") }}
-            </NuxtLink>
+              :to="previousArticleId"
+              tag="nuxt-link"
+              class="previous article"
+              :text="$t('previousArticle')"/>
           </li>
           <li class="article-text">
             <p class="id">
@@ -33,69 +34,30 @@
             </p>
           </li>
           <li class="next article">
-            <NuxtLink
-              class="button next article"
-              type="button"
-              :to="nextArticleId">
-              {{ $t("nextArticle") }}
-            </NuxtLink>
+            <app-button
+              v-if="previousArticleId"
+              :to="nextArticleId"
+              tag="nuxt-link"
+              class="next article"
+              :text="$t('nextArticle')"/>
           </li>
         </ul>
       </nav>
       <nav aria-label="navigation">
-        <ul class="navigation">
-          <li
-            v-if="showNavBarButton"
-            class="link">
-            <button
-              class="button subscribe"
-              type="button"
-              @click.prevent="displaySubscribeModal">
-              {{ $t("subscribe") }}
-            </button>
-          </li>
-          <li
-            v-if="showNavBarButton"
-            class="link">
-            <button
-              class="button suggestion"
-              type="button"
-              @click.prevent="displayFeedbackModal">
-              {{ $t("suggestion") }}
-            </button>
-          </li>
-          <li
-            v-if="showNavBarButton"
-            class="link tdm">
-            <a
-              :title="$t('tdm')"
-              class="button tdm"
-              href="http://worldtour.recontact.me">
-              <img
-                :alt="logo"
-                class="tdm__image"
-                src="../../static/tdm.jpg">
-            </a>
-          </li>
-          <li class="link other-language">
-            <button
-              class="button other-language"
-              type="button"
-              @click.prevent="switchLanguage">
-              {{ $t("otherLanguage") }}
-            </button>
-          </li>
-        </ul>
+        <nav-control/>
       </nav>
     </div>
   </header>
 </template>
 <script>
 /* eslint-disable  max-lines */
+  import AppButton from '@/components/AppButton/AppButton'
+  import NavControl from '@/components/AppHeader/NavControl/NavControl'
+
   export default {
     name: 'AppHeader',
+    components: { NavControl, AppButton },
     data: () => ({
-      showNavBarButton: false,
       otherUrl: '',
       showNavbar: true,
       lastScrollPosition: 0,
@@ -104,14 +66,6 @@
       previousArticleId: null,
       nextArticleId: null,
     }),
-    computed: {
-      home() {
-        return this.$t('home')
-      },
-      logo() {
-        return this.$t('logo')
-      },
-    },
     mounted() {
       window.addEventListener('scroll', this.onScroll)
       this.isArticlePage = window.location.pathname.includes('/articles/')
@@ -142,43 +96,20 @@
         this.showNavbar = currentScrollPosition < this.lastScrollPosition // Set the current scroll position as the last scroll position
         this.lastScrollPosition = currentScrollPosition
       },
-      switchLanguage() {
-        window.location.href = this.$t('otherUrl') + window.location.pathname
-      },
-
-      displaySubscribeModal() {
-      // this.$modal.show('subscribe-modal')
-      },
-
-      displayFeedbackModal() {
-      // this.$modal.show('feedback-modal')
-      },
     },
     i18n: {
       silentTranslationWarn: true,
       messages: {
         fr: {
-          subscribe: 'S’abonner',
-          suggestion: 'Laisser un message',
-          problem: 'Un problème ?',
-          tdm: 'Retrouver l’ancien site du tour du monde de Pierre et Benoît',
           home: 'Page d’accueil',
-          logo: 'Logo du site',
-          otherLanguage: '🇬🇧',
-          otherUrl: 'https://www.recontact.me',
+          logo: 'Logo',
           previousArticle: '<',
           nextArticle: '>',
           article: 'Article',
         },
         en: {
-          subscribe: 'Subscribe',
-          suggestion: 'Leave a message',
-          problem: 'A problem?',
-          tdm: 'Go to see the former website of the world trip of Pierre and Benoît',
           home: 'Home page',
-          logo: 'Logo of the site',
-          otherLanguage: '🇫🇷',
-          otherUrl: 'https://fr.recontact.me',
+          logo: 'Logo',
           previousArticle: '<',
           nextArticle: '>',
           article: 'Article',
@@ -189,14 +120,15 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .header {
   height: 60px;
-  background: #FFFFFF;
-  border-bottom: 1px solid #E6E6E6;
+  background: $header-bg;
+  border-bottom: 1px solid $border;
   width: 100%;
   padding-left: 0;
   position: fixed;
+  z-index: 1;
 }
 
 .navbar-hidden {
@@ -218,16 +150,11 @@
   justify-content: space-between;
   align-items: center;
   font-family: serif;
-}
-
-.logo {
-  padding: 0;
-  margin: 10px 0;
   border-radius: 4px;
 }
 
 .recontact {
-  color: #07C;
+  color: $logo-primary;
   padding-top: 5px;
   padding-left: 5px;
   padding-bottom: 0;
@@ -237,15 +164,15 @@
 .me {
   align-self: center;
   padding: 5px 5px 0;
-  color: #D14800;
+  color: $logo-secondary;
 }
 
 .icon {
   display: block;
-  height: 75px;
-  padding-top: 12px;
-  margin: -20px;
-  padding-right: 10px;
+  height: 38px;
+  margin-left: -40px;
+  font-size: 8px;
+  color: $logo-color;
 }
 
 .navigation {
@@ -256,84 +183,49 @@
   height: 100%;
 }
 
-.suggestion,
-.tdm {
-  display: none;
-}
-
-.tdm {
-  display: inline-flex;
-}
-
-.tdm__image {
-  color: darkgrey;
-}
-
 .article, .article-text {
   font-family: serif;
   padding-left: 10px;
-  color: #F48024;
-}
-
-.button.article:hover {
-  background: #D14800;
-  color: #FFFFFF;
-}
-
-.button.article {
-  padding: 0 10px;
+  color: $nav-color;
 }
 
 .id {
   margin-top: 20px;
 }
 
+.button.article { // used in [<] Article 85 [>]
+  padding: 0 10px;
+}
+
 .button {
-  line-height: 28px;
-  color: #F48024;
-  text-decoration: unset;
-  font-size: 11px;
-  font-family: serif;
-  text-transform: uppercase;
-  background: #FFFFFF;
-  border: 1px solid #F48024;
-  cursor: pointer;
-  padding: 3px 5px;
-  border-radius: 4px;
-  width: 100%;
-  font-weight: 700;
+  background-color: $header-bg;
 }
 
-.button.other-language {
-  font-size: 24px;
-  margin-top: 0;
-  padding: 8px 6px 0 6px;
+.button:hover {
+  background-color: $button-hover;
 }
 
-.button.other-language:hover {
-  background: #D14800;
-  color: #FFFFFF;
-}
-
-.tdm {
-  padding: 10px;
-}
-
-.other-language, .article, .article-text {
+.article, .article-text {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-@media only screen and (max-width: 340px) {
-  .button.other-language {
-    font-size: 10px;
-  }
+.logo:hover {
+  border: 1px solid $logo-hover;
+  padding-left: 50px;
+  margin-left: -50px;
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 400px) {
   .icon {
     display: none;
+  }
+
+  .logo:hover {
+    padding-left: 0;
+    margin-left: 0;
   }
 }
 
@@ -343,33 +235,12 @@
     justify-content: space-between;
   }
 
-  .logo:hover {
-    background: #D14800;
-    color: #FFFFFF;
-    padding-right: 5px;
-    border-radius: 4px;
-    margin-top: 7px;
-    margin-bottom: 7px;
-  }
-
-  .icon {
-    display: block;
-    height: 75px;
-    padding-top: 10px;
-    margin: -5px;
-  }
-
-  .suggestion,
-  .tdm {
-    display: inline-block;
-  }
-
-  .link {
-    margin-left: 25px;
-  }
-
   .recontact {
-    padding-left: 0;
+    padding-left: 8px;
+  }
+
+  .me {
+    padding-right: 10px;
   }
 }
 
@@ -393,13 +264,8 @@
     font-size: 18px;
   }
 
-  .button {
+  .button.article {
     font-size: 14px;
-    padding: 5px 15px 3px;
-  }
-
-  .button.other-language {
-    padding: 5px 8px 0;
   }
 }
 

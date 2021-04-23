@@ -1,12 +1,27 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+    :class="theme">
     <nuxt/>
   </div>
 </template>
 
-<style>
+<script>
+  export default {
+    name: 'DefaultLayout',
+    computed: {
+      theme() {
+        if (this.$store.state.theme === 'new') {
+          return 'new-mode'
+        }
+        return this.$store.state.theme === 'dark' ? 'dark-mode' : 'aliceblue-mode'
+      },
+    },
+  }
+</script>
+
+<style lang="scss">
   body {
-    background: aliceblue;
     padding: 0;
     margin: 0;
   }
@@ -14,7 +29,8 @@
   #app {
     font-weight: bold;
     text-align: center;
-    color: #2c3e50;
+    background: $bg;
+    color: $color;
   }
 
   .v--modal {

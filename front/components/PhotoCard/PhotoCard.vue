@@ -48,7 +48,7 @@
   }
 </script>
 
-<style scoped>
+<style  lang="scss" scoped>
   .img {
     max-width: 100%;
     max-height: 40vw;
@@ -62,20 +62,18 @@
 
   .photo {
     min-width: 260px;
-    background: #FFFFFF;
-    border-radius: 4px !important;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
-    border: 1px solid rgba(0, 0, 0, .09);
+    background: $card-bg;
+    border-radius: 4px;
+    border: 1px solid $border;
     display: flex;
     flex-direction: column;
-    color: #535a60;
   }
 
   .photo__content {
     font-size: 15px;
     padding: 15px;
     display: block;
-    color: #000;
+    color: $card-placeholder;
     text-align: center;
   }
 

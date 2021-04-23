@@ -12,7 +12,7 @@ exports[`Component | Homepage.vue template should match snapshot on desktop 1`] 
       <p class="see-more">
         Want to see always more?
       </p>
-      <app-button-stub text="See the full list of articles" class="see-articles"></app-button-stub>
+      <app-button-stub text="See the full list of articles" tag="button" class="see-articles"></app-button-stub>
     </main>
     <aside style="min-width: 270px;">
       <article-list-stub articlesnumberlimit="3"></article-list-stub>
