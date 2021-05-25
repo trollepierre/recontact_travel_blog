@@ -1,7 +1,7 @@
+import Vue from 'vue' // eslint-disable-line import/no-extraneous-dependencies
 import {
   createLocalVue, shallowMount, mount, RouterLinkStub,
 } from '@vue/test-utils'
-import Vue from 'vue' // eslint-disable-line import/no-extraneous-dependencies
 import Vuex from 'vuex' // eslint-disable-line import/no-extraneous-dependencies
 import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 
