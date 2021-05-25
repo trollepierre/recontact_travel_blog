@@ -1,4 +1,3 @@
-// import lolex from 'lolex'
 import { expect, sinon } from '../test-helper'
 import AddComment from '../../src/use_cases/add-comment'
 import CommentRepository from '../../src/domain/repositories/comment-repository'
@@ -12,8 +11,6 @@ describe('Unit | AddComment | addComment', () => {
   const persistedComment = {
     id: 1, text, datetime, author,
   }
-  // let clock
-  // const now = '2018-10-20'
   const dropboxId = '48'
 
   beforeEach(() => {
@@ -25,14 +22,6 @@ describe('Unit | AddComment | addComment', () => {
     CommentRepository.create.restore()
     mailJet.sendEmail.restore()
   })
-
-  // beforeEach(() => {
-  //   clock = lolex.install({ now: new Date(now).valueOf() })
-  // })
-  //
-  // afterEach(() => {
-  //   clock.uninstall()
-  // })
 
   it('should call CommentRepository to create comment', () => {
     // when

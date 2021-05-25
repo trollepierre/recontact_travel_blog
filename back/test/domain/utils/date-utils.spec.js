@@ -1,4 +1,4 @@
-import lolex from 'lolex'
+import lolex from '@sinonjs/fake-timers'
 
 import { expect } from '../../test-helper'
 import { formatDateWithLongEndianLongFormat } from '../../../src/domain/utils/date-utils'

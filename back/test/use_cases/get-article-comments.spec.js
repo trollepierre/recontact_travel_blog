@@ -1,4 +1,4 @@
-import lolex from 'lolex'
+import lolex from '@sinonjs/fake-timers'
 import { expect, sinon } from '../test-helper'
 import GetArticleComments from '../../src/use_cases/get-article-comments'
 import CommentRepository from '../../src/domain/repositories/comment-repository'
