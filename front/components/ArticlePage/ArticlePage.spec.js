@@ -102,7 +102,7 @@ describe('Component | ArticlePage.vue', () => {
       })
 
       it('should contain default chapter when chapter not fetched', () => {
-        expect(wrapper.find(ChapterCard).props().chapter).toEqual({
+        expect(wrapper.findComponent(ChapterCard).props().chapter).toEqual({
           position: 1,
           frTitle: 'Article en cours de chargement',
           enTitle: 'Loading article',

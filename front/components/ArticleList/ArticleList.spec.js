@@ -49,7 +49,7 @@ describe('Component | ArticleList.vue', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it('should handle English language on last position', done => {
+    it('should handle English language on last position', () => {
       store = new Vuex.Store({ state: { locale: 'en' } })
       const propsData = { adminMode: true }
 
@@ -57,7 +57,6 @@ describe('Component | ArticleList.vue', () => {
 
       return Vue.nextTick().then(() => {
         expect(wrapper.find('.h3').text()).toEqual('London, 11th October 2019')
-        done()
       })
     })
 
@@ -85,8 +84,8 @@ describe('Component | ArticleList.vue', () => {
         },
       })
 
-      expect(wrapper.findAll(ArticleCard).at(7).props().lazy).toEqual(false)
-      expect(wrapper.findAll(ArticleCard).at(8).props().lazy).toEqual(true)
+      expect(wrapper.findAllComponents(ArticleCard).at(7).props().lazy).toEqual(false)
+      expect(wrapper.findAllComponents(ArticleCard).at(8).props().lazy).toEqual(true)
     })
 
     it('should contain lazy when more than 3 articles on MOBILE', async () => {
@@ -107,9 +106,9 @@ describe('Component | ArticleList.vue', () => {
         },
       })
 
-      expect(wrapper.findAll(ArticleCard).at(0).props().lazy).toEqual(false)
-      expect(wrapper.findAll(ArticleCard).at(1).props().lazy).toEqual(false)
-      expect(wrapper.findAll(ArticleCard).at(2).props().lazy).toEqual(true)
+      expect(wrapper.findAllComponents(ArticleCard).at(0).props().lazy).toEqual(false)
+      expect(wrapper.findAllComponents(ArticleCard).at(1).props().lazy).toEqual(false)
+      expect(wrapper.findAllComponents(ArticleCard).at(2).props().lazy).toEqual(true)
     })
 
     it('should remove last position when cecile website', () => {
