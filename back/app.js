@@ -33,6 +33,20 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(cors())
 
+// Setting cache control middleware in Express
+// https://regbrain.com/article/cache-headers-express-js
+const setCacheMiddleware = (req, res, next) => {
+  const oneDayPeriod = 60 * 60 * 24
+  if (req.method === 'GET') { // only cache for GET requests
+    res.set('Cache-control', `public, max-age=${oneDayPeriod}`)
+  } else {
+    res.set('Cache-control', 'no-store') // for the other requests set strict no caching parameters
+  }
+  next() // remember to call next() to pass on the request
+}
+
+app.use(setCacheMiddleware)
+
 app.use('/robots.txt', robots)
 app.use('/sitemap.xml', sitemap)
 // Should be after robot and sitemap but before dist
