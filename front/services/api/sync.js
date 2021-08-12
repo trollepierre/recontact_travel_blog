@@ -1,12 +1,9 @@
-import axios from 'axios'
-import env from '../env/env'
+import apiService from '../services/api-service'
 
 const SyncApi = {
-
   launch() {
-    const url = `${env('API_URL')}api/sync/`
-    const options = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
-    return axios.patch(url, options)
+    const url = 'sync/'
+    return apiService.patch(url)
   },
 }
 

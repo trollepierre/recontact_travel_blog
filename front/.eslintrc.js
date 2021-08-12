@@ -60,9 +60,9 @@ module.exports = {
 
     // PERSO
     'vue/require-prop-types': 'error',
-    'no-unused-vars': 'warn',
-    'no-shadow': 'warn',
-    'no-undef': 'warn',
+    'no-unused-vars': 'error',
+    'no-shadow': 'error',
+    'no-undef': 'error',
     'import/no-extraneous-dependencies': 'error',
     'import/no-unresolved': 'off',
     'import/extensions': 'off',

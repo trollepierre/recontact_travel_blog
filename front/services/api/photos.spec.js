@@ -1,11 +1,11 @@
-import axios from 'axios'
 import photosApi from './photos'
-import env from '../env/env'
+import apiService from '../services/api-service'
 
 describe('Unit | API | photos api', () => {
   describe('#fetch', () => {
     let idArticle
     let data
+    let stubbedResponse
 
     beforeEach(() => {
       idArticle = 59
@@ -13,22 +13,21 @@ describe('Unit | API | photos api', () => {
         foo: 'bar',
         photos: 'some photos',
       }
-      const stubbedResponse = {
+      stubbedResponse = {
         status: 200,
         data,
       }
-      axios.get = jest.fn()
-      axios.get.mockResolvedValue(stubbedResponse)
+      apiService.get = jest.fn()
+      apiService.get.mockResolvedValue(stubbedResponse)
     })
 
     it('should fetch API with the good params', () => {
-      const expectedUrl = `${env('API_URL')}api/articles/${idArticle}/photos`
-      const expectedOptions = { json: true }
+      const expectedUrl = `articles/${idArticle}/photos`
 
       const promise = photosApi.fetch(idArticle)
 
       return promise.then(() => {
-        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions)
+        expect(apiService.get).toHaveBeenCalledWith(expectedUrl)
       })
     })
 
@@ -36,13 +35,13 @@ describe('Unit | API | photos api', () => {
       const promise = photosApi.fetch(idArticle)
 
       return promise.then(returnedChapters => {
-        expect(returnedChapters).toEqual(data)
+        expect(returnedChapters).toEqual(stubbedResponse)
       })
     })
 
     it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
-      axios.get.mockRejectedValue(new Error('some error'))
+      apiService.get.mockRejectedValue(new Error('some error'))
       console.error = jest.fn()
 
       const promise = photosApi.fetch(accessToken)
