@@ -1,7 +1,6 @@
-import axios from 'axios'
 import articlesApi from './articles'
-import env from '../env/env'
 import logger from '../services/logger-service'
+import apiService from '../services/api-service'
 
 describe('Unit | API | articles api', () => {
   beforeEach(() => {
@@ -14,24 +13,23 @@ describe('Unit | API | articles api', () => {
         status: 200,
         data: { foo: 'bar' },
       }
-      axios.get = jest.fn()
-      axios.get.mockResolvedValue(stubbedResponse)
+      apiService.get = jest.fn()
+      apiService.get.mockResolvedValue(stubbedResponse)
     })
 
     it('should fetch API with the good params', () => {
-      const expectedUrl = `${env('API_URL')}api/articles?limit=8`
-      const expectedOptions = { json: true }
+      const expectedUrl = 'articles?limit=8'
 
       const promise = articlesApi.fetchAll(8)
 
       return promise.then(() => {
-        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions)
+        expect(apiService.get).toHaveBeenCalledWith(expectedUrl)
       })
     })
 
     it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
-      axios.get.mockRejectedValue(new Error('some error'))
+      apiService.get.mockRejectedValue(new Error('some error'))
 
       const promise = articlesApi.fetchAll(accessToken)
 
@@ -52,23 +50,23 @@ describe('Unit | API | articles api', () => {
           foo: 'bar',
         },
       }
-      axios.patch = jest.fn()
-      axios.patch.mockResolvedValue(stubbedResponse)
+      apiService.put = jest.fn()
+      apiService.put.mockResolvedValue(stubbedResponse)
     })
 
-    it('should patch API with the good params', () => {
-      const expectedUrl = `${env('API_URL')}api/admin/articles/${id}`
+    it('should put API with the good params', () => {
+      const expectedUrl = `admin/articles/${id}`
 
       const promise = articlesApi.update(id)
 
       return promise.then(() => {
-        expect(axios.patch).toHaveBeenCalledWith(expectedUrl, { json: true })
+        expect(apiService.put).toHaveBeenCalledWith(expectedUrl)
       })
     })
 
     it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
-      axios.patch.mockRejectedValue(new Error('some error'))
+      apiService.put.mockRejectedValue(new Error('some error'))
 
       const promise = articlesApi.update(accessToken)
 
@@ -87,13 +85,13 @@ describe('Unit | API | articles api', () => {
           foo: 'bar',
         },
       }
-      axios.get = jest.fn()
-      axios.get.mockResolvedValue(stubbedResponse)
-      const expectedUrl = `${env('API_URL')}api/apo/art/del/33`
+      apiService.get = jest.fn()
+      apiService.get.mockResolvedValue(stubbedResponse)
+      const expectedUrl = 'apo/art/del/33'
 
       await articlesApi.delete('33')
 
-      expect(axios.get).toHaveBeenCalledWith(expectedUrl, { json: true })
+      expect(apiService.get).toHaveBeenCalledWith(expectedUrl)
     })
   })
 
@@ -105,13 +103,13 @@ describe('Unit | API | articles api', () => {
           foo: 'bar',
         },
       }
-      axios.patch = jest.fn()
-      axios.patch.mockResolvedValue(stubbedResponse)
-      const expectedUrl = `${env('API_URL')}api/admin/articles`
+      apiService.put = jest.fn()
+      apiService.put.mockResolvedValue(stubbedResponse)
+      const expectedUrl = 'admin/articles'
 
       await articlesApi.updateAll(33, 35)
 
-      expect(axios.patch).toHaveBeenCalledWith(expectedUrl, { json: true, max: 35, min: 33 })
+      expect(apiService.put).toHaveBeenCalledWith(expectedUrl, { max: 35, min: 33 })
     })
   })
 
@@ -123,13 +121,13 @@ describe('Unit | API | articles api', () => {
           foo: 'bar',
         },
       }
-      axios.get = jest.fn()
-      axios.get.mockResolvedValue(stubbedResponse)
-      const expectedUrl = `${env('API_URL')}api/apo/art/del`
+      apiService.get = jest.fn()
+      apiService.get.mockResolvedValue(stubbedResponse)
+      const expectedUrl = 'apo/art/del'
 
       await articlesApi.deleteAll()
 
-      expect(axios.get).toHaveBeenCalledWith(expectedUrl, { json: true })
+      expect(apiService.get).toHaveBeenCalledWith(expectedUrl)
     })
   })
 
@@ -141,13 +139,13 @@ describe('Unit | API | articles api', () => {
           foo: 'bar',
         },
       }
-      axios.get = jest.fn()
-      axios.get.mockResolvedValue(stubbedResponse)
-      const expectedUrl = `${env('API_URL')}api/apo/art/delsyn`
+      apiService.get = jest.fn()
+      apiService.get.mockResolvedValue(stubbedResponse)
+      const expectedUrl = 'apo/art/delsyn'
 
       await articlesApi.deleteAndSyncAll()
 
-      expect(axios.get).toHaveBeenCalledWith(expectedUrl, { json: true })
+      expect(apiService.get).toHaveBeenCalledWith(expectedUrl)
     })
   })
 })
