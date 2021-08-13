@@ -1,34 +1,32 @@
-import axios from 'axios'
 import commentsApi from './comments'
-import env from '../env/env'
+import apiService from '../services/api-service'
 
-xdescribe('Unit | API | comments api', () => {
+describe('Unit | API | comments api', () => {
   describe('#fetch', () => {
     let idArticle
-    let data
+    let stubbedResponse
 
     beforeEach(() => {
       idArticle = 59
-      data = {
+      const data = {
         foo: 'bar',
         comments: 'some comments',
       }
-      const stubbedResponse = {
+      stubbedResponse = {
         status: 200,
         data,
       }
-      axios.get = jest.fn()
-      axios.get.mockResolvedValue(stubbedResponse)
+      apiService.get = jest.fn()
+      apiService.get.mockResolvedValue(stubbedResponse)
     })
 
     it('should fetch API with the good params', () => {
-      const expectedUrl = `${env('API_URL')}api/articles/${idArticle}/comments`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
+      const expectedUrl = `articles/${idArticle}/comments`
 
       const promise = commentsApi.fetch(idArticle)
 
       return promise.then(() => {
-        expect(axios.get).toHaveBeenCalledWith(expectedUrl, expectedOptions)
+        expect(apiService.get).toHaveBeenCalledWith(expectedUrl)
       })
     })
 
@@ -36,13 +34,13 @@ xdescribe('Unit | API | comments api', () => {
       const promise = commentsApi.fetch(idArticle)
 
       return promise.then(returnedChapters => {
-        expect(returnedChapters).toEqual(data)
+        expect(returnedChapters).toEqual(stubbedResponse)
       })
     })
 
     it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
-      axios.get.mockRejectedValue(new Error('some error'))
+      apiService.get.mockRejectedValue(new Error('some error'))
 
       const promise = commentsApi.fetch(accessToken)
 
@@ -55,6 +53,7 @@ xdescribe('Unit | API | comments api', () => {
 
   describe('#send', () => {
     let data
+    let stubbedResponse
     const idArticle = 59
     const comment = {
       text: 'Tu es trop fort, Pierre  !',
@@ -64,22 +63,21 @@ xdescribe('Unit | API | comments api', () => {
       data = {
         text: 'Tu es trop fort, Pierre  !',
       }
-      const stubbedResponse = {
+      stubbedResponse = {
         status: 200,
         data,
       }
-      axios.post = jest.fn()
-      axios.post.mockResolvedValue(stubbedResponse)
+      apiService.post = jest.fn()
+      apiService.post.mockResolvedValue(stubbedResponse)
     })
 
     it('should send comment to API with the good params', () => {
-      const expectedUrl = `${env('API_URL')}api/articles/${idArticle}/comments`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
+      const expectedUrl = `articles/${idArticle}/comments`
 
       const promise = commentsApi.send(idArticle, comment)
 
       return promise.then(() => {
-        expect(axios.post).toHaveBeenCalledWith(expectedUrl, comment, expectedOptions)
+        expect(apiService.post).toHaveBeenCalledWith(expectedUrl, comment)
       })
     })
 
@@ -87,12 +85,12 @@ xdescribe('Unit | API | comments api', () => {
       const promise = commentsApi.send(idArticle, comment)
 
       return promise.then(response => {
-        expect(response).toEqual(data)
+        expect(response).toEqual(stubbedResponse)
       })
     })
 
     it('should return a rejected promise when an error is thrown', done => {
-      axios.post.mockRejectedValue(new Error('some error'))
+      apiService.post.mockRejectedValue(new Error('some error'))
 
       const promise = commentsApi.send(idArticle, comment)
 

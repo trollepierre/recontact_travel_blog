@@ -1,6 +1,7 @@
 {
   "rootDir": "..",
   "resetMocks": true,
+  "testEnvironment": "jsdom",
   "moduleFileExtensions": [
     "js",
     "json",

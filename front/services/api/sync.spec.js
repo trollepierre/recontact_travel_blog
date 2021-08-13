@@ -1,6 +1,5 @@
-import axios from 'axios'
 import syncApi from './sync'
-import env from '../env/env'
+import apiService from '../services/api-service'
 
 describe('Unit | API | sync api', () => {
   describe('#launch', () => {
@@ -10,18 +9,17 @@ describe('Unit | API | sync api', () => {
       stubbedResponse = {
         status: 200,
       }
-      axios.patch = jest.fn()
-      axios.patch.mockResolvedValue(stubbedResponse)
+      apiService.patch = jest.fn()
+      apiService.patch.mockResolvedValue(stubbedResponse)
     })
 
     it('should launch API with the good params', () => {
-      const expectedUrl = `${env('API_URL')}api/sync/`
-      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
+      const expectedUrl = 'sync/'
 
       const promise = syncApi.launch()
 
       return promise.then(() => {
-        expect(axios.patch).toHaveBeenCalledWith(expectedUrl, expectedOptions)
+        expect(apiService.patch).toHaveBeenCalledWith(expectedUrl)
       })
     })
 
@@ -35,7 +33,7 @@ describe('Unit | API | sync api', () => {
 
     it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
-      axios.patch.mockRejectedValue(new Error('some error'))
+      apiService.patch.mockRejectedValue(new Error('some error'))
 
       const promise = syncApi.launch(accessToken)
 

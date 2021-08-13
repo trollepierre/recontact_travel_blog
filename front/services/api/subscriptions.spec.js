@@ -1,7 +1,6 @@
-import axios from 'axios'
 import api from './subscriptions'
 import translationsService from '../services/translations'
-import env from '../env/env'
+import apiService from '../services/api-service'
 
 describe('Unit | API | subscriptions api', () => {
   describe('#sendSubscription', () => {
@@ -12,8 +11,8 @@ describe('Unit | API | subscriptions api', () => {
           foo: 'bar',
         },
       }
-      axios.post = jest.fn()
-      axios.post.mockResolvedValue(stubbedResponse)
+      apiService.post = jest.fn()
+      apiService.post.mockResolvedValue(stubbedResponse)
       translationsService.getNavigatorLanguage = jest.fn()
       translationsService.getNavigatorLanguage.mockReturnValue('en')
     })
@@ -21,18 +20,18 @@ describe('Unit | API | subscriptions api', () => {
     it('should post subscriptions to API with the email', () => {
       const email = 'pierre@recontact.me'
 
-      const expectedUrl = `${env('API_URL')}api/subscriptions`
-      const expectedBody = { email, lang: 'en', json: true }
+      const expectedUrl = 'subscriptions'
+      const expectedBody = { email, lang: 'en' }
 
       const promise = api.subscribe(email)
 
       return promise.then(() => {
-        expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedBody)
+        expect(apiService.post).toHaveBeenCalledWith(expectedUrl, expectedBody)
       })
     })
 
     it('should return a rejected promise when an error is thrown', done => {
-      axios.post.mockRejectedValue(new Error('some error'))
+      apiService.post.mockRejectedValue(new Error('some error'))
       const email = 'pierre@recontact.me'
       console.error = jest.fn()
 

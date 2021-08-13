@@ -1,6 +1,5 @@
-import axios from 'axios'
 import api from './feedbacks'
-import env from '../env/env'
+import apiService from '../services/api-service'
 
 describe('Unit | API | feedbacks api', () => {
   describe('#sendFeedback', () => {
@@ -11,27 +10,26 @@ describe('Unit | API | feedbacks api', () => {
           foo: 'bar',
         },
       }
-      axios.post = jest.fn()
-      axios.post.mockResolvedValue(stubbedResponse)
+      apiService.post = jest.fn()
+      apiService.post.mockResolvedValue(stubbedResponse)
     })
 
     it('should post feedback to API with the feedback and email', () => {
       const email = 'pierre@recontact.me'
       const feedback = 'Vive le Tour de France  !'
 
-      const expectedUrl = `${env('API_URL')}api/feedbacks`
+      const expectedUrl = 'feedbacks'
       const expectedBody = { feedback, email }
-      const expectedOptions = { headers: { 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade' } }
 
       const promise = api.sendFeedback(feedback, email)
 
       return promise.then(() => {
-        expect(axios.post).toHaveBeenCalledWith(expectedUrl, expectedBody, expectedOptions)
+        expect(apiService.post).toHaveBeenCalledWith(expectedUrl, expectedBody)
       })
     })
 
     it('should reject a promise when an error is thrown', done => {
-      axios.post.mockRejectedValue(new Error('some error'))
+      apiService.post.mockRejectedValue(new Error('some error'))
       const feedback = 'coucou'
       const email = 'pierre@recontact.me'
 
