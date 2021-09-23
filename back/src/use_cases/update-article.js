@@ -173,9 +173,13 @@ async function sync(dropboxId) {
   }
 
   function _transformToImgLink(response) {
+    console.log({ response })
     if (isEmpty(response)) {
+      console.log('is empty')
       return ''
     }
+    console.log('not empty')
+
     const split = response.url.replace(/....$/, '').split('/s/')
     return `${split[0]}/s/raw/${split[1].split('?')[0]}`
   }
