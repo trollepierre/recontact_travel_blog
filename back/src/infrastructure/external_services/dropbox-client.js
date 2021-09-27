@@ -85,6 +85,16 @@ const DropboxClient = {
         }
         console.error('Erreur lors de la création du lien de : ', path)
         console.error(err)
+        setTimeout(() => DropboxApi.sharingCreateSharedLink(options)
+          .then(response => {
+            console.info('Erreur fixed after Timeout')
+            return response
+          }).catch(err2 => {
+            console.error('Erreur encore : ', path)
+            console.error(err2)
+            return Promise.resolve({})
+          }), 1000)
+
         return Promise.resolve({})
       })
   },

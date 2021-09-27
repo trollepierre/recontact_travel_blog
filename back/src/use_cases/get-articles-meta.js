@@ -12,6 +12,7 @@ function getAll() {
       frTitle,
       enTitle,
       chaptersCount: chapters.length,
+      brokenImgDropboxId: chapters.filter(chapter => chapter.imgLink === ''),
       photosCount: photos.length,
     })))
 }
