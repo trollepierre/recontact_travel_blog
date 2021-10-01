@@ -7,6 +7,7 @@ import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-d
 import AppButton from '@/components/AppButton/AppButton'
 import ArticleCard from './ArticleCard.vue'
 import articlesApi from '../../services/api/articles'
+import chaptersApi from '../../services/api/chapters'
 import notificationsService from '../../services/services/notifications'
 import translationsService from '../../services/services/translations'
 
@@ -168,7 +169,7 @@ describe('Component | ArticleCard.vue', () => {
           wrapper.vm.updateArticle()
 
           const message = 'The synchronisation is launched! Please wait...'
-          expect(notificationsService.warn).toHaveBeenCalledWith(message)
+          expect(notificationsService.information).toHaveBeenCalledWith(message)
         })
 
         it('should redirect to /article/id', () => {
@@ -257,6 +258,10 @@ describe('Component | ArticleCard.vue', () => {
       })
     })
 
+    it('should match snapshot', () => {
+      expect(wrapper).toMatchSnapshot()
+    })
+
     describe('clicking on button "reparer l\'article"', () => {
       beforeEach(() => {
         articlesApi.update = jest.fn()
@@ -268,9 +273,37 @@ describe('Component | ArticleCard.vue', () => {
       })
 
       it('should call articlesApi', () => {
-        wrapper.findAllComponents(AppButton).at(0).vm.$emit('click')
+        wrapper.findAllComponents(AppButton).at(1).vm.$emit('click')
 
         expect(articlesApi.update).toHaveBeenCalledWith('58')
+        expect(wrapper.vm.isUpdateClicked).toEqual(true)
+      })
+    })
+
+    describe('clicking on button "repare le chapitre"', () => {
+      beforeEach(() => {
+        chaptersApi.update = jest.fn()
+        chaptersApi.update.mockResolvedValue({})
+        notificationsService.information = jest.fn()
+        notificationsService.warn = jest.fn()
+
+        notificationsService.error = jest.fn()
+      })
+
+      it('should not call chaptersApi when input unchanged', () => {
+        console.log = jest.fn()
+
+        wrapper.findAllComponents(AppButton).at(0).vm.$emit('click')
+
+        expect(chaptersApi.update).not.toHaveBeenCalled()
+      })
+
+      it('should call chaptersApi when input changed', () => {
+        wrapper.setData({ chapterToRepair: '2' })
+        wrapper.findAllComponents(AppButton).at(0).vm.$emit('click')
+
+        expect(chaptersApi.update).toHaveBeenCalledWith('58', 2)
+        expect(wrapper.vm.isUpdateChapterClicked).toEqual(true)
       })
     })
   })
@@ -288,9 +321,10 @@ describe('Component | ArticleCard.vue', () => {
         const locales = Object.keys(ArticleCard.i18n.messages.fr)
 
         it('contains 10 locales', () => {
-          expect(locales).toHaveLength(10)
+          expect(locales).toHaveLength(11)
           expect(locales).toEqual([
             'repairArticle',
+            'repairChapter',
             'deleteArticle',
             'goToArticle',
             'viewGallery',
@@ -308,9 +342,10 @@ describe('Component | ArticleCard.vue', () => {
         const locales = Object.keys(ArticleCard.i18n.messages.en)
 
         it('contains 10 locales', () => {
-          expect(locales).toHaveLength(10)
+          expect(locales).toHaveLength(11)
           expect(locales).toEqual([
             'repairArticle',
+            'repairChapter',
             'deleteArticle',
             'goToArticle',
             'viewGallery',

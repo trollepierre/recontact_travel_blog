@@ -27,3 +27,20 @@ exports[`Component | ArticleCard.vue when adminMode is not defined template shou
   </footer>
 </article>
 `;
+
+exports[`Component | ArticleCard.vue when adminMode is true should match snapshot 1`] = `
+<article class="article"><a href="/articles/58" class="article__link">
+    <h2 class="article__title">
+      Pierre somewhere
+    </h2>
+  </a>
+  <div class="article__content"><img alt="Pierre somewhere" rel="noreferrer" class="article__image" data-src="webf" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" lazy="loading"></div>
+  <footer class="article__footer">
+    <form>
+      <app-button-stub text="Repair the chapter" tag="button" class="app-button chapter-button"></app-button-stub> <input class="chapter-input">
+    </form>
+    <app-button-stub text="Repair the article" tag="button" class="app-button"></app-button-stub>
+    <app-button-stub text="Delete the article" tag="button" class="app-button light"></app-button-stub>
+  </footer>
+</article>
+`;

@@ -14,7 +14,7 @@ const analyseArticleError = params => article => {
   return { ...article, error }
 }
 
-function getAll(params) {
+function getAll(params = {}) {
   return GetArticlesMeta.getAll()
     .map(analyseArticleError(params))
     .filter(article => article.error.length !== 0)

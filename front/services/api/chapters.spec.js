@@ -51,4 +51,18 @@ describe('Unit | API | chapters api', () => {
       })
     })
   })
+
+  describe('update', () => {
+    it('should get good url and return data', async () => {
+      apiService.put = jest.fn()
+      apiService.put.mockResolvedValue('success')
+      const id = 80
+      const position = 3
+
+      const result = await chaptersApi.update(id, position)
+
+      expect(apiService.put).toHaveBeenCalledWith(`admin/articles/${id}/chapters/${position}`)
+      expect(result).toEqual('success')
+    })
+  })
 })

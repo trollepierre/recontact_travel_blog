@@ -3,19 +3,19 @@ import app from '../../../app'
 import GetPhotosOfArticle from '../../../src/use_cases/get-article-photos'
 import GetAllArticles from '../../../src/use_cases/get-all-articles'
 import GetArticle from '../../../src/use_cases/get-article'
-import article from '../../fixtures/articleSaved'
 import chapter from '../../fixtures/chapterWithParagraphs'
 import photo from '../../fixtures/photo'
 import GetArticleComments from '../../../src/use_cases/get-article-comments'
 import AddComment from '../../../src/use_cases/add-comment'
 import { commentForFront } from '../../fixtures/comments/commentForFront'
+import { dummyArticleFromDb } from '../../dummies/dummyArticle'
 
 describe('Integration | Routes | articles route', () => {
   describe('GET /articles', () => {
     let articles
 
     beforeEach(() => {
-      articles = [article(), article()]
+      articles = [dummyArticleFromDb(), dummyArticleFromDb()]
       sinon.stub(GetAllArticles, 'getAllArticles').resolves(articles)
     })
 
