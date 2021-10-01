@@ -19,6 +19,12 @@ function deleteChaptersOfArticle(dropboxId) {
   })
 }
 
+function deleteChapterOfArticle(dropboxId, position) {
+  return Newchapter.destroy({
+    where: { dropboxId, position },
+  })
+}
+
 function deleteAll() {
   return Newchapter.destroy({ where: {} })
 }
@@ -27,5 +33,6 @@ export default {
   createArticleChapters,
   getChaptersOfArticle,
   deleteChaptersOfArticle,
+  deleteChapterOfArticle,
   deleteAll,
 }

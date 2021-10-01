@@ -61,7 +61,7 @@
       return {
         isClickedSync: false,
         min: 1,
-        max: 88,
+        max: 100,
       }
     },
     methods: {
@@ -79,7 +79,7 @@
 
       synchronise() {
         this.disableButton()
-        notificationsService.warn(this.$t('syncLaunched'))
+        notificationsService.information(this.$t('syncLaunched'))
         syncApi.launch()
           .then(() => {
             notificationsService.information(this.$t('syncDone'))
@@ -92,7 +92,7 @@
 
       updateAll() {
         this.disableButton()
-        notificationsService.warn(this.$t('syncLaunched'))
+        notificationsService.information(this.$t('syncLaunched'))
         articlesApi.updateAll(this.min, this.max)
           .then(() => {
             notificationsService.information(this.$t('syncDone'))
@@ -105,7 +105,7 @@
 
       deleteAll() {
         this.disableButton()
-        notificationsService.warn(this.$t('syncLaunched'))
+        notificationsService.information(this.$t('syncLaunched'))
         articlesApi.deleteAll()
           .then(() => {
             notificationsService.information(this.$t('syncDone'))
@@ -118,7 +118,7 @@
 
       deleteAndSyncAll() {
         this.disableButton()
-        notificationsService.warn(this.$t('syncLaunched'))
+        notificationsService.information(this.$t('syncLaunched'))
         articlesApi.deleteAndSyncAll()
           .then(() => {
             notificationsService.information(this.$t('syncDone'))
