@@ -116,7 +116,7 @@
       updateChapter() {
         const position = parseInt(this.chapterToRepair, 10)
         if (position <= 0 || position > 100 || Number.isNaN(position)) {
-          console.log('error:')
+          console.log('incorrect chapter number:')
           console.log(this.chapterToRepair)
           return
         }

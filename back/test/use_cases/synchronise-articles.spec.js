@@ -8,13 +8,13 @@ import SubscriptionRepository from '../../src/domain/repositories/subscription-r
 import mailJet from '../../src/infrastructure/mailing/mailjet'
 import DropboxClient from '../../src/infrastructure/external_services/dropbox-client'
 import FileReader from '../../src/infrastructure/external_services/file-reader'
-import savedArticle from '../fixtures/articleToSave'
 import chapterOfArticle from '../fixtures/chapterOfArticleSaved'
 import filteredDropboxFilesListFolder from '../fixtures/filteredDropboxFilesListFolder'
 import dropboxPhotosPaths from '../fixtures/filteredDropboxPaths'
 import dropboxFilesGetTemporaryLink from '../fixtures/dropboxFilesGetTemporaryLink'
 import dropboxArticleFr from '../fixtures/dropboxArticleFr'
 import dropboxArticleEn from '../fixtures/dropboxArticleEn'
+import { dummyArticleFromDb } from '../dummies/dummyArticle'
 
 describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
   describe('when dropbox rejects error', () => {
@@ -79,7 +79,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
     describe('basic call', () => {
       beforeEach(() => {
-        const oldArticles = [savedArticle(idOldArticle), savedArticle(idNewArticle1), savedArticle(idNewArticle2)]
+        const oldArticles = [dummyArticleFromDb({ dropboxId: idOldArticle }), dummyArticleFromDb({ dropboxId: idNewArticle1 }), dummyArticleFromDb({ dropboxId: idNewArticle2 })]
         sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles)
       })
 
@@ -98,7 +98,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
     describe('when no new article has been added', () => {
       beforeEach(() => {
-        const oldArticles = [savedArticle(idOldArticle), savedArticle(idNewArticle1), savedArticle(idNewArticle2)]
+        const oldArticles = [dummyArticleFromDb({ dropboxId: idOldArticle }), dummyArticleFromDb({ dropboxId: idNewArticle1 }), dummyArticleFromDb({ dropboxId: idNewArticle2 })]
         sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles)
       })
 
@@ -126,13 +126,13 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           { email: 'abonne@recontact.me', lang: 'fr' },
           { email: 'subscriber@recontact.me', lang: 'en' },
         ]
-        const oldArticles = [savedArticle(idOldArticle)]
+        const oldArticles = [dummyArticleFromDb({ dropboxId: idOldArticle })]
         sinon.stub(SubscriptionRepository, 'getAll').resolves(subscriptions)
         sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles)
         sinon.stub(ArticleRepository, 'update').resolves(oldArticles)
         const articleRepoCreateStub = sinon.stub(ArticleRepository, 'create')
-        articleRepoCreateStub.onFirstCall().resolves(savedArticle(idNewArticle1))
-        articleRepoCreateStub.onSecondCall().resolves(savedArticle(idNewArticle2))
+        articleRepoCreateStub.onFirstCall().resolves(dummyArticleFromDb({ dropboxId: idNewArticle1 }))
+        articleRepoCreateStub.onSecondCall().resolves(dummyArticleFromDb({ dropboxId: idNewArticle2 }))
         sinon.stub(ChapterRepository, 'createArticleChapters').resolves(chapterOfArticle())
         sinon.stub(PhotoRepository, 'createPhotos')
         sinon.stub(DropboxClient, 'getFilesFolderPaths').resolves(dropboxPhotosPaths)
@@ -431,7 +431,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           // given
           ArticleRepository.getAll.restore()
 
-          const oldArticles = [savedArticle(idOldArticle), savedArticle(idNewArticle2)]
+          const oldArticles = [dummyArticleFromDb({ dropboxId: idOldArticle }), dummyArticleFromDb({ dropboxId: idNewArticle2 })]
           sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles)
 
           // when

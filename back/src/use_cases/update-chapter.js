@@ -79,9 +79,6 @@ async function sync({ dropboxId, chapterPosition }) {
     return Promise.all(chaptersWithSharableLink)
       .then(imgLinks => {
         const newArticleInfos = articleInfos
-        console.log('articleInfos.chapters')
-        console.log(articleInfos.chapters)
-
         for (let i = 0; i < imgLinks.length; i += 1) {
           newArticleInfos.chapters[i].imgLink = imgLinks[i]
         }
@@ -95,13 +92,10 @@ async function sync({ dropboxId, chapterPosition }) {
   }
 
   function _transformToImgLink(response) {
-    console.log({ response })
     if (isEmpty(response)) {
-      console.log('is empty')
+      console.error('img link is empty again')
       return ''
     }
-    console.log('not empty')
-
     const split = response.url.replace(/....$/, '').split('/s/')
     return `${split[0]}/s/raw/${split[1].split('?')[0]}`
   }

@@ -83,5 +83,28 @@ describe('Unit | Repository | chapter-repository', () => {
       })
     })
   })
+
+  describe('#deleteChapterOfArticle', () => {
+    const dropboxId = 47
+    const position = 2
+
+    beforeEach(() => {
+      sinon.stub(Newchapter, 'destroy').resolves()
+    })
+
+    afterEach(() => {
+      Newchapter.destroy.restore()
+    })
+
+    it('should call Sequelize Model#destroy', () => {
+      // when
+      const promise = chapterRepository.deleteChapterOfArticle(dropboxId, position)
+
+      // then
+      return promise.then(() => {
+        expect(Newchapter.destroy).to.have.been.calledWith({ where: { dropboxId, position } })
+      })
+    })
+  })
 })
 

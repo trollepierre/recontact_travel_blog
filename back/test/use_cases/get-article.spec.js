@@ -2,13 +2,13 @@ import { expect, sinon } from '../test-helper'
 import GetArticle from '../../src/use_cases/get-article'
 import ArticleRepository from '../../src/domain/repositories/article-repository'
 import ChapterRepository from '../../src/domain/repositories/chapter-repository'
-import articleSaved from '../fixtures/articleSaved'
 import chapterOfArticle from '../fixtures/chapterOfArticleSaved'
 import chapterWithParagraphs from '../fixtures/chapterWithParagraphs'
+import { dummyArticleFromDb } from '../dummies/dummyArticle'
 
 describe('Unit | GetArticle | getArticle()', () => {
   const dropboxId = 8
-  const article = articleSaved()
+  const article = dummyArticleFromDb()
   const frTitle = 'Pierre au pays des'
   const enTitle = 'Peter in the country of'
   article.enTitle = enTitle
