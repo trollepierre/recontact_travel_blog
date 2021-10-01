@@ -1,23 +1,22 @@
 import GetArticlesMeta from './get-articles-meta'
 
-const analyseArticleError = article => {
-  // eslint-disable-next-line no-param-reassign
-  article.error = []
-  if (article.brokenImgDropboxId !== 0) {
-    article.error.push('missing images of chapter')
+const analyseArticleError = params => article => {
+  const error = []
+  if (params.images !== 'off' && article.brokenImgDropboxId.length !== 0) {
+    error.push('missing images of chapter')
   }
-  if (article.photosCount === 0) {
-    article.error.push('missing photos gallery')
+  if (params.photos !== 'off' && article.photosCount === 0) {
+    error.push('missing photos gallery')
   }
   if (article.chaptersCount === 0) {
-    article.error.push('missing chapters')
+    error.push('missing chapters')
   }
-  return article
+  return { ...article, error }
 }
 
-function getAll() {
+function getAll(params) {
   return GetArticlesMeta.getAll()
-    .map(analyseArticleError)
+    .map(analyseArticleError(params))
     .filter(article => article.error.length !== 0)
 }
 
