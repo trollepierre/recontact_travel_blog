@@ -4,7 +4,7 @@
       <h1 class="article-results__title hidden">
         {{ hiddenTitle }}
       </h1>
-      <p class="article-results__title h1">
+      <p class="article-results__title">
         {{ title }}
       </p>
       <p class="article-results__title h2">

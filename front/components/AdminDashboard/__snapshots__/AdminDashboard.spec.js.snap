@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | AdminDashboard.vue template should match snapshot 1`] = `
-<div class="admin-dashboard"><button type="button" class="dashboard__buttons dashboard__sync_hidden">
+<div><button type="button" class="dashboard__buttons dashboard__sync_hidden">
     Get the subscribers
   </button> <button type="button" class="dashboard__buttons">
     Synchronise the new articles

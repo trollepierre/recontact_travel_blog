@@ -16,8 +16,8 @@ exports[`Component | AppHeader.vue template should match snapshot on article pag
   <div class="container"><a title="Home page" href="/" class="logo"><img alt="Logo" width="38" height="38" src="../../static/velo.png" class="icon"> <span class="recontact">Recontact</span> <span class="me">Me</span></a>
     <nav aria-label="navigation">
       <ul class="navigation">
-        <li class="previous article">
-          <app-button-stub text="<" to="/articles/7" tag="nuxt-link" class="previous article"></app-button-stub>
+        <li class="article">
+          <app-button-stub text="<" to="/articles/7" tag="nuxt-link" class="article"></app-button-stub>
         </li>
         <li class="article-text">
           <p class="id">
@@ -25,7 +25,7 @@ exports[`Component | AppHeader.vue template should match snapshot on article pag
           </p>
         </li>
         <li class="next article">
-          <app-button-stub text=">" to="/articles/9" tag="nuxt-link" class="next article"></app-button-stub>
+          <app-button-stub text=">" to="/articles/9" tag="nuxt-link" class="article"></app-button-stub>
         </li>
       </ul>
     </nav>

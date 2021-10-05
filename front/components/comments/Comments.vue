@@ -1,5 +1,5 @@
 <template>
-  <div class="comments">
+  <div>
     <comment-list
       :to-reload="toReload"
       @reloaded="reloadOff"/>

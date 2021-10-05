@@ -1,5 +1,5 @@
 <template>
-  <div class="articles-page">
+  <div>
     <app-header/>
     <main>
       <article-list/>
