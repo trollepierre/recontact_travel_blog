@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-card">
+  <div>
     <article class="comment">
       <header class="comment__header">
         <p class="comment__author">

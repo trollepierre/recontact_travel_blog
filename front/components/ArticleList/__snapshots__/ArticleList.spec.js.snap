@@ -6,7 +6,7 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
     <h1 class="article-results__title hidden">
       Fix the website
     </h1>
-    <p class="article-results__title h1">
+    <p class="article-results__title">
       Discover the world with us!
     </p>
     <p class="article-results__title h2">

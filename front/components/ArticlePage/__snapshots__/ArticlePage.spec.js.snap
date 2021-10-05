@@ -20,11 +20,11 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
         </li>
       </ul>
     </section>
-    <section class="article-page__forum forum">
+    <section>
       <comments-stub></comments-stub>
     </section>
-    <section class="article-page__photo-gallery photo-gallery">
-      <h2 class="photo-gallery__title">
+    <section>
+      <h2>
         Here is the photo gallery of this article
       </h2>
       <ul class="photo-gallery__list">
@@ -36,7 +36,7 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
         </li>
       </ul>
     </section>
-    <footer class="article-page__footer footer-article">
+    <footer class="footer-article">
       <app-button-stub text="Go to Home Page" tag="button" class="app-button"></app-button-stub>
       <app-button-stub text="Read the previous article" tag="button" class="app-button"></app-button-stub>
       <app-button-stub text="Read the next article" tag="button" class="app-button"></app-button-stub>
@@ -59,11 +59,11 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
         </li>
       </ul>
     </section>
-    <section class="article-page__forum forum">
+    <section>
       <comments-stub></comments-stub>
     </section>
-    <section class="article-page__photo-gallery photo-gallery">
-      <h2 class="photo-gallery__title">
+    <section>
+      <h2>
         Here is the photo gallery of this article
       </h2>
       <ul class="photo-gallery__list">
@@ -75,7 +75,7 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
         </li>
       </ul>
     </section>
-    <footer class="article-page__footer footer-article">
+    <footer class="footer-article">
       <app-button-stub text="Go to Home Page" tag="button" class="app-button"></app-button-stub>
       <app-button-stub text="Read the previous article" tag="button" class="app-button"></app-button-stub>
       <app-button-stub text="Read the next article" tag="button" class="app-button"></app-button-stub>

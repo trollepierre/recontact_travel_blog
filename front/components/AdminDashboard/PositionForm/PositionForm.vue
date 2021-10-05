@@ -1,12 +1,11 @@
 <template>
   <form class="position__form">
-    <span class="position__language">
-      <p class="positionFr__text">
+    <span>
+      <p>
         {{ $t("lastPositionFr") }}
       </p>
       <span class="form-group">
         <label
-          class="position__label"
           for="positionFr-place">
           {{ $t("placeFr") }}
         </label>
@@ -18,7 +17,6 @@
       </span>
       <span class="form-group">
         <label
-          class="position__label"
           for="positionFr-time">
           {{ $t("timeFr") }}
         </label>
@@ -29,13 +27,12 @@
           placeholder="le 1er mai 2018">
       </span>
     </span>
-    <span class="position__language">
-      <p class="positionEn__text">
+    <span>
+      <p>
         {{ $t("lastPositionEn") }}
       </p>
       <span class="form-group">
         <label
-          class="position__label"
           for="positionEn-place">
           {{ $t("placeEn") }}
         </label>
@@ -47,7 +44,6 @@
       </span>
       <span class="form-group">
         <label
-          class="position__label"
           for="positionEn-time">
           {{ $t("timeEn") }}
         </label>

@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-dashboard">
+  <div>
     <button
       class="dashboard__buttons dashboard__sync_hidden"
       type="button"
