@@ -262,7 +262,7 @@ describe('Component | ArticleCard.vue', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    describe('clicking on button "reparer l\'article"', () => {
+    describe('clicking on button "repare the article"', () => {
       beforeEach(() => {
         articlesApi.update = jest.fn()
         articlesApi.update.mockResolvedValue({})
@@ -280,7 +280,7 @@ describe('Component | ArticleCard.vue', () => {
       })
     })
 
-    describe('clicking on button "repare le chapitre"', () => {
+    describe('clicking on button "repare the chapter"', () => {
       beforeEach(() => {
         chaptersApi.update = jest.fn()
         chaptersApi.update.mockResolvedValue({})
@@ -295,6 +295,7 @@ describe('Component | ArticleCard.vue', () => {
 
         wrapper.findAllComponents(AppButton).at(0).vm.$emit('click')
 
+        expect(notificationsService.error).toHaveBeenCalledOnceWith('incorrect chapter number: 0')
         expect(chaptersApi.update).not.toHaveBeenCalled()
       })
 
@@ -320,7 +321,7 @@ describe('Component | ArticleCard.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(ArticleCard.i18n.messages.fr)
 
-        it('contains 10 locales', () => {
+        it('contains 11 locales', () => {
           expect(locales).toHaveLength(11)
           expect(locales).toEqual([
             'repairArticle',
@@ -341,7 +342,7 @@ describe('Component | ArticleCard.vue', () => {
       describe('en', () => {
         const locales = Object.keys(ArticleCard.i18n.messages.en)
 
-        it('contains 10 locales', () => {
+        it('contains 11 locales', () => {
           expect(locales).toHaveLength(11)
           expect(locales).toEqual([
             'repairArticle',
