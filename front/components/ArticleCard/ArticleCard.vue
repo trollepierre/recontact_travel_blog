@@ -27,6 +27,14 @@
     </div>
     <footer class="article__footer">
       <template v-if="adminMode">
+        <form>
+          <app-button
+            :disabled="isUpdateChapterClicked"
+            class="app-button chapter-button"
+            :text="$t('repairChapter')"
+            @click="updateChapter"/>
+          <input class="chapter-input" v-model="chapterToRepair"/>
+        </form>
         <app-button
           :disabled="isUpdateClicked"
           class="app-button"
@@ -58,6 +66,7 @@
 <script>
   import AppButton from '@/components/AppButton/AppButton'
   import articlesApi from '../../services/api/articles'
+  import chaptersApi from '../../services/api/chapters'
   import notificationsService from '../../services/services/notifications'
   import translationsService from '../../services/services/translations'
 
@@ -72,7 +81,9 @@
     data() {
       return {
         isUpdateClicked: false,
+        isUpdateChapterClicked: false,
         isDeleteClicked: false,
+        chapterToRepair: '0',
       }
     },
     computed: {
@@ -91,8 +102,28 @@
 
       updateArticle() {
         this.disableUpdateButton()
-        notificationsService.warn(this.$t('syncLaunched'))
+        notificationsService.information(this.$t('syncLaunched'))
         articlesApi.update(this.article.dropboxId)
+          .then(() => {
+            notificationsService.information(this.$t('syncDone'))
+          })
+          .then(() => this.goToArticle())
+          .catch(err => {
+            notificationsService.error(`${this.$t('syncError')} ${err}`)
+          })
+      },
+
+      updateChapter() {
+        const position = parseInt(this.chapterToRepair, 10)
+        if (position <= 0 || position > 100 || Number.isNaN(position)) {
+          console.log('incorrect chapter number:')
+          console.log(this.chapterToRepair)
+          return
+        }
+
+        this.disableUpdateChapterButton()
+        notificationsService.information(this.$t('syncLaunched'))
+        chaptersApi.update(this.article.dropboxId, position)
           .then(() => {
             notificationsService.information(this.$t('syncDone'))
           })
@@ -106,9 +137,13 @@
         this.isUpdateClicked = true
       },
 
+      disableUpdateChapterButton() {
+        this.isUpdateChapterClicked = true
+      },
+
       deleteArticle() {
         this.disableDeleteButton()
-        notificationsService.warn(this.$t('deleteLaunched'))
+        notificationsService.information(this.$t('deleteLaunched'))
         articlesApi.delete(this.article.dropboxId)
           .then(() => {
             notificationsService.information(this.$t('deleteDone'))
@@ -132,6 +167,7 @@
       messages: {
         fr: {
           repairArticle: 'Réparer l’article',
+          repairChapter: 'Réparer le chapitre',
           deleteArticle: 'Supprimer l’article',
           goToArticle: 'Voir l’article',
           viewGallery: 'Voir les photos',
@@ -144,6 +180,7 @@
         },
         en: {
           repairArticle: 'Repair the article',
+          repairChapter: 'Repair the chapter',
           deleteArticle: 'Delete the article',
           goToArticle: 'Read the article',
           viewGallery: 'Discover the pictures',
@@ -229,6 +266,21 @@
     text-align: center;
     padding: 15px 15px 5px;
     border-top: 1px solid $border;
+  }
+
+  .chapter-input {
+    width: 10%;
+    line-height: 30px;
+    font-weight: 700;
+    color: var(--comment-form-color);
+    background: var(--button-bg);
+    border-radius: 4px;
+    text-align: center;
+    border-top-width: 1px;
+  }
+
+  .chapter-button {
+    width: 80%;
   }
 
   .app-button {

@@ -1,5 +1,6 @@
 import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
+import UpdateChapter from '../../../src/use_cases/update-chapter'
 import UpdateArticle from '../../../src/use_cases/update-article'
 import UpdateArticles from '../../../src/use_cases/update-articles'
 
@@ -48,6 +49,35 @@ describe('Integration | Routes | admin route', () => {
         .end((err, response) => {
           // Then
           expect(UpdateArticles.sync).to.have.been.calledWith()
+          expect(response.status).to.deep.equal(204)
+          if (err) {
+            done(err)
+          }
+          done()
+        })
+    })
+  })
+
+  describe('/admin/articles/:id/chapters/:position', () => {
+    beforeEach(() => {
+      sinon.stub(UpdateChapter, 'sync').resolves()
+    })
+
+    afterEach(() => {
+      UpdateChapter.sync.restore()
+    })
+
+    it('should call update article and send 204', done => {
+      // Given
+      const stringIdArticle = '59'
+      const position = '3'
+
+      // When
+      request(app)
+        .patch(`/api/admin/articles/${stringIdArticle}/chapters/${position}`)
+        .end((err, response) => {
+          // Then
+          expect(UpdateChapter.sync).to.have.been.calledWith({ dropboxId: stringIdArticle, chapterPosition: position })
           expect(response.status).to.deep.equal(204)
           if (err) {
             done(err)

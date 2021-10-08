@@ -7,7 +7,7 @@ import chapterOfArticle from '../fixtures/chapterOfArticleSaved'
 import photosOfArticle from '../fixtures/photoOfArticleSaved'
 import articles from '../fixtures/articlesWithSharedLink'
 
-describe('Unit | GetArticle | getArticle()', () => {
+describe('Unit | GetArticlesMeta | getAll()', () => {
   beforeEach(() => {
     sinon.stub(ArticleRepository, 'getAll').returns(articles())
     sinon.stub(ChapterRepository, 'getChaptersOfArticle').returns(chapterOfArticle())
@@ -29,5 +29,22 @@ describe('Unit | GetArticle | getArticle()', () => {
     expect(ChapterRepository.getChaptersOfArticle).to.have.been.callCount(3)
     expect(PhotoRepository.getPhotosOfArticle).to.have.been.callCount(3)
   })
+
+  // it.only('should return result', async (done) => {
+  //   // when
+  //   const articlesMeta = await GetArticlesMeta.getAll()
+  //
+  //   console.log('here')
+  //
+  //   // then
+  //   return articlesMeta.map(promise => {
+  //     return Promise.resolve(promise).then(x => {
+  //       console.log(x)
+  //
+  //       expect(x).to.eq('toto')
+  //     })
+  //   })
+  //   // expect(articlesMeta).to.eqls([])
+  // })
 })
 

@@ -8,8 +8,8 @@
         </h1>
         <ul class="chapter__list">
           <li
-            v-for="chapter in chapters"
-            :key="chapter.imgLink"
+            v-for="(chapter, index) in chapters"
+            :key="`${chapter.imgLink}${index}`"
             class="chapter__item">
             <chapter-card :chapter="chapter"/>
           </li>
@@ -26,8 +26,8 @@
         </h2>
         <ul class="photo-gallery__list">
           <li
-            v-for="photo in photos"
-            :key="photo.imgLink"
+            v-for="(photo, index) in photos"
+            :key="`${photo.imgLink}${index}`"
             class="photo__item">
             <photo-card :photo="photo"/>
           </li>

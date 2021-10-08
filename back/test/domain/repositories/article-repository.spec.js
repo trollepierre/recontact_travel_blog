@@ -1,8 +1,7 @@
 import { expect, sinon } from '../../test-helper'
 import articleRepository from '../../../src/domain/repositories/article-repository'
 import { Article } from '../../../src/domain/models/index'
-import articleSaved from '../../fixtures/articleSaved'
-import articleToSave from '../../fixtures/articleToSave'
+import { dummyArticleFromDb, dummySimpleArticle } from '../../dummies/dummyArticle'
 
 describe('Unit | Repository | article-repository', () => {
   describe('#create', () => {
@@ -16,8 +15,8 @@ describe('Unit | Repository | article-repository', () => {
 
     it('should call Sequelize Model#bulkCreate', () => {
       // given
-      const articlesToSave = [articleToSave(), articleToSave()]
-      const savedArticles = [articleSaved(), articleSaved()]
+      const articlesToSave = [dummySimpleArticle(), dummySimpleArticle()]
+      const savedArticles = [dummyArticleFromDb(), dummyArticleFromDb()]
       Article.bulkCreate.resolves(savedArticles)
 
       // when
@@ -55,7 +54,7 @@ describe('Unit | Repository | article-repository', () => {
     const dropboxId = 47
 
     beforeEach(() => {
-      sinon.stub(Article, 'findOne').resolves(articleSaved())
+      sinon.stub(Article, 'findOne').resolves(dummyArticleFromDb())
     })
 
     afterEach(() => {
@@ -69,7 +68,7 @@ describe('Unit | Repository | article-repository', () => {
       // then
       return promise.then(res => {
         expect(Article.findOne).to.have.been.calledWith({ where: { dropboxId } })
-        expect(res).to.deep.equal(articleSaved())
+        expect(res).to.deep.equal(dummyArticleFromDb())
       })
     })
   })

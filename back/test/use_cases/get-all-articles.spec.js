@@ -1,18 +1,18 @@
 import { expect, sinon } from '../test-helper'
 import GetAllArticles from '../../src/use_cases/get-all-articles'
 import ArticleRepository from '../../src/domain/repositories/article-repository'
-import article from '../fixtures/articleToSave'
+import { dummySimpleArticle } from '../dummies/dummyArticle'
 
 describe('Unit | GetAllArticles | getAllArticles', () => {
   let articles
 
   beforeEach(() => {
     articles = [
-      article('1'),
-      article('2'),
-      article('5'),
-      article('4'),
-      article('3'),
+      dummySimpleArticle({ dropboxId: '1' }),
+      dummySimpleArticle({ dropboxId: '2' }),
+      dummySimpleArticle({ dropboxId: '5' }),
+      dummySimpleArticle({ dropboxId: '4' }),
+      dummySimpleArticle({ dropboxId: '3' }),
     ]
     sinon.stub(ArticleRepository, 'getAll').resolves(articles)
   })
@@ -29,10 +29,10 @@ describe('Unit | GetAllArticles | getAllArticles', () => {
     expect(ArticleRepository.getAll).to.have.been.calledWith()
     return promise.then(returnedArticles => {
       expect(returnedArticles).to.deep.equal([
-        article('5'),
-        article('4'),
-        article('3'),
-        article('2'),
+        dummySimpleArticle({ dropboxId: '5' }),
+        dummySimpleArticle({ dropboxId: '4' }),
+        dummySimpleArticle({ dropboxId: '3' }),
+        dummySimpleArticle({ dropboxId: '2' }),
       ])
     })
   })

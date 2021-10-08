@@ -153,13 +153,13 @@ describe('Component | AdminDashboard.vue', () => {
         wrapper.vm.updateAll()
 
         const message = 'The synchronisation is launched! Please wait...'
-        expect(notificationsService.warn).toHaveBeenCalledWith(message)
+        expect(notificationsService.information).toHaveBeenCalledWith(message)
       })
 
       it('should call syncApi with default value', () => {
         wrapper.vm.updateAll()
 
-        expect(articlesApi.updateAll).toHaveBeenCalledWith(1, 88)
+        expect(articlesApi.updateAll).toHaveBeenCalledWith(1, 100)
       })
 
       it('should call syncApi with updated min and max', () => {
@@ -206,7 +206,7 @@ describe('Component | AdminDashboard.vue', () => {
         await wrapper.vm.updateAll()
 
         return Vue.nextTick().then(() => {
-          expect(notificationsService.information).not.toHaveBeenCalled()
+          expect(notificationsService.information).toHaveBeenCalledTimes(1)
           expect(router.push).not.toHaveBeenCalled()
           expect(notificationsService.error).toHaveBeenCalledWith('Error during the synchronisation: message')
         })
@@ -229,7 +229,7 @@ describe('Component | AdminDashboard.vue', () => {
         wrapper.vm.deleteAll()
 
         const message = 'The synchronisation is launched! Please wait...'
-        expect(notificationsService.warn).toHaveBeenCalledWith(message)
+        expect(notificationsService.information).toHaveBeenCalledWith(message)
       })
 
       it('should call syncApi', () => {
@@ -296,7 +296,7 @@ describe('Component | AdminDashboard.vue', () => {
         wrapper.vm.deleteAndSyncAll()
 
         const message = 'The synchronisation is launched! Please wait...'
-        expect(notificationsService.warn).toHaveBeenCalledWith(message)
+        expect(notificationsService.information).toHaveBeenCalledWith(message)
       })
 
       it('should call syncApi', () => {
