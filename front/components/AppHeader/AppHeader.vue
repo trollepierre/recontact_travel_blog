@@ -33,7 +33,7 @@
               Article {{ articleId }}
             </p>
           </li>
-          <li class="next article">
+          <li class="article">
             <app-button
               v-if="nextArticleId"
               :to="nextArticleId"

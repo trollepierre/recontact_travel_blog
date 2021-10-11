@@ -33,7 +33,9 @@
             class="app-button chapter-button"
             :text="$t('repairChapter')"
             @click="updateChapter"/>
-          <input class="chapter-input" v-model="chapterToRepair"/>
+          <input
+            v-model="chapterToRepair"
+            class="chapter-input">
         </form>
         <app-button
           :disabled="isUpdateClicked"

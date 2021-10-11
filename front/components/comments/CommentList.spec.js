@@ -1,10 +1,10 @@
 import VueRouter from 'vue-router' // eslint-disable-line import/no-extraneous-dependencies
 import VueI18n from 'vue-i18n'
 import CommentList from './CommentList.vue'
-// import router from '../../router/router'
+import router from '../../test/router/router'
 import commentsApi from '../../services/api/comments'
 
-xdescribe('Component | CommentList.vue', () => {
+describe('Component | CommentList.vue', () => {
   let localVue
   let wrapper
   const dropboxId = '8'
@@ -17,7 +17,7 @@ xdescribe('Component | CommentList.vue', () => {
     localVue = createLocalVue()
     localVue.use(VueI18n)
     localVue.use(VueRouter)
-    wrapper = shallowMount(CommentList, { localVue, data: () => ({ dropboxId }) })
+    wrapper = shallowMount(CommentList, { localVue, router, data: () => ({ dropboxId }) })
   })
 
   describe('template', () => {

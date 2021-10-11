@@ -24,7 +24,7 @@ exports[`Component | AppHeader.vue template should match snapshot on article pag
             Article 8
           </p>
         </li>
-        <li class="next article">
+        <li class="article">
           <app-button-stub text=">" to="/articles/9" tag="nuxt-link" class="article"></app-button-stub>
         </li>
       </ul>

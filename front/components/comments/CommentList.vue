@@ -54,6 +54,7 @@
       },
     },
     i18n: {
+      silentTranslationWarn: true,
       messages: {
         fr: {
           hereTheComments: 'Voici les commentaires de l\'article  !',

@@ -20,9 +20,7 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
         </li>
       </ul>
     </section>
-    <section>
-      <comments-stub></comments-stub>
-    </section>
+    <comments-stub></comments-stub>
     <section>
       <h2>
         Here is the photo gallery of this article
@@ -59,9 +57,7 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
         </li>
       </ul>
     </section>
-    <section>
-      <comments-stub></comments-stub>
-    </section>
+    <comments-stub></comments-stub>
     <section>
       <h2>
         Here is the photo gallery of this article
