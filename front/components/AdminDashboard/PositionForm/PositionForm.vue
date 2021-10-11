@@ -1,6 +1,6 @@
 <template>
   <form class="position__form">
-    <span>
+    <section>
       <p>
         {{ $t("lastPositionFr") }}
       </p>
@@ -26,8 +26,8 @@
           class="position__input position__time"
           placeholder="le 1er mai 2018">
       </span>
-    </span>
-    <span>
+    </section>
+    <section>
       <p>
         {{ $t("lastPositionEn") }}
       </p>
@@ -53,7 +53,7 @@
           class="position__input position__time"
           placeholder="29th August 2020">
       </span>
-    </span>
+    </section>
     <button
       type="submit"
       class="position__button position__action--send"

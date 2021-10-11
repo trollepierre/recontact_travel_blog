@@ -15,9 +15,7 @@
           </li>
         </ul>
       </section>
-      <section>
-        <comments/>
-      </section>
+      <comments/>
       <section
         v-if="!isEmpty(photos)">
         <h2>

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page | index.vue should match snapshot 1`] = `
+<div>
+  <app-header-stub></app-header-stub>
+  <main>
+    <article-list-stub articlesnumberlimit="0"></article-list-stub>
+  </main>
+</div>
+`;

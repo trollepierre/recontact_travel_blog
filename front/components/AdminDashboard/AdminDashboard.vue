@@ -1,35 +1,37 @@
 <template>
   <div>
     <button
-      class="dashboard__buttons dashboard__sync_hidden"
-      type="button"
-      @click.prevent="goToSubscriptions">
-      {{ $t("getSubscribers") }}
-    </button>
-    <button
       :disabled="isClickedSync"
       class="dashboard__buttons"
       type="button"
       @click.prevent="synchronise">
       {{ $t("getNewArticles") }}
     </button>
-    <button
-      :disabled="isClickedSync"
-      class="dashboard__buttons dashboard__sync_hidden"
-      type="button"
-      @click.prevent="updateAll">
-      {{ $t("updateAllArticles") }}
-    </button>
-    <label for="min">min</label>
-    <input
-      id="min"
-      v-model="min"
-      :placeholder="1">
-    <label for="max">max</label>
-    <input
-      id="max"
-      v-model="max"
-      :placeholder="87">
+    <section>
+      <button
+        :disabled="isClickedSync"
+        class="dashboard__buttons dashboard__sync_hidden"
+        type="button"
+        @click.prevent="updateAll">
+        {{ $t("updateAllArticles") }}
+      </button>
+      <label
+        class="label"
+        for="min">Min:</label>
+      <input
+        id="min"
+        v-model="min"
+        class="input"
+        :placeholder="1">
+      <label
+        class="label"
+        for="max">Max:</label>
+      <input
+        id="max"
+        v-model="max"
+        class="input"
+        :placeholder="87">
+    </section>
     <button
       :disabled="isClickedSync"
       class="dashboard__buttons dashboard__sync_hidden"
@@ -192,5 +194,19 @@
     border-color: #616161;
     color: #FAFAFA;
     cursor: auto;
+  }
+
+  .input {
+    background: #FFFFFF;
+    border: 1px solid cadetblue;
+    padding: 15px 10px;
+    border-radius: 4px;
+    width: 30px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .label {
+    margin-left: 20px;
   }
 </style>
