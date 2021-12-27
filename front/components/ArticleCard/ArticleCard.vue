@@ -38,6 +38,11 @@
             class="chapter-input">
         </form>
         <app-button
+          :disabled="isUpdatePhotosClicked"
+          class="app-button"
+          :text="$t('repairPhotos')"
+          @click="updatePhotos"/>
+        <app-button
           :disabled="isUpdateClicked"
           class="app-button"
           :text="$t('repairArticle')"
@@ -69,6 +74,7 @@
   import AppButton from '@/components/AppButton/AppButton'
   import articlesApi from '../../services/api/articles'
   import chaptersApi from '../../services/api/chapters'
+  import photosApi from '../../services/api/photos'
   import notificationsService from '../../services/services/notifications'
   import translationsService from '../../services/services/translations'
 
@@ -84,6 +90,7 @@
       return {
         isUpdateClicked: false,
         isUpdateChapterClicked: false,
+        isUpdatePhotosClicked: false,
         isDeleteClicked: false,
         chapterToRepair: '0',
       }
@@ -134,12 +141,29 @@
           })
       },
 
+      updatePhotos() {
+        this.disableUpdatePhotosButton()
+        notificationsService.information(this.$t('syncLaunched'))
+        photosApi.update(this.article.dropboxId)
+          .then(() => {
+            notificationsService.information(this.$t('syncDone'))
+          })
+          .then(() => this.goToArticle())
+          .catch(err => {
+            notificationsService.error(`${this.$t('syncError')} ${err}`)
+          })
+      },
+
       disableUpdateButton() {
         this.isUpdateClicked = true
       },
 
       disableUpdateChapterButton() {
         this.isUpdateChapterClicked = true
+      },
+
+      disableUpdatePhotosButton() {
+        this.isUpdatePhotosClicked = true
       },
 
       deleteArticle() {
@@ -169,6 +193,7 @@
         fr: {
           repairArticle: 'Réparer l’article',
           repairChapter: 'Réparer le chapitre',
+          repairPhotos: 'Réparer la galerie photo',
           deleteArticle: 'Supprimer l’article',
           goToArticle: 'Voir l’article',
           viewGallery: 'Voir les photos',
@@ -182,6 +207,7 @@
         en: {
           repairArticle: 'Repair the article',
           repairChapter: 'Repair the chapter',
+          repairPhotos: 'Repair the image gallery',
           deleteArticle: 'Delete the article',
           goToArticle: 'Read the article',
           viewGallery: 'Discover the pictures',
