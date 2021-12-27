@@ -96,3 +96,5 @@ function onListening() {
  */
 require('./src/infrastructure/features/crons/dropbox-synchronizer')
 require('./src/infrastructure/features/crons/prevent-sleep')
+
+process.on('unhandledRejection', (error) => console.error(error));
