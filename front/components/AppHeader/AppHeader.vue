@@ -69,11 +69,14 @@
     mounted() {
       window.addEventListener('scroll', this.onScroll)
       this.isArticlePage = window.location.pathname.includes('/articles/')
+      console.log('this.isArticlePage:', this.isArticlePage)
       if (this.isArticlePage) {
         // eslint-disable-next-line prefer-destructuring
         this.articleId = window.location.pathname.split('/articles/')[1].split('/')[0]
         this.previousArticleId = this.articleId !== '1' ? `/articles/${this.articleId - 1}` : null
+        console.log('this.articleId:', this.articleId)
         this.nextArticleId = `/articles/${this.articleId - 1 + 2}`
+        console.log('this.nextArticleId:', this.nextArticleId)
       }
     },
     beforeDestroy() {
