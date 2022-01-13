@@ -1,8 +1,7 @@
 <template>
   <div
-    v-if="!isEmpty(comments)"
-    class="comments-list">
-    <h2 class="forum__name">
+    v-if="!isEmpty(comments)">
+    <h2>
       {{ $t("hereTheComments") }}
     </h2>
     <ul class="forum__comment-list">
@@ -55,6 +54,7 @@
       },
     },
     i18n: {
+      silentTranslationWarn: true,
       messages: {
         fr: {
           hereTheComments: 'Voici les commentaires de l\'article  !',

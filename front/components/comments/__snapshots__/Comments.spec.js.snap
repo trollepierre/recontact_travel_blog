@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comments should match snapshot 1`] = `
+<section>
+  <comment-list-stub></comment-list-stub>
+  <comment-form-stub></comment-form-stub>
+</section>
+`;

@@ -1,5 +1,5 @@
 <template>
-  <div class="comment__form">
+  <div>
     <h2 class="form__title">
       {{ $t("addComment") }}
     </h2>

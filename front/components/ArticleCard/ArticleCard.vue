@@ -33,7 +33,9 @@
             class="app-button chapter-button"
             :text="$t('repairChapter')"
             @click="updateChapter"/>
-          <input class="chapter-input" v-model="chapterToRepair"/>
+          <input
+            v-model="chapterToRepair"
+            class="chapter-input">
         </form>
         <app-button
           :disabled="isUpdateClicked"
@@ -116,8 +118,7 @@
       updateChapter() {
         const position = parseInt(this.chapterToRepair, 10)
         if (position <= 0 || position > 100 || Number.isNaN(position)) {
-          console.log('incorrect chapter number:')
-          console.log(this.chapterToRepair)
+          notificationsService.error(`incorrect chapter number: ${this.chapterToRepair}`)
           return
         }
 

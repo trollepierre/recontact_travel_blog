@@ -20,12 +20,12 @@
         v-if="isArticlePage"
         aria-label="navigation">
         <ul class="navigation">
-          <li class="previous article">
+          <li class="article">
             <app-button
               v-if="previousArticleId"
               :to="previousArticleId"
               tag="nuxt-link"
-              class="previous article"
+              class="article"
               :text="$t('previousArticle')"/>
           </li>
           <li class="article-text">
@@ -33,12 +33,12 @@
               Article {{ articleId }}
             </p>
           </li>
-          <li class="next article">
+          <li class="article">
             <app-button
-              v-if="previousArticleId"
+              v-if="nextArticleId"
               :to="nextArticleId"
               tag="nuxt-link"
-              class="next article"
+              class="article"
               :text="$t('nextArticle')"/>
           </li>
         </ul>

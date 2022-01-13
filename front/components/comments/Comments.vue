@@ -1,10 +1,10 @@
 <template>
-  <div class="comments">
+  <section>
     <comment-list
       :to-reload="toReload"
       @reloaded="reloadOff"/>
     <comment-form @reload="reloadTo"/>
-  </div>
+  </section>
 </template>
 <script>
   import CommentForm from './CommentForm.vue'

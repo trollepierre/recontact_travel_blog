@@ -1,13 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | AdminDashboard.vue template should match snapshot 1`] = `
-<div class="admin-dashboard"><button type="button" class="dashboard__buttons dashboard__sync_hidden">
-    Get the subscribers
-  </button> <button type="button" class="dashboard__buttons">
+<div><button type="button" class="dashboard__buttons">
     Synchronise the new articles
-  </button> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
-    Repare all articles
-  </button> <label for="min">min</label> <input id="min" placeholder="1"> <label for="max">max</label> <input id="max" placeholder="87"> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
+  </button>
+  <section><button type="button" class="dashboard__buttons dashboard__sync_hidden">
+      Repare all articles
+    </button> <label for="min" class="label">Min:</label> <input id="min" placeholder="1" class="input"> <label for="max" class="label">Max:</label> <input id="max" placeholder="87" class="input"></section> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
     Delete all articles
   </button> <button type="button" class="dashboard__buttons dashboard__sync_hidden">
     Delete and synchronise all articles

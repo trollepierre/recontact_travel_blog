@@ -15,13 +15,10 @@
           </li>
         </ul>
       </section>
-      <section class="article-page__forum forum">
-        <comments/>
-      </section>
+      <comments/>
       <section
-        v-if="!isEmpty(photos)"
-        class="article-page__photo-gallery photo-gallery">
-        <h2 class="photo-gallery__title">
+        v-if="!isEmpty(photos)">
+        <h2>
           {{ $t("hereTheGallery") }}
         </h2>
         <ul class="photo-gallery__list">
@@ -33,7 +30,7 @@
           </li>
         </ul>
       </section>
-      <footer class="article-page__footer footer-article">
+      <footer class="footer-article">
         <app-button
           class="app-button"
           :text="$t('goToHomePage')"
