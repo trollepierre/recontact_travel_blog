@@ -1,5 +1,6 @@
 {
-  "enabled": false,
+  "addLabels": ["dependencies"],
+  "enabled": true,
   "extends": [
     "config:base"
   ],
