@@ -309,12 +309,12 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy_recontact_api:
-          requires:
-            - deploy_master
-      - deploy_cecile:
-          requires:
-            - deploy_master
-      - deploy_recontact_blog:
-          requires:
-            - deploy_master
+#      - deploy_recontact_api:
+#          requires:
+#            - deploy_master
+#      - deploy_cecile:
+#          requires:
+#            - deploy_master
+#      - deploy_recontact_blog:
+#          requires:
+#            - deploy_master
