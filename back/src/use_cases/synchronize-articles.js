@@ -260,6 +260,7 @@ function _shareChapterImage(imgLink) {
     .then(_transformToImgLink)
 }
 
+// TODO: is different of create-article-gallery.js ???
 function _transformToImgLink(response) {
   return isEmpty(response) ? '' : response.url.replace(/....$/, 'raw=1')
 }

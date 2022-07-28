@@ -5,47 +5,9 @@ import articleRepository from '../domain/repositories/article-repository'
 import photoRepository from '../domain/repositories/photo-repository'
 import DropboxClient from '../infrastructure/external_services/dropbox-client'
 import FileReader from '../infrastructure/external_services/file-reader'
+import CreateArticleGallery from './services/create-article-gallery'
 
 async function sync(dropboxId) {
-  function _createPhotosOfArticlesInDatabase(dropboxFilesPath) {
-    return getPhotosOfArticle(dropboxFilesPath)
-      .then(photos => flatten(photos))
-      .then(photos => photoRepository.createPhotos(photos))
-  }
-
-  function getPhotosOfArticle(dropboxFilesPath) {
-    const paths = filterOnlyGalleryPhotos(dropboxFilesPath)
-    return createPhotoOfArticle(paths, dropboxId)
-  }
-
-  function filterOnlyGalleryPhotos(paths) {
-    const photosPaths = paths.filter(path => {
-      const extension = path.split('.').pop()
-      return extension === 'jpg' || extension === 'jpeg' || extension === 'png'
-    })
-    return photosPaths.filter(path => {
-      const shortName = path.split('/').pop().substring(0, 3)
-      return !shortName.match('[iI]mg')
-    })
-  }
-
-  function createPhotoOfArticle(paths) {
-    const allImgLinks = paths.reduce((promises, path) => {
-      const imgLink = serializePhoto(path)
-      promises.push(imgLink)
-      return promises
-    }, [])
-    return Promise.all(allImgLinks)
-  }
-
-  function serializePhoto(path) {
-    return DropboxClient.createSharedLink(path)
-      .then(response => ({
-        imgLink: _transformToImgLink(response),
-        dropboxId,
-      }))
-  }
-
   function _createArticlesInDatabase({ addedArticles }) {
     return _shareImagesZeros(addedArticles)
       .then(articles => articleRepository.create(articles))
@@ -205,7 +167,7 @@ async function sync(dropboxId) {
   }
   await _createArticlesInDatabase(report)
   await _insertArticlesContentsInDatabase(dropboxFilesPath)
-  await _createPhotosOfArticlesInDatabase(dropboxFilesPath)
+  await CreateArticleGallery.createArticleGallery(dropboxFilesPath, dropboxId)
   return report
 }
 

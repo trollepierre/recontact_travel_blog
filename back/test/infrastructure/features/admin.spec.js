@@ -1,5 +1,6 @@
 import { expect, request, sinon } from '../../test-helper'
 import app from '../../../app'
+import UpdatePhotos from '../../../src/use_cases/update-photos'
 import UpdateChapter from '../../../src/use_cases/update-chapter'
 import UpdateArticle from '../../../src/use_cases/update-article'
 import UpdateArticles from '../../../src/use_cases/update-articles'
@@ -78,6 +79,34 @@ describe('Integration | Routes | admin route', () => {
         .end((err, response) => {
           // Then
           expect(UpdateChapter.sync).to.have.been.calledWith({ dropboxId: stringIdArticle, chapterPosition: position })
+          expect(response.status).to.deep.equal(204)
+          if (err) {
+            done(err)
+          }
+          done()
+        })
+    })
+  })
+
+  describe('/admin/articles/:id/photos', () => {
+    beforeEach(() => {
+      sinon.stub(UpdatePhotos, 'sync').resolves()
+    })
+
+    afterEach(() => {
+      UpdatePhotos.sync.restore()
+    })
+
+    it('should call update photos and send 204', done => {
+      // Given
+      const stringIdArticle = '59'
+
+      // When
+      request(app)
+        .patch(`/api/admin/articles/${stringIdArticle}/photos`)
+        .end((err, response) => {
+          // Then
+          expect(UpdatePhotos.sync).to.have.been.calledWith({ dropboxId: stringIdArticle })
           expect(response.status).to.deep.equal(204)
           if (err) {
             done(err)
