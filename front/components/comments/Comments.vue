@@ -11,7 +11,7 @@
   import CommentList from './CommentList.vue'
 
   export default {
-    name: 'Comments',
+    name: 'CommentsContainer',
     components: { CommentForm, CommentList },
     data() {
       return {

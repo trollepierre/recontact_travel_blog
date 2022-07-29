@@ -56,7 +56,7 @@ describe('Component | ArticleList.vue', () => {
       wrapper = shallowMount(ArticleList, { localVue, propsData, store })
 
       return Vue.nextTick().then(() => {
-        expect(wrapper.find('.h3').text()).toEqual('London, 11th October 2019')
+        expect(wrapper.find('.h3').text()).toBe('London, 11th October 2019')
       })
     })
 
@@ -84,8 +84,8 @@ describe('Component | ArticleList.vue', () => {
         },
       })
 
-      expect(wrapper.findAllComponents(ArticleCard).at(7).props().lazy).toEqual(false)
-      expect(wrapper.findAllComponents(ArticleCard).at(8).props().lazy).toEqual(true)
+      expect(wrapper.findAllComponents(ArticleCard).at(7).props().lazy).toBe(false)
+      expect(wrapper.findAllComponents(ArticleCard).at(8).props().lazy).toBe(true)
     })
 
     it('should contain lazy when more than 3 articles on MOBILE', async () => {
@@ -106,9 +106,9 @@ describe('Component | ArticleList.vue', () => {
         },
       })
 
-      expect(wrapper.findAllComponents(ArticleCard).at(0).props().lazy).toEqual(false)
-      expect(wrapper.findAllComponents(ArticleCard).at(1).props().lazy).toEqual(false)
-      expect(wrapper.findAllComponents(ArticleCard).at(2).props().lazy).toEqual(true)
+      expect(wrapper.findAllComponents(ArticleCard).at(0).props().lazy).toBe(false)
+      expect(wrapper.findAllComponents(ArticleCard).at(1).props().lazy).toBe(false)
+      expect(wrapper.findAllComponents(ArticleCard).at(2).props().lazy).toBe(true)
     })
 
     it('should remove last position when cecile website', () => {
@@ -145,7 +145,7 @@ describe('Component | ArticleList.vue', () => {
     })
 
     it('should save last position from api in data last position', () => {
-      expect(wrapper.vm.lastPosition).toEqual('Mexico, 1er mai 2019')
+      expect(wrapper.vm.lastPosition).toBe('Mexico, 1er mai 2019')
     })
   })
 
@@ -155,13 +155,13 @@ describe('Component | ArticleList.vue', () => {
 
       wrapper = shallowMount(ArticleList, { localVue, propsData, store })
 
-      expect(wrapper.vm.hiddenTitle).toEqual('Fix the website')
+      expect(wrapper.vm.hiddenTitle).toBe('Fix the website')
     })
 
     it('should return "Les articles du voyage" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue, store })
 
-      expect(wrapper.vm.hiddenTitle).toEqual('Travel blog of Pierre Trollé and Benoît Lefebvre after a world trip and other adventures')
+      expect(wrapper.vm.hiddenTitle).toBe('Travel blog of Pierre Trollé and Benoît Lefebvre after a world trip and other adventures')
     })
 
     it('should return "mon cadeau de saint val" when site is cecile', () => {
@@ -169,13 +169,13 @@ describe('Component | ArticleList.vue', () => {
 
       wrapper = shallowMount(ArticleList, { localVue, store })
 
-      expect(wrapper.vm.title).toEqual('Mon petit Cadeau de Saint Valentin')
+      expect(wrapper.vm.title).toBe('Mon petit Cadeau de Saint Valentin')
     })
 
     it('should return "title" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue, store })
 
-      expect(wrapper.vm.title).toEqual('Discover the world with us!')
+      expect(wrapper.vm.title).toBe('Discover the world with us!')
     })
 
     it('should return "recharge site" when site is in cecile', () => {
@@ -183,7 +183,7 @@ describe('Component | ArticleList.vue', () => {
 
       wrapper = shallowMount(ArticleList, { localVue, store })
 
-      expect(wrapper.vm.subtitle).toEqual(
+      expect(wrapper.vm.subtitle).toBe(
         'recharge le site si jamais l’article ne s’est pas chargé',
       )
     })
@@ -191,7 +191,7 @@ describe('Component | ArticleList.vue', () => {
     it('should return "lastKnownPosition" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue, store })
 
-      expect(wrapper.vm.subtitle).toEqual('Last known position:')
+      expect(wrapper.vm.subtitle).toBe('Last known position:')
     })
   })
 
@@ -205,7 +205,7 @@ describe('Component | ArticleList.vue', () => {
 
         wrapper.vm.updateLastPositionData(position)
 
-        expect(wrapper.vm.lastPosition).toEqual('place, time')
+        expect(wrapper.vm.lastPosition).toBe('place, time')
       })
     })
   })

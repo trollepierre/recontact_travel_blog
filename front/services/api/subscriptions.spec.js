@@ -38,7 +38,7 @@ describe('Unit | API | subscriptions api', () => {
       const promise = api.subscribe(email)
 
       promise.catch(error => {
-        expect(error.message).toEqual('some error')
+        expect(error.message).toBe('some error')
         done()
       })
     })

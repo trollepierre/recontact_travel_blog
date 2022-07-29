@@ -45,7 +45,7 @@ describe('Unit | API | comments api', () => {
       const promise = commentsApi.fetch(accessToken)
 
       promise.catch(error => {
-        expect(error.message).toEqual('some error')
+        expect(error.message).toBe('some error')
         done()
       })
     })
@@ -95,7 +95,7 @@ describe('Unit | API | comments api', () => {
       const promise = commentsApi.send(idArticle, comment)
 
       promise.catch(error => {
-        expect(error.message).toEqual('some error')
+        expect(error.message).toBe('some error')
         done()
       })
     })

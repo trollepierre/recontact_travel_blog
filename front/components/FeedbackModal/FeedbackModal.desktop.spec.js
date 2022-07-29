@@ -31,7 +31,7 @@ describe.skip('Component | FeedbackModal.vue', () => {
       expect(wrapper).toMatchSnapshot()
     })
     xit('should have message with height to 152px', () => {
-      expect(wrapper.vm.heightMessage).toEqual('152px')
+      expect(wrapper.vm.heightMessage).toBe('152px')
     })
     xit('should have message with height to 90px when wrapper in error', () => {
       wrapper = shallowMount(FeedbackModal, {
@@ -45,7 +45,7 @@ describe.skip('Component | FeedbackModal.vue', () => {
         },
       })
 
-      expect(wrapper.vm.heightMessage).toEqual('90px')
+      expect(wrapper.vm.heightMessage).toBe('90px')
     })
   })
 
@@ -64,7 +64,7 @@ describe.skip('Component | FeedbackModal.vue', () => {
 
       wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.heightMessage).toEqual('152px')
+      expect(wrapper.vm.heightMessage).toBe('152px')
     })
   })
 })

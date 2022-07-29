@@ -12,7 +12,7 @@ describe('responsive utils', () => {
     const boolean = IS_DESKTOP()
 
     // Then
-    expect(boolean).toEqual(true)
+    expect(boolean).toBe(true)
   })
 
   it('should handle correctly the high limit', () => {
@@ -24,8 +24,8 @@ describe('responsive utils', () => {
     const isTablet = IS_TABLET()
 
     // Then
-    expect(isDesktop).toEqual(false)
-    expect(isTablet).toEqual(true)
+    expect(isDesktop).toBe(false)
+    expect(isTablet).toBe(true)
   })
 
   it('IS TABLET should return true on tablet', () => {
@@ -36,7 +36,7 @@ describe('responsive utils', () => {
     const boolean = IS_TABLET()
 
     // Then
-    expect(boolean).toEqual(true)
+    expect(boolean).toBe(true)
   })
 
   it('should handle correctly the low limit', () => {
@@ -48,8 +48,8 @@ describe('responsive utils', () => {
     const isTablet = IS_TABLET()
 
     // Then
-    expect(isMobile).toEqual(true)
-    expect(isTablet).toEqual(false)
+    expect(isMobile).toBe(true)
+    expect(isTablet).toBe(false)
   })
 
   it('IS MOBILE should return true on mobile', () => {
@@ -60,6 +60,6 @@ describe('responsive utils', () => {
     const boolean = IS_MOBILE()
 
     // Then
-    expect(boolean).toEqual(true)
+    expect(boolean).toBe(true)
   })
 })

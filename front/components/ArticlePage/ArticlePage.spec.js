@@ -81,7 +81,7 @@ describe('Component | ArticlePage.vue', () => {
           data: () => ({ title: 'toto' }),
         })
 
-        expect(wrapper.find('.article-page__title').text()).toEqual('toto')
+        expect(wrapper.find('.article-page__title').text()).toBe('toto')
       })
     })
 

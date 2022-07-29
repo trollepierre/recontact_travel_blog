@@ -19,7 +19,7 @@ describe('Unit | services | translations', () => {
 
       const title = translationsService.getTitle(article)
 
-      expect(title).toEqual('The title')
+      expect(title).toBe('The title')
     })
 
     it('should return dropboxId when enTitle is empty', () => {
@@ -31,7 +31,7 @@ describe('Unit | services | translations', () => {
 
       const title = translationsService.getTitle(article)
 
-      expect(title).toEqual(59)
+      expect(title).toBe(59)
     })
 
     it('should return frTitle when navigator language is French', () => {
@@ -43,7 +43,7 @@ describe('Unit | services | translations', () => {
 
       const title = translationsService.getTitle(article, 'fr')
 
-      expect(title).toEqual('Le titre')
+      expect(title).toBe('Le titre')
     })
   })
 
@@ -58,7 +58,7 @@ describe('Unit | services | translations', () => {
 
       const title = translationsService.getChapterTitle(chapter)
 
-      expect(title).toEqual('The title')
+      expect(title).toBe('The title')
     })
 
     it('should return frTitle when navigator language is French', () => {
@@ -71,7 +71,7 @@ describe('Unit | services | translations', () => {
 
       const title = translationsService.getChapterTitle(chapter, 'fr')
 
-      expect(title).toEqual('Le titre')
+      expect(title).toBe('Le titre')
     })
   })
 

@@ -33,8 +33,8 @@ describe('Component | PhotoCard.vue', () => {
   describe('render', () => {
     it('should render photo image', () => Vue.nextTick().then(() => {
       const photoLink = wrapper.find('img')
-      expect(photoLink.attributes().src).toEqual('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')
-      expect(photoLink.attributes().lazy).toEqual('loading')
+      expect(photoLink.attributes().src).toBe('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')
+      expect(photoLink.attributes().lazy).toBe('loading')
     }))
 
     // // Comment tester le lazy load ?
@@ -56,7 +56,7 @@ describe('Component | PhotoCard.vue', () => {
 
       wrapper = shallowMount(PhotoCard, { localVue, propsData })
 
-      expect(wrapper.vm.imgLink).toEqual('dropbox.com/img0.jpg')
+      expect(wrapper.vm.imgLink).toBe('dropbox.com/img0.jpg')
     })
 
     it('should return false when api status is undefined', () => {
@@ -65,7 +65,7 @@ describe('Component | PhotoCard.vue', () => {
 
       wrapper = shallowMount(PhotoCard, { localVue, propsData })
 
-      expect(wrapper.vm.imgLink).toEqual(false)
+      expect(wrapper.vm.imgLink).toBe(false)
     })
   })
 })

@@ -8,6 +8,7 @@
   import translationService from '../../../services/services/translations'
 
   export default {
+    name: 'MapBox',
     data() {
       return {
         selectedMarker: null,

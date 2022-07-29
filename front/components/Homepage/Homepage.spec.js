@@ -38,7 +38,7 @@ describe('Component | Homepage.vue', () => {
 
       wrapper = await shallowMount(Homepage, { localVue, router })
 
-      expect(wrapper.findComponent(ArticleList).exists()).toEqual(false)
+      expect(wrapper.findComponent(ArticleList).exists()).toBe(false)
     })
   })
 
@@ -69,7 +69,7 @@ describe('Component | Homepage.vue', () => {
 
       await window.dispatchEvent(new Event('touchstart'))
 
-      expect(wrapper.findComponent(ArticleList).exists()).toEqual(true)
+      expect(wrapper.findComponent(ArticleList).exists()).toBe(true)
     })
   })
 })

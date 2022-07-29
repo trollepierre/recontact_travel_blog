@@ -16,7 +16,7 @@ describe('Comments', () => {
     const wrapper = shallowMount(Comments)
 
     // Then
-    expect(wrapper.findComponent(CommentList).props().toReload).toEqual(false)
+    expect(wrapper.findComponent(CommentList).props().toReload).toBe(false)
   })
 
   it('should send to reload when form asks for reload', async () => {
@@ -27,7 +27,7 @@ describe('Comments', () => {
     await wrapper.findComponent(CommentForm).vm.$emit('reload')
 
     // Then
-    expect(wrapper.findComponent(CommentList).props().toReload).toEqual(true)
+    expect(wrapper.findComponent(CommentList).props().toReload).toBe(true)
   })
 
   it('should send to reload off when list returns reloaded', async () => {
@@ -38,6 +38,6 @@ describe('Comments', () => {
     await wrapper.findComponent(CommentList).vm.$emit('reloaded')
 
     // Then
-    expect(wrapper.findComponent(CommentList).props().toReload).toEqual(false)
+    expect(wrapper.findComponent(CommentList).props().toReload).toBe(false)
   })
 })

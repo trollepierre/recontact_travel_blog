@@ -46,7 +46,7 @@ describe('Unit | API | chapters api', () => {
       const promise = chaptersApi.fetch(accessToken)
 
       promise.catch(error => {
-        expect(error.message).toEqual('some error')
+        expect(error.message).toBe('some error')
         done()
       })
     })
@@ -62,7 +62,7 @@ describe('Unit | API | chapters api', () => {
       const result = await chaptersApi.update(id, position)
 
       expect(apiService.put).toHaveBeenCalledWith(`admin/articles/${id}/chapters/${position}`)
-      expect(result).toEqual('success')
+      expect(result).toBe('success')
     })
   })
 })

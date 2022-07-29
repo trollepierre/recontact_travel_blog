@@ -128,8 +128,8 @@ describe('Component | PositionForm.vue', () => {
       xit('should reset position', async () => {
         await wrapper.vm.updateLastPosition()
 
-        expect(wrapper.vm.place).toEqual(null)
-        expect(wrapper.vm.time).toEqual(null)
+        expect(wrapper.vm.place).toBeNull()
+        expect(wrapper.vm.time).toBeNull()
       })
 
       it('should send success notifications', async () => {
@@ -160,10 +160,10 @@ describe('Component | PositionForm.vue', () => {
       it('should reset position', () => {
         wrapper.vm.updateLastPositionData()
 
-        expect(wrapper.vm.placeFr).toEqual(null)
-        expect(wrapper.vm.timeFr).toEqual(null)
-        expect(wrapper.vm.placeEn).toEqual(null)
-        expect(wrapper.vm.timeEn).toEqual(null)
+        expect(wrapper.vm.placeFr).toBeNull()
+        expect(wrapper.vm.timeFr).toBeNull()
+        expect(wrapper.vm.placeEn).toBeNull()
+        expect(wrapper.vm.timeEn).toBeNull()
       })
     })
 
@@ -171,10 +171,10 @@ describe('Component | PositionForm.vue', () => {
       it('should set position values to null', () => {
         wrapper.vm.resetPosition()
 
-        expect(wrapper.vm.placeFr).toEqual(null)
-        expect(wrapper.vm.timeFr).toEqual(null)
-        expect(wrapper.vm.placeEn).toEqual(null)
-        expect(wrapper.vm.timeEn).toEqual(null)
+        expect(wrapper.vm.placeFr).toBeNull()
+        expect(wrapper.vm.timeFr).toBeNull()
+        expect(wrapper.vm.placeEn).toBeNull()
+        expect(wrapper.vm.timeEn).toBeNull()
       })
     })
   })
