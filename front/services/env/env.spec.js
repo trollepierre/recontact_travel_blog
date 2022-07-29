@@ -9,13 +9,13 @@ describe('env', () => {
 
   describe('when asking for a known key', () => {
     it('should return the corresponding environment value', () => {
-      expect(env('NODE_ENV')).toEqual('test')
+      expect(env('NODE_ENV')).toBe('test')
     })
   })
 
   describe('when asking for a API_URL key', () => {
     it('should return the corresponding environment value', () => {
-      expect(env('API_URL')).toEqual(`${process.env.API_URL}/`)
+      expect(env('API_URL')).toBe(`${process.env.API_URL}/`)
     })
   })
 })

@@ -32,7 +32,7 @@ describe('localStorage', () => {
       removeInLocalStorage(key)
 
       // Then
-      expect(window.localStorage.getItem(key)).toEqual(null)
+      expect(window.localStorage.getItem(key)).toBeNull()
     })
   })
 

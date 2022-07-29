@@ -125,7 +125,7 @@ describe('paragraph-link-utils', () => {
       const iframeSrc = generateIframeLink('https://www.youtube.com/embed/b03ffclCkIM')
 
       // Then
-      expect(iframeSrc).toEqual('https://www.youtube.com/embed/b03ffclCkIM?rel=0&modestbranding=1')
+      expect(iframeSrc).toBe('https://www.youtube.com/embed/b03ffclCkIM?rel=0&modestbranding=1')
     })
 
     it('should not change the playlist embedded', () => {
@@ -133,7 +133,7 @@ describe('paragraph-link-utils', () => {
       const iframeSrc = generateIframeLink('https://www.youtube.com/embed/videoseries?list=PLpkaK0yJ22OymU7yePr4hbIQrp8Eg8mzQ')
 
       // Then
-      expect(iframeSrc).toEqual('https://www.youtube.com/embed/videoseries?list=PLpkaK0yJ22OymU7yePr4hbIQrp8Eg8mzQ')
+      expect(iframeSrc).toBe('https://www.youtube.com/embed/videoseries?list=PLpkaK0yJ22OymU7yePr4hbIQrp8Eg8mzQ')
     })
   })
 
@@ -143,7 +143,7 @@ describe('paragraph-link-utils', () => {
       const link = generateCleanUrlLink('www.recontact.me/articles/84')
 
       // Then
-      expect(link).toEqual('https://www.recontact.me/articles/84')
+      expect(link).toBe('https://www.recontact.me/articles/84')
     })
 
     it('should not add when protocol exists', () => {
@@ -151,7 +151,7 @@ describe('paragraph-link-utils', () => {
       const link = generateCleanUrlLink('https://www.recontact.me/articles/84')
 
       // Then
-      expect(link).toEqual('https://www.recontact.me/articles/84')
+      expect(link).toBe('https://www.recontact.me/articles/84')
     })
   })
 })

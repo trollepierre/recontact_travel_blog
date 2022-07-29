@@ -50,10 +50,10 @@ describe('Component | AppHeader.vue', () => {
       wrapper = shallowMount(AppHeader, { localVue })
 
       // Then
-      expect(wrapper.vm.isArticlePage).toEqual(false)
-      expect(wrapper.vm.previousArticleId).toEqual(null)
-      expect(wrapper.vm.articleId).toEqual(null)
-      expect(wrapper.vm.nextArticleId).toEqual(null)
+      expect(wrapper.vm.isArticlePage).toBe(false)
+      expect(wrapper.vm.previousArticleId).toBeNull()
+      expect(wrapper.vm.articleId).toBeNull()
+      expect(wrapper.vm.nextArticleId).toBeNull()
     })
 
     it('should update article id', () => {
@@ -66,10 +66,10 @@ describe('Component | AppHeader.vue', () => {
 
       // Then
       return Vue.nextTick().then(() => {
-        expect(wrapper.vm.isArticlePage).toEqual(true)
-        expect(wrapper.vm.previousArticleId).toEqual('/articles/7')
-        expect(wrapper.vm.articleId).toEqual('8')
-        expect(wrapper.vm.nextArticleId).toEqual('/articles/9')
+        expect(wrapper.vm.isArticlePage).toBe(true)
+        expect(wrapper.vm.previousArticleId).toBe('/articles/7')
+        expect(wrapper.vm.articleId).toBe('8')
+        expect(wrapper.vm.nextArticleId).toBe('/articles/9')
       })
     })
   })
@@ -84,8 +84,8 @@ describe('Component | AppHeader.vue', () => {
         // When
         wrapper.vm.onScroll()
         // Then
-        expect(wrapper.vm.showNavbar).toEqual(false)
-        expect(wrapper.vm.lastScrollPosition).toEqual(100)
+        expect(wrapper.vm.showNavbar).toBe(false)
+        expect(wrapper.vm.lastScrollPosition).toBe(100)
       })
       it('should not change anything when offset is not enough', () => {
         // Given
@@ -95,8 +95,8 @@ describe('Component | AppHeader.vue', () => {
         // When
         wrapper.vm.onScroll()
         // Then
-        expect(wrapper.vm.showNavbar).toEqual(true)
-        expect(wrapper.vm.lastScrollPosition).toEqual(0)
+        expect(wrapper.vm.showNavbar).toBe(true)
+        expect(wrapper.vm.lastScrollPosition).toBe(0)
       })
       it('should not change anything when offset < 0', () => {
         // Given
@@ -106,8 +106,8 @@ describe('Component | AppHeader.vue', () => {
         // When
         wrapper.vm.onScroll()
         // Then
-        expect(wrapper.vm.showNavbar).toEqual(true)
-        expect(wrapper.vm.lastScrollPosition).toEqual(0)
+        expect(wrapper.vm.showNavbar).toBe(true)
+        expect(wrapper.vm.lastScrollPosition).toBe(0)
       })
       it('should use scrollTop when offSet not available', () => {
         // Given
@@ -118,8 +118,8 @@ describe('Component | AppHeader.vue', () => {
         // When
         wrapper.vm.onScroll()
         // Then
-        expect(wrapper.vm.showNavbar).toEqual(false)
-        expect(wrapper.vm.lastScrollPosition).toEqual(100)
+        expect(wrapper.vm.showNavbar).toBe(false)
+        expect(wrapper.vm.lastScrollPosition).toBe(100)
       })
     })
 

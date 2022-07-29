@@ -38,7 +38,7 @@ describe('Unit | API | sync api', () => {
       const promise = syncApi.launch(accessToken)
 
       promise.catch(error => {
-        expect(error.message).toEqual('some error')
+        expect(error.message).toBe('some error')
         done()
       })
     })

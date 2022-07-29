@@ -54,7 +54,7 @@ describe.skip('Component | SubscribeModal.vue', () => {
 
       wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.email).toEqual(null)
+      expect(wrapper.vm.email).toBeNull()
     })
 
     it('should remove error', () => {
@@ -62,7 +62,7 @@ describe.skip('Component | SubscribeModal.vue', () => {
 
       wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.error).toEqual(null)
+      expect(wrapper.vm.error).toBeNull()
     })
   })
 
@@ -129,7 +129,7 @@ describe.skip('Component | SubscribeModal.vue', () => {
 
       wrapper.vm.sendSubscription()
 
-      expect(wrapper.vm.error).toEqual(null)
+      expect(wrapper.vm.error).toBeNull()
     })
 
     describe('when email is empty', () => {
@@ -138,7 +138,7 @@ describe.skip('Component | SubscribeModal.vue', () => {
 
         wrapper.vm.sendSubscription()
 
-        expect(wrapper.vm.error).toEqual('emailError')
+        expect(wrapper.vm.error).toBe('emailError')
       })
 
       it('should not call sendSubscription', () => {
@@ -156,7 +156,7 @@ describe.skip('Component | SubscribeModal.vue', () => {
 
         wrapper.vm.sendSubscription()
 
-        expect(wrapper.vm.error).toEqual('emailError')
+        expect(wrapper.vm.error).toBe('emailError')
       })
 
       it('should not call sendSubscription', () => {

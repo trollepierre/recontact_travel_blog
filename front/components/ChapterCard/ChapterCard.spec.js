@@ -50,7 +50,7 @@ describe('Component | ChapterCard.vue', () => {
 
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
 
-      expect(wrapper.vm.chapterAlt).toEqual('An image showing ')
+      expect(wrapper.vm.chapterAlt).toBe('An image showing ')
     })
   })
 
@@ -61,7 +61,7 @@ describe('Component | ChapterCard.vue', () => {
 
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
 
-      expect(wrapper.vm.imgLink).toEqual('dropbox.com/img0.jpg')
+      expect(wrapper.vm.imgLink).toBe('dropbox.com/img0.jpg')
     })
 
     it('should return false when chapter imglink is empty', () => {
@@ -70,7 +70,7 @@ describe('Component | ChapterCard.vue', () => {
 
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
 
-      expect(wrapper.vm.imgLink).toEqual(false)
+      expect(wrapper.vm.imgLink).toBe(false)
     })
   })
 

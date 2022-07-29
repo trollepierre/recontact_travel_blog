@@ -12,7 +12,7 @@ describe('Homepage.utils', () => {
       IS_DESKTOP.mockReturnValue(false)
 
       // When/Then
-      expect(articlesNumberLimit()).toEqual(4)
+      expect(articlesNumberLimit()).toBe(4)
     })
 
     it('should return 3 on small desktop', () => {
@@ -21,7 +21,7 @@ describe('Homepage.utils', () => {
       screenWidth.mockReturnValue(1001)
 
       // When/Then
-      expect(articlesNumberLimit()).toEqual(3)
+      expect(articlesNumberLimit()).toBe(3)
     })
 
     it('should return calculation on large desktop', () => {
@@ -30,7 +30,7 @@ describe('Homepage.utils', () => {
       screenWidth.mockReturnValue(1860)
 
       // When/Then
-      expect(articlesNumberLimit()).toEqual(6)
+      expect(articlesNumberLimit()).toBe(6)
     })
   })
 
@@ -40,7 +40,7 @@ describe('Homepage.utils', () => {
       IS_DESKTOP.mockReturnValue(false)
 
       // When/Then
-      expect(minWidth()).toEqual(0)
+      expect(minWidth()).toBe(0)
     })
 
     it('should return 3 on small desktop', () => {
@@ -49,7 +49,7 @@ describe('Homepage.utils', () => {
       screenWidth.mockReturnValue(1001)
 
       // When/Then
-      expect(minWidth()).toEqual(270)
+      expect(minWidth()).toBe(270)
     })
 
     it('should return calculation on large desktop', () => {
@@ -58,7 +58,7 @@ describe('Homepage.utils', () => {
       screenWidth.mockReturnValue(1860)
 
       // When/Then
-      expect(minWidth()).toEqual(810)
+      expect(minWidth()).toBe(810)
     })
   })
 })

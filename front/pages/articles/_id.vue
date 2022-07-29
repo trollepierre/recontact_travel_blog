@@ -6,6 +6,7 @@
   import ArticlePage from '../../components/ArticlePage/ArticlePage.vue'
 
   export default {
+    name: 'ArticleIdPage',
     components: {
       ArticlePage,
     },

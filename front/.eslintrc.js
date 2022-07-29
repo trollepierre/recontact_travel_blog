@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
   },
   env: {
     browser: true,
@@ -29,9 +29,9 @@ module.exports = {
     // 'jest/no-disabled-tests': 'error',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
-    'jest/no-truthy-falsy': 'error',
+    'jest/no-restricted-matchers': 'error',
     'jest/prefer-to-have-length': 'error',
-    'jest/prefer-to-be-undefined': 'error',
+    'jest/prefer-to-be': 'error',
     'jest/valid-expect': 'error',
 
     /* VueX rules */
