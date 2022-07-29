@@ -20,5 +20,6 @@ module.exports = {
     'func-style': ['off', 'expression'],
     'no-unused-expressions': 'off',
     'no-use-before-define': 'off',
-  }
+    'import/no-import-module-exports': 'off', // code is babelified
+  },
 }
