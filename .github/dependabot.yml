@@ -10,6 +10,8 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 1
+    ignore:
+      - dependency-name: "dropbox"
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/front"
     schedule:
