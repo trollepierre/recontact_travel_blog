@@ -30,7 +30,7 @@ const buildLighthouseReport = results => {
 }
 
 test('Article 85 : Meaningful first paint score', () =>
-  launchChromeAndRunLighthouse('https://french-test.recontact.me/articles/85')
+  launchChromeAndRunLighthouse('https://fr-recontact-test.netlify.app/articles/85')
     .then(buildLighthouseReport)
     .then(report => {
       const { categories, lighthouseScore } = report
@@ -44,7 +44,7 @@ test('Article 85 : Meaningful first paint score', () =>
     }))
 
 test('HomePage : Meaningful first paint score', () =>
-  launchChromeAndRunLighthouse('https://english-test.recontact.me')
+  launchChromeAndRunLighthouse('https://en-recontact-test.netlify.app')
     .then(buildLighthouseReport)
     .then(report => {
       const { categories, lighthouseScore } = report
@@ -61,7 +61,7 @@ test('HomePage : Meaningful first paint score', () =>
     }))
 
 test('Articles : Meaningful first paint score', () =>
-  launchChromeAndRunLighthouse('https://english-test.recontact.me/articles')
+  launchChromeAndRunLighthouse('https://en-recontact-test.netlify.app/articles')
     .then(buildLighthouseReport)
     .then(report => {
       const { categories, lighthouseScore } = report
