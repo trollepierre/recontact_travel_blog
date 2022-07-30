@@ -42,7 +42,7 @@
     "@babel/node": "7.14.2",
     "@babel/plugin-transform-runtime": "7.14.3",
     "@babel/preset-env": "7.14.2",
-    "@babel/register": "7.13.16",
+    "@babel/register": "7.18.9",
     "@sinonjs/fake-timers": "^7.1.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
