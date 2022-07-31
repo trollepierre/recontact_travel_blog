@@ -150,6 +150,11 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
+      - run: sudo apt-cache search chromium
+      - run: sudo apt-cache search chromium-browser
+      - run: sudo apt-get -y update
+      - run: sudo apt-get -y install xvfb
+      - run: sudo apt-get -y install chromium-browser
       - run: yarn lighthouse
 
   bundlesize:
@@ -278,6 +283,7 @@ workflows:
             - deploy_staging
       - lighthouse:
           requires:
+            - deploy_branch
             - deploy_staging
 #      - webpagetest:
 #          requires:
