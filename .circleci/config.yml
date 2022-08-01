@@ -144,14 +144,16 @@ jobs:
       - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/articles/85
 
   lighthouse:
-    <<: *common_properties
+    docker:
+      - image: circleci/node:12.16.1-browsers
+    working_directory: ~/trollepierre/recontact_travel_blog
     steps:
       - run: echo "${CIRCLE_BRANCH}_${CIRCLE_SHA1}" > .circle-cache-key
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
-      - run: sudo apt-get -y update && sudo apt-get -y install xvfb chromium-browser
-      - run: yarn lighthouse
+      #- run: sudo apt-get -y update && sudo apt-get -y install xvfb chromium-browser
+      - run: cd tools/lighthouse && yarn && yarn test
 
   bundlesize:
     <<: *common_properties
