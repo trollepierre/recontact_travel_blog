@@ -6,8 +6,8 @@ const TIME_FOR_LIGHTHOUSE_FULL_TEST = 60000
 jest.setTimeout(TIME_FOR_LIGHTHOUSE_FULL_TEST)
 
 const launchChromeAndRunLighthouse = async url => {
-  const chrome = await chromeLauncher.launch({ chromeFlags: [] })
-  const opts = { chromeFlags: [], port: chrome.port }
+  const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless', '--disable-gpu', '--no-sandbox'] })
+  const opts = { chromeFlags: ['--headless', '--disable-gpu', '--no-sandbox'], port: chrome.port }
   const configJSON = null
   const results = await lighthouse(url, opts, configJSON)
   await chrome.kill()
