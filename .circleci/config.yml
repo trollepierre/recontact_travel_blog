@@ -152,7 +152,6 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
-      #- run: sudo apt-get -y update && sudo apt-get -y install xvfb chromium-browser
       - run: cd tools/lighthouse && yarn && yarn test
 
   bundlesize:
