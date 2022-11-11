@@ -6,6 +6,7 @@
   "scripts": {
     "install:front": "cd front && yarn install",
     "install:back": "cd back && yarn install",
+    "preinstall": "sudo apt-get install python3.6",
     "install": "yarn install:front && yarn install:back",
     "build:front": "cd front && yarn generate:en",
     "build:back": "cd back && yarn build",
