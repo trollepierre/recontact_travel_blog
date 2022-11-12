@@ -1,3 +1,7 @@
+.circleci
+.github
 front
-back/test
+tools
 back/node_modules
+back/src
+back/test
