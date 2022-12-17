@@ -43,6 +43,6 @@
   "homepage": "https://github.com/trollepierre/recontact_travel_blog#readme",
   "engines": {
     "yarn": ">=1.17.0",
-    "node": ">=16.16"
+    "node": ">=16.16 <17.0.0"
   }
 }
