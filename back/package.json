@@ -27,7 +27,7 @@
     "date-fns": "2.21.3",
     "dotenv-extended": "2.9.0",
     "dropbox": "2.5.13",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "lodash": "4.17.21",
     "morgan": "1.10.0",
     "node-mailjet": "3.3.4",
