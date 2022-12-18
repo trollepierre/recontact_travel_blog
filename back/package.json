@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "save:db": "babel bin --out-dir dist/bin && node ./dist/bin/save-db.js",
+    "init:db": "babel src --out-dir dist/src && babel bin --out-dir dist/bin && node ./dist/bin/init-db.js",
     "build": "yarn clean:dist && babel src --out-dir dist/src && babel app.js index.js --out-dir dist",
     "clean": "yarn clean:dependencies && yarn clean:db && yarn clean:dist",
     "clean:db": "rm src/db/data.development.sqlite & exit 0",
