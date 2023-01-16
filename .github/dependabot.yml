@@ -19,6 +19,8 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 1
+    ignore:
+      - dependency-name: "sass-loader" # Breaking Change from v10 to 13
 
   - package-ecosystem: "npm"
     directory: "/tools/lighthouse"
