@@ -65,7 +65,7 @@
     "vue-template-compiler": "^2.6.12"
   },
   "engines": {
-    "yarn": ">=1.17.0",
-    "node": ">=16.16 <17.0.0"
+    "yarn": "1.22",
+    "node": "16.16"
   }
 }
