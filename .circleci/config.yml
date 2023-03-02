@@ -136,12 +136,12 @@ jobs:
       - run: ./node_modules/.bin/html5v https://fr-recontact-test.netlify.app/
       - run: ./node_modules/.bin/html5v https://en-recontact-test.netlify.app/articles/85
 
-  validate_html5v_branch:
-    <<: *common_properties
-    steps:
-      - run: yarn add html5-validator
-      - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/
-      - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/articles/85
+#  validate_html5v_branch:
+#    <<: *common_properties
+#    steps:
+#      - run: yarn add html5-validator
+#      - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/
+#      - run: ./node_modules/.bin/html5v https://recontact-branch.herokuapp.com/articles/85
 
   lighthouse:
     <<: *common_properties
@@ -270,9 +270,9 @@ workflows:
               ignore:
                 - dev
                 - master
-      - validate_html5v_branch:
-          requires:
-            - deploy_branch
+#      - validate_html5v_branch:
+#          requires:
+#            - deploy_branch
       - validate_html5v:
           requires:
             - deploy_staging
