@@ -9,7 +9,7 @@
     "chrome-launcher": "0.15.1",
     "eslint": "5.16.0",
     "eslint-config-airbnb-base": "14.1.0",
-    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-import": "2.27.5",
     "jest": "25.1.0",
     "lighthouse": "5.6.0"
   }
