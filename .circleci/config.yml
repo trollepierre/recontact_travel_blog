@@ -279,12 +279,18 @@ workflows:
       - lighthouse:
           requires:
             - deploy_staging
+          filters:
+            branches:
+              only: test
 #      - webpagetest:
 #          requires:
 #            - deploy_staging
       - bundlesize:
           requires:
             - deploy_staging
+          filters:
+            branches:
+              only: test
       - deploy_staging:
           requires:
             - test_front
