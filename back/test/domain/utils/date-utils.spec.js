@@ -1,7 +1,10 @@
 import lolex from '@sinonjs/fake-timers'
 
 import { expect } from '../../test-helper'
-import { formatDateWithLongEndianLongFormat } from '../../../src/domain/utils/date-utils'
+import {
+  formatDateWithInternationalLongDateTimeFormat,
+  formatDateWithLongEndianLongFormat,
+} from '../../../src/domain/utils/date-utils'
 
 describe('Unit | Utils | date-utils', () => {
   const now = '2018-07-21T10:00:00'
@@ -46,6 +49,19 @@ describe('Unit | Utils | date-utils', () => {
 
       // Then
       expect(formattedDate).to.equal('15/01/2020 13:26')
+    })
+  })
+
+  describe('#formatDateWithInternationalLongDateTimeFormat', () => {
+    it('should return a string with date format yyyy-MM-dd:HH:mm:ss', () => {
+      // Given
+      const date = new Date('2018-01-22T03:24:00')
+
+      // When
+      const formattedDate = formatDateWithInternationalLongDateTimeFormat(date)
+
+      // Then
+      expect(formattedDate).to.equal('2018-01-22:03:24:00')
     })
   })
 })

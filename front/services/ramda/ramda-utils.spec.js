@@ -8,7 +8,7 @@ describe('ramda-utils', () => {
         const isEmptyResult = isEmptyPlus(null)
 
         // Then
-        expect(isEmptyResult).toEqual(true)
+        expect(isEmptyResult).toBe(true)
       })
     })
     describe('when parameter is undefined', () => {
@@ -17,7 +17,7 @@ describe('ramda-utils', () => {
         const isEmptyResult = isEmptyPlus(undefined)
 
         // Then
-        expect(isEmptyResult).toEqual(true)
+        expect(isEmptyResult).toBe(true)
       })
     })
     describe('when parameter is ""', () => {
@@ -26,7 +26,7 @@ describe('ramda-utils', () => {
         const isEmptyResult = isEmptyPlus('')
 
         // Then
-        expect(isEmptyResult).toEqual(true)
+        expect(isEmptyResult).toBe(true)
       })
     })
     describe('when parameter is an array with 3 elements', () => {
@@ -38,7 +38,7 @@ describe('ramda-utils', () => {
         const isEmptyResult = isEmptyPlus(myArray)
 
         // Then
-        expect(isEmptyResult).toEqual(false)
+        expect(isEmptyResult).toBe(false)
       })
     })
     describe('when parameter is an empty array', () => {
@@ -50,7 +50,7 @@ describe('ramda-utils', () => {
         const isEmptyResult = isEmptyPlus(myArray)
 
         // Then
-        expect(isEmptyResult).toEqual(true)
+        expect(isEmptyResult).toBe(true)
       })
     })
   })

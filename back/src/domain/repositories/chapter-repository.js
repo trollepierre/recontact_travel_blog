@@ -29,7 +29,17 @@ function deleteAll() {
   return Newchapter.destroy({ where: {} })
 }
 
+function getAll() {
+  return Newchapter.findAll()
+}
+
+function add(position) {
+  return Newchapter.create(position)
+}
+
 export default {
+  getAll,
+  add,
   createArticleChapters,
   getChaptersOfArticle,
   deleteChaptersOfArticle,

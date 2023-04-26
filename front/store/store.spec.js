@@ -30,7 +30,7 @@ describe('store', () => {
         mutations.SET_LANG(myState, 'en')
 
         // Then
-        expect(myState.locale).toEqual('en')
+        expect(myState.locale).toBe('en')
       })
 
       it('should not set lang not found', () => {
@@ -41,7 +41,7 @@ describe('store', () => {
         mutations.SET_LANG(myState, 'es')
 
         // Then
-        expect(myState.locale).toEqual('fr')
+        expect(myState.locale).toBe('fr')
       })
     })
 
@@ -54,7 +54,7 @@ describe('store', () => {
         mutations.SET_THEME_MODE(myState, 'dark')
 
         // Then
-        expect(myState.theme).toEqual('dark')
+        expect(myState.theme).toBe('dark')
       })
 
       it('should save in local storage', () => {
@@ -80,7 +80,7 @@ describe('store', () => {
       mutations.GET_THEME_MODE(myState)
 
       // Then
-      expect(myState.theme).toEqual('new')
+      expect(myState.theme).toBe('new')
     })
 
     it('should save in local storage', () => {
@@ -93,7 +93,7 @@ describe('store', () => {
       mutations.GET_THEME_MODE(myState)
 
       // Then
-      expect(myState.theme).toEqual('dark')
+      expect(myState.theme).toBe('dark')
     })
   })
 })

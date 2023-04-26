@@ -50,7 +50,7 @@ describe.skip('Component | FeedbackModal.vue', () => {
         }
       },
     })
-    expect(wrapper.vm.error).toEqual(null)
+    expect(wrapper.vm.error).toBeNull()
   })
 
   it('should have message with height to 152px', () => {
@@ -73,7 +73,7 @@ describe.skip('Component | FeedbackModal.vue', () => {
 
       wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.feedback).toEqual(null)
+      expect(wrapper.vm.feedback).toBeNull()
     })
 
     it('should reset email', () => {
@@ -81,7 +81,7 @@ describe.skip('Component | FeedbackModal.vue', () => {
 
       wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.email).toEqual(null)
+      expect(wrapper.vm.email).toBeNull()
     })
 
     it('should reset height', () => {
@@ -95,7 +95,7 @@ describe.skip('Component | FeedbackModal.vue', () => {
 
       wrapper.vm.beforeOpen()
 
-      expect(wrapper.vm.error).toEqual(null)
+      expect(wrapper.vm.error).toBeNull()
     })
   })
 

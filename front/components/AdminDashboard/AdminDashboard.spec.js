@@ -56,7 +56,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should set isClickSync to true', () => {
         wrapper.vm.disableButton()
 
-        expect(wrapper.vm.isClickedSync).toEqual(true)
+        expect(wrapper.vm.isClickedSync).toBe(true)
       })
     })
 
@@ -66,7 +66,7 @@ describe('Component | AdminDashboard.vue', () => {
 
         wrapper.vm.enableButton()
 
-        expect(wrapper.vm.isClickedSync).toEqual(false)
+        expect(wrapper.vm.isClickedSync).toBe(false)
       })
     })
 
@@ -79,7 +79,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should set isClickSync to true', () => {
         wrapper.vm.synchronise()
 
-        expect(wrapper.vm.isClickedSync).toEqual(true)
+        expect(wrapper.vm.isClickedSync).toBe(true)
       })
 
       it('should display success toast notification before synchronisation calls', () => {
@@ -108,7 +108,7 @@ describe('Component | AdminDashboard.vue', () => {
         await wrapper.vm.synchronise()
 
         return Vue.nextTick().then(() => {
-          expect(wrapper.vm.isClickedSync).toEqual(false)
+          expect(wrapper.vm.isClickedSync).toBe(false)
         })
       })
 
@@ -146,7 +146,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should set isClickSync to true', () => {
         wrapper.vm.updateAll()
 
-        expect(wrapper.vm.isClickedSync).toEqual(true)
+        expect(wrapper.vm.isClickedSync).toBe(true)
       })
 
       it('should display success toast notification before synchronisation calls', () => {
@@ -184,7 +184,7 @@ describe('Component | AdminDashboard.vue', () => {
         await wrapper.vm.updateAll()
 
         return Vue.nextTick().then(() => {
-          expect(wrapper.vm.isClickedSync).toEqual(false)
+          expect(wrapper.vm.isClickedSync).toBe(false)
         })
       })
 
@@ -222,7 +222,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should set isClickSync to true', () => {
         wrapper.vm.deleteAll()
 
-        expect(wrapper.vm.isClickedSync).toEqual(true)
+        expect(wrapper.vm.isClickedSync).toBe(true)
       })
 
       it('should display success toast notification before synchronisation calls', () => {
@@ -251,7 +251,7 @@ describe('Component | AdminDashboard.vue', () => {
         await wrapper.vm.deleteAll()
 
         return Vue.nextTick().then(() => {
-          expect(wrapper.vm.isClickedSync).toEqual(false)
+          expect(wrapper.vm.isClickedSync).toBe(false)
         })
       })
 
@@ -289,7 +289,7 @@ describe('Component | AdminDashboard.vue', () => {
       it('should set isClickSync to true', () => {
         wrapper.vm.deleteAndSyncAll()
 
-        expect(wrapper.vm.isClickedSync).toEqual(true)
+        expect(wrapper.vm.isClickedSync).toBe(true)
       })
 
       it('should display success toast notification before synchronisation calls', () => {
@@ -318,7 +318,7 @@ describe('Component | AdminDashboard.vue', () => {
         await wrapper.vm.deleteAndSyncAll()
 
         return Vue.nextTick().then(() => {
-          expect(wrapper.vm.isClickedSync).toEqual(false)
+          expect(wrapper.vm.isClickedSync).toBe(false)
         })
       })
 
@@ -361,7 +361,7 @@ describe('Component | AdminDashboard.vue', () => {
 
         wrapper.vm.goToHome()
 
-        expect(wrapper.vm.isClickedSync).toEqual(false)
+        expect(wrapper.vm.isClickedSync).toBe(false)
       })
 
       it('should redirect to homepage', () => {

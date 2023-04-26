@@ -104,8 +104,7 @@
 
       sendSubscription() {
         this._removeError()
-        /* eslint-disable no-useless-escape */
-        const regex = new RegExp('^[_A-Za-z0-9-\+-]+(\.[_A-Za-z0-9-\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-\+-]+)*(\.[A-Za-z]{2,})$')
+        const regex = /^[_A-Za-z0-9-+-]+(.[_A-Za-z0-9-+-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9-+-]+)*(.[A-Za-z]{2,})$/
         if (!regex.exec(this.email)) {
           this.error = this.$t('emailError')
           return

@@ -34,7 +34,7 @@ describe('Unit | API | articles api', () => {
       const promise = articlesApi.fetchAll(accessToken)
 
       promise.catch(error => {
-        expect(error.message).toEqual('some error')
+        expect(error.message).toBe('some error')
         done()
       })
     })
@@ -71,7 +71,7 @@ describe('Unit | API | articles api', () => {
       const promise = articlesApi.update(accessToken)
 
       promise.catch(error => {
-        expect(error.message).toEqual('some error')
+        expect(error.message).toBe('some error')
         done()
       })
     })

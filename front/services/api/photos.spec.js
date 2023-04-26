@@ -47,7 +47,7 @@ describe('Unit | API | photos api', () => {
       const promise = photosApi.fetch(accessToken)
 
       promise.catch(error => {
-        expect(error.message).toEqual('some error')
+        expect(error.message).toBe('some error')
         done()
       })
     })

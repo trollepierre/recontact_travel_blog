@@ -34,6 +34,7 @@
   import AppButton from '~/components/AppButton/AppButton'
 
   export default {
+    name: 'HomePage',
     components: {
       AppButton,
       ArticleList,

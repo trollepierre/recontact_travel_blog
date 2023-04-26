@@ -36,7 +36,7 @@ describe('Unit | API | feedbacks api', () => {
       const promise = api.sendFeedback(feedback, email)
 
       promise.catch(error => {
-        expect(error.message).toEqual('some error')
+        expect(error.message).toBe('some error')
         done()
       })
     })

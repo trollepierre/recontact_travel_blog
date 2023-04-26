@@ -29,7 +29,7 @@ describe('Component | NavControl.vue', () => {
         wrapper.vm.switchLanguage()
 
         // Then
-        expect(window.location.href).toEqual('http://localhost/')
+        expect(window.location.href).toBe('http://localhost/')
       })
     })
 

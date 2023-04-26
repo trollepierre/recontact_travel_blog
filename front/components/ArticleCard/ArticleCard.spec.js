@@ -84,23 +84,23 @@ describe('Component | ArticleCard.vue', () => {
 
     describe('$data', () => {
       it('should have isUpdateClicked property set to false', () => {
-        expect(wrapper.vm.isUpdateClicked).toEqual(false)
+        expect(wrapper.vm.isUpdateClicked).toBe(false)
       })
       it('should have isDeleteClicked property set to false', () => {
-        expect(wrapper.vm.isDeleteClicked).toEqual(false)
+        expect(wrapper.vm.isDeleteClicked).toBe(false)
       })
     })
 
     describe('computed', () => {
       describe('#articleUrl', () => {
         it('should return /articles/:id', () => {
-          expect(wrapper.vm.articleUrl).toEqual('/articles/58')
+          expect(wrapper.vm.articleUrl).toBe('/articles/58')
         })
       })
 
       describe('#articleTitle', () => {
         it('should return articleName', () => {
-          expect(wrapper.vm.articleTitle).toEqual('Pierre somewhere')
+          expect(wrapper.vm.articleTitle).toBe('Pierre somewhere')
         })
       })
     })
@@ -110,7 +110,7 @@ describe('Component | ArticleCard.vue', () => {
         it('should set isUpdateClicked to true', () => {
           wrapper.vm.disableUpdateButton()
 
-          expect(wrapper.vm.isUpdateClicked).toEqual(true)
+          expect(wrapper.vm.isUpdateClicked).toBe(true)
         })
       })
 
@@ -152,7 +152,7 @@ describe('Component | ArticleCard.vue', () => {
 
           wrapper.vm.updateArticle()
 
-          expect(wrapper.vm.isUpdateClicked).toEqual(true)
+          expect(wrapper.vm.isUpdateClicked).toBe(true)
         })
 
         it('should call delete article api', () => {
@@ -276,7 +276,7 @@ describe('Component | ArticleCard.vue', () => {
         wrapper.findAllComponents(AppButton).at(1).vm.$emit('click')
 
         expect(articlesApi.update).toHaveBeenCalledWith('58')
-        expect(wrapper.vm.isUpdateClicked).toEqual(true)
+        expect(wrapper.vm.isUpdateClicked).toBe(true)
       })
     })
 
@@ -304,7 +304,7 @@ describe('Component | ArticleCard.vue', () => {
         wrapper.findAllComponents(AppButton).at(0).vm.$emit('click')
 
         expect(chaptersApi.update).toHaveBeenCalledWith('58', 2)
-        expect(wrapper.vm.isUpdateChapterClicked).toEqual(true)
+        expect(wrapper.vm.isUpdateChapterClicked).toBe(true)
       })
     })
   })

@@ -21,8 +21,18 @@ function deleteAll() {
   return Photo.destroy({ where: {} })
 }
 
+function getAll() {
+  return Photo.findAll()
+}
+
+function add(position) {
+  return Photo.create(position)
+}
+
 export default {
   createPhotos,
+  add,
+  getAll,
   getPhotosOfArticle,
   deletePhotosOfArticle,
   deleteAll,

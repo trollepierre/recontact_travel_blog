@@ -28,8 +28,13 @@ function deleteAll() {
   return Article.destroy({ where: {} })
 }
 
+function add(position) {
+  return Article.create(position)
+}
+
 export default {
   create,
+  add,
   getAll,
   // getAllUntil,
   get,

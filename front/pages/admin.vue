@@ -12,6 +12,7 @@
   import AppHeader from '../components/AppHeader/AppHeader.vue'
 
   export default {
+    name: 'AdminPage',
     components: {
       ArticleList,
       AppHeader,

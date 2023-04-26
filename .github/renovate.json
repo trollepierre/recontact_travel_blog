@@ -1,4 +1,5 @@
 {
+  "addLabels": ["dependencies"],
   "enabled": false,
   "extends": [
     "config:base"
