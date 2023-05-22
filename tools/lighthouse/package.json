@@ -6,7 +6,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "chrome-launcher": "0.15.1",
+    "chrome-launcher": "0.15.2",
     "eslint": "5.16.0",
     "eslint-config-airbnb-base": "14.1.0",
     "eslint-plugin-import": "2.27.5",
