@@ -4,6 +4,7 @@
   "description": "Travel blog of Pierre Trollé",
   "author": "Pierre Trollé <pierre@recontact.me>",
   "license": "MIT",
+  "packageManager": "yarn@1.22.19",
   "scripts": {
     "clean": "yarn clean:dependencies && yarn clean:nuxt:files  && yarn clean:dist",
     "clean:nuxt:files": "rm -rf .nuxt",
