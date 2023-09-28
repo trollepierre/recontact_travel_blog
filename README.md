@@ -4,6 +4,10 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/trollepierre/recontact_travel_blog/badge.svg)](https://snyk.io/test/github/trollepierre/recontact_travel_blog)
 [![Netlify Status EN](https://api.netlify.com/api/v1/badges/56d6576e-c95a-41b4-999f-9e0bab48d768/deploy-status)](https://app.netlify.com/sites/en-recontact/deploys)
 [![Netlify Status FR](https://api.netlify.com/api/v1/badges/cbcec67a-0c04-46cb-b5d0-5a165183c6e6/deploy-status)](https://app.netlify.com/sites/fr-recontact/deploys)
+[![](https://img.shields.io/badge/License-MIT-green.svg?logo=internetarchive&logoColor=white&labelColor=464646&style=for-the-badge)](LICENSE.md)
+[![](https://img.shields.io/github/commit-activity/m/trollepierre/recontact_travel_blog?label=Commits&logo=github&logoColor=white&labelColor=464646&style=for-the-badge)](https://github.com/trollepierre/recontact_travel_blog/commits/master)
+[![](https://img.shields.io/codefactor/grade/github/trollepierre/recontact_travel_blog?label=Code+Quality&logo=codefactor&logoColor=white&labelColor=464646&color=29c3c5&style=for-the-badge)](https://www.codefactor.io/repository/github/trollepierre/recontact_travel_blog)
+
 
 ## Getting started
 
