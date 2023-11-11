@@ -109,14 +109,14 @@
       messages: {
         fr: {
           fixWebsite: 'Réparer le site',
-          theArticlesOfTheTrip: 'Blog de voyage de Pierre Trollé et Benoît Lefebvre après un tour du monde et d’autres aventures',
+          theArticlesOfTheTrip: 'Blog de voyage de Pierre et Benoît après un tour du monde et d’autres aventures',
           lastPosition: 'Dernière position :',
           title: 'Pierre en voyage',
           lastKnownPosition: 'Dernière position connue :',
         },
         en: {
           fixWebsite: 'Fix the website',
-          theArticlesOfTheTrip: 'Travel blog of Pierre Trollé and Benoît Lefebvre after a world trip and other adventures',
+          theArticlesOfTheTrip: 'Travel blog of Pierre and Benoît after a world trip and other adventures',
           lastPosition: 'Last position:',
           title: 'Discover the world with us!',
           lastKnownPosition: 'Last known position:',
