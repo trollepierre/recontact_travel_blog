@@ -22,6 +22,7 @@ updates:
     ignore:
       - dependency-name: "sass-loader" # Breaking Change from v10 to 13
       - dependency-name: "nuxt" # v3 need Node 18
+      - dependency-name: "axios" # Breaking Change from v0 to v1
 
   - package-ecosystem: "npm"
     directory: "/tools/lighthouse"
