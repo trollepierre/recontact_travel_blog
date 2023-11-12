@@ -161,7 +161,7 @@ describe('Component | ArticleList.vue', () => {
     it('should return "Les articles du voyage" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue, store })
 
-      expect(wrapper.vm.hiddenTitle).toBe('Travel blog of Pierre Trollé and Benoît Lefebvre after a world trip and other adventures')
+      expect(wrapper.vm.hiddenTitle).toBe('Travel blog of Pierre and Benoît after a world trip and other adventures')
     })
 
     it('should return "mon cadeau de saint val" when site is cecile', () => {

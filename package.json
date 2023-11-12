@@ -1,8 +1,8 @@
 {
   "name": "recontact_travel_blog",
   "version": "1.0.0",
-  "description": "Travel blog of Pierre Trollé",
-  "author": "Pierre Trollé <pierre@recontact.me>",
+  "description": "Travel blog of Pierre",
+  "author": "Pierre<pierre@recontact.me>",
   "scripts": {
     "install:front": "cd front && yarn install",
     "install:back": "cd back && yarn install",

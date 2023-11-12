@@ -1,6 +1,6 @@
 # recontact_travel_blog
 
-> Travel blog of Pierre Trollé
+> Travel blog of Pierre
 
 ## Build Setup
 
@@ -24,7 +24,7 @@ For detailed explanation on how things work, checkout the [Nuxt.js docs](https:/
 
 # recontact_travel_blog
 
-> Travel blog of Pierre Trollé
+> Travel blog of Pierre
 
 ## Build Setup
 
@@ -51,4 +51,4 @@ npm run e2e
 npm test
 ```
 
-Add a `.env` file in front that is a clone of `.env.default` 
+Add a `.env` file in front that is a clone of `.env.default`
