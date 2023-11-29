@@ -14,6 +14,7 @@ updates:
       - dependency-name: "dropbox"
       - dependency-name: "node-mailjet" # Breaking Change from v3 to v5
       - dependency-name: "sequelize" # Breaking Change from v5.21.7 to v6.35.1
+      - dependency-name: "prettier" # Breaking Change from v2.7.1 to v3.10.0
 
   - package-ecosystem: "npm"
     directory: "/front"
