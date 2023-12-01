@@ -48,7 +48,7 @@
     "@sinonjs/fake-timers": "^11.2.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
-    "chai": "4.3.4",
+    "chai": "4.3.10",
     "chai-as-promised": "7.1.1",
     "debug": "4.3.1",
     "dotenv": "10.0.0",
