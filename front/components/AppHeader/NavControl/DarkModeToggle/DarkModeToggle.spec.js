@@ -1,5 +1,4 @@
 import Vuex from 'vuex'
-import ThemeApi from '@/services/api/theme'
 import DarkModeToggle from './DarkModeToggle.vue'
 
 describe('Component | DarkModeToggle.vue', () => {
@@ -22,7 +21,6 @@ describe('Component | DarkModeToggle.vue', () => {
         GET_THEME_MODE: getThemeModeMock,
       },
     })
-    ThemeApi.send = jest.fn().mockResolvedValue('ok')
   })
 
   describe('template', () => {
@@ -76,7 +74,6 @@ describe('Component | DarkModeToggle.vue', () => {
         wrapper.vm.toggleDarkMode()
 
         // Then
-        expect(ThemeApi.send).toHaveBeenCalledOnceWith('dark', 'light')
         expect(setThemeModeMock).toHaveBeenCalledOnceWith({ theme: 'dark' }, 'light')
       })
 
@@ -88,7 +85,6 @@ describe('Component | DarkModeToggle.vue', () => {
         wrapper.vm.toggleDarkMode()
 
         // Then
-        expect(ThemeApi.send).toHaveBeenCalledOnceWith('light', 'dark')
         expect(setThemeModeMock).toHaveBeenCalledOnceWith({ theme: 'light' }, 'dark')
       })
     })

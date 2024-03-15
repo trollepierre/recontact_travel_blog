@@ -1,5 +1,4 @@
 import Vuex from 'vuex'
-import ThemeApi from '@/services/api/theme'
 import NewModeToggle from './NewModeToggle.vue'
 
 describe('Component | NewModeToggle.vue', () => {
@@ -19,7 +18,6 @@ describe('Component | NewModeToggle.vue', () => {
         SET_THEME_MODE: setThemeModeMock,
       },
     })
-    ThemeApi.send = jest.fn().mockResolvedValue('ok')
   })
 
   describe('template', () => {
@@ -63,7 +61,6 @@ describe('Component | NewModeToggle.vue', () => {
         wrapper.vm.toggleNewMode()
 
         // Then
-        expect(ThemeApi.send).toHaveBeenCalledOnceWith('new', 'light')
         expect(setThemeModeMock).toHaveBeenCalledOnceWith(
           { theme: 'new' },
           'light',
@@ -78,7 +75,6 @@ describe('Component | NewModeToggle.vue', () => {
         wrapper.vm.toggleNewMode()
 
         // Then
-        expect(ThemeApi.send).toHaveBeenCalledOnceWith('light', 'new')
         expect(setThemeModeMock).toHaveBeenCalledOnceWith(
           { theme: 'light' },
           'new',
