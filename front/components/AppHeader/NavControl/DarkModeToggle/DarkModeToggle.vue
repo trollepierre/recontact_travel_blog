@@ -27,10 +27,8 @@
     methods: {
       toggleDarkMode() {
         if (this.isDarkMode) {
-          ThemeApi.send(this.$store.state.theme, 'light')
           this.SET_THEME_MODE('light')
         } else {
-          ThemeApi.send(this.$store.state.theme, 'dark')
           this.SET_THEME_MODE('dark')
         }
       },
