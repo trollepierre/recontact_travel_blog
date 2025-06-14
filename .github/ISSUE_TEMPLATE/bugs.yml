@@ -1,0 +1,43 @@
+name: 🐞 Bug Report
+description: Create a new bug report.
+title: '🐞 bug: <title>'
+labels: [bug]
+body:
+
+  - type: markdown
+    attributes:
+      value: 'Thanks for  reporting an issue.'
+
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of what the issue is about.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: Describe what you expect to happen instead.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Minimal Reproducible Example
+      description: |
+        If this issue is describing a bug, include some steps to reproduce the behavior.
+
+  - type: textarea
+    attributes:
+      label: Environment Details
+      description: |
+        Please provide additional information about your environment.
+
+        You can get it from https://whatmyuseragent.com/
+        :warning: _Remember to remove any sensitive information!_
+
+  - type: textarea
+    attributes:
+      label: Further Information/Screenshots
+      description: If needed, please provide additional information about your issue (attachments, links, references, etc.).
