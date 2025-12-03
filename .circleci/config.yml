@@ -127,7 +127,13 @@ jobs:
       - run:
           name: Deploy branch to Heroku branch
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-branch.git $CIRCLE_BRANCH:master --force
+            mkdir -p ~/.netrc
+            printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
+            chmod 600 ~/.netrc
+            mkdir -p ~/.ssh
+            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            git push https://git.heroku.com/recontact-branch.git $CIRCLE_BRANCH:master --force
 
   validate_html5v:
     <<: *common_properties
@@ -186,7 +192,13 @@ jobs:
       - run:
           name: Deploy dev to Heroku staging
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact-test.git dev:master
+            mkdir -p ~/.netrc
+            printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
+            chmod 600 ~/.netrc
+            mkdir -p ~/.ssh
+            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            git push https://git.heroku.com/recontact-test.git dev:master
 
   deploy_master:
     <<: *common_properties
@@ -198,7 +210,13 @@ jobs:
       - run:
           name: Deploy master to Recontact (Prod) - Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/recontact.git master
+            mkdir -p ~/.netrc
+            printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
+            chmod 600 ~/.netrc
+            mkdir -p ~/.ssh
+            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            git push https://git.heroku.com/recontact.git master
 
   deploy_cecile:
     <<: *common_properties
@@ -210,7 +228,13 @@ jobs:
       - run:
           name: Deploy master to Cecile - Heroku
           command: |
-            git push https://heroku:$HEROKU_CECILE_API_KEY@git.heroku.com/recontact-cecile.git master
+            mkdir -p ~/.netrc
+            printf "machine git.heroku.com\n  login _\n  password $HEROKU_CECILE_API_KEY\n" > ~/.netrc
+            chmod 600 ~/.netrc
+            mkdir -p ~/.ssh
+            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            git push https://git.heroku.com/recontact-cecile.git master
 
   deploy_recontact_api:
     <<: *common_properties
@@ -222,7 +246,13 @@ jobs:
       - run:
           name: Deploy master to Recontact API - Heroku
           command: |
-            git push https://heroku:$HEROKU_RECONTACT_API_KEY@git.heroku.com/recontact-api.git master
+            mkdir -p ~/.netrc
+            printf "machine git.heroku.com\n  login _\n  password $HEROKU_RECONTACT_API_KEY\n" > ~/.netrc
+            chmod 600 ~/.netrc
+            mkdir -p ~/.ssh
+            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            git push https://git.heroku.com/recontact-api.git master
 
   deploy_recontact_blog:
     <<: *common_properties
@@ -234,7 +264,13 @@ jobs:
       - run:
           name: Deploy master to Pierre Blog on Heroku
           command: |
-            git push https://heroku:$HEROKU_RECONTACT_BLOG_KEY@git.heroku.com/recontact-blog.git master
+            mkdir -p ~/.netrc
+            printf "machine git.heroku.com\n  login _\n  password $HEROKU_RECONTACT_BLOG_KEY\n" > ~/.netrc
+            chmod 600 ~/.netrc
+            mkdir -p ~/.ssh
+            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            git push https://git.heroku.com/recontact-blog.git master
 
 workflows:
   version: 2
