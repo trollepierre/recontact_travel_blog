@@ -13,8 +13,7 @@ exports[`Component | ArticleList.vue template should match snapshot 1`] = `
       Last known position:
       <span class="article-results__title h3">
         Mexico, 1er mai 2019
-      </span>
-    </p>
+      </span></p>
     <admin-dashboard-stub></admin-dashboard-stub>
     <ul class="article-results__list">
       <li class="article-results__item">
