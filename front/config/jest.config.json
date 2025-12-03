@@ -33,11 +33,9 @@
   ],
   "collectCoverageFrom": [
     "<rootDir>/components/**/*.vue",
+    "<rootDir>/pages/*.vue",
     "!<rootDir>/components/FeedbackModal/*.vue",
-    "!<rootDir>/components/SubscribeModal/*.vue",
-    "!<rootDir>/pages/*.vue",
-    "!<rootDir>/components/AdminDashboard/**",
-    "!<rootDir>/components/AdminDashboard/PositionForm/**"
+    "!<rootDir>/components/SubscribeModal/*.vue"
   ],
   "coverageProvider": "v8"
 }
