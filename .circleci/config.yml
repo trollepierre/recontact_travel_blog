@@ -131,6 +131,7 @@ jobs:
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-branch.git $CIRCLE_BRANCH:master --force
@@ -196,6 +197,7 @@ jobs:
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-test.git dev:master
@@ -214,6 +216,7 @@ jobs:
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact.git master
@@ -232,6 +235,7 @@ jobs:
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_CECILE_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-cecile.git master
@@ -250,6 +254,7 @@ jobs:
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_RECONTACT_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-api.git master
@@ -268,6 +273,7 @@ jobs:
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_RECONTACT_BLOG_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-blog.git master
