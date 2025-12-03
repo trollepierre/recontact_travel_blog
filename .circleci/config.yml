@@ -3,7 +3,28 @@ common_properties: &common_properties
     - image: cimg/node:16.16.0-browsers
   working_directory: ~/trollepierre/recontact_travel_blog
 
-version: 2
+version: 2.1
+
+commands:
+  heroku_setup:
+    parameters:
+      api_key_env:
+        type: string
+        default: HEROKU_API_KEY
+    steps:
+      - run:
+          name: Setup Heroku auth (netrc + known_hosts)
+          command: |
+            rm -rf ~/.netrc
+            API_ENV="<< parameters.api_key_env >>"
+            eval "API_KEY=\${$API_ENV}"
+            printf "machine git.heroku.com\n  login _\n  password $API_KEY\n" > ~/.netrc
+            chmod 600 ~/.netrc
+            mkdir -p ~/.ssh
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
+
 jobs:
   checkout_code:
     <<: *common_properties
@@ -124,16 +145,10 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
+      - heroku_setup
       - run:
           name: Deploy branch to Heroku branch
           command: |
-            rm -rf ~/.netrc
-            printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
-            chmod 600 ~/.netrc
-            mkdir -p ~/.ssh
-            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-branch.git $CIRCLE_BRANCH:master --force
 
   validate_html5v:
@@ -190,16 +205,10 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
+      - heroku_setup
       - run:
           name: Deploy dev to Heroku staging
           command: |
-            rm -rf ~/.netrc
-            printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
-            chmod 600 ~/.netrc
-            mkdir -p ~/.ssh
-            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-test.git dev:master
 
   deploy_master:
@@ -209,16 +218,10 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
+      - heroku_setup
       - run:
           name: Deploy master to Recontact (Prod) - Heroku
           command: |
-            rm -rf ~/.netrc
-            printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
-            chmod 600 ~/.netrc
-            mkdir -p ~/.ssh
-            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact.git master
 
   deploy_cecile:
@@ -228,16 +231,11 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
+      - heroku_setup:
+          api_key_env: HEROKU_CECILE_API_KEY
       - run:
           name: Deploy master to Cecile - Heroku
           command: |
-            rm -rf ~/.netrc
-            printf "machine git.heroku.com\n  login _\n  password $HEROKU_CECILE_API_KEY\n" > ~/.netrc
-            chmod 600 ~/.netrc
-            mkdir -p ~/.ssh
-            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-cecile.git master
 
   deploy_recontact_api:
@@ -247,16 +245,11 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
+      - heroku_setup:
+          api_key_env: HEROKU_RECONTACT_API_KEY
       - run:
           name: Deploy master to Recontact API - Heroku
           command: |
-            rm -rf ~/.netrc
-            printf "machine git.heroku.com\n  login _\n  password $HEROKU_RECONTACT_API_KEY\n" > ~/.netrc
-            chmod 600 ~/.netrc
-            mkdir -p ~/.ssh
-            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-api.git master
 
   deploy_recontact_blog:
@@ -266,16 +259,11 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
+      - heroku_setup:
+          api_key_env: HEROKU_RECONTACT_BLOG_KEY
       - run:
           name: Deploy master to Pierre Blog on Heroku
           command: |
-            rm -rf ~/.netrc
-            printf "machine git.heroku.com\n  login _\n  password $HEROKU_RECONTACT_BLOG_KEY\n" > ~/.netrc
-            chmod 600 ~/.netrc
-            mkdir -p ~/.ssh
-            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
-            ssh-keyscan -H git.heroku.com >> ~/.ssh/known_hosts 2>/dev/null || true
             git push https://git.heroku.com/recontact-blog.git master
 
 workflows:
