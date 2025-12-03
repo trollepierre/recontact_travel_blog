@@ -127,7 +127,7 @@ jobs:
       - run:
           name: Deploy branch to Heroku branch
           command: |
-            mkdir -p ~/.netrc
+            rm -rf ~/.netrc
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
@@ -192,7 +192,7 @@ jobs:
       - run:
           name: Deploy dev to Heroku staging
           command: |
-            mkdir -p ~/.netrc
+            rm -rf ~/.netrc
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
@@ -210,7 +210,7 @@ jobs:
       - run:
           name: Deploy master to Recontact (Prod) - Heroku
           command: |
-            mkdir -p ~/.netrc
+            rm -rf ~/.netrc
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
@@ -228,7 +228,7 @@ jobs:
       - run:
           name: Deploy master to Cecile - Heroku
           command: |
-            mkdir -p ~/.netrc
+            rm -rf ~/.netrc
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_CECILE_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
@@ -246,7 +246,7 @@ jobs:
       - run:
           name: Deploy master to Recontact API - Heroku
           command: |
-            mkdir -p ~/.netrc
+            rm -rf ~/.netrc
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_RECONTACT_API_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
@@ -264,7 +264,7 @@ jobs:
       - run:
           name: Deploy master to Pierre Blog on Heroku
           command: |
-            mkdir -p ~/.netrc
+            rm -rf ~/.netrc
             printf "machine git.heroku.com\n  login _\n  password $HEROKU_RECONTACT_BLOG_KEY\n" > ~/.netrc
             chmod 600 ~/.netrc
             mkdir -p ~/.ssh
