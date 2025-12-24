@@ -24,10 +24,8 @@
     methods: {
       toggleNewMode() {
         if (this.isNewMode) {
-          ThemeApi.send(this.$store.state.theme, 'light')
           this.SET_THEME_MODE('light')
         } else {
-          ThemeApi.send(this.$store.state.theme, 'new')
           this.SET_THEME_MODE('new')
         }
       },

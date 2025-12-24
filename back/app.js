@@ -17,7 +17,6 @@ import {
   feedbacks,
   positions,
   optimisation,
-  theme,
 } from './src/infrastructure/features/api'
 
 import robots from './src/infrastructure/seo/robots'
