@@ -2,6 +2,9 @@
   command = "npx nuxi build"
   publish = ".output/public"
 
+[build.environment]
+  NODE_VERSION = "22.22.0"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
