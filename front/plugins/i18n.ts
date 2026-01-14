@@ -7,7 +7,7 @@ export default defineNuxtPlugin(() => {
 	const initialLocale = (config.public.language as string) || 'fr'
 
 	const i18n = createI18n({
-		legacy: false,
+		legacy: true,
 		locale: initialLocale,
 		fallbackLocale: 'fr',
 		globalInjection: true,
