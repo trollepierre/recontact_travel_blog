@@ -6,7 +6,6 @@
     @click="toggleNewMode"/>
 </template>
 <script>
-  import { mapMutations } from 'vuex'
   import AppButton from '@/components/AppButton/AppButton'
   import ThemeApi from '@/services/api/theme'
 
@@ -25,15 +24,12 @@
       toggleNewMode() {
         if (this.isNewMode) {
           ThemeApi.send(this.$store.state.theme, 'light')
-          this.SET_THEME_MODE('light')
+          this.$store.commit('SET_THEME_MODE', 'light')
         } else {
           ThemeApi.send(this.$store.state.theme, 'new')
-          this.SET_THEME_MODE('new')
+          this.$store.commit('SET_THEME_MODE', 'new')
         }
       },
-      ...mapMutations({
-        SET_THEME_MODE: 'SET_THEME_MODE',
-      }),
     },
   }
 </script>
