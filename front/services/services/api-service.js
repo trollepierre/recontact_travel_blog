@@ -1,18 +1,15 @@
-import axios from 'axios'
-import { cacheAdapterEnhancer } from 'axios-extensions'
+import { ofetch } from 'ofetch'
 import env from '../env/env'
 import logger from './logger-service'
 
-const http = axios.create({
+const http = ofetch.create({
   baseURL: `${env('API_URL')}api/`,
   headers: { 'Cache-Control': `public, max-age=${24 * 3600}` },
-  adapter: cacheAdapterEnhancer(axios.defaults.adapter),
 })
 
 const getAll = async path => {
   try {
-    const response = await http.get(path, { json: true })
-    return response.data
+    return await http(path, { method: 'GET' })
   } catch (error) {
     logger.error(error.message)
     throw error
@@ -21,8 +18,7 @@ const getAll = async path => {
 
 const post = async (path, data) => {
   try {
-    const response = await http.post(path, { ...data, json: true })
-    return response.data
+    return await http(path, { method: 'POST', body: data })
   } catch (error) {
     logger.error(error.message)
     throw error
@@ -31,8 +27,7 @@ const post = async (path, data) => {
 
 const put = async (path, data) => {
   try {
-    const response = await http.patch(path, { ...data, json: true })
-    return response.data
+    return await http(path, { method: 'PATCH', body: data })
   } catch (error) {
     logger.error(error.message)
     throw error
@@ -41,8 +36,7 @@ const put = async (path, data) => {
 
 const deleteById = async path => {
   try {
-    const response = await http.delete(path)
-    return response.data
+    return await http(path, { method: 'DELETE' })
   } catch (error) {
     logger.error(error.message)
     throw error

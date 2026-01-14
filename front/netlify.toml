@@ -1,3 +1,7 @@
+[build]
+  command = "npx nuxi build"
+  publish = ".output/public"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
