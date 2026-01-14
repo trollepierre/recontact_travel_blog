@@ -24,11 +24,12 @@
       // https://gist.github.com/mornir/9e85e65caba46e55269302e8a134e04e
       // https://www.mapbox.com/install/js/bundler-complete/
       // https://docs.mapbox.com/mapbox-gl-js/example/
-
-
       const config = useRuntimeConfig()
-      console.log(config)
-      mapboxgl.accessToken = config.public.mapboxToken
+
+      let accessToken = config.public.mapboxToken
+      console.log('TODO: config.public.mapboxToken should use env variable instead')
+      accessToken = 'pk.eyJ1IjoibGVzY29sc3ZlcnRzIiwiYSI6ImNraWcxeDRyMjBhcXYycW1xMmI4NW82bnIifQ.r9W_FGY8gVm5DRxdcmymDQ'
+      mapboxgl.accessToken = accessToken
 
       this.map = new mapboxgl.Map({
         container: 'map',
