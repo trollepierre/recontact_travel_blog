@@ -6,6 +6,7 @@
   import mapboxgl from 'mapbox-gl'
   import { articleLocations } from './article-location'
   import translationService from '../../../services/services/translations'
+  import { useRuntimeConfig } from '#imports'
 
   export default {
     name: 'MapBox',
@@ -24,8 +25,10 @@
       // https://www.mapbox.com/install/js/bundler-complete/
       // https://docs.mapbox.com/mapbox-gl-js/example/
 
+      const config = useRuntimeConfig()
+      mapboxgl.accessToken = config.public.mapboxToken
+
       this.map = new mapboxgl.Map({
-        accessToken: process.env.NUXT_ENV_MAPBOX_API_TOKEN,
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11', // default style // V11 - V9 => to try
         center: window.innerWidth > 1024 ? [30, 0] : [30, 30], // mobile center to Lybia
