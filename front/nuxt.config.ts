@@ -23,6 +23,7 @@ export default defineNuxtConfig({
 		public: {
 			apiBase: process.env.API_BASE || process.env.NUXT_ENV_API_URL || 'http://localhost:3000',
 			language: process.env.NUXT_ENV_LANGUAGE || 'fr',
+			mapboxToken: process.env.NUXT_PUBLIC_MAPBOX_TOKEN || process.env.NUXT_ENV_MAPBOX_API_TOKEN || process.env.MAPBOX_TOKEN || '',
 		},
 	},
 	app: {
