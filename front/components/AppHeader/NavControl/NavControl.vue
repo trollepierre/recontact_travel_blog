@@ -26,7 +26,7 @@
         <img
           :alt="$t('logo')"
           class="tdm__image"
-          src="../../../static/tdm.jpg">
+          src="/tdm.jpg">
       </a>
     </li>
     <li>

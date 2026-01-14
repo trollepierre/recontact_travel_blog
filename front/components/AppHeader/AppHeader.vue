@@ -12,7 +12,7 @@
           class="icon"
           width="38"
           height="38"
-          src="../../static/velo.png">
+          src="/velo.png">
         <span class="recontact">Recontact</span>
         <span class="me">Me</span>
       </a>
