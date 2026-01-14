@@ -43,7 +43,7 @@
   "homepage": "https://github.com/trollepierre/recontact_travel_blog#readme",
   "engines": {
     "yarn": "1.22",
-    "node": "18.17"
+    "node": "22.22"
   },
   "dependencies": {
     "prettier": "^2.5.1"
