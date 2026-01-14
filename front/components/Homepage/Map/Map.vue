@@ -25,7 +25,9 @@
       // https://www.mapbox.com/install/js/bundler-complete/
       // https://docs.mapbox.com/mapbox-gl-js/example/
 
+
       const config = useRuntimeConfig()
+      console.log(config)
       mapboxgl.accessToken = config.public.mapboxToken
 
       this.map = new mapboxgl.Map({
