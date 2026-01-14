@@ -10,6 +10,15 @@ export default defineNuxtConfig({
 	modules: [
 		'@pinia/nuxt',
 	],
+	vite: {
+		css: {
+			preprocessorOptions: {
+				scss: {
+					additionalData: '@use \"~/assets/css/colors.scss\" as *; @use \"~/assets/css/variables.scss\" as *;',
+				},
+			},
+		},
+	},
 	runtimeConfig: {
 		public: {
 			apiBase: process.env.API_BASE || process.env.NUXT_ENV_API_URL || 'http://localhost:3000',
