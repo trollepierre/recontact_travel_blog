@@ -11,8 +11,8 @@ import models from './src/domain/models/index'
 /**
  * Get port from environment and store in Express.
  */
-
-const port = normalizePort(process.env.PORT || '3000')
+console.log(process.env.PORT)
+const port = normalizePort(process.env.PORT || '3334')
 app.set('port', port)
 
 /**
@@ -89,6 +89,8 @@ function onListening() {
     ? `pipe ${addr}`
     : `port ${addr.port}`
   debug(`Listening on ${bind}`)
+  console.log('Listening on port', port)
+
 }
 
 /**
