@@ -1,3 +1,10 @@
+import { resolve } from 'node:path'
+import { config as loadEnv } from 'dotenv'
+
+// Charge .env.local puis .env avant l'évaluation de la config
+loadEnv({ path: resolve(__dirname, '.env.local') })
+loadEnv({ path: resolve(__dirname, '.env') })
+
 export default defineNuxtConfig({
 	nitro: {
 		preset: 'netlify',
@@ -21,9 +28,18 @@ export default defineNuxtConfig({
 	},
 	runtimeConfig: {
 		public: {
-			apiBase: process.env.NUXT_PUBLIC_API_BASE || process.env.NUXT_ENV_API_URL || 'http://localhost:3000',
-			language: process.env.NUXT_PUBLIC_LANGUAGE || process.env.NUXT_ENV_LANGUAGE || 'fr',
-			mapboxToken: process.env.NUXT_PUBLIC_MAPBOX_TOKEN || '',
+			apiBase:
+				process.env.NUXT_PUBLIC_API_BASE ||
+				process.env.NUXT_ENV_API_URL ||
+				'http://localhost:3000',
+			language:
+				process.env.NUXT_PUBLIC_LANGUAGE ||
+				process.env.NUXT_ENV_LANGUAGE ||
+				'fr',
+			mapboxToken:
+				process.env.NUXT_PUBLIC_MAPBOX_TOKEN ||
+				process.env.NUXT_ENV_MAPBOX_API_TOKEN ||
+				'',
 		},
 	},
 	app: {
