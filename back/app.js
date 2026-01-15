@@ -50,7 +50,9 @@ app.use(setCacheMiddleware)
 app.use('/robots.txt', robots)
 app.use('/sitemap.xml', sitemap)
 // Should be after robot and sitemap but before dist
-app.use(history)
+app.use((req, res, next) => (req.url.startsWith('/api') ? next() : history(req, res, next)))
+
+console.log(env('NODE_ENV'))
 
 if (env('NODE_ENV') !== 'test') {
   app.use(express.static(path.join(__dirname, '..', '..', 'front', 'dist')))
