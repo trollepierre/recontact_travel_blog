@@ -3,12 +3,12 @@
 </template>
 
 <script>
-  import mapboxgl from 'mapbox-gl'
-  import { articleLocations } from './article-location'
-  import translationService from '../../../services/services/translations'
-  import { useRuntimeConfig } from '#imports'
+import mapboxgl from 'mapbox-gl'
+import { articleLocations } from './article-location'
+import translationService from '../../../services/services/translations'
+import { useRuntimeConfig } from '#imports'
 
-  export default {
+export default {
     name: 'MapBox',
     data() {
       return {
@@ -26,10 +26,7 @@
       // https://docs.mapbox.com/mapbox-gl-js/example/
       const config = useRuntimeConfig()
 
-      let accessToken = config.public.mapboxToken
-      console.log('TODO: config.public.mapboxToken should use env variable instead')
-      accessToken = 'pk.eyJ1IjoibGVzY29sc3ZlcnRzIiwiYSI6ImNraWcxeDRyMjBhcXYycW1xMmI4NW82bnIifQ.r9W_FGY8gVm5DRxdcmymDQ'
-      mapboxgl.accessToken = accessToken
+      mapboxgl.accessToken = config.public.mapboxToken
 
       this.map = new mapboxgl.Map({
         container: 'map',

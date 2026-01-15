@@ -1,4 +1,4 @@
-export default (key) => {
+export default key => {
   if (key === 'API_URL') {
     try {
       // Nuxt 3 runtime config (client + server)
