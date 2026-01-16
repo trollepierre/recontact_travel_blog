@@ -285,8 +285,11 @@
   }
 
   .app-button {
-    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+    margin: 0 auto 10px;
     font-size: 12px;
+    box-sizing: border-box;
   }
 
   .app-button.link {
