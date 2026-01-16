@@ -383,30 +383,26 @@ async function getRouteRules(arg) {
     return defu({}, ..._routeRulesMatcher.matchAll(path).reverse());
   }
 }
-const __nuxt_page_meta = {
-  validate: (route) => /^\d+$/.test(String(route.params.id))
-};
 const _routes = [
   {
     name: "admin",
     path: "/admin",
-    component: () => import('./admin-DAPImIPa.mjs')
+    component: () => import('./admin-BgKpIeKa.mjs')
   },
   {
     name: "index",
     path: "/",
-    component: () => import('./index-hrFGsPUy.mjs')
+    component: () => import('./index-ChjhTlHV.mjs')
   },
   {
-    name: "articles-id",
-    path: "/articles/:id()",
-    meta: __nuxt_page_meta || {},
-    component: () => import('./_id_-CNAB6krt.mjs')
+    name: "articles-_id",
+    path: "/articles/_id",
+    component: () => import('./_id-DMmx_9px.mjs')
   },
   {
     name: "articles",
     path: "/articles",
-    component: () => import('./index-DvqWbCyk.mjs')
+    component: () => import('./index-BctJGZj5.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -1511,7 +1507,7 @@ const _sfc_main$1 = {
     const statusMessage = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./error-404-B--ltXS2.mjs'));
+    const _Error404 = defineAsyncComponent(() => import('./error-404-CY-hsXAr.mjs'));
     const _Error = defineAsyncComponent(() => import('./error-500-CIQlJvfD.mjs'));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
@@ -1593,5 +1589,5 @@ let entry;
 }
 const entry_default = (ssrContext) => entry(ssrContext);
 
-export { _export_sfc as _, useRouter as a, useNuxtApp as b, nuxtLinkDefaults as c, entry_default as default, navigateTo as n, resolveRouteObject as r, tryUseNuxtApp as t, useRuntimeConfig as u };
+export { _export_sfc as _, useNuxtApp as a, useRuntimeConfig as b, nuxtLinkDefaults as c, entry_default as default, navigateTo as n, resolveRouteObject as r, tryUseNuxtApp as t, useRouter as u };
 //# sourceMappingURL=server.mjs.map
