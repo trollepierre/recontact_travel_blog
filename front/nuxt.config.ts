@@ -10,6 +10,7 @@ const apiUrl = process.env.NUXT_PUBLIC_API_BASE ||
 	'http://localhost:3334'
 
 export default defineNuxtConfig({
+	compatibilityDate: '2026-01-16',
 	nitro: {
 		preset: 'netlify',
 	},
