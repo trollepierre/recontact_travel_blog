@@ -2,7 +2,7 @@
   <div
     id="app"
     :class="theme">
-    <nuxt/>
+    <slot/>
   </div>
 </template>
 
