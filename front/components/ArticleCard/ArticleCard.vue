@@ -291,7 +291,7 @@
 
   .app-button.link {
     display: block;
-    width: inherit;
+    width: 100%;
     text-decoration: unset;
   }
 
