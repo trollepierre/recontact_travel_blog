@@ -5,6 +5,10 @@ import { config as loadEnv } from 'dotenv'
 loadEnv({ path: resolve(__dirname, '.env.local') })
 loadEnv({ path: resolve(__dirname, '.env') })
 
+const apiUrl = process.env.NUXT_PUBLIC_API_BASE ||
+	process.env.NUXT_ENV_API_URL ||
+	'http://localhost:3334'
+
 export default defineNuxtConfig({
 	nitro: {
 		preset: 'netlify',
@@ -25,13 +29,19 @@ export default defineNuxtConfig({
 				},
 			},
 		},
+		server: {
+			proxy: {
+				'/api': {
+					target: apiUrl,
+					changeOrigin: true,
+					secure: false,
+				},
+			},
+		},
 	},
 	runtimeConfig: {
 		public: {
-			apiBase:
-				process.env.NUXT_PUBLIC_API_BASE ||
-				process.env.NUXT_ENV_API_URL ||
-				'http://localhost:3000',
+			apiBase: apiUrl,
 			language:
 				process.env.NUXT_PUBLIC_LANGUAGE ||
 				process.env.NUXT_ENV_LANGUAGE ||
@@ -59,6 +69,6 @@ export default defineNuxtConfig({
 			],
 		},
 	},
-}) 
+})
 
 
