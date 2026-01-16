@@ -33,16 +33,21 @@
       <footer class="footer-article">
         <app-button
           class="app-button"
-          :text="$t('goToHomePage')"
-          @click="goToHomePage"/>
+          tag="NuxtLink"
+          to="/"
+          :text="$t('goToHomePage')"/>
         <app-button
+          v-if="previousArticleTo"
           class="app-button"
-          :text="$t('goToPreviousArticle')"
-          @click="viewPreviousArticle"/>
+          tag="NuxtLink"
+          :to="previousArticleTo"
+          :text="$t('goToPreviousArticle')"/>
         <app-button
+          v-if="nextArticleTo"
           class="app-button"
-          :text="$t('goToNextArticle')"
-          @click="viewNextArticle"/>
+          tag="NuxtLink"
+          :to="nextArticleTo"
+          :text="$t('goToNextArticle')"/>
       </footer>
     </div>
   </main>
@@ -83,6 +88,14 @@
         title: '',
         dropboxId: parseInt(this.$route.params.id, 10),
       }
+    },
+    computed: {
+      previousArticleTo() {
+        return this.dropboxId !== 1 ? `/articles/${this.dropboxId - 1}` : null
+      },
+      nextArticleTo() {
+        return `/articles/${this.dropboxId + 1}`
+      },
     },
     watch: {
       $route(to) {
