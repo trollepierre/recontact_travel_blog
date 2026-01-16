@@ -9,7 +9,7 @@ npm-debug.log
 
 # Nuxt generate
 dist
-.netlify
+.netlifyg
 
 .idea
 yarn-error.log
