@@ -11,6 +11,14 @@
     :class="hide ? 'hidden' : 'button'">
     {{ text }}
   </RouterLink>
+  <a
+    v-else-if="isAnchor"
+    :href="href"
+    :target="target"
+    :rel="rel"
+    :class="hide ? 'hidden' : 'button'">
+    {{ text }}
+  </a>
   <button
     v-else
     type="button"
@@ -25,6 +33,9 @@
     props: {
       text: { type: String, default: () => '' },
       to: { type: String, default: () => undefined },
+      href: { type: String, default: () => undefined },
+      target: { type: String, default: () => undefined },
+      rel: { type: String, default: () => undefined },
       tag: { type: String, default: () => 'button' },
       allowMultipleClick: { type: Boolean, default: () => false },
       hide: { type: Boolean, default: () => false },
@@ -44,6 +55,10 @@
       isRouterLink() {
         const t = (this.tag || '').toLowerCase()
         return !!this.to && (t === 'routerlink' || t === 'router-link')
+      },
+      isAnchor() {
+        const t = (this.tag || '').toLowerCase()
+        return !!this.href && t === 'a'
       },
     },
     methods: {
