@@ -32,9 +32,6 @@
         return this.$t('alt')
       },
     },
-    mounted() {
-      this.$Lazyload.lazyLoadHandler()
-    },
     i18n: {
       messages: {
         fr: {
