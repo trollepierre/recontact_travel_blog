@@ -24,7 +24,7 @@
             <app-button
               v-if="previousArticleId"
               :to="previousArticleId"
-              tag="nuxt-link"
+              tag="NuxtLink"
               class="article"
               :text="$t('previousArticle')"/>
           </li>
@@ -37,7 +37,7 @@
             <app-button
               v-if="nextArticleId"
               :to="nextArticleId"
-              tag="nuxt-link"
+              tag="NuxtLink"
               class="article"
               :text="$t('nextArticle')"/>
           </li>

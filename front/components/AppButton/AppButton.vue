@@ -1,13 +1,23 @@
 <template>
-  <component
-    :is="tag"
-    :type="tag === 'button' ? 'button' : undefined"
-    :class="hide ? 'hidden' : 'button'"
+  <NuxtLink
+    v-if="isNuxtLink"
     :to="to"
-    @click="e => allowMultipleClick ? onClick(e) : undefined"
-    @click.prevent.once="e => allowMultipleClick ? undefined : onClick(e)">
+    :class="hide ? 'hidden' : 'button'">
     {{ text }}
-  </component>
+  </NuxtLink>
+  <RouterLink
+    v-else-if="isRouterLink"
+    :to="to"
+    :class="hide ? 'hidden' : 'button'">
+    {{ text }}
+  </RouterLink>
+  <button
+    v-else
+    type="button"
+    :class="hide ? 'hidden' : 'button'"
+    @click="handleClick">
+    {{ text }}
+  </button>
 </template>
 <script>
   export default {
@@ -19,9 +29,35 @@
       allowMultipleClick: { type: Boolean, default: () => false },
       hide: { type: Boolean, default: () => false },
     },
+    data: () => ({
+      hasClickedOnce: false,
+    }),
+    computed: {
+      isLink() {
+        const t = (this.tag || '').toLowerCase()
+        return !!this.to && (t === 'nuxtlink' || t === 'nuxt-link' || t === 'routerlink' || t === 'router-link')
+      },
+      isNuxtLink() {
+        const t = (this.tag || '').toLowerCase()
+        return !!this.to && (t === 'nuxtlink' || t === 'nuxt-link')
+      },
+      isRouterLink() {
+        const t = (this.tag || '').toLowerCase()
+        return !!this.to && (t === 'routerlink' || t === 'router-link')
+      },
+    },
     methods: {
-      onClick(e) {
-        e.preventDefault()
+      handleClick(e) {
+        // Pour les liens (NuxtLink/RouterLink), ne pas empêcher la navigation
+        if (this.isLink) return
+        // Comportement bouton: bloquer double-clic si allowMultipleClick = false
+        if (!this.allowMultipleClick) {
+          if (this.hasClickedOnce) {
+            e.preventDefault()
+            return
+          }
+          this.hasClickedOnce = true
+        }
         this.$emit('click')
       },
     },
