@@ -1,6 +1,6 @@
 import { flatten } from 'lodash'
 import { expect, sinon } from '../test-helper'
-import SynchroniseArticles from '../../src/use_cases/synchronize-articles'
+import SynchronizeArticles from '../../src/use_cases/synchronize-articles'
 import ArticleRepository from '../../src/domain/repositories/article-repository'
 import ChapterRepository from '../../src/domain/repositories/chapter-repository'
 import PhotoRepository from '../../src/domain/repositories/photo-repository'
@@ -16,7 +16,7 @@ import dropboxArticleFr from '../fixtures/dropboxArticleFr'
 import dropboxArticleEn from '../fixtures/dropboxArticleEn'
 import { dummyArticleFromDb } from '../dummies/dummyArticle'
 
-describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
+describe('Unit | SynchronizeArticles | synchronizeArticles', () => {
   describe('when dropbox rejects error', () => {
     const error = new Error()
 
@@ -32,7 +32,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
     it('should send mail to support', done => {
       // when
-      const promise = SynchroniseArticles.synchronizeArticles()
+      const promise = SynchronizeArticles.synchronizeArticles()
 
       // then
       promise.catch(() => {
@@ -49,7 +49,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
     it('should throw error', done => {
       // when
-      const promise = SynchroniseArticles.synchronizeArticles()
+      const promise = SynchronizeArticles.synchronizeArticles()
 
       // then
       promise.catch(catchedError => {
@@ -89,7 +89,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should call DropboxClient to getAllDropboxFoldersMetadatas', () => {
         // when
-        SynchroniseArticles.synchronizeArticles()
+        SynchronizeArticles.synchronizeArticles()
 
         // then
         expect(DropboxClient.getAllDropboxFoldersMetadatas).to.have.been.calledWith()
@@ -108,7 +108,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
       it('should return chapters with paragraphs', () => {
         // when
-        const promise = SynchroniseArticles.synchronizeArticles()
+        const promise = SynchronizeArticles.synchronizeArticles()
 
         // then
         return promise.then(chapters => {
@@ -173,7 +173,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         it('should create shared link for each image path of the new articles ', () => {
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -195,7 +195,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           }]
 
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -205,7 +205,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         it('should call DropboxClient to get Fr TextFileStream', () => {
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -216,7 +216,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         it('should call DropboxClient to get En TextFileStream', () => {
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -227,7 +227,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         it('should call FileReader to read twice', () => {
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -237,7 +237,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         it('should save new title', () => {
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -252,7 +252,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         it('should save photos', () => {
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -280,7 +280,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         it('should create shared link 2 times per photos + one for folder = 7 times two articles', () => {
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -388,7 +388,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
             }]
 
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -398,7 +398,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
 
         it('should send email with correct options', () => {
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -435,7 +435,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles)
 
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -470,7 +470,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           sinon.stub(ArticleRepository, 'getAll').resolves(oldArticles)
 
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {
@@ -511,7 +511,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           }
 
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(result => {
@@ -538,7 +538,7 @@ describe('Unit | SynchroniseArticles | synchronizeArticles', () => {
           }]
 
           // when
-          const promise = SynchroniseArticles.synchronizeArticles()
+          const promise = SynchronizeArticles.synchronizeArticles()
 
           // then
           return promise.then(() => {

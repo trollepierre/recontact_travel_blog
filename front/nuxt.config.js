@@ -1,6 +1,8 @@
 /* eslint-disable object-curly-newline */
 require('dotenv').config()
 
+process.on('unhandledRejection', error => console.error(error))
+
 const headEn = {
   htmlAttrs: {
     lang: 'en',

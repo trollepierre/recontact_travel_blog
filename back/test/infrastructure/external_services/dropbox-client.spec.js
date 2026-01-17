@@ -355,7 +355,11 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     })
 
     describe('with an error', () => {
-      it('should return a rejected promise', () => {
+      beforeEach(() => {
+        sinon.stub(console, 'error')
+      })
+
+      it('should return a rejected promise', done => {
         // given
         Dropbox.prototype.sharingCreateSharedLink.rejects(new Error('Expected error'))
 
@@ -363,7 +367,14 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         const promise = DropboxClient.createSharedLink(path)
 
         // then
-        return promise.then(link => {
+        promise.then(link => {
+          setTimeout(() => {
+            expect(console.error).to.have.been.calledWith('Erreur lors de la création du lien de : ', '/60/fr.php')
+            expect(console.error).to.have.been.calledWith('Erreur encore : ', '/60/fr.php')
+            expect(console.error).to.have.been.callCount(4)
+            console.error.restore()
+            done()
+          }, 1000)
           expect(link).to.deep.equal({})
         })
       })
