@@ -8,6 +8,7 @@ module.exports = {
     'jest/globals': true,
   },
   globals: {
+    definePageMeta: 'readonly',
     createLocalVue: false,
     shallowMount: false,
     mount: false,
@@ -63,11 +64,26 @@ module.exports = {
     'no-unused-vars': 'error',
     'no-shadow': 'error',
     'no-undef': 'error',
-    'import/no-extraneous-dependencies': 'error',
+    'import/no-extraneous-dependencies': ['error', {
+      devDependencies: [
+        '**/*.spec.js',
+        'test/**',
+        'config/**',
+        '**/jest.setup.js',
+      ],
+    }],
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
 
     indent: 'off',
     'array-callback-return': 'off',
   },
+  overrides: [
+    {
+      files: ['pages/**/*.vue'],
+      rules: {
+        'vue/multi-word-component-names': 'off',
+      },
+    },
+  ],
 }

@@ -24,6 +24,7 @@
     "test:coverage": "yarn test --coverage"
   },
   "dependencies": {
+		"vue": "^3.5.26",
     "@babel/runtime": "7.18.9",
     "@pinia/nuxt": "^0.5.1",
     "axios": "0.21.4",
