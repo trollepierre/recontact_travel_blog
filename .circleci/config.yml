@@ -1,6 +1,6 @@
 common_properties: &common_properties
   docker:
-    - image: cimg/node:16.16.0-browsers
+    - image: cimg/node:22.22.0-browsers
   working_directory: ~/trollepierre/recontact_travel_blog
 
 version: 2.1
