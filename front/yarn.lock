@@ -9495,7 +9495,7 @@ vue3-lazyload@^0.3.8:
   dependencies:
     vue-demi "^0.12.5"
 
-vue@^3.5.25:
+vue@^3.5.25, vue@^3.5.26:
   version "3.5.27"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.5.27.tgz#e55fd941b614459ab2228489bc19d1692e05876c"
   integrity sha512-aJ/UtoEyFySPBGarREmN4z6qNKpbEguYHMmXSiOGk69czc+zhs0NF6tEFrY8TZKAl8N/LYAkd4JHVd5E/AsSmw==

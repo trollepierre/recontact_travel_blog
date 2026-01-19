@@ -3,11 +3,10 @@
 </template>
 
 <script setup>
-import ArticlePage from '../../components/ArticlePage/ArticlePage.vue'
+  import ArticlePage from '../../components/ArticlePage/ArticlePage.vue'
 
-definePageMeta({
-  validate: (route) => /^\d+$/.test(String(route.params.id)),
-})
+  definePageMeta({
+    validate: route => /^\d+$/.test(String(route.params.id)),
+  })
 </script>
-
 

@@ -3,12 +3,12 @@
 </template>
 
 <script>
-import mapboxgl from 'mapbox-gl'
-import { articleLocations } from './article-location'
-import translationService from '../../../services/services/translations'
-import { useRuntimeConfig } from '#imports'
+  import mapboxgl from 'mapbox-gl'
+  import { articleLocations } from './article-location'
+  import translationService from '../../../services/services/translations'
+  import { useRuntimeConfig } from '#imports'
 
-export default {
+  export default {
     name: 'MapBox',
     data() {
       return {
