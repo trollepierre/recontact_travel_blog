@@ -10669,12 +10669,16 @@ vue-router@^4.6.3:
     "@vue/devtools-api" "^6.6.4"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 =======
 vue3-lazyload@^0.4.8:
+=======
+vue3-lazyload@^0.3.8:
+>>>>>>> c2cb5d4 (chore(front): remove netlify files and fix package.json)
   version "0.3.8"
   resolved "https://registry.yarnpkg.com/vue3-lazyload/-/vue3-lazyload-0.3.8.tgz#82749a6b89a4d475c9a7fa409d0cff6c4abbd59d"
   integrity sha512-UiJHRT7mzry102WbhtrRgJh+f8Z8u4Z+H1RU4dvPmQeq7wFSDFxZB9iJOWGihH2FscXN/8rMGLDOQJAmjwqpCg==
