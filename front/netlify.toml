@@ -9,3 +9,7 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[dev]
+  targetPort = 3334
+  port = 3333
