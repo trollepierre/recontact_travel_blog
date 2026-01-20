@@ -1,5 +1,8 @@
 import { mutations, state } from '@/store'
-import { saveInLocalStorage, getInLocalStorage } from '@/services/localStorage/local-storage'
+import {
+  saveInLocalStorage,
+  getInLocalStorage,
+} from '@/services/localStorage/local-storage'
 
 jest.mock('@/services/localStorage/local-storage')
 
@@ -8,9 +11,9 @@ describe('store', () => {
     it('should contain store', () => {
       // Then
       expect(state()).toMatchInlineSnapshot(`
-        Object {
+        {
           "locale": "fr",
-          "locales": Array [
+          "locales": [
             "en",
             "fr",
           ],

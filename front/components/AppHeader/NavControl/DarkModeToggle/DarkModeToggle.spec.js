@@ -29,9 +29,15 @@ describe('Component | DarkModeToggle.vue', () => {
     it('should match snapshot', () => {
       wrapper = shallowMount(DarkModeToggle, { localVue, store })
 
-      expect(wrapper).toMatchInlineSnapshot(
-        '<app-button-stub text="🌙️" tag="button" allowmultipleclick="true" class="dark-button"></app-button-stub>',
-      )
+      expect(wrapper).toMatchInlineSnapshot(`
+        <app-button-stub
+          allowmultipleclick="true"
+          class="dark-button"
+          hide="false"
+          tag="button"
+          text="🌙️"
+        />
+      `)
     })
 
     it('should match snapshot on dark theme', () => {
@@ -54,7 +60,10 @@ describe('Component | DarkModeToggle.vue', () => {
     it('should call get theme mode', () => {
       wrapper = shallowMount(DarkModeToggle, { localVue, store })
 
-      expect(getThemeModeMock).toHaveBeenCalledOnceWith({ theme: 'light' }, undefined)
+      expect(getThemeModeMock).toHaveBeenCalledOnceWith(
+        { theme: 'light' },
+        undefined,
+      )
     })
   })
 
@@ -77,7 +86,10 @@ describe('Component | DarkModeToggle.vue', () => {
 
         // Then
         expect(ThemeApi.send).toHaveBeenCalledOnceWith('dark', 'light')
-        expect(setThemeModeMock).toHaveBeenCalledOnceWith({ theme: 'dark' }, 'light')
+        expect(setThemeModeMock).toHaveBeenCalledOnceWith(
+          { theme: 'dark' },
+          'light',
+        )
       })
 
       it('should send Theme to api and call SET_THEME_MODE with dark theme, when theme is light', () => {
@@ -89,7 +101,10 @@ describe('Component | DarkModeToggle.vue', () => {
 
         // Then
         expect(ThemeApi.send).toHaveBeenCalledOnceWith('light', 'dark')
-        expect(setThemeModeMock).toHaveBeenCalledOnceWith({ theme: 'light' }, 'dark')
+        expect(setThemeModeMock).toHaveBeenCalledOnceWith(
+          { theme: 'light' },
+          'dark',
+        )
       })
     })
   })

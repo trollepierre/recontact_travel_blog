@@ -205,11 +205,13 @@ describe('Component | AdminDashboard.vue', () => {
 
         await wrapper.vm.updateAll()
 
-        return Vue.nextTick().then(() => {
-          expect(notificationsService.information).toHaveBeenCalledTimes(1)
-          expect(router.push).not.toHaveBeenCalled()
-          expect(notificationsService.error).toHaveBeenCalledWith('Error during the synchronisation: message')
-        })
+        return Promise.resolve()
+          .then(() => Vue.nextTick())
+          .then(() => {
+            expect(notificationsService.information).toHaveBeenCalledTimes(1)
+            expect(router.push).not.toHaveBeenCalled()
+            expect(notificationsService.error).toHaveBeenCalledWith('Error during the synchronisation: message')
+          })
       })
     })
 

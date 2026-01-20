@@ -66,7 +66,7 @@ describe('Component | NavControl.vue', () => {
       it('contains fr locales', () => {
         const locales = Object.keys(NavControl.i18n.messages.fr)
         expect(locales).toMatchInlineSnapshot(`
-          Array [
+          [
             "subscribe",
             "suggestion",
             "tdm",
@@ -80,7 +80,7 @@ describe('Component | NavControl.vue', () => {
       it('contains en locales', () => {
         const locales = Object.keys(NavControl.i18n.messages.en)
         expect(locales).toMatchInlineSnapshot(`
-          Array [
+          [
             "subscribe",
             "suggestion",
             "tdm",

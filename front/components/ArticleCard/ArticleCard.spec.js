@@ -74,11 +74,11 @@ describe('Component | ArticleCard.vue', () => {
       })
 
       it('should have enabled article button', () => {
-        expect(wrapper.find('.article__view-button').disabled).toBeUndefined()
+        expect(wrapper.findAllComponents(AppButton).at(0).attributes('disabled')).toBeUndefined()
       })
 
       it('should have enabled dropbox button', () => {
-        expect(wrapper.find('.article__dropbox-button').disabled).toBeUndefined()
+        expect(wrapper.findAllComponents(AppButton).at(1).attributes('disabled')).toBeUndefined()
       })
     })
 
@@ -186,11 +186,12 @@ describe('Component | ArticleCard.vue', () => {
 
           wrapper.vm.updateArticle()
 
-          return Vue.nextTick().then(() => {
-            expect(router.push).toHaveBeenCalledWith('/articles/58')
-
-            console.error = consoleError
-          })
+          return Promise.resolve()
+            .then(() => Vue.nextTick())
+            .then(() => {
+              expect(router.push).toHaveBeenCalledWith('/articles/58')
+              console.error = consoleError
+            })
         })
 
         it('should display success toast notification when synchronisation succeeds', () => {

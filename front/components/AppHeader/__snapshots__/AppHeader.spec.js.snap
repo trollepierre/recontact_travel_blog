@@ -1,36 +1,120 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | AppHeader.vue template should match snapshot 1`] = `
-<header class="header">
-  <div class="container"><a title="Home page" href="/" class="logo"><img alt="Logo" width="38" height="38" src="../../static/velo.png" class="icon"> <span class="recontact">Recontact</span> <span class="me">Me</span></a>
-    <!---->
-    <nav aria-label="navigation">
-      <nav-control-stub></nav-control-stub>
+<header
+  class="header"
+>
+  <div
+    class="container"
+  >
+    <a
+      class="logo"
+      href="/"
+      title="Home page"
+    >
+      <img
+        alt="Logo"
+        class="icon"
+        height="38"
+        src="/velo.png"
+        width="38"
+      />
+      <span
+        class="recontact"
+      >
+        Recontact
+      </span>
+      <span
+        class="me"
+      >
+        Me
+      </span>
+    </a>
+    <!--v-if-->
+    <nav
+      aria-label="navigation"
+    >
+      <nav-control-stub />
     </nav>
   </div>
 </header>
 `;
 
 exports[`Component | AppHeader.vue template should match snapshot on article page 1`] = `
-<header class="header">
-  <div class="container"><a title="Home page" href="/" class="logo"><img alt="Logo" width="38" height="38" src="../../static/velo.png" class="icon"> <span class="recontact">Recontact</span> <span class="me">Me</span></a>
-    <nav aria-label="navigation">
-      <ul class="navigation">
-        <li class="article">
-          <app-button-stub text="<" to="/articles/7" tag="nuxt-link" class="article"></app-button-stub>
+<header
+  class="header"
+>
+  <div
+    class="container"
+  >
+    <a
+      class="logo"
+      href="/"
+      title="Home page"
+    >
+      <img
+        alt="Logo"
+        class="icon"
+        height="38"
+        src="/velo.png"
+        width="38"
+      />
+      <span
+        class="recontact"
+      >
+        Recontact
+      </span>
+      <span
+        class="me"
+      >
+        Me
+      </span>
+    </a>
+    <nav
+      aria-label="navigation"
+    >
+      <ul
+        class="navigation"
+      >
+        <li
+          class="article"
+        >
+          <app-button-stub
+            allowmultipleclick="false"
+            class="article"
+            hide="false"
+            tag="NuxtLink"
+            text="<"
+            to="/articles/7"
+          />
         </li>
-        <li class="article-text">
-          <p class="id">
-            Article 8
+        <li
+          class="article-text"
+        >
+          <p
+            class="id"
+          >
+             Article 8
           </p>
         </li>
-        <li class="article">
-          <app-button-stub text=">" to="/articles/9" tag="nuxt-link" class="article"></app-button-stub>
+        <li
+          class="article"
+        >
+          <app-button-stub
+            allowmultipleclick="false"
+            class="article"
+            hide="false"
+            tag="NuxtLink"
+            text=">"
+            to="/articles/9"
+          />
         </li>
       </ul>
     </nav>
-    <nav aria-label="navigation">
-      <nav-control-stub></nav-control-stub>
+    <nav
+      aria-label="navigation"
+    >
+      <nav-control-stub />
     </nav>
   </div>
 </header>

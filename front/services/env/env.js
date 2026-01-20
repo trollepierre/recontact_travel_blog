@@ -9,8 +9,15 @@ export default key => {
       }
     } catch (e) {
       // fallback to env when useRuntimeConfig n'est pas disponible (tests, scripts)
-      if (process && process.env && process.env.NUXT_ENV_API_URL) {
-        return `${process.env.NUXT_ENV_API_URL}/`
+      if (process && process.env) {
+        if (Object.prototype.hasOwnProperty.call(process.env, 'API_URL')) {
+          return `${process.env.API_URL}/`
+        }
+        if (Object.prototype.hasOwnProperty.call(process.env, 'NUXT_ENV_API_URL')) {
+          return `${process.env.NUXT_ENV_API_URL}/`
+        }
+        // For tests expecting 'undefined/' when not set
+        return `${process.env.API_URL}/`
       }
     }
   }

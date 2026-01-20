@@ -2,42 +2,99 @@
 
 exports[`Component | ArticlePage.vue template when chapters are fetched should match snapshot 1`] = `
 <main>
-  <app-header-stub></app-header-stub>
-  <div class="page">
-    <section class="article-page">
-      <h1 class="article-page__title">
+  <app-header-stub />
+  <div
+    class="page"
+  >
+    <section
+      class="article-page"
+    >
+      <h1
+        class="article-page__title"
+      >
         Title of the article
       </h1>
-      <ul class="chapter__list">
-        <li class="chapter__item">
-          <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
+      <ul
+        class="chapter__list"
+      >
+        
+        <li
+          class="chapter__item"
+        >
+          <chapter-card-stub
+            chapter="[object Object]"
+          />
         </li>
-        <li class="chapter__item">
-          <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
+        <li
+          class="chapter__item"
+        >
+          <chapter-card-stub
+            chapter="[object Object]"
+          />
         </li>
-        <li class="chapter__item">
-          <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
+        <li
+          class="chapter__item"
+        >
+          <chapter-card-stub
+            chapter="[object Object]"
+          />
         </li>
+        
       </ul>
     </section>
-    <comments-stub></comments-stub>
+    <comments-stub />
     <section>
       <h2>
         Here is the photo gallery of this article
       </h2>
-      <ul class="photo-gallery__list">
-        <li class="photo__item">
-          <photo-card-stub photo="[object Object]"></photo-card-stub>
+      <ul
+        class="photo-gallery__list"
+      >
+        
+        <li
+          class="photo__item"
+        >
+          <photo-card-stub
+            photo="[object Object]"
+          />
         </li>
-        <li class="photo__item">
-          <photo-card-stub photo="[object Object]"></photo-card-stub>
+        <li
+          class="photo__item"
+        >
+          <photo-card-stub
+            photo="[object Object]"
+          />
         </li>
+        
       </ul>
     </section>
-    <footer class="footer-article">
-      <app-button-stub text="Go to Home Page" tag="button" class="app-button"></app-button-stub>
-      <app-button-stub text="Read the previous article" tag="button" class="app-button"></app-button-stub>
-      <app-button-stub text="Read the next article" tag="button" class="app-button"></app-button-stub>
+    <footer
+      class="footer-article"
+    >
+      <app-button-stub
+        allowmultipleclick="false"
+        class="app-button"
+        hide="false"
+        tag="NuxtLink"
+        text="Go to Home Page"
+        to="/"
+      />
+      <app-button-stub
+        allowmultipleclick="false"
+        class="app-button"
+        hide="false"
+        tag="NuxtLink"
+        text="Read the previous article"
+        to="/articles/7"
+      />
+      <app-button-stub
+        allowmultipleclick="false"
+        class="app-button"
+        hide="false"
+        tag="NuxtLink"
+        text="Read the next article"
+        to="/articles/81"
+      />
     </footer>
   </div>
 </main>
@@ -45,36 +102,85 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
 
 exports[`Component | ArticlePage.vue template when chapters are not fetched should match snapshot when chapter not fetched 1`] = `
 <main>
-  <app-header-stub></app-header-stub>
-  <div class="page">
-    <section class="article-page">
-      <h1 class="article-page__title">
+  <app-header-stub />
+  <div
+    class="page"
+  >
+    <section
+      class="article-page"
+    >
+      <h1
+        class="article-page__title"
+      >
         Title of the article
       </h1>
-      <ul class="chapter__list">
-        <li class="chapter__item">
-          <chapter-card-stub chapter="[object Object]"></chapter-card-stub>
+      <ul
+        class="chapter__list"
+      >
+        
+        <li
+          class="chapter__item"
+        >
+          <chapter-card-stub
+            chapter="[object Object]"
+          />
         </li>
+        
       </ul>
     </section>
-    <comments-stub></comments-stub>
+    <comments-stub />
     <section>
       <h2>
         Here is the photo gallery of this article
       </h2>
-      <ul class="photo-gallery__list">
-        <li class="photo__item">
-          <photo-card-stub photo="[object Object]"></photo-card-stub>
+      <ul
+        class="photo-gallery__list"
+      >
+        
+        <li
+          class="photo__item"
+        >
+          <photo-card-stub
+            photo="[object Object]"
+          />
         </li>
-        <li class="photo__item">
-          <photo-card-stub photo="[object Object]"></photo-card-stub>
+        <li
+          class="photo__item"
+        >
+          <photo-card-stub
+            photo="[object Object]"
+          />
         </li>
+        
       </ul>
     </section>
-    <footer class="footer-article">
-      <app-button-stub text="Go to Home Page" tag="button" class="app-button"></app-button-stub>
-      <app-button-stub text="Read the previous article" tag="button" class="app-button"></app-button-stub>
-      <app-button-stub text="Read the next article" tag="button" class="app-button"></app-button-stub>
+    <footer
+      class="footer-article"
+    >
+      <app-button-stub
+        allowmultipleclick="false"
+        class="app-button"
+        hide="false"
+        tag="NuxtLink"
+        text="Go to Home Page"
+        to="/"
+      />
+      <app-button-stub
+        allowmultipleclick="false"
+        class="app-button"
+        hide="false"
+        tag="NuxtLink"
+        text="Read the previous article"
+        to="/articles/7"
+      />
+      <app-button-stub
+        allowmultipleclick="false"
+        class="app-button"
+        hide="false"
+        tag="NuxtLink"
+        text="Read the next article"
+        to="/articles/81"
+      />
     </footer>
   </div>
 </main>

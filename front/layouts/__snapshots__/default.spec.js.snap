@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`default layout should return default layout with aliceblue by default 1`] = `
-<div id="app" class="aliceblue-mode">
-  <nuxt></nuxt>
+<div
+  class="aliceblue-mode"
+  id="app"
+>
+  
+  
 </div>
 `;

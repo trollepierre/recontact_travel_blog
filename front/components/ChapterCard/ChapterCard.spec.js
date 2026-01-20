@@ -40,7 +40,7 @@ describe('Component | ChapterCard.vue', () => {
       translationsService.getChapterTitle.mockReturnValue('-')
       propsData = { chapter }
       wrapper = shallowMount(ChapterCard, { localVue, propsData, store })
-      expect(wrapper.find('.chapter__header').element).toBeUndefined()
+      expect(wrapper.find('.chapter__header').exists()).toBe(false)
     })
   })
 

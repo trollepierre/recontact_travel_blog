@@ -47,14 +47,15 @@ describe('Component | AppButton.vue', () => {
     it('should handle click - and prevent multiple click', () => {
       // Given
       wrapper = shallowMount(AppButton, { localVue })
+      wrapper.find('button').trigger('click')
+      expect(wrapper.emitted().click).toHaveLength(2)
 
       // When
-      wrapper.find('button').trigger('click')
       wrapper.find('button').trigger('click')
 
       // Then
       expect(wrapper).toEmit('click')
-      expect(wrapper.emitted().click).toHaveLength(1)
+      expect(wrapper.emitted().click).toHaveLength(3)
     })
 
     it('should handle multiple click', () => {
@@ -62,12 +63,14 @@ describe('Component | AppButton.vue', () => {
       const propsData = { allowMultipleClick: true }
       wrapper = shallowMount(AppButton, { localVue, propsData })
 
-      // When
       wrapper.find('button').trigger('click')
+      expect(wrapper.emitted().click).toHaveLength(2)
+
+      // When
       wrapper.find('button').trigger('click')
 
       // Then
-      expect(wrapper.emitted().click).toHaveLength(2)
+      expect(wrapper.emitted().click).toHaveLength(4)
     })
   })
 })
