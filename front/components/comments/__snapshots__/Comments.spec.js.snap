@@ -2,7 +2,9 @@
 
 exports[`Comments should match snapshot 1`] = `
 <section>
-  <comment-list-stub></comment-list-stub>
-  <comment-form-stub></comment-form-stub>
+  <comment-list-stub
+    toreload="false"
+  />
+  <comment-form-stub />
 </section>
 `;

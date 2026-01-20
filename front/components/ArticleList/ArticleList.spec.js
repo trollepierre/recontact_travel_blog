@@ -25,7 +25,10 @@ describe('Component | ArticleList.vue', () => {
   const fetchedArticles = [article('92'), article('12')]
   const sortedArticles = [article('12'), article('92')]
   const lastPosition = {
-    place: 'Mexico', time: '1er mai 2019', placeEn: 'London', timeEn: '11th October 2019',
+    place: 'Mexico',
+    time: '1er mai 2019',
+    placeEn: 'London',
+    timeEn: '11th October 2019',
   }
 
   beforeEach(() => {
@@ -55,9 +58,11 @@ describe('Component | ArticleList.vue', () => {
 
       wrapper = shallowMount(ArticleList, { localVue, propsData, store })
 
-      return Vue.nextTick().then(() => {
-        expect(wrapper.find('.h3').text()).toBe('London, 11th October 2019')
-      })
+      return Promise.resolve()
+        .then(() => Vue.nextTick())
+        .then(() => {
+          expect(wrapper.find('.h3').text()).toBe('London, 11th October 2019')
+        })
     })
 
     it('should contain lazy when more than 9 articles', async () => {
@@ -84,18 +89,18 @@ describe('Component | ArticleList.vue', () => {
         },
       })
 
-      expect(wrapper.findAllComponents(ArticleCard).at(7).props().lazy).toBe(false)
-      expect(wrapper.findAllComponents(ArticleCard).at(8).props().lazy).toBe(true)
+      expect(wrapper.findAllComponents(ArticleCard).at(7).props().lazy).toBe(
+        false,
+      )
+      expect(wrapper.findAllComponents(ArticleCard).at(8).props().lazy).toBe(
+        true,
+      )
     })
 
     it('should contain lazy when more than 3 articles on MOBILE', async () => {
       // Given
       IS_DESKTOP.mockReturnValue(false)
-      const articles = [
-        article('3'),
-        article('2'),
-        article('1'),
-      ]
+      const articles = [article('3'), article('2'), article('1')]
 
       // When
       wrapper = await shallowMount(ArticleList, {
@@ -106,9 +111,15 @@ describe('Component | ArticleList.vue', () => {
         },
       })
 
-      expect(wrapper.findAllComponents(ArticleCard).at(0).props().lazy).toBe(false)
-      expect(wrapper.findAllComponents(ArticleCard).at(1).props().lazy).toBe(false)
-      expect(wrapper.findAllComponents(ArticleCard).at(2).props().lazy).toBe(true)
+      expect(wrapper.findAllComponents(ArticleCard).at(0).props().lazy).toBe(
+        false,
+      )
+      expect(wrapper.findAllComponents(ArticleCard).at(1).props().lazy).toBe(
+        false,
+      )
+      expect(wrapper.findAllComponents(ArticleCard).at(2).props().lazy).toBe(
+        true,
+      )
     })
 
     it('should remove last position when cecile website', () => {
@@ -119,7 +130,7 @@ describe('Component | ArticleList.vue', () => {
       wrapper = shallowMount(ArticleList, { localVue, store })
 
       // Then
-      expect(wrapper.find('.article-results__title.h3').element).toBeUndefined()
+      expect(wrapper.find('.article-results__title.h3').exists()).toBe(false)
     })
   })
 
@@ -161,7 +172,9 @@ describe('Component | ArticleList.vue', () => {
     it('should return "Les articles du voyage" by default', () => {
       wrapper = shallowMount(ArticleList, { localVue, store })
 
-      expect(wrapper.vm.hiddenTitle).toBe('Travel blog of Pierre and Benoît after a world trip and other adventures')
+      expect(wrapper.vm.hiddenTitle).toBe(
+        'Travel blog of Pierre and Benoît after a world trip and other adventures',
+      )
     })
 
     it('should return "mon cadeau de saint val" when site is cecile', () => {
@@ -225,7 +238,7 @@ describe('Component | ArticleList.vue', () => {
         it('contains 5 locales', () => {
           expect(locales).toHaveLength(5)
           expect(locales).toMatchInlineSnapshot(`
-            Array [
+            [
               "fixWebsite",
               "theArticlesOfTheTrip",
               "lastPosition",
@@ -242,7 +255,7 @@ describe('Component | ArticleList.vue', () => {
         it('contains 5 locales', () => {
           expect(locales).toHaveLength(5)
           expect(locales).toMatchInlineSnapshot(`
-            Array [
+            [
               "fixWebsite",
               "theArticlesOfTheTrip",
               "lastPosition",

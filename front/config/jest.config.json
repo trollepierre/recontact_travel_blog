@@ -11,12 +11,21 @@
   "moduleNameMapper": {
     "^~/(.*)$": "<rootDir>/$1",
     "^~~/(.*)$": "<rootDir>/$1",
-    "^@/(.*)$": "<rootDir>/$1"
+    "^@/(.*)$": "<rootDir>/$1",
+    "^@vue/test-utils$": "<rootDir>/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js",
+    "^vue$": "<rootDir>/config/jest.vue-shim.js",
+    "^@vue/server-renderer$": "<rootDir>/config/jest.server-renderer.mock.js",
+    "^#imports$": "<rootDir>/config/jest.mocked-imports.js",
+    "^vue-lazyload$": "<rootDir>/config/jest.mocked-vue-lazyload.js",
+    "^vue-js-modal$": "<rootDir>/config/jest.mocked-vue-modal.js"
   },
   "transform": {
     "^.+\\.js$": "babel-jest",
-    ".*\\.(vue)$": "@vue/vue2-jest"
+    ".*\\.(vue)$": "@vue/vue3-jest"
   },
+  "transformIgnorePatterns": [
+    "/node_modules/(?!(@vue|vue|vue-router|vue-i18n)/)"
+  ],
   "coverageThreshold": {
     "global": {
       "branches": 90,
@@ -26,7 +35,7 @@
     }
   },
   "snapshotSerializers": [
-    "<rootDir>/node_modules/jest-serializer-vue"
+    "<rootDir>/config/jest.vue-wrapper-serializer.js"
   ],
   "setupFilesAfterEnv": [
     "<rootDir>/config/jest.setup.js"

@@ -134,7 +134,7 @@ describe('Component | CommentForm.vue', () => {
 
         it('contains 9 locales', () => {
           expect(locales).toMatchInlineSnapshot(`
-            Array [
+            [
               "addComment",
               "name",
               "yourName",
@@ -154,7 +154,7 @@ describe('Component | CommentForm.vue', () => {
 
         it('contains 9 locales', () => {
           expect(locales).toMatchInlineSnapshot(`
-            Array [
+            [
               "addComment",
               "name",
               "yourName",

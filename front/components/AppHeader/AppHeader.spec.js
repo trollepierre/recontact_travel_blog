@@ -40,7 +40,10 @@ describe('Component | AppHeader.vue', () => {
       wrapper = shallowMount(AppHeader, { localVue })
 
       // Then
-      expect(window.addEventListener).toHaveBeenCalledWith('scroll', wrapper.vm.onScroll)
+      expect(window.addEventListener).toHaveBeenCalledWith(
+        'scroll',
+        wrapper.vm.onScroll,
+      )
     })
 
     it('should not update article id by default', () => {
@@ -156,7 +159,7 @@ describe('Component | AppHeader.vue', () => {
       it('contains fr locales', () => {
         const locales = Object.keys(AppHeader.i18n.messages.fr)
         expect(locales).toMatchInlineSnapshot(`
-          Array [
+          [
             "home",
             "logo",
             "previousArticle",
@@ -169,7 +172,7 @@ describe('Component | AppHeader.vue', () => {
       it('contains en locales', () => {
         const locales = Object.keys(AppHeader.i18n.messages.en)
         expect(locales).toMatchInlineSnapshot(`
-          Array [
+          [
             "home",
             "logo",
             "previousArticle",

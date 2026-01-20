@@ -1,25 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | PositionForm.vue template should match snapshot 1`] = `
-<form class="position__form">
+<form
+  class="position__form"
+>
   <section>
     <p>
       Nouvelle position FR:
-    </p> <span class="form-group"><label for="positionFr-place">
-        Position&nbsp;FR&nbsp;:
-      </label> <input id="positionFr-place" placeholder="Paris" class="position__input position__place"></span> <span class="form-group"><label for="positionFr-time">
+    </p>
+    <span
+      class="form-group"
+    >
+      <label
+        for="positionFr-place"
+      >
+        Position FR :
+      </label>
+      <input
+        class="position__input position__place"
+        id="positionFr-place"
+        placeholder="Paris"
+      />
+    </span>
+    <span
+      class="form-group"
+    >
+      <label
+        for="positionFr-time"
+      >
         Date FR :
-      </label> <input id="positionFr-time" placeholder="le 1er mai 2018" class="position__input position__time"></span>
+      </label>
+      <input
+        class="position__input position__time"
+        id="positionFr-time"
+        placeholder="le 1er mai 2018"
+      />
+    </span>
   </section>
   <section>
     <p>
       New position EN:
-    </p> <span class="form-group"><label for="positionEn-place">
+    </p>
+    <span
+      class="form-group"
+    >
+      <label
+        for="positionEn-place"
+      >
         Position EN:
-      </label> <input id="positionEn-place" placeholder="London" class="position__input position__place"></span> <span class="form-group"><label for="positionEn-time">
+      </label>
+      <input
+        class="position__input position__place"
+        id="positionEn-place"
+        placeholder="London"
+      />
+    </span>
+    <span
+      class="form-group"
+    >
+      <label
+        for="positionEn-time"
+      >
         Date EN:
-      </label> <input id="positionEn-time" placeholder="29th August 2020" class="position__input position__time"></span>
-  </section> <button type="submit" class="position__button position__action--send">
+      </label>
+      <input
+        class="position__input position__time"
+        id="positionEn-time"
+        placeholder="29th August 2020"
+      />
+    </span>
+  </section>
+  <button
+    class="position__button position__action--send"
+    type="submit"
+  >
     Confirm
   </button>
 </form>

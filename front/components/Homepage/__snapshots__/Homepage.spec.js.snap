@@ -1,21 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | Homepage.vue template should match snapshot on desktop 1`] = `
-<div class="homepage">
-  <app-header-stub></app-header-stub>
-  <div class="container">
-    <main class="main">
-      <h1 class="h1">
+<div
+  class="homepage"
+>
+  <app-header-stub />
+  <div
+    class="container"
+  >
+    <main
+      class="main"
+    >
+      <h1
+        class="h1"
+      >
         Retrieve our articles all around the world:
       </h1>
-      <!---->
-      <p class="see-more">
+      <world-map-stub />
+      <p
+        class="see-more"
+      >
         Want to see always more?
       </p>
-      <app-button-stub text="See the full list of articles" tag="button" class="see-articles"></app-button-stub>
+      <app-button-stub
+        allowmultipleclick="false"
+        class="see-articles"
+        hide="false"
+        tag="button"
+        text="See the full list of articles"
+      />
     </main>
-    <aside style="min-width: 270px;">
-      <article-list-stub articlesnumberlimit="3"></article-list-stub>
+    <aside
+      style="min-width: 270px;"
+    >
+      <article-list-stub
+        adminmode="false"
+        articlesnumberlimit="3"
+      />
     </aside>
   </div>
 </div>

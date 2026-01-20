@@ -207,7 +207,7 @@ describe('Component | PositionForm.vue', () => {
         it('contains 9 locales', () => {
           expect(locales).toHaveLength(9)
           expect(locales).toMatchInlineSnapshot(`
-            Array [
+            [
               "placeFr",
               "placeEn",
               "timeFr",
@@ -228,7 +228,7 @@ describe('Component | PositionForm.vue', () => {
         it('contains 9 locales', () => {
           expect(locales).toHaveLength(9)
           expect(locales).toMatchInlineSnapshot(`
-            Array [
+            [
               "placeFr",
               "placeEn",
               "timeFr",

@@ -14,7 +14,7 @@ const http = axios.create({
 
 const getAll = async path => {
   try {
-    const response = await http.get(path)
+    const response = await http.get(path, { json: true })
     return response.data
   } catch (error) {
     logger.error(error.message)
@@ -24,7 +24,8 @@ const getAll = async path => {
 
 const post = async (path, data) => {
   try {
-    const response = await http.post(path, data)
+    const payload = typeof data === 'undefined' ? { json: true } : data
+    const response = await http.post(path, payload)
     return response.data
   } catch (error) {
     logger.error(error.message)
@@ -34,7 +35,8 @@ const post = async (path, data) => {
 
 const put = async (path, data) => {
   try {
-    const response = await http.patch(path, data)
+    const payload = typeof data === 'undefined' ? { json: true } : data
+    const response = await http.patch(path, payload)
     return response.data
   } catch (error) {
     logger.error(error.message)

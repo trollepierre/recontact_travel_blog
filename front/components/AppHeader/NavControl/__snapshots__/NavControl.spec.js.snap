@@ -1,21 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | NavControl.vue template should match snapshot 1`] = `
-<ul class="navigation">
-  <!---->
-  <!---->
-  <!---->
+<ul
+  class="navigation"
+>
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
   <li>
-    <app-button-stub text="" tag="button" hide="true"></app-button-stub>
+    <app-button-stub
+      allowmultipleclick="false"
+      hide="true"
+      tag="button"
+      text=""
+    />
   </li>
-  <li class="link new-link">
-    <new-mode-toggle-stub></new-mode-toggle-stub>
+  <li
+    class="link new-link"
+  >
+    <new-mode-toggle-stub />
   </li>
-  <li class="link dark-link">
-    <dark-mode-toggle-stub></dark-mode-toggle-stub>
+  <li
+    class="link dark-link"
+  >
+    <dark-mode-toggle-stub />
   </li>
-  <li class="link other-language">
-    <app-button-stub text="🇫🇷" tag="button" class="other-language"></app-button-stub>
+  <li
+    class="link other-language"
+  >
+    <app-button-stub
+      allowmultipleclick="false"
+      class="other-language"
+      hide="false"
+      tag="button"
+      text="🇫🇷"
+    />
   </li>
 </ul>
 `;

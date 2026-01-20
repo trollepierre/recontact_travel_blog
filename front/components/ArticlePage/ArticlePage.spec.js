@@ -151,7 +151,9 @@ describe('Component | ArticlePage.vue', () => {
     describe('#goToHomePage', () => {
       it('should route to next article', () => {
         wrapper = shallowMount(ArticlePage, {
-          localVue, router, data: () => ({ dropboxId }),
+          localVue,
+          router,
+          data: () => ({ dropboxId }),
         })
 
         wrapper.vm.goToHomePage()
@@ -163,7 +165,9 @@ describe('Component | ArticlePage.vue', () => {
     describe('#viewNextArticle', () => {
       it('should route to next article', () => {
         wrapper = shallowMount(ArticlePage, {
-          localVue, router, data: () => ({ dropboxId }),
+          localVue,
+          router,
+          data: () => ({ dropboxId }),
         })
 
         wrapper.vm.viewNextArticle()
@@ -174,7 +178,11 @@ describe('Component | ArticlePage.vue', () => {
 
     describe('#viewPreviousArticle', () => {
       it('should route to previous article', () => {
-        wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId }) })
+        wrapper = shallowMount(ArticlePage, {
+          localVue,
+          router,
+          data: () => ({ dropboxId }),
+        })
 
         wrapper.vm.viewPreviousArticle()
 
@@ -182,7 +190,11 @@ describe('Component | ArticlePage.vue', () => {
       })
 
       it('should not route to article id less than 1', () => {
-        wrapper = shallowMount(ArticlePage, { localVue, router, data: () => ({ dropboxId: 1 }) })
+        wrapper = shallowMount(ArticlePage, {
+          localVue,
+          router,
+          data: () => ({ dropboxId: 1 }),
+        })
 
         wrapper.vm.viewPreviousArticle()
 
@@ -214,7 +226,7 @@ describe('Component | ArticlePage.vue', () => {
               'title',
             ],
             `
-            Array [
+            [
               "hereTheGallery",
               "goToPreviousArticle",
               "goToNextArticle",
@@ -240,7 +252,7 @@ describe('Component | ArticlePage.vue', () => {
               'title',
             ],
             `
-            Array [
+            [
               "hereTheGallery",
               "goToPreviousArticle",
               "goToNextArticle",

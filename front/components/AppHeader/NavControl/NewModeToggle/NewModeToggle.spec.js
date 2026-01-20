@@ -26,9 +26,15 @@ describe('Component | NewModeToggle.vue', () => {
     it('should match snapshot', () => {
       wrapper = shallowMount(NewModeToggle, { localVue, store })
 
-      expect(wrapper).toMatchInlineSnapshot(
-        '<app-button-stub text="🎨" tag="button" allowmultipleclick="true" class="new-button"></app-button-stub>',
-      )
+      expect(wrapper).toMatchInlineSnapshot(`
+        <app-button-stub
+          allowmultipleclick="true"
+          class="new-button"
+          hide="false"
+          tag="button"
+          text="🎨"
+        />
+      `)
     })
 
     it('should match snapshot on new theme', () => {

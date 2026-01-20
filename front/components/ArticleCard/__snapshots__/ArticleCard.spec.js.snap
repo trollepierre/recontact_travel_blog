@@ -1,46 +1,165 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component | ArticleCard.vue when adminMode is not defined template should match snapshot 1`] = `
-<article class="article"><a href="/articles/58" class="article__link">
-    <h2 class="article__title">
+<article
+  class="article"
+>
+  <a
+    class="article__link"
+    href="/articles/58"
+  >
+    <h2
+      class="article__title"
+    >
       Pierre somewhere
     </h2>
   </a>
-  <div class="article__content"><img alt="Pierre somewhere" rel="noreferrer" class="article__image" data-src="webf" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" lazy="loading"></div>
-  <footer class="article__footer">
-    <app-button-stub text="Read the article" tag="button" class="app-button"></app-button-stub>
-    <app-button-stub text="Discover the pictures" tag="a" href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="app-button link"></app-button-stub>
+  <div
+    class="article__content"
+  >
+    <img
+      alt="Pierre somewhere"
+      class="article__image"
+      lazy="loading"
+      rel="noreferrer"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+    />
+  </div>
+  <footer
+    class="article__footer"
+  >
+    
+    <app-button-stub
+      allowmultipleclick="false"
+      class="app-button"
+      hide="false"
+      tag="button"
+      text="Read the article"
+    />
+    <app-button-stub
+      allowmultipleclick="false"
+      class="app-button link"
+      hide="false"
+      href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0"
+      rel="noreferrer"
+      tag="a"
+      target="_blank"
+      text="Discover the pictures"
+    />
+    
   </footer>
 </article>
 `;
 
 exports[`Component | ArticleCard.vue when adminMode is not defined template should match snapshot when lazy is false 1`] = `
-<article class="article"><a href="/articles/58" class="article__link">
-    <h2 class="article__title">
+<article
+  class="article"
+>
+  <a
+    class="article__link"
+    href="/articles/58"
+  >
+    <h2
+      class="article__title"
+    >
       Pierre somewhere
     </h2>
   </a>
-  <div class="article__content"><img src="webf" alt="Pierre somewhere" width="200" class="article__image important"></div>
-  <footer class="article__footer">
-    <app-button-stub text="Read the article" tag="button" class="app-button"></app-button-stub>
-    <app-button-stub text="Discover the pictures" tag="a" href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0" target="_blank" rel="noreferrer" class="app-button link"></app-button-stub>
+  <div
+    class="article__content"
+  >
+    <img
+      alt="Pierre somewhere"
+      class="article__image important"
+      src="webf"
+      width="200"
+    />
+  </div>
+  <footer
+    class="article__footer"
+  >
+    
+    <app-button-stub
+      allowmultipleclick="false"
+      class="app-button"
+      hide="false"
+      tag="button"
+      text="Read the article"
+    />
+    <app-button-stub
+      allowmultipleclick="false"
+      class="app-button link"
+      hide="false"
+      href="https://www.dropbox.com/sh/k79oskpopi9lm8v/AABst0JslmKYw3Rhx9BjwJxMa?dl=0"
+      rel="noreferrer"
+      tag="a"
+      target="_blank"
+      text="Discover the pictures"
+    />
+    
   </footer>
 </article>
 `;
 
 exports[`Component | ArticleCard.vue when adminMode is true should match snapshot 1`] = `
-<article class="article"><a href="/articles/58" class="article__link">
-    <h2 class="article__title">
+<article
+  class="article"
+>
+  <a
+    class="article__link"
+    href="/articles/58"
+  >
+    <h2
+      class="article__title"
+    >
       Pierre somewhere
     </h2>
   </a>
-  <div class="article__content"><img alt="Pierre somewhere" rel="noreferrer" class="article__image" data-src="webf" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" lazy="loading"></div>
-  <footer class="article__footer">
+  <div
+    class="article__content"
+  >
+    <img
+      alt="Pierre somewhere"
+      class="article__image"
+      lazy="loading"
+      rel="noreferrer"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+    />
+  </div>
+  <footer
+    class="article__footer"
+  >
+    
     <form>
-      <app-button-stub text="Repair the chapter" tag="button" class="app-button chapter-button"></app-button-stub> <input class="chapter-input">
+      <app-button-stub
+        allowmultipleclick="false"
+        class="app-button chapter-button"
+        disabled="false"
+        hide="false"
+        tag="button"
+        text="Repair the chapter"
+      />
+      <input
+        class="chapter-input"
+      />
     </form>
-    <app-button-stub text="Repair the article" tag="button" class="app-button"></app-button-stub>
-    <app-button-stub text="Delete the article" tag="button" class="app-button light"></app-button-stub>
+    <app-button-stub
+      allowmultipleclick="false"
+      class="app-button"
+      disabled="false"
+      hide="false"
+      tag="button"
+      text="Repair the article"
+    />
+    <app-button-stub
+      allowmultipleclick="false"
+      class="app-button light"
+      disabled="false"
+      hide="false"
+      tag="button"
+      text="Delete the article"
+    />
+    
   </footer>
 </article>
 `;
