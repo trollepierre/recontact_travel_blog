@@ -1,5 +1,5 @@
 [build]
-  command = "npx nuxi build && mkdir -p .nuxt/dist/client/_nuxt/builds && cp -r .nuxt/builds/* .nuxt/dist/client/_nuxt/builds/"
+  command = "npx nuxi build"
   publish = ".nuxt/dist/client"
 
 [build.environment]
