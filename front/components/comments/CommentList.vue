@@ -25,10 +25,11 @@
     components: { CommentCard },
     props: {
       toReload: { type: Boolean, default: () => false },
+      initialComments: { type: Array, default: () => [] },
     },
     data() {
       return {
-        comments: [],
+        comments: this.initialComments && this.initialComments.length ? this.initialComments : [],
         dropboxId: parseInt(this.$route.params.id, 10),
       }
     },
@@ -42,10 +43,12 @@
       },
     },
     mounted() {
-      commentsApi.fetch(this.dropboxId)
-        .then(comments => {
-          this.comments = comments
-        })
+      if (!this.comments.length) {
+        commentsApi.fetch(this.dropboxId)
+          .then(comments => {
+            this.comments = comments
+          })
+      }
     },
     methods: {
       isEmpty,
