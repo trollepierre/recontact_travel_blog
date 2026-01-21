@@ -11,10 +11,6 @@ const apiUrl = process.env.NUXT_PUBLIC_API_BASE
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-01-16',
-  experimental: {
-    // Désactive la requête client sur /_nuxt/builds/meta/*.json (manifeste d'app)
-    appManifest: false,
-  },
   nitro: {
     preset: 'netlify',
   },
