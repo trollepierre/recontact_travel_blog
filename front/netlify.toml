@@ -1,13 +1,16 @@
 [build]
-  command = "npx nuxi build && if [ -d ./public ]; then cp -R ./public/* .nuxt/dist/client/; fi"
-  publish = ".nuxt/dist/client"
+  command = "NITRO_PRESET=netlify npx nuxi build"
+  publish = ".output/public"
 
 [build.environment]
   NODE_VERSION = "22.22.0"
 
+[functions]
+  node_bundler = "esbuild"
+
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.netlify/functions/server"
   status = 200
 
 [dev]
