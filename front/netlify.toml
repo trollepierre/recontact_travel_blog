@@ -1,6 +1,6 @@
 [build]
   command = "npx nuxi build"
-  publish = ".output/public"
+  publish = ".nuxt/dist/client"
 
 [build.environment]
   NODE_VERSION = "22.22.0"
