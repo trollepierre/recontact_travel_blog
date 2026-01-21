@@ -2,6 +2,7 @@
   <section>
     <comment-list
       :to-reload="toReload"
+      :initial-comments="initialComments"
       @reloaded="reloadOff"/>
     <comment-form @reload="reloadTo"/>
   </section>
@@ -13,6 +14,9 @@
   export default {
     name: 'CommentsContainer',
     components: { CommentForm, CommentList },
+    props: {
+      initialComments: { type: Array, default: () => [] },
+    },
     data() {
       return {
         toReload: false,
