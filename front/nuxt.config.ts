@@ -14,18 +14,18 @@ const apiUrl = process.env.NUXT_PUBLIC_API_BASE ||
 const prerenderFile = resolve(__dirname, '.prerender-routes.json')
 let extraRoutes: string[] = []
 try {
-  if (fs.existsSync(prerenderFile)) {
-    const raw = fs.readFileSync(prerenderFile, 'utf-8')
-    const parsed = JSON.parse(raw)
-    if (Array.isArray(parsed)) {
-      extraRoutes = parsed
-    }
-  }
+	if (fs.existsSync(prerenderFile)) {
+		const raw = fs.readFileSync(prerenderFile, 'utf-8')
+		const parsed = JSON.parse(raw)
+		if (Array.isArray(parsed)) {
+			extraRoutes = parsed
+		}
+	}
 } catch {}
 
 export default defineNuxtConfig({
 	compatibilityDate: '2026-01-16',
-	// Génération statique avec prérendu
+	// Génération statique avec prérendu (SSG)
 	nitro: {
 		preset: 'static',
 		output: {
@@ -33,6 +33,7 @@ export default defineNuxtConfig({
 		},
 		prerender: {
 			routes: ['/', '/articles', ...new Set(extraRoutes)],
+			crawlLinks: false,
 		},
 	},
 	css: [
