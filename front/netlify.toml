@@ -1,16 +1,17 @@
 [build]
-  command = "NITRO_PRESET=netlify npx nuxi build"
-  publish = ".output/public"
+  # Export statique pour Netlify
+  command = "npx nuxi generate"
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "22.22.0"
 
-[functions]
-  node_bundler = "esbuild"
+#[functions]
+#  node_bundler = "esbuild"
 
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/server"
+  to = "/index.html"
   status = 200
 
 [dev]
