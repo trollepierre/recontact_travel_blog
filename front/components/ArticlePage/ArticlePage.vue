@@ -74,19 +74,29 @@
       AppHeader,
       AppButton,
     },
+    props: {
+      initialChapters: { type: Array, default: () => [] },
+      initialPhotos: { type: Array, default: () => [] },
+      initialTitle: { type: String, default: '' },
+      initialDropboxId: { type: [String, Number], default: null },
+    },
     data() {
       return {
-        chapters: [{
-          position: 1,
-          frTitle: 'Article en cours de chargement',
-          enTitle: 'Loading article',
-          imgLink: false,
-          frText: ['Veuillez patienter quelques secondes'],
-          enText: ['Please wait just a second'],
-        }],
-        photos: [],
-        title: '',
-        dropboxId: parseInt(this.$route.params.id, 10),
+        chapters: (this.initialChapters && this.initialChapters.length)
+          ? this.initialChapters
+          : [{
+              position: 1,
+              frTitle: 'Article en cours de chargement',
+              enTitle: 'Loading article',
+              imgLink: false,
+              frText: ['Veuillez patienter quelques secondes'],
+              enText: ['Please wait just a second'],
+            }],
+        photos: this.initialPhotos || [],
+        title: this.initialTitle || '',
+        dropboxId: this.initialDropboxId != null
+          ? parseInt(this.initialDropboxId, 10)
+          : parseInt(this.$route.params.id, 10),
       }
     },
     computed: {
@@ -105,7 +115,13 @@
       },
     },
     mounted() {
-      this.fetchArticle()
+      const hasInitial =
+        (this.initialChapters && this.initialChapters.length > 0) ||
+        (this.initialPhotos && this.initialPhotos.length > 0) ||
+        !!this.initialTitle
+      if (!hasInitial) {
+        this.fetchArticle()
+      }
     },
     methods: {
       fetchArticle() {

@@ -1,6 +1,6 @@
 [build]
-  # Export statique pour Netlify
-  command = "npx nuxi generate"
+  # Export statique pour Netlify avec routes prérendues
+  command = "node scripts/prerender-routes.mjs && npx nuxi generate"
   publish = "dist"
 
 [build.environment]
