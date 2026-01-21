@@ -1,5 +1,5 @@
 [build]
-  command = "npx nuxi build"
+  command = "npx nuxi build && if [ -d ./public ]; then cp -R ./public/* .nuxt/dist/client/; fi"
   publish = ".nuxt/dist/client"
 
 [build.environment]
