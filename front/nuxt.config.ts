@@ -5,71 +5,78 @@ import { config as loadEnv } from 'dotenv'
 loadEnv({ path: resolve(__dirname, '.env.local') })
 loadEnv({ path: resolve(__dirname, '.env') })
 
-const apiUrl = process.env.NUXT_PUBLIC_API_BASE ||
-	process.env.NUXT_ENV_API_URL ||
-	'http://localhost:3334'
+const apiUrl = process.env.NUXT_PUBLIC_API_BASE
+  || process.env.NUXT_ENV_API_URL
+  || 'http://localhost:3334'
 
 export default defineNuxtConfig({
-	compatibilityDate: '2026-01-16',
-	nitro: {
-		preset: 'netlify',
-	},
-	css: [
-		'~/assets/fonts/font.css',
-		'~/assets/css/styles.css',
-		'~/assets/css/mapbox-v2.0.1.css',
-	],
-	modules: [
-		'@pinia/nuxt',
-	],
-	vite: {
-		css: {
-			preprocessorOptions: {
-				scss: {
-					additionalData: '@use \"~/assets/css/colors.scss\" as *; @use \"~/assets/css/variables.scss\" as *;',
-				},
-			},
-		},
-		server: {
-			proxy: {
-				'/api': {
-					target: apiUrl,
-					changeOrigin: true,
-					secure: false,
-				},
-			},
-		},
-	},
-	runtimeConfig: {
-		public: {
-			apiBase: apiUrl,
-			language:
-				process.env.NUXT_PUBLIC_LANGUAGE ||
-				process.env.NUXT_ENV_LANGUAGE ||
-				'fr',
-			mapboxToken:
-				process.env.NUXT_PUBLIC_MAPBOX_TOKEN ||
-				process.env.NUXT_ENV_MAPBOX_API_TOKEN ||
-				'',
-		},
-	},
-	app: {
-		head: {
-			htmlAttrs: { lang: 'fr' },
-			meta: [
-				{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
-				{ name: 'theme-color', content: '#FFFFFF' },
-				{ name: 'msapplication-TileColor', content: '#DA532C' },
-			],
-			link: [
-				{ rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-				{ rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-				{ rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
-				{ rel: 'manifest', href: '/manifest.json' },
-				{ rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
-			],
-		},
-	},
+  compatibilityDate: '2026-01-16',
+  experimental: {
+    // Désactive la requête client sur /_nuxt/builds/meta/*.json (manifeste d'app)
+    appManifest: false,
+  },
+  nitro: {
+    preset: 'netlify',
+  },
+  css: [
+    '~/assets/fonts/font.css',
+    '~/assets/css/styles.css',
+    '~/assets/css/mapbox-v2.0.1.css',
+  ],
+  modules: [
+    '@pinia/nuxt',
+  ],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use \"~/assets/css/colors.scss\" as *; @use \"~/assets/css/variables.scss\" as *;',
+        },
+      },
+    },
+    server: {
+      proxy: {
+        '/api': {
+          target: apiUrl,
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: apiUrl,
+      language:
+        process.env.NUXT_PUBLIC_LANGUAGE
+        || process.env.NUXT_ENV_LANGUAGE
+        || 'fr',
+      mapboxToken:
+        process.env.NUXT_PUBLIC_MAPBOX_TOKEN
+        || process.env.NUXT_ENV_MAPBOX_API_TOKEN
+        || '',
+    },
+  },
+  app: {
+    head: {
+      htmlAttrs: { lang: 'fr' },
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'theme-color', content: '#FFFFFF' },
+        { name: 'msapplication-TileColor', content: '#DA532C' },
+      ],
+      link: [
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        {
+ rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png',
+},
+        {
+ rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png',
+},
+        { rel: 'manifest', href: '/manifest.json' },
+        { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#000000' },
+      ],
+    },
+  },
 })
-
 
