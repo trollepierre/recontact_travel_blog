@@ -15,6 +15,7 @@ dist
 yarn-error.log
 
 .env
+.env.local
 
 # Nuxt PWA
 sw.*
