@@ -13,7 +13,7 @@
     name: 'DarkModeToggle',
     components: { AppButton },
     data: () => ({
-      _toggling: false,
+      toggling: false,
     }),
     computed: {
       changeThemeIcon() {
@@ -28,8 +28,8 @@
     },
     methods: {
       toggleDarkMode() {
-        if (this._toggling) return
-        this._toggling = true
+        if (this.toggling) { return }
+        this.toggling = true
         if (this.isDarkMode) {
           ThemeApi.send(this.$store.state.theme, 'light')
           this.$store.commit('SET_THEME_MODE', 'light')
@@ -37,7 +37,7 @@
           ThemeApi.send(this.$store.state.theme, 'dark')
           this.$store.commit('SET_THEME_MODE', 'dark')
         }
-        setTimeout(() => { this._toggling = false }, 250)
+        setTimeout(() => { this.toggling = false }, 250)
       },
     },
   }

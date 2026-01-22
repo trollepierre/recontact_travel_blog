@@ -1,6 +1,6 @@
 /* Netlify Function: Trigger Netlify Build Hook without exposing the hook URL in client code */
 
-exports.handler = async (event) => {
+exports.handler = async event => {
   try {
     if (event.httpMethod !== 'POST') {
       return { statusCode: 405, body: 'Method Not Allowed' }
