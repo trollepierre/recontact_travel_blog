@@ -32,7 +32,7 @@ export default defineNuxtConfig({
 			publicDir: 'dist',
 		},
 		prerender: {
-			routes: ['/', '/articles', ...new Set(extraRoutes)],
+			routes: ['/', '/articles', '/admin', ...new Set(extraRoutes)],
 			crawlLinks: false,
 		},
 	},
