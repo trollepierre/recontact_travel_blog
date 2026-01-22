@@ -8,7 +8,11 @@
         @click.prevent="triggerRebuild">
         {{ isRebuilding ? $t("rebuildInProgress") : $t("rebuild") }}
       </button>
-      <p v-if="rebuildStatus" class="status">{{ rebuildStatus }}</p>
+      <p
+        v-if="rebuildStatus"
+        class="status">
+        {{ rebuildStatus }}
+      </p>
     </section>
     <button
       :disabled="isClickedSync"
@@ -80,7 +84,7 @@
     },
     methods: {
       async triggerRebuild() {
-        if (this.isRebuilding) return
+        if (this.isRebuilding) { return }
         this.isRebuilding = true
         this.rebuildStatus = ''
         try {
