@@ -1,5 +1,15 @@
 <template>
   <div>
+    <section>
+      <button
+        :disabled="isRebuilding"
+        class="dashboard__buttons"
+        type="button"
+        @click.prevent="triggerRebuild">
+        {{ isRebuilding ? $t("rebuildInProgress") : $t("rebuild") }}
+      </button>
+      <p v-if="rebuildStatus" class="status">{{ rebuildStatus }}</p>
+    </section>
     <button
       :disabled="isClickedSync"
       class="dashboard__buttons"
@@ -64,9 +74,29 @@
         isClickedSync: false,
         min: 1,
         max: 100,
+        isRebuilding: false,
+        rebuildStatus: '',
       }
     },
     methods: {
+      async triggerRebuild() {
+        if (this.isRebuilding) return
+        this.isRebuilding = true
+        this.rebuildStatus = ''
+        try {
+          const res = await fetch('/.netlify/functions/rebuild', { method: 'POST' })
+          if (!res.ok) {
+            const text = await res.text()
+            this.rebuildStatus = `${this.$t('rebuildFailed')} (${res.status}) ${text || ''}`.trim()
+          } else {
+            this.rebuildStatus = this.$t('rebuildOk')
+          }
+        } catch (e) {
+          this.rebuildStatus = `${this.$t('rebuildFailed')} ${e && e.message ? e.message : String(e)}`
+        } finally {
+          this.isRebuilding = false
+        }
+      },
       updateLastPositionData(position) {
         this.$emit('updateLastPositionData', position)
       },
@@ -143,6 +173,10 @@
     i18n: {
       messages: {
         fr: {
+          rebuild: 'Déclencher un rebuild Netlify',
+          rebuildInProgress: 'Rebuild en cours…',
+          rebuildOk: 'Rebuild déclenché avec succès.',
+          rebuildFailed: 'Échec du rebuild',
           getNewArticles: 'Récupérer les nouveaux articles',
           deleteAllArticles: 'Supprimer tous les articles',
           updateAllArticles: 'Réparer tous les articles',
@@ -153,6 +187,10 @@
           syncError: 'Erreur : Problème durant la synchronisation  :',
         },
         en: {
+          rebuild: 'Trigger Netlify rebuild',
+          rebuildInProgress: 'Rebuild in progress…',
+          rebuildOk: 'Rebuild successfully triggered.',
+          rebuildFailed: 'Rebuild failed',
           getNewArticles: 'Synchronise the new articles',
           deleteAllArticles: 'Delete all articles',
           updateAllArticles: 'Repare all articles',
@@ -208,5 +246,10 @@
 
   .label {
     margin-left: 20px;
+  }
+  .status {
+    margin: 8px 0 0;
+    font-size: 12px;
+    opacity: .8;
   }
 </style>

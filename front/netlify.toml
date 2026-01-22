@@ -1,13 +1,13 @@
 [build]
-  # Export statique pour Netlify avec routes prérendues
+  # Export statique pour Netlify avec routes prérendues (SSG)
   command = "node scripts/prerender-routes.mjs && npx nuxi generate"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "22.22.0"
 
-#[functions]
-#  node_bundler = "esbuild"
+[functions]
+  node_bundler = "esbuild"
 
 [[redirects]]
   from = "/*"
