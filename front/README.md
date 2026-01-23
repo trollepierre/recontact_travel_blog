@@ -6,49 +6,42 @@
 
 ``` bash
 # install dependencies
-$ npm install # Or yarn install
+$ yarn install
+
+# run tests
+$ yarn test
 
 # serve with hot reload at localhost:3334
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm start
+$ yarn dev
 
 # generate static project
-$ npm run generate
+$ yarn generate
 ```
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
+# Frontend (Nuxt 3) - Scripts and use
 
-# recontact_travel_blog
+## Development
 
-> Travel blog of Pierre
+- `yarn dev` (alias `yarn start`)
+  - run Nuxt mode development on port 3333.
+  - before, it assures that `.env.local` is created if it does not exist (copy of `.env.defaults`).
 
-## Build Setup
+## Static Build (SSG)
 
-``` bash
-# install dependencies
-npm install
+- `yarn generate`
+  - Build static website in `dist/` (SSG).
+  - Netlify build is executed automatically:
+    1) `node scripts/prerender-routes.mjs` (fetch routes dynamically with articles from API)
+    2) `npx nuxi generate` (generated `dist/`)
 
-# serve with hot reload at localhost:8080
-npm run dev
+## Netlify
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run only unit tests -- to be fixed
-npm test
-```
-
-Add a `.env` file in front that is a clone of `.env.default`
+- `netlify.toml`
+  - `build.command = "node scripts/prerender-routes.mjs && npx nuxi generate"`
+  - `publish = "dist"`
+  - Redirect SPA: `/* -> /index.html 200`
+- Rebuild manual from `/admin`
+  - `AdminDashboard` contains hooks to call `/.netlify/functions/rebuild`.
+  - Configure `NETLIFY_BUILD_HOOK_URL` needed.
