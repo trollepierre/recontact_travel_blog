@@ -357,6 +357,8 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     describe('with an error', () => {
       it('should return a rejected promise', () => {
         // given
+        const consoleStub = sinon.stub(console, 'error')
+        const timeoutStub = sinon.stub(global, 'setTimeout').returns(0)
         Dropbox.prototype.sharingCreateSharedLink.rejects(new Error('Expected error'))
 
         // when
@@ -365,6 +367,9 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         // then
         return promise.then(link => {
           expect(link).to.deep.equal({})
+        }).finally(() => {
+          consoleStub.restore()
+          timeoutStub.restore()
         })
       })
     })
