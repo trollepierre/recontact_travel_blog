@@ -16,7 +16,7 @@ describe('Component | ArticlePage.vue', () => {
   let chapters
   let photos
   let store
-  const dropboxId = '8'
+  const dropboxId = 8
   const title = 'Pierre au pays des'
   const commentsFromApi = [{ text: 'comment1' }]
 

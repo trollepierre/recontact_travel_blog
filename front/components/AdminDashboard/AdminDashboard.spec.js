@@ -399,9 +399,13 @@ describe('Component | AdminDashboard.vue', () => {
       describe('fr', () => {
         const locales = Object.keys(AdminDashboard.i18n.messages.fr)
 
-        it('contains 8 locales', () => {
-          expect(locales).toHaveLength(8)
+        it('contains 12 locales', () => {
+          expect(locales).toHaveLength(12)
           expect(locales).toEqual([
+            'rebuild',
+            'rebuildInProgress',
+            'rebuildOk',
+            'rebuildFailed',
             'getNewArticles',
             'deleteAllArticles',
             'updateAllArticles',
@@ -417,9 +421,13 @@ describe('Component | AdminDashboard.vue', () => {
       describe('en', () => {
         const locales = Object.keys(AdminDashboard.i18n.messages.en)
 
-        it('contains 8 locales', () => {
-          expect(locales).toHaveLength(8)
+        it('contains 12 locales', () => {
+          expect(locales).toHaveLength(12)
           expect(locales).toEqual([
+            'rebuild',
+            'rebuildInProgress',
+            'rebuildOk',
+            'rebuildFailed',
             'getNewArticles',
             'deleteAllArticles',
             'updateAllArticles',

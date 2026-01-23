@@ -3,6 +3,7 @@
 exports[`Comments should match snapshot 1`] = `
 <section>
   <comment-list-stub
+    initialcomments=""
     toreload="false"
   />
   <comment-form-stub />
