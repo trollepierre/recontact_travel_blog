@@ -1,7 +1,8 @@
 import path from 'path'
 
 const robotsOptions = {
-  root: path.join(__dirname, '..', '..', '..', '..', 'client', 'static'),
+  // Serve robots.txt generated in front/dist during SSG
+  root: path.resolve(process.cwd(), '..', 'front', 'dist'),
   headers: {
     'Content-Type': 'text/plain;charset=UTF-8',
   },
