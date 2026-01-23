@@ -153,5 +153,21 @@ describe('paragraph-link-utils', () => {
       // Then
       expect(link).toBe('https://www.recontact.me/articles/84')
     })
+
+    it('should preserve http protocol', () => {
+      // When
+      const link = generateCleanUrlLink('http://cdn.displays2go.com/images/minya-konka-map.gif')
+
+      // Then
+      expect(link).toBe('http://cdn.displays2go.com/images/minya-konka-map.gif')
+    })
+
+    it('should add https to protocol-relative URLs', () => {
+      // When
+      const link = generateCleanUrlLink('//cdn.example.com/img.jpg')
+
+      // Then
+      expect(link).toBe('https://cdn.example.com/img.jpg')
+    })
   })
 })
