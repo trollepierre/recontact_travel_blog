@@ -1,7 +1,8 @@
 import path from 'path'
 
 const sitemapOptions = {
-  root: path.join(__dirname, '..', '..', '..', '..', 'client', 'static'),
+  // Serve sitemap.xml generated in front/dist during SSG
+  root: path.resolve(process.cwd(), '..', 'front', 'dist'),
   headers: {
     'Content-Type': 'text/xml;charset=UTF-8',
   },
