@@ -25,8 +25,11 @@
       // https://www.mapbox.com/install/js/bundler-complete/
       // https://docs.mapbox.com/mapbox-gl-js/example/
       const config = useRuntimeConfig()
-
-      mapboxgl.accessToken = config.public.mapboxToken
+      // Permet d'injecter le token à l'exécution via back/dist/env.js
+      // sans regénération SSG
+      // eslint-disable-next-line no-undef
+      const runtimeToken = (typeof window !== 'undefined' && window.__ENV && window.__ENV.mapboxToken) ? window.__ENV.mapboxToken : undefined
+      mapboxgl.accessToken = runtimeToken || config.public.mapboxToken
 
       this.map = new mapboxgl.Map({
         container: 'map',
