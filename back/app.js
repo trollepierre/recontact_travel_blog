@@ -24,6 +24,7 @@ import robots from './src/infrastructure/seo/robots'
 import sitemap from './src/infrastructure/seo/sitemap'
 import history from './src/infrastructure/seo/history'
 import env from './src/infrastructure/env/env'
+import writeStaticEnv from './src/infrastructure/env/write-static-env'
 
 const app = express()
 
@@ -53,6 +54,8 @@ app.use('/sitemap.xml', sitemap)
 app.use((req, res, next) => (req.url.startsWith('/api') ? next() : history(req, res, next)))
 
 if (env('NODE_ENV') !== 'test') {
+  // Write env.js that exposes runtime variables to static front
+  writeStaticEnv()
   app.use(express.static(path.join(__dirname, '..', '..', 'front', 'dist')))
 }
 
