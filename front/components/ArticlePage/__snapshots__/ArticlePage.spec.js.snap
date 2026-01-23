@@ -42,7 +42,9 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
         
       </ul>
     </section>
-    <comments-stub />
+    <comments-stub
+      initialcomments=""
+    />
     <section>
       <h2>
         Here is the photo gallery of this article
@@ -93,7 +95,7 @@ exports[`Component | ArticlePage.vue template when chapters are fetched should m
         hide="false"
         tag="NuxtLink"
         text="Read the next article"
-        to="/articles/81"
+        to="/articles/9"
       />
     </footer>
   </div>
@@ -128,7 +130,9 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
         
       </ul>
     </section>
-    <comments-stub />
+    <comments-stub
+      initialcomments=""
+    />
     <section>
       <h2>
         Here is the photo gallery of this article
@@ -179,7 +183,7 @@ exports[`Component | ArticlePage.vue template when chapters are not fetched shou
         hide="false"
         tag="NuxtLink"
         text="Read the next article"
-        to="/articles/81"
+        to="/articles/9"
       />
     </footer>
   </div>

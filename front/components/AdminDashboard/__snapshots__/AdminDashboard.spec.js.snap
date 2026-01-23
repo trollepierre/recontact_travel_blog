@@ -2,6 +2,15 @@
 
 exports[`Component | AdminDashboard.vue template should match snapshot 1`] = `
 <div>
+  <section>
+    <button
+      class="dashboard__buttons"
+      type="button"
+    >
+      Trigger Netlify rebuild
+    </button>
+    <!--v-if-->
+  </section>
   <button
     class="dashboard__buttons"
     type="button"
