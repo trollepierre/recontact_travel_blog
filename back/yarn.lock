@@ -1334,10 +1334,15 @@ acorn@^7.1.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
   integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
 
-acorn@^8.11.0, acorn@^8.14.1, acorn@^8.9.0:
+acorn@^8.11.0, acorn@^8.9.0:
   version "8.15.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.15.0.tgz#a360898bc415edaac46c8241f6383975b930b816"
   integrity sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==
+
+acorn@^8.15.0:
+  version "8.18.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.18.0.tgz#4faf01b2d6d326bfeed97aea1f52220b5f4c1940"
+  integrity sha512-lGq+9yr1/GuAWaVYIHRjvvySG5/4VfKIvC8EWxStPdcDh/Ka7FG3twP6v4d5BkravUilhIAsG4Qj83t02LWUPQ==
 
 agent-base@4, agent-base@^4.1.0, agent-base@^4.2.0, agent-base@^4.3.0:
   version "4.3.0"
@@ -8124,11 +8129,11 @@ vary@^1, vary@~1.1.2:
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
 vm2@^3.9.17:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/vm2/-/vm2-3.10.0.tgz#bd241fbf37fed0b7d0050e40ad08d7be6ba33d57"
-  integrity sha512-3ggF4Bs0cw4M7Rxn19/Cv3nJi04xrgHwt4uLto+zkcZocaKwP/nKP9wPx6ggN2X0DSXxOOIc63BV1jvES19wXQ==
+  version "3.11.8"
+  resolved "https://registry.yarnpkg.com/vm2/-/vm2-3.11.8.tgz#3e2506c59c61dd5fbe28e2adfbc925563efde1a5"
+  integrity sha512-fzppkgSU+8m/3A0WfExYzBVLvFapQ31sXvX/WhP7gMbLJalMkHkJO7NPq3IRmYa0UhntY1f1DKpEr06sDFqBEw==
   dependencies:
-    acorn "^8.14.1"
+    acorn "^8.15.0"
     acorn-walk "^8.3.4"
 
 void-elements@^3.1.0:
