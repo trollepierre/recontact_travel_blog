@@ -5,6 +5,7 @@
 
 version: 2
 updates:
+  - enabled: false
   - package-ecosystem: "npm"
     directory: "/back"
     schedule:
