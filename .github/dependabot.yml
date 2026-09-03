@@ -3,34 +3,33 @@
 # Please see the documentation for all configuration options:
 # https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
-version: 2
-updates:
-  - enabled: false
-  - package-ecosystem: "npm"
-    directory: "/back"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 1
-    ignore:
-      - dependency-name: "dropbox"
-      - dependency-name: "node-mailjet" # Breaking Change from v3 to v5
-      - dependency-name: "sequelize" # Breaking Change from v5.21.7 to v6.35.1
-      - dependency-name: "prettier" # Breaking Change from v2.7.1 to v3.10.0
-
-  - package-ecosystem: "npm"
-    directory: "/front"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 1
-    ignore:
-      - dependency-name: "sass-loader" # Breaking Change from v10 to 13
-      - dependency-name: "nuxt" # v3 need Node 18
-      - dependency-name: "axios" # Breaking Change from v0 to v1
-
-  - package-ecosystem: "npm"
-    directory: "/tools/lighthouse"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 1
-    ignore:
-      - dependency-name: "lighthouse" # Breaking Change from v10 to 11 / Node 16 => 18
+#version: 2
+#updates:
+#  - package-ecosystem: "npm"
+#    directory: "/back"
+#    schedule:
+#      interval: "weekly"
+#    open-pull-requests-limit: 1
+#    ignore:
+#      - dependency-name: "dropbox"
+#      - dependency-name: "node-mailjet" # Breaking Change from v3 to v5
+#      - dependency-name: "sequelize" # Breaking Change from v5.21.7 to v6.35.1
+#      - dependency-name: "prettier" # Breaking Change from v2.7.1 to v3.10.0
+#
+#  - package-ecosystem: "npm"
+#    directory: "/front"
+#    schedule:
+#      interval: "weekly"
+#    open-pull-requests-limit: 1
+#    ignore:
+#      - dependency-name: "sass-loader" # Breaking Change from v10 to 13
+#      - dependency-name: "nuxt" # v3 need Node 18
+#      - dependency-name: "axios" # Breaking Change from v0 to v1
+#
+#  - package-ecosystem: "npm"
+#    directory: "/tools/lighthouse"
+#    schedule:
+#      interval: "weekly"
+#    open-pull-requests-limit: 1
+#    ignore:
+#      - dependency-name: "lighthouse" # Breaking Change from v10 to 11 / Node 16 => 18
