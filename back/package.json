@@ -33,7 +33,7 @@
     "dropbox": "2.5.13",
     "express": "4.18.2",
     "lodash": "^4.18",
-    "morgan": "^1.11",
+    "morgan": "^1.12",
     "node-mailjet": "3.4.1",
     "node-schedule": "^2.1",
     "ramda": "0.32.0",
