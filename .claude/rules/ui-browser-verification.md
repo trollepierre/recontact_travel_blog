@@ -2,19 +2,15 @@
 
 Verify a UI bug in a real browser before claiming a fix, especially on mobile.
 
+Ports, env vars, routes and the `/admin` warning live in `local-development.md` — start the servers
+from there, then follow this procedure.
+
 ## Verification procedure
 
-### 0. Prerequisites
+### 1. Confirm the build before reading the UI
 
-Both servers are needed: the front (3333) calls the API at `NUXT_ENV_API_URL`
-(`http://localhost:3334` by default). The configs are already in `.claude/launch.json` (they load
-Node 22.22.0 through nvm):
-
-- `preview_start` with `name: "recontact-back"` → API on 3334
-- `preview_start` with `name: "recontact-front"` → Nuxt dev server on 3333
-
-Check the build with `preview_logs` before concluding anything about the UI: a blank screen is more
-often a build error than a layout bug. The lines that mean "ready":
+A blank screen is more often a build error than a layout bug. Check `preview_logs` for the lines
+that mean "ready":
 
 - back: `Listening on port: 3334` (preceded by the sqlite `CREATE TABLE IF NOT EXISTS ...` lines)
 - front: `➜ Local: http://localhost:3333/` then `Nuxt Nitro server built`
@@ -22,14 +18,6 @@ often a build error than a layout bug. The lines that mean "ready":
 On a cold start the front takes ~20s to answer 200 (Vite pre-bundling `mapbox-gl`, `axios`) and
 reloads once right after (`optimized dependencies changed. reloading`): wait for that reload before
 judging what is rendered.
-
-### 1. Open the page
-
-`navigate` to `http://localhost:3333`, then the route under test: `/` (homepage), `/articles` (list),
-`/articles/:id` (article), `/admin`. No login: nothing is gated locally.
-
-⚠️ `/admin` exposes destructive buttons ("SUPPRIMER TOUS LES ARTICLES", "SUPPRIMER & SYNCHRO") and a
-Netlify build trigger. Never click them to "test" — read the DOM instead.
 
 ### 2. Match the viewport
 
@@ -72,15 +60,17 @@ matching their viewport.
 `resize_window` with `preset: "desktop"` to return the tab to its normal size, and `preview_stop` on
 servers that are no longer needed.
 
-## Recontact gotchas
+## Console noise that is not your bug
 
-- Nuxt does SSR/SSG: a server/client divergence shows up in the console as a hydration mismatch —
-  always read `read_console_messages` before concluding. **There is already one on startup**, on
-  `<DefaultLayout>` (`Hydration node mismatch` + `Hydration completed but contains mismatches`):
-  that is pre-existing noise, not proof your change broke something. Compare against a baseline
-  before blaming a fix for it.
-- The `<Suspense> is an experimental feature` warning and the Nuxt DevTools logs are normal noise too.
-- The Mapbox map (`front/components/Homepage/Map/Map.vue`) needs `NUXT_PUBLIC_MAPBOX_TOKEN`; it ships
-  in `front/.env.defaults`, so the map should render — if it is blank, `.env.local` was edited.
-- The local database starts empty: `/api/articles` returns `[]`, article lists and the admin position
-  are empty. That is not a CSS bug.
+Nuxt does SSR/SSG, so a server/client divergence shows up as a hydration mismatch — always read
+`read_console_messages` before concluding. But some of it is pre-existing:
+
+- `<DefaultLayout>` already mismatches on startup (`Hydration node mismatch` + `Hydration completed
+  but contains mismatches`). Compare against a baseline before blaming a fix for it.
+- `<Suspense> is an experimental feature` and the Nuxt DevTools banner are normal.
+
+## Empty-looking UI that is not a CSS bug
+
+- Article lists and the admin position are empty because the local database starts empty.
+- A blank homepage map means `NUXT_PUBLIC_MAPBOX_TOKEN` was dropped from `front/.env.local`; the
+  shipped default works.
