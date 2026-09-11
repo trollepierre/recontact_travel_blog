@@ -1,26 +1,38 @@
-import Dropbox from 'dropbox'
 import dropboxFilesListFolder from '../../fixtures/dropboxFilesListFolder'
 import filteredDropboxPaths from '../../fixtures/filteredDropboxPaths'
 import dropboxFilesGetTemporaryLink from '../../fixtures/dropboxFilesGetTemporaryLink'
-import DropboxClient from '../../../src/infrastructure/external_services/dropbox-client'
+import dropboxSharedLinkCreate from '../../fixtures/dropboxSharedLinkCreate'
+import DropboxClient, { dropboxApi } from '../../../src/infrastructure/external_services/dropbox-client'
 import { expect, sinon } from '../../test-helper'
+
+// createSharedLink waits 1s before retrying, so those specs need more than the 2s default
+const RETRY_TIMEOUT = 5000
+
+// The Dropbox SDK v10 wraps every answer in { status, headers, result }
+const dropboxResponse = result => ({ status: 200, headers: {}, result })
+
+const alreadySharedError = () => {
+  const err = new Error('Dropbox error')
+  err.error = { error_summary: 'shared_link_already_exists/...', error: { '.tag': 'shared_link_already_exists' } }
+  return err
+}
 
 describe('Unit | Infrastructure | dropbox-client', () => {
   describe('#getAllDropboxFoldersMetadatas', () => {
     beforeEach(() => {
-      sinon.stub(Dropbox.prototype, 'filesListFolder')
-      sinon.stub(Dropbox.prototype, 'filesListFolderContinue')
+      sinon.stub(dropboxApi, 'filesListFolder')
+      sinon.stub(dropboxApi, 'filesListFolderContinue')
     })
 
     afterEach(() => {
-      Dropbox.prototype.filesListFolder.restore()
-      Dropbox.prototype.filesListFolderContinue.restore()
+      dropboxApi.filesListFolder.restore()
+      dropboxApi.filesListFolderContinue.restore()
     })
 
     describe('with a successful answer', () => {
       it('should return filtered file metadatas from dropbox', () => {
         // given
-        Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() })
+        dropboxApi.filesListFolder.resolves(dropboxResponse({ entries: dropboxFilesListFolder() }))
 
         // when
         const promise = DropboxClient.getAllDropboxFoldersMetadatas()
@@ -33,31 +45,31 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
       it('should call dropbox API "filesListFolder" with emptyPath', () => {
         // given
-        Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() })
+        dropboxApi.filesListFolder.resolves(dropboxResponse({ entries: dropboxFilesListFolder() }))
 
         // when
         DropboxClient.getAllDropboxFoldersMetadatas()
 
         // then
-        expect(Dropbox.prototype.filesListFolder).to.have.been.calledWith({ path: '', recursive: true })
+        expect(dropboxApi.filesListFolder).to.have.been.calledWith({ path: '', recursive: true })
       })
 
       describe('when FilesListFolder.has_more is false', () => {
         it('should not call dropbox API "filesListFolderContinue" ', () => {
           // given
-          Dropbox.prototype.filesListFolder.resolves({
+          dropboxApi.filesListFolder.resolves(dropboxResponse({
             has_more: false,
             cursor: 'cursor',
             entries: dropboxFilesListFolder(),
-          })
-          Dropbox.prototype.filesListFolderContinue.resolves({ entries: dropboxFilesListFolder() })
+          }))
+          dropboxApi.filesListFolderContinue.resolves(dropboxResponse({ entries: dropboxFilesListFolder() }))
 
           // when
           const promise = DropboxClient.getAllDropboxFoldersMetadatas()
 
           // then
           return promise.then(() => {
-            expect(Dropbox.prototype.filesListFolderContinue).not.to.have.been.called
+            expect(dropboxApi.filesListFolderContinue).not.to.have.been.called
           })
         })
       })
@@ -65,44 +77,44 @@ describe('Unit | Infrastructure | dropbox-client', () => {
       describe('when FilesListFolder.has_more is true', () => {
         it('should call dropbox API "filesListFolderContinue" with former cursor', () => {
           // given
-          Dropbox.prototype.filesListFolder.resolves({
+          dropboxApi.filesListFolder.resolves(dropboxResponse({
             has_more: true,
             cursor: 'cursor',
             entries: dropboxFilesListFolder(),
-          })
-          Dropbox.prototype.filesListFolderContinue.resolves({ entries: dropboxFilesListFolder() })
+          }))
+          dropboxApi.filesListFolderContinue.resolves(dropboxResponse({ entries: dropboxFilesListFolder() }))
 
           // when
           const promise = DropboxClient.getAllDropboxFoldersMetadatas()
 
           // then
           return promise.then(() => {
-            expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor' })
+            expect(dropboxApi.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor' })
           })
         })
 
         describe('when FilesListFolderContinue.has_more is true twice', () => {
           beforeEach(() => {
             // given
-            Dropbox.prototype.filesListFolder.resolves({
+            dropboxApi.filesListFolder.resolves(dropboxResponse({
               has_more: true,
               cursor: 'cursor',
               entries: dropboxFilesListFolder(),
-            })
-            const stub = Dropbox.prototype.filesListFolderContinue
+            }))
+            const stub = dropboxApi.filesListFolderContinue
             stub.onFirstCall()
-              .resolves({
+              .resolves(dropboxResponse({
                 has_more: true,
                 cursor: 'cursor2',
                 entries: dropboxFilesListFolder(),
-              })
+              }))
             stub.onSecondCall()
-              .resolves({
+              .resolves(dropboxResponse({
                 has_more: true,
                 cursor: 'cursor3',
                 entries: dropboxFilesListFolder(),
-              })
-            stub.onThirdCall().resolves({ entries: dropboxFilesListFolder() })
+              }))
+            stub.onThirdCall().resolves(dropboxResponse({ entries: dropboxFilesListFolder() }))
           })
 
           it('should call again  2 more times dropbox API "filesListFolderContinue" with former cursors', () => {
@@ -111,10 +123,10 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
             // then
             return promise.then(() => {
-              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledThrice
-              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor' })
-              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor2' })
-              expect(Dropbox.prototype.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor3' })
+              expect(dropboxApi.filesListFolderContinue).to.have.been.calledThrice
+              expect(dropboxApi.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor' })
+              expect(dropboxApi.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor2' })
+              expect(dropboxApi.filesListFolderContinue).to.have.been.calledWith({ cursor: 'cursor3' })
             })
           })
 
@@ -134,7 +146,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     describe('with an error', () => {
       it('should return a rejected promise', () => {
         // given
-        Dropbox.prototype.filesListFolder.rejects(new Error('Expected error'))
+        dropboxApi.filesListFolder.rejects(new Error('Expected error'))
 
         // when
         const promise = DropboxClient.getAllDropboxFoldersMetadatas()
@@ -153,17 +165,17 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     const idArticle = 59
 
     beforeEach(() => {
-      sinon.stub(Dropbox.prototype, 'filesListFolder')
+      sinon.stub(dropboxApi, 'filesListFolder')
     })
 
     afterEach(() => {
-      Dropbox.prototype.filesListFolder.restore()
+      dropboxApi.filesListFolder.restore()
     })
 
     describe('with a successful answer', () => {
       it('should return filtered file metadatas from dropbox', () => {
         // given
-        Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() })
+        dropboxApi.filesListFolder.resolves(dropboxResponse({ entries: dropboxFilesListFolder() }))
 
         // when
         const promise = DropboxClient.getFilesFolderPaths(idArticle)
@@ -176,20 +188,20 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
       it('should call dropbox API "filesListFolder" with emptyPath', () => {
         // given
-        Dropbox.prototype.filesListFolder.resolves({ entries: dropboxFilesListFolder() })
+        dropboxApi.filesListFolder.resolves(dropboxResponse({ entries: dropboxFilesListFolder() }))
 
         // when
         DropboxClient.getFilesFolderPaths(idArticle)
 
         // then
-        expect(Dropbox.prototype.filesListFolder).to.have.been.calledWith({ path: '/59/', recursive: true })
+        expect(dropboxApi.filesListFolder).to.have.been.calledWith({ path: '/59/', recursive: true })
       })
     })
 
     describe('with an error', () => {
       it('should return a rejected promise', () => {
         // given
-        Dropbox.prototype.filesListFolder.rejects(new Error('Expected error'))
+        dropboxApi.filesListFolder.rejects(new Error('Expected error'))
 
         // when
         const promise = DropboxClient.getFilesFolderPaths(idArticle)
@@ -208,18 +220,18 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     let idArticle
 
     beforeEach(() => {
-      sinon.stub(Dropbox.prototype, 'filesGetTemporaryLink')
+      sinon.stub(dropboxApi, 'filesGetTemporaryLink')
       idArticle = 59
     })
 
     afterEach(() => {
-      Dropbox.prototype.filesGetTemporaryLink.restore()
+      dropboxApi.filesGetTemporaryLink.restore()
     })
 
     describe('with a successful answer', () => {
       it('should return link from dropbox answer', () => {
         // given
-        Dropbox.prototype.filesGetTemporaryLink.resolves(dropboxFilesGetTemporaryLink())
+        dropboxApi.filesGetTemporaryLink.resolves(dropboxResponse(dropboxFilesGetTemporaryLink()))
 
         // when
         const promise = DropboxClient.getFrTextFileStream(idArticle)
@@ -232,20 +244,20 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
       it('should call dropbox API "dropbox filesGetTemporaryLink" with path container idArticle', () => {
         // given
-        Dropbox.prototype.filesGetTemporaryLink.resolves(dropboxFilesGetTemporaryLink())
+        dropboxApi.filesGetTemporaryLink.resolves(dropboxResponse(dropboxFilesGetTemporaryLink()))
 
         // when
         DropboxClient.getFrTextFileStream(idArticle)
 
         // then
-        expect(Dropbox.prototype.filesGetTemporaryLink).to.have.been.calledWith({ path: `/${idArticle}/fr.php` })
+        expect(dropboxApi.filesGetTemporaryLink).to.have.been.calledWith({ path: `/${idArticle}/fr.php` })
       })
     })
 
     describe('with an error', () => {
       it('should return a rejected promise', () => {
         // given
-        Dropbox.prototype.filesGetTemporaryLink.rejects(new Error('Expected error'))
+        dropboxApi.filesGetTemporaryLink.rejects(new Error('Expected error'))
 
         // when
         const promise = DropboxClient.getFrTextFileStream(idArticle)
@@ -264,18 +276,18 @@ describe('Unit | Infrastructure | dropbox-client', () => {
     let idArticle
 
     beforeEach(() => {
-      sinon.stub(Dropbox.prototype, 'filesGetTemporaryLink')
+      sinon.stub(dropboxApi, 'filesGetTemporaryLink')
       idArticle = 59
     })
 
     afterEach(() => {
-      Dropbox.prototype.filesGetTemporaryLink.restore()
+      dropboxApi.filesGetTemporaryLink.restore()
     })
 
     describe('with a successful answer', () => {
       it('should return link from dropbox answer', () => {
         // given
-        Dropbox.prototype.filesGetTemporaryLink.resolves(dropboxFilesGetTemporaryLink())
+        dropboxApi.filesGetTemporaryLink.resolves(dropboxResponse(dropboxFilesGetTemporaryLink()))
 
         // when
         const promise = DropboxClient.getEnTextFileStream(idArticle)
@@ -288,20 +300,20 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
       it('should call dropbox API "dropbox filesGetTemporaryLink" with path container idArticle', () => {
         // given
-        Dropbox.prototype.filesGetTemporaryLink.resolves(dropboxFilesGetTemporaryLink())
+        dropboxApi.filesGetTemporaryLink.resolves(dropboxResponse(dropboxFilesGetTemporaryLink()))
 
         // when
         DropboxClient.getEnTextFileStream(idArticle)
 
         // then
-        expect(Dropbox.prototype.filesGetTemporaryLink).to.have.been.calledWith({ path: `/${idArticle}/en.php` })
+        expect(dropboxApi.filesGetTemporaryLink).to.have.been.calledWith({ path: `/${idArticle}/en.php` })
       })
     })
 
     describe('with an error', () => {
       it('should return a rejected promise', () => {
         // given
-        Dropbox.prototype.filesGetTemporaryLink.rejects(new Error('Expected error'))
+        dropboxApi.filesGetTemporaryLink.rejects(new Error('Expected error'))
 
         // when
         const promise = DropboxClient.getEnTextFileStream(idArticle)
@@ -318,48 +330,70 @@ describe('Unit | Infrastructure | dropbox-client', () => {
 
   describe('#createSharedLink', () => {
     let path
+    let consoleErrorStub
+    let consoleInfoStub
 
     beforeEach(() => {
-      sinon.stub(Dropbox.prototype, 'sharingCreateSharedLink')
+      sinon.stub(dropboxApi, 'sharingCreateSharedLinkWithSettings')
+      sinon.stub(dropboxApi, 'sharingListSharedLinks')
+      consoleErrorStub = sinon.stub(console, 'error')
+      consoleInfoStub = sinon.stub(console, 'info')
       path = '/60/fr.php'
     })
 
     afterEach(() => {
-      Dropbox.prototype.sharingCreateSharedLink.restore()
+      dropboxApi.sharingCreateSharedLinkWithSettings.restore()
+      dropboxApi.sharingListSharedLinks.restore()
+      consoleErrorStub.restore()
+      consoleInfoStub.restore()
     })
 
     describe('with a successful answer', () => {
       it('should return created link', () => {
         // given
-        Dropbox.prototype.sharingCreateSharedLink.resolves(dropboxFilesGetTemporaryLink)
+        dropboxApi.sharingCreateSharedLinkWithSettings.resolves(dropboxResponse(dropboxSharedLinkCreate))
 
         // when
         const promise = DropboxClient.createSharedLink(path)
 
         // then
         return promise.then(link => {
-          expect(link).to.deep.equal(dropboxFilesGetTemporaryLink)
+          expect(link).to.deep.equal(dropboxSharedLinkCreate)
         })
       })
 
-      it('should call dropbox API "sharingCreateSharedLink" with path and short_url false', () => {
+      it('should call dropbox API "sharingCreateSharedLinkWithSettings" with path', () => {
         // given
-        Dropbox.prototype.sharingCreateSharedLink.resolves(dropboxFilesGetTemporaryLink)
+        dropboxApi.sharingCreateSharedLinkWithSettings.resolves(dropboxResponse(dropboxSharedLinkCreate))
 
         // when
         DropboxClient.createSharedLink(path)
 
         // then
-        expect(Dropbox.prototype.sharingCreateSharedLink).to.have.been.calledWith({ path, short_url: false })
+        expect(dropboxApi.sharingCreateSharedLinkWithSettings).to.have.been.calledWith({ path })
       })
     })
 
-    describe('with an error', () => {
-      it('should return a rejected promise', () => {
+    describe('when the file is already shared', () => {
+      it('should return the existing shared link', () => {
         // given
-        const consoleStub = sinon.stub(console, 'error')
-        const timeoutStub = sinon.stub(global, 'setTimeout').returns(0)
-        Dropbox.prototype.sharingCreateSharedLink.rejects(new Error('Expected error'))
+        dropboxApi.sharingCreateSharedLinkWithSettings.rejects(alreadySharedError())
+        dropboxApi.sharingListSharedLinks.resolves(dropboxResponse({ links: [dropboxSharedLinkCreate] }))
+
+        // when
+        const promise = DropboxClient.createSharedLink(path)
+
+        // then
+        return promise.then(link => {
+          expect(dropboxApi.sharingListSharedLinks).to.have.been.calledWith({ path, direct_only: true })
+          expect(link).to.deep.equal(dropboxSharedLinkCreate)
+        })
+      })
+
+      it('should return an empty link when dropbox lists none', () => {
+        // given
+        dropboxApi.sharingCreateSharedLinkWithSettings.rejects(alreadySharedError())
+        dropboxApi.sharingListSharedLinks.resolves(dropboxResponse({ links: [] }))
 
         // when
         const promise = DropboxClient.createSharedLink(path)
@@ -367,9 +401,41 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         // then
         return promise.then(link => {
           expect(link).to.deep.equal({})
-        }).finally(() => {
-          consoleStub.restore()
-          timeoutStub.restore()
+        })
+      })
+    })
+
+    describe('with an error', () => {
+      it('should retry once and return the link when the retry succeeds', function retrySucceeds() {
+        this.timeout(RETRY_TIMEOUT)
+
+        // given
+        dropboxApi.sharingCreateSharedLinkWithSettings.onFirstCall().rejects(new Error('Expected error'))
+        dropboxApi.sharingCreateSharedLinkWithSettings.onSecondCall()
+          .resolves(dropboxResponse(dropboxSharedLinkCreate))
+
+        // when
+        const promise = DropboxClient.createSharedLink(path)
+
+        // then
+        return promise.then(link => {
+          expect(dropboxApi.sharingCreateSharedLinkWithSettings).to.have.been.calledTwice
+          expect(link).to.deep.equal(dropboxSharedLinkCreate)
+        })
+      })
+
+      it('should return an empty object when the retry fails too', function retryFails() {
+        this.timeout(RETRY_TIMEOUT)
+
+        // given
+        dropboxApi.sharingCreateSharedLinkWithSettings.rejects(new Error('Expected error'))
+
+        // when
+        const promise = DropboxClient.createSharedLink(path)
+
+        // then
+        return promise.then(link => {
+          expect(link).to.deep.equal({})
         })
       })
     })
