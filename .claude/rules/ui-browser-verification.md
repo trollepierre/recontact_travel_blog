@@ -1,59 +1,57 @@
-# Vérification UI — navigateur obligatoire
+# UI verification — browser required
 
-Vérifier un bug d'UI dans un vrai navigateur avant d'annoncer un correctif (surtout en mobile).
+Verify a UI bug in a real browser before claiming a fix, especially on mobile.
 
-## Procédure de vérification
+## Verification procedure
 
-### 0. Prérequis
+### 0. Prerequisites
 
-Les deux serveurs sont nécessaires : le front (3333) tape l'API sur `NUXT_ENV_API_URL`
-(`http://localhost:3334` par défaut). Les configs sont déjà dans `.claude/launch.json` (elles
-chargent Node 22.22.0 via nvm) :
+Both servers are needed: the front (3333) calls the API at `NUXT_ENV_API_URL`
+(`http://localhost:3334` by default). The configs are already in `.claude/launch.json` (they load
+Node 22.22.0 through nvm):
 
-- `preview_start` avec `name: "recontact-back"` → API sur 3334
-- `preview_start` avec `name: "recontact-front"` → Nuxt dev server sur 3333
+- `preview_start` with `name: "recontact-back"` → API on 3334
+- `preview_start` with `name: "recontact-front"` → Nuxt dev server on 3333
 
-Vérifier la compilation avec `preview_logs` avant de conclure quoi que ce soit sur l'UI : un écran
-vide est souvent une erreur de build, pas un bug de layout. Les lignes qui signalent que c'est prêt :
+Check the build with `preview_logs` before concluding anything about the UI: a blank screen is more
+often a build error than a layout bug. The lines that mean "ready":
 
-- back : `Listening on port: 3334` (précédé des `CREATE TABLE IF NOT EXISTS ...` sqlite)
-- front : `➜ Local: http://localhost:3333/` puis `Nuxt Nitro server built`
+- back: `Listening on port: 3334` (preceded by the sqlite `CREATE TABLE IF NOT EXISTS ...` lines)
+- front: `➜ Local: http://localhost:3333/` then `Nuxt Nitro server built`
 
-Le front met ~20 s à répondre 200 au premier démarrage (pré-bundling Vite de `mapbox-gl`, `axios`) et
-recharge une fois juste après (`optimized dependencies changed. reloading`) : attendre cette reload
-avant de juger un rendu.
+On a cold start the front takes ~20s to answer 200 (Vite pre-bundling `mapbox-gl`, `axios`) and
+reloads once right after (`optimized dependencies changed. reloading`): wait for that reload before
+judging what is rendered.
 
-### 1. Ouvrir la page concernée
+### 1. Open the page
 
-`navigate` sur `http://localhost:3333`, puis la route visée : `/` (homepage), `/articles` (liste),
-`/articles/:id` (article), `/admin`. Pas de login : aucune route n'est protégée en local.
+`navigate` to `http://localhost:3333`, then the route under test: `/` (homepage), `/articles` (list),
+`/articles/:id` (article), `/admin`. No login: nothing is gated locally.
 
-⚠️ `/admin` expose des boutons destructeurs (« SUPPRIMER TOUS LES ARTICLES », « SUPPRIMER & SYNCHRO »)
-et un déclencheur de build Netlify. Ne jamais les cliquer pour « tester » — lire le DOM à la place.
+⚠️ `/admin` exposes destructive buttons ("SUPPRIMER TOUS LES ARTICLES", "SUPPRIMER & SYNCHRO") and a
+Netlify build trigger. Never click them to "test" — read the DOM instead.
 
-### 2. Matcher le viewport
+### 2. Match the viewport
 
-`resize_window` avec `width`/`height` explicites (ex. 390×844 pour un mobile `< 400px`), pas
-seulement un `matchMedia` théorique. Recharger la page pour rejouer les gates au load, et
-confirmer dans la page :
+`resize_window` with explicit `width`/`height` (e.g. 390×844 for a `< 400px` phone), not just a
+theoretical `matchMedia`. Reload the page so load-time gates re-run, and confirm in the page:
 
 ```js
 ({ innerWidth, mm640: matchMedia('(max-width: 640px)').matches })
 ```
 
-Le breakpoint principal du projet est **640px** (`min-width: 640px` = desktop dans la plupart des
-composants).
+The project's main breakpoint is **640px** (`min-width: 640px` = desktop in most components).
 
-### 3. Rejouer le scénario exact
+### 3. Replay the exact scenario
 
-Cliquer le contrôle concerné avec `computer` — un snapshot DOM sans interaction ne suffit pas.
-Si le panneau navigateur est masqué, `computer` échoue en timeout : soit `tabs_select` pour
-l'afficher, soit piloter le clic via `javascript_tool`.
+Click the actual control with `computer` — a DOM snapshot without interaction proves nothing.
+If the browser pane is hidden, `computer` fails with a timeout: either `tabs_select` to show it, or
+drive the click through `javascript_tool`.
 
-### 4. Compter / mesurer ce que l'utilisateur décrit
+### 4. Count / measure what the user describes
 
-Pas « le panneau existe » mais « N éléments visibles **et** cliquables », via
-`getBoundingClientRect` + `elementFromPoint` :
+Not "the panel exists" but "N elements visible **and** clickable", via `getBoundingClientRect` +
+`elementFromPoint`:
 
 ```js
 const clickable = [...document.querySelectorAll('button, a')].filter(b => {
@@ -64,26 +62,25 @@ const clickable = [...document.querySelectorAll('button, a')].filter(b => {
 clickable.length
 ```
 
-### 5. Si la capture utilisateur montre encore le bug
+### 5. If the user's screenshot still shows the bug
 
-**La croire** et retirer le fix, plutôt que d'arguer que « ça marche chez moi » sans même viewport.
+**Believe them** and back the fix out, rather than arguing "works on my machine" without even
+matching their viewport.
 
-### 6. Nettoyer
+### 6. Clean up
 
-`resize_window` avec `preset: "desktop"` pour rendre l'onglet à sa taille normale, et
-`preview_stop` sur les serveurs qui ne servent plus.
+`resize_window` with `preset: "desktop"` to return the tab to its normal size, and `preview_stop` on
+servers that are no longer needed.
 
-## Pièges Recontact
+## Recontact gotchas
 
-- Nuxt fait du SSR/SSG : un écart serveur/client se voit dans la console (hydration mismatch) —
-  toujours lire `read_console_messages` avant de conclure. **Il y en a déjà un au démarrage**, sur
-  `<DefaultLayout>` (`Hydration node mismatch` + `Hydration completed but contains mismatches`) :
-  c'est un bruit préexistant, pas la preuve que ton changement casse quelque chose. Comparer avec un
-  `git stash`/état de base avant de l'attribuer à un fix.
-- Les warnings `<Suspense> is an experimental feature` et les logs Nuxt DevTools sont eux aussi du
-  bruit normal.
-- La carte Mapbox (`front/components/Homepage/Map/Map.vue`) a besoin de `NUXT_PUBLIC_MAPBOX_TOKEN` ;
-  il est fourni dans `front/.env.defaults`, donc la carte doit s'afficher — si elle est vide, c'est
-  que `.env.local` a été modifié.
-- La base locale démarre vide : `/api/articles` renvoie `[]`, les listes d'articles et la position de
-  l'admin sont vides. Ce n'est pas un bug de CSS.
+- Nuxt does SSR/SSG: a server/client divergence shows up in the console as a hydration mismatch —
+  always read `read_console_messages` before concluding. **There is already one on startup**, on
+  `<DefaultLayout>` (`Hydration node mismatch` + `Hydration completed but contains mismatches`):
+  that is pre-existing noise, not proof your change broke something. Compare against a baseline
+  before blaming a fix for it.
+- The `<Suspense> is an experimental feature` warning and the Nuxt DevTools logs are normal noise too.
+- The Mapbox map (`front/components/Homepage/Map/Map.vue`) needs `NUXT_PUBLIC_MAPBOX_TOKEN`; it ships
+  in `front/.env.defaults`, so the map should render — if it is blank, `.env.local` was edited.
+- The local database starts empty: `/api/articles` returns `[]`, article lists and the admin position
+  are empty. That is not a CSS bug.

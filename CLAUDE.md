@@ -1,8 +1,8 @@
 # Recontact - Travel blog
 
-Monorepo : front Nuxt 3 / Vue 3 (`front/`) + back Node/Express (`back/`).
+Monorepo: Nuxt 3 / Vue 3 front (`front/`) + Node/Express back (`back/`).
 
-## Règles projet
+## Project rules
 
 @.claude/rules/local-development.md
 @.claude/rules/ui-browser-verification.md
