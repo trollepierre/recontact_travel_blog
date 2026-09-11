@@ -36,6 +36,7 @@
     "morgan": "^1.11",
     "node-mailjet": "3.4.1",
     "node-schedule": "^2.1",
+    "pg": "^8.23",
     "ramda": "0.32.0",
     "regenerator-runtime": "^0.14",
     "sequelize": "5.21.7"
@@ -62,7 +63,6 @@
     "mocha": "8.4.0",
     "nodemon": "2.0.7",
     "nyc": "15.1.0",
-    "pg": "^8.23",
     "pug": "^3.0.4",
     "sequelize-cli": "^6.6",
     "serve-favicon": "^2.5.1",
