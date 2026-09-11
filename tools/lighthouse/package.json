@@ -13,6 +13,6 @@
     "eslint-plugin-import": "2.32.0",
     "jest": "30.3.0",
     "lighthouse": "13.4.1",
-    "strip-ansi": "6.0.1"
+    "strip-ansi": "6.0.0"
   }
 }

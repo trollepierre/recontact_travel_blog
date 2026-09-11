@@ -5,6 +5,11 @@ common_properties: &common_properties
 
 version: 2.1
 
+orbs:
+  # cimg/node:*-browsers no longer ships Chrome preinstalled; chrome-launcher
+  # fails with ChromePathNotSetError without this.
+  browser-tools: circleci/browser-tools@2.4.0
+
 commands:
   heroku_setup:
     parameters:
@@ -172,6 +177,10 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
+      - browser-tools/install-chrome
+      - run:
+          name: Point chrome-launcher at the installed Chrome
+          command: echo "export CHROME_PATH=$(command -v google-chrome || command -v google-chrome-stable || command -v chromium)" >> "$BASH_ENV"
       - run: yarn lighthouse
 
   bundlesize:
