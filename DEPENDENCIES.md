@@ -220,36 +220,39 @@ Vitest — cohérent avec le § 4.5, et à décider ensemble.
 
 1. **Yarn 1 casse `strip-ansi@6`, dans les trois projets.** Yarn fusionne
    `"strip-ansi-cjs@npm:strip-ansi@^6.0.1"` (introduit par `@isaacs/cliui`, via
-   `glob`) avec les demandes `strip-ansi@^6.x` en **une seule** entrée de lock,
-   portant le nom de l'alias. Résultat : aucun dossier `strip-ansi@6` n'est
-   jamais matérialisé, et ESLint 8 comme Jest tombent sur le `strip-ansi@7`
-   (ESM-only) hissé à la racine → `TypeError: stripAnsi is not a function`, qui
-   fait sortir `yarn lint` et `yarn test` en **code 2**, sans rapport avec le
-   code.
+   `glob`) avec toute demande qui **résout à la même version**, en une seule
+   entrée de lock portant le nom de l'alias. Résultat : aucun dossier
+   `strip-ansi@6` n'est matérialisé, et ESLint 8 comme Jest tombent sur le
+   `strip-ansi@7` (ESM-only) hissé à la racine →
+   `TypeError: stripAnsi is not a function`, qui fait sortir `yarn lint` et
+   `yarn test` en **code 2**, sans aucun rapport avec le code.
 
-   Que ça casse ou non dépendait de l'ordre de hissage, donc du dernier paquet
-   installé : supprimer une dépendance sans aucun rapport suffisait à déclencher
-   la panne.
-
-   Deux correctifs ont été essayés et **ne marchent pas** :
+   Correctifs essayés qui **ne marchent pas** :
    - scinder l'entrée à la main dans `yarn.lock` : le `yarn install` suivant la
      refusionne ;
    - `"resolutions": { "strip-ansi": "^6.0.1" }` : la résolution est absorbée par
-     l'entrée aliasée, et plus **aucun** `strip-ansi` n'est installé.
+     l'entrée aliasée, et plus **aucun** `strip-ansi` n'est installé ;
+   - `"strip-ansi": "6.0.1"` en dépendance directe : passe en yarn **1.22.19**,
+     **échoue en 1.22.22** — celui de la CI — qui fusionne aussi les descripteurs
+     exacts dès qu'ils résolvent à la même version.
 
-   Ce qui marche : déclarer `"strip-ansi": "6.0.1"` en devDependency directe,
-   **version exacte, sans `^`**. Le descripteur `strip-ansi@6.0.1` est distinct
-   de `strip-ansi@^6.0.1`, il ne fusionne donc pas avec l'alias et yarn place
-   bien le paquet à la racine. C'est en place dans `back/`, `front/` et
-   `tools/lighthouse`. **Ne pas « nettoyer » ces trois lignes** en les passant en
-   `^6.0.1` ou en les retirant : le lint et les tests repasseraient rouge de
-   façon intermittente. Elles disparaîtront avec le passage à Yarn 4 ou à
-   Vitest + ESLint flat config.
+   Ce qui marche, vérifié sous 1.22.19 **et** 1.22.22 :
+   `"strip-ansi": "6.0.0"` en devDependency directe, **version exacte**. C'est la
+   seule version 6.x qui ne collide avec rien : l'alias demande `^6.0.1` et
+   résout 6.0.1, donc le descripteur `strip-ansi@6.0.0` reste une entrée
+   distincte, et yarn place toujours une dépendance directe à la racine de
+   `node_modules`. Les paquets qui veulent `^7` reçoivent une copie imbriquée.
+   6.0.0 et 6.0.1 ne diffèrent que par la plage `ansi-regex` (`^5.0.0` vs
+   `^5.0.1`), qui résout de toute façon 5.0.1.
+
+   **Ne pas « nettoyer » ces trois lignes** en `^6.0.0`, `^6.0.1` ou `6.0.1` :
+   le lint et les tests repasseraient rouge, y compris uniquement en CI. Elles
+   disparaîtront avec Yarn 4, ou avec Vitest + ESLint flat config.
 
    **Conséquence pratique : après toute modification d'un `package.json`, faire
-   un `rm -rf node_modules && yarn install` avant de conclure.** Les installs
-   incrémentaux de yarn 1 donnent un arbre différent d'une install propre, et
-   c'est l'install propre que fait la CI.
+   un `rm -rf node_modules && yarn install` avant de conclure — et avec la même
+   version de yarn que la CI (1.22.22).** Les installs incrémentaux, et les
+   versions de yarn différentes, donnent des arbres différents.
 
 2. **`front/.output/nitro.json` est versionné** alors que c'est un artefact de
    build : `yarn generate` le modifie à chaque fois. À `.gitignore`.
@@ -272,6 +275,19 @@ Vitest — cohérent avec le § 4.5, et à décider ensemble.
 
 4. **`pg` doit rester dans `dependencies`** (cf. `518d370`). `sqlite3` et
    `sequelize-cli` sont dev/test only.
+
+5. **`cimg/node:*-browsers` ne fournit plus Chrome préinstallé.** `chrome-launcher`
+   sort en `ChromePathNotSetError`. Le job `lighthouse` installe donc Chrome avec
+   l'orbe certifiée `circleci/browser-tools` et exporte `CHROME_PATH`.
+
+6. **Les budgets `bundlesize` dataient de l'ère Nuxt 2.** Trois des six globs ne
+   correspondaient plus à rien (`dist/articles/*/index.html` — les articles ne
+   sont plus prérendus —, `_nuxt/fonts/`, `_nuxt/img/` — Nuxt 3 met tout à plat
+   dans `_nuxt/`), et bundlesize échoue sur un glob sans correspondance. Les
+   seuils ont été **rebasés sur la taille actuelle**, ils ne valent donc que
+   comme garde-fou anti-régression à partir d'aujourd'hui. Le poste à regarder :
+   `mapbox-gl` pèse **274 kB gzippés** à lui seul, sur un budget historique de
+   56 kB pour *tout* le JS.
 
 ---
 

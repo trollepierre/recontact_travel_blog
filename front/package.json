@@ -58,7 +58,7 @@
     "pretty-format": "^30.4",
     "sass": "^1.102",
     "sass-embedded": "^1.102",
-    "strip-ansi": "6.0.1",
+    "strip-ansi": "6.0.0",
     "typescript": "^5.0.2",
     "vue-router": "^4.4.5",
     "vuex": "^4.1.0"

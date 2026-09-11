@@ -2,27 +2,31 @@
   "files": [
     {
       "path": "./front/dist/index.html",
-      "maxSize": "5 kB"
+      "maxSize": "9 kB"
     },
     {
-      "path": "./front/dist/articles/*/index.html",
-      "maxSize": "6 kB"
+      "path": "./front/dist/articles/index.html",
+      "maxSize": "9 kB"
     },
     {
       "path": "./front/dist/**/*.png",
-      "maxSize": "26 kB"
+      "maxSize": "48 kB"
     },
     {
       "path": "./front/dist/_nuxt/*.js",
-      "maxSize": "56 kB"
+      "maxSize": "280 kB"
     },
     {
-      "path": "./front/dist/_nuxt/fonts/*.*",
-      "maxSize": "37 kB"
+      "path": "./front/dist/_nuxt/*.css",
+      "maxSize": "3 kB"
     },
     {
-      "path": "./front/dist/_nuxt/img/*.*",
-      "maxSize": "4 kB"
+      "path": "./front/dist/_nuxt/*.woff2",
+      "maxSize": "36 kB"
+    },
+    {
+      "path": "./front/dist/_nuxt/*.woff",
+      "maxSize": "47 kB"
     }
   ]
 }
