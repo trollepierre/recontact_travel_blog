@@ -1,7 +1,6 @@
 import express from 'express'
 import logger from 'morgan'
 import cookieParser from 'cookie-parser'
-import bodyParser from 'body-parser'
 import cors from 'cors'
 
 import {
@@ -30,8 +29,8 @@ import { frontDistDir } from './src/infrastructure/paths'
 const app = express()
 
 app.use(logger('dev'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(cors())
 
@@ -89,12 +88,14 @@ app.use((req, res, next) => {
 })
 
 // error handler
-app.use((err, req, res) => {
+// `next` is unused but express only recognises an error handler by its arity of 4
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-  res.status(err.status || 500)
+  res.status(err.status || 500).json({ error: res.locals.message })
 })
 
 module.exports = app
