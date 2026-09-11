@@ -306,9 +306,12 @@ workflows:
       - validate_html5v:
           requires:
             - deploy_staging
+      # lighthouse and bundlesize audit the already deployed netlify sites, they
+      # do not depend on this pipeline's staging deploy — which only runs on dev
+      # and would make them unreachable from the test branch.
       - lighthouse:
           requires:
-            - deploy_staging
+            - checkout_code
           filters:
             branches:
               only: test
@@ -317,7 +320,7 @@ workflows:
 #            - deploy_staging
       - bundlesize:
           requires:
-            - deploy_staging
+            - build_front
           filters:
             branches:
               only: test
