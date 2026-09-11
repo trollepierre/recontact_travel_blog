@@ -38,3 +38,6 @@ back/dist
 
 back/save
 back/.env.local
+
+# Claude Code worktrees
+.claude/worktrees/
