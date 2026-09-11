@@ -1,58 +1,31 @@
-import axios from 'axios'
-import { cacheAdapterEnhancer } from 'axios-extensions'
+import { ofetch } from 'ofetch'
 import env from '../env/env'
 import logger from './logger-service'
 
-const http = axios.create({
+const http = ofetch.create({
   baseURL: `${env('API_URL')}api/`,
   headers: {
     Accept: 'application/json',
     'Cache-Control': `public, max-age=${24 * 3600}`,
   },
-  adapter: cacheAdapterEnhancer(axios.defaults.adapter),
 })
 
-const getAll = async path => {
+const request = async (path, options) => {
   try {
-    const response = await http.get(path, { json: true })
-    return response.data
+    return await http(path, options)
   } catch (error) {
     logger.error(error.message)
     throw error
   }
 }
 
-const post = async (path, data) => {
-  try {
-    const payload = typeof data === 'undefined' ? { json: true } : data
-    const response = await http.post(path, payload)
-    return response.data
-  } catch (error) {
-    logger.error(error.message)
-    throw error
-  }
-}
+const getAll = path => request(path, { method: 'GET' })
 
-const put = async (path, data) => {
-  try {
-    const payload = typeof data === 'undefined' ? { json: true } : data
-    const response = await http.patch(path, payload)
-    return response.data
-  } catch (error) {
-    logger.error(error.message)
-    throw error
-  }
-}
+const post = (path, body) => request(path, { method: 'POST', body })
 
-const deleteById = async path => {
-  try {
-    const response = await http.delete(path)
-    return response.data
-  } catch (error) {
-    logger.error(error.message)
-    throw error
-  }
-}
+const put = (path, body) => request(path, { method: 'PATCH', body })
+
+const deleteById = path => request(path, { method: 'DELETE' })
 
 export default {
   get: getAll,

@@ -1,14 +1,10 @@
 import logger from './logger-service'
 import apiService from './api-service'
 
-jest.mock('axios', () => ({
-  defaults: {},
-  create: jest.fn().mockReturnValue({
-    get: (path, config) => ({ data: { path, config } }),
-    post: (path, config) => ({ data: { path, config } }),
-    patch: (path, config) => ({ data: { path, config } }),
-    delete: (path, config) => ({ data: { path, config } }),
-  }),
+jest.mock('ofetch', () => ({
+  ofetch: {
+    create: jest.fn().mockReturnValue((path, options) => ({ path, options })),
+  },
 }))
 jest.mock('../env/env', () => () => 'http://localhost:9100/')
 
@@ -30,7 +26,7 @@ describe('apiService', () => {
 
         // Then
         expect(response).toEqual({
-          config: { json: true },
+          options: { method: 'GET' },
           path,
         })
       })
@@ -46,11 +42,11 @@ describe('apiService', () => {
         expect.assertions(1)
 
         // When
-        const response = await apiService.post(path)
+        const response = await apiService.post(path, { some: 'body' })
 
         // Then
         expect(response).toEqual({
-          config: { json: true },
+          options: { method: 'POST', body: { some: 'body' } },
           path,
         })
       })
@@ -70,7 +66,7 @@ describe('apiService', () => {
 
         // Then
         expect(response).toEqual({
-          config: { json: true },
+          options: { method: 'PATCH', body: undefined },
           path,
         })
       })
@@ -90,6 +86,7 @@ describe('apiService', () => {
 
         // Then
         expect(response).toEqual({
+          options: { method: 'DELETE' },
           path,
         })
       })
