@@ -1,28 +1,54 @@
 import flatten from 'lodash/flatten'
 
-import Dropbox from 'dropbox'
+import { Dropbox } from 'dropbox'
 import env from '../env/env'
 
-const DropboxApi = new Dropbox({ accessToken: env('DROPBOX_CLIENT_ID') })
+export const dropboxApi = new Dropbox({ accessToken: env('DROPBOX_CLIENT_ID') })
+
+const RETRY_DELAY = 1000
+
+const wait = delay => new Promise(resolve => {
+  setTimeout(resolve, delay)
+})
+
+// sharingCreateSharedLinkWithSettings fails when the file is already shared,
+// where the deprecated sharingCreateSharedLink used to return the existing link.
+const isSharedLinkAlreadyExists = err => {
+  const summary = err && err.error && err.error.error_summary
+  return typeof summary === 'string' && summary.startsWith('shared_link_already_exists')
+}
+
+const createOrFetchSharedLink = async path => {
+  try {
+    const response = await dropboxApi.sharingCreateSharedLinkWithSettings({ path })
+    return response.result
+  } catch (err) {
+    if (!isSharedLinkAlreadyExists(err)) {
+      throw err
+    }
+    const response = await dropboxApi.sharingListSharedLinks({ path, direct_only: true })
+    return response.result.links[0] || {}
+  }
+}
 
 const DropboxClient = {
 
   async getFilesListContinue(dropboxAnswer) {
     if (dropboxAnswer.has_more) {
-      const filesListFolderContinue = await DropboxApi.filesListFolderContinue({ cursor: dropboxAnswer.cursor })
+      const { result } = await dropboxApi.filesListFolderContinue({ cursor: dropboxAnswer.cursor })
       return this.getFilesListContinue({
-        has_more: filesListFolderContinue.has_more,
-        entries: flatten([dropboxAnswer.entries, filesListFolderContinue.entries]),
-        cursor: filesListFolderContinue.cursor,
+        has_more: result.has_more,
+        entries: flatten([dropboxAnswer.entries, result.entries]),
+        cursor: result.cursor,
       })
     }
     return dropboxAnswer
   },
 
   getAllDropboxFoldersMetadatas() {
-    return DropboxApi.filesListFolder({ path: '', recursive: true })
-      .then(dropboxAnswer => this.getFilesListContinue(dropboxAnswer))
-      .then(response => response.entries)
+    return dropboxApi.filesListFolder({ path: '', recursive: true })
+      .then(response => this.getFilesListContinue(response.result))
+      .then(dropboxAnswer => dropboxAnswer.entries)
       .catch(err => {
         console.error('Erreur lors de la récupération de tous les fichiers Dropbox : ')
         console.error(err)
@@ -31,8 +57,8 @@ const DropboxClient = {
   },
 
   getFilesFolderPaths(id) {
-    return DropboxApi.filesListFolder({ path: `/${id}/`, recursive: true })
-      .then(response => response.entries.map(entry => entry.path_display))
+    return dropboxApi.filesListFolder({ path: `/${id}/`, recursive: true })
+      .then(response => response.result.entries.map(entry => entry.path_display))
       .catch(err => {
         console.error(`Erreur lors de la récupération de toutes les photos de l’article Dropbox : ${id}`)
         console.error(err)
@@ -42,8 +68,8 @@ const DropboxClient = {
 
   getFrTextFileStream(id) {
     const extension = id < 64 ? 'php' : 'txt'
-    return DropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.${extension}` })
-      .then(result => result.link)
+    return dropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.${extension}` })
+      .then(response => response.result.link)
       .catch(err => {
         console.error('Erreur lors de la récupération du fichier texte de : ', `/${id}/fr.${extension}`)
         console.error(err)
@@ -53,8 +79,8 @@ const DropboxClient = {
 
   getEnTextFileStream(id) {
     const extension = id < 64 ? 'php' : 'txt'
-    return DropboxApi.filesGetTemporaryLink({ path: `/${id}/en.${extension}` })
-      .then(result => result.link)
+    return dropboxApi.filesGetTemporaryLink({ path: `/${id}/en.${extension}` })
+      .then(response => response.result.link)
       .catch(err => {
         console.error('Erreur lors de la récupération du fichier texte de : ', `/${id}/en.${extension}`)
         console.error(err)
@@ -62,43 +88,25 @@ const DropboxClient = {
       })
   },
 
-  createSharedLink(path) {
-    const options = { path, short_url: false }
-    return DropboxApi.sharingCreateSharedLink(options)
-      .catch(err => {
-        if (err.error && err.error.code === 'ECONNRESET') {
-          setTimeout(() => DropboxApi.sharingCreateSharedLink(options)
-            .then(response => {
-              console.info('Erreur ECONNRESET fixed after Timeout')
-              return response
-            })
-            .catch(err2 => {
-              if (err2.error.code === 'ECONNRESET') {
-                console.error('Erreur ECONNRESET lors de la création du lien de : ', path)
-                console.error('Dropbox TCP error ECNNRESET', err2)
-                return Promise.resolve({})
-              }
-              console.error('Erreur étrange (ECONNRESET puis autre) lors de la création du lien de : ', path)
-              console.error(err2)
-              return Promise.resolve({})
-            }), 1000)
-        }
-        console.error('Erreur lors de la création du lien de : ', path)
-        console.error(err)
-        setTimeout(() => DropboxApi.sharingCreateSharedLink(options)
-          .then(response => {
-            console.info('Erreur fixed after Timeout')
-            return response
-          }).catch(err2 => {
-            console.error('Erreur encore : ', path)
-            console.error(err2)
-            return Promise.resolve({})
-          }), 1000)
-
-        return Promise.resolve({})
-      })
+  async createSharedLink(path) {
+    try {
+      return await createOrFetchSharedLink(path)
+    } catch (err) {
+      console.error('Erreur lors de la création du lien de : ', path)
+      console.error(err)
+      await wait(RETRY_DELAY)
+      try {
+        const link = await createOrFetchSharedLink(path)
+        console.info('Erreur fixed after Timeout')
+        return link
+      } catch (err2) {
+        console.error('Erreur encore : ', path)
+        console.error(err2)
+        return {}
+      }
+    }
   },
 
 }
 
-module.exports = DropboxClient
+export default DropboxClient
