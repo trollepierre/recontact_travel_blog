@@ -5,6 +5,7 @@ import articleRepository from '../domain/repositories/article-repository'
 import photoRepository from '../domain/repositories/photo-repository'
 import DropboxClient from '../infrastructure/external_services/dropbox-client'
 import FileReader from '../infrastructure/external_services/file-reader'
+import { toRawImgLink } from './services/dropbox-link'
 
 async function sync(dropboxId) {
   function _createPhotosOfArticlesInDatabase(dropboxFilesPath) {
@@ -175,11 +176,9 @@ async function sync(dropboxId) {
   function _transformToImgLink(response) {
     if (isEmpty(response)) {
       console.error('is empty imgLink')
-      return ''
     }
 
-    const split = response.url.replace(/....$/, '').split('/s/')
-    return `${split[0]}/s/raw/${split[1].split('?')[0]}`
+    return toRawImgLink(response)
   }
 
   function _getGalleryUrl(response) {

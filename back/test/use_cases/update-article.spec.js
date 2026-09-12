@@ -86,6 +86,32 @@ describe('Unit | UpdateArticle | sync', () => {
     expect(ArticleRepository.deleteByDropboxId).to.have.been.calledWith(dropboxId)
   })
 
+  describe('when Dropbox returns a modern /scl/fi/ shared link', () => {
+    // the format sharingCreateSharedLinkWithSettings and sharingListSharedLinks
+    // return today. The previous rewrite threw on it, and the rejection was not
+    // caught: it killed the whole process mid-synchronisation.
+    beforeEach(() => {
+      DropboxClient.createSharedLink.resolves({ url: 'https://www.dropbox.com/scl/fi/a1/img0.jpg?rlkey=k3y&dl=0' })
+    })
+
+    it('should save the article with a directly servable image link', () => {
+      // given
+      const articlesToSave = [{
+        dropboxId,
+        galleryLink: 'https://www.dropbox.com/scl/fi/a1/img0.jpg?rlkey=k3y&dl=0',
+        imgLink: 'https://www.dropbox.com/scl/fi/a1/img0.jpg?rlkey=k3y&raw=1',
+      }]
+
+      // when
+      const promise = UpdateArticle.sync(dropboxId)
+
+      // then
+      return promise.then(() => {
+        expect(ArticleRepository.create).to.have.been.calledWith(articlesToSave)
+      })
+    })
+  })
+
   describe('when Dropbox can create shared link', () => {
     beforeEach(() => {
       DropboxClient.createSharedLink.resolves({ url: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=0' })
@@ -106,7 +132,7 @@ describe('Unit | UpdateArticle | sync', () => {
       const articlesToSave = [{
         dropboxId,
         galleryLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?dl=0',
-        imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
+        imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
       }]
 
       // when
@@ -169,15 +195,15 @@ describe('Unit | UpdateArticle | sync', () => {
       return promise.then(() => {
         expect(PhotoRepository.createPhotos).to.have.been.calledWith([{
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
         },
         {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
         },
         {
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
         },
         ])
       })
@@ -199,7 +225,7 @@ describe('Unit | UpdateArticle | sync', () => {
         {
           position: 1,
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
           frText: 'Gathering trois valeureux compagnons :'
           + '\r\n# - Pierre, l\'expérimenté'
           + '\r\n# - Franzi, la photographe'
@@ -218,7 +244,7 @@ describe('Unit | UpdateArticle | sync', () => {
         }, {
           position: 2,
           dropboxId: 8,
-          imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
+          imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
           frText: 'La région de Kangding'
           + '\r\n#'
           + '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".'

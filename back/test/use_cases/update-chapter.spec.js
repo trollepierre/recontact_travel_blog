@@ -117,7 +117,7 @@ describe('Unit | UpdateChapter | sync', () => {
       const chaptersToSave = [{
         position: 2,
         dropboxId: 8,
-        imgLink: 'https://www.dropbox.com/s/raw/lk0qiatmtdisoa4.jpg',
+        imgLink: 'https://www.dropbox.com/s/lk0qiatmtdisoa4.jpg?raw=1',
         frText: 'La région de Kangding'
           + '\r\n#'
           + '\r\nSituée sur l\'autoroute menant au Tibet à l\'ouest du Sichuan, on se situe dans les montagnes où vivent majoritairement les tibétains. Bref le Tibet hors du "Tibet".'
