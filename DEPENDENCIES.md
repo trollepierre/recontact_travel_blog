@@ -53,7 +53,14 @@ Ce qui a été livré, un commit par lot :
    réponses et `sharingCreateSharedLink` a été remplacé par
    `sharingCreateSharedLinkWithSettings` + repli sur `sharingListSharedLinks`.
    Vérifier en particulier un article **déjà synchronisé** : c'est lui qui passe
-   par le repli, et c'est le seul chemin non couvert par les tests unitaires.
+   par le repli.
+
+   Ce chemin a déjà livré un bug en recette, voir § 5.11 : les nouvelles routes
+   renvoient des liens `/scl/fi/`, que la réécriture `/s/raw/` de
+   `update-article` et `update-chapter` ne savait pas lire — elle levait une
+   `TypeError` non rattrapée qui **tuait le process**. Corrigé et sous test, mais
+   c'est l'illustration de pourquoi cette vérification manuelle n'est pas
+   optionnelle.
 2. **Envoi d'un mail Mailjet réel.** `sendEmail` est court-circuité hors
    production (`isProduction()`), donc aucun test ne touche l'API.
 3. **Le comportement de `sequelize.sync()` sur le Postgres réel.**
@@ -385,3 +392,39 @@ Vitest — cohérent avec le § 4.5, et à décider ensemble.
 - Ne pas laisser le décompte brut dicter l'ordre : il compte des **chemins**, pas
   des paquets. Un paquet de build vulnérable sur des entrées qu'on écrit
   nous-mêmes ne vaut pas une injection SQL.
+
+---
+
+## 7. Ajouté après coup, trouvé en recette
+
+11. **Dropbox a changé le format de ses liens partagés.** Les routes modernes
+    (`sharingCreateSharedLinkWithSettings`, `sharingListSharedLinks`) renvoient
+    `https://www.dropbox.com/scl/fi/<id>/<fichier>?rlkey=…&dl=0`, là où
+    l'ancienne `sharingCreateSharedLink` renvoyait
+    `https://www.dropbox.com/s/<clé>/<fichier>?dl=0`.
+
+    `update-article.js` et `update-chapter.js` transformaient le lien en découpant
+    sur `/s/` :
+
+    ```js
+    const split = response.url.replace(/....$/, '').split('/s/')
+    return `${split[0]}/s/raw/${split[1].split('?')[0]}`   // split[1] undefined
+    ```
+
+    Sur un lien `/scl/fi/` il n'y a pas de `/s/` : `split[1]` est `undefined`,
+    la `TypeError` remonte dans un `Promise.all` sans `catch`, et **le process
+    meurt**. Vu en recette sur `recontact-branch` : l'application répondait
+    normalement, puis une synchronisation d'article la faisait tomber, et Heroku
+    la laissait *crashed* — d'où un 503 sur tout, y compris le préflight CORS,
+    que le navigateur traduit en « Network Error » trompeur.
+
+    Les trois transformations (une par cas d'usage, dont deux copies identiques)
+    sont remplacées par
+    [`services/dropbox-link.js`](back/src/use_cases/services/dropbox-link.js), qui
+    pose `raw=1` quel que soit le format et ne lève jamais. Les liens produits
+    passent de `…/s/raw/<clé>` à `…?raw=1`, ce que `synchronize-articles`
+    écrivait déjà : la base contenait de toute façon les deux formes.
+
+    **Leçon** : les fixtures de test ne contenaient que l'ancien format, donc
+    193 tests verts ne disaient rien de ce chemin. Toute fixture qui fige le
+    format d'un service tiers est une couverture en trompe-l'œil.

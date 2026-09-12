@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty'
 import chapterRepository from '../domain/repositories/chapter-repository'
 import DropboxClient from '../infrastructure/external_services/dropbox-client'
 import FileReader from '../infrastructure/external_services/file-reader'
+import { toRawImgLink } from './services/dropbox-link'
 
 async function sync({ dropboxId, chapterPosition }) {
   function _updateTitleAndExtractChaptersFromArticleContent(dropboxFilesPath) {
@@ -94,10 +95,9 @@ async function sync({ dropboxId, chapterPosition }) {
   function _transformToImgLink(response) {
     if (isEmpty(response)) {
       console.error('img link is empty again')
-      return ''
     }
-    const split = response.url.replace(/....$/, '').split('/s/')
-    return `${split[0]}/s/raw/${split[1].split('?')[0]}`
+
+    return toRawImgLink(response)
   }
 
   await chapterRepository.deleteChapterOfArticle(dropboxId, chapterPosition) // ok
