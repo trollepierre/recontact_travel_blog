@@ -1,6 +1,6 @@
 # Dépendances : état après la passe sécurité, et suite
 
-Ce fichier remplace le plan initial (commit `6adca85`). Le plan est exécuté pour
+Ce fichier remplace le plan initial (commit `aaa5a6e`). Le plan est exécuté pour
 tout ce qui portait du risque exploitable ; ce qui reste est listé au § 4 avec
 les blocages vérifiés sur le registre npm le **2026-09-11**.
 
@@ -30,15 +30,18 @@ Ce qui a été livré, un commit par lot :
 
 | Commit    | Lot | Contenu |
 |-----------|-----|---------|
-| `518d370` | 0   | `pg` déplacé en `dependencies` |
-| `6f36c34` | 1   | paquets fantômes supprimés |
-| `444b1ca` | 2   | `dropbox` 2→10, `node-mailjet` 3→6, sortie de `vm2` |
-| `4a8548e` | 3   | `sequelize` 5.21.7 → 6.37.8 |
-| `d36574e` | 4   | `express` 4.18.2 → 4.22.2 + middlewares |
-| `aa9b925` | 5   | `axios` → `ofetch` sur le front |
-| `8195073` | 10  | `tools/lighthouse` remis à niveau |
-| `d343c2c` | §5  | `resolutions` transitives |
-| *(celui-ci)* | §5 | `sqlite3` 5→6, `tar` épinglé, `strip-ansi` épinglé |
+| `777db94` | 0   | `pg` déplacé en `dependencies` |
+| `88d17d0` | 1   | paquets fantômes supprimés |
+| `604a9d8` | 2   | `dropbox` 2→10, `node-mailjet` 3→6, sortie de `vm2` |
+| `4920b6f` | 3   | `sequelize` 5.21.7 → 6.37.8 |
+| `aa6542a` | 4   | `express` 4.18.2 → 4.22.2 + middlewares |
+| `6917ab5` | 5   | `axios` → `ofetch` sur le front |
+| `f025aff` | 10  | `tools/lighthouse` remis à niveau |
+| `3889c15` | §5  | `resolutions` transitives |
+| `15f54f1` | §5  | `sqlite3` 5→6, `tar` épinglé, `strip-ansi` épinglé |
+| `3ced821` | CI  | `lighthouse` et `bundlesize` rendus atteignables |
+| `4e66759` | CI  | les trois jobs que la branche `test` a révélés |
+| `0395b2b` | CI  | nom de commande de l'orbe `browser-tools` |
 
 ---
 
@@ -91,7 +94,7 @@ inchangée : **Renovate seul** (pas les deux, ils se marchent dessus), avec
 automerge des patches et des devDeps une fois la CI verte, et
 `dependencyDashboardApproval` sur les majeures — c'est l'absence de ces deux
 réglages qui avait conduit à tout désactiver. La configuration complète proposée
-est dans l'historique : `git show 6adca85:DEPENDENCIES.md`, § 6.
+est dans l'historique : `git show aaa5a6e:DEPENDENCIES.md`, § 6.
 
 Ajouter aussi un job CI non bloquant :
 
@@ -174,7 +177,7 @@ Les règles de [`.eslintrc.js`](.eslintrc.js) racine sont à 80 % du formatage
 les options du config précédent de la chaîne `extends` — c'est-à-dire celles
 d'`airbnb-base`. Un projet qui n'étend pas `airbnb-base` hérite donc des
 sévérités avec les options **par défaut** d'ESLint, radicalement différentes.
-C'était le cas de `tools/lighthouse` (corrigé dans `8195073`). Toute réécriture
+C'était le cas de `tools/lighthouse` (corrigé dans `f025aff`). Toute réécriture
 en flat config doit rendre ces options explicites.
 
 Prettier 3 reformate tout le dépôt : commit de reformatage isolé, ajouté à
@@ -273,7 +276,7 @@ Vitest — cohérent avec le § 4.5, et à décider ensemble.
    - Les seuils de score de `tools/lighthouse` datent de Lighthouse 10 ; les
      courbes de notation ont bougé, ils seront à recalibrer au premier vrai run.
 
-4. **`pg` doit rester dans `dependencies`** (cf. `518d370`). `sqlite3` et
+4. **`pg` doit rester dans `dependencies`** (cf. `777db94`). `sqlite3` et
    `sequelize-cli` sont dev/test only.
 
 5. **`cimg/node:*-browsers` ne fournit plus Chrome préinstallé.** `chrome-launcher`
