@@ -50,6 +50,15 @@ describe('Unit | Infrastructure | db-config | #productionDatabaseUrl', () => {
     expect(dialectOptions.ssl).to.deep.equal({ rejectUnauthorized: false })
   })
 
+  it('should say what is missing when DATABASE_URL is not set', () => {
+    // given
+    envStub.returns(undefined)
+
+    // then
+    // otherwise `new URL(undefined)` throws a bare "Invalid URL" at boot
+    expect(() => productionDatabaseUrl()).to.throw('DATABASE_URL is required')
+  })
+
   it('should keep the credentials and the target of the original url', () => {
     // when
     const { config } = connect()

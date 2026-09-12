@@ -25,7 +25,11 @@ const dbConfig = () => {
 // live in the URL, where `uselibpqcompat=true` restores the libpq meaning of
 // `require`: encrypt, do not verify the chain.
 const productionDatabaseUrl = () => {
-  const url = new URL(env('DATABASE_URL'))
+  const databaseUrl = env('DATABASE_URL')
+  if (!databaseUrl) {
+    throw new Error('DATABASE_URL is required when NODE_ENV is production')
+  }
+  const url = new URL(databaseUrl)
   url.searchParams.set('sslmode', 'require')
   url.searchParams.set('uselibpqcompat', 'true')
   return url.toString()
