@@ -50,12 +50,13 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
             - v16-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run:
           name: Install front
           command: yarn install:front --frozen-lockfile
       - save_cache:
-          key: v16-front-dependencies-{{ checksum "front/yarn.lock" }}
+          key: v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
           paths:
             - ./front/node_modules
 
@@ -68,12 +69,13 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
             - v16-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run:
           name: Install back
           command: yarn install:back --frozen-lockfile
       - save_cache:
-          key: v16-back-dependencies-{{ checksum "back/yarn.lock" }}
+          key: v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
           paths:
             - ./back/node_modules
 
@@ -86,6 +88,7 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
             - v16-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run:
           name: Lint front
@@ -105,6 +108,7 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
             - v16-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run:
           name: Lint back
@@ -124,10 +128,11 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
             - v16-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run: yarn build:front
       - save_cache:
-          key: v16-front-build-{{ checksum "front/yarn.lock" }}
+          key: v16-front-build-{{ checksum ".circle-cache-key" }}
           paths:
             - ./front/dist
 
@@ -140,6 +145,7 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
             - v16-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run: yarn build:back
 
@@ -192,8 +198,12 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v16-front-build-{{ checksum "front/yarn.lock" }}
-      - run: yarn bundlesize
+            - v16-front-build-{{ checksum ".circle-cache-key" }}
+      # a stale BUNDLESIZE_GITHUB_TOKEN in the project settings makes bundlesize
+      # exit 1 on "Could not add github status. 401", after the size checks passed
+      - run:
+          name: Bundlesize
+          command: env -u BUNDLESIZE_GITHUB_TOKEN -u bundlesize_github_token -u GITHUB_TOKEN -u github_token yarn bundlesize
 
 #  webpagetest:
 #    <<: *common_properties
