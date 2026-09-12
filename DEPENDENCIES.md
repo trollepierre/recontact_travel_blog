@@ -71,10 +71,14 @@ Ce qui a été livré, un commit par lot :
    diff de schéma avant/après doit être **vide** — puis que les lectures et
    écritures passent. Le round-trip CRUD n'a été validé que sur SQLite.
 
-   Note : `models/index.js` force `ssl: { require: true }` sur la branche
-   production, donc une copie posée sur un Postgres local sans TLS refusera la
-   connexion ; faire la vérification sur une base hébergée, ou lever le SSL le
-   temps du test.
+   Note : la connexion production impose TLS, donc une copie posée sur un
+   Postgres local sans TLS refusera la connexion ; faire la vérification sur une
+   base hébergée, ou lever le SSL le temps du test.
+
+   **Le déploiement de branche a déjà servi à ça** : `recontact-branch` faisait
+   `SELF_SIGNED_CERT_IN_CHAIN` au démarrage. Cause trouvée et corrigée, voir
+   § 5.9 — c'était une régression de cette passe, qui aurait cassé la prod au
+   déploiement. Redéployer la branche pour confirmer.
 4. **Réponses d'erreur de l'API.** Le gestionnaire d'erreurs d'`app.js` était
    inerte (arité 3) ; il répond maintenant `{ error: <message> }` en JSON là où
    Express renvoyait sa page HTML par défaut. Vérifier qu'aucun client ne
@@ -328,7 +332,31 @@ Vitest — cohérent avec le § 4.5, et à décider ensemble.
    historiques (performance, accessibilité, bonnes pratiques, SEO), pour rester
    comparable dans le temps.
 
-9. **Les scores Lighthouse varient trop pour servir de garde-fou fin.** Deux runs
+9. **Sequelize 6 écrase `dialectOptions` avec ce qu'il lit dans l'URL.**
+   [`sequelize/lib/sequelize.js`](back/node_modules/sequelize/lib/sequelize.js)
+   fait, pour le dialecte postgres :
+   `Object.assign(options.dialectOptions, pgConnectionString.parse(uri))` —
+   **après** avoir pris nos options. Toute clé `ssl` passée à côté de l'URI est
+   donc jetée. Sequelize 5 ne faisait pas ça.
+
+   Combiné au fait que, depuis **pg 8.16**, un `sslmode=require` nu signifie
+   `verify-full` — et Heroku ajoute `?sslmode=require` à `DATABASE_URL`, et sert
+   une chaîne de certificats auto-signée — le `rejectUnauthorized: false` du code
+   devenait inopérant et l'application **crashait au démarrage** sur
+   `SELF_SIGNED_CERT_IN_CHAIN`. Reproductible en une ligne :
+
+   ```
+   new Sequelize(url + '?sslmode=require', { dialectOptions: { ssl: { rejectUnauthorized: false } } })
+     -> options.dialectOptions.ssl === {}
+   ```
+
+   Les réglages TLS doivent donc vivre **dans l'URL**, où `uselibpqcompat=true`
+   rend à `require` son sens libpq : chiffrer sans vérifier la chaîne. C'est ce
+   que fait `productionDatabaseUrl()` dans
+   [`db-config.js`](back/src/infrastructure/db/db-config.js), sous test dans
+   `test/infrastructure/db/db-config.spec.js`.
+
+10. **Les scores Lighthouse varient trop pour servir de garde-fou fin.** Deux runs
    CI de la *même* page, à quelques minutes d'intervalle, bougent de **13 points
    en performance** et de **8 en SEO** :
 
