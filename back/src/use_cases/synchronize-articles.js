@@ -2,6 +2,7 @@ import flatten from 'lodash/flatten'
 import isEmpty from 'lodash/isEmpty'
 import DropboxClient from '../infrastructure/external_services/dropbox-client'
 import FileReader from '../infrastructure/external_services/file-reader'
+import { toRawImgLink } from './services/dropbox-link'
 import articleRepository from '../domain/repositories/article-repository'
 import articlesChangedEmailEnTemplate from '../infrastructure/mailing/articles-changed-email-en-template'
 import articlesChangedEmailFrTemplate from '../infrastructure/mailing/articles-changed-email-fr-template'
@@ -261,7 +262,7 @@ function _shareChapterImage(imgLink) {
 }
 
 function _transformToImgLink(response) {
-  return isEmpty(response) ? '' : response.url.replace(/....$/, 'raw=1')
+  return toRawImgLink(response)
 }
 
 function _getGalleryUrl(response) {
