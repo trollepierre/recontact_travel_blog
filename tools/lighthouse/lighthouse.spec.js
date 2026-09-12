@@ -47,31 +47,38 @@ const audit = async (url, expected) => {
   })
 }
 
-// Thresholds calibrated on the 2026-09-12 CI run, with room for Lighthouse's
-// run-to-run variance (performance is the noisy one).
+// Thresholds are the lowest value observed minus a margin, not a target.
+//
+// Measured on CI, runs of 2026-09-12 (performance / accessibility /
+// best-practices / seo):
+//   HomePage    87 94 96 91  then  74 93 100 83
+//   Articles    73 90 73 83  then  86 90  77 83
+//   Article 85  37 96 77 100
+//
+// Two runs of the same page move by up to 13 points on performance and 8 on
+// seo, so these margins are wide on purpose: they catch a collapse, not a
+// regression. Tightening them needs more samples, or a median over several
+// Lighthouse runs per page.
 const PAGES = [
   {
     name: 'Article 85',
     url: 'https://fr-recontact-test.netlify.app/articles/85',
-    // never measured under Lighthouse 13, thresholds derived from the other two
     expected: {
-      total: 60, performance: 40, accessibility: 80, 'best-practices': 65, seo: 78,
+      total: 65, performance: 25, accessibility: 88, 'best-practices': 68, seo: 88,
     },
   },
   {
     name: 'HomePage',
     url: 'https://en-recontact-test.netlify.app',
-    // measured 87 / 94 / 96 / 91, aggregate 92
     expected: {
-      total: 82, performance: 70, accessibility: 90, 'best-practices': 90, seo: 85,
+      total: 78, performance: 60, accessibility: 88, 'best-practices': 88, seo: 75,
     },
   },
   {
     name: 'Articles',
     url: 'https://en-recontact-test.netlify.app/articles',
-    // measured 73 / 90 / 73 / 83, aggregate 79.75
     expected: {
-      total: 70, performance: 60, accessibility: 85, 'best-practices': 65, seo: 78,
+      total: 72, performance: 58, accessibility: 85, 'best-practices': 65, seo: 75,
     },
   },
 ]

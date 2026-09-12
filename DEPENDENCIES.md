@@ -305,8 +305,23 @@ Vitest — cohérent avec le § 4.5, et à décider ensemble.
    *toutes* les catégories, elle l'a fait chuter de 86 à 70,4 sans qu'aucune page
    n'ait bougé. L'agrégat est désormais calculé sur les quatre catégories
    historiques (performance, accessibilité, bonnes pratiques, SEO), pour rester
-   comparable dans le temps. Mesures du 2026-09-12 : accueil 87/94/96/91,
-   liste d'articles 73/90/73/83.
+   comparable dans le temps.
+
+9. **Les scores Lighthouse varient trop pour servir de garde-fou fin.** Deux runs
+   CI de la *même* page, à quelques minutes d'intervalle, bougent de **13 points
+   en performance** et de **8 en SEO** :
+
+   | Page | perf | a11y | bonnes pratiques | SEO |
+   |------|-----:|-----:|-----------------:|----:|
+   | Accueil | 74 – 87 | 93 – 94 | 96 – 100 | 83 – 91 |
+   | Liste d'articles | 73 – 86 | 90 | 73 – 77 | 83 |
+   | Article 85 | 37 | 96 | 77 | 100 |
+
+   Les seuils du fichier sont donc **le minimum observé moins une marge**, pas un
+   objectif : ils attrapent un effondrement, pas une régression. Les resserrer
+   demande plus d'échantillons, ou une médiane sur plusieurs runs par page — au
+   prix du temps de job. À noter : l'article 85 plafonne à **37 en performance**,
+   c'est la page à regarder si le sujet revient.
 
 ---
 
