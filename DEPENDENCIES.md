@@ -56,8 +56,25 @@ Ce qui a été livré, un commit par lot :
    par le repli, et c'est le seul chemin non couvert par les tests unitaires.
 2. **Envoi d'un mail Mailjet réel.** `sendEmail` est court-circuité hors
    production (`isProduction()`), donc aucun test ne touche l'API.
-3. **Migrations Sequelize 6 sur une copie de la base Postgres de staging.**
-   Le round-trip CRUD a été validé sur SQLite uniquement.
+3. **Le comportement de `sequelize.sync()` sur le Postgres réel.**
+   Attention, **les migrations ne sont jamais jouées** : il n'y a ni
+   `.sequelizerc` ni `config/config.json`, aucun script n'appelle `db:migrate`,
+   et le dossier `back/src/infrastructure/db/migrations/` a divergé des modèles
+   (il crée `Chapters` alors que le modèle veut `Newchapters`, et ne connaît ni
+   `Comments`, ni `Photos`, ni `Newpositions`). C'est
+   [`back/index.js:24`](back/index.js:24) qui fait le schéma, avec un
+   `models.sequelize.sync()` à chaque démarrage.
+
+   Ce qu'il faut donc vérifier, ce n'est pas un rejeu de migrations mais que
+   `sync()` sous Sequelize 6 ne touche à rien sur le schéma existant — sans
+   `force` ni `alter`, il se limite à des `CREATE TABLE IF NOT EXISTS`, donc un
+   diff de schéma avant/après doit être **vide** — puis que les lectures et
+   écritures passent. Le round-trip CRUD n'a été validé que sur SQLite.
+
+   Note : `models/index.js` force `ssl: { require: true }` sur la branche
+   production, donc une copie posée sur un Postgres local sans TLS refusera la
+   connexion ; faire la vérification sur une base hébergée, ou lever le SSL le
+   temps du test.
 4. **Réponses d'erreur de l'API.** Le gestionnaire d'erreurs d'`app.js` était
    inerte (arité 3) ; il répond maintenant `{ error: <message> }` en JSON là où
    Express renvoyait sa page HTML par défaut. Vérifier qu'aucun client ne
@@ -76,6 +93,7 @@ Points du plan qui se sont révélés faux à l'exécution — à ne pas rejouer
 | Remplacer `sharingCreateSharedLink` est mécanique | La route `WithSettings` **échoue** quand le lien existe déjà, là où l'ancienne renvoyait l'existant. Sans repli sur `sharingListSharedLinks`, toute resynchronisation perdait ses liens d'images. |
 | Le lot 10 est un simple bump | `lighthouse ≥ 12` et `chrome-launcher ≥ 1` sont ESM-only : `tools/lighthouse` est passé en `"type": "module"`, **jest a été retiré** au profit du runner intégré de Node (cf. § 5.7), la catégorie **PWA a disparu de Lighthouse 12** (4 assertions supprimées) et une catégorie **« Agentic Browsing » est apparue en 13** (exclue de l'agrégat). |
 | `sqlite3@6` « ne supprime pas les 3 critical `tar` » | Faux : `sqlite3@6.0.1` dépend de `tar ^7.5.10` et l'avis est corrigé en `>=7.5.19` — même majeure, le bump suffit. C'est ce qui amène le back à 0 critical. |
+| Les migrations sont à rejouer sur une copie Postgres | Elles ne sont **jamais jouées** : pas de `.sequelizerc`, aucun script `db:migrate`, et le dossier a divergé des modèles. Le schéma vient du `sequelize.sync()` de [`back/index.js:24`](back/index.js:24). Voir § 2.3. |
 | `axios.defaults.adapter` est le point d'attention du lot 5 | Sans objet : on est passé à `ofetch`, comme recommandé. Le vrai point d'attention était jest, qui résout la condition *browser* d'`ofetch` (ESM) — d'où le `moduleNameMapper` ajouté. |
 
 ---
@@ -84,7 +102,10 @@ Points du plan qui se sont révélés faux à l'exécution — à ne pas rejouer
 
 ### 4.1 Remettre en place la veille — **le seul point structurel**
 
-Non fait, et c'est la cause racine de la dérive. Aujourd'hui encore :
+**Décision prise le 2026-09-13 : Renovate reste désactivé.** Ce qui suit reste
+donc vrai et assumé — à relire le jour où cette passe sera à refaire.
+
+Aujourd'hui :
 
 - [`.github/dependabot.yml`](.github/dependabot.yml) est **entièrement commenté** ;
 - [`.github/renovate.json`](.github/renovate.json) a `"enabled": false`.
