@@ -8,7 +8,6 @@ module.exports = {
     sourceType: 'module',
   },
   env: {
-    jest: true,
     node: true,
     es2022: true,
   },

@@ -74,7 +74,7 @@ Points du plan qui se sont révélés faux à l'exécution — à ne pas rejouer
 | `debug` (back) est épinglé sans usage propre | Il est importé par `index.js:6`. Conservé. *(voir § 5, l'appel y est bogué)* |
 | `vue-router` peut sortir du `package.json` du front | Il est importé directement par `config/jest.setup.js` et `test/router/router.js` ; le retirer fait échouer `import/no-extraneous-dependencies`. Conservé. |
 | Remplacer `sharingCreateSharedLink` est mécanique | La route `WithSettings` **échoue** quand le lien existe déjà, là où l'ancienne renvoyait l'existant. Sans repli sur `sharingListSharedLinks`, toute resynchronisation perdait ses liens d'images. |
-| Le lot 10 est un simple bump | `lighthouse ≥ 12` et `chrome-launcher ≥ 1` sont ESM-only : `tools/lighthouse` est passé en `"type": "module"`, jest tourne avec `--experimental-vm-modules`, et la catégorie **PWA a disparu de Lighthouse 12** (4 assertions supprimées). |
+| Le lot 10 est un simple bump | `lighthouse ≥ 12` et `chrome-launcher ≥ 1` sont ESM-only : `tools/lighthouse` est passé en `"type": "module"`, **jest a été retiré** au profit du runner intégré de Node (cf. § 5.7), la catégorie **PWA a disparu de Lighthouse 12** (4 assertions supprimées) et une catégorie **« Agentic Browsing » est apparue en 13** (exclue de l'agrégat). |
 | `sqlite3@6` « ne supprime pas les 3 critical `tar` » | Faux : `sqlite3@6.0.1` dépend de `tar ^7.5.10` et l'avis est corrigé en `>=7.5.19` — même majeure, le bump suffit. C'est ce qui amène le back à 0 critical. |
 | `axios.defaults.adapter` est le point d'attention du lot 5 | Sans objet : on est passé à `ofetch`, comme recommandé. Le vrai point d'attention était jest, qui résout la condition *browser* d'`ofetch` (ESM) — d'où le `moduleNameMapper` ajouté. |
 
@@ -273,8 +273,7 @@ Vitest — cohérent avec le § 4.5, et à décider ensemble.
      du module* : `yarn init:db` échoue si le dossier n'existe pas.
    - `front/services/services/api-service.*.spec.js` déclarent
      `expect.assertions(3)` pour une seule assertion réelle.
-   - Les seuils de score de `tools/lighthouse` datent de Lighthouse 10 ; les
-     courbes de notation ont bougé, ils seront à recalibrer au premier vrai run.
+
 
 4. **`pg` doit rester dans `dependencies`** (cf. `777db94`). `sqlite3` et
    `sequelize-cli` sont dev/test only.
@@ -291,6 +290,23 @@ Vitest — cohérent avec le § 4.5, et à décider ensemble.
    comme garde-fou anti-régression à partir d'aujourd'hui. Le poste à regarder :
    `mapbox-gl` pèse **274 kB gzippés** à lui seul, sur un budget historique de
    56 kB pour *tout* le JS.
+
+7. **Ne pas faire tourner Lighthouse sous Jest.** Sous
+   `NODE_OPTIONS=--experimental-vm-modules`, le chargement dynamique des audits
+   par Lighthouse casse le lieur de modules ESM de Jest —
+   `request for './computed-artifact.js' is from a module not been linked` — et
+   Jest ne rend jamais la main ensuite, ce qui a fait échouer le job sur
+   « Too long with no output (exceeded 10m0s) » **après** que les tests soient
+   terminés. `tools/lighthouse` utilise donc `node --test` : ESM natif, pas de
+   VM modules, sortie propre, et jest en moins dans l'arbre de dépendances.
+
+8. **Lighthouse 13 a ajouté une catégorie « Agentic Browsing ».** Elle score très
+   bas (33 et 67 sur nos pages) et, comme le score global était une moyenne de
+   *toutes* les catégories, elle l'a fait chuter de 86 à 70,4 sans qu'aucune page
+   n'ait bougé. L'agrégat est désormais calculé sur les quatre catégories
+   historiques (performance, accessibilité, bonnes pratiques, SEO), pour rester
+   comparable dans le temps. Mesures du 2026-09-12 : accueil 87/94/96/91,
+   liste d'articles 73/90/73/83.
 
 ---
 
