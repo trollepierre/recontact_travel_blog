@@ -5,6 +5,11 @@ common_properties: &common_properties
 
 version: 2.1
 
+orbs:
+  # cimg/node:*-browsers no longer ships Chrome preinstalled; chrome-launcher
+  # fails with ChromePathNotSetError without this.
+  browser-tools: circleci/browser-tools@2.4.2
+
 commands:
   heroku_setup:
     parameters:
@@ -45,12 +50,13 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
             - v16-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run:
           name: Install front
           command: yarn install:front --frozen-lockfile
       - save_cache:
-          key: v16-front-dependencies-{{ checksum "front/yarn.lock" }}
+          key: v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
           paths:
             - ./front/node_modules
 
@@ -63,12 +69,13 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
             - v16-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run:
           name: Install back
           command: yarn install:back --frozen-lockfile
       - save_cache:
-          key: v16-back-dependencies-{{ checksum "back/yarn.lock" }}
+          key: v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
           paths:
             - ./back/node_modules
 
@@ -81,6 +88,7 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
             - v16-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run:
           name: Lint front
@@ -100,6 +108,7 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
             - v16-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run:
           name: Lint back
@@ -119,10 +128,11 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
             - v16-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run: yarn build:front
       - save_cache:
-          key: v16-front-build-{{ checksum "front/yarn.lock" }}
+          key: v16-front-build-{{ checksum ".circle-cache-key" }}
           paths:
             - ./front/dist
 
@@ -135,6 +145,7 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
+            - v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
             - v16-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run: yarn build:back
 
@@ -172,6 +183,10 @@ jobs:
       - restore_cache:
           keys:
             - v16-code-{{ checksum ".circle-cache-key" }}
+      - browser-tools/install_chrome
+      - run:
+          name: Point chrome-launcher at the installed Chrome
+          command: echo "export CHROME_PATH=$(command -v google-chrome || command -v google-chrome-stable || command -v chromium)" >> "$BASH_ENV"
       - run: yarn lighthouse
 
   bundlesize:
@@ -183,8 +198,12 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v16-front-build-{{ checksum "front/yarn.lock" }}
-      - run: yarn bundlesize
+            - v16-front-build-{{ checksum ".circle-cache-key" }}
+      # a stale BUNDLESIZE_GITHUB_TOKEN in the project settings makes bundlesize
+      # exit 1 on "Could not add github status. 401", after the size checks passed
+      - run:
+          name: Bundlesize
+          command: env -u BUNDLESIZE_GITHUB_TOKEN -u bundlesize_github_token -u GITHUB_TOKEN -u github_token yarn bundlesize
 
 #  webpagetest:
 #    <<: *common_properties
@@ -306,9 +325,12 @@ workflows:
       - validate_html5v:
           requires:
             - deploy_staging
+      # lighthouse and bundlesize audit the already deployed netlify sites, they
+      # do not depend on this pipeline's staging deploy — which only runs on dev
+      # and would make them unreachable from the test branch.
       - lighthouse:
           requires:
-            - deploy_staging
+            - checkout_code
           filters:
             branches:
               only: test
@@ -317,7 +339,7 @@ workflows:
 #            - deploy_staging
       - bundlesize:
           requires:
-            - deploy_staging
+            - build_front
           filters:
             branches:
               only: test

@@ -13,6 +13,7 @@
     "^~~/(.*)$": "<rootDir>/$1",
     "^@/(.*)$": "<rootDir>/$1",
     "^@vue/test-utils$": "<rootDir>/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js",
+    "^ofetch$": "<rootDir>/node_modules/ofetch/dist/index.cjs",
     "^vue$": "<rootDir>/config/jest.vue-shim.js",
     "^@vue/server-renderer$": "<rootDir>/config/jest.server-renderer.mock.js",
     "^#imports$": "<rootDir>/config/jest.mocked-imports.js",

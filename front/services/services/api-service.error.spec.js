@@ -1,22 +1,12 @@
 import logger from './logger-service'
 import apiService from './api-service'
 
-jest.mock('axios', () => ({
-  defaults: {},
-  create: jest.fn().mockReturnValue({
-    get: () => {
+jest.mock('ofetch', () => ({
+  ofetch: {
+    create: jest.fn().mockReturnValue(() => {
       throw new Error('Async error')
-    },
-    post: () => {
-      throw new Error('Async error')
-    },
-    patch: () => {
-      throw new Error('Async error')
-    },
-    delete: () => {
-      throw new Error('Async error')
-    },
-  }),
+    }),
+  },
 }))
 jest.mock('../env/env', () => () => 'http://localhost:9100/')
 

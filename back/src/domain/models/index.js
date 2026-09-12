@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import Sequelize from 'sequelize'
-import { dbConfig } from '../../infrastructure/db/db-config'
+import { dbConfig, productionDatabaseUrl } from '../../infrastructure/db/db-config'
 import env from '../../infrastructure/env/env'
 import { isProduction } from '../../infrastructure/env/process'
 
@@ -9,7 +9,7 @@ const config = dbConfig()
 
 let sequelize
 if (isProduction()) {
-  sequelize = new Sequelize(env('DATABASE_URL'), { dialect: 'postgres', dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } })
+  sequelize = new Sequelize(productionDatabaseUrl(), { dialect: 'postgres' })
 } else {
   sequelize = new Sequelize(env('DATABASE_NAME'), config.username, config.password, config)
 }
@@ -20,7 +20,8 @@ fs
   .readdirSync(__dirname)
   .filter(file => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach(file => {
-    const model = sequelize.import(path.join(__dirname, file))
+    // eslint-disable-next-line global-require, import/no-dynamic-require
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
     db[model.name] = model
   })
 

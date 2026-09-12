@@ -30,7 +30,10 @@ function sendEmail(options) {
     return Promise.resolve()
   }
   if (!isEmpty(options.to)) {
-    const mailjet = nodeMailjet.connect(env('MAILJET_PUBLIC_KEY'), env('MAILJET_SECRET_KEY'))
+    const mailjet = new nodeMailjet.Client({
+      apiKey: env('MAILJET_PUBLIC_KEY'),
+      apiSecret: env('MAILJET_SECRET_KEY'),
+    })
     return mailjet
       .post('send')
       .request(_formatPayload(options))

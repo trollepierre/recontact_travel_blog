@@ -54,3 +54,11 @@ yarn release
 SQLite is recommended for local development. To fix bug in production, it is better to use PostgreSQL
 
 https://www.postgresql.org/download/
+
+Production runs on PostgreSQL (`dialect: 'postgres'`), so `pg` is a **runtime**
+dependency of `back/` — it must stay in `dependencies`, never in
+`devDependencies`, otherwise a build that prunes dev dependencies ships without
+its driver.
+
+`sqlite3` and `sequelize-cli`, on the contrary, are **dev/test only**: they are
+used by `yarn init:db` and the local/test database, never in production.

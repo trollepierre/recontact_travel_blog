@@ -4,19 +4,19 @@ import Mailjet from '../../../src/infrastructure/mailing/mailjet'
 import * as process from '../../../src/infrastructure/env/process'
 
 describe('Unit | Infrastructure | Mailing | Mailjet', () => {
-  let mailJetConnectStub
+  let mailJetClientStub
   let isProductionMock
   let consoleLog
 
   beforeEach(() => {
-    mailJetConnectStub = sinon.stub(nodeMailjet, 'connect')
+    mailJetClientStub = sinon.stub(nodeMailjet, 'Client')
     isProductionMock = sinon.stub(process, 'isProduction')
     isProductionMock.returns(true)
     consoleLog = sinon.stub(console, 'log')
   })
 
   afterEach(() => {
-    mailJetConnectStub.restore()
+    mailJetClientStub.restore()
     isProductionMock.restore()
     consoleLog.restore()
   })
@@ -42,13 +42,13 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
       Mailjet.sendEmail(options)
 
       // Then
-      sinon.assert.notCalled(mailJetConnectStub)
+      sinon.assert.notCalled(mailJetClientStub)
       sinon.assert.called(consoleLog)
     })
 
     it('should create an instance of mailJet', () => {
       // Given
-      mailJetConnectStub.returns({
+      mailJetClientStub.returns({
         post: () => ({
           request: () => {
           },
@@ -59,13 +59,17 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
       Mailjet.sendEmail(options)
 
       // Then
-      sinon.assert.calledWith(mailJetConnectStub, 'fake-mailjet-public-key', 'fake-mailjet-secret-key')
+      sinon.assert.calledWithNew(mailJetClientStub)
+      sinon.assert.calledWith(mailJetClientStub, {
+        apiKey: 'fake-mailjet-public-key',
+        apiSecret: 'fake-mailjet-secret-key',
+      })
     })
 
     it('should post a send instruction', () => {
       // Given
       const postStub = sinon.stub().returns({ request: () => Promise.resolve() })
-      mailJetConnectStub.returns({ post: postStub })
+      mailJetClientStub.returns({ post: postStub })
 
       // When
       const result = Mailjet.sendEmail(options)
@@ -80,7 +84,7 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
       // Given
       const requestStub = sinon.stub().returns(Promise.resolve())
       const postStub = sinon.stub().returns({ request: requestStub })
-      mailJetConnectStub.returns({ post: postStub })
+      mailJetClientStub.returns({ post: postStub })
 
       // When
       const result = Mailjet.sendEmail(options)
@@ -104,7 +108,7 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
       beforeEach(() => {
         requestStub = sinon.stub().returns(Promise.resolve())
         postStub = sinon.stub().returns({ request: requestStub })
-        mailJetConnectStub.returns({ post: postStub })
+        mailJetClientStub.returns({ post: postStub })
 
         options = {
           from: 'from',
@@ -124,7 +128,7 @@ describe('Unit | Infrastructure | Mailing | Mailjet', () => {
 
         // then
         return result.then(() => {
-          expect(mailJetConnectStub).not.to.have.been.calledWith()
+          expect(mailJetClientStub).not.to.have.been.calledWith()
         })
       })
 
