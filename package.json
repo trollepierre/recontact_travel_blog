@@ -30,7 +30,7 @@
     "release": "./tools/release/release.sh",
     "lighthouse": "(cd tools/lighthouse && yarn) && (cd tools/lighthouse && yarn test)",
     "bundlesize": "npx bundlesize",
-    "heroku-postbuild": "yarn build"
+    "heroku-postbuild": "NUXT_PUBLIC_API_BASE= yarn build"
   },
   "repository": {
     "type": "git",

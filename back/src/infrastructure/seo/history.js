@@ -1,6 +1,8 @@
 import connectHistoryApiFallback from 'connect-history-api-fallback'
 
 const history = connectHistoryApiFallback({
+  // Shell SPA vide généré par nitro : sans cela toute route inconnue renvoyait le HTML de l'accueil
+  index: '/200.html',
   rewrites: [
     {
       from: /^\/articles\/static.*$/,

@@ -1,5 +1,4 @@
 import express from 'express'
-import path from 'path'
 import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
@@ -23,8 +22,10 @@ import {
 import robots from './src/infrastructure/seo/robots'
 import sitemap from './src/infrastructure/seo/sitemap'
 import history from './src/infrastructure/seo/history'
+import prerenderedIndex from './src/infrastructure/seo/prerendered-index'
 import env from './src/infrastructure/env/env'
-import writeStaticEnv from './src/infrastructure/env/write-static-env'
+import staticEnv from './src/infrastructure/env/static-env'
+import { frontDistDir } from './src/infrastructure/paths'
 
 const app = express()
 
@@ -50,13 +51,19 @@ app.use(setCacheMiddleware)
 
 app.use('/robots.txt', robots)
 app.use('/sitemap.xml', sitemap)
+
+if (env('NODE_ENV') !== 'test') {
+  // Exposes runtime variables to the static front
+  app.use('/env.js', staticEnv)
+  // Serve the HTML prerendered for the route, when there is one
+  app.use(prerenderedIndex(frontDistDir))
+}
+
 // Should be after robot and sitemap but before dist
 app.use((req, res, next) => (req.url.startsWith('/api') ? next() : history(req, res, next)))
 
 if (env('NODE_ENV') !== 'test') {
-  // Write env.js that exposes runtime variables to static front
-  writeStaticEnv()
-  app.use(express.static(path.join(__dirname, '..', '..', 'front', 'dist')))
+  app.use(express.static(frontDistDir))
 }
 
 app.use('/status', status)
