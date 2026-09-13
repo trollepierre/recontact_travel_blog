@@ -7,6 +7,32 @@ export const dropboxApi = new Dropbox({ accessToken: env('DROPBOX_CLIENT_ID') })
 
 const RETRY_DELAY = 1000
 
+// A DropboxResponseError only says "Response failed with a 409 code"; what the
+// call actually complained about sits in the error_summary of its body. Naming
+// the route and the path turns an opaque status into something actionable in the
+// http response, without a trip to the server logs.
+// Rethrowing a plain Error also keeps dropbox's status from becoming our own:
+// the express error handler reads err.status, and a 409 from dropbox means
+// nothing to a client of this api.
+const dropboxErrorSummary = err => {
+  const body = err && err.error
+  if (typeof body === 'string') {
+    return body
+  }
+  if (body && typeof body.error_summary === 'string') {
+    return body.error_summary
+  }
+  return (err && err.message) || 'unknown error'
+}
+
+const dropboxError = (call, err) => {
+  const error = new Error(`Dropbox ${call} : ${dropboxErrorSummary(err)}`)
+  error.cause = err
+  console.error(error.message)
+  console.error(err)
+  return error
+}
+
 const wait = delay => new Promise(resolve => {
   setTimeout(resolve, delay)
 })
@@ -50,9 +76,7 @@ const DropboxClient = {
       .then(response => this.getFilesListContinue(response.result))
       .then(dropboxAnswer => dropboxAnswer.entries)
       .catch(err => {
-        console.error('Erreur lors de la récupération de tous les fichiers Dropbox : ')
-        console.error(err)
-        throw err
+        throw dropboxError('filesListFolder /', err)
       })
   },
 
@@ -60,9 +84,7 @@ const DropboxClient = {
     return dropboxApi.filesListFolder({ path: `/${id}/`, recursive: true })
       .then(response => response.result.entries.map(entry => entry.path_display))
       .catch(err => {
-        console.error(`Erreur lors de la récupération de toutes les photos de l’article Dropbox : ${id}`)
-        console.error(err)
-        throw err
+        throw dropboxError(`filesListFolder /${id}/`, err)
       })
   },
 
@@ -71,9 +93,7 @@ const DropboxClient = {
     return dropboxApi.filesGetTemporaryLink({ path: `/${id}/fr.${extension}` })
       .then(response => response.result.link)
       .catch(err => {
-        console.error('Erreur lors de la récupération du fichier texte de : ', `/${id}/fr.${extension}`)
-        console.error(err)
-        throw err
+        throw dropboxError(`filesGetTemporaryLink /${id}/fr.${extension}`, err)
       })
   },
 
@@ -82,9 +102,7 @@ const DropboxClient = {
     return dropboxApi.filesGetTemporaryLink({ path: `/${id}/en.${extension}` })
       .then(response => response.result.link)
       .catch(err => {
-        console.error('Erreur lors de la récupération du fichier texte de : ', `/${id}/en.${extension}`)
-        console.error(err)
-        throw err
+        throw dropboxError(`filesGetTemporaryLink /${id}/en.${extension}`, err)
       })
   },
 

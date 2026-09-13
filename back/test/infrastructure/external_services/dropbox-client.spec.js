@@ -155,8 +155,36 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         return promise.then(() => {
           throw new Error()
         }, err => {
-          expect(err.message).to.equal('Expected error')
+          expect(err.message).to.equal('Dropbox filesListFolder / : Expected error')
         })
+      })
+    })
+  })
+
+  describe('when dropbox answers with one of its own errors', () => {
+    afterEach(() => {
+      dropboxApi.filesListFolder.restore()
+    })
+
+    it('should say which call failed and why', () => {
+      // given
+      // a DropboxResponseError only carries "Response failed with a 409 code";
+      // the reason is in the body, and that is what has to reach the caller
+      const dropboxFailure = new Error('Response failed with a 409 code')
+      dropboxFailure.status = 409
+      dropboxFailure.error = { error_summary: 'path/not_found/...' }
+      sinon.stub(dropboxApi, 'filesListFolder').rejects(dropboxFailure)
+
+      // when
+      const promise = DropboxClient.getFilesFolderPaths(93)
+
+      // then
+      return promise.then(() => {
+        throw new Error()
+      }, err => {
+        expect(err.message).to.equal('Dropbox filesListFolder /93/ : path/not_found/...')
+        expect(err.status).to.equal(undefined)
+        expect(err.cause).to.equal(dropboxFailure)
       })
     })
   })
@@ -210,7 +238,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         return promise.then(() => {
           throw new Error()
         }, err => {
-          expect(err.message).to.equal('Expected error')
+          expect(err.message).to.equal('Dropbox filesListFolder /59/ : Expected error')
         })
       })
     })
@@ -266,7 +294,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         return promise.then(() => {
           throw new Error()
         }, err => {
-          expect(err.message).to.equal('Expected error')
+          expect(err.message).to.equal('Dropbox filesGetTemporaryLink /59/fr.php : Expected error')
         })
       })
     })
@@ -322,7 +350,7 @@ describe('Unit | Infrastructure | dropbox-client', () => {
         return promise.then(() => {
           throw new Error()
         }, err => {
-          expect(err.message).to.equal('Expected error')
+          expect(err.message).to.equal('Dropbox filesGetTemporaryLink /59/en.php : Expected error')
         })
       })
     })
