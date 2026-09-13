@@ -9,9 +9,9 @@ import articles from '../fixtures/articlesWithSharedLink'
 
 describe('Unit | GetArticlesMeta | getAll()', () => {
   beforeEach(() => {
-    sinon.stub(ArticleRepository, 'getAll').returns(articles())
-    sinon.stub(ChapterRepository, 'getChaptersOfArticle').returns(chapterOfArticle())
-    sinon.stub(PhotoRepository, 'getPhotosOfArticle').returns(photosOfArticle())
+    sinon.stub(ArticleRepository, 'getAll').resolves(articles())
+    sinon.stub(ChapterRepository, 'getChaptersOfArticle').resolves([chapterOfArticle()])
+    sinon.stub(PhotoRepository, 'getPhotosOfArticle').resolves([photosOfArticle()])
   })
 
   afterEach(() => {
@@ -30,21 +30,15 @@ describe('Unit | GetArticlesMeta | getAll()', () => {
     expect(PhotoRepository.getPhotosOfArticle).to.have.been.callCount(3)
   })
 
-  // it.only('should return result', async (done) => {
-  //   // when
-  //   const articlesMeta = await GetArticlesMeta.getAll()
-  //
-  //   console.log('here')
-  //
-  //   // then
-  //   return articlesMeta.map(promise => {
-  //     return Promise.resolve(promise).then(x => {
-  //       console.log(x)
-  //
-  //       expect(x).to.eq('toto')
-  //     })
-  //   })
-  //   // expect(articlesMeta).to.eqls([])
-  // })
+  it('should return the counts of each article', async () => {
+    // when
+    const articlesMeta = await GetArticlesMeta.getAll()
+
+    // then
+    // the stubs resolve promises rather than returning arrays: `.map` on a
+    // promise was bluebird's, and stubbing a plain array hid that from the suite
+    expect(articlesMeta).to.have.lengthOf(3)
+    expect(articlesMeta[0]).to.include.keys('dropboxId', 'chaptersCount', 'photosCount')
+  })
 })
 

@@ -6,7 +6,7 @@ import { dummySimpleChapter } from '../dummies/dummyChapter'
 
 describe('Unit | GetArticlesError | getAll()', () => {
   beforeEach(() => {
-    sinon.stub(GetArticlesMeta, 'getAll').returns([dummyArticleMeta()])
+    sinon.stub(GetArticlesMeta, 'getAll').resolves([dummyArticleMeta()])
   })
 
   afterEach(() => {
@@ -33,7 +33,7 @@ describe('Unit | GetArticlesError | getAll()', () => {
     // given
     GetArticlesMeta.getAll.restore()
     const brokenArticle = dummyArticleMeta({ brokenImgDropboxId: [dummySimpleChapter({ imgLink: '' })] })
-    sinon.stub(GetArticlesMeta, 'getAll').returns([brokenArticle])
+    sinon.stub(GetArticlesMeta, 'getAll').resolves([brokenArticle])
 
     // when
     const articlesError = await GetArticlesError.getAll()
@@ -46,7 +46,7 @@ describe('Unit | GetArticlesError | getAll()', () => {
     // given
     GetArticlesMeta.getAll.restore()
     const brokenArticle = dummyArticleMeta({ photosCount: 0 })
-    sinon.stub(GetArticlesMeta, 'getAll').returns([brokenArticle])
+    sinon.stub(GetArticlesMeta, 'getAll').resolves([brokenArticle])
 
     // when
     const articlesError = await GetArticlesError.getAll()
@@ -59,7 +59,7 @@ describe('Unit | GetArticlesError | getAll()', () => {
     // given
     GetArticlesMeta.getAll.restore()
     const brokenArticle = dummyArticleMeta({ chaptersCount: 0 })
-    sinon.stub(GetArticlesMeta, 'getAll').returns([brokenArticle])
+    sinon.stub(GetArticlesMeta, 'getAll').resolves([brokenArticle])
 
     // when
     const articlesError = await GetArticlesError.getAll()
@@ -72,7 +72,7 @@ describe('Unit | GetArticlesError | getAll()', () => {
     // given
     GetArticlesMeta.getAll.restore()
     const brokenArticle = dummyArticleMeta({ photosCount: 0 })
-    sinon.stub(GetArticlesMeta, 'getAll').returns([brokenArticle])
+    sinon.stub(GetArticlesMeta, 'getAll').resolves([brokenArticle])
 
     // when
     const articlesError = await GetArticlesError.getAll({ photos: 'off' })
@@ -85,7 +85,7 @@ describe('Unit | GetArticlesError | getAll()', () => {
     // given
     GetArticlesMeta.getAll.restore()
     const brokenArticle = dummyArticleMeta({ brokenImgDropboxId: [dummySimpleChapter({ imgLink: '' })] })
-    sinon.stub(GetArticlesMeta, 'getAll').returns([brokenArticle])
+    sinon.stub(GetArticlesMeta, 'getAll').resolves([brokenArticle])
 
     // when
     const articlesError = await GetArticlesError.getAll({ images: 'off' })

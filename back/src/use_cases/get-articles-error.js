@@ -14,8 +14,10 @@ const analyseArticleError = params => article => {
   return { ...article, error }
 }
 
-function getAll(params = {}) {
-  return GetArticlesMeta.getAll()
+// see get-articles-meta: `.map` and `.filter` on a promise were bluebird's
+async function getAll(params = {}) {
+  const articles = await GetArticlesMeta.getAll()
+  return articles
     .map(analyseArticleError(params))
     .filter(article => article.error.length !== 0)
 }
