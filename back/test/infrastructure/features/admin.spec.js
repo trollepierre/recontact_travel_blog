@@ -33,6 +33,36 @@ describe('Integration | Routes | admin route', () => {
     })
   })
 
+  describe('/admin/articles/:id when the synchronisation fails', () => {
+    let consoleError
+
+    beforeEach(() => {
+      sinon.stub(UpdateArticle, 'sync').rejects(new Error('dropbox is having a bad day'))
+      consoleError = sinon.stub(console, 'error')
+    })
+
+    afterEach(() => {
+      UpdateArticle.sync.restore()
+      consoleError.restore()
+    })
+
+    it('should answer 500 instead of killing the process', done => {
+      // an uncaught rejection here exits node: one bad article used to take the
+      // whole server down, and the browser read the missing response as CORS
+      request(app)
+        .patch('/api/admin/articles/59')
+        .end((err, response) => {
+          if (err) {
+            done(err)
+            return
+          }
+          expect(response.status).to.equal(500)
+          expect(response.body).to.deep.equal({ error: 'dropbox is having a bad day' })
+          done()
+        })
+    })
+  })
+
   describe('/admin/articles/', () => {
     beforeEach(() => {
       sinon.stub(UpdateArticles, 'sync').resolves()
