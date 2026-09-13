@@ -6,6 +6,7 @@
   import mapboxgl from 'mapbox-gl'
   import { articleLocations } from './article-location'
   import translationService from '../../../services/services/translations'
+  import runtimeValue from '../../../services/env/runtime-env'
   import { useRuntimeConfig } from '#imports'
 
   export default {
@@ -25,11 +26,9 @@
       // https://www.mapbox.com/install/js/bundler-complete/
       // https://docs.mapbox.com/mapbox-gl-js/example/
       const config = useRuntimeConfig()
-      // Permet d'injecter le token à l'exécution via back/dist/env.js
-      // sans regénération SSG
-      // eslint-disable-next-line no-undef
-      const runtimeToken = typeof window !== 'undefined' && window.__ENV && window.__ENV.mapboxToken ? window.__ENV.mapboxToken : undefined
-      mapboxgl.accessToken = runtimeToken || config.public.mapboxToken
+      // Permet d'injecter le token à l'exécution via /env.js sans regénération SSG
+      const buildToken = config.public.mapboxToken
+      mapboxgl.accessToken = runtimeValue('mapboxToken', buildToken) || buildToken
 
       this.map = new mapboxgl.Map({
         container: 'map',

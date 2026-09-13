@@ -6,9 +6,13 @@ import fs from 'node:fs'
 loadEnv({ path: resolve(__dirname, '.env.local') })
 loadEnv({ path: resolve(__dirname, '.env') })
 
-const apiUrl = process.env.NUXT_PUBLIC_API_BASE ||
-  process.env.NUXT_ENV_API_URL ||
+const apiUrl = process.env.NUXT_PUBLIC_API_BASE ??
+  process.env.NUXT_ENV_API_URL ??
   'http://localhost:3334'
+
+// '' signifie « même origine » pour le build servi par le back, mais le proxy de dev a besoin
+// d'une cible réelle
+const devProxyTarget = apiUrl || 'http://localhost:3334'
 
 // Charger les routes prérendues générées par scripts/prerender-routes.mjs
 const prerenderFile = resolve(__dirname, '.prerender-routes.json')
@@ -55,7 +59,7 @@ export default defineNuxtConfig({
 		server: {
 			proxy: {
 				'/api': {
-					target: apiUrl,
+					target: devProxyTarget,
 					changeOrigin: true,
 					secure: false,
 				},
@@ -82,6 +86,13 @@ export default defineNuxtConfig({
 				{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 				{ name: 'theme-color', content: '#FFFFFF' },
 				{ name: 'msapplication-TileColor', content: '#DA532C' },
+			],
+			script: [
+				// Injecté à l'exécution par le back (back/src/infrastructure/env/static-env.js) ;
+				// ailleurs c'est le placeholder inerte de front/public/env.js. Script classique, donc
+				// exécuté avant l'entrée Nuxt qui est un module (implicitement différé) : indispensable
+				// car api-service.js calcule son baseURL à l'import.
+				{ src: '/env.js', tagPosition: 'head' },
 			],
 			link: [
 				{ rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
