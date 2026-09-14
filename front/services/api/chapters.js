@@ -6,7 +6,7 @@ const ChaptersApi = {
   },
 
   update(id, position) {
-    return apiService.put(`admin/articles/${id}/chapters/${position}`)
+    return apiService.patch(`admin/articles/${id}/chapters/${position}`)
   },
 }
 

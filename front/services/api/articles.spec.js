@@ -50,8 +50,7 @@ describe('Unit | API | articles api', () => {
           foo: 'bar',
         },
       }
-      apiService.put = jest.fn()
-      apiService.put.mockResolvedValue(stubbedResponse)
+      jest.spyOn(apiService, 'patch').mockResolvedValue(stubbedResponse)
     })
 
     it('should put API with the good params', () => {
@@ -60,13 +59,13 @@ describe('Unit | API | articles api', () => {
       const promise = articlesApi.update(id)
 
       return promise.then(() => {
-        expect(apiService.put).toHaveBeenCalledWith(expectedUrl)
+        expect(apiService.patch).toHaveBeenCalledWith(expectedUrl)
       })
     })
 
     it('should return a rejected promise when an error is thrown', done => {
       const accessToken = 'invalid-access_token'
-      apiService.put.mockRejectedValue(new Error('some error'))
+      apiService.patch.mockRejectedValue(new Error('some error'))
 
       const promise = articlesApi.update(accessToken)
 
@@ -103,13 +102,12 @@ describe('Unit | API | articles api', () => {
           foo: 'bar',
         },
       }
-      apiService.put = jest.fn()
-      apiService.put.mockResolvedValue(stubbedResponse)
+      jest.spyOn(apiService, 'patch').mockResolvedValue(stubbedResponse)
       const expectedUrl = 'admin/articles'
 
       await articlesApi.updateAll(33, 35)
 
-      expect(apiService.put).toHaveBeenCalledWith(expectedUrl, { max: 35, min: 33 })
+      expect(apiService.patch).toHaveBeenCalledWith(expectedUrl, { max: 35, min: 33 })
     })
   })
 

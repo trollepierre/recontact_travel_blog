@@ -53,7 +53,7 @@ describe('apiService', () => {
     })
   })
 
-  describe('put', () => {
+  describe('patch', () => {
     const path = 'status'
 
     describe('when the promise resolves data', () => {
@@ -62,7 +62,7 @@ describe('apiService', () => {
         expect.assertions(1)
 
         // When
-        const response = await apiService.put(path)
+        const response = await apiService.patch(path)
 
         // Then
         expect(response).toEqual({

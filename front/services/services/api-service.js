@@ -23,13 +23,13 @@ const getAll = path => request(path, { method: 'GET' })
 
 const post = (path, body) => request(path, { method: 'POST', body })
 
-const put = (path, body) => request(path, { method: 'PATCH', body })
+const patch = (path, body) => request(path, { method: 'PATCH', body })
 
 const deleteById = path => request(path, { method: 'DELETE' })
 
 export default {
   get: getAll,
   post,
-  put,
+  patch,
   delete: deleteById,
 }
