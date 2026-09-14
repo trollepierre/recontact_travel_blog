@@ -9,8 +9,7 @@ describe('Unit | API | sync api', () => {
       stubbedResponse = {
         status: 200,
       }
-      apiService.patch = jest.fn()
-      apiService.patch.mockResolvedValue(stubbedResponse)
+      jest.spyOn(apiService, 'patch').mockResolvedValue(stubbedResponse)
     })
 
     it('should launch API with the good params', () => {

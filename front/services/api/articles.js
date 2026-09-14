@@ -7,7 +7,7 @@ const ArticlesApi = {
   },
 
   update(id) {
-    return apiService.put(`admin/articles/${id}`)
+    return apiService.patch(`admin/articles/${id}`)
   },
 
   delete(id) {
@@ -16,7 +16,7 @@ const ArticlesApi = {
 
   updateAll(min, max) {
     const data = { min, max }
-    return apiService.put('admin/articles', data)
+    return apiService.patch('admin/articles', data)
   },
 
   deleteAll() {

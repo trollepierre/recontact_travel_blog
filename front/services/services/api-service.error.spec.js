@@ -51,7 +51,7 @@ describe('apiService', () => {
     })
   })
 
-  describe('put', () => {
+  describe('patch', () => {
     describe('when the promise rejects', () => {
       it('should log the error', async () => {
         // Given
@@ -59,7 +59,7 @@ describe('apiService', () => {
 
         // When
         try {
-          await apiService.put(path)
+          await apiService.patch(path)
         } catch (err) {
           // Then
           expect(logger.error).toHaveBeenCalledOnceWith('Async error')
