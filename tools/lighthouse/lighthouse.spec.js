@@ -49,36 +49,40 @@ const audit = async (url, expected) => {
 
 // Thresholds are the lowest value observed minus a margin, not a target.
 //
-// Measured on CI, runs of 2026-09-12 (performance / accessibility /
-// best-practices / seo):
-//   HomePage    87 94 96 91  then  74 93 100 83
-//   Articles    73 90 73 83  then  86 90  77 83
-//   Article 85  37 96 77 100
+// Measured on CI over four runs (performance / accessibility / best-practices / seo):
+//   HomePage    87 94  96  91 | 74 93 100 83 | 72 93 100 83 | 71 93 100 83
+//   Articles    73 90  73  83 | 86 90  77 83 | 59 90  73 83 | 61 90  73 83
+//   Article 85  37 96  77 100 | 48 96  77 100 | 27 96 77 100 | 22 96 77 100
 //
-// Two runs of the same page move by up to 13 points on performance and 8 on
-// seo, so these margins are wide on purpose: they catch a collapse, not a
-// regression. Tightening them needs more samples, or a median over several
-// Lighthouse runs per page.
+// Accessibility, best practices and seo are stable to the point of being
+// constant. Performance is not: the same page, unchanged, scores between 22 and
+// 48. At that spread a tight threshold measures the CI machine's mood, not the
+// site, so these margins are wide on purpose — they catch a collapse, not a
+// regression.
+//
+// Article 85 is the low scorer for a reason that has nothing to do with the
+// bundle: its twelve chapter images are served straight from dropbox.com,
+// unresized, 2.8 MB for the page. The map chunk is not even loaded there.
 const PAGES = [
   {
     name: 'Article 85',
     url: 'https://fr-recontact-test.netlify.app/articles/85',
     expected: {
-      total: 65, performance: 25, accessibility: 88, 'best-practices': 68, seo: 88,
+      total: 65, performance: 12, accessibility: 90, 'best-practices': 70, seo: 90,
     },
   },
   {
     name: 'HomePage',
     url: 'https://en-recontact-test.netlify.app',
     expected: {
-      total: 78, performance: 60, accessibility: 88, 'best-practices': 88, seo: 75,
+      total: 78, performance: 55, accessibility: 88, 'best-practices': 90, seo: 78,
     },
   },
   {
     name: 'Articles',
     url: 'https://en-recontact-test.netlify.app/articles',
     expected: {
-      total: 72, performance: 58, accessibility: 85, 'best-practices': 65, seo: 75,
+      total: 68, performance: 45, accessibility: 85, 'best-practices': 65, seo: 78,
     },
   },
 ]
