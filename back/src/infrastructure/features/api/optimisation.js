@@ -7,23 +7,27 @@ import SynchronizeArticles from '../../../use_cases/synchronize-articles'
 
 const router = express.Router()
 
-router.get('/sub', (req, res) => GetAllSubscriptions.getAllSubscriptions()
-  .then(() => res.status(200).json([])))
+router.get('/sub', (req, res, next) => GetAllSubscriptions.getAllSubscriptions()
+  .then(() => res.status(200).json([]))
+  .catch(next))
 // .then(subscriptions => res.status(200).json([subscriptions])))
 
-router.get('/sub/del/:id', (req, res) => {
+router.get('/sub/del/:id', (req, res, next) => {
   const subscriptionId = parseInt(req.params.id, 10)
   return DeleteSubscription.deleteSubscription(subscriptionId)
     .then(() => res.status(204).send())
+    .catch(next)
 })
 
-router.get('/art/del', (req, res) => DeleteAllArticles.deleteAllArticles()
-  .then(() => res.status(204).send()))
+router.get('/art/del', (req, res, next) => DeleteAllArticles.deleteAllArticles()
+  .then(() => res.status(204).send())
+  .catch(next))
 
-router.get('/art/del/:id', (req, res) => {
+router.get('/art/del/:id', (req, res, next) => {
   const idArticle = parseInt(req.params.id, 10)
   return DeleteArticle.deleteArticle(idArticle)
     .then(() => res.status(204).send())
+    .catch(next)
 })
 
 router.get('/art/delsyn', (req, res) => DeleteAllArticles.deleteAllArticles()

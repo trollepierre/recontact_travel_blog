@@ -11,6 +11,36 @@ import { commentForFront } from '../../fixtures/comments/commentForFront'
 import { dummyArticleFromDb } from '../../dummies/dummyArticle'
 
 describe('Integration | Routes | articles route', () => {
+  describe('GET /articles when the use case rejects', () => {
+    let consoleError
+
+    beforeEach(() => {
+      sinon.stub(GetAllArticles, 'getAllArticles').rejects(new Error('the database is down'))
+      consoleError = sinon.stub(console, 'error')
+    })
+
+    afterEach(() => {
+      GetAllArticles.getAllArticles.restore()
+      consoleError.restore()
+    })
+
+    it('should answer 500 instead of leaving the request hanging', done => {
+      // an unhandled rejection in a route handler exits node: express only sees
+      // the error if the handler passes it on
+      request(app)
+        .get('/api/articles')
+        .end((err, response) => {
+          if (err) {
+            done(err)
+            return
+          }
+          expect(response.status).to.equal(500)
+          expect(response.body).to.deep.equal({ error: 'the database is down' })
+          done()
+        })
+    })
+  })
+
   describe('GET /articles', () => {
     let articles
 
