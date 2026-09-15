@@ -1,4 +1,4 @@
-import { expect } from '../../test-helper'
+import { expect, sinon } from '../../test-helper'
 import { toRawImgLink } from '../../../src/use_cases/services/dropbox-link'
 
 describe('Unit | UseCase | Services | dropbox-link | #toRawImgLink', () => {
@@ -38,13 +38,30 @@ describe('Unit | UseCase | Services | dropbox-link | #toRawImgLink', () => {
     expect(link).to.equal('https://www.dropbox.com/scl/fi/abc123/img0.jpg?raw=1')
   })
 
-  it('should return an empty link when dropbox returned nothing', () => {
-    // when / then
-    expect(toRawImgLink({})).to.equal('')
-  })
+  describe('when dropbox returned no usable link', () => {
+    let consoleError
 
-  it('should return an empty link rather than throw when the answer has no url', () => {
-    // when / then
-    expect(toRawImgLink({ path: '/59/img0.jpg' })).to.equal('')
+    beforeEach(() => {
+      consoleError = sinon.stub(console, 'error')
+    })
+
+    afterEach(() => {
+      consoleError.restore()
+    })
+
+    it('should return an empty link and say so', () => {
+      // when
+      const link = toRawImgLink({})
+
+      // then
+      // an empty link is how an article silently ends up with a broken image
+      expect(link).to.equal('')
+      expect(consoleError).to.have.been.called
+    })
+
+    it('should return an empty link rather than throw when the answer has no url', () => {
+      // when / then
+      expect(toRawImgLink({ path: '/59/img0.jpg' })).to.equal('')
+    })
   })
 })

@@ -7,6 +7,7 @@ import isEmpty from 'lodash/isEmpty'
 // process down mid-synchronisation.
 const toRawImgLink = response => {
   if (isEmpty(response) || !response.url) {
+    console.error('Dropbox n’a pas renvoyé de lien partagé : l’image sera absente')
     return ''
   }
 

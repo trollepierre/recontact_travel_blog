@@ -89,15 +89,7 @@ async function sync({ dropboxId, chapterPosition }) {
 
   function _shareChapterImage(imgLink) {
     return DropboxClient.createSharedLink(imgLink)
-      .then(_transformToImgLink)
-  }
-
-  function _transformToImgLink(response) {
-    if (isEmpty(response)) {
-      console.error('img link is empty again')
-    }
-
-    return toRawImgLink(response)
+      .then(toRawImgLink)
   }
 
   await chapterRepository.deleteChapterOfArticle(dropboxId, chapterPosition) // ok
