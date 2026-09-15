@@ -42,7 +42,7 @@ async function sync(dropboxId) {
   function serializePhoto(path) {
     return DropboxClient.createSharedLink(path)
       .then(response => ({
-        imgLink: _transformToImgLink(response),
+        imgLink: toRawImgLink(response),
         dropboxId,
       }))
   }
@@ -68,7 +68,7 @@ async function sync(dropboxId) {
     ])
       .then(responses => ({
         dropboxId: article.dropboxId,
-        imgLink: _transformToImgLink(responses[0]),
+        imgLink: toRawImgLink(responses[0]),
         galleryLink: _getGalleryUrl(responses[1]),
       }))
   }
@@ -170,15 +170,7 @@ async function sync(dropboxId) {
 
   function _shareChapterImage(imgLink) {
     return DropboxClient.createSharedLink(imgLink)
-      .then(_transformToImgLink)
-  }
-
-  function _transformToImgLink(response) {
-    if (isEmpty(response)) {
-      console.error('is empty imgLink')
-    }
-
-    return toRawImgLink(response)
+      .then(toRawImgLink)
   }
 
   function _getGalleryUrl(response) {

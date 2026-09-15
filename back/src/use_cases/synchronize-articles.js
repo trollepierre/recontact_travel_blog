@@ -154,7 +154,7 @@ function createPhotoOfArticle(paths, dropboxId) {
 function serializePhoto(path, dropboxId) {
   return DropboxClient.createSharedLink(path)
     .then(response => ({
-      imgLink: _transformToImgLink(response),
+      imgLink: toRawImgLink(response),
       dropboxId,
     }))
 }
@@ -180,7 +180,7 @@ function _shareImageZero(article) {
   ])
     .then(responses => ({
       dropboxId: article.dropboxId,
-      imgLink: _transformToImgLink(responses[0]),
+      imgLink: toRawImgLink(responses[0]),
       galleryLink: _getGalleryUrl(responses[1]),
     }))
 }
@@ -258,11 +258,7 @@ function _shareChapterImages(articleInfos) {
 
 function _shareChapterImage(imgLink) {
   return DropboxClient.createSharedLink(imgLink)
-    .then(_transformToImgLink)
-}
-
-function _transformToImgLink(response) {
-  return toRawImgLink(response)
+    .then(toRawImgLink)
 }
 
 function _getGalleryUrl(response) {
