@@ -50,13 +50,12 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
             - v16-front-dependencies-{{ checksum "front/yarn.lock" }}
       - run:
           name: Install front
           command: yarn install:front --frozen-lockfile
       - save_cache:
-          key: v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
+          key: v16-front-dependencies-{{ checksum "front/yarn.lock" }}
           paths:
             - ./front/node_modules
 
@@ -69,13 +68,12 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
             - v16-back-dependencies-{{ checksum "back/yarn.lock" }}
       - run:
           name: Install back
           command: yarn install:back --frozen-lockfile
       - save_cache:
-          key: v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
+          key: v16-back-dependencies-{{ checksum "back/yarn.lock" }}
           paths:
             - ./back/node_modules
 
@@ -88,8 +86,13 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
             - v16-front-dependencies-{{ checksum "front/yarn.lock" }}
+      # the dependency cache is shared across branches, so two pipelines on the
+      # same lockfile race for the key and the loser saves nothing. Without this
+      # net, the jobs downstream run with no node_modules at all (exit 127).
+      - run:
+          name: Install front if the cache missed
+          command: '[ -d front/node_modules ] || yarn install:front --frozen-lockfile'
       - run:
           name: Lint front
           command: yarn lint:front
@@ -108,8 +111,13 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
             - v16-back-dependencies-{{ checksum "back/yarn.lock" }}
+      # the dependency cache is shared across branches, so two pipelines on the
+      # same lockfile race for the key and the loser saves nothing. Without this
+      # net, the jobs downstream run with no node_modules at all (exit 127).
+      - run:
+          name: Install back if the cache missed
+          command: '[ -d back/node_modules ] || yarn install:back --frozen-lockfile'
       - run:
           name: Lint back
           command: yarn lint:back
@@ -128,8 +136,13 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v16-front-dependencies-{{ checksum "front/yarn.lock" }}-{{ .Branch }}
             - v16-front-dependencies-{{ checksum "front/yarn.lock" }}
+      # the dependency cache is shared across branches, so two pipelines on the
+      # same lockfile race for the key and the loser saves nothing. Without this
+      # net, the jobs downstream run with no node_modules at all (exit 127).
+      - run:
+          name: Install front if the cache missed
+          command: '[ -d front/node_modules ] || yarn install:front --frozen-lockfile'
       - run: yarn build:front
       - save_cache:
           key: v16-front-build-{{ checksum ".circle-cache-key" }}
@@ -145,8 +158,13 @@ jobs:
             - v16-code-{{ checksum ".circle-cache-key" }}
       - restore_cache:
           keys:
-            - v16-back-dependencies-{{ checksum "back/yarn.lock" }}-{{ .Branch }}
             - v16-back-dependencies-{{ checksum "back/yarn.lock" }}
+      # the dependency cache is shared across branches, so two pipelines on the
+      # same lockfile race for the key and the loser saves nothing. Without this
+      # net, the jobs downstream run with no node_modules at all (exit 127).
+      - run:
+          name: Install back if the cache missed
+          command: '[ -d back/node_modules ] || yarn install:back --frozen-lockfile'
       - run: yarn build:back
 
   deploy_branch:
