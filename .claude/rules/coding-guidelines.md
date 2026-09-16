@@ -66,6 +66,19 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. Comments
+
+**English. Almost none.**
+
+Default to no comment: rename the variable, extract the function, simplify the expression.
+Write one only when the *why* is not recoverable from the code — a non-obvious constraint,
+a workaround and its cause, a surprising order, a deliberate deviation.
+
+- Never restate what the line does, never narrate the change ("now we also handle X").
+- No commented-out code, no divider banners, no JSDoc that repeats the signature.
+- One or two `//` lines, above the block they justify.
+- A `TODO` carries a reason, or it goes.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
