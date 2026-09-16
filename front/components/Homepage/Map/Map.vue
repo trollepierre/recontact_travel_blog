@@ -26,7 +26,7 @@
       // https://www.mapbox.com/install/js/bundler-complete/
       // https://docs.mapbox.com/mapbox-gl-js/example/
       const config = useRuntimeConfig()
-      // Permet d'injecter le token à l'exécution via /env.js sans regénération SSG
+      // Lets the token be injected at runtime through /env.js, without regenerating the SSG build
       const buildToken = config.public.mapboxToken
       mapboxgl.accessToken = runtimeValue('mapboxToken', buildToken) || buildToken
 
@@ -34,7 +34,7 @@
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11', // default style // V11 - V9 => to try
         center: window.innerWidth > 1024 ? [30, 0] : [30, 30], // mobile center to Lybia
-        zoom: window.innerWidth > 650 ? 1 : 0, // 1 = monde, 2 = europe, 3 = west europe, 4 = france,
+        zoom: window.innerWidth > 650 ? 1 : 0, // 1 = world, 2 = europe, 3 = west europe, 4 = france,
       })
 
       const language = this.$store.state.locale

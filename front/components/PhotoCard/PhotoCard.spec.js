@@ -37,7 +37,7 @@ describe('Component | PhotoCard.vue', () => {
       expect(photoLink.attributes().lazy).toBe('loading')
     }))
 
-    // // Comment tester le lazy load ?
+    // // How to test lazy loading?
     // it.skip('should render photo image', () => Vue.nextTick().then(() => {
     //   const photoLink = wrapper.find('img')
     //

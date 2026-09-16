@@ -1,4 +1,4 @@
-// Réécrit à l'exécution par le back (back/src/infrastructure/env/static-env.js) quand le build
-// statique est servi par Express. Ailleurs (Netlify, dev), ce placeholder reste inerte et le front
-// retombe sur les valeurs figées au moment du `nuxi generate`.
+// Rewritten at runtime by the back (back/src/infrastructure/env/static-env.js) when the static
+// build is served by Express. Elsewhere (Netlify, dev) this placeholder stays inert and the front
+// falls back to the values frozen at `nuxi generate` time.
 window.__ENV__ = window.__ENV__ || {}

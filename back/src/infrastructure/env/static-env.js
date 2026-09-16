@@ -3,17 +3,17 @@ import env from './env'
 
 const router = express.Router()
 
-// Expose la configuration du dyno au front prérendu, qui est généré une fois au build et ne peut
-// donc pas lire process.env.
+// Exposes the dyno configuration to the prerendered front, which is generated once at build time
+// and therefore cannot read process.env.
 const publicEnv = () => ({
   mapboxToken: env('MAPBOX_TOKEN') || '',
-  // '' signifie « même origine » : ce serveur Express sert à la fois /api et front/dist
+  // '' means "same origin": this Express server serves both /api and front/dist
   apiBase: env('PUBLIC_API_BASE') || '',
 })
 
 router.get('/', (req, res) => {
   res.type('application/javascript')
-  // Sans cela le middleware de cache global figerait ces valeurs pour 24h dans les navigateurs
+  // Without this, the global cache middleware would freeze these values for 24h in browsers
   res.set('Cache-Control', 'no-store')
   res.send(`window.__ENV__=Object.assign(window.__ENV__||{},${JSON.stringify(publicEnv())});\n`)
 })

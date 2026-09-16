@@ -36,4 +36,4 @@ db.Sequelize = Sequelize
 
 module.exports = db
 
-// todo : à déplacer dans infra
+// TODO: move to infrastructure — this file wires sequelize, it is not domain
