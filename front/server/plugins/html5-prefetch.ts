@@ -1,6 +1,6 @@
-// Nuxt rend ses liens de préchargement de chunks avec `<link rel="prefetch" as="script">`, or
-// l'attribut `as` n'est valide qu'avec `rel="preload"` / `rel="modulepreload"` : c'est une erreur
-// du validateur html5v lancé en CI. Les navigateurs l'ignorent sur `prefetch`, on le retire.
+// Nuxt renders its chunk prefetch hints as `<link rel="prefetch" as="script">`, but `as` is only
+// valid alongside `rel="preload"` / `rel="modulepreload"`: the html5v job run in CI reports it as
+// an error. Browsers ignore it on `prefetch` anyway, so strip it.
 const PREFETCH_AS = /(<link [^>]*rel="prefetch"[^>]*?)\s+as="[^"]*"/g
 
 export default defineNitroPlugin(nitroApp => {
