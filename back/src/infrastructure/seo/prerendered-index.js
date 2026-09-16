@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 
-// Sert le HTML prérendu d'une route (front/dist/articles/index.html) plutôt que de laisser le
-// history fallback la remplacer par le shell SPA.
+// Serves a route's prerendered HTML (front/dist/articles/index.html) rather than letting the
+// history fallback replace it with the SPA shell.
 const prerenderedIndex = distDir => (req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     return next()

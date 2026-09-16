@@ -17,7 +17,7 @@ export default defineNuxtPlugin(() => {
 	const app = useNuxtApp()
 	app.vueApp.use(i18n)
 
-	// Compat helper pour app.i18n.path
+	// Compat shim for the Nuxt 2 app.i18n.path API
 	app.provide('i18nPath', (link: string) => {
 		const current = i18n.global.locale.value
 		const fallback = 'fr'

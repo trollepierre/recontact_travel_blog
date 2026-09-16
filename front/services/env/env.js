@@ -1,6 +1,6 @@
 import runtimeValue from './runtime-env'
 
-// '' => même origine ('/'), 'https://x' ou 'https://x/' => 'https://x/'
+// '' => same origin ('/'), 'https://x' or 'https://x/' => 'https://x/'
 const toApiUrl = base => (base ? `${String(base).replace(/\/+$/, '')}/` : '/')
 
 export default key => {
@@ -17,7 +17,7 @@ export default key => {
         return toApiUrl(publicConfig.apiBase)
       }
     } catch (e) {
-      // fallback to env when useRuntimeConfig n'est pas disponible (tests, scripts)
+      // fallback to env when useRuntimeConfig is unavailable (tests, scripts)
       if (process && process.env) {
         if (Object.prototype.hasOwnProperty.call(process.env, 'API_URL')) {
           return `${process.env.API_URL}/`

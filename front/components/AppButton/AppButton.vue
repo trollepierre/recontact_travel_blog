@@ -63,9 +63,9 @@
     },
     methods: {
       handleClick(e) {
-        // Pour les liens (NuxtLink/RouterLink), ne pas empêcher la navigation
+        // For links (NuxtLink/RouterLink), don't block navigation
         if (this.isLink) { return }
-        // Comportement bouton: bloquer double-clic si allowMultipleClick = false
+        // Button behaviour: block the second click when allowMultipleClick is false
         if (!this.allowMultipleClick) {
           if (this.hasClickedOnce) {
             e.preventDefault()
