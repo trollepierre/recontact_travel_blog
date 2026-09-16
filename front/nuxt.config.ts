@@ -18,8 +18,8 @@ const language = process.env.NUXT_PUBLIC_LANGUAGE ||
 	process.env.NUXT_ENV_LANGUAGE ||
 	'fr'
 
-// Titre par défaut : `head` n'accepte pas de valeur dynamique par page, les pages article le
-// remplacent via useHead
+// Default title: `head` takes no per-page dynamic value, article pages override it through
+// useHead
 const titles: Record<string, string> = {
 	fr: 'Recontact.Me - Blog de Voyage',
 	en: 'Recontact.Me - Travelling Blog',
