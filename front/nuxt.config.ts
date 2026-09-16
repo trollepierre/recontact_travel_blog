@@ -14,6 +14,17 @@ const apiUrl = process.env.NUXT_PUBLIC_API_BASE ??
 // d'une cible réelle
 const devProxyTarget = apiUrl || 'http://localhost:3334'
 
+const language = process.env.NUXT_PUBLIC_LANGUAGE ||
+	process.env.NUXT_ENV_LANGUAGE ||
+	'fr'
+
+// Titre par défaut : `head` n'accepte pas de valeur dynamique par page, les pages article le
+// remplacent via useHead
+const titles: Record<string, string> = {
+	fr: 'Recontact.Me - Blog de Voyage',
+	en: 'Recontact.Me - Travelling Blog',
+}
+
 // Charger les routes prérendues générées par scripts/prerender-routes.mjs
 const prerenderFile = resolve(__dirname, '.prerender-routes.json')
 let extraRoutes: string[] = []
@@ -69,10 +80,7 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			apiBase: apiUrl,
-			language:
-				process.env.NUXT_PUBLIC_LANGUAGE ||
-				process.env.NUXT_ENV_LANGUAGE ||
-				'fr',
+			language,
 			mapboxToken:
 				process.env.NUXT_PUBLIC_MAPBOX_TOKEN ||
 				process.env.NUXT_ENV_MAPBOX_API_TOKEN ||
@@ -81,7 +89,8 @@ export default defineNuxtConfig({
 	},
 	app: {
 		head: {
-			htmlAttrs: { lang: 'fr' },
+			htmlAttrs: { lang: language },
+			title: titles[language] ?? titles.fr,
 			meta: [
 				{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 				{ name: 'theme-color', content: '#FFFFFF' },
