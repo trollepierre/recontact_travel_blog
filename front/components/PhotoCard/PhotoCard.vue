@@ -1,5 +1,5 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
-  <article class="photo">
+  <figure class="photo">
     <div
       ref="container"
       class="photo__content">
@@ -10,7 +10,7 @@
         :alt="image">
       <div v-lazy:background-image="imgLink"/>
     </div>
-  </article>
+  </figure>
 </template>
 
 <script>
@@ -58,6 +58,7 @@
   }
 
   .photo {
+    margin: 0;
     min-width: 260px;
     background: $card-bg;
     border-radius: 4px;
