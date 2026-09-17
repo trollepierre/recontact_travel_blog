@@ -28,7 +28,7 @@ describe('iframe dimension', () => {
     const dimensions = iframeDimensions()
 
     // Then
-    expect(dimensions).toEqual({ width: 600, height: 337.5 })
+    expect(dimensions).toEqual({ width: 600, height: 338 })
   })
 
   it('should return ninety percent width on desktop', () => {
@@ -39,6 +39,6 @@ describe('iframe dimension', () => {
     const dimensions = iframeDimensions()
 
     // Then
-    expect(dimensions).toEqual({ width: 450, height: 253.125 })
+    expect(dimensions).toEqual({ width: 450, height: 253 })
   })
 })

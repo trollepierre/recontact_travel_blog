@@ -22,9 +22,10 @@ const iframeWidth = () => {
 
 const iframeHeight = () => iframeWidth() * YOUTUBE_IFRAME_HEIGHT / YOUTUBE_IFRAME_WIDTH
 
+// `width` / `height` on an iframe must be integers to pass HTML validation.
 const iframeDimensions = () => ({
-  width: iframeWidth(),
-  height: iframeHeight(),
+  width: Math.round(iframeWidth()),
+  height: Math.round(iframeHeight()),
 })
 
 export {
